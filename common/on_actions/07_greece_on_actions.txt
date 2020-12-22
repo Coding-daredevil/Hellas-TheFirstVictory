@@ -1,0 +1,162 @@
+on_actions = {
+	on_startup = {
+		effect = {
+			#Greek favor mechanic set-tup
+			if = {
+				limit = {
+					has_dlc = "Battle for the Bosporus"
+				}
+				GRE = {  
+                    USA = {
+                        set_variable = { favor@PREV = 0 }
+                    }
+                    GER = {
+                        set_variable = { favor@PREV = 0 }
+                    }
+                    JAP = {
+                        set_variable = { favor@PREV = 0 }
+                    }
+                    ENG = {
+                        set_variable = { favor@PREV = 0 }
+                    }
+                    FRA = {
+                        set_variable = { favor@PREV = 0 }
+                    }
+                    ITA = {
+                        set_variable = { favor@PREV = 0 }
+                    }
+                    CHI = {
+                        set_variable = { favor@PREV = 0 }
+                    }
+                    IRQ = {
+                        set_variable = { favor@PREV = 0 }
+                    }
+                    SAU = {
+                        set_variable = { favor@PREV = 0 }
+                    }
+                    VEN = {
+                        set_variable = { favor@PREV = 0 }
+                    }
+                    SOV = {
+                        set_variable = { favor@PREV = 0 }
+                    }
+                    SPR = {
+                        set_variable = { favor@PREV = 0 }
+                    }
+                    ROM = {
+                        set_variable = { favor@PREV = 0 }
+                    }
+                    BUL = {
+                        set_variable = { favor@PREV = 0 }
+                    }                    
+                    YUG = {
+                        set_variable = { favor@PREV = 0 }
+                    }
+				}
+			}
+		}
+	}
+    
+    on_startup = {
+        effect = {
+            add_to_array = {
+                array = global.favor_mechanic
+                value = USA.id 
+            }            
+            add_to_array = {
+                array = global.favor_mechanic
+                value = GER.id 
+            }            
+            add_to_array = {
+                array = global.favor_mechanic
+                value = ITA.id 
+            }
+            add_to_array = {
+                array = global.favor_mechanic
+                value = JAP.id 
+            }            
+            add_to_array = {
+                array = global.favor_mechanic
+                value = ENG.id 
+            }
+            add_to_array = {
+                array = global.favor_mechanic
+                value = FRA.id 
+            } 
+            add_to_array = {
+                array = global.favor_mechanic
+                value = VEN.id 
+            }            
+            add_to_array = {
+                array = global.favor_mechanic
+                value = SPR.id 
+            }            
+            add_to_array = {
+                array = global.favor_mechanic
+                value = CHI.id 
+            }
+            add_to_array = {
+                array = global.favor_mechanic
+                value = BUL.id 
+            }            
+            add_to_array = {
+                array = global.favor_mechanic
+                value = YUG.id 
+            }            
+            add_to_array = {
+                array = global.favor_mechanic
+                value = ROM.id 
+            }    
+            add_to_array = {
+                array = global.favor_mechanic
+                value = TUR.id 
+            } 
+            add_to_array = {
+                array = global.favor_mechanic
+                value = IRQ.id 
+            }    
+            add_to_array = {
+                array = global.favor_mechanic
+                value = SAU.id 
+            }             
+        }
+    }
+    
+    
+    on_monthly_GRE = {
+        effect = {
+            every_country = {
+                limit = {
+                    is_in_array = {
+                        array = global.favor_mechanic
+                        value = THIS.id
+                    }
+                }
+                if = {
+                    limit = {
+                        has_opinion = { target = GRE value > 79 }  
+                    }
+                    GRE_favor_80 = yes
+                }
+                else_if = {
+                    limit = {
+                        has_opinion = { target = GRE value > 39 }  
+                    }
+                    GRE_favor_40 = yes
+                }
+                else_if = {
+                    limit = {
+                        has_opinion = { target = GRE value > -11 }  
+                    }
+                    GRE_favor_0 = yes
+                }
+                else_if = {
+                    limit = {
+                        has_opinion = { target = GRE value < -10 }  
+                    }
+                    GRE_favor_minus = yes
+                }
+            }
+        }
+    }    
+}
