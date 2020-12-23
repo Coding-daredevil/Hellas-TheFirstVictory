@@ -1,0 +1,368 @@
+#	Example:
+# 
+#	example_dynamic_modifier = {
+#		icon = "GFX_idea_unknown" # optional, will show up in guis if icon is specified
+#		enable = { always = yes } #optional, the modifier won't apply if not enabled
+#		remove_trigger = { always = no } #optional, will remove the modifier if true
+#
+#		# list of modifiers
+#		fuel_cost = 321
+#		max_fuel = var_max_fuel # will be taken from a variable
+#	}
+#
+#
+#	In a script file:
+#
+#	effect = {
+#		add_dynamic_modifier = {
+#			modifier = example_dynamic_modifier
+#			scope = GER # optional, if you specify this your dynamic modifier scoped to this scope (root is the effect scope)
+#			days = 14 # optional, will be removed after this many days passes
+#		}
+#	}
+#
+#	can be added to countries, states or unit leaders
+#	will only updated daily, unless forced by force_update_dynamic_modifier effect
+
+GRE_metaxism_dynamic = {
+    enable = { always = yes }
+    icon = GFX_idea_gre_metaxism
+    
+    army_core_attack_factor = GRE_var_atk_core
+    army_core_defence_factor = GRE_var_def_core
+    stability_factor = GRE_var_st_fct
+    war_support_factor = GRE_var_wr_fct
+    conscription_factor = GRE_var_cons_fct
+    surrender_limit = GRE_var_surr_lim
+    generate_wargoal_tension = GRE_var_war_ten
+    join_faction_tension = GRE_var_fact_ten
+    lend_lease_tension = GRE_var_ll_ten
+    send_volunteers_tension = GRE_var_volun_ten
+    guarantee_tension = GRE_var_guar_ten
+    ai_badass_factor = GRE_var_badass_fct    # Will receive 1% of the threat from others
+    ai_get_ally_desire_factor = GRE_var_get_ally_fact   
+}  
+
+GRE_yfipourgeio_asfaleias = {
+    enable = { always = yes }
+    icon = GFX_idea_gre_metaxism
+    
+    agency_upgrade_time = GRE_var_ag_up
+    operative_slot = GRE_var_op_slot
+    civilian_intel_to_others  = GRE_var_civ_others
+    army_intel_to_others = GRE_var_arm_others
+    intelligence_agency_defense = GRE_var_int_ag_def
+    drift_defence_factor = GRE_var_def_drift
+    political_power_gain = GRE_var_pp_gain_asf
+    encryption_factor = GRE_var_enc_asf
+    local_intel_to_enemies = GRE_var_local_intel_enemies
+}  
+
+GRE_yfipourgeio_propagandas = {
+    enable = { always = yes }
+    icon = GFX_idea_gre_metaxism
+    
+    political_power_gain = GRE_var_pp_gain_prop
+    political_power_factor = GRE_var_pp_factor_prop
+    party_popularity_stability_factor = GRE_var_pt_pop_fct
+    stability_weekly = GRE_var_week_stb
+    war_support_weekly = GRE_var_week_war_stb
+    neutrality_drift = GRE_var_drift_neutral
+}  
+
+
+GRE_metaxas_plan = {
+    enable = { always = yes }
+    icon = GFX_idea_man_five_year_plan_industry
+    
+    industrial_capacity_factory = GRE_var_fct_produ
+    industrial_capacity_dockyard = GRE_var_dck_produ
+    production_speed_infrastructure_factor = GRE_var_infr
+    production_speed_anti_air_building_factor = GRE_var_aa
+    production_speed_industrial_complex_factor = GRE_var_civ
+    production_speed_arms_factory_factor = GRE_var_mil
+    repair_speed_factor = GRE_var_rep_speed
+}
+
+GRE_army_reform_hellenic_staff = {
+    enable = { always = yes }
+    icon = GFX_idea_man_five_year_plan_industry
+
+    max_command_power = GRE_var_max_cp
+    command_power_gain = GRE_var_cp_gain
+    max_planning_factor = GRE_var_max_plan
+    recon_factor = GRE_var_recon
+    skill_bonus_factor = GRE_var_skill_bon      
+}
+
+GRE_army_reform_hellenic_army = {
+    enable = { always = yes }
+    icon = GFX_idea_man_five_year_plan_industry
+    
+    land_night_attack = GRE_var_night_attack
+    org_loss_when_moving = GRE_var_org_loss
+    dig_in_speed_factor = GRE_var_dig_in
+    max_dig_in_factor = GRE_var_max_dig_in 
+    no_supply_grace = GRE_var_no_supply_grace
+}
+
+GRE_army_reform_hellenic_people = {
+    enable = { always = yes }
+    icon = GFX_idea_man_five_year_plan_industry
+
+    supply_consumption_factor = GRE_var_supply_consumption
+    winter_attrition_factor = GRE_var_winter_attr
+    acclimatization_cold_climate_gain_factor = GRE_var_cold_acc
+    conscription_factor = GRE_var_recfact
+}
+
+GRE_army_reform_hellenic_mobilization = {
+    enable = { always = yes }
+    icon = GFX_idea_man_five_year_plan_industry
+
+    army_speed_factor = GRE_var_speed
+    mobilization_speed = GRE_var_mob_speed
+    weekly_manpower = GRE_var_week_man
+}
+
+sabotaged_resources = {
+	remove_trigger = { 
+		has_resistance = no
+	}
+	
+	icon = GFX_modifiers_sabotaged_resource
+	
+	temporary_state_resource_oil = sabotaged_oil
+	temporary_state_resource_aluminium = sabotaged_aluminium
+	temporary_state_resource_rubber = sabotaged_rubber
+	temporary_state_resource_tungsten = sabotaged_tungsten
+	temporary_state_resource_steel = sabotaged_steel
+	temporary_state_resource_chromium = sabotaged_chromium
+}
+
+autonomous_state = {
+	enable = { always = yes }
+
+	icon = GFX_modifiers_sabotaged_resource
+	
+	recruitable_population_factor = -0.5
+	local_building_slots_factor = -0.25
+	state_resources_factor = -0.25
+	state_production_speed_buildings_factor = -0.25
+}
+
+semi_autonomous_state = {
+	enable = { always = yes }
+
+	icon = GFX_modifiers_sabotaged_resource
+	
+	local_building_slots_factor = -0.25
+	state_resources_factor = -0.25
+	state_production_speed_buildings_factor = -0.25
+}
+
+kurdish_agitation = {
+	enable = { always = yes }
+
+	icon = GFX_modifiers_tur_kurdish_agitation
+	
+	resistance_growth = 0.03
+	resistance_target = 0.1
+	resistance_decay = -0.1
+	state_resources_factor = -0.15
+}
+
+kurdish_separatism = {
+	enable = { always = yes }
+
+	icon = GFX_modifiers_tur_kurdish_separatism
+	
+	compliance_growth = -0.05
+	resistance_growth = 0.05
+	resistance_target = 0.20
+	resistance_decay = -0.20
+	state_resources_factor = -0.33
+	disable_strategic_redeployment = 1
+}
+
+kurdish_rebellion = {
+	enable = { always = yes }
+
+	icon = GFX_modifiers_tur_kurdish_rebellion
+	
+	compliance_growth = -0.1
+	resistance_growth = 0.07
+	resistance_target = 0.35
+	resistance_decay = -0.25
+	state_resources_factor = -0.33
+	disable_strategic_redeployment = 1
+}
+
+separatist_fatigue = {
+	enable = { always = yes }
+
+	icon = GFX_modifiers_tur_kurdish_fatigue
+	
+	compliance_growth = 0.05
+	resistance_decay = 0.15
+	state_resources_factor = -0.33
+}
+
+turanist_assimilation = {
+	enable = { always = yes }
+
+	icon = GFX_modifiers_tur_pan_turkic_propaganda
+	
+	non_core_manpower = 0.25
+	compliance_growth = 0.05
+	resistance_growth = -0.1
+}
+
+conscription_exemptions_granted = {
+	enable = { always = yes }
+
+	icon = GFX_modifiers_conscription_exemptions_granted
+	
+	recruitable_population_factor = -0.85
+}
+
+islamist_opposition = {
+	enable = { always = yes }
+
+	icon = GFX_modifiers_tur_traditionalist_unrest
+	
+	recruitable_population_factor = -0.05
+	local_building_slots_factor = -0.1
+	state_resources_factor = -0.1
+	state_production_speed_buildings_factor = -0.15
+}
+
+islamist_sedition = {
+	enable = { always = yes }
+
+	icon = GFX_modifiers_tur_traditionalist_sedition
+	
+	recruitable_population_factor = -0.25
+	local_building_slots_factor = -0.25
+	state_resources_factor = -0.25
+	state_production_speed_buildings_factor = -0.25
+	army_speed_factor_for_controller = -0.15
+}
+
+islamist_insurgency = {
+	enable = { always = yes }
+
+	icon = GFX_modifiers_tur_traditionalist_insurgency
+	
+	recruitable_population_factor = -0.5
+	local_building_slots_factor = -0.33
+	state_resources_factor = -0.5
+	state_production_speed_buildings_factor = -0.33
+	army_speed_factor_for_controller = -0.33
+}
+
+islamists_placated = {
+	enable = { always = yes }
+
+	icon = GFX_modifiers_tur_traditionalist_placated
+	
+	state_production_speed_buildings_factor = 0.05
+}
+
+devout_islamists = {
+	enable = { always = yes }
+
+	icon = GFX_modifiers_tur_traditionalist_placated
+	
+	recruitable_population_factor = 0.15
+	state_production_speed_buildings_factor = 0.1
+}
+
+kemalist_loyalties = {
+	enable = { always = yes }
+
+	icon = GFX_modifiers_tur_kemalist_loyalties
+	
+	recruitable_population_factor = 0.15
+	state_production_speed_buildings_factor = 0.1
+}
+
+kemalist_schemers = {
+	enable = { always = yes }
+
+	icon = GFX_modifiers_tur_kemalist_unrest
+	
+	recruitable_population_factor = -0.33
+	state_production_speed_buildings_factor = -0.25
+	army_speed_factor_for_controller = -0.5
+}
+
+BUL_foreign_industry_dynamic_modifier = { #Used as National Spirit
+	enable = { always = yes }
+
+	icon = GFX_idea_man_five_year_plan_industry
+
+	political_power_gain = 0.05
+	production_speed_buildings_factor = BUL_foreign_industry_construction_speed_modifier
+	industrial_capacity_factory = -0.02
+	production_factory_efficiency_gain_factor = BUL_foreign_industry_production_efficiency_modifier
+	production_factory_max_efficiency_factor = BUL_foreign_industry_production_efficiency_modifier
+	consumer_goods_factor = BUL_foreign_industry_consumer_goods_modifier
+}
+
+skirmishes_against_imro = {
+	enable = { always = yes }
+
+	icon = GFX_modifiers_bul_macedonian_revolutionaries
+	
+	state_resources_factor = -0.75
+	state_production_speed_buildings_factor = -0.75
+	army_speed_factor_for_controller = -0.25
+	attrition_for_controller = 1
+	local_org_regain = -0.75
+	disable_strategic_redeployment = 1
+}
+
+widespread_bulgarian_sentiment_01 = {
+	enable = { always = yes }
+
+	icon = GFX_modifiers_bul_arranged_bulgarian_occupation
+	
+	compliance_growth = -0.1
+	resistance_growth = 0.1
+	resistance_target = 0.1
+	resistance_decay = -0.1
+	state_resources_factor = -0.1
+	local_factories = -0.1
+}
+
+widespread_bulgarian_sentiment_02 = {
+	enable = { always = yes }
+
+	icon = GFX_modifiers_bul_arranged_bulgarian_occupation
+	
+	compliance_growth = 0.1
+	resistance_growth = -0.1
+	resistance_target = -0.1
+	resistance_decay = 0.1
+	state_resources_factor = 0.1
+	local_factories = 0.1
+}
+
+bulgarian_territorial_expansion_arranged = {
+	enable = { always = yes }
+
+	icon = GFX_modifiers_bul_arranged_territorial_expansion
+	
+	custom_modifier_tooltip = BUL_bulgarian_territorial_expansion_arranged_tt
+}
+
+BUL_our_duty_in_the_balkans_dynamic_modifier = { #Used as National Spirit
+	enable = { always = yes }
+
+	icon = GFX_idea_generic_fortify_the_borders
+
+	consumer_goods_factor = BUL_our_duty_in_the_balkans_consumer_goods_modifier
+	stability_factor = BUL_our_duty_in_the_balkans_stability_modifier
+	weekly_manpower = 1000
+}
