@@ -5237,6 +5237,39 @@ focus_tree = {
 
 
 		completion_reward = {
+            var:GRE_lignite_partner = {
+                random_owned_controlled_state = {
+                    limit = {
+                        free_building_slots = {
+                            building = synthetic_refinery
+                            size > 0
+                            include_locked = yes
+                        }
+                    }
+                    add_extra_state_shared_building_slots = 3
+                    add_building_construction = {
+                        type = synthetic_refinery
+                        level = 3
+                        instant_build = yes
+                    }
+                }            
+            }
+            random_owned_controlled_state = {
+				prioritize = { 187 }
+               	limit = {
+                    free_building_slots = {
+                       	building = synthetic_refinery
+                        size > 0
+                        include_locked = yes
+                    }
+                }
+                add_extra_state_shared_building_slots = 3
+                add_building_construction = {
+                    type = synthetic_refinery
+                    level = 3
+                    instant_build = yes
+                }
+            }            
 		}	
 	}
 
@@ -6607,7 +6640,6 @@ focus_tree = {
 				ruling_only = yes
 			}
 			is_in_faction = no
-			has_idea = GRE_metaxism_2
 		}
 		x = -3
 		y = 1
@@ -6618,37 +6650,12 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			if = {
-				limit = {
-					has_idea = GRE_metaxism_2
-				}
-				swap_ideas = {
-					remove_idea = GRE_metaxism_2
-					add_idea = GRE_metaxism_3
-				}
-			}
-			else_if = {
-				limit = {
-					has_idea = GRE_metaxism
-				}
-				effect_tooltip = { 	
-					swap_ideas = {
-						remove_idea = GRE_metaxism
-						add_idea = GRE_metaxism_3
-					}
-				}
-			}
-			else_if = {
-				limit = {
-					NOT = { has_idea = GRE_metaxism } 
-				}
-				effect_tooltip = { 	
-					swap_ideas = {
-						remove_idea = GRE_metaxism
-						add_idea = GRE_metaxism_3
-					}
-				}
-			}
+            add_to_variable = { GRE_var_st_fct = 0.05 }
+            add_to_variable = { GRE_var_surr_lim = 0.05 }
+            subtract_from_variable = { GRE_var_war_ten = 0.25 }
+            subtract_from_variable = { GRE_var_fact_ten = 0.25 }
+            subtract_from_variable = { GRE_var_ll_ten = 0.5 }
+            subtract_from_variable = { GRE_var_volun_ten = 0.5 }
 		}			
 	}
 
@@ -6673,23 +6680,19 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			effect_tooltip = { 
-				swap_ideas = {
-					remove_idea = GRE_metaxism_3
-					add_idea = GRE_metaxism_4
-				}
-			}
-			hidden_effect = { 
-				if = {
-					limit = {
-						has_idea = GRE_metaxism_3
-					}
-					swap_ideas = {
-						remove_idea = GRE_metaxism_3
-						add_idea = GRE_metaxism_4
-					}
-				}
-			}
+            #add_to_variable = { GRE_var_st_fct = 0.05 }
+            add_to_variable = { GRE_var_wr_fct = 0.1 }
+            #add_to_variable = { GRE_var_atk_core = 0.05 }
+            #add_to_variable = { GRE_var_def_core = 0.05 }
+            #add_to_variable = { GRE_var_cons_fct = 0.05 }
+            add_to_variable = { GRE_var_surr_lim = 0.05 }
+            subtract_from_variable = { GRE_var_war_ten = 0.25 }
+            subtract_from_variable = { GRE_var_fact_ten = 0.25 }
+            #subtract_from_variable = { GRE_var_ll_ten = 0.5 }
+            #subtract_from_variable = { GRE_var_volun_ten = 0.5 }
+            #subtract_from_variable = { GRE_var_guar_ten = 1 }
+            #subtract_from_variable = { GRE_var_badass_fct = -0.01 }
+            #subtract_from_variable = { GRE_var_get_ally_fact = -100 }  
 		}
 	}
 
@@ -6714,23 +6717,19 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			effect_tooltip = { 
-				swap_ideas = {
-					remove_idea = GRE_metaxism_4
-					add_idea = GRE_metaxism_5
-				}
-			}
-			hidden_effect = { 
-				if = {
-					limit = {
-						has_idea = GRE_metaxism_4
-					}
-					swap_ideas = {
-						remove_idea = GRE_metaxism_4
-						add_idea = GRE_metaxism_5
-					}
-				}
-			}
+            #add_to_variable = { GRE_var_st_fct = 0.05 }
+            add_to_variable = { GRE_var_wr_fct = 0.05 }
+            add_to_variable = { GRE_var_atk_core = 0.05 }
+            add_to_variable = { GRE_var_def_core = 0.10 }
+            #add_to_variable = { GRE_var_cons_fct = 0.05 }
+            add_to_variable = { GRE_var_surr_lim = 0.05 }
+            subtract_from_variable = { GRE_var_war_ten = 0.25 }
+            #subtract_from_variable = { GRE_var_fact_ten = 0.25 }
+            #subtract_from_variable = { GRE_var_ll_ten = 0.5 }
+            #subtract_from_variable = { GRE_var_volun_ten = 0.5 }
+            #subtract_from_variable = { GRE_var_guar_ten = 1 }
+            #subtract_from_variable = { GRE_var_badass_fct = -0.01 }
+            #subtract_from_variable = { GRE_var_get_ally_fact = -100 }  
 		}
 	}
 
@@ -6755,23 +6754,17 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			effect_tooltip = { 
-				swap_ideas = {
-					remove_idea = GRE_metaxism_5
-					add_idea = GRE_metaxism_6
-				}
-			}
-			hidden_effect = { 
-				if = {
-					limit = {
-						has_idea = GRE_metaxism_5
-					}
-					swap_ideas = {
-						remove_idea = GRE_metaxism_5
-						add_idea = GRE_metaxism_6
-					}
-				}
-			}
+            add_to_variable = { GRE_var_st_fct = 0.05 }
+            add_to_variable = { GRE_var_wr_fct = 0.05 }
+            add_to_variable = { GRE_var_atk_core = 0.1 }
+            add_to_variable = { GRE_var_def_core = 0.05 }
+            add_to_variable = { GRE_var_cons_fct = 0.2 }
+            add_to_variable = { GRE_var_surr_lim = 0.15 }
+            subtract_from_variable = { GRE_var_war_ten = 0.25 }
+            subtract_from_variable = { GRE_var_fact_ten = 0.5 }
+            subtract_from_variable = { GRE_var_guar_ten = 1 }
+            subtract_from_variable = { GRE_var_badass_fct = 0.01 }
+            add_to_variable = { GRE_var_get_ally_fact = 100 }  
 		}
 	} 
 
