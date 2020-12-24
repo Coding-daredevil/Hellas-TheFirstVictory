@@ -5478,7 +5478,7 @@ focus_tree = {
 	focus = {
 		id = GRE_hellenic_armed_forces
 		icon = GFX_focus_GRE_hellenic_armed_forces
-		x = 65
+		x = 52
 		y = 0
 		cost = 2.9
 		ai_will_do = {
@@ -6345,7 +6345,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_stability = 0.05
 		}
 	}
 
@@ -6373,7 +6372,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_stability = 0.1
 		}
 	}
 
@@ -6400,7 +6398,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_stability = 0.1
 		}
 	}
     
@@ -6427,8 +6424,11 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_stability = 0.1
             unlock_decision_category_tooltip = GRE_kathestos_4hs
+            set_variable = { fct_mon = 3}   
+            set_variable = { fct_com = -3}
+            set_variable = { fct_dem = -2}
+            set_variable = { fct_fas = 0}            
 		}
 	}    
 
@@ -8175,7 +8175,10 @@ focus_tree = {
 		icon = GFX_goal_gre_foundations
 		prerequisite = { focus = GRE_crack_down_on_foreign_monopolies }
 		prerequisite = { focus = GRE_invest_into_the_far_east }
-        prerequisite = { focus = GRE_do_it_like_pyrros }
+        
+        available = {
+            has_completed_focus = GRE_do_it_like_pyrros
+        }
        
 		relative_position_id = GRE_crack_down_on_foreign_monopolies
         x = 3
@@ -8918,12 +8921,13 @@ focus_tree = {
 	focus = {
 		id = GRE_ochi
 		icon = GFX_goal_gre_met_ochi
-        prerequisite = { focus = GRE_hellenic_armed_forces } 
+        prerequisite = { focus = GRE_the_dream_of_a_third_hellenic_civilization } 
 		available = {
             has_defensive_war_with = ITA
 		}
-        x = 49
-		y = 0
+        relative_position_id = GRE_the_dream_of_a_third_hellenic_civilization
+        x = 0
+		y = 2
 		cost = 2.9
 		ai_will_do = {
 			base = 1
@@ -9361,7 +9365,7 @@ focus_tree = {
 
 		}   
         relative_position_id = GRE_army_organized  
-        x = -5
+        x = 5
 		y = 0
 		cost = 2.9
 		ai_will_do = {
@@ -9399,12 +9403,11 @@ focus_tree = {
 		id = GRE_utilize_our_knowhow_of_sea_from_japanese
 		icon = GFX_goal_gre_nav_bom_bonus
         prerequisite = { focus = GRE_gather_the_necessities }
-        prerequisite = { focus = GRE_contact_japanese_for_naval_aircraft_technology }
 		available = {
-
+            has_completed_focus = GRE_contact_japanese_for_naval_aircraft_technology
 		}   
         relative_position_id = GRE_gather_the_necessities
-        x = -1
+        x = 0
 		y = 1
 		cost = 2.9
 		ai_will_do = {
@@ -9465,7 +9468,7 @@ focus_tree = {
 		icon = GFX_goal_gre_crete
         prerequisite = { focus = GRE_army_organized }  
         relative_position_id = GRE_army_organized
-        x = 5
+        x = -5
 		y = 0
 		cost = 2.9
 		ai_will_do = {
