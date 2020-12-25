@@ -6464,6 +6464,14 @@ focus_tree = {
 		icon = GFX_goal_soldier
         prerequisite = { focus = GRE_the_4th_of_august_regime }
 		available = {
+            neutrality > 0.8
+            custom_trigger_tooltip = {
+                tooltip = GRE_the_grand_coallition_tt
+                check_variable = { var = fct_mon value = 4 compare = greater_than_or_equals }
+                check_variable = { var = fct_com value = 4 compare = greater_than_or_equals }
+                check_variable = { var = fct_dem value = 4 compare = greater_than_or_equals }
+                check_variable = { var = fct_fas value = 4 compare = greater_than_or_equals }     
+            }
 		}
         
         relative_position_id = GRE_the_4th_of_august_regime
@@ -6479,6 +6487,9 @@ focus_tree = {
 
 		completion_reward = {
 			add_war_support = 0.02
+            set_party_name = { ideology = neutrality long_name = GRE_the_grand_coallition_party_long name = GRE_the_grand_coallition_party }
+            set_politics = { ruling_party = neutrality elections_allowed = yes }
+            
 		}
 	} 
 
