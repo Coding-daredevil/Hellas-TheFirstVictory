@@ -6465,6 +6465,7 @@ focus_tree = {
         prerequisite = { focus = GRE_the_4th_of_august_regime }
 		available = {
             neutrality > 0.8
+            has_country_flag = GRE_metaxism_completed            
             custom_trigger_tooltip = {
                 tooltip = GRE_the_grand_coallition_tt
                 check_variable = { var = fct_mon value = 4 compare = greater_than_or_equals }
@@ -6475,7 +6476,7 @@ focus_tree = {
 		}
         
         relative_position_id = GRE_the_4th_of_august_regime
-		x = -14
+		x = -12
 		y = 1
 		cost = 2.15
 		ai_will_do = {
@@ -6488,20 +6489,45 @@ focus_tree = {
 		completion_reward = {
 			add_war_support = 0.02
             set_party_name = { ideology = neutrality long_name = GRE_the_grand_coallition_party_long name = GRE_the_grand_coallition_party }
-            set_politics = { ruling_party = neutrality elections_allowed = yes }
+            hidden_effect = {
+                set_politics = { ruling_party = neutrality elections_allowed = yes }
+            }
             
 		}
 	} 
 
 	focus = {
-		id = GRE_the_democrats
-		icon = GFX_goal_gre_democ_goal
+		id = GRE_reform_the_cabinet
+		icon = GFX_goal_metaxas_cabinet
         prerequisite = { focus = GRE_dreams_of_a_grand_coalition }
 		available = {
 		}
         
         relative_position_id = GRE_dreams_of_a_grand_coalition
-		x = 3
+		x = 0
+		y = 1
+		cost = 2.15
+		ai_will_do = {
+			base = 1
+		}
+
+		select_effect = {
+		}
+
+		completion_reward = {
+			add_war_support = 0.02
+		}
+	}
+
+	focus = {
+		id = GRE_the_democrats
+		icon = GFX_goal_dem
+        prerequisite = { focus = GRE_reform_the_cabinet }
+		available = {
+		}
+        
+        relative_position_id = GRE_reform_the_cabinet
+		x = 1
 		y = 1
 		cost = 2.15
 		ai_will_do = {
@@ -6518,13 +6544,13 @@ focus_tree = {
 
 	focus = {
 		id = GRE_the_other_democrats
-		icon = GFX_goal_soldier
-        prerequisite = { focus = GRE_dreams_of_a_grand_coalition }
+		icon = GFX_goal_KKE
+        prerequisite = { focus = GRE_reform_the_cabinet }
 		available = {
 		}
         
-        relative_position_id = GRE_dreams_of_a_grand_coalition
-		x = -3
+        relative_position_id = GRE_reform_the_cabinet
+		x = -1
 		y = 1
 		cost = 2.15
 		ai_will_do = {
@@ -6539,14 +6565,126 @@ focus_tree = {
 		}
 	}
 
+	focus = {
+		id = GRE_reconciliation 
+		icon = GFX_goal_recon
+        prerequisite = { focus = GRE_the_other_democrats }
+        prerequisite = { focus = GRE_the_democrats }
+		available = {
+		}
+        
+        relative_position_id = GRE_the_other_democrats
+		x = 1
+		y = 1
+		cost = 2.15
+		ai_will_do = {
+			base = 1
+		}
 
+		select_effect = {
+		}
 
+		completion_reward = {
+			add_war_support = 0.02
+		}
+	}
 
+	focus = {
+		id = GRE_balkan_dominance
+		icon = GFX_goal_balkan_dominance
+        prerequisite = { focus = GRE_reconciliation }
+        prerequisite = { focus = GRE_following_in_the_footsteps_of_giants }
+		available = {
+		}
+        
+        relative_position_id = GRE_reconciliation
+		x = 1
+		y = 1
+		cost = 2.15
+		ai_will_do = {
+			base = 1
+		}
 
+		select_effect = {
+		}
 
+		completion_reward = {
+			add_war_support = 0.02
+		}
+	}
 
+	focus = {
+		id = GRE_legions
+		icon = GFX_goal_gre_democ_goal
+        prerequisite = { focus = GRE_reconciliation }
+        prerequisite = { focus = GRE_following_in_the_footsteps_of_giants }
+		available = {
+		}
+        
+        relative_position_id = GRE_balkan_dominance
+		x = 2
+		y = 0
+		cost = 2.15
+		ai_will_do = {
+			base = 1
+		}
 
+		select_effect = {
+		}
 
+		completion_reward = {
+			add_war_support = 0.02
+		}
+	}
+
+	focus = {
+		id = GRE_ambitions
+		icon = GFX_goal_gre_byz
+        prerequisite = { focus = GRE_reconciliation }
+        prerequisite = { focus = GRE_following_in_the_footsteps_of_giants }
+		available = {
+		}
+        
+        relative_position_id = GRE_balkan_dominance
+		x = -2
+		y = 0
+		cost = 2.15
+		ai_will_do = {
+			base = 1
+		}
+
+		select_effect = {
+		}
+
+		completion_reward = {
+			add_war_support = 0.02
+		}
+	}
+
+	focus = {
+		id = GRE_the_hellenic_sphere_of_influence
+		icon = GFX_goal_greatness
+        prerequisite = { focus = GRE_ambitions }
+        prerequisite = { focus = GRE_balkan_dominance }
+        prerequisite = { focus = GRE_legions }
+		available = {
+		}
+        
+        relative_position_id = GRE_balkan_dominance
+		x = 0
+		y = 1
+		cost = 2.15
+		ai_will_do = {
+			base = 1
+		}
+
+		select_effect = {
+		}
+
+		completion_reward = {
+			add_war_support = 0.02
+		}
+	}
 
 
 
@@ -6680,7 +6818,6 @@ focus_tree = {
 				ruling_only = yes
 			}
 			is_in_faction = no
-			has_idea = GRE_metaxism_3
 		}
 		x = 0
 		y = 1
@@ -6717,7 +6854,6 @@ focus_tree = {
 				ruling_only = yes
 			}
 			is_in_faction = no
-			has_idea = GRE_metaxism_4
 		}
 		x = 0
 		y = 1
@@ -6754,7 +6890,6 @@ focus_tree = {
 				ruling_only = yes
 			}
 			is_in_faction = no
-			has_idea = GRE_metaxism_5
 		}
 		x = 0
 		y = 1
@@ -6775,7 +6910,8 @@ focus_tree = {
             subtract_from_variable = { GRE_var_fact_ten = 0.5 }
             subtract_from_variable = { GRE_var_guar_ten = 1 }
             subtract_from_variable = { GRE_var_badass_fct = 0.01 }
-            add_to_variable = { GRE_var_get_ally_fact = 100 }  
+            add_to_variable = { GRE_var_get_ally_fact = 100 } 
+            set_country_flag = GRE_metaxism_completed
 		}
 	} 
 
@@ -6785,7 +6921,7 @@ focus_tree = {
 		icon = GFX_goal_fasc_standards
 		prerequisite = { focus = GRE_metaxas_military_affairs focus = GRE_dreams_of_a_grand_coalition }
 		x = -5
-		y = 1
+		y = 2
 		relative_position_id = GRE_metaxas_military_affairs
 		cost = 2.9
 		ai_will_do = {
@@ -6854,7 +6990,8 @@ focus_tree = {
 		id = GRE_following_in_the_footsteps_of_giants
 		icon = GFX_focus_GRE_following_in_the_footsteps_of_giants
 		prerequisite = { focus = GRE_recruit_the_fascists_2 }
-		x = 0
+        prerequisite = { focus = GRE_the_democrats }
+		x = -1
 		y = 1
 		relative_position_id = GRE_recruit_the_fascists_2
 		cost = 2.15
@@ -7028,10 +7165,9 @@ focus_tree = {
 	focus = {
 		id = GRE_cement_greco_german_ties
 		icon = GFX_goal_generic_neutrality_focus
-		prerequisite = { focus = GRE_following_in_the_footsteps_of_giants }
 		available = { has_completed_focus = GRE_bolster_the_schachtplan }
 		x = 0
-		y = 1
+		y = 8
 		relative_position_id = GRE_following_in_the_footsteps_of_giants
 		cost = 2.9
 		ai_will_do = {
