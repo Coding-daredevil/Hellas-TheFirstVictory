@@ -4,9 +4,17 @@ faction_gui_initial = {
 
 	# faction_seat_array stores the list of seat numbers for each party
 	add_to_array = { faction_seat_array = 44 } # Party Democrats
-	add_to_array = { faction_seat_array = 8 } # Party Communists
+	add_to_array = { faction_seat_array = 8 } # Party Communists 
 	add_to_array = { faction_seat_array = 0 } # Party Fascists
 	add_to_array = { faction_seat_array = 48 } # Party Monarchists
+    add_to_array = { faction_dem_p_array = 50 }   
+    add_to_array = { faction_dem_p_array = 50 }    
+    add_to_array = { faction_com_p_array = 50 }   
+    add_to_array = { faction_com_p_array = 50 } 
+    add_to_array = { faction_fas_p_array = 50 }   
+    add_to_array = { faction_fas_p_array = 50 } 
+    add_to_array = { faction_mon_p_array = 50 }   
+    add_to_array = { faction_mon_p_array = 50 }     
 
 	# faction_member_array stores the list of parties
 	# This basically assigns an id for each party, so Party A = 1, Party B = 2, etc. (must start from 1 and is in order)
@@ -14,12 +22,47 @@ faction_gui_initial = {
 	add_to_array = { faction_member_array = 2 } # Party Communists
 	add_to_array = { faction_member_array = 3 } # Party Fascists
 	add_to_array = { faction_member_array = 4 } # Party Monarchists
-
-	# Set up the positions of the dots for the semicircle faction
-	faction_gui_positions = yes
+	add_to_array = { faction_dem_m_array = 1 } 
+	add_to_array = { faction_dem_m_array = 2 }   
+	add_to_array = { faction_com_m_array = 1 } 
+	add_to_array = { faction_com_m_array = 2 } 
+	add_to_array = { faction_fas_m_array = 1 } 
+	add_to_array = { faction_fas_m_array = 2 } 
+	add_to_array = { faction_mon_m_array = 1 } 
+	add_to_array = { faction_mon_m_array = 2 }     
 
 	# Modify what shows up in the gui
 	reload_faction_gui = yes
+}
+
+faction_gui_call = {
+    clear_array = faction_dem_p_array
+    clear_array = faction_com_p_array
+    clear_array = faction_fas_p_array
+    clear_array = faction_mon_p_array
+    ####DEM####
+    set_temp_variable = { a = 100 }
+    subtract_from_temp_variable = { a = var:fct_dem }
+    add_to_array = { faction_dem_p_array = a }    
+    add_to_array = { faction_dem_p_array = var:fct_dem }    
+    ####COM####   
+    set_temp_variable = { a = 100 }
+    subtract_from_temp_variable = { a = var:fct_com }    
+    add_to_array = { faction_com_p_array = a } 
+    add_to_array = { faction_com_p_array = var:fct_com } 
+    ####FAS#### 
+    set_temp_variable = { a = 100 }
+    subtract_from_temp_variable = { a = var:fct_fas }    
+    add_to_array = { faction_fas_p_array = a } 
+    add_to_array = { faction_fas_p_array = var:fct_fas }
+    ####MON####
+    set_temp_variable = { a = 100 }
+    subtract_from_temp_variable = { a = var:fct_mon }    
+    add_to_array = { faction_mon_p_array = a }   
+    add_to_array = { faction_mon_p_array = var:fct_mon } 
+
+    reload_faction_gui = yes
+
 }
 
 # The following scripted effect does the main job of generating the gui, by adding the seats for each party in a grid.
@@ -34,7 +77,7 @@ reload_faction_gui = {
 		array = faction_seat_array
 
 		add_to_array = { temp_seat = faction_seat_array^i }
-	}
+	}   
 
 	# It's a suprise tool for later
 	set_temp_variable = { temp_index_1 = 0 }
@@ -64,12 +107,161 @@ reload_faction_gui = {
 		start = 0
 		end = temp_seat^num
 
-		resize_array = { array = faction_main_array value = faction_member_array^v size = temp_seat^v }
+		resize_array = { array = faction_main_array value = faction_member_array^v size = temp_seat^v } 
 	}
 
-	# Clear the temp_seat array used previously since it's not needed anymore.
-	clear_array = temp_seat
+
+#### COMMUNISM ####
+    
+    clear_array = faction_com_array
+    
+	for_each_loop = {
+		array = faction_com_p_array
+
+		add_to_array = { temp_com = faction_com_p_array^i }
+	} 
+
+	set_temp_variable = { temp_cindex_1 = 0 }
+	set_temp_variable = { temp_cindex_2 = 1 }
+	set_temp_variable = { temp_csize = temp_com^num }
+	subtract_from_temp_variable = { temp_csize = 1 }    
+
+	while_loop_effect = {
+		limit = {
+			check_variable = { temp_cindex_1 < temp_csize }
+		}
+		add_to_variable = { temp_com^temp_cindex_2 = temp_com^temp_cindex_1 }
+		add_to_temp_variable = { temp_cindex_1 = 1 }
+		add_to_temp_variable = { temp_cindex_2 = 1 }
+	}
+    
+    for_loop_effect = {
+        start = 0
+        end = temp_com^num
+        
+        resize_array = { array = faction_com_array value = faction_com_m_array^v size = temp_com^v }       
+    }
+
+	clear_array = temp_com
+    
+#### DEMOCRATS ####
+    
+    clear_array = faction_dem_array
+    
+	for_each_loop = {
+		array = faction_dem_p_array
+
+		add_to_array = { temp_dem = faction_dem_p_array^i }
+	} 
+
+	set_temp_variable = { temp_cindex_1 = 0 }
+	set_temp_variable = { temp_cindex_2 = 1 }
+	set_temp_variable = { temp_csize = temp_dem^num }
+	subtract_from_temp_variable = { temp_csize = 1 }    
+
+	while_loop_effect = {
+		limit = {
+			check_variable = { temp_cindex_1 < temp_csize }
+		}
+		add_to_variable = { temp_dem^temp_cindex_2 = temp_dem^temp_cindex_1 }
+		add_to_temp_variable = { temp_cindex_1 = 1 }
+		add_to_temp_variable = { temp_cindex_2 = 1 }
+	}
+    
+    for_loop_effect = {
+        start = 0
+        end = temp_dem^num
+        
+        resize_array = { array = faction_dem_array value = faction_dem_m_array^v size = temp_dem^v }       
+    }
+
+	clear_array = temp_dem    
+    
+#### FASCISTS ####
+    
+    clear_array = faction_fas_array
+    
+	for_each_loop = {
+		array = faction_fas_p_array
+
+		add_to_array = { temp_fas = faction_fas_p_array^i }
+	} 
+
+	set_temp_variable = { temp_cindex_1 = 0 }
+	set_temp_variable = { temp_cindex_2 = 1 }
+	set_temp_variable = { temp_csize = temp_fas^num }
+	subtract_from_temp_variable = { temp_csize = 1 }    
+
+	while_loop_effect = {
+		limit = {
+			check_variable = { temp_cindex_1 < temp_csize }
+		}
+		add_to_variable = { temp_fas^temp_cindex_2 = temp_fas^temp_cindex_1 }
+		add_to_temp_variable = { temp_cindex_1 = 1 }
+		add_to_temp_variable = { temp_cindex_2 = 1 }
+	}
+    
+    for_loop_effect = {
+        start = 0
+        end = temp_fas^num
+        
+        resize_array = { array = faction_fas_array value = faction_fas_m_array^v size = temp_fas^v }       
+    }
+
+	clear_array = temp_fas   
+
+#### MONARCHISTS ####
+    
+    clear_array = faction_mon_array
+    
+	for_each_loop = {
+		array = faction_mon_p_array
+
+		add_to_array = { temp_mon = faction_mon_p_array^i }
+	} 
+
+	set_temp_variable = { temp_cindex_1 = 0 }
+	set_temp_variable = { temp_cindex_2 = 1 }
+	set_temp_variable = { temp_csize = temp_mon^num }
+	subtract_from_temp_variable = { temp_csize = 1 }    
+
+	while_loop_effect = {
+		limit = {
+			check_variable = { temp_cindex_1 < temp_csize }
+		}
+		add_to_variable = { temp_mon^temp_cindex_2 = temp_mon^temp_cindex_1 }
+		add_to_temp_variable = { temp_cindex_1 = 1 }
+		add_to_temp_variable = { temp_cindex_2 = 1 }
+	}
+    
+    for_loop_effect = {
+        start = 0
+        end = temp_mon^num
+        
+        resize_array = { array = faction_mon_array value = faction_mon_m_array^v size = temp_mon^v }       
+    }
+
+	clear_array = temp_mon       
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Bonus code for adding/subtracting seats
 modify_faction_seat = {
@@ -175,410 +367,4 @@ clear_faction_gui_arrays = {
 	clear_array = faction_seat_array
 	clear_array = faction_x_array
 	clear_array = faction_y_array
-}
-
-# faction_x_array and faction_y_array stores the list of x and y positions of the faction dots in the grid, these are generated from this lovely tool by Flaxbeard:
-# https://github.com/Flaxbeard/hoi4-faction-diagram
-# I'll be using 200 seats as an example only (you'd have to generate your own if you have a different number of seats)
-faction_gui_positions = {
-	add_to_array = { faction_x_array = 0 }
-	add_to_array = { faction_y_array = 164 }
-	add_to_array = { faction_x_array = 14 }
-	add_to_array = { faction_y_array = 164 }
-	add_to_array = { faction_x_array = 28 }
-	add_to_array = { faction_y_array = 164 }
-	add_to_array = { faction_x_array = 42 }
-	add_to_array = { faction_y_array = 164 }
-	add_to_array = { faction_x_array = 56 }
-	add_to_array = { faction_y_array = 164 }
-	add_to_array = { faction_x_array = 71 }
-	add_to_array = { faction_y_array = 164 }
-	add_to_array = { faction_x_array = 85 }
-	add_to_array = { faction_y_array = 164 }
-	add_to_array = { faction_x_array = 99 }
-	add_to_array = { faction_y_array = 164 }
-	add_to_array = { faction_x_array = 2 }
-	add_to_array = { faction_y_array = 149 }
-	add_to_array = { faction_x_array = 16 }
-	add_to_array = { faction_y_array = 149 }
-	add_to_array = { faction_x_array = 30 }
-	add_to_array = { faction_y_array = 149 }
-	add_to_array = { faction_x_array = 44 }
-	add_to_array = { faction_y_array = 149 }
-	add_to_array = { faction_x_array = 59 }
-	add_to_array = { faction_y_array = 150 }
-	add_to_array = { faction_x_array = 5 }
-	add_to_array = { faction_y_array = 134 }
-	add_to_array = { faction_x_array = 73 }
-	add_to_array = { faction_y_array = 150 }
-	add_to_array = { faction_x_array = 19 }
-	add_to_array = { faction_y_array = 134 }
-	add_to_array = { faction_x_array = 87 }
-	add_to_array = { faction_y_array = 151 }
-	add_to_array = { faction_x_array = 34 }
-	add_to_array = { faction_y_array = 135 }
-	add_to_array = { faction_x_array = 48 }
-	add_to_array = { faction_y_array = 135 }
-	add_to_array = { faction_x_array = 102 }
-	add_to_array = { faction_y_array = 151 }
-	add_to_array = { faction_x_array = 9 }
-	add_to_array = { faction_y_array = 119 }
-	add_to_array = { faction_x_array = 63 }
-	add_to_array = { faction_y_array = 136 }
-	add_to_array = { faction_x_array = 24 }
-	add_to_array = { faction_y_array = 119 }
-	add_to_array = { faction_x_array = 39 }
-	add_to_array = { faction_y_array = 120 }
-	add_to_array = { faction_x_array = 78 }
-	add_to_array = { faction_y_array = 136 }
-	add_to_array = { faction_x_array = 15 }
-	add_to_array = { faction_y_array = 104 }
-	add_to_array = { faction_x_array = 54 }
-	add_to_array = { faction_y_array = 120 }
-	add_to_array = { faction_x_array = 92 }
-	add_to_array = { faction_y_array = 138 }
-	add_to_array = { faction_x_array = 30 }
-	add_to_array = { faction_y_array = 104 }
-	add_to_array = { faction_x_array = 68 }
-	add_to_array = { faction_y_array = 123 }
-	add_to_array = { faction_x_array = 45 }
-	add_to_array = { faction_y_array = 107 }
-	add_to_array = { faction_x_array = 22 }
-	add_to_array = { faction_y_array = 91 }
-	add_to_array = { faction_x_array = 108 }
-	add_to_array = { faction_y_array = 139 }
-	add_to_array = { faction_x_array = 84 }
-	add_to_array = { faction_y_array = 123 }
-	add_to_array = { faction_x_array = 61 }
-	add_to_array = { faction_y_array = 107 }
-	add_to_array = { faction_x_array = 38 }
-	add_to_array = { faction_y_array = 91 }
-	add_to_array = { faction_x_array = 99 }
-	add_to_array = { faction_y_array = 126 }
-	add_to_array = { faction_x_array = 76 }
-	add_to_array = { faction_y_array = 110 }
-	add_to_array = { faction_x_array = 53 }
-	add_to_array = { faction_y_array = 94 }
-	add_to_array = { faction_x_array = 30 }
-	add_to_array = { faction_y_array = 77 }
-	add_to_array = { faction_x_array = 47 }
-	add_to_array = { faction_y_array = 78 }
-	add_to_array = { faction_x_array = 70 }
-	add_to_array = { faction_y_array = 95 }
-	add_to_array = { faction_x_array = 93 }
-	add_to_array = { faction_y_array = 111 }
-	add_to_array = { faction_x_array = 40 }
-	add_to_array = { faction_y_array = 65 }
-	add_to_array = { faction_x_array = 115 }
-	add_to_array = { faction_y_array = 128 }
-	add_to_array = { faction_x_array = 62 }
-	add_to_array = { faction_y_array = 82 }
-	add_to_array = { faction_x_array = 85 }
-	add_to_array = { faction_y_array = 99 }
-	add_to_array = { faction_x_array = 108 }
-	add_to_array = { faction_y_array = 115 }
-	add_to_array = { faction_x_array = 57 }
-	add_to_array = { faction_y_array = 66 }
-	add_to_array = { faction_x_array = 50 }
-	add_to_array = { faction_y_array = 54 }
-	add_to_array = { faction_x_array = 80 }
-	add_to_array = { faction_y_array = 83 }
-	add_to_array = { faction_x_array = 73 }
-	add_to_array = { faction_y_array = 71 }
-	add_to_array = { faction_x_array = 103 }
-	add_to_array = { faction_y_array = 101 }
-	add_to_array = { faction_x_array = 95 }
-	add_to_array = { faction_y_array = 88 }
-	add_to_array = { faction_x_array = 69 }
-	add_to_array = { faction_y_array = 56 }
-	add_to_array = { faction_x_array = 62 }
-	add_to_array = { faction_y_array = 43 }
-	add_to_array = { faction_x_array = 125 }
-	add_to_array = { faction_y_array = 119 }
-	add_to_array = { faction_x_array = 91 }
-	add_to_array = { faction_y_array = 74 }
-	add_to_array = { faction_x_array = 118 }
-	add_to_array = { faction_y_array = 106 }
-	add_to_array = { faction_x_array = 84 }
-	add_to_array = { faction_y_array = 61 }
-	add_to_array = { faction_x_array = 81 }
-	add_to_array = { faction_y_array = 46 }
-	add_to_array = { faction_x_array = 74 }
-	add_to_array = { faction_y_array = 34 }
-	add_to_array = { faction_x_array = 114 }
-	add_to_array = { faction_y_array = 92 }
-	add_to_array = { faction_x_array = 107 }
-	add_to_array = { faction_y_array = 80 }
-	add_to_array = { faction_x_array = 104 }
-	add_to_array = { faction_y_array = 65 }
-	add_to_array = { faction_x_array = 97 }
-	add_to_array = { faction_y_array = 53 }
-	add_to_array = { faction_x_array = 87 }
-	add_to_array = { faction_y_array = 26 }
-	add_to_array = { faction_x_array = 94 }
-	add_to_array = { faction_y_array = 38 }
-	add_to_array = { faction_x_array = 129 }
-	add_to_array = { faction_y_array = 99 }
-	add_to_array = { faction_x_array = 137 }
-	add_to_array = { faction_y_array = 111 }
-	add_to_array = { faction_x_array = 120 }
-	add_to_array = { faction_y_array = 72 }
-	add_to_array = { faction_x_array = 127 }
-	add_to_array = { faction_y_array = 85 }
-	add_to_array = { faction_x_array = 110 }
-	add_to_array = { faction_y_array = 46 }
-	add_to_array = { faction_x_array = 117 }
-	add_to_array = { faction_y_array = 58 }
-	add_to_array = { faction_x_array = 101 }
-	add_to_array = { faction_y_array = 19 }
-	add_to_array = { faction_x_array = 108 }
-	add_to_array = { faction_y_array = 31 }
-	add_to_array = { faction_x_array = 142 }
-	add_to_array = { faction_y_array = 94 }
-	add_to_array = { faction_x_array = 133 }
-	add_to_array = { faction_y_array = 67 }
-	add_to_array = { faction_x_array = 124 }
-	add_to_array = { faction_y_array = 40 }
-	add_to_array = { faction_x_array = 116 }
-	add_to_array = { faction_y_array = 14 }
-	add_to_array = { faction_x_array = 123 }
-	add_to_array = { faction_y_array = 26 }
-	add_to_array = { faction_x_array = 132 }
-	add_to_array = { faction_y_array = 53 }
-	add_to_array = { faction_x_array = 140 }
-	add_to_array = { faction_y_array = 79 }
-	add_to_array = { faction_x_array = 149 }
-	add_to_array = { faction_y_array = 106 }
-	add_to_array = { faction_x_array = 131 }
-	add_to_array = { faction_y_array = 9 }
-	add_to_array = { faction_x_array = 139 }
-	add_to_array = { faction_y_array = 36 }
-	add_to_array = { faction_x_array = 138 }
-	add_to_array = { faction_y_array = 22 }
-	add_to_array = { faction_x_array = 147 }
-	add_to_array = { faction_y_array = 63 }
-	add_to_array = { faction_x_array = 146 }
-	add_to_array = { faction_y_array = 49 }
-	add_to_array = { faction_x_array = 155 }
-	add_to_array = { faction_y_array = 90 }
-	add_to_array = { faction_x_array = 155 }
-	add_to_array = { faction_y_array = 76 }
-	add_to_array = { faction_x_array = 146 }
-	add_to_array = { faction_y_array = 6 }
-	add_to_array = { faction_x_array = 154 }
-	add_to_array = { faction_y_array = 34 }
-	add_to_array = { faction_x_array = 154 }
-	add_to_array = { faction_y_array = 20 }
-	add_to_array = { faction_x_array = 162 }
-	add_to_array = { faction_y_array = 104 }
-	add_to_array = { faction_x_array = 162 }
-	add_to_array = { faction_y_array = 61 }
-	add_to_array = { faction_x_array = 161 }
-	add_to_array = { faction_y_array = 47 }
-	add_to_array = { faction_x_array = 161 }
-	add_to_array = { faction_y_array = 5 }
-	add_to_array = { faction_x_array = 169 }
-	add_to_array = { faction_y_array = 89 }
-	add_to_array = { faction_x_array = 169 }
-	add_to_array = { faction_y_array = 75 }
-	add_to_array = { faction_x_array = 169 }
-	add_to_array = { faction_y_array = 33 }
-	add_to_array = { faction_x_array = 169 }
-	add_to_array = { faction_y_array = 19 }
-	add_to_array = { faction_x_array = 177 }
-	add_to_array = { faction_y_array = 5 }
-	add_to_array = { faction_x_array = 177 }
-	add_to_array = { faction_y_array = 47 }
-	add_to_array = { faction_x_array = 176 }
-	add_to_array = { faction_y_array = 61 }
-	add_to_array = { faction_x_array = 176 }
-	add_to_array = { faction_y_array = 104 }
-	add_to_array = { faction_x_array = 185 }
-	add_to_array = { faction_y_array = 20 }
-	add_to_array = { faction_x_array = 184 }
-	add_to_array = { faction_y_array = 34 }
-	add_to_array = { faction_x_array = 192 }
-	add_to_array = { faction_y_array = 6 }
-	add_to_array = { faction_x_array = 184 }
-	add_to_array = { faction_y_array = 76 }
-	add_to_array = { faction_x_array = 183 }
-	add_to_array = { faction_y_array = 90 }
-	add_to_array = { faction_x_array = 192 }
-	add_to_array = { faction_y_array = 49 }
-	add_to_array = { faction_x_array = 191 }
-	add_to_array = { faction_y_array = 63 }
-	add_to_array = { faction_x_array = 200 }
-	add_to_array = { faction_y_array = 22 }
-	add_to_array = { faction_x_array = 199 }
-	add_to_array = { faction_y_array = 36 }
-	add_to_array = { faction_x_array = 208 }
-	add_to_array = { faction_y_array = 9 }
-	add_to_array = { faction_x_array = 189 }
-	add_to_array = { faction_y_array = 106 }
-	add_to_array = { faction_x_array = 198 }
-	add_to_array = { faction_y_array = 79 }
-	add_to_array = { faction_x_array = 206 }
-	add_to_array = { faction_y_array = 53 }
-	add_to_array = { faction_x_array = 215 }
-	add_to_array = { faction_y_array = 26 }
-	add_to_array = { faction_x_array = 222 }
-	add_to_array = { faction_y_array = 14 }
-	add_to_array = { faction_x_array = 214 }
-	add_to_array = { faction_y_array = 40 }
-	add_to_array = { faction_x_array = 205 }
-	add_to_array = { faction_y_array = 67 }
-	add_to_array = { faction_x_array = 196 }
-	add_to_array = { faction_y_array = 94 }
-	add_to_array = { faction_x_array = 230 }
-	add_to_array = { faction_y_array = 31 }
-	add_to_array = { faction_x_array = 237 }
-	add_to_array = { faction_y_array = 19 }
-	add_to_array = { faction_x_array = 221 }
-	add_to_array = { faction_y_array = 58 }
-	add_to_array = { faction_x_array = 228 }
-	add_to_array = { faction_y_array = 46 }
-	add_to_array = { faction_x_array = 211 }
-	add_to_array = { faction_y_array = 85 }
-	add_to_array = { faction_x_array = 218 }
-	add_to_array = { faction_y_array = 72 }
-	add_to_array = { faction_x_array = 202 }
-	add_to_array = { faction_y_array = 111 }
-	add_to_array = { faction_x_array = 209 }
-	add_to_array = { faction_y_array = 99 }
-	add_to_array = { faction_x_array = 244 }
-	add_to_array = { faction_y_array = 38 }
-	add_to_array = { faction_x_array = 251 }
-	add_to_array = { faction_y_array = 26 }
-	add_to_array = { faction_x_array = 241 }
-	add_to_array = { faction_y_array = 53 }
-	add_to_array = { faction_x_array = 234 }
-	add_to_array = { faction_y_array = 65 }
-	add_to_array = { faction_x_array = 231 }
-	add_to_array = { faction_y_array = 80 }
-	add_to_array = { faction_x_array = 224 }
-	add_to_array = { faction_y_array = 92 }
-	add_to_array = { faction_x_array = 264 }
-	add_to_array = { faction_y_array = 34 }
-	add_to_array = { faction_x_array = 257 }
-	add_to_array = { faction_y_array = 46 }
-	add_to_array = { faction_x_array = 254 }
-	add_to_array = { faction_y_array = 61 }
-	add_to_array = { faction_x_array = 220 }
-	add_to_array = { faction_y_array = 106 }
-	add_to_array = { faction_x_array = 247 }
-	add_to_array = { faction_y_array = 74 }
-	add_to_array = { faction_x_array = 213 }
-	add_to_array = { faction_y_array = 119 }
-	add_to_array = { faction_x_array = 277 }
-	add_to_array = { faction_y_array = 43 }
-	add_to_array = { faction_x_array = 269 }
-	add_to_array = { faction_y_array = 56 }
-	add_to_array = { faction_x_array = 243 }
-	add_to_array = { faction_y_array = 88 }
-	add_to_array = { faction_x_array = 236 }
-	add_to_array = { faction_y_array = 101 }
-	add_to_array = { faction_x_array = 265 }
-	add_to_array = { faction_y_array = 71 }
-	add_to_array = { faction_x_array = 258 }
-	add_to_array = { faction_y_array = 83 }
-	add_to_array = { faction_x_array = 288 }
-	add_to_array = { faction_y_array = 54 }
-	add_to_array = { faction_x_array = 281 }
-	add_to_array = { faction_y_array = 66 }
-	add_to_array = { faction_x_array = 230 }
-	add_to_array = { faction_y_array = 115 }
-	add_to_array = { faction_x_array = 253 }
-	add_to_array = { faction_y_array = 99 }
-	add_to_array = { faction_x_array = 276 }
-	add_to_array = { faction_y_array = 82 }
-	add_to_array = { faction_x_array = 223 }
-	add_to_array = { faction_y_array = 128 }
-	add_to_array = { faction_x_array = 299 }
-	add_to_array = { faction_y_array = 65 }
-	add_to_array = { faction_x_array = 246 }
-	add_to_array = { faction_y_array = 111 }
-	add_to_array = { faction_x_array = 268 }
-	add_to_array = { faction_y_array = 95 }
-	add_to_array = { faction_x_array = 291 }
-	add_to_array = { faction_y_array = 78 }
-	add_to_array = { faction_x_array = 308 }
-	add_to_array = { faction_y_array = 77 }
-	add_to_array = { faction_x_array = 285 }
-	add_to_array = { faction_y_array = 94 }
-	add_to_array = { faction_x_array = 262 }
-	add_to_array = { faction_y_array = 110 }
-	add_to_array = { faction_x_array = 239 }
-	add_to_array = { faction_y_array = 126 }
-	add_to_array = { faction_x_array = 300 }
-	add_to_array = { faction_y_array = 91 }
-	add_to_array = { faction_x_array = 277 }
-	add_to_array = { faction_y_array = 107 }
-	add_to_array = { faction_x_array = 254 }
-	add_to_array = { faction_y_array = 123 }
-	add_to_array = { faction_x_array = 231 }
-	add_to_array = { faction_y_array = 139 }
-	add_to_array = { faction_x_array = 316 }
-	add_to_array = { faction_y_array = 91 }
-	add_to_array = { faction_x_array = 293 }
-	add_to_array = { faction_y_array = 107 }
-	add_to_array = { faction_x_array = 270 }
-	add_to_array = { faction_y_array = 123 }
-	add_to_array = { faction_x_array = 308 }
-	add_to_array = { faction_y_array = 104 }
-	add_to_array = { faction_x_array = 246 }
-	add_to_array = { faction_y_array = 138 }
-	add_to_array = { faction_x_array = 284 }
-	add_to_array = { faction_y_array = 120 }
-	add_to_array = { faction_x_array = 323 }
-	add_to_array = { faction_y_array = 104 }
-	add_to_array = { faction_x_array = 261 }
-	add_to_array = { faction_y_array = 136 }
-	add_to_array = { faction_x_array = 300 }
-	add_to_array = { faction_y_array = 120 }
-	add_to_array = { faction_x_array = 314 }
-	add_to_array = { faction_y_array = 119 }
-	add_to_array = { faction_x_array = 275 }
-	add_to_array = { faction_y_array = 136 }
-	add_to_array = { faction_x_array = 329 }
-	add_to_array = { faction_y_array = 119 }
-	add_to_array = { faction_x_array = 236 }
-	add_to_array = { faction_y_array = 151 }
-	add_to_array = { faction_x_array = 290 }
-	add_to_array = { faction_y_array = 135 }
-	add_to_array = { faction_x_array = 305 }
-	add_to_array = { faction_y_array = 135 }
-	add_to_array = { faction_x_array = 251 }
-	add_to_array = { faction_y_array = 151 }
-	add_to_array = { faction_x_array = 319 }
-	add_to_array = { faction_y_array = 134 }
-	add_to_array = { faction_x_array = 265 }
-	add_to_array = { faction_y_array = 150 }
-	add_to_array = { faction_x_array = 334 }
-	add_to_array = { faction_y_array = 134 }
-	add_to_array = { faction_x_array = 280 }
-	add_to_array = { faction_y_array = 150 }
-	add_to_array = { faction_x_array = 294 }
-	add_to_array = { faction_y_array = 149 }
-	add_to_array = { faction_x_array = 308 }
-	add_to_array = { faction_y_array = 149 }
-	add_to_array = { faction_x_array = 322 }
-	add_to_array = { faction_y_array = 149 }
-	add_to_array = { faction_x_array = 337 }
-	add_to_array = { faction_y_array = 149 }
-	add_to_array = { faction_x_array = 239 }
-	add_to_array = { faction_y_array = 164 }
-	add_to_array = { faction_x_array = 253 }
-	add_to_array = { faction_y_array = 164 }
-	add_to_array = { faction_x_array = 268 }
-	add_to_array = { faction_y_array = 164 }
-	add_to_array = { faction_x_array = 282 }
-	add_to_array = { faction_y_array = 164 }
-	add_to_array = { faction_x_array = 296 }
-	add_to_array = { faction_y_array = 164 }
-	add_to_array = { faction_x_array = 310 }
-	add_to_array = { faction_y_array = 164 }
-	add_to_array = { faction_x_array = 324 }
-	add_to_array = { faction_y_array = 164 }
-	add_to_array = { faction_x_array = 338 }
-	add_to_array = { faction_y_array = 164 }
 }
