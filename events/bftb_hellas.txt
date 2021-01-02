@@ -24,7 +24,7 @@ country_event = {
 			}
 
 		GRE = {
-            add_timed_idea = { idea = GRE_bad_weather  days = 120 }
+            add_stability = 0.2
             add_to_variable = { fct_mon = 5}   
             subtract_from_variable = { fct_com = 7.5}
             subtract_from_variable = { fct_dem = 5}
@@ -40,7 +40,7 @@ country_event = {
 			}
 
 		GRE = {
-            add_timed_idea = { idea = GRE_bad_weather  days = 120 }
+            add_stability = 0.05
             add_to_variable = { fct_mon = 2.5}   
             subtract_from_variable = { fct_com = 5}
             subtract_from_variable = { fct_dem = 2.5}
@@ -56,7 +56,7 @@ country_event = {
 			}
 
 		GRE = {
-            add_timed_idea = { idea = GRE_bad_weather  days = 120 }
+            add_stability = -0.15
             subtract_from_variable = { fct_mon = 2.5}   
             add_to_variable = { fct_com = 5}
             add_to_variable = { fct_dem = 2.5}
@@ -185,6 +185,37 @@ country_event = {
         add_stability = 0.05
         custom_effect_tooltip =  hellas.5.b_tt
     }  
+}
+
+country_event = {
+	id = hellas.6
+	title = hellas.6.t
+	desc = hellas.6.desc
+	#picture = GFX_report_event_gre_venizelos_speech
+
+	fire_only_once = yes
+	
+	trigger = {
+		original_tag = GRE
+		check_variable = { var = fct_com value = 10 compare = less_than_or_equals }
+	}
+
+	mean_time_to_happen = {
+		days = 7
+	}
+
+	fire_only_once = yes
+	
+	#Give into Greece
+	option = {
+		name = hellas.6.a
+
+		ai_chance = {
+			base = 100
+			}
+        add_stability = -0.05
+        set_country_flag = GRE_comm_upr_1
+    }   
 }
 
 ########################################
