@@ -9031,6 +9031,44 @@ GRE_kathestos_exoteriki_politiki = {
         complete_effect = {
         }
     } 
+    
+    further_expand_upon_the_schactplan = {
+		icon = generic_operation
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            has_completed_focus = GRE_courting_the_superpowers
+            has_completed_focus = GRE_bolster_the_schachtplan   
+            custom_trigger_tooltip = {
+                tooltip = GRE_favor_german_at_least_mediocre
+                check_variable = { var = GER.favor value = 30 compare = greater_than_or_equals }
+            }
+		}
+
+		visible = {
+            has_completed_focus = GRE_courting_the_superpowers
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+
+		fire_only_once = yes
+        cost = 100
+		days_remove = 1
+
+        
+        complete_effect = {
+            swap_ideas = {
+                remove_idea = GRE_schachtplan_modified
+                add_idea = GRE_schachtplan_fascistised
+            }        
+        }
+    }     
 
     thess_intern_exhi_1936= {
 		icon = generic_operation
@@ -10339,4 +10377,104 @@ GRE_infl_rest_category = {
             add_to_variable = { GRE_total_favor = 10 }
 		}
 	} 
+}
+
+GRE_faction_gui_decision_category = {
+
+    communist_uprising = {
+        available = {
+            has_political_power > 200
+        }
+        activation = {
+            date > 1937.1.1
+            check_variable = { var = fct_com value = 20 compare = less_than }
+        }
+        is_good = no
+        days_mission_timeout = 120
+        timeout_effect = {
+            start_civil_war = {
+                ideology = communism
+                size = 0.4
+            }        
+        }
+        complete_effect = {
+            set_variable = { fct_com = 20 }
+            add_political_power = -200
+            add_stability = 0.05
+            faction_gui_call = yes
+        }
+    }
+
+    democratic_uprising = {
+        available = {
+            has_political_power > 200
+        }
+        activation = {
+            date > 1937.1.1
+            check_variable = { var = fct_dem value = 20 compare = less_than }
+        }
+        is_good = no
+        days_mission_timeout = 120
+        timeout_effect = {
+            start_civil_war = {
+                ideology = democratic
+                size = 0.4
+            }        
+        }
+        complete_effect = {
+            set_variable = { fct_dem = 20 }
+            add_political_power = -200
+            add_stability = 0.05
+            faction_gui_call = yes
+        }
+    }
+
+    fascist_uprising = {
+        available = {
+            has_political_power > 200
+        }
+        activation = {
+            date > 1937.1.1
+            check_variable = { var = fct_fas value = 20 compare = less_than }
+        }
+        is_good = no
+        days_mission_timeout = 120
+        timeout_effect = {
+            start_civil_war = {
+                ideology = fascism
+                size = 0.4
+            }        
+        }
+        complete_effect = {
+            set_variable = { fct_fas = 20 }
+            add_political_power = -200
+            add_stability = 0.05
+            faction_gui_call = yes
+        }
+    }
+    
+    monarchist_uprising = {
+        available = {
+            has_political_power > 200
+        }
+        activation = {
+            date > 1937.1.1
+            check_variable = { var = fct_mon value = 20 compare = less_than }
+        }
+        is_good = no
+        days_mission_timeout = 120
+        timeout_effect = {
+            start_civil_war = {
+                ideology = neutrality
+                size = 0.4
+            }        
+        }
+        complete_effect = {
+            set_variable = { fct_mon = 20 }
+            add_political_power = -200
+            add_stability = 0.05
+            faction_gui_call = yes
+        }
+    }    
+
 }
