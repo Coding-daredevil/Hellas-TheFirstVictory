@@ -162,4 +162,24 @@ on_actions = {
             }
         }
     }
+
+	on_war_relation_added = {
+		effect = {
+			if = {
+				limit = {
+                    OR = {
+                        tag = BUL
+                        tag = GRE
+                    }
+					FROM = { 
+                        OR = {
+                            tag = GRE
+                            tag = BUL
+                        }
+					}
+				}
+				GRE_line_pop = yes
+			}           
+        }
+    }
 }

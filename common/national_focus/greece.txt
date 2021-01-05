@@ -6049,7 +6049,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_stability = 0.1
+			add_stability = 0.04
             add_dynamic_modifier = { modifier = GRE_yfipourgeio_asfaleias }
             unlock_decision_category_tooltip = GRE_kathestos_asfaleia
             custom_effect_tooltip = GRE_metaxas_plan_tt 
@@ -6088,6 +6088,13 @@ focus_tree = {
 		ai_will_do = {
 			base = 1
 		}
+        
+        bypass = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_has_fascistized_tt
+                has_country_flag = GRE_fascistized
+            }        
+        }
 
 		completion_reward = {
             custom_effect_tooltip = GRE_escalating_metaxism
@@ -6110,6 +6117,10 @@ focus_tree = {
 				ruling_only = yes
 			}
 			is_in_faction = no
+            custom_trigger_tooltip = {
+                tooltip = GRE_fascistized_tt
+                NOT = { has_country_flag = GRE_fascistized } 
+            }            
 		}
 		x = 0
 		y = 1
@@ -6118,6 +6129,13 @@ focus_tree = {
 		ai_will_do = {
 			base = 1
 		}
+        
+        bypass = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_has_fascistized_tt
+                has_country_flag = GRE_fascistized
+            }        
+        }
 
 		completion_reward = {
             custom_effect_tooltip = GRE_escalating_metaxism
@@ -6147,6 +6165,10 @@ focus_tree = {
 				ruling_only = yes
 			}
 			is_in_faction = no
+            custom_trigger_tooltip = {
+                tooltip = GRE_fascistized_tt
+                NOT = { has_country_flag = GRE_fascistized } 
+            }            
 		}
 		x = 0
 		y = 1
@@ -6155,6 +6177,13 @@ focus_tree = {
 		ai_will_do = {
 			base = 1
 		}
+        
+        bypass = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_has_fascistized_tt
+                has_country_flag = GRE_fascistized
+            }        
+        }
 
 		completion_reward = {
             custom_effect_tooltip = GRE_escalating_metaxism
@@ -6184,6 +6213,10 @@ focus_tree = {
 				ruling_only = yes
 			}
 			is_in_faction = no
+            custom_trigger_tooltip = {
+                tooltip = GRE_fascistized_tt
+                NOT = { has_country_flag = GRE_fascistized } 
+            }            
 		}
 		x = 0
 		y = 1
@@ -6192,6 +6225,13 @@ focus_tree = {
 		ai_will_do = {
 			base = 1
 		}
+        
+        bypass = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_has_fascistized_tt
+                has_country_flag = GRE_fascistized
+            }        
+        }
 
 		completion_reward = {
             custom_effect_tooltip = GRE_escalating_metaxism
@@ -6780,6 +6820,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
+            add_stability = 0.01
             custom_effect_tooltip = GRE_laying_out_the_social_wellfare_plan_tt
 		}
 	}
@@ -6837,7 +6878,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_stability = 0.1
+			add_stability = 0.01
             custom_effect_tooltip = GRE_public_works_tt
 		}
 	} 
@@ -6864,6 +6905,43 @@ focus_tree = {
 
 		completion_reward = {
             add_ideas = GRE_IKA
+            ###FACTION MECHANICS###
+            randomize_temp_variable = {
+                var = tmp_dem
+                distribution = uniform
+                min = 2
+                max = 3
+            }  
+            randomize_temp_variable = {
+                var = tmp_com
+                distribution = uniform
+                min = 2
+                max = 3
+            }   
+            randomize_temp_variable = {
+                var = tmp_fas
+                distribution = uniform
+                min = 2
+                max = 3
+            }   
+            randomize_temp_variable = {
+                var = tmp_mon
+                distribution = uniform
+                min = 2
+                max = 3
+            }               
+            add_to_variable = { fct_dem = tmp_dem}
+            add_to_variable = { fct_com = tmp_com}
+            add_to_variable = { fct_fas = tmp_fas}  
+            add_to_variable = { fct_mon = tmp_mon}   
+            faction_gui_call = yes
+            custom_effect_tooltip = "            "
+            custom_effect_tooltip = fact_inf_tt 
+            custom_effect_tooltip = dem_great_tt 
+            custom_effect_tooltip = com_great_tt 
+            custom_effect_tooltip = fas_great_tt
+            custom_effect_tooltip = mon_great_tt 
+            ######            
 		}
 	}
 
@@ -6887,7 +6965,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_stability = 0.1
+			add_stability = 0.02
             add_dynamic_modifier = { modifier = GRE_metaxas_plan }
             custom_effect_tooltip = GRE_metaxas_plan_tt            
 		}
@@ -6913,7 +6991,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_stability = 0.1
+			add_stability = 0.05
             add_ideas = GRE_new_corporatism
 		}
 	}    
@@ -6946,7 +7024,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_stability = 0.05
+			add_stability = 0.01
             if = {
                 limit = {
                     check_variable = { var = GRE_ark value = 0 compare = equals }
@@ -7011,7 +7089,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_stability = 0.1
+			add_stability = 0.01
 		}
 	}
 
@@ -7034,7 +7112,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_stability = 0.1
+			add_stability = 0.01
 		}
 	}
 
@@ -7057,7 +7135,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_stability = 0.1
+			add_stability = 0.01
 		}
 	}    
 	focus = {
@@ -7175,7 +7253,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_stability = 0.1
+			add_stability = 0.01
 		}
 	}
 
