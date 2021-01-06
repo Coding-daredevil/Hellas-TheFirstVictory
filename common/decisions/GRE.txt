@@ -2897,7 +2897,7 @@ GRE_pay_back_debt_to_the_ifc_category = {
 
         remove_effect = {
             custom_effect_tooltip = "We will have a moderate influence increase with the British."       
-            add_to_variable = { GRE_english_favor = 6 }
+            add_to_variable = { ENG.favor@GRE = 6 }
             ENG = {
                 random_owned_controlled_state = {
                     add_extra_state_shared_building_slots = 2
@@ -2964,7 +2964,7 @@ GRE_pay_back_debt_to_the_ifc_category = {
 
         remove_effect = {
             custom_effect_tooltip = "We will have a small influence increase with the Soviets."   
-            add_to_variable = { GRE_soviet_favor = 2 }  
+            add_to_variable = { SOV.favor@GRE = 2 }  
             SOV = {
                 random_owned_controlled_state = {
                     add_extra_state_shared_building_slots = 2
@@ -3031,7 +3031,7 @@ GRE_pay_back_debt_to_the_ifc_category = {
 
         remove_effect = {
             custom_effect_tooltip = "We will have a negligible influence increase with the Americans."     
-            add_to_variable = { GRE_american_favor = 1 }   
+            add_to_variable = { USA.favor@GRE = 1 }   
             USA = {
                 random_owned_controlled_state = {
                     add_extra_state_shared_building_slots = 3
@@ -3098,7 +3098,7 @@ GRE_pay_back_debt_to_the_ifc_category = {
 
         remove_effect = {
             custom_effect_tooltip = "We will have big influence increase with the Germans."              
-            add_to_variable = { GRE_german_favor = 10 }  
+            add_to_variable = { GER.favor@GRE = 10 }  
             GER = {
                 random_owned_controlled_state = {
                     limit = {
@@ -5967,18 +5967,7 @@ GRE_economic_fluidity = {
 
         
         complete_effect = {
-            every_country = {
-                limit = {
-                    is_in_array = {
-                        array = global.favor_mechanic
-                        value = THIS.id
-                    }
-                }
-                start_civil_war = {
-                    ideology = democratic
-                    size = 0.4
-                }           
-            }
+
         }
     }
 }
@@ -6393,8 +6382,13 @@ GRE_kathestos_4hs = {
 
 		is_good = yes
 
-		complete_effect = {
+        modifier = {
+            political_power_factor = -0.1
+        }
 
+        cost = 100
+
+		complete_effect = {
 		}
 
 		remove_effect = {
@@ -6458,12 +6452,14 @@ GRE_kathestos_4hs = {
 		}
 
 		available = {
-            
+            num_of_available_civilian_factories > 5
 		}
 
 		fire_only_once = yes
         
-        days_remove = 1
+        cost = 25
+        
+        days_remove = 90
 
 		activation = {
             has_country_flag = GRE_step_2_finished
@@ -6478,12 +6474,32 @@ GRE_kathestos_4hs = {
 
 		is_good = yes
 
-		complete_effect = {
+        modifier = {
+            civilian_factory_use = 5
+        }
 
+		complete_effect = {
+            
 		}
 
 		remove_effect = {
 			add_stability = 0.05
+            ###BUILDINGS###
+            731 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+                }
+            }
+            184 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 2
+					instant_build = yes
+                }
+            }            
+            ###METAXAS PLAN MECHANICS###
             add_to_variable = { GRE_var_infr = 0.03 }
             add_to_variable = { GRE_var_aa = 0.01 }  
             ###FACTION MECHANICS###
@@ -6533,12 +6549,14 @@ GRE_kathestos_4hs = {
 		}
 
 		available = {
-            
+            um_of_available_civilian_factories > 2
 		}
 
 		fire_only_once = yes
         
-        days_remove = 1
+        cost = 25
+        
+        days_remove = 60
 
 		activation = {
             has_country_flag = GRE_step_2_finished
@@ -6552,6 +6570,10 @@ GRE_kathestos_4hs = {
 		cancel_if_not_visible = no
 
 		is_good = yes
+        
+        modifier = {
+            civilian_factory_use = 2
+        }
 
 		complete_effect = {
 
@@ -6559,6 +6581,29 @@ GRE_kathestos_4hs = {
 
 		remove_effect = {
 			add_stability = 0.05
+            ###BUILDINGS###
+            731 = {
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+                }
+            }
+            184 = {
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+                }
+            }  
+            47 = {
+				add_building_construction = {
+					type = air_base
+					level = 2
+					instant_build = yes
+                }
+            }            
+            ###METAXAS PLAN MECHANIC###
             add_to_variable = { GRE_var_infr = 0.03 }
             add_to_variable = { GRE_var_aa = 0.07 }
             ###FACTION MECHANICS###
@@ -6613,7 +6658,9 @@ GRE_kathestos_4hs = {
 
 		fire_only_once = yes
         
-        days_remove = 1
+        cost = 25
+        
+        days_remove = 75
 
 		activation = {
             has_country_flag = GRE_step_2_finished
@@ -6634,6 +6681,31 @@ GRE_kathestos_4hs = {
 
 		remove_effect = {
 			add_stability = 0.05
+            ###BUILDINGS###
+            731 = {
+				add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+                }
+                add_building_construction = {
+                    type = anti_air_building
+                    level = 1
+                    instant_build = yes
+                }
+                add_building_construction = {
+                    type = naval_base
+                    level = 1 
+                    instant_build = yes
+                }
+                add_building_construction = {
+                    type = coastal_bunker
+                    level = 1
+                    province = 11818
+                    instant_build = yes
+                }
+            }
+            ###METAXAS PLAN MECHANIC###
             add_to_variable = { GRE_var_aa = 0.05 }
             ###FACTION MECHANICS###
             randomize_temp_variable = {
@@ -6687,7 +6759,9 @@ GRE_kathestos_4hs = {
 
 		fire_only_once = yes
         
-        days_remove = 1
+        cost = 125
+        
+        days_remove = 120
 
 		activation = {
             has_country_flag = GRE_step_2_finished
@@ -6708,6 +6782,14 @@ GRE_kathestos_4hs = {
 
 		remove_effect = {
 			add_stability = 0.05
+            ###bonus###
+            add_tech_bonus = {
+				name = establish_hospitals
+				bonus = 1.0
+				uses = 1
+				category = hospital_tech
+			}
+            ###METAXAS PLAN MECHANIC###
             add_to_variable = { repair_speed_factor = 0.02 } 
             ###FACTION MECHANICS###
             randomize_temp_variable = {
@@ -6758,10 +6840,12 @@ GRE_kathestos_4hs = {
 		available = {
             
 		}
-
+        
+        cost = 150
+        
 		fire_only_once = yes
         
-        days_remove = 1
+        days_remove = 120
 
 		activation = {
             has_country_flag = GRE_step_2_finished
@@ -6782,6 +6866,16 @@ GRE_kathestos_4hs = {
 
 		remove_effect = {
 			add_stability = 0.05
+            ###BUILDINGS###
+            every_state = {
+                limit = { is_controlled_by = GRE}
+                add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+                }
+            }
+            ###METAXAS PLAN MECHANIC###
             add_to_variable = { GRE_var_infr = 0.03 }
             add_to_variable = { repair_speed_factor = 0.02 }  
             add_to_variable = { GRE_var_civ = 0.03 }
@@ -6838,7 +6932,8 @@ GRE_kathestos_4hs = {
 
 		fire_only_once = yes
         
-        days_remove = 1
+        cost = 150
+        days_remove = 120
 
 		activation = {
             has_country_flag = GRE_step_2_finished
@@ -6859,6 +6954,16 @@ GRE_kathestos_4hs = {
 
 		remove_effect = {
 			add_stability = 0.05
+            ###BUILDINGS###
+            every_state = {
+                limit = { is_controlled_by = GRE}
+                add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+                }
+            }
+            ###METAXAS PLAN MECHANIC###            
             add_to_variable = { GRE_var_infr = 0.02 }
             add_to_variable = { repair_speed_factor = 0.02 }  
             add_to_variable = { GRE_var_civ = 0.04 }
@@ -6915,7 +7020,8 @@ GRE_kathestos_4hs = {
 
 		fire_only_once = yes
         
-        days_remove = 1
+        cost = 50
+        days_remove = 80
 
 		activation = {
             has_country_flag = GRE_step_2_finished
@@ -6936,6 +7042,7 @@ GRE_kathestos_4hs = {
 
 		remove_effect = {
 			add_stability = 0.05
+            ###METAXAS PLAN MECHANIC###            
             add_to_variable = { repair_speed_factor = 0.02 } 
             ###FACTION MECHANICS###
             randomize_temp_variable = {
@@ -6994,7 +7101,8 @@ GRE_kathestos_4hs = {
 
 		fire_only_once = yes
         
-        days_remove = 1
+        cost = 50
+        days_remove = 30
 
 		activation = {
             has_country_flag = GRE_step_2_finished
@@ -7070,7 +7178,8 @@ GRE_kathestos_4hs = {
 
 		fire_only_once = yes
         
-        days_remove = 1
+        cost = 50
+        days_remove = 30
 
 		activation = {
             has_country_flag = GRE_step_2_finished
@@ -7148,7 +7257,8 @@ GRE_kathestos_4hs = {
 
 		fire_only_once = yes
         
-        days_remove = 1
+        cost = 50
+        days_remove = 30
 
 		activation = {
             has_country_flag = GRE_step_2_finished
@@ -7222,7 +7332,8 @@ GRE_kathestos_4hs = {
 
 		fire_only_once = yes
         
-        days_remove = 1
+        cost = 50
+        days_remove = 30
 
 		activation = {
             has_country_flag = GRE_step_2_finished
@@ -7296,7 +7407,8 @@ GRE_kathestos_4hs = {
 
 		fire_only_once = yes
         
-        days_remove = 1
+        cost = 50
+        days_remove = 30
 
 		activation = {
             has_country_flag = GRE_step_2_finished
@@ -7372,7 +7484,8 @@ GRE_kathestos_4hs = {
 
 		fire_only_once = yes
         
-        days_remove = 1
+        cost = 50
+        days_remove = 30
 
 		activation = {
             has_country_flag = GRE_step_2_finished
@@ -7447,7 +7560,8 @@ GRE_kathestos_4hs = {
 
 		fire_only_once = yes
         
-        days_remove = 1
+        cost = 50
+        days_remove = 30
 
 		activation = {
             has_country_flag = GRE_step_2_finished
@@ -7521,7 +7635,8 @@ GRE_kathestos_4hs = {
 
 		fire_only_once = yes
         
-        days_remove = 1
+        cost = 75
+        days_remove = 30
 
 		activation = {
             has_country_flag = GRE_step_2_finished
@@ -7597,7 +7712,8 @@ GRE_kathestos_4hs = {
 
 		fire_only_once = yes
         
-        days_remove = 1
+        cost = 25
+        days_remove = 30
 
 		activation = {
             has_country_flag = GRE_step_2_finished
@@ -7670,7 +7786,8 @@ GRE_kathestos_4hs = {
 
 		fire_only_once = yes
         
-        days_remove = 1
+        cost = 75
+        days_remove = 30
 
 		activation = {
             has_country_flag = GRE_step_2_finished
@@ -7691,6 +7808,13 @@ GRE_kathestos_4hs = {
 
 		remove_effect = {
 			add_stability = 0.05
+            ###bonus### 
+            add_tech_bonus = {
+				name = establish_radio_company
+				bonus = 1.5
+				uses = 2
+				category = electronics
+			}
             ###FACTION MECHANICS###
             randomize_temp_variable = {
                 var = tmp_dem
@@ -7743,7 +7867,8 @@ GRE_kathestos_4hs = {
 
 		fire_only_once = yes
         
-        days_remove = 1
+        cost = 25
+        days_remove = 30
 
 		activation = {
             has_country_flag = GRE_step_2_finished
@@ -7819,7 +7944,8 @@ GRE_kathestos_4hs = {
 
 		fire_only_once = yes
         
-        days_remove = 1
+        cost = 50
+        days_remove = 30
 
 		activation = {
             has_country_flag = GRE_step_2_finished
@@ -7898,7 +8024,8 @@ GRE_kathestos_4hs = {
 
 		fire_only_once = yes
         
-        days_remove = 1
+        cost = 10
+        days_remove = 30
 
 		activation = {
             has_country_flag = GRE_step_2_finished
@@ -7962,7 +8089,8 @@ GRE_kathestos_4hs = {
 
 		fire_only_once = yes
         
-        days_remove = 1
+        cost = 10
+        days_remove = 30
 
 		activation = {
             has_country_flag = GRE_step_2_finished
@@ -8026,7 +8154,8 @@ GRE_kathestos_4hs = {
 
 		fire_only_once = yes
         
-        days_remove = 1
+        cost = 10
+        days_remove = 30
 
 		activation = {
             has_country_flag = GRE_step_2_finished
@@ -9903,6 +10032,9 @@ GRE_kathestos_war_preparation = {
             add_to_variable = { GRE_var_max_plan = 0.05 }
             subtract_from_variable = { GRE_var_train_time_factor = 0.06 }
             add_to_variable = { GRE_var_recfact = 0.05 }  
+            ####[Total Counter]####
+            add_to_variable = { GRE_army_reform_cnt = 1 }
+            #######################
         }
     } 
     
@@ -9943,7 +10075,10 @@ GRE_kathestos_war_preparation = {
             add_to_variable = { GRE_var_max_dig_in =  0.01}
             subtract_from_variable = { GRE_var_supply_consumption =  0.01 }
             subtract_from_variable = { GRE_var_winter_attr =  0.01 } 
-            add_to_variable = { GRE_var_cold_acc = 0.02 }  
+            add_to_variable = { GRE_var_cold_acc = 0.02 } 
+            ####[Total Counter]####
+            add_to_variable = { GRE_army_reform_cnt = 1 }
+            #######################            
         }
     }  
 
@@ -9974,6 +10109,9 @@ GRE_kathestos_war_preparation = {
             subtract_from_variable = { GRE_var_train_time_factor = 0.06 }
             add_to_variable = { GRE_var_recfact = 0.02 }
             subtract_from_variable = { GRE_var_org_loss =  0.01 } 
+            ####[Total Counter]####
+            add_to_variable = { GRE_army_reform_cnt = 1 }
+            #######################            
         }
     }
 
@@ -10003,6 +10141,9 @@ GRE_kathestos_war_preparation = {
         complete_effect = {
             subtract_from_variable = { GRE_var_train_time_factor = 0.06 }
             add_to_variable = { GRE_var_recfact = 0.02 }
+            ####[Total Counter]####
+            add_to_variable = { GRE_army_reform_cnt = 1 }
+            #######################            
         }
     }  
 
@@ -10032,6 +10173,9 @@ GRE_kathestos_war_preparation = {
         complete_effect = {
             subtract_from_variable = { GRE_var_train_time_factor = 0.06 }
             subtract_from_variable = { GRE_var_org_loss =  0.01 } 
+            ####[Total Counter]####
+            add_to_variable = { GRE_army_reform_cnt = 1 }
+            #######################            
         }
     }  
 
@@ -10069,7 +10213,10 @@ GRE_kathestos_war_preparation = {
             add_to_variable = { GRE_var_no_supply_grace =  }
             subtract_from_variable = { GRE_var_supply_consumption =  0.01 }
             subtract_from_variable = { GRE_var_winter_attr =  0.01 } 
-            add_to_variable = { GRE_var_cold_acc = 0.02 }  
+            add_to_variable = { GRE_var_cold_acc = 0.02 } 
+            ####[Total Counter]####
+            add_to_variable = { GRE_army_reform_cnt = 1 }
+            #######################            
         }
     }    
 
@@ -10107,7 +10254,10 @@ GRE_kathestos_war_preparation = {
             add_to_variable = { GRE_var_no_supply_grace = 0.02 }
             subtract_from_variable = { GRE_var_supply_consumption =  0.01 }
             subtract_from_variable = { GRE_var_winter_attr =  0.01 } 
-            add_to_variable = { GRE_var_cold_acc = 0.02 }  
+            add_to_variable = { GRE_var_cold_acc = 0.02 } 
+            ####[Total Counter]####
+            add_to_variable = { GRE_army_reform_cnt = 1 }
+            #######################            
         }
     }
     
@@ -10146,6 +10296,9 @@ GRE_kathestos_war_preparation = {
             subtract_from_variable = { GRE_var_supply_consumption =  0.01 }
             subtract_from_variable = { GRE_var_winter_attr =  0.01 } 
             add_to_variable = { GRE_var_cold_acc = 0.02 }  
+            ####[Total Counter]####
+            add_to_variable = { GRE_army_reform_cnt = 1 }
+            #######################            
             
         }
     }
@@ -10180,6 +10333,9 @@ GRE_kathestos_war_preparation = {
             subtract_from_variable = { GRE_var_supply_consumption =  0.01 }
             subtract_from_variable = { GRE_var_winter_attr =  0.01 } 
             add_to_variable = { GRE_var_cold_acc = 0.02 }  
+            ####[Total Counter]####
+            add_to_variable = { GRE_army_reform_cnt = 1 }
+            #######################            
         }
     }   
 
@@ -10211,6 +10367,9 @@ GRE_kathestos_war_preparation = {
             add_to_variable = { GRE_var_max_cp = 12.5 }
             add_to_variable = { GRE_var_cp_gain =  0.12 }
             add_to_variable = { GRE_var_skill_bon =  0.1}  
+            ####[Total Counter]####
+            add_to_variable = { GRE_army_reform_cnt = 1 }
+            #######################            
         }
     }
 
@@ -10247,7 +10406,10 @@ GRE_kathestos_war_preparation = {
             add_to_variable = { GRE_var_max_dig_in =  0.01}
             subtract_from_variable = { GRE_var_supply_consumption =  0.01 }
             subtract_from_variable = { GRE_var_winter_attr =  0.01 } 
-            add_to_variable = { GRE_var_cold_acc = 0.02 }  
+            add_to_variable = { GRE_var_cold_acc = 0.02 } 
+            ####[Total Counter]####
+            add_to_variable = { GRE_army_reform_cnt = 1 }
+            #######################            
         }
     } 
 
@@ -10278,6 +10440,9 @@ GRE_kathestos_war_preparation = {
         complete_effect = {
             subtract_from_variable = { GRE_var_train_time_factor = 0.06 }
             add_to_variable = { GRE_var_recfact = 0.01 }
+            ####[Total Counter]####
+            add_to_variable = { GRE_army_reform_cnt = 1 }
+            #######################            
         }
     }  
 
@@ -10308,6 +10473,9 @@ GRE_kathestos_war_preparation = {
         complete_effect = {
             subtract_from_variable = { GRE_var_train_time_factor = 0.06 }
             add_to_variable = { GRE_var_recfact = 0.01 }
+            ####[Total Counter]####
+            add_to_variable = { GRE_army_reform_cnt = 1 }
+            #######################            
         }
     }
     
@@ -10338,6 +10506,9 @@ GRE_kathestos_war_preparation = {
         complete_effect = {
             subtract_from_variable = { GRE_var_train_time_factor = 0.06 }
             add_to_variable = { GRE_var_recfact = 0.01 }
+            ####[Total Counter]####
+            add_to_variable = { GRE_army_reform_cnt = 1 }
+            #######################            
         }
     }
     
@@ -10368,6 +10539,9 @@ GRE_kathestos_war_preparation = {
         complete_effect = {
             subtract_from_variable = { GRE_var_train_time_factor = 0.06 }
             add_to_variable = { GRE_var_recfact = 0.01 }
+            ####[Total Counter]####
+            add_to_variable = { GRE_army_reform_cnt = 1 }
+            #######################            
         }
     }
     
@@ -10398,6 +10572,9 @@ GRE_kathestos_war_preparation = {
         complete_effect = {
             subtract_from_variable = { GRE_var_train_time_factor = 0.06 }
             add_to_variable = { GRE_var_recfact = 0.01 }
+            ####[Total Counter]####
+            add_to_variable = { GRE_army_reform_cnt = 1 }
+            #######################            
         }
     } 
     
@@ -10434,6 +10611,9 @@ GRE_kathestos_war_preparation = {
             subtract_from_variable = { GRE_var_supply_consumption =  0.01 }
             subtract_from_variable = { GRE_var_winter_attr =  0.01 } 
             add_to_variable = { GRE_var_cold_acc = 0.02 }  
+            ####[Total Counter]####
+            add_to_variable = { GRE_army_reform_cnt = 1 }
+            #######################            
             
         }
     }
@@ -10450,6 +10630,7 @@ GRE_kathestos_war_preparation = {
 
 		visible = {
             has_completed_focus = GRE_the_construction_of_the_metaxas_line
+            check_variable = { var = GRE_metaxas_line value = 0 compare = equals }
 		}
 
 		ai_will_do = {
@@ -10464,6 +10645,9 @@ GRE_kathestos_war_preparation = {
         complete_effect = {  
             custom_effect_tooltip = GRE_metaxas_line_tt
             set_variable = { GRE_metaxas_line = 1 }
+            ####[Total Counter]####
+            add_to_variable = { GRE_army_reform_cnt = 1 }
+            #######################            
         }
     }   
 
@@ -10479,6 +10663,7 @@ GRE_kathestos_war_preparation = {
 
 		visible = {
             has_completed_focus = GRE_the_construction_of_the_metaxas_line
+            check_variable = { var = GRE_metaxas_line value = 1 compare = equals }
 		}
 
 		ai_will_do = {
@@ -10492,7 +10677,10 @@ GRE_kathestos_war_preparation = {
         
         complete_effect = {
             custom_effect_tooltip = GRE_metaxas_line_2_tt
-            set_variable = { GRE_metaxas_line = 2 }        
+            set_variable = { GRE_metaxas_line = 2 }    
+            ####[Total Counter]####
+            add_to_variable = { GRE_army_reform_cnt = 1 }
+            #######################            
         }
     }  
     
@@ -10540,6 +10728,7 @@ GRE_kathestos_war_preparation = {
 
 		visible = {
             has_completed_focus = GRE_the_construction_of_the_metaxas_line
+            NOT = { check_variable = { var = GRE_metaxas_line value = 1 compare = greater_than_or_equals } }
 		}
 
 		ai_will_do = {
@@ -10555,7 +10744,72 @@ GRE_kathestos_war_preparation = {
             custom_effect_tooltip = GRE_metaxas_line_abandoned_tt
             set_variable = { GRE_metaxas_line = -1 }        
         }
-    }    
+    }   
+
+    army_buffs = {
+		icon = generic_operation
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            date > 1939.1.1
+		}
+
+		visible = {
+            has_completed_focus = GRE_army_reborn
+            check_variable = { var = GRE_army_reform_cnt value = 10 compare = greater_than_or_equals }
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		fire_only_once = yes
+
+		days_remove = 1
+
+        
+        complete_effect = {
+            custom_effect_tooltip = GRE_army_buffs_tt
+            add_dynamic_modifier = { modifier = GRE_army_reform_hellenic_staff }
+            add_dynamic_modifier = { modifier = GRE_army_reform_hellenic_army }
+            add_dynamic_modifier = { modifier = GRE_army_reform_hellenic_people }            
+            if = {
+                limit = {
+                    check_variable = { var = GRE_army_reform_cnt value = 15 compare = less_than_or_equals }
+                    has_idea = GRE_army_status_0
+                }
+				swap_ideas = {
+					remove_idea = GRE_army_status_0
+					add_idea = GRE_army_status_1
+				}
+                set_variable = { GRE_ges = 1 }
+            }
+            else_if = {
+                limit = {
+                    check_variable = { var = GRE_army_reform_cnt value = 15 compare = greater_than_or_equals }
+                    has_idea = GRE_army_status_0
+                }
+				swap_ideas = {
+					remove_idea = GRE_army_status_0
+					add_idea = GRE_army_status_2
+				}
+                set_variable = { GRE_ges = 2 }
+            }
+            else_if {
+                limit = {
+                    has_idea = GRE_army_status_1
+                }
+				swap_ideas = {
+					remove_idea = GRE_army_status_1
+					add_idea = GRE_army_status_2
+				}
+                set_variable = { GRE_ges = 2 }   
+            }
+        }
+    }      
     
 }
 
@@ -11362,7 +11616,7 @@ GRE_infl_majors_category = {
 		}
 
 		remove_effect = {
-            add_to_variable = { FROM.favor = 10 }
+            add_to_variable = { FROM.favor@GRE = 10 }
             add_to_variable = { GRE_total_favor = 10 }
 		}
 	}	
@@ -11400,7 +11654,7 @@ GRE_infl_majors_category = {
 		}
 
 		remove_effect = {
-            add_to_variable = { FROM.favor = 10 }
+            add_to_variable = { FROM.favor@GRE = 10 }
             add_to_variable = { GRE_total_favor = 10 }
 		}
 	}
@@ -11439,7 +11693,7 @@ GRE_infl_majors_category = {
 		}
 
 		remove_effect = {
-            add_to_variable = { FROM.favor = 10 }
+            add_to_variable = { FROM.favor@GRE = 10 }
             add_to_variable = { GRE_total_favor = 10 }
 		}
 	}    
@@ -11477,7 +11731,7 @@ GRE_infl_majors_category = {
 		}
 
 		remove_effect = {
-            add_to_variable = { FROM.favor = 10 }
+            add_to_variable = { FROM.favor@GRE = 10 }
             add_to_variable = { GRE_total_favor = 10 }
 		}
 	}
@@ -11515,7 +11769,7 @@ GRE_infl_majors_category = {
 		}
 
 		remove_effect = {
-            add_to_variable = { FROM.favor = 10 }
+            add_to_variable = { FROM.favor@GRE = 10 }
             add_to_variable = { GRE_total_favor = 10 }        
 		}
 	}    
@@ -11553,7 +11807,7 @@ GRE_infl_majors_category = {
 		}
 
 		remove_effect = {
-            add_to_variable = { FROM.favor = 10 }
+            add_to_variable = { FROM.favor@GRE = 10 }
             add_to_variable = { GRE_total_favor = 10 }
 		}
 	}
@@ -11592,7 +11846,7 @@ GRE_infl_majors_category = {
 		}
 
 		remove_effect = {
-            add_to_variable = { FROM.favor = 10 }
+            add_to_variable = { FROM.favor@GRE = 10 }
             add_to_variable = { GRE_total_favor = 10 }
 		}
 	} 
@@ -11633,7 +11887,7 @@ GRE_infl_balkans_category = {
 		}
 
 		remove_effect = {
-            add_to_variable = { FROM.favor = 10 }
+            add_to_variable = { FROM.favor@GRE = 10 }
             add_to_variable = { GRE_total_favor = 10 }
 		}
 	}
@@ -11672,7 +11926,7 @@ GRE_infl_balkans_category = {
 		}
 
 		remove_effect = {
-            add_to_variable = { FROM.favor = 10 }
+            add_to_variable = { FROM.favor@GRE = 10 }
             add_to_variable = { GRE_total_favor = 10 }
 		}
 	}
@@ -11710,7 +11964,7 @@ GRE_infl_balkans_category = {
 		}
 
 		remove_effect = {
-            add_to_variable = { FROM.favor = 10 }
+            add_to_variable = { FROM.favor@GRE = 10 }
             add_to_variable = { GRE_total_favor = 10 }
 		}
 	}
@@ -11748,7 +12002,7 @@ GRE_infl_balkans_category = {
 		}
 
 		remove_effect = {
-            add_to_variable = { FROM.favor = 10 }
+            add_to_variable = { FROM.favor@GRE = 10 }
             add_to_variable = { GRE_total_favor = 10 }
 		}
 	}
@@ -11786,7 +12040,7 @@ GRE_infl_balkans_category = {
 		}
 
 		remove_effect = {
-            add_to_variable = { FROM.favor = 10 }
+            add_to_variable = { FROM.favor@GRE = 10 }
             add_to_variable = { GRE_total_favor = 10 }
 		}
 	}    
@@ -11831,7 +12085,7 @@ GRE_infl_rest_category = {
 		}
 
 		remove_effect = {
-            add_to_variable = { FROM.favor = 10 }
+            add_to_variable = { FROM.favor@GRE = 10 }
             add_to_variable = { GRE_total_favor = 10 }
 		}
 	}
@@ -11871,7 +12125,7 @@ GRE_infl_rest_category = {
 		}
 
 		remove_effect = {
-            add_to_variable = { FROM.favor = 10 }
+            add_to_variable = { FROM.favor@GRE = 10 }
             add_to_variable = { GRE_total_favor = 10 }
 		}
 	}    
@@ -11909,7 +12163,7 @@ GRE_infl_rest_category = {
 		}
 
 		remove_effect = {
-            add_to_variable = { FROM.favor = 10 }
+            add_to_variable = { FROM.favor@GRE = 10 }
             add_to_variable = { GRE_total_favor = 10 }
 		}
 	} 
@@ -11948,7 +12202,7 @@ GRE_infl_rest_category = {
 		}
 
 		remove_effect = {
-            add_to_variable = { FROM.favor = 10 }
+            add_to_variable = { FROM.favor@GRE = 10 }
             add_to_variable = { GRE_total_favor = 10 }
 		}
 	}
@@ -11986,7 +12240,7 @@ GRE_infl_rest_category = {
 		}
 
 		remove_effect = {
-            add_to_variable = { FROM.favor = 10 }
+            add_to_variable = { FROM.favor@GRE = 10 }
             add_to_variable = { GRE_total_favor = 10 }
 		}
 	} 
@@ -11995,6 +12249,11 @@ GRE_infl_rest_category = {
 GRE_faction_gui_decision_category = {
 
     communist_uprising = {
+        
+        allowed = { 
+			original_tag = GRE
+		}
+    
         available = {
             has_political_power > 200
         }
@@ -12019,6 +12278,11 @@ GRE_faction_gui_decision_category = {
     }
 
     democratic_uprising = {
+    
+        allowed = { 
+			original_tag = GRE
+		}
+        
         available = {
             has_political_power > 200
         }
@@ -12043,6 +12307,11 @@ GRE_faction_gui_decision_category = {
     }
 
     fascist_uprising = {
+    
+        allowed = { 
+			original_tag = GRE
+		}
+    
         available = {
             has_political_power > 200
         }
@@ -12067,6 +12336,11 @@ GRE_faction_gui_decision_category = {
     }
     
     monarchist_uprising = {
+    
+        allowed = { 
+			original_tag = GRE
+		}
+    
         available = {
             has_political_power > 200
         }
