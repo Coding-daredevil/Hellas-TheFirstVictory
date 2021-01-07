@@ -8228,11 +8228,14 @@ GRE_kathestos_asfaleia {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 75
+		days_remove = 30
 
         
         complete_effect = {
             add_stability = 0.02
+            set_country_flag = GRE_asfaleia_forces_organized
+            ####ASFALEIA MECHANIC###
             subtract_from_variable = { GRE_var_ag_up = 0.05 } 
             add_to_variable = { GRE_var_op_slot = 1 } 
             subtract_from_variable = { GRE_var_civ_others = 2.5 } 
@@ -8293,6 +8296,7 @@ GRE_kathestos_asfaleia {
 
 		visible = {
             has_completed_focus = GRE_establish_asfaleia
+            has_country_flag = GRE_asfaleia_forces_organized
 		}
 
 		ai_will_do = {
@@ -8301,11 +8305,13 @@ GRE_kathestos_asfaleia {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 50
+		days_remove = 7
 
         
         complete_effect = {
             add_stability = -0.02
+            set_country_flag = GRE_first_arrest_wave
 			add_popularity = {
     			ideology = communism
     			popularity = -0.05
@@ -8370,6 +8376,8 @@ GRE_kathestos_asfaleia {
 
 		visible = {
             has_completed_focus = GRE_establish_asfaleia
+            has_country_flag = GRE_asfaleia_forces_organized
+            has_country_flag = GRE_first_arrest_wave
 		}
 
 		ai_will_do = {
@@ -8378,19 +8386,16 @@ GRE_kathestos_asfaleia {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 100
+		days_remove = 180
 
+        modifier = {
+            democratic_drift = -0.04
+            communism_drift = -0.04
+        }
         
         complete_effect = {
-            add_stability = -0.03
-			add_popularity = {
-    			ideology = communism
-    			popularity = -0.02
-			} 
-			add_popularity = {
-    			ideology = democratic
-    			popularity = -0.01
-			}             
+            add_stability = -0.03             
             add_to_variable = { GRE_var_int_ag_def = 0.025 }  
             add_to_variable = { GRE_var_enc_asf = 0.05 }   
             ###FACTION MECHANICS###
@@ -8444,6 +8449,7 @@ GRE_kathestos_asfaleia {
 
 		visible = {
             has_completed_focus = GRE_establish_asfaleia
+            has_country_flag = GRE_asfaleia_forces_organized
 		}
 
 		ai_will_do = {
@@ -8452,7 +8458,12 @@ GRE_kathestos_asfaleia {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 75
+		days_remove = 90
+        
+        modifier = {
+            neutrality_drift = 0.05
+        }        
 
         
         complete_effect = {
@@ -8515,6 +8526,7 @@ GRE_kathestos_asfaleia {
 
 		visible = {
             has_completed_focus = GRE_establish_asfaleia
+            has_country_flag = GRE_asfaleia_forces_organized
 		}
 
 		ai_will_do = {
@@ -8523,8 +8535,15 @@ GRE_kathestos_asfaleia {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 125
+		days_remove = 120
 
+        modifier = {
+            democratic_drift = -0.04
+            communism_drift = -0.04
+            fascism_drift = 0.01
+            neutrality_drift = 0.05
+        }
         
         complete_effect = {
             subtract_from_variable = { GRE_var_ag_up = 0.025 }
@@ -8586,6 +8605,7 @@ GRE_kathestos_asfaleia {
 
 		visible = {
             has_completed_focus = GRE_establish_asfaleia
+            has_country_flag = GRE_asfaleia_forces_organized
 		}
 
 		ai_will_do = {
@@ -8594,8 +8614,14 @@ GRE_kathestos_asfaleia {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 125
+		days_remove = 180
 
+        modifier = {
+            democratic_drift = -0.08
+            communism_drift = -0.08
+            fascism_drift = 0.02
+        }
         
         complete_effect = {
             add_to_variable = { GRE_var_int_ag_def = 0.25 }   
@@ -8646,10 +8672,15 @@ GRE_kathestos_asfaleia {
 		}
 
 		available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_favor_german_at_least_mediocre
+                check_variable = { var = GER.favor@GRE value = 30 compare = greater_than_or_equals }
+            }
 		}
 
 		visible = {
             has_completed_focus = GRE_establish_asfaleia
+            has_country_flag = GRE_asfaleia_forces_organized
 		}
 
 		ai_will_do = {
@@ -8658,8 +8689,12 @@ GRE_kathestos_asfaleia {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 75
+		days_remove = 30
 
+        modifier = {
+            communism_drift = -0.18
+        }
         
         complete_effect = {
             subtract_from_variable = { GRE_var_ag_up = 0.05 }
@@ -8716,6 +8751,7 @@ GRE_kathestos_asfaleia {
 
 		visible = {
             has_completed_focus = GRE_establish_asfaleia
+            has_country_flag = GRE_asfaleia_forces_organized
 		}
 
 		ai_will_do = {
@@ -8724,8 +8760,13 @@ GRE_kathestos_asfaleia {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 150
+		days_remove = 120
 
+        modifier = {
+            communism_drift = -0.10
+            neutrality_drift = 0.10
+        }
         
         complete_effect = {
             add_to_variable = { GRE_var_op_slot = 1 }
@@ -8786,6 +8827,7 @@ GRE_kathestos_asfaleia {
 
 		visible = {
             has_completed_focus = GRE_establish_asfaleia
+            has_country_flag = GRE_asfaleia_forces_organized
 		}
 
 		ai_will_do = {
@@ -8794,8 +8836,12 @@ GRE_kathestos_asfaleia {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 50
+		days_remove = 30
 
+        modifier = {
+            democratic_drift = -0.12
+        }
         
         complete_effect = {
             subtract_from_variable = { GRE_var_civ_others = 7.5 } 
@@ -8854,6 +8900,7 @@ GRE_kathestos_asfaleia {
 
 		visible = {
             has_completed_focus = GRE_establish_asfaleia
+            has_country_flag = GRE_asfaleia_forces_organized
 		}
 
 		ai_will_do = {
@@ -8862,8 +8909,14 @@ GRE_kathestos_asfaleia {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 125
+		days_remove = 120
 
+        modifier = {
+            communism_drift = -0.12
+            fascism_drift = 0.05
+            neutrality_drift = 0.08
+        }
         
         complete_effect = {
             add_to_variable = { GRE_var_int_ag_def = 0.1 }  
@@ -8920,6 +8973,7 @@ GRE_kathestos_asfaleia {
 
 		visible = {
             has_completed_focus = GRE_establish_asfaleia
+            has_country_flag = GRE_asfaleia_forces_organized
 		}
 
 		ai_will_do = {
@@ -8928,10 +8982,12 @@ GRE_kathestos_asfaleia {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 50
+		days_remove = 7
 
         
         complete_effect = {
+            set_country_flag = GRE_war_on_minorities
             add_to_variable = { GRE_var_int_ag_def = 0.1 }
             add_to_variable = { GRE_var_pp_gain_asf = 0.05 } 
             add_to_variable = { GRE_var_def_drift = 0.05 }
@@ -8988,6 +9044,7 @@ GRE_kathestos_asfaleia {
 
 		visible = {
             has_completed_focus = GRE_establish_asfaleia
+            has_country_flag = GRE_war_on_minorities
 		}
 
 		ai_will_do = {
@@ -8996,8 +9053,12 @@ GRE_kathestos_asfaleia {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 100
+		days_remove = 120
 
+        modifier = {
+            neutrality_drift = 0.08
+        }
         
         complete_effect = {
             subtract_from_variable = { GRE_var_civ_others = 7.5 }   
@@ -9055,6 +9116,7 @@ GRE_kathestos_asfaleia {
 
 		visible = {
             has_completed_focus = GRE_establish_asfaleia
+            has_country_flag = GRE_war_on_minorities
 		}
 
 		ai_will_do = {
@@ -9063,7 +9125,12 @@ GRE_kathestos_asfaleia {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 75
+		days_remove = 120
+
+        modifier = {
+            neutrality_drift = 0.05
+        }
 
         
         complete_effect = {
@@ -9122,6 +9189,7 @@ GRE_kathestos_asfaleia {
 
 		visible = {
             has_completed_focus = GRE_establish_asfaleia
+            has_country_flag = GRE_war_on_minorities
 		}
 
 		ai_will_do = {
@@ -9130,7 +9198,12 @@ GRE_kathestos_asfaleia {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 75
+		days_remove = 120
+
+        modifier = {
+            neutrality_drift = 0.05
+        }
 
         
         complete_effect = {
@@ -9188,6 +9261,7 @@ GRE_kathestos_asfaleia {
 
 		visible = {
             has_completed_focus = GRE_establish_asfaleia
+            has_country_flag = GRE_war_on_minorities
 		}
 
 		ai_will_do = {
@@ -9196,7 +9270,12 @@ GRE_kathestos_asfaleia {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 100
+		days_remove = 120
+
+        modifier = {
+            neutrality_drift = 0.05
+        }
 
         
         complete_effect = {
@@ -9318,11 +9397,17 @@ GRE_kathestos_propaganda {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 75
+		days_remove = 120
+
+        modifier = {
+            neutrality_drift = 0.02
+        }
 
         
         complete_effect = {
             add_stability = 0.02
+            set_country_flag = GRE_peasant_worker_soldier
             add_to_variable = { GRE_var_pp_gain_prop = 0.05 } 
             add_to_variable = { GRE_var_pp_factor_prop = 0.01 } 
             add_to_variable = { GRE_var_pt_pop_fct = 0.025 } 
@@ -9380,6 +9465,7 @@ GRE_kathestos_propaganda {
 
 		visible = {
             has_completed_focus = GRE_establish_propaganda
+            has_country_flag = GRE_peasant_worker_soldier
 		}
 
 		ai_will_do = {
@@ -9388,8 +9474,12 @@ GRE_kathestos_propaganda {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 125
+		days_remove = 120
 
+        modifier = {
+            neutrality_drift = 0.1
+        }
         
         complete_effect = {
             add_to_variable = { GRE_var_pp_gain_prop = 0.05 } 
@@ -9447,6 +9537,7 @@ GRE_kathestos_propaganda {
 
 		visible = {
             has_completed_focus = GRE_establish_propaganda
+            has_country_flag = GRE_peasant_worker_soldier
 		}
 
 		ai_will_do = {
@@ -9455,8 +9546,14 @@ GRE_kathestos_propaganda {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 150
+		days_remove = 120
 
+        modifier = {
+            neutrality_drift = 0.05
+            communism_drift = -0.12
+            democratic_drift = -0.12
+        }
         
         complete_effect = {
             add_to_variable = { GRE_var_pp_gain_prop = 0.05 }
@@ -9513,6 +9610,7 @@ GRE_kathestos_propaganda {
 
 		visible = {
             has_completed_focus = GRE_establish_propaganda
+            has_country_flag = GRE_peasant_worker_soldier
 		}
 
 		ai_will_do = {
@@ -9521,7 +9619,12 @@ GRE_kathestos_propaganda {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 50
+		days_remove = 90
+
+        modifier = {
+            neutrality_drift = 0.02
+        }
 
         
         complete_effect = {
@@ -9579,6 +9682,7 @@ GRE_kathestos_propaganda {
 
 		visible = {
             has_completed_focus = GRE_establish_propaganda
+            has_country_flag = GRE_peasant_worker_soldier
 		}
 
 		ai_will_do = {
@@ -9587,7 +9691,12 @@ GRE_kathestos_propaganda {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 75
+		days_remove = 90
+
+        modifier = {
+            communism_drift = -0.12
+        }
 
         
         complete_effect = {
@@ -9645,6 +9754,7 @@ GRE_kathestos_propaganda {
 
 		visible = {
             has_completed_focus = GRE_establish_propaganda
+            has_country_flag = GRE_peasant_worker_soldier
 		}
 
 		ai_will_do = {
@@ -9653,11 +9763,14 @@ GRE_kathestos_propaganda {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 50
+		days_remove = 7
 
         
         complete_effect = {
             add_to_variable = { GRE_var_pp_factor_prop = 0.01 } 
+            ###INFLUENCE MECHANIC###
+            add_to_variable = { GER.favor@GRE = 5 }
             ###FACTION MECHANICS###   
             randomize_temp_variable = {
                 var = tmp_fas
@@ -9695,6 +9808,7 @@ GRE_kathestos_propaganda {
 
 		visible = {
             has_completed_focus = GRE_establish_propaganda
+            has_country_flag = GRE_peasant_worker_soldier
 		}
 
 		ai_will_do = {
@@ -9703,11 +9817,14 @@ GRE_kathestos_propaganda {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 75
+		days_remove = 7
 
         
         complete_effect = {
             add_to_variable = { GRE_var_pp_factor_prop = 0.01 } 
+            ###INFLUENCE MECHANIC###
+            add_to_variable = { GER.favor@GRE = 8 }            
             ###FACTION MECHANICS###   
             randomize_temp_variable = {
                 var = tmp_fas
@@ -9745,6 +9862,7 @@ GRE_kathestos_propaganda {
 
 		visible = {
             has_completed_focus = GRE_establish_propaganda
+            has_country_flag = GRE_peasant_worker_soldier
 		}
 
 		ai_will_do = {
@@ -9753,8 +9871,12 @@ GRE_kathestos_propaganda {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 100
+		days_remove = 90
 
+        modifier = {
+            neutrality_drift = 0.15
+        }
         
         complete_effect = {
             add_to_variable = { GRE_var_pp_gain_prop = 0.05 } 
@@ -9812,6 +9934,7 @@ GRE_kathestos_propaganda {
 
 		visible = {
             has_completed_focus = GRE_establish_propaganda
+            has_country_flag = GRE_peasant_worker_soldier
 		}
 
 		ai_will_do = {
@@ -9820,7 +9943,12 @@ GRE_kathestos_propaganda {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 100
+		days_remove = 90
+
+        modifier = {
+            neutrality_drift = 0.15
+        }
 
         
         complete_effect = {
@@ -9879,6 +10007,7 @@ GRE_kathestos_propaganda {
 
 		visible = {
             has_completed_focus = GRE_establish_propaganda
+            has_country_flag = GRE_peasant_worker_soldier
 		}
 
 		ai_will_do = {
@@ -9887,7 +10016,12 @@ GRE_kathestos_propaganda {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 100
+		days_remove = 90
+
+        modifier = {
+            neutrality_drift = 0.15
+        }
 
         
         complete_effect = {
@@ -9942,10 +10076,12 @@ GRE_kathestos_propaganda {
 		}
 
 		available = {
+            num_of_available_civilian_factories > 5
 		}
 
 		visible = {
             has_completed_focus = GRE_establish_propaganda
+            has_country_flag = GRE_peasant_worker_soldier
 		}
 
 		ai_will_do = {
@@ -9954,10 +10090,26 @@ GRE_kathestos_propaganda {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 175
+		days_remove = 120
+
+        modifier = {
+            neutrality_drift = 0.12
+            civilian_factory_use = 5
+        }
 
         
         complete_effect = {
+            ###BUILDINGS###
+            every_state = {
+                limit = { is_controlled_by = GRE}
+                add_building_construction = {
+					type = infrastructure
+					level = 1
+					instant_build = yes
+                }
+            }
+            ###METAXAS PLAN MECHANIC###
             add_to_variable = { GRE_var_pt_pop_fct = 0.025 }
             add_to_variable = { GRE_var_week_stb = 0.001 } 
             add_to_variable = { GRE_var_week_war_stb = 0.001 }    
@@ -10025,13 +10177,34 @@ GRE_kathestos_war_preparation = {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 75
+		days_remove = 90
+        
+        modifier = {
+            neutrality_drift = -0.05
+        }
 
         
         complete_effect = {
+            add_stability = -0.05
             add_to_variable = { GRE_var_max_plan = 0.05 }
             subtract_from_variable = { GRE_var_train_time_factor = 0.06 }
             add_to_variable = { GRE_var_recfact = 0.05 }  
+            ###FACTION MECHANICS### 
+            randomize_temp_variable = {
+                var = tmp_mon
+                distribution = uniform
+                min = 0
+                max = 0.5
+            }               
+            subtract_from_variable = { fct_mon = tmp_mon}   
+            faction_gui_call = yes
+            custom_effect_tooltip = fact_inf_tt 
+            custom_effect_tooltip = dem_norm_tt 
+            custom_effect_tooltip = com_norm_tt 
+            custom_effect_tooltip = fas_norm_tt
+            custom_effect_tooltip = mon_bad_tt 
+            ######              
             ####[Total Counter]####
             add_to_variable = { GRE_army_reform_cnt = 1 }
             #######################
@@ -10058,7 +10231,8 @@ GRE_kathestos_war_preparation = {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 75
+		days_remove = 14
 
         
         complete_effect = {
@@ -10102,13 +10276,29 @@ GRE_kathestos_war_preparation = {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 25
+		days_remove = 7
 
         
         complete_effect = {
             subtract_from_variable = { GRE_var_train_time_factor = 0.06 }
             add_to_variable = { GRE_var_recfact = 0.02 }
             subtract_from_variable = { GRE_var_org_loss =  0.01 } 
+            ###FACTION MECHANICS###   @!#
+            randomize_temp_variable = {
+                var = tmp_mon
+                distribution = uniform
+                min = 0
+                max = 0.5
+            }               
+            subtract_from_variable = { fct_mon = tmp_mon}   
+            faction_gui_call = yes
+            custom_effect_tooltip = fact_inf_tt 
+            custom_effect_tooltip = dem_norm_tt 
+            custom_effect_tooltip = com_norm_tt 
+            custom_effect_tooltip = fas_norm_tt
+            custom_effect_tooltip = mon_bad_tt 
+            ######             
             ####[Total Counter]####
             add_to_variable = { GRE_army_reform_cnt = 1 }
             #######################            
@@ -10135,7 +10325,8 @@ GRE_kathestos_war_preparation = {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 25
+		days_remove = 200
 
         
         complete_effect = {
@@ -10167,7 +10358,8 @@ GRE_kathestos_war_preparation = {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 25
+		days_remove = 90
 
         
         complete_effect = {
@@ -10199,7 +10391,8 @@ GRE_kathestos_war_preparation = {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 75
+		days_remove = 120
 
         
         complete_effect = {
@@ -10240,7 +10433,8 @@ GRE_kathestos_war_preparation = {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 75
+		days_remove = 90
 
         
         complete_effect = {
@@ -10281,7 +10475,8 @@ GRE_kathestos_war_preparation = {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 75
+		days_remove = 90
 
         
         complete_effect = {
@@ -10323,7 +10518,8 @@ GRE_kathestos_war_preparation = {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 25
+		days_remove = 90
 
         
         complete_effect = {
@@ -10360,7 +10556,8 @@ GRE_kathestos_war_preparation = {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 50
+		days_remove = 90
 
         
         complete_effect = {
@@ -10394,7 +10591,8 @@ GRE_kathestos_war_preparation = {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 125
+		days_remove = 165
 
         
         complete_effect = {
@@ -10434,7 +10632,8 @@ GRE_kathestos_war_preparation = {
 
 		fire_only_once = yes
 
-		days_remove = 1
+        cost = 10
+		days_remove = 7
 
         
         complete_effect = {
@@ -10467,7 +10666,8 @@ GRE_kathestos_war_preparation = {
 
 		fire_only_once = yes
 
-		days_remove = 1
+		cost = 10
+		days_remove = 7
 
         
         complete_effect = {
@@ -10500,7 +10700,8 @@ GRE_kathestos_war_preparation = {
 
 		fire_only_once = yes
 
-		days_remove = 1
+		cost = 10
+		days_remove = 7
 
         
         complete_effect = {
@@ -10533,7 +10734,8 @@ GRE_kathestos_war_preparation = {
 
 		fire_only_once = yes
 
-		days_remove = 1
+		cost = 10
+		days_remove = 7
 
         
         complete_effect = {
@@ -10566,7 +10768,8 @@ GRE_kathestos_war_preparation = {
 
 		fire_only_once = yes
 
-		days_remove = 1
+		cost = 10
+		days_remove = 7
 
         
         complete_effect = {
@@ -10598,7 +10801,8 @@ GRE_kathestos_war_preparation = {
 
 		fire_only_once = yes
 
-		days_remove = 1
+		cost = 75
+		days_remove = 120
 
         
         complete_effect = {
@@ -10626,6 +10830,7 @@ GRE_kathestos_war_preparation = {
 		}
 
 		available = {
+            num_of_available_civilian_factories > 9
 		}
 
 		visible = {
@@ -10639,16 +10844,22 @@ GRE_kathestos_war_preparation = {
 
 		fire_only_once = yes
 
-		days_remove = 1
+		cost = 125
+		days_remove = 365
 
+        modifier = {
+            civilian_factory_use = 10
+        }
         
-        complete_effect = {  
-            custom_effect_tooltip = GRE_metaxas_line_tt
-            set_variable = { GRE_metaxas_line = 1 }
+        complete_effect = {            
             ####[Total Counter]####
             add_to_variable = { GRE_army_reform_cnt = 1 }
             #######################            
+            custom_effect_tooltip = GRE_metaxas_line_tt
         }
+        remove_effect = {
+            set_variable = { GRE_metaxas_line = 1 }
+        }        
     }   
 
     further_extend_line= {
@@ -10659,6 +10870,7 @@ GRE_kathestos_war_preparation = {
 		}
 
 		available = {
+            num_of_available_civilian_factories > 14
 		}
 
 		visible = {
@@ -10672,7 +10884,12 @@ GRE_kathestos_war_preparation = {
 
 		fire_only_once = yes
 
-		days_remove = 1
+		cost = 175
+		days_remove = 120
+
+        modifier = {
+            civilian_factory_use = 15
+        }
 
         
         complete_effect = {
@@ -10713,6 +10930,7 @@ GRE_kathestos_war_preparation = {
             custom_effect_tooltip = GRE_metaxas_line_revealed_tt
             add_timed_idea = { idea = GRE_met_line  days = 365 }
             GRE_line_pop = yes
+            set_variable = { GRE_metaxas_line = 3 } 
         }
     }     
 
@@ -10742,7 +10960,8 @@ GRE_kathestos_war_preparation = {
         
         complete_effect = {
             custom_effect_tooltip = GRE_metaxas_line_abandoned_tt
-            set_variable = { GRE_metaxas_line = -1 }        
+            set_variable = { GRE_metaxas_line = -1 }     
+            add_timed_idea = { idea = GRE_redirection  days = 365 }
         }
     }   
 
