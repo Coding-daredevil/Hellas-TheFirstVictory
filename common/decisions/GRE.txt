@@ -10284,7 +10284,7 @@ GRE_kathestos_war_preparation = {
             subtract_from_variable = { GRE_var_train_time_factor = 0.06 }
             add_to_variable = { GRE_var_recfact = 0.02 }
             subtract_from_variable = { GRE_var_org_loss =  0.01 } 
-            ###FACTION MECHANICS###   @!#
+            ###FACTION MECHANICS###  
             randomize_temp_variable = {
                 var = tmp_mon
                 distribution = uniform
@@ -12467,6 +12467,162 @@ GRE_infl_rest_category = {
 
 GRE_faction_gui_decision_category = {
 
+    approach_democrats = {
+		icon = generic_operation
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+			date > 1936.9.30     
+		}
+
+		visible = {
+			always = yes
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		fire_only_once = no
+        
+        cost = 250
+        days_remove = 90
+
+        remove_effect = {
+            ###FACTION MECHANICS###        
+            randomize_temp_variable = {
+                var = tmp_dem
+                distribution = uniform
+                min = 7.5
+                max = 15
+            }
+            custom_effect_tooltip = fct_dmajor_boost_tt
+            add_to_variable = { fct_dem = tmp_dem}   
+            faction_gui_call = yes
+            ###### 
+        }
+	} 
+
+    approach_communists = {
+		icon = generic_operation
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+			date > 1936.9.30     
+		}
+
+		visible = {
+			always = yes
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		fire_only_once = no
+        
+        cost = 250
+        days_remove = 90
+
+        remove_effect = {
+            ###FACTION MECHANICS###
+            randomize_temp_variable = {
+                var = tmp_com
+                distribution = uniform
+                min = 7.5
+                max = 15
+            }
+            custom_effect_tooltip = fct_cmajor_boost_tt
+            add_to_variable = { fct_com = tmp_com}   
+            faction_gui_call = yes
+            ###### 
+        }
+	}
+
+    approach_fascists = {
+		icon = generic_operation
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+			date > 1936.9.30     
+		}
+
+		visible = {
+			always = yes
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		fire_only_once = no
+        
+        cost = 250
+        days_remove = 90
+
+        remove_effect = {
+            ###FACTION MECHANICS###
+            randomize_temp_variable = {
+                var = tmp_fas
+                distribution = uniform
+                min = 7.5
+                max = 15
+            } 
+            custom_effect_tooltip = fct_fmajor_boost_tt
+            add_to_variable = { fct_fas = tmp_fas}   
+            faction_gui_call = yes
+            ###### 
+        }
+	}
+
+    approach_monarchists = {
+		icon = generic_operation
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+			date > 1936.9.30     
+		}
+
+		visible = {
+			always = yes
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		fire_only_once = no
+        
+        cost = 250
+        days_remove = 90
+
+        remove_effect = {
+            ###FACTION MECHANICS###
+            randomize_temp_variable = {
+                var = tmp_mon
+                distribution = uniform
+                min = 7.5
+                max = 15
+            }
+            custom_effect_tooltip = fct_mmajor_boost_tt    
+            add_to_variable = { fct_mon = tmp_mon}   
+            faction_gui_call = yes
+            ###### 
+        }
+	}    
+
     communist_uprising = {
         
         allowed = { 
@@ -12475,7 +12631,9 @@ GRE_faction_gui_decision_category = {
     
         available = {
             has_political_power > 200
+            check_variable = { var = fct_com value = 20 compare = greater_than_or_equals }
         }
+        
         activation = {
             date > 1937.1.1
             check_variable = { var = fct_com value = 20 compare = less_than }
@@ -12489,10 +12647,8 @@ GRE_faction_gui_decision_category = {
             }        
         }
         complete_effect = {
-            set_variable = { fct_com = 20 }
             add_political_power = -200
             add_stability = 0.05
-            faction_gui_call = yes
         }
     }
 
@@ -12504,7 +12660,9 @@ GRE_faction_gui_decision_category = {
         
         available = {
             has_political_power > 200
+            check_variable = { var = fct_dem value = 20 compare = greater_than_or_equals }
         }
+        
         activation = {
             date > 1937.1.1
             check_variable = { var = fct_dem value = 20 compare = less_than }
@@ -12518,10 +12676,8 @@ GRE_faction_gui_decision_category = {
             }        
         }
         complete_effect = {
-            set_variable = { fct_dem = 20 }
             add_political_power = -200
             add_stability = 0.05
-            faction_gui_call = yes
         }
     }
 
@@ -12533,7 +12689,9 @@ GRE_faction_gui_decision_category = {
     
         available = {
             has_political_power > 200
+            check_variable = { var = fct_fas value = 20 compare = greater_than_or_equals }
         }
+        
         activation = {
             date > 1937.1.1
             check_variable = { var = fct_fas value = 20 compare = less_than }
@@ -12547,10 +12705,8 @@ GRE_faction_gui_decision_category = {
             }        
         }
         complete_effect = {
-            set_variable = { fct_fas = 20 }
             add_political_power = -200
             add_stability = 0.05
-            faction_gui_call = yes
         }
     }
     
@@ -12562,7 +12718,9 @@ GRE_faction_gui_decision_category = {
     
         available = {
             has_political_power > 200
+            check_variable = { var = fct_mon value = 20 compare = greater_than_or_equals }
         }
+        
         activation = {
             date > 1937.1.1
             check_variable = { var = fct_mon value = 20 compare = less_than }
@@ -12576,10 +12734,8 @@ GRE_faction_gui_decision_category = {
             }        
         }
         complete_effect = {
-            set_variable = { fct_mon = 20 }
             add_political_power = -200
             add_stability = 0.05
-            faction_gui_call = yes
         }
     }    
 

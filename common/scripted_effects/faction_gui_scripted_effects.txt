@@ -36,6 +36,32 @@ faction_gui_initial = {
 }
 
 faction_gui_call = {
+    ####VARIABLE CLAMPING TO NOT EXCEED LIMIT [0,100]####
+    clamp_variable = {
+        var = fct_dem
+        min = 0
+        max = 100
+    }
+    clamp_variable = {
+        var = fct_com
+        min = 0
+        max = 100
+    }
+    clamp_variable = {
+        var = fct_fas
+        min = 0
+        max = 100
+    }
+    clamp_variable = {
+        var = fct_mon
+        min = 0
+        max = 100
+    }
+    #####################################################################################
+    ####CALLING DYHNAMIC MODIFIER FIRST SO I JUST HAVE TO MAKE ONE CALL IN MAIN FILES####
+    GRE_faction_refresh = yes 
+    #####################################################################################
+    #####################################################################################
     clear_array = faction_dem_p_array
     clear_array = faction_com_p_array
     clear_array = faction_fas_p_array

@@ -15,6 +15,328 @@
 #    }
 #}
 
+GRE_faction_refresh = {
+    GRE_faction_refresh_mon_effect = yes
+    GRE_faction_refresh_com_effect = yes
+    GRE_faction_refresh_dem_effect = yes
+    GRE_faction_refresh_fas_effect = yes
+}
+
+GRE_faction_refresh_mon_effect = {
+#                                                                        0 - 100 (if ruling, x2):
+#    GRE_mon_neut_drift                                                 # 0 - 0.1
+#    GRE_mon_pp_fct                                                     # -5% - 5%
+#    GRE_mon_stb_fct                                                    # -15% - 5%             [0 - 50] [-15% 0%] [50 - 100] [0% 5%]
+#    GRE_mon_wr_fct                                                     % -15% - 5%
+#    GRE_mon_cn_fct                                                     # -12.5% - 12.5% 
+
+    ##################[ DRIFT ]##################
+    set_temp_variable = { x = fct_mon}
+    divide_temp_variable = { x = 1000 } 
+    if = { 
+        limit = {
+            has_government = neutrality
+        }
+        multiply_temp_variable = { x = 2}
+    }
+    set_variable = { GRE_mon_neut_drift = x }
+    ##################[ PP_GAIN ]##################
+    set_temp_variable = { x = fct_mon}
+    divide_temp_variable = { x = 1000 } 
+    subtract_from_temp_variable = { x = 0.05 }
+    if = { 
+        limit = {
+            has_government = neutrality
+        }
+        multiply_temp_variable = { x = 2}
+    } 
+    set_variable = { GRE_mon_pp_fct = x }    
+    ##################[ STABILITY ]##################
+    set_temp_variable = { x = fct_mon}
+    if = {
+        limit = {
+            check_variable = { var = fct_mon value = 50 compare = less_than }
+        }
+        multiply_temp_variable = { x = 0.003 }
+        subtract_from_temp_variable = { x = 0.15 }
+    }
+    else = {
+        multiply_temp_variable = { x = 0.001 }
+        subtract_from_temp_variable = { x = 0.05 }        
+    }
+    if = { 
+        limit = {
+            has_government = neutrality
+        }
+        multiply_temp_variable = { x = 2}
+    } 
+    set_variable = { GRE_mon_stb_fct = x } 
+    ##################[ WAR SUPPORT ]##################
+    set_temp_variable = { x = fct_mon}
+    if = {
+        limit = {
+            check_variable = { var = fct_mon value = 50 compare = less_than }
+        }
+        multiply_temp_variable = { x = 0.003 }
+        subtract_from_temp_variable = { x = 0.15 }
+    }
+    else = {
+        multiply_temp_variable = { x = 0.001 }
+        subtract_from_temp_variable = { x = 0.05 }        
+    }
+    if = { 
+        limit = {
+            has_government = neutrality
+        }
+        multiply_temp_variable = { x = 2}
+    } 
+    set_variable = { GRE_mon_wr_fct = x }   
+    ##################[ CONSCRIPTION ]##################
+    set_temp_variable = { x = fct_mon}
+    divide_temp_variable = { x = 4 } 
+    subtract_from_temp_variable = { x = 12.5 }
+    divide_temp_variable = { x = 100 }
+    if = { 
+        limit = {
+            has_government = neutrality
+        }
+        multiply_temp_variable = { x = 2}
+    } 
+    set_variable = { GRE_mon_cn_fct = x }     
+}
+
+GRE_faction_refresh_dem_effect = {
+
+    ##################[ DRIFT ]##################
+    set_temp_variable = { x = fct_dem}
+    divide_temp_variable = { x = 1000 } 
+    if = { 
+        limit = {
+            has_government = democratic
+        }
+        multiply_temp_variable = { x = 2}
+    }
+    set_variable = { GRE_dem_dem_drift = x }
+    ##################[ PP_GAIN ]##################
+    set_temp_variable = { x = fct_dem}
+    divide_temp_variable = { x = 1000 } 
+    subtract_from_temp_variable = { x = 0.05 }
+    if = { 
+        limit = {
+            has_government = democratic
+        }
+        multiply_temp_variable = { x = 2}
+    } 
+    set_variable = { GRE_dem_pp_fct = x }    
+    ##################[ STABILITY ]##################
+    set_temp_variable = { x = fct_dem}
+    if = {
+        limit = {
+            check_variable = { var = fct_dem value = 50 compare = less_than }
+        }
+        multiply_temp_variable = { x = 0.003 }
+        subtract_from_temp_variable = { x = 0.15 }
+    }
+    else = {
+        multiply_temp_variable = { x = 0.001 }
+        subtract_from_temp_variable = { x = 0.05 }        
+    }
+    if = { 
+        limit = {
+            has_government = democratic
+        }
+        multiply_temp_variable = { x = 2}
+    } 
+    set_variable = { GRE_dem_stb_fct = x } 
+    ##################[ WAR SUPPORT ]##################
+    set_temp_variable = { x = fct_dem}
+    if = {
+        limit = {
+            check_variable = { var = fct_dem value = 50 compare = less_than }
+        }
+        multiply_temp_variable = { x = 0.003 }
+        subtract_from_temp_variable = { x = 0.15 }
+    }
+    else = {
+        multiply_temp_variable = { x = 0.001 }
+        subtract_from_temp_variable = { x = 0.05 }        
+    }
+    if = { 
+        limit = {
+            has_government = democratic
+        }
+        multiply_temp_variable = { x = 2}
+    } 
+    set_variable = { GRE_dem_wr_fct = x }   
+    ##################[ CONSCRIPTION ]##################
+    set_temp_variable = { x = fct_dem}
+    divide_temp_variable = { x = 4 } 
+    subtract_from_temp_variable = { x = 12.5 }
+    divide_temp_variable = { x = 100 }
+    if = { 
+        limit = {
+            has_government = democratic
+        }
+        multiply_temp_variable = { x = 2}
+    } 
+    set_variable = { GRE_dem_cn_fct = x }     
+}
+
+GRE_faction_refresh_com_effect = {
+
+    ##################[ DRIFT ]##################
+    set_temp_variable = { x = fct_com}
+    divide_temp_variable = { x = 1000 } 
+    if = { 
+        limit = {
+            has_government = communism
+        }
+        multiply_temp_variable = { x = 2}
+    }
+    set_variable = { GRE_com_com_drift = x }
+    ##################[ PP_GAIN ]##################
+    set_temp_variable = { x = fct_com}
+    divide_temp_variable = { x = 1000 } 
+    subtract_from_temp_variable = { x = 0.05 }
+    if = { 
+        limit = {
+            has_government = communism
+        }
+        multiply_temp_variable = { x = 2}
+    } 
+    set_variable = { GRE_com_pp_fct = x }    
+    ##################[ STABILITY ]##################
+    set_temp_variable = { x = fct_com}
+    if = {
+        limit = {
+            check_variable = { var = fct_com value = 50 compare = less_than }
+        }
+        multiply_temp_variable = { x = 0.003 }
+        subtract_from_temp_variable = { x = 0.15 }
+    }
+    else = {
+        multiply_temp_variable = { x = 0.001 }
+        subtract_from_temp_variable = { x = 0.05 }        
+    }
+    if = { 
+        limit = {
+            has_government = communism
+        }
+        multiply_temp_variable = { x = 2}
+    } 
+    set_variable = { GRE_com_stb_fct = x } 
+    ##################[ WAR SUPPORT ]##################
+    set_temp_variable = { x = fct_com}
+    if = {
+        limit = {
+            check_variable = { var = fct_com value = 50 compare = less_than }
+        }
+        multiply_temp_variable = { x = 0.003 }
+        subtract_from_temp_variable = { x = 0.15 }
+    }
+    else = {
+        multiply_temp_variable = { x = 0.001 }
+        subtract_from_temp_variable = { x = 0.05 }        
+    }
+    if = { 
+        limit = {
+            has_government = communism
+        }
+        multiply_temp_variable = { x = 2}
+    } 
+    set_variable = { GRE_com_wr_fct = x }   
+    ##################[ CONSCRIPTION ]##################
+    set_temp_variable = { x = fct_com}
+    divide_temp_variable = { x = 4 } 
+    subtract_from_temp_variable = { x = 12.5 }
+    divide_temp_variable = { x = 100 }
+    if = { 
+        limit = {
+            has_government = communism
+        }
+        multiply_temp_variable = { x = 2}
+    } 
+    set_variable = { GRE_com_cn_fct = x }     
+}
+
+GRE_faction_refresh_fas_effect = {
+
+
+    ##################[ DRIFT ]##################
+    set_temp_variable = { x = fct_fas}
+    divide_temp_variable = { x = 1000 } 
+    if = { 
+        limit = {
+            has_government = fascist
+        }
+        multiply_temp_variable = { x = 2}
+    }
+    set_variable = { GRE_fas_fas_drift = x }
+    ##################[ PP_GAIN ]##################
+    set_temp_variable = { x = fct_fas}
+    divide_temp_variable = { x = 1000 } 
+    subtract_from_temp_variable = { x = 0.05 }
+    if = { 
+        limit = {
+            has_government = fascist
+        }
+        multiply_temp_variable = { x = 2}
+    } 
+    set_variable = { GRE_fas_pp_fct = x }    
+    ##################[ STABILITY ]##################
+    set_temp_variable = { x = fct_fas}
+    if = {
+        limit = {
+            check_variable = { var = fct_fas value = 50 compare = less_than }
+        }
+        multiply_temp_variable = { x = 0.003 }
+        subtract_from_temp_variable = { x = 0.15 }
+    }
+    else = {
+        multiply_temp_variable = { x = 0.001 }
+        subtract_from_temp_variable = { x = 0.05 }        
+    }
+    if = { 
+        limit = {
+            has_government = fascist
+        }
+        multiply_temp_variable = { x = 2}
+    } 
+    set_variable = { GRE_fas_stb_fct = x } 
+    ##################[ WAR SUPPORT ]##################
+    set_temp_variable = { x = fct_fas}
+    if = {
+        limit = {
+            check_variable = { var = fct_fas value = 50 compare = less_than }
+        }
+        multiply_temp_variable = { x = 0.003 }
+        subtract_from_temp_variable = { x = 0.15 }
+    }
+    else = {
+        multiply_temp_variable = { x = 0.001 }
+        subtract_from_temp_variable = { x = 0.05 }        
+    }
+    if = { 
+        limit = {
+            has_government = fascist
+        }
+        multiply_temp_variable = { x = 2}
+    } 
+    set_variable = { GRE_fas_wr_fct = x }   
+    ##################[ CONSCRIPTION ]##################
+    set_temp_variable = { x = fct_fas}
+    divide_temp_variable = { x = 4 } 
+    subtract_from_temp_variable = { x = 12.5 }
+    divide_temp_variable = { x = 100 }
+    if = { 
+        limit = {
+            has_government = fascist
+        }
+        multiply_temp_variable = { x = 2}
+    } 
+    set_variable = { GRE_fas_cn_fct = x }     
+}
+
 GRE_line_pop = {
     if = {
         limit = {
