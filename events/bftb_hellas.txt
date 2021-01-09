@@ -25,6 +25,7 @@ country_event = {
 
 		GRE = {
             add_stability = 0.2
+            add_war_support = 0.1
             add_to_variable = { fct_mon = 5}   
             subtract_from_variable = { fct_com = 7.5}
             subtract_from_variable = { fct_dem = 5}
@@ -41,6 +42,7 @@ country_event = {
 
 		GRE = {
             add_stability = 0.05
+            add_war_support = 0.02
             add_to_variable = { fct_mon = 2.5}   
             subtract_from_variable = { fct_com = 5}
             subtract_from_variable = { fct_dem = 2.5}
@@ -57,6 +59,7 @@ country_event = {
 
 		GRE = {
             add_stability = -0.15
+            add_war_support = -0.05
             subtract_from_variable = { fct_mon = 2.5}   
             add_to_variable = { fct_com = 5}
             add_to_variable = { fct_dem = 2.5}
@@ -366,7 +369,6 @@ country_event = {
 	id = hellas.400
 	title = hellas.400.t
 	desc = hellas.400.desc
-	#picture = GFX_report_event_gre_venizelos_speech
 
 	is_triggered_only = yes
 
@@ -386,6 +388,255 @@ country_event = {
         custom_effect_tooltip =  hellas.400.a_tt
     }  
 }
+
+country_event = {       ## Order AA, AT 
+	id = hellas.401
+	title = hellas.401.t
+	desc = hellas.401.desc
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+	
+	option = {  ##GERMANY
+		name = hellas.401.a
+
+		ai_chance = {
+			base = 100
+			}
+        if = {
+            limit = {
+                has_idea = GRE_schachtplan
+            }
+            add_equipment_to_stockpile = { type = anti_air_equipment amount = 110 producer = GER }
+            add_equipment_to_stockpile = { type = anti_tank_equipment amount = 24 producer = GER }
+            add_to_variable = { GER.favor@GRE = 3 }
+        }
+        else_if = {
+            limit = {
+            has_idea = GRE_schachtplan_modified
+            }
+            add_equipment_to_stockpile = { type = anti_air_equipment amount = 127 producer = GER }
+            add_equipment_to_stockpile = { type = anti_tank_equipment amount = 28 producer = GER } 
+            add_to_variable = { GER.favor@GRE = 4 }
+        }
+        else_if = {
+            limit = {
+            has_idea = GRE_schachtplan_fascistised
+            }
+            add_equipment_to_stockpile = { type = anti_air_equipment amount = 143 producer = GER }
+            add_equipment_to_stockpile = { type = anti_tank_equipment amount = 31 producer = GER } 
+            add_to_variable = { GER.favor@GRE = 5 }
+        }
+        else = {
+            add_equipment_to_stockpile = { type = anti_air_equipment amount = 100 producer = GER }
+            add_equipment_to_stockpile = { type = anti_tank_equipment amount = 22 producer = GER }       
+            add_to_variable = { GER.favor@GRE = 1 }
+        }
+    }  
+	option = {  ##FRANCE
+		name = hellas.401.b
+
+		ai_chance = {
+			base = 100
+			}
+        add_equipment_to_stockpile = { type = anti_air_equipment amount = 100 producer = ENG }
+        add_equipment_to_stockpile = { type = anti_tank_equipment amount = 22 producer = FRA }
+        add_to_variable = { ENG.favor@GRE = 6 }
+        add_to_variable = { FRA.favor@GRE = 6 }
+    }  
+	option = {  ##SOVIET
+		name = hellas.401.c
+
+		ai_chance = {
+			base = 100
+			}
+        add_equipment_to_stockpile = { type = anti_air_equipment amount = 94 producer = SOV }
+        add_equipment_to_stockpile = { type = anti_tank_equipment amount = 20 producer = SOV }
+        add_to_variable = { SOV.favor@GRE = 5 }    
+    }      
+	option = {  ##USA
+		name = hellas.401.d
+
+		ai_chance = {
+			base = 100
+			}
+        add_equipment_to_stockpile = { type = anti_air_equipment amount = 110 producer = USA }
+        add_equipment_to_stockpile = { type = anti_tank_equipment amount = 24 producer = USA }  
+        add_to_variable = { USA.favor@GRE = 4 }
+    }  
+}
+
+country_event = {       ## Order Mortars
+	id = hellas.402
+	title = hellas.402.t
+	desc = hellas.402.desc
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+	
+	option = {  ##GERMANY
+		name = hellas.402.a
+
+		ai_chance = {
+			base = 100
+			}
+        if = {
+            limit = {
+                has_idea = GRE_schachtplan
+            }
+            add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 600 producer = GER }
+            add_to_variable = { GER.favor@GRE = 2 }
+        }
+        else_if = {
+            limit = {
+            has_idea = GRE_schachtplan_modified
+            }
+            add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 800 producer = GER } 
+            add_to_variable = { GER.favor@GRE = 3 }
+        }
+        else_if = {
+            limit = {
+            has_idea = GRE_schachtplan_fascistised
+            }
+            add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 1000 producer = GER }
+            add_to_variable = { GER.favor@GRE = 4 }
+        }
+        else = {
+            add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 400 producer = GER }   
+            add_to_variable = { GER.favor@GRE = 1 }
+        }
+    }  
+	option = {  ##FRANCE
+		name = hellas.402.b
+
+		ai_chance = {
+			base = 100
+			}
+        set_technology = {
+            support_weapons = 1
+        }
+        add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 315 producer = FRA }
+        add_to_variable = { FRA.favor@GRE = 3 }
+    }  
+	option = {  ##SOVIET
+		name = hellas.402.c
+
+		ai_chance = {
+			base = 100
+			}
+        add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 600 producer = SOV }
+        add_to_variable = { SOV.favor@GRE = 3 }    
+    }      
+	option = {  ##USA
+		name = hellas.402.d
+
+		ai_chance = {
+			base = 100
+			}
+        add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 600 producer = USA }
+        add_to_variable = { USA.favor@GRE = 3 }
+    }  
+}
+
+country_event = {       ## Order Misc
+	id = hellas.403
+	title = hellas.403.t
+	desc = hellas.403.desc
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+	
+	option = {  ##GERMANY
+		name = hellas.403.a
+
+		ai_chance = {
+			base = 100
+			}
+        if = {
+            limit = {
+                has_idea = GRE_schachtplan
+            }
+            add_equipment_to_stockpile = { type = support_equipment amount = 200 producer = GER }
+            add_to_variable = { GER.favor@GRE = 2 }
+        }
+        else_if = {
+            limit = {
+            has_idea = GRE_schachtplan_modified
+            }
+            add_equipment_to_stockpile = { type = support_equipment amount = 230 producer = GER }
+            add_to_variable = { GER.favor@GRE = 3 }
+        }
+        else_if = {
+            limit = {
+            has_idea = GRE_schachtplan_fascistised
+            }
+            add_equipment_to_stockpile = { type = support_equipment amount = 260 producer = GER }
+            add_to_variable = { GER.favor@GRE = 4 }
+        }
+        else = {
+            add_equipment_to_stockpile = { type = support_equipment amount = 170 producer = GER }   
+            add_to_variable = { GER.favor@GRE = 1 }
+        }
+    }  
+	option = {  ##FRANCE
+		name = hellas.403.b
+
+		ai_chance = {
+			base = 100
+			}
+        set_technology = {
+            support_weapons = 1
+        }
+        add_equipment_to_stockpile = { type = support_equipment amount = 175 producer = FRA }
+        add_to_variable = { FRA.favor@GRE = 3 }
+    }  
+	option = {  ##SOVIET
+		name = hellas.403.c
+
+		ai_chance = {
+			base = 100
+			}
+        add_equipment_to_stockpile = { type = support_equipment amount = 175 producer = SOV }
+        add_to_variable = { SOV.favor@GRE = 3 }    
+    }      
+	option = {  ##USA
+		name = hellas.403.d
+
+		ai_chance = {
+			base = 100
+			}
+        add_equipment_to_stockpile = { type = support_equipment amount = 175 producer = USA }
+        add_to_variable = { USA.favor@GRE = 3 }
+    }  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
