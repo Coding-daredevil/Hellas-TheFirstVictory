@@ -9,6 +9,36 @@
 # that'll be used if trigger passes
 
 defined_text = { 
+    name = GetAdditionalArmyEffects
+    text = {
+        trigger = {
+        has_idea = GRE_obsolescent_dogma
+        has_idea = GRE_complete_lack_of_heavy_equipment
+        }
+        localization_key = GRE_both_effects_addon
+    }
+    text = {
+        trigger = {
+        has_idea = GRE_obsolescent_dogma
+        }
+        localization_key = GRE_dogma_effect_addon
+    }    
+    text = {
+        trigger = {
+        has_idea = GRE_complete_lack_of_heavy_equipment
+        }
+        localization_key = GRE_heavy_equipment_effect_addon
+    }  
+    text = {
+        trigger = {
+        NOT = { has_idea = GRE_obsolescent_dogma }
+        NOT = { has_idea = GRE_complete_lack_of_heavy_equipment }
+        }
+        localization_key = ""
+    }     
+}
+
+defined_text = { 
     name = GetArmyLeadershipStatus
     text = {
         trigger = {
@@ -35,6 +65,22 @@ defined_text = {
     text = {
         trigger = {
         NOT = { has_idea = GRE_airforce_leadership_0 }
+        }
+        localization_key = ""
+    }    
+}
+
+defined_text = { 
+    name = GetNavyLeadershipStatus
+    text = {
+        trigger = {
+        has_idea = GRE_navy_leadership_0	
+        }
+        localization_key = GRE_navy_leadership_0_addon
+    }
+    text = {
+        trigger = {
+        NOT = { has_idea = GRE_navy_leadership_0 }
         }
         localization_key = ""
     }    
