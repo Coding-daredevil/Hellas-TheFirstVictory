@@ -7743,7 +7743,7 @@ focus_tree = {
 		prerequisite = { focus = GRE_utilize_arms_production }
         prerequisite = { focus = GRE_bolster_the_schachtplan }
 		available = {
-            check_variable = { var = GRE_fascist_loyalty value = 1 compare = greater_than_or_equals }
+            check_variable = { var = fct_fas value = 65 compare = greater_than_or_equals }
             GER = {
 				exists = yes
 				has_civil_war = no
@@ -7831,7 +7831,7 @@ focus_tree = {
         prerequisite = { focus = GRE_redirect_german_equipment_to_nationalists }
         prerequisite = { focus = GRE_rapprochement_with_the_italians }
 		available = {
-            check_variable = { var = GRE_fascist_loyalty value = 1 compare = greater_than_or_equals }
+            check_variable = { var = fct_fas value = 65 compare = greater_than_or_equals }
             ITA = {
 				exists = yes
 				has_civil_war = no
@@ -10775,6 +10775,12 @@ focus_tree = {
 		id = GRE_conduct_exercises
 		icon = GFX_focus_GRE_hellenic_armed_forces
         prerequisite = { focus = GRE_the_army }
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_budget_left_tt
+                check_variable = { var = GRE_budget_choices value = 0 compare = greater_than } 
+            }
+        }
         relative_position_id = GRE_the_army
 		x = -1
 		y = 1
@@ -10792,6 +10798,12 @@ focus_tree = {
 		icon = GFX_focus_GRE_hellenic_armed_forces
         prerequisite = { focus = GRE_conduct_exercises }
         relative_position_id = GRE_conduct_exercises
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_budget_left_tt
+                check_variable = { var = GRE_budget_choices value = 0 compare = greater_than } 
+            }
+        }
 		x = -1
 		y = 1
 		cost = 2.9
@@ -10807,6 +10819,12 @@ focus_tree = {
 		id = GRE_discard_the_old_dogmas
 		icon = GFX_focus_GRE_hellenic_armed_forces
         prerequisite = { focus = GRE_modernize_the_army }
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_budget_left_tt
+                check_variable = { var = GRE_budget_choices value = 0 compare = greater_than } 
+            }
+        }
         relative_position_id = GRE_modernize_the_army
 		x = 1
 		y = 1
@@ -10823,6 +10841,12 @@ focus_tree = {
 		id = GRE_heavy_equipment
 		icon = GFX_focus_GRE_hellenic_armed_forces
         prerequisite = { focus = GRE_the_army }
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_budget_left_tt
+                check_variable = { var = GRE_budget_choices value = 0 compare = greater_than } 
+            }
+        }
         relative_position_id = GRE_the_army
 		x = 1
 		y = 1
@@ -10839,6 +10863,12 @@ focus_tree = {
 		id = GRE_entrenchment
 		icon = GFX_focus_GRE_hellenic_armed_forces
         prerequisite = { focus = GRE_heavy_equipment }
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_budget_left_tt
+                check_variable = { var = GRE_budget_choices value = 0 compare = greater_than } 
+            }
+        }
         relative_position_id = GRE_heavy_equipment
 		x = 1
 		y = 1
@@ -10855,6 +10885,12 @@ focus_tree = {
 		id = GRE_infantry_warfare
 		icon = GFX_focus_GRE_hellenic_armed_forces
         prerequisite = { focus = GRE_entrenchment }
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_budget_left_tt
+                check_variable = { var = GRE_budget_choices value = 0 compare = greater_than } 
+            }
+        }
         relative_position_id = GRE_entrenchment
 		x = -1
 		y = 1
@@ -10904,22 +10940,12 @@ focus_tree = {
 		id = GRE_buy_subs
 		icon = GFX_focus_GRE_hellenic_armed_forces
         prerequisite = { focus = GRE_the_navy }
-        relative_position_id = GRE_the_navy
-		x = -1
-		y = 1
-		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
-
-		completion_reward = {
-		}
-	}
-
-	focus = {
-		id = GRE_buy_subs
-		icon = GFX_focus_GRE_hellenic_armed_forces
-        prerequisite = { focus = GRE_the_navy }
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_budget_left_tt
+                check_variable = { var = GRE_budget_choices value = 0 compare = greater_than } 
+            }
+        }
         relative_position_id = GRE_the_navy
 		x = -1
 		y = 1
@@ -10936,6 +10962,12 @@ focus_tree = {
 		id = GRE_buy_subs_2
 		icon = GFX_focus_GRE_hellenic_armed_forces
         prerequisite = { focus = GRE_buy_subs }
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_budget_left_tt
+                check_variable = { var = GRE_budget_choices value = 0 compare = greater_than } 
+            }
+        }
         relative_position_id = GRE_buy_subs
 		x = -1
 		y = 1
@@ -10952,6 +10984,12 @@ focus_tree = {
 		id = GRE_buy_destroyers_and_torpedo_boats    ####ORIGINALY ORDERED @1938, IF SOONER THEN U GET ALL
 		icon = GFX_focus_GRE_hellenic_armed_forces
         prerequisite = { focus = GRE_the_navy }
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_budget_left_tt
+                check_variable = { var = GRE_budget_choices value = 0 compare = greater_than } 
+            }
+        }
         relative_position_id = GRE_the_navy
 		x = 1
 		y = 1
@@ -10968,6 +11006,12 @@ focus_tree = {
 		id = GRE_the_battleships
 		icon = GFX_focus_GRE_hellenic_armed_forces
         prerequisite = { focus = GRE_buy_destroyers_and_torpedo_boats }
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_budget_left_tt
+                check_variable = { var = GRE_budget_choices value = 0 compare = greater_than } 
+            }
+        }
         relative_position_id = GRE_buy_destroyers_and_torpedo_boats
 		x = 1
 		y = 1
@@ -11017,6 +11061,12 @@ focus_tree = {
 		id = GRE_fighters
 		icon = GFX_focus_GRE_hellenic_armed_forces
         prerequisite = { focus = GRE_the_airforce }
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_budget_left_tt
+                check_variable = { var = GRE_budget_choices value = 0 compare = greater_than } 
+            }
+        }
         relative_position_id = GRE_the_airforce
 		x = 1
 		y = 1
@@ -11033,6 +11083,12 @@ focus_tree = {
 		id = GRE_heavy_fighters
 		icon = GFX_focus_GRE_hellenic_armed_forces
         prerequisite = { focus = GRE_fighters }
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_budget_left_tt
+                check_variable = { var = GRE_budget_choices value = 0 compare = greater_than } 
+            }
+        }
         relative_position_id = GRE_fighters
 		x = 1
 		y = 1
@@ -11049,6 +11105,12 @@ focus_tree = {
 		id = GRE_bombers
 		icon = GFX_focus_GRE_hellenic_armed_forces
         prerequisite = { focus = GRE_the_airforce }
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_budget_left_tt
+                check_variable = { var = GRE_budget_choices value = 0 compare = greater_than } 
+            }
+        }
         relative_position_id = GRE_the_airforce
 		x = -1
 		y = 1
@@ -11065,6 +11127,12 @@ focus_tree = {
 		id = GRE_naval_bombers
 		icon = GFX_focus_GRE_hellenic_armed_forces
         prerequisite = { focus = GRE_bombers }
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_budget_left_tt
+                check_variable = { var = GRE_budget_choices value = 0 compare = greater_than } 
+            }
+        }
         relative_position_id = GRE_bombers
 		x = -1
 		y = 1
