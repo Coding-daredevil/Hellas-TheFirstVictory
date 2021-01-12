@@ -10790,6 +10790,8 @@ focus_tree = {
 		}
 
 		completion_reward = {
+            subtract_from_variable = { GRE_budget_choices = 1 } 
+            army_experience = 30
 		}
 	}
     
@@ -10803,6 +10805,17 @@ focus_tree = {
                 tooltip = GRE_budget_left_tt
                 check_variable = { var = GRE_budget_choices value = 0 compare = greater_than } 
             }
+            custom_trigger_tooltip = {
+                tooltip = GRE_favor_at_least_great
+                OR = {
+                    check_variable = { var = GER.favor@GRE value = 50 compare = greater_than_or_equals }
+                    check_variable = { var = FRA.favor@GRE value = 50 compare = greater_than_or_equals }
+                    check_variable = { var = ENG.favor@GRE value = 50 compare = greater_than_or_equals }
+                    check_variable = { var = SOV.favor@GRE value = 50 compare = greater_than_or_equals }
+                    check_variable = { var = USA.favor@GRE value = 50 compare = greater_than_or_equals }
+                    check_variable = { var = JAP.favor@GRE value = 50 compare = greater_than_or_equals }
+                }
+            }
         }
 		x = -1
 		y = 1
@@ -10812,6 +10825,8 @@ focus_tree = {
 		}
 
 		completion_reward = {
+            subtract_from_variable = { GRE_budget_choices = 1 }
+            country_event = { id = hellas.405 days = 1 }
 		}
 	}  
 
@@ -10834,6 +10849,8 @@ focus_tree = {
 		}
 
 		completion_reward = {
+            remove_ideas = GRE_obsolescent_dogma
+            subtract_from_variable = { GRE_budget_choices = 1 } 
 		}
 	} 
 
@@ -10856,6 +10873,8 @@ focus_tree = {
 		}
 
 		completion_reward = {
+            remove_ideas = GRE_complete_lack_of_heavy_equipment
+            subtract_from_variable = { GRE_budget_choices = 1 }         
 		}
 	}
     

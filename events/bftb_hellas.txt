@@ -639,7 +639,527 @@ country_event = {       ## Solidify Budget
     }    
 }
 
+country_event = {       ## Choose Partner to Modernize the army
+	id = hellas.405
+	title = hellas.405.t
+	desc = hellas.405.desc
 
+	is_triggered_only = yes
+
+	fire_only_once = yes
+	
+	option = {  ##ENG/FRA
+		name = hellas.405.a
+        trigger = {
+            OR = {
+                check_variable = { var = ENG.favor@GRE value = 50 compare = greater_than_or_equals }
+                check_variable = { var = FRA.favor@GRE value = 50 compare = greater_than_or_equals }
+            }
+        }     
+        hidden_effect = {
+            ### MOTORIZED / MECH1 ###
+            if = {
+                limit = { NOT = { has_tech = motorised_infantry } }
+                set_technology = { motorised_infantry = 1 }
+            }
+            ########################
+            ###       TANKS      ###
+            set_technology = { gwtank = 1 }
+            set_technology = { basic_heavy_tank = 1 }
+            ########################
+            ###      SUPPORT     ###
+            if = {
+                limit = { NOT = { has_tech = tech_engineers2 } }
+                set_technology = { tech_engineers2 = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_recon2 } }
+                set_technology = { tech_recon2 = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_maintenance_company } }
+                set_technology = { tech_maintenance_company = 1 }
+            }
+            else_if = {
+                limit = { NOT = { has_tech = tech_maintenance_company2 } }
+                set_technology = { tech_maintenance_company2 = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_field_hospital } }
+                set_technology = { tech_field_hospital = 1 }
+            }  
+            else_if = {
+                limit = { NOT = { has_tech = tech_field_hospital2 } }
+                set_technology = { tech_field_hospital2 = 1 }
+            } 
+            ########################
+            ###      WEAPONS     ###
+            if = {
+                limit = { NOT = { has_tech = infantry_weapons1 } }
+                set_technology = { infantry_weapons1 = 1 }
+            }
+            else_if = {
+                limit = { NOT = { has_tech = infantry_weapons2 } }
+                set_technology = { infantry_weapons2 = 1 }
+            }  
+            else_if = {
+                limit = { NOT = { has_tech = improved_infantry_weapons } }
+                set_technology = { improved_infantry_weapons = 1 }
+            }  
+            ########################
+            ###     ARTILLERY    ###
+            #ART
+            if = {
+                limit = { NOT = { has_tech = interwar_artillery } }
+                set_technology = { interwar_artillery = 1 }
+            }
+            else_if = {
+                limit = { NOT = { has_tech = artillery1 } }
+                set_technology = { artillery1 = 1 }
+            }  
+            else_if = {
+                limit = { NOT = { has_tech = artillery2 } }
+                set_technology = { artillery2 = 1 }
+            } 
+            #AA
+            if = {
+                limit = { NOT = { has_tech = antiair1 } }
+                set_technology = { antiair1 = 1 }
+            }
+            else_if = {
+                limit = { NOT = { has_tech = antiair2 } }
+                set_technology = { antiair2 = 1 }
+            }  
+            else_if = {
+                limit = { NOT = { has_tech = antiair3 } }
+                set_technology = { antiair3 = 1 }
+            }  
+            #AT
+            if = {
+                limit = { NOT = { has_tech = antitank1 } }
+                set_technology = { antitank1 = 1 }
+            }
+            else_if = {
+                limit = { NOT = { has_tech = antitank2 } }
+                set_technology = { antitank2 = 1 }
+            }  
+            else_if = {
+                limit = { NOT = { has_tech = antitank3 } }
+                set_technology = { antitank3 = 1 }
+            }            
+            ########################
+            ###     DOCTRINE     ###
+            add_tech_bonus = {
+                name = GRE_modernize_the_army
+                bonus = 4.0
+                uses = 2
+                category = cat_grand_battle_plan
+            }        
+        }        
+    }     
+	option = {  ##GER
+		name = hellas.405.b
+        trigger = {
+            check_variable = { var = GER.favor@GRE value = 50 compare = greater_than_or_equals }
+        }
+        hidden_effect = {
+            ### MOTORIZED / MECH1 ###
+            if = {
+                limit = { NOT = { has_tech = motorised_infantry } }
+                set_technology = { motorised_infantry = 1 }
+            }
+            else_if = {
+                limit = { NOT = { has_tech = mechanised_infantry } }
+                set_technology = { mechanised_infantry = 1 }        
+            }
+            ########################
+            ### ARMORED CAR 1/2  ###
+            if = {
+                limit = { NOT = { has_tech = armored_car1 } }
+                set_technology = { armored_car1 = 1 }
+            }
+            else_if = {
+                limit = { NOT = { has_tech = armored_car2 } }
+                set_technology = { armored_car2 = 1 }
+            }
+            ########################
+            ###       TANKS      ###
+            set_technology = { gwtank = 1 }
+            set_technology = { basic_light_tank = 1 }
+            set_technology = { basic_light_td = 1 }
+            set_technology = { basic_light_art = 1 }
+            set_technology = { basic_light_spaa = 1 }
+            set_technology = { improved_light_tank = 1 }
+            set_technology = { basic_heavy_tank = 1 }
+            ########################
+            ###      SUPPORT     ###
+            if = {
+                limit = { NOT = { has_tech = tech_signal_company } }
+                set_technology = { tech_signal_company = 1 }
+            }
+            else_if = {
+                limit = { NOT = { has_tech = tech_signal_company2 } }
+                set_technology = { tech_signal_company2 = 1 }        
+            }
+            ########################
+            ###      WEAPONS     ###
+            if = {
+                limit = { NOT = { has_tech = infantry_weapons1 } }
+                set_technology = { infantry_weapons1 = 1 }
+            }
+            else_if = {
+                limit = { NOT = { has_tech = infantry_weapons2 } }
+                set_technology = { infantry_weapons2 = 1 }
+            }  
+            else_if = {
+                limit = { NOT = { has_tech = improved_infantry_weapons } }
+                set_technology = { improved_infantry_weapons = 1 }
+            }            
+            ########################
+            ###     DOCTRINE     ###
+            add_tech_bonus = {
+                name = GRE_modernize_the_army
+                bonus = 4.0
+                uses = 4
+                category = cat_mobile_warfare
+            }        
+        }
+    }  
+	option = {  ##SOV
+		name = hellas.405.c
+        trigger = {
+            check_variable = { var = SOV.favor@GRE value = 50 compare = greater_than_or_equals }
+        }
+        hidden_effect = {
+            ###     MOTORIZED    ###
+            if = {
+                limit = { NOT = { has_tech = motorised_infantry } }
+                set_technology = { motorised_infantry = 1 }
+            }
+            ########################
+            ###       TANKS      ###
+            set_technology = { gwtank = 1 }
+            set_technology = { basic_heavy_tank = 1 }            
+			add_tech_bonus = {
+				name = GRE_hellenic_armoured_corp
+				bonus = 0.5
+				ahead_reduction = 1
+				uses = 1
+				category = cat_heavy_armor
+			}
+            ########################
+            ###      SUPPORT     ###
+            if = {
+                limit = { NOT = { has_tech = tech_engineers2 } }
+                set_technology = { tech_engineers2 = 1 }
+            } 
+            ########################
+            ###      WEAPONS     ###
+            if = {
+                limit = { NOT = { has_tech = infantry_weapons1 } }
+                set_technology = { infantry_weapons1 = 1 }
+            }
+            else_if = {
+                limit = { NOT = { has_tech = infantry_weapons2 } }
+                set_technology = { infantry_weapons2 = 1 }
+            }  
+            else_if = {
+                limit = { NOT = { has_tech = improved_infantry_weapons } }
+                set_technology = { improved_infantry_weapons = 1 }
+            }  
+            ########################
+            ###     ARTILLERY    ###
+            #ART
+            if = {
+                limit = { NOT = { has_tech = interwar_artillery } }
+                set_technology = { interwar_artillery = 1 }
+            }
+            else_if = {
+                limit = { NOT = { has_tech = artillery1 } }
+                set_technology = { artillery1 = 1 }
+            }  
+            else_if = {
+                limit = { NOT = { has_tech = artillery2 } }
+                set_technology = { artillery2 = 1 }
+            } 
+            #AA
+            if = {
+                limit = { NOT = { has_tech = antiair1 } }
+                set_technology = { antiair1 = 1 }
+            }
+            else_if = {
+                limit = { NOT = { has_tech = antiair2 } }
+                set_technology = { antiair2 = 1 }
+            }  
+            else_if = {
+                limit = { NOT = { has_tech = antiair3 } }
+                set_technology = { antiair3 = 1 }
+            }  
+            #AT
+            if = {
+                limit = { NOT = { has_tech = antitank1 } }
+                set_technology = { antitank1 = 1 }
+            }
+            else_if = {
+                limit = { NOT = { has_tech = antitank2 } }
+                set_technology = { antitank2 = 1 }
+            }  
+            else_if = {
+                limit = { NOT = { has_tech = antitank3 } }
+                set_technology = { antitank3 = 1 }
+            }                
+            ########################
+            ###     DOCTRINE     ###
+            add_tech_bonus = {
+                name = GRE_modernize_the_army
+                bonus = 4.0
+                uses = 4
+                category = cat_mass_assault
+            }        
+        }            
+    }   
+	option = {  ##USA
+		name = hellas.405.d
+        trigger = {
+            check_variable = { var = USA.favor@GRE value = 50 compare = greater_than_or_equals }
+        }
+        hidden_effect = {
+            ### MOTORIZED / MECH1 ###
+            if = {
+                limit = { NOT = { has_tech = motorised_infantry } }
+                set_technology = { motorised_infantry = 1 }
+            }
+            ########################
+            ###       TANKS      ###
+			add_tech_bonus = {
+				name = GRE_hellenic_armoured_corp
+				bonus = 0.5
+				ahead_reduction = 1
+				uses = 1
+				category = cat_medium_armor
+			}
+            ########################
+            ###      SUPPORT     ###
+            if = {
+                limit = { NOT = { has_tech = tech_engineers2 } }
+                set_technology = { tech_engineers2 = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_recon2 } }
+                set_technology = { tech_recon2 = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_maintenance_company } }
+                set_technology = { tech_maintenance_company = 1 }
+            }
+            else_if = {
+                limit = { NOT = { has_tech = tech_maintenance_company2 } }
+                set_technology = { tech_maintenance_company2 = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_field_hospital } }
+                set_technology = { tech_field_hospital = 1 }
+            }  
+            else_if = {
+                limit = { NOT = { has_tech = tech_field_hospital2 } }
+                set_technology = { tech_field_hospital2 = 1 }
+            } 
+            ########################
+            ###      WEAPONS     ###
+            if = {
+                limit = { NOT = { has_tech = infantry_weapons1 } }
+                set_technology = { infantry_weapons1 = 1 }
+            }
+            else_if = {
+                limit = { NOT = { has_tech = infantry_weapons2 } }
+                set_technology = { infantry_weapons2 = 1 }
+            }  
+            else_if = {
+                limit = { NOT = { has_tech = improved_infantry_weapons } }
+                set_technology = { improved_infantry_weapons = 1 }
+            }  
+            ########################
+            ###     ARTILLERY    ###
+            #ART
+            if = {
+                limit = { NOT = { has_tech = interwar_artillery } }
+                set_technology = { interwar_artillery = 1 }
+            }
+            else_if = {
+                limit = { NOT = { has_tech = artillery1 } }
+                set_technology = { artillery1 = 1 }
+            }  
+            else_if = {
+                limit = { NOT = { has_tech = artillery2 } }
+                set_technology = { artillery2 = 1 }
+            } 
+            #AA
+            if = {
+                limit = { NOT = { has_tech = antiair1 } }
+                set_technology = { antiair1 = 1 }
+            }
+            else_if = {
+                limit = { NOT = { has_tech = antiair2 } }
+                set_technology = { antiair2 = 1 }
+            }  
+            else_if = {
+                limit = { NOT = { has_tech = antiair3 } }
+                set_technology = { antiair3 = 1 }
+            }  
+            #AT
+            if = {
+                limit = { NOT = { has_tech = antitank1 } }
+                set_technology = { antitank1 = 1 }
+            }
+            else_if = {
+                limit = { NOT = { has_tech = antitank2 } }
+                set_technology = { antitank2 = 1 }
+            }  
+            else_if = {
+                limit = { NOT = { has_tech = antitank3 } }
+                set_technology = { antitank3 = 1 }
+            }    
+            ########################
+            ###     SPECOPS      ###
+            if = {
+                limit = { NOT = { has_tech = marines } }
+                set_technology = { marines = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = paratroopers } }
+                set_technology = { paratroopers = 1 }
+            }     
+            if = {
+                limit = { NOT = { has_tech = tech_special_forces } }
+                set_technology = { tech_special_forces = 1 }
+            }             
+            ########################
+            ###     DOCTRINE     ###
+            add_tech_bonus = {
+                name = GRE_modernize_the_army
+                bonus = 4.0
+                uses = 4
+                category = cat_superior_firepower
+            }        
+        }              
+    }  
+	option = {  ##JAP
+		name = hellas.405.e
+        trigger = {
+            check_variable = { var = JAP.favor@GRE value = 50 compare = greater_than_or_equals }
+        }
+        hidden_effect = {
+            ### MOROTRIZED & BICYCLE INFANTRY & AC ###
+            if = {
+                limit = { NOT = { has_tech = motorised_infantry } }
+                set_technology = { motorised_infantry = 1 }
+            }            
+            if = {
+                limit = { NOT = { has_tech = bicycle_infantry } }
+                set_technology = { bicycle_infantry = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = armored_car1 } }
+                set_technology = { armored_car1 = 1 }
+            }            
+            ########################
+            ###       TANKS      ###
+            set_technology = { gwtank = 1 }
+            set_technology = { basic_light_tank = 1 }
+            ########################
+            ###      SUPPORT     ###
+            if = {
+                limit = { NOT = { has_tech = tech_engineers2 } }
+                set_technology = { tech_engineers2 = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_recon2 } }
+                set_technology = { tech_recon2 = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_maintenance_company } }
+                set_technology = { tech_maintenance_company = 1 }
+            }
+            else_if = {
+                limit = { NOT = { has_tech = tech_maintenance_company2 } }
+                set_technology = { tech_maintenance_company2 = 1 }
+            }
+            ########################
+            ###      WEAPONS     ###
+            if = {
+                limit = { NOT = { has_tech = infantry_weapons1 } }
+                set_technology = { infantry_weapons1 = 1 }
+            }
+            else_if = {
+                limit = { NOT = { has_tech = infantry_weapons2 } }
+                set_technology = { infantry_weapons2 = 1 }
+            }  
+            else_if = {
+                limit = { NOT = { has_tech = improved_infantry_weapons } }
+                set_technology = { improved_infantry_weapons = 1 }
+            }  
+            ########################
+            ###     ARTILLERY    ###
+            #ART
+            if = {
+                limit = { NOT = { has_tech = interwar_artillery } }
+                set_technology = { interwar_artillery = 1 }
+            }
+            else_if = {
+                limit = { NOT = { has_tech = artillery1 } }
+                set_technology = { artillery1 = 1 }
+            }  
+            else_if = {
+                limit = { NOT = { has_tech = artillery2 } }
+                set_technology = { artillery2 = 1 }
+            } 
+            #AA
+            if = {
+                limit = { NOT = { has_tech = antiair1 } }
+                set_technology = { antiair1 = 1 }
+            }
+            else_if = {
+                limit = { NOT = { has_tech = antiair2 } }
+                set_technology = { antiair2 = 1 }
+            }  
+            else_if = {
+                limit = { NOT = { has_tech = antiair3 } }
+                set_technology = { antiair3 = 1 }
+            }  
+            #AT
+            if = {
+                limit = { NOT = { has_tech = antitank1 } }
+                set_technology = { antitank1 = 1 }
+            }
+            else_if = {
+                limit = { NOT = { has_tech = antitank2 } }
+                set_technology = { antitank2 = 1 }
+            }  
+            else_if = {
+                limit = { NOT = { has_tech = antitank3 } }
+                set_technology = { antitank3 = 1 }
+            }      
+            ########################
+            ###     SPECOPS      ###
+            if = {
+                limit = { NOT = { has_tech = marines } }
+                set_technology = { marines = 1 }
+            }   
+            if = {
+                limit = { NOT = { has_tech = tech_special_forces } }
+                set_technology = { tech_special_forces = 1 }
+            }              
+            ########################
+            ###     DOCTRINE     ###
+            add_tech_bonus = {
+                name = GRE_modernize_the_army
+                bonus = 4.0
+                uses = 3
+                category = cat_grand_battle_plan
+            }        
+        }             
+    }       
+}
 
 
 
