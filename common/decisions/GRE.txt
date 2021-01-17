@@ -10308,6 +10308,7 @@ GRE_kathestos_exoteriki_politiki = {
 			factor = 1
 		}
 
+        cost = 50
 		fire_only_once = yes
 		days_remove = 30
 
@@ -10346,6 +10347,7 @@ GRE_kathestos_exoteriki_politiki = {
 
 		fire_only_once = yes
 
+        cost = 50
 		days_remove = 1
 
         
@@ -10400,7 +10402,7 @@ GRE_kathestos_exoteriki_politiki = {
             has_completed_focus = GRE_courting_the_superpowers
             has_completed_focus = GRE_bolster_the_schachtplan   
             custom_trigger_tooltip = {
-                tooltip = GRE_favor_german_at_least_mediocre
+                tooltip = GRE_favor_german_at_least_mediocre_tt
                 check_variable = { var = GER.favor@GRE value = 30 compare = greater_than_or_equals }
             }
             NOT = { has_war_with = GER }
@@ -10597,9 +10599,18 @@ GRE_kathestos_exoteriki_politiki = {
 
 		fire_only_once = yes
 
+        cost = 50
 		days_remove = 14
 
         complete_effect = {
+            add_to_variable = { TUR.favor@GRE = 5 }
+            custom_effect_tooltip = GRE_fbm_turkey_tt
+			TUR = {
+				add_opinion_modifier = { 
+					target = GRE
+					modifier = GRE_cooperation_deal_turkey
+				}
+			}
         }
     }
 
