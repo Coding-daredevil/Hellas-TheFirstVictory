@@ -461,6 +461,7 @@ country_event = {               #THESSALONIKI 1936 EXHIBITION
 	id = hellas.303
 	title = hellas.303.t
 	desc = hellas.303.desc
+    picture = GFX_report_event_thess_expo_1936
 
 	is_triggered_only = yes
 
@@ -473,6 +474,7 @@ country_event = {               #THESSALONIKI 1936 EXHIBITION
         add_to_variable = { YUG.favor@GRE = 2 }
         add_to_variable = { ROM.favor@GRE = 2 }
         add_to_variable = { TUR.favor@GRE = 2 }
+        custom_effect_tooltip = GRE_fbs_balkan_tt
         subtract_from_variable = { BUL.favor@GRE = 1 }
         subtract_from_variable = { ITA.favor@GRE = 1 }
     }  
@@ -482,6 +484,7 @@ country_event = {               #INONU VISIT TO ATHENS
 	id = hellas.304
 	title = hellas.304.t
 	desc = hellas.304.desc
+    picture = GFX_report_event_ismet_inonu
 
 	is_triggered_only = yes
 
@@ -520,6 +523,7 @@ country_event = {               #METAXAS VISIT TO CONSTANTINOPLE
 	id = hellas.305
 	title = hellas.305.t
 	desc = hellas.305.desc
+    picture = GFX_report_event_metaxas_inonu_balkan_leaders
 
 	is_triggered_only = yes
 
@@ -537,6 +541,7 @@ country_event = {               #METAXAS WELCOMES TURKS TO ATHENS
 	id = hellas.306
 	title = hellas.306.t
 	desc = hellas.306.desc
+    picture = GFX_report_event_turks_at_athens
 
 	is_triggered_only = yes
 
@@ -592,6 +597,7 @@ country_event = {               #METAXAS VISITS KEMALS FUNERAL
 	id = hellas.307
 	title = hellas.307.t
 	desc = hellas.307.desc
+    picture = GFX_report_event_kemal_funeral
 
 	is_triggered_only = yes
 
@@ -604,10 +610,11 @@ country_event = {               #METAXAS VISITS KEMALS FUNERAL
     }  
 }
 
-country_event = {               #YUGOLAV PRINCE REVEALS BULGARIAN PLANS
+country_event = {               #BELGRADE 1939 - YUGOLAV PRINCE REVEALS BULGARIAN PLANS
 	id = hellas.308
 	title = hellas.308.t
 	desc = hellas.308.desc
+    picture = GFX_report_event_belgrade_1939
 
 	is_triggered_only = yes
 
@@ -615,27 +622,42 @@ country_event = {               #YUGOLAV PRINCE REVEALS BULGARIAN PLANS
 	
 	option = {
 		name = hellas.308.a
+        
+        custom_effect_tooltip = GRE_fbm_balkan_tt
+        custom_effect_tooltip = GRE_fdm_bulgaria_tt
+        add_to_variable = { YUG.favor@GRE =  5 }
+        add_to_variable = { ROM.favor@GRE = 5 }
+        add_to_variable = { TUR.favor@GRE = 5 }
+        subtract_from_variable = { BUL.favor@GRE = 5 }
     }  
 }
 
-country_event = {               #BELGRADE 1939
+country_event = {               #BELGRADE 1939 - YUGOSLAV PRINCE REVEALS BRITISH DEAL WITH BULGARIANS
 	id = hellas.309
 	title = hellas.309.t
 	desc = hellas.309.desc
+    picture = GFX_report_event_belgrade_1939
 
 	is_triggered_only = yes
 
 	fire_only_once = yes
 	
-	option = {
+	option = { ##PROTEST HEAVILY
 		name = hellas.309.a
+        add_political_power = -50
+        add_to_variable = { ENG.favor@GRE = 5 }
+        custom_effect_tooltip = GRE_fbm_british_tt
     }  
+    option = { ##KEEP QUITE
+        name = hellas.309.b
+    }
 }
 
 country_event = {               #BUCHAREST 1939
 	id = hellas.310
 	title = hellas.310.t
 	desc = hellas.310.desc
+    picture = GFX_report_event_bucharest_1939
 
 	is_triggered_only = yes
 
@@ -643,6 +665,9 @@ country_event = {               #BUCHAREST 1939
 	
 	option = {
 		name = hellas.310.a
+        add_political_power = -50
+        subtract_from_variable = { TUR.favor@GRE = 5 }
+        custom_effect_tooltip = GRE_fdm_turkey_tt
     }  
 }
 
@@ -650,6 +675,7 @@ country_event = {               #NEW BALKAN DEAL
 	id = hellas.311
 	title = hellas.311.t
 	desc = hellas.311.desc
+    picture = GFX_report_event_balkan_pact
 
 	is_triggered_only = yes
 
@@ -657,6 +683,11 @@ country_event = {               #NEW BALKAN DEAL
 	
 	option = {
 		name = hellas.311.a
+        add_political_power = 75
+        add_to_variable = { TUR.favor@GRE = 5 }
+        add_to_variable = { YUG.favor@GRE = 5 }
+        add_to_variable = { ROM.favor@GRE = 5 }
+        custom_effect_tooltip = GRE_fbm_balkan_tt
     }  
 }
 
@@ -664,6 +695,7 @@ country_event = {               #DECLARE INTENTIONS TO ROMANIANS
 	id = hellas.312
 	title = hellas.312.t
 	desc = hellas.312.desc
+    picture = GFX_report_event_romanian_fm
 
 	is_triggered_only = yes
 
@@ -671,6 +703,9 @@ country_event = {               #DECLARE INTENTIONS TO ROMANIANS
 	
 	option = {
 		name = hellas.312.a
+        
+        add_to_variable = { ROM.favor@GRE = 5 }
+        custom_effect_tooltip = GRE_fbm_romania_tt
     }  
 }
 
@@ -678,6 +713,7 @@ country_event = {               #A TALK WITH GRAZZI
 	id = hellas.313
 	title = hellas.313.t
 	desc = hellas.313.desc
+    picture = GFX_report_event_grazzi
 
 	is_triggered_only = yes
 
@@ -685,6 +721,10 @@ country_event = {               #A TALK WITH GRAZZI
 	
 	option = {
 		name = hellas.313.a
+        
+        add_political_power = -100
+        add_to_variable = { ITA.favor@GRE = 5 }
+        custom_effect_tooltip = GRE_fbm_italy_tt
     }  
 }
 
@@ -692,6 +732,7 @@ country_event = {               #DECLARE FRIENDSHIP WITH ITALIANS
 	id = hellas.314
 	title = hellas.314.t
 	desc = hellas.314.desc
+    picture = GFX_report_event_grazzi
 
 	is_triggered_only = yes
 
@@ -699,6 +740,10 @@ country_event = {               #DECLARE FRIENDSHIP WITH ITALIANS
 	
 	option = {
 		name = hellas.314.a
+        
+        add_political_power = -150
+        add_to_variable = { ITA.favor@GRE = 10 }
+        custom_effect_tooltip = GRE_fbg_italy_tt        
     }  
 }
 
@@ -706,6 +751,7 @@ country_event = {               #GRAZZI'S 7TH CALL
 	id = hellas.315
 	title = hellas.315.t
 	desc = hellas.315.desc
+    picture = GFX_report_event_grazzi
 
 	is_triggered_only = yes
 
@@ -713,6 +759,10 @@ country_event = {               #GRAZZI'S 7TH CALL
 	
 	option = {
 		name = hellas.315.a
+
+        add_political_power = -100
+        add_to_variable = { ITA.favor@GRE = 5 }
+        custom_effect_tooltip = GRE_fbm_italy_tt        
     }  
 }
 
@@ -720,6 +770,7 @@ country_event = {               #COUNCIL OF BELGRADE
 	id = hellas.316
 	title = hellas.316.t
 	desc = hellas.316.desc
+    picture = GFX_report_event_belgrade_1939
 
 	is_triggered_only = yes
 
@@ -727,6 +778,11 @@ country_event = {               #COUNCIL OF BELGRADE
 	
 	option = {
 		name = hellas.316.a
+        add_political_power = 150
+        add_to_variable = { TUR.favor@GRE = 10 }
+        add_to_variable = { YUG.favor@GRE = 10 }
+        add_to_variable = { ROM.favor@GRE = 10 }
+        custom_effect_tooltip = GRE_fbg_balkan_tt        
     }  
 }
 
