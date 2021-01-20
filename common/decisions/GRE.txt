@@ -10285,6 +10285,8 @@ GRE_kathestos_war_preparation = {
 
 GRE_kathestos_exoteriki_politiki = {
 
+    ### GERMAN SUB-CATEGORY ###
+
     freude_und_arbeit_nach_bucharest= {
 		icon = generic_operation
         priority = 60629
@@ -10429,38 +10431,69 @@ GRE_kathestos_exoteriki_politiki = {
                 add_idea = GRE_schachtplan_fascistised
             }        
         }
-    }     
+    }  
 
-    thess_intern_exhi_1936= {
+    alternative_grecogerman_tradedeal = {
 		icon = generic_operation
-        priority = 90325
+        priority = 51129
+
 		allowed = { 
 			original_tag = GRE
 		}
 
 		available = {
-            always = no
+            date > 1940.01.01
 		}
-        
-        activation = {
-            date > 1936.08.04
-        }
-
-        is_good = yes
-        days_mission_timeout = 30
 
 		visible = {
-            has_completed_focus = GRE_foreign_policy
+            has_completed_focus = GRE_german_courting
+		}
+
+		ai_will_do = {
+			factor = 1
 		}
 
 		fire_only_once = yes
-		days_remove = 7
+
+		days_remove = 1
 
         
-        timeout_effect = {
-            country_event = { id = hellas.303 days = 0 }
+        complete_effect = {
         }
-    }  
+    }    
+
+    last_ditch_attempt_plea_to_hitler= {
+		icon = generic_operation
+        priority = 50229
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            date > 1940.10.01
+		}
+
+		visible = {
+            has_completed_focus = GRE_german_courting
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		fire_only_once = yes
+
+		days_remove = 1
+
+        
+        complete_effect = {
+        }
+    }     
+
+    ### ITALIAN PATH ###
+
+### BRITISH / FRENCH / ALLIED PATH ###
 
     ensure_british_of_common_medit_policy= {
 		icon = generic_operation
@@ -10535,6 +10568,192 @@ GRE_kathestos_exoteriki_politiki = {
 			}            
         }
     }    
+
+
+    declare_will_to_befriend_british = {
+		icon = generic_operation
+        priority = 70329
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            date > 1938.09.01
+            has_country_flag = GRE_protected_eng_telecom
+		}
+
+		visible = {
+            has_completed_focus = GRE_allied_courting
+            has_country_flag = GRE_protected_eng_telecom
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		fire_only_once = yes
+
+		days_remove = 1
+
+        
+        complete_effect = {
+            set_country_flag = GRE_will_to_befriend_british
+            add_to_variable = { ENG.favor@GRE = 10 }
+            every_country = {
+                limit = {
+                    is_in_array = {
+                        array = global.favor_mechanic
+                        value = THIS.id
+                    }
+                }
+                if = {
+                    limit = {
+                        is_in_faction_with = ENG
+                    }
+                    add_to_variable = { THIS.favor@GRE = 10 }
+                }
+                else_if = {
+                    limit = {
+                        OR = {
+                        original_tag = GER
+                        original_tag = ITA
+                        }
+                        NOT = { is_in_faction_with = ENG }
+                    }
+                    subtract_from_variable = { THIS.favor@GRE = 10 }    
+                }
+            }
+        }
+    }
+
+    grecobritish_tradedeal = {
+		icon = generic_operation
+        priority = 51129
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            date > 1940.01.01
+            has_country_flag = GRE_will_to_befriend_british
+		}
+
+		visible = {
+            has_completed_focus = GRE_allied_courting
+            has_country_flag = GRE_will_to_befriend_british
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		fire_only_once = yes
+
+		days_remove = 1
+
+        
+        complete_effect = {
+            country_event = { id = hellas.317 days = 0 }
+        }
+    }     
+
+    grecoenglish_tobacco_deal= {
+		icon = generic_operation
+        priority = 100001
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            has_completed_focus = GRE_allied_courting
+            has_country_flag = GRE_ensure_british_for_common_policy
+		}
+
+		visible = {
+            has_completed_focus = GRE_allied_courting
+            has_country_flag = GRE_ensure_british_for_common_policy
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		fire_only_once = yes
+
+		days_remove = 1
+
+        
+        complete_effect = {
+        }
+    }
+    
+    ask_british_for_a_pact= {
+		icon = generic_operation
+        priority = 100002
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+		}
+
+		visible = {
+            has_completed_focus = GRE_allied_courting
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		fire_only_once = yes
+
+		days_remove = 1
+
+        
+        complete_effect = {
+            ENG = { country_event = hellas.318 }
+            custom_effect_tooltip = GRE_favor_british_pact_tt
+        }
+    }    
+    
+    ######################################################
+
+    ### METAXAS HISTORICAL PATH (MISSIONS) ###
+
+    thess_intern_exhi_1936= {
+		icon = generic_operation
+        priority = 90325
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            always = no
+		}
+        
+        activation = {
+            date > 1936.08.04
+        }
+
+        is_good = yes
+        days_mission_timeout = 30
+
+		visible = {
+            has_completed_focus = GRE_foreign_policy
+		}
+
+		fire_only_once = yes
+		days_remove = 7
+
+        
+        timeout_effect = {
+            country_event = { id = hellas.303 days = 0 }
+        }
+    }  
     
     ionou_visit_to_athens= {
 		icon = generic_operation
@@ -10690,63 +10909,6 @@ GRE_kathestos_exoteriki_politiki = {
         
         timeout_effect = {
             country_event = { id = hellas.306 days = 0 }
-        }
-    }
-
-    declare_will_to_befriend_british = {
-		icon = generic_operation
-        priority = 70329
-
-		allowed = { 
-			original_tag = GRE
-		}
-
-		available = {
-            date > 1938.09.01
-            has_country_flag = GRE_protected_eng_telecom
-		}
-
-		visible = {
-            has_completed_focus = GRE_allied_courting
-            has_country_flag = GRE_protected_eng_telecom
-		}
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		fire_only_once = yes
-
-		days_remove = 1
-
-        
-        complete_effect = {
-            set_country_flag = GRE_will_to_befriend_british
-            add_to_variable = { ENG.favor@GRE = 10 }
-            every_country = {
-                limit = {
-                    is_in_array = {
-                        array = global.favor_mechanic
-                        value = THIS.id
-                    }
-                }
-                if = {
-                    limit = {
-                        is_in_faction_with = ENG
-                    }
-                    add_to_variable = { THIS.favor@GRE = 10 }
-                }
-                else_if = {
-                    limit = {
-                        OR = {
-                        original_tag = GER
-                        original_tag = ITA
-                        }
-                        NOT = { is_in_faction_with = ENG }
-                    }
-                    subtract_from_variable = { THIS.favor@GRE = 10 }    
-                }
-            }
         }
     }
     
@@ -11056,65 +11218,6 @@ GRE_kathestos_exoteriki_politiki = {
             country_event = { id = hellas.314 days = 0 }
         }
     } 
-
-    grecobritish_tradedeal = {
-		icon = generic_operation
-        priority = 51129
-
-		allowed = { 
-			original_tag = GRE
-		}
-
-		available = {
-            date > 1940.01.01
-		}
-
-		visible = {
-            has_completed_focus = GRE_allied_courting
-		}
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		fire_only_once = yes
-
-		days_remove = 1
-
-        
-        complete_effect = {
-        }
-    }     
-
-    alternative_grecogerman_tradedeal = {
-		icon = generic_operation
-        priority = 51129
-
-		allowed = { 
-			original_tag = GRE
-		}
-
-		available = {
-            date > 1940.01.01
-		}
-
-		visible = {
-            has_completed_focus = GRE_german_courting
-		}
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		fire_only_once = yes
-
-		days_remove = 1
-
-        
-        complete_effect = {
-        }
-    }
-
     
     grazzis_7th_call= {
 		icon = generic_operation
@@ -11151,63 +11254,6 @@ GRE_kathestos_exoteriki_politiki = {
             country_event = { id = hellas.315 days = 0 }
         }
     }
-
-    grecoenglish_tobacco_deal= {
-		icon = generic_operation
-        priority = 100001
-
-		allowed = { 
-			original_tag = GRE
-		}
-
-		available = {
-		}
-
-		visible = {
-            has_completed_focus = GRE_allied_courting
-		}
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		fire_only_once = yes
-
-		days_remove = 1
-
-        
-        complete_effect = {
-        }
-    }
-    
-    ask_british_for_a_pact= {
-		icon = generic_operation
-        priority = 100002
-
-		allowed = { 
-			original_tag = GRE
-		}
-
-		available = {
-		}
-
-		visible = {
-            has_completed_focus = GRE_allied_courting
-		}
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		fire_only_once = yes
-
-		days_remove = 1
-
-        
-        complete_effect = {
-        }
-    }
-
     
     council_of_belgrade= {
 		icon = generic_operation
@@ -11245,35 +11291,7 @@ GRE_kathestos_exoteriki_politiki = {
             country_event = { id = hellas.316 days = 0 }
         }
     }  
-
-    last_ditch_attempt_plea_to_hitler= {
-		icon = generic_operation
-        priority = 50229
-
-		allowed = { 
-			original_tag = GRE
-		}
-
-		available = {
-            date > 1940.10.01
-		}
-
-		visible = {
-            has_completed_focus = GRE_german_courting
-		}
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		fire_only_once = yes
-
-		days_remove = 1
-
-        
-        complete_effect = {
-        }
-    }    
+   
 }
 
 GRE_infl_majors_category = {
