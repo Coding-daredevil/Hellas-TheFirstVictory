@@ -3150,19 +3150,24 @@ GRE_hellenic_academy_category = {
                 limit = {
                     check_variable = { var = GRE_ges value = 2 compare = less_than }
                 }
-                always = yes 
+                OR = {
+                    has_army_experience = 75
+                    has_completed_focus = GRE_conduct_exercises
+                }
             }
             else_if = {
                 limit = {            
                     check_variable = { var = GRE_ges value = 2 compare = equals }    
                 }
+                has_army_experience = 150
                 has_country_flag = GRE_victor_in_a_war   
                 NOT = { has_idea = GRE_army_leadership_0 } 	        
             }  
             else_if = {
                 limit = {            
                     check_variable = { var = GRE_ges value = 2 compare = greater_than_or_equals }
-                }	
+                }
+                has_army_experience = 200
                 has_country_flag = GRE_victor_in_a_big_war   
                 NOT = { has_idea = GRE_army_leadership_0 } 	
                 NOT = { has_idea = GRE_airforce_leadership_0 }                    
@@ -3180,9 +3185,32 @@ GRE_hellenic_academy_category = {
 
 		fire_only_once = no
 
-        days_remove = 1
+        days_remove = 90
             
 		remove_effect = {
+            if = {
+                limit = {
+                    NOT = { has_completed_focus = GRE_conduct_exercises }
+                    check_variable = { var = GRE_ges value = 2 compare = less_than }
+                }
+               army_experience = -75
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = GRE_conduct_exercises 
+                    check_variable = { var = GRE_ges value = 2 compare = less_than }
+                }
+                army_experience = 5
+            }
+            else_if = {
+                limit = {
+                    check_variable = { var = GRE_ges value = 2 compare = equals }
+                }
+                army_experience = -150
+            }
+            else = {
+                army_experience = -200
+            }
             GRE_army_reform_tr = yes
             add_to_variable = { GRE_ges = 1 } 
 		}
@@ -3200,12 +3228,16 @@ GRE_hellenic_academy_category = {
                 limit = {
                     check_variable = { var = GRE_gea value = 2 compare = less_than }
                 }
-                always = yes 
+                OR = {
+                    has_air_experience = 50
+                    has_completed_focus = GRE_conduct_exercises
+                }
             }
             else_if = {
                 limit = {            
                     check_variable = { var = GRE_gea value = 2 compare = equals }
                 }
+                    has_air_experience = 100
                     has_country_flag = GRE_victor_in_a_war 
                     NOT = { has_idea = GRE_airforce_leadership_0 }                     
             }  
@@ -3213,6 +3245,7 @@ GRE_hellenic_academy_category = {
                 limit = {            
                     check_variable = { var = GRE_gea value = 2 compare = greater_than_or_equals }
                 }
+                has_air_experience = 150
                 has_country_flag = GRE_victor_in_a_big_war	 
                 NOT = { has_idea = GRE_army_leadership_0 } 	
                 NOT = { has_idea = GRE_airforce_leadership_0 }                    
@@ -3233,9 +3266,32 @@ GRE_hellenic_academy_category = {
 
 		fire_only_once = no
 
-        days_remove = 1
+        days_remove = 90
             
 		remove_effect = {
+            if = {
+                limit = {
+                    NOT = { has_completed_focus = GRE_conduct_exercises }
+                    check_variable = { var = GRE_gea value = 2 compare = less_than }
+                }
+               air_experience = -50
+            }
+            else_if = {
+                limit = {
+                    has_completed_focus = GRE_conduct_exercises 
+                    check_variable = { var = GRE_gea value = 2 compare = less_than }
+                }
+                air_experience = 25
+            }
+            else_if = {
+                limit = {
+                    check_variable = { var = GRE_gea value = 2 compare = equals }
+                }
+                air_experience = -100
+            }
+            else = {
+                air_experience = -150
+            }        
             GRE_air_reform_tr = yes
             add_to_variable = { GRE_gea = 1 } 
 		}

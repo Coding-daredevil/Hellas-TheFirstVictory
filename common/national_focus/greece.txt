@@ -10764,6 +10764,10 @@ focus_tree = {
 		icon = GFX_focus_GRE_hellenic_armed_forces
         prerequisite = { focus = GRE_solidify_the_budget }
         relative_position_id = GRE_solidify_the_budget
+        available = {
+            has_army_experience > 14.99
+        }
+        
 		x = 11
 		y = 1
 		cost = 2.9
@@ -10797,6 +10801,9 @@ focus_tree = {
 		completion_reward = {
             subtract_from_variable = { GRE_budget_choices = 1 } 
             army_experience = 30
+            air_experience = 5
+            navy_experience = 5
+            custom_effect_tooltip = GRE_conduct_exercises_tt
 		}
 	}
     
@@ -10811,7 +10818,7 @@ focus_tree = {
                 check_variable = { var = GRE_budget_choices value = 0 compare = greater_than } 
             }
             custom_trigger_tooltip = {
-                tooltip = GRE_favor_at_least_great
+                tooltip = GRE_favor_at_least_great_tt
                 OR = {
                     check_variable = { var = GER.favor@GRE value = 50 compare = greater_than_or_equals }
                     check_variable = { var = FRA.favor@GRE value = 50 compare = greater_than_or_equals }
@@ -10949,6 +10956,9 @@ focus_tree = {
 		icon = GFX_goal_navy_early
         prerequisite = { focus = GRE_the_army }
         relative_position_id = GRE_the_army
+        available = {
+            has_navy_experience > 4.99
+        }
 		x = 7
 		y = 1
 		cost = 2.9
@@ -11069,6 +11079,9 @@ focus_tree = {
 		icon = GFX_goal_airforce_early
         prerequisite = { focus = GRE_the_army }
         relative_position_id = GRE_the_army
+        available = {
+            has_air_experience > 4.99
+        }
 		x = -7
 		y = 1
 		cost = 2.9
