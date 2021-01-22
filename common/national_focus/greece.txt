@@ -6732,9 +6732,20 @@ focus_tree = {
 	focus = {
 		id = GRE_the_construction_of_the_metaxas_line
 		icon = GFX_goal_metaxas_line
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_budget_left_tt
+                check_variable = { var = GRE_budget_choices value = 0 compare = greater_than } 
+            }
+        }        
 		prerequisite = { focus = GRE_four_year_plan_2 }
         prerequisite = { focus = GRE_rearmament }
         prerequisite = { focus = GRE_defending_our_kingdom }
+
+        bypass = {
+            date > 1940.1.1
+        }
+        
 		x = 3
 		y = 1
 		relative_position_id = GRE_rearmament
@@ -11205,6 +11216,9 @@ focus_tree = {
         prerequisite = { focus = GRE_fundraising_an_airforce }
         prerequisite = { focus = GRE_seek_additional_deals }
         relative_position_id = GRE_seek_additional_deals
+        available = {
+            date > 1939.1.1
+        }
 		x = 0
 		y = 3
 		cost = 2.9
@@ -11229,6 +11243,10 @@ focus_tree = {
 		icon = GFX_goal_ges
         prerequisite = { focus = GRE_extend_budget }
         relative_position_id = GRE_extend_budget
+        available = {
+            date > 1941.1.1
+            has_country_flag = GRE_victor_in_a_big_war
+        }
 		x = 0
 		y = 1
 		cost = 2.9
