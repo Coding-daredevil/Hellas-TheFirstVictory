@@ -931,9 +931,7 @@ country_event = {               #COUNCIL OF BELGRADE
         }        
     }     
 }
-
-# 		
-        
+   
 country_event = {               #GRECOGERMAN TRADE DEAL (METAXAS)
 	id = hellas.319
 	title = hellas.319.t
@@ -1074,6 +1072,97 @@ country_event = {               #GRECOGERMAN TRADE DEAL (METAXAS)
             } 
         }
     }
+}
+
+country_event = {               #Last Ditch Attempt
+	id = hellas.320
+	title = hellas.320.t
+	desc = hellas.320.desc
+    picture = GFX_report_event_belgrade_1939
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+	
+	option = {
+		name = hellas.316.a
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 1000
+				check_variable = { var = GER.favor@GRE value = 80 compare = greater_than_or_equals }
+                check_variable = { var = ITA.favor@GRE value = 50 compare = greater_than_or_equals }
+			}
+		} 
+        ITA = {
+            diplomatic_relation = {
+                country = GRE
+                relation = non_aggression_pact
+                active = yes
+            }        
+        }
+        GRE = {
+            diplomatic_relation = {
+                country = ITA
+                relation = non_aggression_pact
+                active = yes
+            } 
+        }        
+    }  
+    option = {
+        name = hellas.320.b
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 0
+				check_variable = { var = GER.favor@GRE value = 80 compare = less_than }
+			}
+		}
+        add_political_power = 50
+    }
+}
+
+country_event = {               #Grecobritish tobacco deal
+	id = hellas.321
+	title = hellas.321.t
+	desc = hellas.321.desc
+    picture = GFX_report_event_belgrade_1939
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+	
+	option = {  ### BRITAIN ACCEPTS
+		name = hellas.321.a    
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 1000
+				check_variable = { var = ENG.favor@GRE value = 80 compare = greater_than_or_equals }
+			}
+		}
+        GRE = { add_political_power = 75 }
+        add_political_power = 75
+        add_to_variable = { ENG.favor@GRE = 10 }
+        add_opinion_modifier = { 
+            target = GRE
+            modifier = GRE_tob_exp_britain
+        }        
+    }  
+	option = {  ### BRITAIN DECLINES
+		name = hellas.321.b    
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 0
+				check_variable = { var = ENG.favor@GRE value = 80 compare = less_than }
+			}
+		}        
+        GRE = { add_political_power = 25 }
+        ENG = { add_political_power = 25 }
+        add_to_variable = { ENG.favor@GRE = 5 }
+    }     
+}
 
 ########################################
 ####                                ####

@@ -3151,7 +3151,7 @@ GRE_hellenic_academy_category = {
                     check_variable = { var = GRE_ges value = 2 compare = less_than }
                 }
                 OR = {
-                    has_army_experience = 75
+                    has_army_experience > 74.99
                     has_completed_focus = GRE_conduct_exercises
                 }
             }
@@ -3159,7 +3159,7 @@ GRE_hellenic_academy_category = {
                 limit = {            
                     check_variable = { var = GRE_ges value = 2 compare = equals }    
                 }
-                has_army_experience = 150
+                has_army_experience > 149.99
                 has_country_flag = GRE_victor_in_a_war   
                 NOT = { has_idea = GRE_army_leadership_0 } 	        
             }  
@@ -3167,7 +3167,7 @@ GRE_hellenic_academy_category = {
                 limit = {            
                     check_variable = { var = GRE_ges value = 2 compare = greater_than_or_equals }
                 }
-                has_army_experience = 200
+                has_army_experience > 199.99
                 has_country_flag = GRE_victor_in_a_big_war   
                 NOT = { has_idea = GRE_army_leadership_0 } 	
                 NOT = { has_idea = GRE_airforce_leadership_0 }                    
@@ -3229,7 +3229,7 @@ GRE_hellenic_academy_category = {
                     check_variable = { var = GRE_gea value = 2 compare = less_than }
                 }
                 OR = {
-                    has_air_experience = 50
+                    has_air_experience > 49.99
                     has_completed_focus = GRE_conduct_exercises
                 }
             }
@@ -3237,7 +3237,7 @@ GRE_hellenic_academy_category = {
                 limit = {            
                     check_variable = { var = GRE_gea value = 2 compare = equals }
                 }
-                    has_air_experience = 100
+                    has_air_experience > 99.99
                     has_country_flag = GRE_victor_in_a_war 
                     NOT = { has_idea = GRE_airforce_leadership_0 }                     
             }  
@@ -3245,7 +3245,7 @@ GRE_hellenic_academy_category = {
                 limit = {            
                     check_variable = { var = GRE_gea value = 2 compare = greater_than_or_equals }
                 }
-                has_air_experience = 150
+                has_air_experience > 149.99
                 has_country_flag = GRE_victor_in_a_big_war	 
                 NOT = { has_idea = GRE_army_leadership_0 } 	
                 NOT = { has_idea = GRE_airforce_leadership_0 }                    
@@ -10547,6 +10547,8 @@ GRE_kathestos_exoteriki_politiki = {
 
         
         complete_effect = {
+            GER = { country_event = hellas.320 }
+            custom_effect_tooltip = GRE_last_ditch_tt
         }
     }     
 
@@ -10742,10 +10744,11 @@ GRE_kathestos_exoteriki_politiki = {
 
 		fire_only_once = yes
 
-		days_remove = 1
+		days_remove = 90
 
         
         complete_effect = {
+            ENG = { country_event = hellas.321 }
         }
     }
     
@@ -10758,10 +10761,12 @@ GRE_kathestos_exoteriki_politiki = {
 		}
 
 		available = {
+            has_country_flag = GRE_will_to_befriend_british
 		}
 
 		visible = {
             has_completed_focus = GRE_allied_courting
+            has_country_flag = GRE_will_to_befriend_british
 		}
 
 		ai_will_do = {
@@ -10776,6 +10781,117 @@ GRE_kathestos_exoteriki_politiki = {
         complete_effect = {
             ENG = { country_event = hellas.318 }
             custom_effect_tooltip = GRE_favor_british_pact_tt
+        }
+    }    
+
+    ### SOVIET PATH ###
+    
+    approach_soviets = {
+		icon = generic_operation
+        priority = 99999
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_fct_com_friendly_tt
+                check_variable = { var = fct_com value = 60 compare = greater_than_or_equals }
+            }
+		}
+
+		visible = {
+            has_completed_focus = GRE_soviet_courting
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		fire_only_once = yes
+
+		days_remove = 90
+
+        
+        remove_effect = {
+            SOV = {
+                add_opinion_modifier = { 
+                    target = GRE
+                    modifier = GRE_approached_soviets
+                }  
+            }
+            add_to_variable = { fct_com = 10 }
+            custom_effect_tooltip = fct_cmajor_boost_tt
+            faction_gui_call = yes
+            set_country_flag = GRE_approached_soviets_w_metaxas
+        }
+    }
+
+    begin_talks_on_collaboration = {
+		icon = generic_operation
+        priority = 99999
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_fct_com_friendly_tt
+                check_variable = { var = fct_com value = 60 compare = greater_than_or_equals }
+            }
+            has_country_flag = GRE_approached_soviets_w_metaxas
+		}
+
+		visible = {
+            has_completed_focus = GRE_soviet_courting
+            has_country_flag = GRE_approached_soviets_w_metaxas
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		fire_only_once = yes
+
+		days_remove = 60
+        
+        remove_effect = {
+            set_country_flag = GRE_begun_talks
+        }
+    }
+
+    grecosoviet_tradedeal = {
+		icon = generic_operation
+        priority = 99999
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_fct_com_loyal_tt
+                check_variable = { var = fct_com value = 80 compare = greater_than_or_equals }
+            }
+            has_country_flag = GRE_begun_talks
+		}
+
+		visible = {
+            has_completed_focus = GRE_soviet_courting
+            has_country_flag = GRE_begun_talks
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		fire_only_once = yes
+
+		days_remove = 30
+        
+        remove_effect = {
         }
     }    
     
