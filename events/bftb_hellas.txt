@@ -817,13 +817,6 @@ country_event = {               #COUNCIL OF BELGRADE
                 active = yes
             }        
         }
-        GRE = {
-            diplomatic_relation = {
-                country = ENG
-                relation = guarantee
-                active = yes
-            } 
-        }
         ENG = {
             diplomatic_relation = {
                 country = GRE
@@ -960,13 +953,6 @@ country_event = {               #GRECOGERMAN TRADE DEAL (METAXAS)
                 active = yes
             }        
         }
-        GRE = {
-            diplomatic_relation = {
-                country = GER
-                relation = guarantee
-                active = yes
-            } 
-        }
         GER = {
             diplomatic_relation = {
                 country = GRE
@@ -995,16 +981,8 @@ country_event = {               #GRECOGERMAN TRADE DEAL (METAXAS)
                 active = yes
             }  
         }  
-        targeted_modifier = {
-            tag = GRE
-            trade_cost_for_target_factor = 0.25
-        } 
-        GRE = {
-            targeted_modifier = {
-                tag = GER
-                trade_cost_for_target_factor = 0.25
-            }        
-        }
+        add_ideas = GRE_grecogerman_trade_ger
+        GRE = { add_ideas = GRE_grecogerman_trade_gre } 
         hidden_effect = {
             every_country = {
                 limit = {
@@ -1162,6 +1140,73 @@ country_event = {               #Grecobritish tobacco deal
         ENG = { add_political_power = 25 }
         add_to_variable = { ENG.favor@GRE = 5 }
     }     
+}
+
+country_event = {               #GRECOSOVIET TRADE DEAL (METAXAS)
+	id = hellas.322
+	title = hellas.322.t
+	desc = hellas.322.desc
+    picture = GFX_report_event_belgrade_1939
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+	
+	option = {  ### SOVIET UNION ACCEPTS @!#
+		name = hellas.322.a    
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 1000
+				check_variable = { var = SOV.favor@GRE value = 80 compare = greater_than_or_equals }
+			}
+		}
+        GRE = { add_political_power = 300 }
+        add_political_power = 75
+        SOV = {
+            diplomatic_relation = {
+                country = GRE
+                relation = non_aggression_pact
+                active = yes
+            }        
+        }
+        GRE = {
+            diplomatic_relation = {
+                country = SOV
+                relation = non_aggression_pact
+                active = yes
+            } 
+        }
+        SOV = {
+            diplomatic_relation = {
+                country = GRE
+                relation = docking_rights
+                active = yes
+            }        
+        }
+        GRE = {
+            diplomatic_relation = {
+                country = SOV
+                relation = docking_rights
+                active = yes
+            }  
+        }  
+        add_ideas = GRE_grecosoviet_trade_sov
+        GRE = { add_ideas = GRE_grecosoviet_trade_gre } 
+        add_to_variable = { SOV.favor@GRE = 30 }
+    }  
+	option = {  ### SOVIET UNION DECLINES
+		name = hellas.322.b    
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 0
+				check_variable = { var = SOV.favor@GRE value = 80 compare = less_than }
+			}
+		}        
+        GRE = { add_political_power = 150 } 
+        add_to_variable = { SOV.favor@GRE = 10 }
+    }
 }
 
 ########################################
