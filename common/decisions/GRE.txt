@@ -10451,7 +10451,7 @@ GRE_kathestos_exoteriki_politiki = {
     
     further_expand_upon_the_schactplan = {
 		icon = generic_operation
-        priority = 100000
+        priority = 4
         
 		allowed = { 
 			original_tag = GRE
@@ -10499,11 +10499,13 @@ GRE_kathestos_exoteriki_politiki = {
 		}
 
 		available = {
+            has_idea = GRE_schachtplan_fascistised
             date > 1940.01.01
 		}
 
 		visible = {
             has_completed_focus = GRE_german_courting
+            has_idea = GRE_schachtplan_fascistised
 		}
 
 		ai_will_do = {
@@ -10535,6 +10537,7 @@ GRE_kathestos_exoteriki_politiki = {
 
 		visible = {
             has_completed_focus = GRE_german_courting
+            has_idea = GRE_grecogerman_trade_ger
 		}
 
 		ai_will_do = {
@@ -10553,12 +10556,130 @@ GRE_kathestos_exoteriki_politiki = {
     }     
 
     ### ITALIAN PATH ###
+    
+    approach_the_italians = {
+		icon = generic_operation
+        priority = 2
 
-### BRITISH / FRENCH / ALLIED PATH ###
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            has_completed_focus = GRE_the_italian_question
+            has_completed_focus = GRE_rapprochement_with_the_italians
+            custom_trigger_tooltip = {
+                tooltip = GRE_debt_free_italian_tt
+                check_variable = { GRE_debt_to_the_ifc_italy_var = 0 compare = less_than_or_equals }
+            }
+		}
+
+		visible = {
+            has_completed_focus = GRE_the_italian_question
+            NOT = { has_country_flag = GRE_italians_responded }
+            ITA = { has_government = fascism }
+            GER = { has_government = fascism }
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		fire_only_once = no
+
+		days_remove = 90
+
+        cost = 75
+        fixed_random_seed = no
+        
+        remove_effect = {               ### THE FOLLOWING CALCULATES THE FAVOR OF BOTH ITALY AND THE GERMANS (weighted 80% for italians, 20% for germans) and slowly drags the readiness variable towards 100, where italians will accept rapproachment###
+            if = {
+                limit = {
+                    check_variable = { GRE_italian_readiness = 100 compare = less_than_or_equals }
+                }
+                random_list = {
+                    85 = {
+                        custom_effect_tooltip = GRE_italian_rapproachment_85_tt
+                        set_temp_variable = { x = ITA.favor@GRE }
+                        set_temp_variable = { y = GER.favor@GRE }
+                        clamp_temp_variable = {
+                            var = x
+                            min = 0
+                            max = 100                       
+                        }
+                        clamp_temp_variable = {
+                            var = y
+                            min = 0
+                            max = 100                       
+                        }                        
+                        multiply_temp_variable = { x = 0.8 }
+                        multiply_temp_variable = { y = 0.2 } 
+                        add_to_temp_variable = { x = y }
+                        multiply_temp_variable = { x = 0.5 } 
+                        add_to_variable = { GRE_italian_readiness = x }
+                    }
+                    10 = {
+                        custom_effect_tooltip = GRE_italian_rapproachment_10_tt
+                        subtract_from_variable = { GRE_italian_readiness = 5 }
+                    }
+                    5 = {
+                        custom_effect_tooltip = GRE_italian_rapproachment_5_tt
+                        set_country_flag = GRE_italians_responded
+                        hidden_effect = {
+                            country_event = { id = hellas.323 days = 0 }  
+                        }
+                    }
+                }
+            }
+            else = {
+                set_country_flag = GRE_italians_responded
+                country_event = { id = hellas.323 days = 0 }
+            }
+        }
+    } 
+    
+    reestablish_relations = {
+		icon = generic_operation
+        priority = 2
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_favor_italian_at_least_mediocre_tt
+                check_variable = { var = ITA.favor@GRE value = 50 compare = greater_than_or_equals }
+            }
+		}
+
+		visible = {
+            has_country_flag = GRE_italians_responded
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		fire_only_once = yes
+
+		days_remove = 120
+        cost = 200
+
+        remove_effect = {
+            clr_country_flag = GRE_italians_responded
+            set_country_flag = GRE_italians_connections_reestablished
+            add_to_variable = { ITA.favor@GRE = 10 }
+            custom_effect_tooltip = GRE_fbm_italy_tt          
+        }
+    }         
+
+    ### BRITISH / FRENCH / ALLIED PATH ###
 
     ensure_british_of_common_medit_policy= {
 		icon = generic_operation
-        priority = 90325
+        #priority = 90325
+        priority = 5
         
 		allowed = { 
 			original_tag = GRE
@@ -10575,7 +10696,8 @@ GRE_kathestos_exoteriki_politiki = {
 
 		fire_only_once = yes
 
-		days_remove = 1
+		days_remove = 14
+        cost = 25
 
         
         complete_effect = {
@@ -10586,7 +10708,8 @@ GRE_kathestos_exoteriki_politiki = {
 
     protect_british_telecom_in_athens = {
 		icon = generic_operation
-        priority = 81129
+        #priority = 81129
+        priority = 5
         
 		allowed = { 
 			original_tag = GRE
@@ -10633,7 +10756,8 @@ GRE_kathestos_exoteriki_politiki = {
 
     declare_will_to_befriend_british = {
 		icon = generic_operation
-        priority = 70329
+        #priority = 70329
+        priority = 5
 
 		allowed = { 
 			original_tag = GRE
@@ -10690,7 +10814,8 @@ GRE_kathestos_exoteriki_politiki = {
 
     grecobritish_tradedeal = {
 		icon = generic_operation
-        priority = 51129
+        #priority = 51129
+        priority = 5
 
 		allowed = { 
 			original_tag = GRE
@@ -10722,7 +10847,8 @@ GRE_kathestos_exoteriki_politiki = {
 
     grecoenglish_tobacco_deal= {
 		icon = generic_operation
-        priority = 100001
+        #priority = 100001
+        priority = 5
 
 		allowed = { 
 			original_tag = GRE
@@ -10754,7 +10880,8 @@ GRE_kathestos_exoteriki_politiki = {
     
     ask_british_for_a_pact= {
 		icon = generic_operation
-        priority = 100002
+        #priority = 100002
+        priority = 5
 
 		allowed = { 
 			original_tag = GRE
@@ -10788,7 +10915,7 @@ GRE_kathestos_exoteriki_politiki = {
     
     approach_soviets = {
 		icon = generic_operation
-        priority = 99999
+        priority = 1
 
 		allowed = { 
 			original_tag = GRE
@@ -10812,6 +10939,7 @@ GRE_kathestos_exoteriki_politiki = {
 		fire_only_once = yes
 
 		days_remove = 90
+        cost = 150
 
         
         remove_effect = {
@@ -10830,7 +10958,7 @@ GRE_kathestos_exoteriki_politiki = {
 
     begin_talks_on_collaboration = {
 		icon = generic_operation
-        priority = 99999
+        priority = 1
 
 		allowed = { 
 			original_tag = GRE
@@ -10865,7 +10993,7 @@ GRE_kathestos_exoteriki_politiki = {
 
     grecosoviet_tradedeal = {
 		icon = generic_operation
-        priority = 99999
+        priority = 1
 
 		allowed = { 
 			original_tag = GRE
