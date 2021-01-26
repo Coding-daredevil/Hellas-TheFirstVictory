@@ -9455,6 +9455,39 @@ GRE_kathestos_propaganda {
 
 GRE_kathestos_war_preparation = {
 
+    hidden_military_reorgn= {
+		icon = generic_operation
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_hidden_rearm_tt
+                check_variable = { var = GRE_army_reform_cnt value = 5 compare = greater_than_or_equals }
+            }
+		}
+
+		visible = {
+            has_completed_focus = GRE_rearmament
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		fire_only_once = yes
+
+        cost = 75
+		days_remove = 7
+
+        
+        remove_effect = {
+            country_lock_all_division_template = no
+        }
+    } 
+
     extend_military_service_24= {
 		icon = generic_operation
 
@@ -10673,6 +10706,54 @@ GRE_kathestos_exoteriki_politiki = {
             custom_effect_tooltip = GRE_fbm_italy_tt          
         }
     }         
+
+    ### BULGARIAN PATH ###
+    
+    begin_plans_for_bulgarian_asphyxiation = {
+		icon = generic_operation
+        priority = 2
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_favor_at_least_great_power_or_pact_tt
+                OR = {
+                check_variable = { var = ITA.favor@GRE value = 50 compare = greater_than_or_equals }
+                check_variable = { var = GER.favor@GRE value = 50 compare = greater_than_or_equals }
+                check_variable = { var = FRA.favor@GRE value = 50 compare = greater_than_or_equals }
+                check_variable = { var = ENG.favor@GRE value = 50 compare = greater_than_or_equals }
+                check_variable = { var = SOV.favor@GRE value = 50 compare = greater_than_or_equals }
+                AND = {
+                    check_variable = { var = YUG.favor@GRE value = 50 compare = greater_than_or_equals }
+                    check_variable = { var = ROM.favor@GRE value = 50 compare = greater_than_or_equals }
+                    check_variable = { var = TUR.favor@GRE value = 50 compare = greater_than_or_equals }
+                }
+                }
+            }
+		}
+
+		visible = {
+            has_completed_focus = GRE_the_bulgarian_question
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		fire_only_once = yes
+
+		days_remove = 120
+        cost = 200
+
+        remove_effect = {
+            set_country_flag = GRE_anti_bulgarian_plans
+            subtract_from_variable = { BUL.favor@GRE = 5 }
+            custom_effect_tooltip = GRE_fdm_bulgaria_tt          
+        }
+    }    
 
     ### BRITISH / FRENCH / ALLIED PATH ###
 

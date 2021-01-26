@@ -1227,6 +1227,35 @@ country_event = {               #GRECOSOVIET TRADE DEAL (METAXAS)
     }
 }
 
+country_event = {               #ITALIANS GET WARGOAL FROM NEGLECTED ARMY IDEA LOST
+	id = hellas.324
+	title = hellas.324.t
+	desc = hellas.324.desc
+    picture = GFX_report_event_belgrade_1939
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+	
+	option = {
+		name = hellas.324.a
+        create_wargoal = {
+            type = puppet_wargoal_focus
+            target = GRE
+        }    
+    }
+    
+	option = {
+		name = hellas.324.b
+        add_political_power = 50
+        add_war_support = 0.05
+        declare_war_on = {
+            target = GRE
+            type = puppet_wargoal_focus
+        }     
+    }      
+}
+
 ########################################
 ####                                ####
 ####    HELLENIC MILITARY EVENTS    ####

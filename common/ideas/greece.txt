@@ -1734,6 +1734,52 @@ ideas = {
             }   
         }
 
+        GRE_neglected_army = {
+        
+            allowed = {
+                original_tag = GRE
+            }
+
+			cancel = {
+				AND = {
+                    NOT = { has_idea = GRE_army_status_0 }
+                    NOT = { has_idea = GRE_army_status_1 }
+                }
+			}            
+
+			on_remove = {
+				country_lock_all_division_template = no
+                if = {
+                    limit = {
+                        is_neighbor_of = ITA
+                        NOT = {
+                            is_guaranteed_by = ITA
+                            is_guaranteed_by = GER
+                            is_guaranteed_by = ENG
+                            is_in_faction_with = ITA
+                            is_in_faction_with = GER
+                            has_non_aggression_pact_with = ITA
+                            is_subject_of = ITA
+                        }
+                        check_variable = { var = ITA.favor@GRE value = 30 compare = less_than_or_equals }
+                    }
+                    ITA = { country_event = hellas.324 }
+                }
+			}
+            
+            allowed_civil_war = {
+                always = yes
+            }
+                
+            picture = gre_neglected_army
+            
+            removal_cost = -1
+            
+            modifier = {
+                custom_modifier_tooltip = GRE_neglected_army_tt
+            }   
+        }
+        
 		GRE_domestic_competition_0 = {
 				
 			allowed = {
