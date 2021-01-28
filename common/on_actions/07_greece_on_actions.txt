@@ -125,6 +125,53 @@ on_actions = {
         }
     }
     
+    ###THIS CHECKS FOR FORTIFICATIONS ON ALBANIA BORDER###
+    
+    on_monthly_GRE = { 
+        effect = {
+            if = {
+                limit = {
+                    NOT = { has_country_flag = GRE_stop_checking_fortifications }
+                    NOT = { has_country_flag = GRE_safe_from_italian_immediate_action }
+                    184 = {
+                        any_province_building_level = {
+                            province = {
+                                id = 9805
+                                id = 3914
+                                id = 841
+                            }
+                            building = bunker
+                            level > 0
+                        }
+                    }
+                }
+                set_country_flag = GRE_stop_checking_fortifications
+                country_event = { id = hellenic_news.6 days = 0 }
+                if = {
+                    limit = { ITA = { is_in_faction = no } }
+                    ITA = { 
+                        create_faction = "Novus Imperium Romanum"
+                        add_to_faction = ALB
+                        ITA = { puppet = ALB }
+                    }
+                }
+                else = {
+                    ITA = { 
+                        add_to_faction = ALB
+                        ITA = { puppet = ALB }
+                    }                
+                }
+				ITA = {
+					create_wargoal = {
+						type = puppet_wargoal_focus 
+						target = GRE
+                        expire = 30
+					}
+				}                
+            }
+        }
+    }
+    ######################################################
     
     on_monthly_GRE = {
         effect = {
