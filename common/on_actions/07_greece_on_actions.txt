@@ -131,8 +131,15 @@ on_actions = {
         effect = {
             if = {
                 limit = {
-                    NOT = { has_country_flag = GRE_stop_checking_fortifications }
-                    NOT = { has_country_flag = GRE_safe_from_italian_immediate_action }
+                    ITA = { 
+                        has_country_leader = {                                              ### Make sure the Italians have Mussolini as leader (not ahistorical).
+                            name = "Benito Mussolini" 
+                            ruling_only = yes
+                        }
+                        is_puppet = no                                                      ### Make sure they are not a puppet.
+                    }
+                    NOT = { has_country_flag = GRE_stop_checking_fortifications }           ### This flag is set only when THIS event is triggered (so it doesn't repeat).
+                    NOT = { has_country_flag = GRE_safe_from_italian_immediate_action }     ### This flag is set through various manners. E.g. exoteriki politiki decisions.
                     184 = {
                         any_province_building_level = {
                             province = {
@@ -150,18 +157,18 @@ on_actions = {
                 if = {
                     limit = { ITA = { is_in_faction = no } }
                     ITA = { 
-                        create_faction = "Novus Imperium Romanum"
+                        create_faction = "Novus Imperium Romanum"                           ### Force Italy into a faction and make Albania their puppet.
                         add_to_faction = ALB
                         ITA = { puppet = ALB }
                     }
                 }
                 else = {
-                    ITA = { 
+                    ITA = {                                                                 ### If Italy is in a faction, add Albania to it and make them their puppet.
                         add_to_faction = ALB
                         ITA = { puppet = ALB }
                     }                
                 }
-				ITA = {
+				ITA = {                                                                     ### Give Italy wargoal for 30 days.
 					create_wargoal = {
 						type = puppet_wargoal_focus 
 						target = GRE
@@ -171,6 +178,7 @@ on_actions = {
             }
         }
     }
+    
     ######################################################
     
     on_monthly_GRE = {

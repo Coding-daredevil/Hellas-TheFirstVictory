@@ -1751,19 +1751,19 @@ ideas = {
 				country_lock_all_division_template = no
                 if = {
                     limit = {
-                        is_neighbor_of = ITA
+                        is_neighbor_of = ITA                                                                ### Check if neighbor (== Albania occupied)
                         NOT = {
-                            is_guaranteed_by = ITA
+                            is_guaranteed_by = ITA                                                          ### Make sure GRE hasn't yet achieved important guarantees, meaning Italians can't force a country-to-country war.
                             is_guaranteed_by = GER
                             is_guaranteed_by = ENG
-                            is_in_faction_with = ITA
+                            is_in_faction_with = ITA                                                        ### Likewise, if in same faction, puppet, or has non-aggr. avoid giving wargoal
                             is_in_faction_with = GER
                             has_non_aggression_pact_with = ITA
                             is_subject_of = ITA
                         }
-                        check_variable = { var = ITA.favor@GRE value = 30 compare = less_than_or_equals }
+                        check_variable = { var = ITA.favor@GRE value = 30 compare = less_than_or_equals }   ### As a last chance, shall Greece have managed to build somewhat good influence over the Italians, avoid giving wargoal.
                     }
-                    ITA = { country_event = hellas.324 }
+                    ITA = { country_event = hellas.200 }                                                    ### Calls event to give the italians wargoal, for some reason if you write the code here it will crash the game (won't even load to main menu).
                 }
 			}
             

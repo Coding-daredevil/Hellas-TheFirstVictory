@@ -5272,6 +5272,61 @@ GRE_economic_fluidity = {
 
 GRE_kathestos_4hs = {
 
+    GRE_activated_mission = {
+
+		icon = eng_support_imperialist_coup
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		activation = {
+            has_country_flag = GRE_hidden_flag
+		}        
+
+		available = {
+            divisions_in_border_state = {
+                type = infantry
+                size < 1
+                state = 185
+                border_state = 805
+            }            
+		}
+
+		days_mission_timeout = 30
+
+		fire_only_once = no
+
+		visible = {
+            has_country_flag = GRE_hidden_flag
+		}
+
+		cancel_if_not_visible = no
+
+		is_good = no
+
+		complete_effect = {
+            clr_country_flag = GRE_hidden_flag
+            add_political_power = - 150
+            subtract_from_variable = {ITA.favor@GRE = 5}
+            custom_effect_tooltip = GRE_fdm_italy_tt
+		}
+
+		timeout_effect = {
+            ITA = {                                                                     ### Give Italy wargoal for 30 days.
+                add_political_power = 50
+                add_stability = 0.1
+                add_war_support = 0.1
+                create_wargoal = {
+                    type = puppet_wargoal_focus 
+                    target = GRE
+                    expire = 30
+                }
+            }  
+		}    
+    
+    }
+
 	GRE_kathestos_timeout_not_visible  = { # 4hAugoustou
 
 		icon = eng_support_imperialist_coup
@@ -10755,7 +10810,7 @@ GRE_kathestos_exoteriki_politiki = {
         }
     }   
 
-    ### BALKAN PACT PATH ###
+    ### [BULGARIAN] BALKAN PACT PATH ###
     
     rally_balkan_pact_members = {
 		icon = generic_operation
@@ -10837,7 +10892,7 @@ GRE_kathestos_exoteriki_politiki = {
         }
     }
     
-    ### ALLIED PATH ###
+    ### [BULGARIAN] ALLIED PATH ###
     
     inform_allies_for_bulgarian_revanchism = {
 		icon = generic_operation
@@ -10880,7 +10935,7 @@ GRE_kathestos_exoteriki_politiki = {
         }
     }    
 
-    ### AXIS PATH ###
+    ### [BULGARIAN] AXIS PATH ###
     
     inform_axis_for_bulgarian_revanchism = {
 		icon = generic_operation

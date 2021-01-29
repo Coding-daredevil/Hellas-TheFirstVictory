@@ -6756,6 +6756,7 @@ focus_tree = {
 
 		completion_reward = {
             custom_effect_tooltip = GRE_the_construction_of_the_metaxas_line_tt
+            subtract_from_variable = { GRE_budget_choices = 1 }
 		}
 	}
  
@@ -7235,7 +7236,10 @@ focus_tree = {
         prerequisite = { focus = GRE_the_bulgarian_question }
         prerequisite = { focus = GRE_the_italian_question }
 		available = {
-            date > 1939.03.18
+            OR = {
+                date > 1939.03.18
+                has_country_flag = GRE_metaxas_thinks_things_through
+            }
 		}
         
         relative_position_id = GRE_the_balkan_pact
@@ -7260,6 +7264,7 @@ focus_tree = {
         prerequisite = { focus = GRE_the_gruesome_decision }
         prerequisite = { focus = GRE_allied_courting focus = GRE_german_courting focus = GRE_soviet_courting }
 		available = {
+            
 		}
         
         relative_position_id = GRE_the_gruesome_decision
@@ -7270,11 +7275,8 @@ focus_tree = {
 			base = 1
 		}
 
-		select_effect = {
-		}
-
 		completion_reward = {
-			add_stability = 0.01
+            custom_effect_tooltip = GRE_the_unthinkable_tt
 		}
 	}
 
