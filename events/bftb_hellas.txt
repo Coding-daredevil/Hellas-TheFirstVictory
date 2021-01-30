@@ -420,10 +420,12 @@ country_event = {               #IMRO GETS THE BOOT BY HAVING THE SLAVS CRUSHED 
         add_political_power = 150
         BUL = { add_political_power = -150 }
         every_controlled_state = { 
-            limit = {
-                has_dynamic_modifier = { modifier = skirmishes_against_imro }
-            }
+            if = {
+                limit = {
+                    has_dynamic_modifier = { modifier = skirmishes_against_imro }
+                }
             remove_dynamic_modifier = { modifier = skirmishes_against_imro }
+            }
             if = {
                 limit = {
                     has_dynamic_modifier = { modifier = widespread_bulgarian_sentiment_01 }

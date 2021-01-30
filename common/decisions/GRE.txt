@@ -1987,6 +1987,44 @@ GRE_pay_back_debt_to_the_ifc_category = {
 		}
 	}
     
+    solidify_assets = {
+    
+		icon = golden
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+        
+        available = {
+            has_completed_focus = GRE_open_foreign_subsidized_factories
+            has_completed_focus = GRE_bedrock_of_balkan_financial_stability
+            has_completed_focus = GRE_economic_fluidity_plans
+        }
+        
+        visible = {
+            has_completed_focus = GRE_bedrock_of_balkan_financial_stability
+        }
+
+        cost = 450
+
+		fire_only_once = yes
+
+		days_remove = 120
+        
+        modifier = {
+            political_power_factor = -0.25
+        }
+
+		complete_effect = {
+            custom_effect_tooltip = GRE_ass_tt
+            set_country_flag = GRE_assets_solidified
+		}    
+    }
+    
     GRE_choosing_a_lignite_partner_ENG = {
 		icon = oil
 
@@ -2006,9 +2044,6 @@ GRE_pay_back_debt_to_the_ifc_category = {
         visible = {
             has_completed_focus = GRE_lignite_liquefaction
             NOT = { has_country_flag = GRE_has_partner_lignite }  
-            NOT = { has_decision = GRE_choosing_a_lignite_partner_SOV }
-            NOT = { has_decision = GRE_choosing_a_lignite_partner_GER }
-            NOT = { has_decision = GRE_choosing_a_lignite_partner_USA }
         }
         
         target_trigger = {
@@ -2022,6 +2057,10 @@ GRE_pay_back_debt_to_the_ifc_category = {
 		fire_only_once = yes
 
 		days_remove = 14
+        
+        complete_effect = {
+            set_country_flag = GRE_has_partner_lignite
+        }
 
         remove_effect = {
             custom_effect_tooltip = "We will have a moderate influence increase with the British."       
@@ -2052,7 +2091,6 @@ GRE_pay_back_debt_to_the_ifc_category = {
                     instant_build = yes
                 }
             }
-            set_country_flag = GRE_has_partner_lignite
             set_variable = { GRE_lignite_partner = ENG.id }
         }
     }
@@ -2093,6 +2131,10 @@ GRE_pay_back_debt_to_the_ifc_category = {
 
 		days_remove = 14
 
+        complete_effect = {
+            set_country_flag = GRE_has_partner_lignite
+        }
+        
         remove_effect = {
             custom_effect_tooltip = "We will have a small influence increase with the Soviets."   
             add_to_variable = { SOV.favor@GRE = 2 }  
@@ -2122,7 +2164,6 @@ GRE_pay_back_debt_to_the_ifc_category = {
                     instant_build = yes
                 }
             }
-            set_country_flag = GRE_has_partner_lignite
             set_variable = { GRE_lignite_partner = SOV.id }
         }
     }
@@ -2163,6 +2204,10 @@ GRE_pay_back_debt_to_the_ifc_category = {
 
 		days_remove = 14
 
+        complete_effect = {
+            set_country_flag = GRE_has_partner_lignite
+        }
+        
         remove_effect = {
             custom_effect_tooltip = "We will have a negligible influence increase with the Americans."     
             add_to_variable = { USA.favor@GRE = 1 }   
@@ -2192,7 +2237,6 @@ GRE_pay_back_debt_to_the_ifc_category = {
                     instant_build = yes
                 }
             }
-            set_country_flag = GRE_has_partner_lignite
             set_variable = { GRE_lignite_partner = USA.id }
         }
     } 
@@ -2232,6 +2276,10 @@ GRE_pay_back_debt_to_the_ifc_category = {
 		fire_only_once = yes
 
 		days_remove = 14
+        
+        complete_effect = {
+            set_country_flag = GRE_has_partner_lignite
+        }
 
         remove_effect = {
             custom_effect_tooltip = "We will have big influence increase with the Germans."              
@@ -2268,8 +2316,7 @@ GRE_pay_back_debt_to_the_ifc_category = {
                     level = 2
                     instant_build = yes
                 }
-            } 
-            set_country_flag = GRE_has_partner_lignite  
+            }  
             set_variable = { GRE_lignite_partner = GER.id }    
         }
     }    
@@ -5384,13 +5431,9 @@ GRE_kathestos_4hs = {
 			original_tag = GRE
 		}
 
-		available = {
-            
-		}
-
 		fire_only_once = yes
         
-        days_remove = 1
+        days_remove = 30
 
 		activation = {
             has_country_flag = GRE_step_1_finished 
@@ -5475,6 +5518,7 @@ GRE_kathestos_4hs = {
 
 		available = {
             num_of_civilian_factories > 5
+            has_completed_focus = GRE_public_works   
 		}
 
 		fire_only_once = yes
@@ -5483,10 +5527,6 @@ GRE_kathestos_4hs = {
         
         days_remove = 90
 
-		activation = {
-            has_country_flag = GRE_step_2_finished
-            has_completed_focus = GRE_public_works    
-		}
 
 		visible = {
             has_country_flag = GRE_step_2_finished 
@@ -5499,10 +5539,6 @@ GRE_kathestos_4hs = {
         modifier = {
             civilian_factory_use = 5
         }
-
-		complete_effect = {
-            
-		}
 
 		remove_effect = {
 			add_stability = 0.01
@@ -5572,6 +5608,7 @@ GRE_kathestos_4hs = {
 
 		available = {
             um_of_available_civilian_factories > 2
+            has_completed_focus = GRE_public_works 
 		}
 
 		fire_only_once = yes
@@ -5579,11 +5616,6 @@ GRE_kathestos_4hs = {
         cost = 25
         
         days_remove = 60
-
-		activation = {
-            has_country_flag = GRE_step_2_finished
-            has_completed_focus = GRE_public_works    
-		}
 
 		visible = {
             has_country_flag = GRE_step_2_finished 
@@ -5674,7 +5706,7 @@ GRE_kathestos_4hs = {
 		}
 
 		available = {
-            
+            has_completed_focus = GRE_public_works  
 		}
 
 		fire_only_once = yes
@@ -5682,11 +5714,6 @@ GRE_kathestos_4hs = {
         cost = 25
         
         days_remove = 75
-
-		activation = {
-            has_country_flag = GRE_step_2_finished
-            has_completed_focus = GRE_public_works    
-		}
 
 		visible = {
             has_country_flag = GRE_step_2_finished 
@@ -5774,18 +5801,13 @@ GRE_kathestos_4hs = {
 			original_tag = GRE
 		}
 
-		available = {
-            
-		}
-
 		fire_only_once = yes
         
         cost = 125
         
         days_remove = 120
 
-		activation = {
-            has_country_flag = GRE_step_2_finished
+		available = {
             has_completed_focus = GRE_public_works    
 		}
 
@@ -5857,10 +5879,6 @@ GRE_kathestos_4hs = {
 		allowed = { 
 			original_tag = GRE
 		}
-
-		available = {
-            
-		}
         
         cost = 150
         
@@ -5868,8 +5886,7 @@ GRE_kathestos_4hs = {
         
         days_remove = 120
 
-		activation = {
-            has_country_flag = GRE_step_2_finished
+		available = {
             has_completed_focus = GRE_public_works    
 		}
 
@@ -5947,17 +5964,12 @@ GRE_kathestos_4hs = {
 			original_tag = GRE
 		}
 
-		available = {
-            
-		}
-
 		fire_only_once = yes
         
         cost = 150
         days_remove = 120
 
-		activation = {
-            has_country_flag = GRE_step_2_finished
+		available = {
             has_completed_focus = GRE_public_works    
 		}
 
@@ -6035,17 +6047,12 @@ GRE_kathestos_4hs = {
 			original_tag = GRE
 		}
 
-		available = {
-            
-		}
-
 		fire_only_once = yes
         
         cost = 50
         days_remove = 80
 
-		activation = {
-            has_country_flag = GRE_step_2_finished
+		available = {
             has_completed_focus = GRE_public_works    
 		}
 
@@ -6116,17 +6123,12 @@ GRE_kathestos_4hs = {
 			original_tag = GRE
 		}
 
-		available = {
-            
-		}
-
 		fire_only_once = yes
         
         cost = 50
         days_remove = 30
 
-		activation = {
-            has_country_flag = GRE_step_2_finished
+		available = {
             has_completed_focus = GRE_laying_out_the_social_wellfare_plan    
 		}
 
@@ -6193,17 +6195,12 @@ GRE_kathestos_4hs = {
 			original_tag = GRE
 		}
 
-		available = {
-            
-		}
-
 		fire_only_once = yes
         
         cost = 50
         days_remove = 30
 
-		activation = {
-            has_country_flag = GRE_step_2_finished
+		available = {
             has_completed_focus = GRE_laying_out_the_social_wellfare_plan    
 		}
 
@@ -6272,17 +6269,12 @@ GRE_kathestos_4hs = {
 			original_tag = GRE
 		}
 
-		available = {
-            
-		}
-
 		fire_only_once = yes
         
         cost = 50
         days_remove = 30
 
-		activation = {
-            has_country_flag = GRE_step_2_finished
+		available = {
             has_completed_focus = GRE_laying_out_the_social_wellfare_plan    
 		}
 
@@ -6347,17 +6339,13 @@ GRE_kathestos_4hs = {
 			original_tag = GRE
 		}
 
-		available = {
-            date > 1938.1.1
-		}
-
 		fire_only_once = yes
         
         cost = 50
         days_remove = 30
 
-		activation = {
-            has_country_flag = GRE_step_2_finished
+		available = {
+            date > 1938.1.1
             has_completed_focus = GRE_laying_out_the_social_wellfare_plan    
 		}
 
@@ -6422,17 +6410,12 @@ GRE_kathestos_4hs = {
 			original_tag = GRE
 		}
 
-		available = {
-            
-		}
-
 		fire_only_once = yes
         
         cost = 50
         days_remove = 30
 
-		activation = {
-            has_country_flag = GRE_step_2_finished
+		available = {
             has_completed_focus = GRE_laying_out_the_social_wellfare_plan    
 		}
 
@@ -6499,17 +6482,13 @@ GRE_kathestos_4hs = {
 			original_tag = GRE
 		}
 
-		available = {
-            
-		}
 
 		fire_only_once = yes
         
         cost = 50
         days_remove = 30
 
-		activation = {
-            has_country_flag = GRE_step_2_finished
+		available = {
             has_completed_focus = GRE_laying_out_the_social_wellfare_plan    
 		}
 
@@ -6575,17 +6554,12 @@ GRE_kathestos_4hs = {
 			original_tag = GRE
 		}
 
-		available = {
-            
-		}
-
 		fire_only_once = yes
         
         cost = 50
         days_remove = 30
 
-		activation = {
-            has_country_flag = GRE_step_2_finished
+		available = {
             has_completed_focus = GRE_laying_out_the_social_wellfare_plan    
 		}
 
@@ -6650,17 +6624,12 @@ GRE_kathestos_4hs = {
 			original_tag = GRE
 		}
 
-		available = {
-            
-		}
-
 		fire_only_once = yes
         
         cost = 75
         days_remove = 30
 
-		activation = {
-            has_country_flag = GRE_step_2_finished
+		available = {
             has_completed_focus = GRE_laying_out_the_social_wellfare_plan    
 		}
 
@@ -6728,17 +6697,12 @@ GRE_kathestos_4hs = {
 			original_tag = GRE
 		}
 
-		available = {
-            
-		}
-
 		fire_only_once = yes
         
         cost = 25
         days_remove = 30
 
-		activation = {
-            has_country_flag = GRE_step_2_finished
+		available = {
             has_completed_focus = GRE_laying_out_the_social_wellfare_plan    
 		}
 
@@ -6802,17 +6766,12 @@ GRE_kathestos_4hs = {
 			original_tag = GRE
 		}
 
-		available = {
-            
-		}
-
 		fire_only_once = yes
         
         cost = 75
         days_remove = 30
 
-		activation = {
-            has_country_flag = GRE_step_2_finished
+		available = {
             has_completed_focus = GRE_laying_out_the_social_wellfare_plan    
 		}
 
@@ -6882,18 +6841,13 @@ GRE_kathestos_4hs = {
 		allowed = { 
 			original_tag = GRE
 		}
-
-		available = {
-            
-		}
-
+        
 		fire_only_once = yes
         
         cost = 25
         days_remove = 30
 
-		activation = {
-            has_country_flag = GRE_step_2_finished
+		available = {
             has_completed_focus = GRE_laying_out_the_social_wellfare_plan    
 		}
 
@@ -6960,17 +6914,12 @@ GRE_kathestos_4hs = {
 			original_tag = GRE
 		}
 
-		available = {
-            
-		}
-
 		fire_only_once = yes
         
         cost = 50
         days_remove = 30
 
-		activation = {
-            has_country_flag = GRE_step_2_finished
+		available = {
             has_completed_focus = GRE_laying_out_the_social_wellfare_plan    
 		}
 
@@ -7040,17 +6989,12 @@ GRE_kathestos_4hs = {
 			original_tag = GRE
 		}
 
-		available = {
-            
-		}
-
 		fire_only_once = yes
         
         cost = 10
         days_remove = 30
 
-		activation = {
-            has_country_flag = GRE_step_2_finished
+		available = {
             has_completed_focus = GRE_laying_out_the_social_wellfare_plan    
 		}
 
@@ -7105,17 +7049,12 @@ GRE_kathestos_4hs = {
 			original_tag = GRE
 		}
 
-		available = {
-            
-		}
-
 		fire_only_once = yes
         
         cost = 10
         days_remove = 30
 
-		activation = {
-            has_country_flag = GRE_step_2_finished
+		available = {
             has_completed_focus = GRE_laying_out_the_social_wellfare_plan    
 		}
 
@@ -7169,18 +7108,13 @@ GRE_kathestos_4hs = {
 		allowed = { 
 			original_tag = GRE
 		}
-
-		available = {
-            
-		}
-
+        
 		fire_only_once = yes
         
         cost = 10
         days_remove = 30
 
-		activation = {
-            has_country_flag = GRE_step_2_finished
+		available = {
             has_completed_focus = GRE_laying_out_the_social_wellfare_plan    
 		}
 
@@ -7235,9 +7169,6 @@ GRE_kathestos_asfaleia {
 
 		allowed = { 
 			original_tag = GRE
-		}
-
-		available = {
 		}
 
 		visible = {
@@ -7313,8 +7244,6 @@ GRE_kathestos_asfaleia {
 			original_tag = GRE
 		}
 
-		available = {
-		}
 
 		visible = {
             has_completed_focus = GRE_establish_asfaleia
@@ -7393,9 +7322,6 @@ GRE_kathestos_asfaleia {
 			original_tag = GRE
 		}
 
-		available = {
-		}
-
 		visible = {
             has_completed_focus = GRE_establish_asfaleia
             has_country_flag = GRE_asfaleia_forces_organized
@@ -7464,9 +7390,6 @@ GRE_kathestos_asfaleia {
 
 		allowed = { 
 			original_tag = GRE
-		}
-
-		available = {
 		}
 
 		visible = {
@@ -7541,9 +7464,6 @@ GRE_kathestos_asfaleia {
 
 		allowed = { 
 			original_tag = GRE
-		}
-
-		available = {
 		}
 
 		visible = {
@@ -7622,9 +7542,6 @@ GRE_kathestos_asfaleia {
 			original_tag = GRE
 		}
 
-		available = {
-		}
-
 		visible = {
             has_completed_focus = GRE_establish_asfaleia
             has_country_flag = GRE_asfaleia_forces_organized
@@ -7695,7 +7612,7 @@ GRE_kathestos_asfaleia {
 
 		available = {
             custom_trigger_tooltip = {
-                tooltip = GRE_favor_german_at_least_mediocre
+                tooltip = GRE_favor_german_at_least_mediocre_tt
                 check_variable = { var = GER.favor@GRE value = 30 compare = greater_than_or_equals }
             }
 		}
@@ -7768,9 +7685,6 @@ GRE_kathestos_asfaleia {
 			original_tag = GRE
 		}
 
-		available = {
-		}
-
 		visible = {
             has_completed_focus = GRE_establish_asfaleia
             has_country_flag = GRE_asfaleia_forces_organized
@@ -7791,6 +7705,7 @@ GRE_kathestos_asfaleia {
         }
         
         remove_effect = {
+            set_country_flag = stop_communist_uprising
             add_to_variable = { GRE_var_op_slot = 1 }
             subtract_from_variable = { GRE_var_civ_others = 10 } 
             subtract_from_variable = { GRE_var_arm_others = 2.5 }
@@ -7844,9 +7759,6 @@ GRE_kathestos_asfaleia {
 			original_tag = GRE
 		}
 
-		available = {
-		}
-
 		visible = {
             has_completed_focus = GRE_establish_asfaleia
             has_country_flag = GRE_asfaleia_forces_organized
@@ -7866,6 +7778,7 @@ GRE_kathestos_asfaleia {
         }
         
         remove_effect = {
+            set_country_flag = stop_democratic_uprising
             subtract_from_variable = { GRE_var_civ_others = 7.5 } 
             subtract_from_variable = { GRE_var_arm_others = 2.5 } 
             add_to_variable = { GRE_var_pp_gain_asf = 0.05 } 
@@ -7915,9 +7828,6 @@ GRE_kathestos_asfaleia {
 
 		allowed = { 
 			original_tag = GRE
-		}
-
-		available = {
 		}
 
 		visible = {
@@ -7990,9 +7900,6 @@ GRE_kathestos_asfaleia {
 			original_tag = GRE
 		}
 
-		available = {
-		}
-
 		visible = {
             has_completed_focus = GRE_establish_asfaleia
             has_country_flag = GRE_asfaleia_forces_organized
@@ -8059,9 +7966,6 @@ GRE_kathestos_asfaleia {
 
 		allowed = { 
 			original_tag = GRE
-		}
-
-		available = {
 		}
 
 		visible = {
@@ -8135,9 +8039,6 @@ GRE_kathestos_asfaleia {
 			original_tag = GRE
 		}
 
-		available = {
-		}
-
 		visible = {
             has_completed_focus = GRE_establish_asfaleia
             has_country_flag = GRE_war_on_minorities
@@ -8206,9 +8107,6 @@ GRE_kathestos_asfaleia {
 
 		allowed = { 
 			original_tag = GRE
-		}
-
-		available = {
 		}
 
 		visible = {
@@ -8280,9 +8178,6 @@ GRE_kathestos_asfaleia {
 			original_tag = GRE
 		}
 
-		available = {
-		}
-
 		visible = {
             has_completed_focus = GRE_establish_asfaleia
             has_country_flag = GRE_war_on_minorities
@@ -8351,9 +8246,6 @@ GRE_kathestos_asfaleia {
 			original_tag = GRE
 		}
 
-		available = {
-		}
-
 		visible = {
             has_completed_focus = GRE_establish_asfaleia
 		}
@@ -8376,9 +8268,6 @@ GRE_kathestos_asfaleia {
 
 		allowed = { 
 			original_tag = GRE
-		}
-
-		available = {
 		}
 
 		visible = {
@@ -8406,9 +8295,6 @@ GRE_kathestos_propaganda {
 
 		allowed = { 
 			original_tag = GRE
-		}
-
-		available = {
 		}
 
 		visible = {
@@ -8484,9 +8370,6 @@ GRE_kathestos_propaganda {
 			original_tag = GRE
 		}
 
-		available = {
-		}
-
 		visible = {
             has_completed_focus = GRE_establish_propaganda
             has_country_flag = GRE_peasant_worker_soldier
@@ -8554,9 +8437,6 @@ GRE_kathestos_propaganda {
 
 		allowed = { 
 			original_tag = GRE
-		}
-
-		available = {
 		}
 
 		visible = {
@@ -8629,9 +8509,6 @@ GRE_kathestos_propaganda {
 			original_tag = GRE
 		}
 
-		available = {
-		}
-
 		visible = {
             has_completed_focus = GRE_establish_propaganda
             has_country_flag = GRE_peasant_worker_soldier
@@ -8699,9 +8576,6 @@ GRE_kathestos_propaganda {
 
 		allowed = { 
 			original_tag = GRE
-		}
-
-		available = {
 		}
 
 		visible = {
@@ -8773,9 +8647,6 @@ GRE_kathestos_propaganda {
 			original_tag = GRE
 		}
 
-		available = {
-		}
-
 		visible = {
             has_completed_focus = GRE_establish_propaganda
             has_country_flag = GRE_peasant_worker_soldier
@@ -8827,9 +8698,6 @@ GRE_kathestos_propaganda {
 			original_tag = GRE
 		}
 
-		available = {
-		}
-
 		visible = {
             has_completed_focus = GRE_establish_propaganda
             has_country_flag = GRE_peasant_worker_soldier
@@ -8879,9 +8747,6 @@ GRE_kathestos_propaganda {
 
 		allowed = { 
 			original_tag = GRE
-		}
-
-		available = {
 		}
 
 		visible = {
@@ -8953,9 +8818,6 @@ GRE_kathestos_propaganda {
 			original_tag = GRE
 		}
 
-		available = {
-		}
-
 		visible = {
             has_completed_focus = GRE_establish_propaganda
             has_country_flag = GRE_peasant_worker_soldier
@@ -9024,9 +8886,6 @@ GRE_kathestos_propaganda {
 
 		allowed = { 
 			original_tag = GRE
-		}
-
-		available = {
 		}
 
 		visible = {
@@ -9221,9 +9080,6 @@ GRE_kathestos_war_preparation = {
 			original_tag = GRE
 		}
 
-		available = {
-		}
-
 		visible = {
             has_completed_focus = GRE_rearmament
 		}
@@ -9275,9 +9131,6 @@ GRE_kathestos_war_preparation = {
 			original_tag = GRE
 		}
 
-		available = {
-		}
-
 		visible = {
             has_completed_focus = GRE_rearmament
 		}
@@ -9315,9 +9168,6 @@ GRE_kathestos_war_preparation = {
 
 		allowed = { 
 			original_tag = GRE
-		}
-
-		available = {
 		}
 
 		visible = {
@@ -9366,9 +9216,6 @@ GRE_kathestos_war_preparation = {
 			original_tag = GRE
 		}
 
-		available = {
-		}
-
 		visible = {
             has_completed_focus = GRE_the_matter_of_conscription
 		}
@@ -9399,9 +9246,6 @@ GRE_kathestos_war_preparation = {
 			original_tag = GRE
 		}
 
-		available = {
-		}
-
 		visible = {
             has_completed_focus = GRE_fylla_poreias
 		}
@@ -9430,9 +9274,6 @@ GRE_kathestos_war_preparation = {
 
 		allowed = { 
 			original_tag = GRE
-		}
-
-		available = {
 		}
 
 		visible = {
@@ -9470,9 +9311,6 @@ GRE_kathestos_war_preparation = {
 
 		allowed = { 
 			original_tag = GRE
-		}
-
-		available = {
 		}
 
 		visible = {
@@ -9513,9 +9351,6 @@ GRE_kathestos_war_preparation = {
 			original_tag = GRE
 		}
 
-		available = {
-		}
-
 		visible = {
             has_completed_focus = GRE_rearmament
 		}
@@ -9552,9 +9387,6 @@ GRE_kathestos_war_preparation = {
 
 		allowed = { 
 			original_tag = GRE
-		}
-
-		available = {
 		}
 
 		visible = {
@@ -12575,6 +12407,7 @@ GRE_faction_gui_decision_category = {
         activation = {
             date > 1937.9.1
             check_variable = { var = fct_com value = 20 compare = less_than }
+            NOT = { has_country_flag = stop_communist_uprising }
         }
         is_good = no
         days_mission_timeout = 120
@@ -12605,6 +12438,7 @@ GRE_faction_gui_decision_category = {
         activation = {
             date > 1937.9.1
             check_variable = { var = fct_dem value = 20 compare = less_than }
+            NOT = { has_country_flag = stop_democratic_uprising }
         }
         is_good = no
         days_mission_timeout = 120

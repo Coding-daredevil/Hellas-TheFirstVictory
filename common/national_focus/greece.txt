@@ -4062,12 +4062,10 @@ focus_tree = {
                         is_major = yes
                     }
                     if = {
-                        limit = {
-                            has_opinion = { target = GRE value > 79 }  
+                        limit = { 
+                            target = GRE value > 79 
                             check_variable = { var = THIS.favor@GRE value = 30 compare = greater_than_or_equals }
-                            check_variable = { var = THIS.favor@GRE value = 50 compare = less_than }
                         }
-                        subtract_from_variable = { THIS.favor@GRE = 5 }
                         GRE = {
                             random_owned_controlled_state = {
                                 limit = {
@@ -4108,125 +4106,35 @@ focus_tree = {
                                         include_locked = yes
                                     }
                                 }
-                                add_extra_state_shared_building_slots = 2
+                                add_extra_state_shared_building_slots = 1
                                 add_building_construction = {
                                     type = industrial_complex
                                     level = 1
                                     instant_build = yes
                                 }
                             }
+                        }
+                        subtract_from_variable = { THIS.favor@GRE = 5 }                                                    ### Base favor lost to get 1civ-1mil (t: 5)
+                        if = {
+                            limit = {
+                                check_variable = { var = THIS.favor@GRE value = 50 compare = greater_than_or_equals }
+                                check_variable = { var = THIS.favor@GRE value = 80 compare = less_than }                    ## If favor is between 50-80 (great)
+                            }
+                            GRE = { add_offsite_building = { type = arms_factory level = 1 } }
+                            add_to_variable = { THIS.milslent@GRE = 1 }
+                            subtract_from_variable = { THIS.favor@GRE = 5 }                                                 ## Additional favor lost (t: 10) 
+                        }
+                        else_if = {
+                            limit = {
+                                check_variable = { var = THIS.favor@GRE value = 80 compare = greater_than_or_equals }       ## If favor is between 80+ (excellent)
+                            }
+                            GRE = { add_offsite_building = { type = arms_factory level = 1 } }
+                            GRE = { add_offsite_building = { type = industrial_complex level = 1 } }
+                            add_to_variable = { THIS.milslent@GRE = 1 }
+                            add_to_variable = { THIS.civslent@GRE = 1 }
+                            subtract_from_variable = { THIS.favor@GRE = 10 }                                                ## Additional favor lost (t: 15)
                         }
                     }
-                    else_if = {
-                        limit = {
-                            has_opinion = { target = GRE value > 79 }  
-                            check_variable = { var = THIS.favor@GRE value = 80 compare = less_than }
-                        }
-                        subtract_from_variable = { THIS.favor@GRE = 7.5 }
-                        GRE = {
-                            random_owned_controlled_state = {
-                                limit = {
-                                    OR = {
-                                        has_state_category = town
-                                        has_state_category = large_town
-                                        has_state_category = city
-                                        has_state_category = large_city
-                                        has_state_category = metropolis
-                                        has_state_category = megalopolis
-                                    }
-                                    free_building_slots = {
-                                        building = arms_factory
-                                        size > 0
-                                        include_locked = yes
-                                    }
-                                }
-                                add_extra_state_shared_building_slots = 1
-                                add_building_construction = {
-                                    type = arms_factory
-                                    level = 2
-                                    instant_build = yes
-                                }
-                            }
-                            random_owned_controlled_state = {
-                                limit = {
-                                    OR = {
-                                        has_state_category = town
-                                        has_state_category = large_town
-                                        has_state_category = city
-                                        has_state_category = large_city
-                                        has_state_category = metropolis
-                                        has_state_category = megalopolis
-                                    }
-                                    free_building_slots = {
-                                        building = industrial_complex
-                                        size > 0
-                                        include_locked = yes
-                                    }
-                                }
-                                add_extra_state_shared_building_slots = 2
-                                add_building_construction = {
-                                    type = industrial_complex
-                                    level = 1
-                                    instant_build = yes
-                                }
-                            }
-                        }
-                    }
-                    else_if = {
-                        limit = {
-                            has_opinion = { target = GRE value > 79 }  
-                            check_variable = { var = THIS.favor@GRE value = 80 compare = greater_than_or_equals }
-                        }
-                        subtract_from_variable = { THIS.favor@GRE = 10 }
-                        GRE = {
-                            random_owned_controlled_state = {
-                                limit = {
-                                    OR = {
-                                        has_state_category = town
-                                        has_state_category = large_town
-                                        has_state_category = city
-                                        has_state_category = large_city
-                                        has_state_category = metropolis
-                                        has_state_category = megalopolis
-                                    }
-                                    free_building_slots = {
-                                        building = arms_factory
-                                        size > 0
-                                        include_locked = yes
-                                    }
-                                }
-                                add_extra_state_shared_building_slots = 1
-                                add_building_construction = {
-                                    type = arms_factory
-                                    level = 2
-                                    instant_build = yes
-                                }
-                            }
-                            random_owned_controlled_state = {
-                                limit = {
-                                    OR = {
-                                        has_state_category = town
-                                        has_state_category = large_town
-                                        has_state_category = city
-                                        has_state_category = large_city
-                                        has_state_category = metropolis
-                                        has_state_category = megalopolis
-                                    }
-                                    free_building_slots = {
-                                        building = industrial_complex
-                                        size > 0
-                                        include_locked = yes
-                                    }
-                                }
-                                add_extra_state_shared_building_slots = 2
-                                add_building_construction = {
-                                    type = industrial_complex
-                                    level = 2
-                                    instant_build = yes
-                                }
-                            }
-                        }
-                    }  
                 }
                 every_country = {
                     limit = {
@@ -4241,39 +4149,9 @@ focus_tree = {
                             has_opinion = { target = GRE value > 79 }  
                             check_variable = { var = THIS.favor@GRE value = 80 compare = greater_than_or_equals }
                         }
-                        subtract_from_variable = { THIS.favor@GRE = 7.5 }
-                        GRE = {
-                            random_owned_controlled_state = {
-                                limit = {
-                                    free_building_slots = {
-                                        building = arms_factory
-                                        size > 0
-                                        include_locked = yes
-                                    }
-                                }
-                                add_extra_state_shared_building_slots = 1
-                                add_building_construction = {
-                                    type = arms_factory
-                                    level = 1
-                                    instant_build = yes
-                                }
-                            }
-                            random_owned_controlled_state = {
-                                limit = {
-                                    free_building_slots = {
-                                        building = industrial_complex
-                                        size > 0
-                                        include_locked = yes
-                                    }
-                                }
-                                add_extra_state_shared_building_slots = 1
-                                add_building_construction = {
-                                    type = industrial_complex
-                                    level = 1
-                                    instant_build = yes
-                                }
-                            }
-                        }
+                        subtract_from_variable = { THIS.favor@GRE = 10 }
+                        GRE = { add_offsite_building = { type = industrial_complex level = 1 } }
+                        add_to_variable = { THIS.civslent@GRE = 1 }
                     }  
                 }            
             }
@@ -4661,6 +4539,7 @@ focus_tree = {
 					add_offsite_building = { type = industrial_complex level = 1 }
 				}
 			}
+            unlock_decision_tooltip = solidify_assets
             custom_effect_tooltip = "                                                                          "
             swap_ideas = {
                 remove_idea = GRE_domestic_competition_0
@@ -5884,7 +5763,10 @@ focus_tree = {
             subtract_from_variable = { fct_dem = 7.5}
             add_to_variable = { fct_fas = 2.5}
             faction_gui_call = yes    
-            hidden_effect = { add_ideas = GRE_kotzias }
+            hidden_effect = { 
+                add_ideas = GRE_kotzias
+                add_ideas = GRE_diakos
+            }
 		}
 	}    
 
@@ -6263,6 +6145,7 @@ focus_tree = {
         prerequisite = { focus = GRE_establish_propaganda }
 		available = {
             date > 1936.09.05
+            has_idea = GRE_karaiskaki
 		}
         
         relative_position_id = GRE_metaxas_military_affairs
