@@ -8,6 +8,40 @@
 # localization_key -> points to the localization key
 # that'll be used if trigger passes
 
+defined_text = {
+    name = GetItalianIntelAtYou
+    text = {
+        trigger = {
+            has_country_flag = GRE_grecoitalian_diplomatic_games_still_relevant
+        }
+        localization_key = GRE_italian_intel_on_us
+    } 
+    text = {
+        trigger = {
+            NOT = { has_country_flag = GRE_grecoitalian_diplomatic_games_still_relevant }
+        }
+        localization_key = ""
+    }     
+}
+
+defined_text = { 
+    name = GetItalianArmyIntelAtYou
+    text = {
+        trigger = {
+        check_variable = { var = GRE.network_national_coverage@ITA value = 35 compare = greater_than_or_equals }
+        }
+        localization_key = GRE_italian_army_intel
+    } 
+    text = {
+        trigger = {
+        check_variable = { var = GRE.network_national_coverage@ITA value = 35 compare = less_than }
+        }
+        localization_key = GRE_na
+    }     
+}
+
+
+
 defined_text = { 
     name = GetAdditionalArmyEffects
     text = {

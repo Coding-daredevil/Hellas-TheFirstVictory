@@ -5327,6 +5327,56 @@ GRE_kathestos_4hs = {
     
     }
 
+    GRE_activated_mission_2 = {
+
+		icon = eng_support_imperialist_coup
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		activation = {
+            has_country_flag = GRE_hidden_flag
+		}        
+
+		available = {
+            set_temp_variable = { x = ITA.army_intel@GRE }                              ### FORMULA: y = -0.25x + 30 where y the num of divisions and x the army intel italy has over greece (5,30 min-max)
+            multiply_temp_variable = { x = -0.25 }
+            add_to_temp_variable = { x = 30 }
+            num_divisions < x
+		}
+
+		days_mission_timeout = 90
+
+		fire_only_once = no
+
+		visible = {
+            has_country_flag = GRE_hidden_flag
+		}
+
+		cancel_if_not_visible = no
+
+		is_good = no
+
+		complete_effect = {
+            add_political_power = -50
+		}
+
+		timeout_effect = {
+            ITA = {                                                                     ### Give Italy wargoal for 30 days.
+                add_political_power = 50
+                add_stability = 0.1
+                add_war_support = 0.1
+                create_wargoal = {
+                    type = puppet_wargoal_focus 
+                    target = GRE
+                    expire = 30
+                }
+            }  
+		}    
+    
+    }
+    
 	GRE_kathestos_timeout_not_visible  = { # 4hAugoustou
 
 		icon = eng_support_imperialist_coup
