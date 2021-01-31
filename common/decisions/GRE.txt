@@ -587,155 +587,153 @@ crisis = {
 	}
 }
 #GREECE INVESTMENT DECISIONS
-GRE_investment_decisions_category = { 
-	GRE_invite_politicians_for_investment_talks_in_capital = { #GERMANY
+GRE_investment_decisions_category = {
 
-		icon = generic_factory
+    GRE_low_risk_investment = {
+        icon = generic_factory
 
 		allowed = { 
 			original_tag = GRE
 		}
 
+		target_trigger = {
+			FROM = {
+                is_in_array = {
+                    array = global.favor_mechanic
+                    value = THIS.id
+                }          
+			}
+		}
+
 		available = {
 			date < 1942.1.1
 			NOT = {
-				has_war_with = GER
-				has_country_flag = GRE_germany_rebuffed
-				GER = {
-					has_capitulated = yes
-					is_puppet = yes
-					has_government = communism
-					has_government = democratic
-				}
+				has_war_with = FROM
+                custom_trigger_tooltip = {
+                    tooltip = GRE_favor_abysmal_from_tt
+                    check_variable = { var = FROM.favor@GRE value = 0 compare = less_than }
+                }
 			}
 		}
-
-		target_trigger = {
-			FROM = {
-				tag = GER
-			}
-		}
-
-		days_remove = 20
-
-		cost = 75
-
-		fire_only_once = no
-
-		ai_will_do = {
-			factor = 5
-			modifier = {
-				factor = 2
-				is_historical_focus_on = yes
-			}
-			modifier = {
-				factor = 10
-				has_completed_focus = GRE_bolster_the_schachtplan
-			}
-			modifier = {
-				factor = 30
-				has_completed_focus = GRE_following_in_the_footsteps_of_giants
-			}
-		}
-
+        
 		visible = {
 			has_completed_focus = GRE_open_up_the_country
-			GRE = { 
-				OR = { 
-					has_idea = GRE_schachtplan
-					has_idea = GRE_schachtplan_modified
-					has_idea = GRE_schachtplan_fascistised
-				}
-			}	
-			NOT = {
-				has_country_flag = GRE_germany_rebuffed
-			}
+            if = {
+                limit = {
+                    FROM = {
+                        is_major = no
+                    }
+                }
+                check_variable = { var = FROM.favor@GRE value = 50 compare = greater_than_or_equals }
+            }
 		}
 
-		complete_effect = {
-
-		}
+		modifier = {
+            political_power_factor = -0.1
+        }
+        
+        days_remove = 14
+        cost = 75
 
 		remove_effect = {
-			GER = {
-				country_event = { id = bftb_greece.166 days = 1 }
+			FROM = {
+				country_event = { id = hellas.500 days = 1 }
 			}
 		}
-	}
-	GRE_hold_national_showcase_for_investors_ger = { #GERMANY
-
-		icon = generic_factory
+    }
+    
+    GRE_medium_risk_investment = {
+        icon = generic_factory
 
 		allowed = { 
 			original_tag = GRE
 		}
 
+		target_trigger = {
+			FROM = {
+                is_in_array = {
+                    array = global.favor_mechanic
+                    value = THIS.id
+                }          
+			}
+		}
+
 		available = {
 			date < 1942.1.1
 			NOT = {
-				has_war_with = GER
-				has_country_flag = GRE_germany_rebuffed
-				GER = {
-					has_capitulated = yes
-					is_puppet = yes
-					has_government = communism
-					has_government = democratic
-				}
+				has_war_with = FROM
+                custom_trigger_tooltip = {
+                    tooltip = GRE_favor_mediocre_from_tt
+                    check_variable = { var = FROM.favor@GRE value = 30 compare = less_than }
+                }
 			}
+            if = {
+                limit = {
+                    FROM = { original_tag = GER }
+                }
+                has_completed_focus = GRE_bolster_the_schachtplan
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = ENG }
+                }
+                has_completed_focus = GRE_british_docking_rights
+            } 
+            else_if = {
+                limit = {
+                    FROM = { original_tag = FRA }
+                }
+                has_completed_focus = GRE_renegotiate_debt_with_france
+            }             
+            else_if = {
+                limit = {
+                    FROM = { original_tag = SOV }
+                }
+                has_completed_focus = GRE_appeal_to_the_soviet_union
+            } 
+            else_if = {
+                limit = {
+                    FROM = { original_tag = USA }
+                }
+                has_completed_focus = GRE_american_influencers
+            } 
+            else_if = {
+                limit = {
+                    FROM = { original_tag = JAP }
+                }
+                has_completed_focus = GRE_arm_the_japanese
+            }
+            else = {
+                has_completed_focus = GRE_a_game_of_shadows
+            }
 		}
-
-		target_trigger = {
-			FROM = {
-				tag = GER
-			}
-		}
-
-		days_remove = 45
-
-		cost = 150
-
-		fire_only_once = no
-
-		ai_will_do = {
-			factor = 5
-			modifier = {
-				factor = 2
-				is_historical_focus_on = yes
-			}
-			modifier = {
-				factor = 10
-				has_completed_focus = GRE_bolster_the_schachtplan
-			}
-			modifier = {
-				factor = 30
-				has_completed_focus = GRE_following_in_the_footsteps_of_giants
-			}
-		}
-
+        
 		visible = {
-			has_completed_focus = GRE_bolster_the_schachtplan
-			GRE = { 
-				OR = { 
-					has_idea = GRE_schachtplan
-					has_idea = GRE_schachtplan_modified
-					has_idea = GRE_schachtplan_fascistised
-				}
-			}
-			NOT = {
-				has_country_flag = GRE_germany_rebuffed
-			}
+			has_completed_focus = GRE_open_up_the_country
+            if = {
+                limit = {
+                    FROM = {
+                        is_major = no
+                    }
+                }
+                check_variable = { var = FROM.favor@GRE value = 50 compare = greater_than_or_equals }
+            }
 		}
 
-		complete_effect = {
-
-		}
+		modifier = {
+            political_power_factor = -0.15
+        }
+        
+        days_remove = 14
+        cost = 150
 
 		remove_effect = {
-			GER = {
-				country_event = { id = bftb_greece.167 days = 1 }
+			FROM = {
+				country_event = { id = hellas.503 days = 1 }
 			}
 		}
-	}
+    }    
+    
 	GRE_exploit_errata_in_schachtplan = { #GERMANY
 
 		icon = generic_construction
@@ -810,210 +808,9 @@ GRE_investment_decisions_category = {
 			}
 		}
 	}
-	GRE_rebuke_german_investment = { #GERMANY
 
-		icon = generic_break_treaty
 
-		allowed = { 
-			original_tag = GRE
-		}
 
-		available = {
-			NOT = { 
-				is_puppet_of = GER
-				is_in_faction_with = GER
-				has_completed_focus = GRE_bolster_the_schachtplan
-			}
-		}
-
-		target_trigger = {
-			FROM = {
-				tag = GER
-			}
-		}
-
-		cost = 50
-
-		fire_only_once = yes
-
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 100
-				date > 1940.1.1
-				is_historical_focus_on = yes
-			}
-			modifier = {
-				factor = 0
-				OR = {
-					has_completed_focus = GRE_bolster_the_schachtplan
-					has_completed_focus = GRE_recruit_the_fascists
-				}
-			}
-			modifier = {
-				factor = 50
-				OR = {
-					has_completed_focus = GRE_realign_ourselves_with_the_central_powers
-					has_completed_focus = GRE_restoring_our_home
-					has_completed_focus = GRE_request_communist_support
-				}
-			}
-		}
-
-		visible = {
-			has_completed_focus = GRE_open_up_the_country
-			GRE = { 
-				OR = { 
-					has_idea = GRE_schachtplan
-					has_idea = GRE_schachtplan_modified
-					has_idea = GRE_schachtplan_fascistised
-				}
-			}	
-			NOT = {
-				has_country_flag = GRE_germany_rebuffed
-			}
-		}
-
-		complete_effect = {
-			set_country_flag = GRE_germany_rebuffed
-			GER = {
-				add_opinion_modifier = { 
-					target = GRE
-					modifier = GRE_greek_turncoats
-				}
-			}
-		}
-	}
-	GRE_invite_entrepreneurs_for_investment_talks_in_capital = { #BRITAIN
-
-		icon = generic_factory
-
-		allowed = { 
-			original_tag = GRE
-		}
-
-		available = {
-			date < 1942.1.1
-			NOT = {
-				has_war_with = ENG
-				has_country_flag = GRE_britain_rebuffed
-				ENG = {
-					has_capitulated = yes
-					is_puppet = yes
-					NOT = { 
-						has_government = democratic
-						has_government = neutrality
-					}
-				}
-			}
-		}
-
-		target_trigger = {
-			FROM = {
-				tag = ENG
-			}
-		}
-
-		days_remove = 20
-
-		cost = 75
-
-		fire_only_once = no
-
-		ai_will_do = {
-			factor = 5
-			modifier = {
-				factor = 10
-				is_historical_focus_on = yes
-			}
-			modifier = {
-				factor = 20
-				has_completed_focus = GRE_british_docking_rights
-			}
-		}
-
-		visible = {
-			has_completed_focus = GRE_open_up_the_country
-			NOT = {
-				has_country_flag = GRE_britain_rebuffed
-			}
-		}
-
-		complete_effect = {
-
-		}
-
-		remove_effect = {
-			ENG = {
-				country_event = { id = bftb_greece.173 days = 1 }
-			}
-		}
-	}	
-	GRE_hold_national_showcase_for_investors_eng = { #BRITAIN
-
-		icon = generic_factory
-
-		allowed = { 
-			original_tag = GRE
-		}
-
-		available = {
-			date < 1942.1.1
-			NOT = {
-				has_war_with = ENG
-				has_country_flag = GRE_britain_rebuffed
-				ENG = {
-					has_capitulated = yes
-					is_puppet = yes
-					NOT = { 
-						has_government = democratic
-						has_government = neutrality
-					}
-				}
-			}
-		}
-
-		target_trigger = {
-			FROM = {
-				tag = ENG
-			}
-		}
-
-		days_remove = 45
-
-		cost = 150
-
-		fire_only_once = no
-
-		ai_will_do = {
-			factor = 5
-			modifier = {
-				factor = 5
-				is_historical_focus_on = yes
-			}
-			modifier = {
-				factor = 20
-				has_completed_focus = GRE_british_docking_rights
-			}
-		}
-
-		visible = {
-			has_completed_focus = GRE_british_docking_rights
-			NOT = {
-				has_country_flag = GRE_britain_rebuffed
-			}
-		}
-
-		complete_effect = {
-			
-		}
-
-		remove_effect = {
-			ENG = {
-				country_event = { id = bftb_greece.174 days = 1 }
-			}
-		}
-	}
 	GRE_trade_manufactured_ship_parts_for_investment = { #BRITAIN
 
 		icon = generic_construction
@@ -1080,224 +877,8 @@ GRE_investment_decisions_category = {
 			add_to_variable = { GRE_ship_parts_for_investment = 1 }
 		}
 	}	
-	GRE_rebuke_british_investment = { #BRITAIN
 
-		icon = generic_break_treaty
 
-		allowed = { 
-			original_tag = GRE
-		}
-
-		available = {
-			NOT = {
-				is_puppet_of = ENG
-				is_in_faction_with = ENG
-				has_completed_focus = GRE_british_docking_rights
-				has_country_leader = {
-    				name = "Eleftherios Venizelos"
-    				ruling_only = yes
-				}
-			}
-		}
-
-		target_trigger = {
-			FROM = {
-				tag = ENG
-			}
-		}
-
-		cost = 50
-
-		fire_only_once = yes
-
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 0
-				is_historical_focus_on = yes
-			}
-			modifier = {
-				factor = 0
-				OR = {
-					has_completed_focus = GRE_our_traditional_allies_in_the_aegean
-					has_completed_focus = GRE_the_gordian_knot
-				}
-			}
-			modifier = {
-				factor = 0
-				has_country_leader = {
-					name = "George II"
-					ruling_only = yes
-				}
-				NOT = { has_completed_focus = GRE_realign_ourselves_with_the_central_powers }
-			}
-			modifier = {
-				factor = 50
-				OR = {
-					has_completed_focus = GRE_realign_ourselves_with_the_central_powers
-					has_completed_focus = GRE_recruit_the_fascists
-					has_completed_focus = GRE_depose_the_reactionaries
-					has_country_leader = {
-						name = "Georgios Kosmidis"
-						ruling_only = yes
-					}
-				}
-			}
-		}
-
-		visible = {
-			has_completed_focus = GRE_open_up_the_country	
-			NOT = {
-				has_country_flag = GRE_britain_rebuffed
-			}
-		}
-
-		complete_effect = {
-			if = { 
-				limit = { 
-					check_variable = { var = GRE_debt_to_the_ifc_britain_var value = 2.5 compare = greater_than_or_equals } 
-				}
-				custom_effect_tooltip = GRE_force_debt_clearance_tt
-			}
-			set_country_flag = GRE_britain_rebuffed
-			ENG = {
-				add_opinion_modifier = { 
-					target = GRE
-					modifier = GRE_greek_turncoats
-				}
-			}
-			hidden_effect = { 
-				GRE_default_on_british_debt_effect = yes
-			}
-		}
-	}
-	GRE_go_to_paris_to_negotiate_investment_talks = { #FRANCE
-
-		icon = generic_factory
-
-		allowed = { 
-			original_tag = GRE
-		}
-
-		available = {
-			date < 1942.1.1
-			NOT = {
-				has_war_with = FRA
-				has_country_flag = GRE_france_rebuffed
-				FRA = {
-					has_capitulated = yes 
-					NOT = { owns_state = 16 }
-					is_puppet = yes
-					has_government = fascism
-					has_government = neutrality
-				}
-			}
-		}
-
-		target_trigger = {
-			FROM = {
-				tag = FRA
-			}
-		}
-
-		days_remove = 2
-
-		cost = 75
-
-		fire_only_once = no
-
-		ai_will_do = {
-			factor = 5
-			modifier = {
-				factor = 5
-				is_historical_focus_on = yes
-			}
-			modifier = {
-				factor = 20
-				has_completed_focus = GRE_renegotiate_debt_with_france
-			}
-		}
-
-		visible = {
-			has_completed_focus = GRE_open_up_the_country
-			NOT = {
-				has_country_flag = GRE_france_rebuffed
-			}
-		}
-
-		complete_effect = {
-			
-		}
-
-		remove_effect = {
-			FRA = {
-				country_event = { id = bftb_greece.179 days = 1 }
-			}
-		}
-	}
-	GRE_hold_national_showcase_for_investors_fra = { #FRANCE
-
-		icon = generic_factory
-
-		allowed = { 
-			original_tag = GRE
-		}
-
-		available = {
-			date < 1942.1.1
-			NOT = {
-				has_war_with = FRA
-				has_country_flag = GRE_france_rebuffed
-				FRA = {
-					has_capitulated = yes 
-					is_puppet = yes
-					has_government = fascism
-					has_government = neutrality
-				}
-			}
-		}
-
-		target_trigger = {
-			FROM = {
-				tag = FRA
-			}
-		}
-
-		days_remove = 45
-
-		cost = 150
-
-		fire_only_once = no
-
-		ai_will_do = {
-			factor = 5
-			modifier = {
-				factor = 5
-				is_historical_focus_on = yes
-			}
-			modifier = {
-				factor = 20
-				has_completed_focus = GRE_renegotiate_debt_with_france
-			}
-		}
-
-		visible = {
-			has_completed_focus = GRE_renegotiate_debt_with_france
-			NOT = {
-				has_country_flag = GRE_france_rebuffed
-			}
-		}
-
-		complete_effect = {
-			
-		}
-
-		remove_effect = {
-			FRA = {
-				country_event = { id = bftb_greece.180 days = 1 }
-			}
-		}
-	}
 	GRE_bribe_french_trade_unions_to_pressure_government_into_investment = { #FRANCE
 
 		icon = generic_construction 
@@ -1366,87 +947,7 @@ GRE_investment_decisions_category = {
 			add_to_variable = { GRE_trade_union_pressure_on_france = 1 }
 		}
 	}
-	GRE_rebuke_french_investment = { #FRANCE
-
-		icon = generic_break_treaty
-
-		allowed = { 
-			original_tag = GRE
-		}
-
-		available = {
-			NOT = {
-				is_puppet_of = FRA
-				is_in_faction_with = FRA
-				has_country_leader = {
-    				name = "Eleftherios Venizelos"
-    				ruling_only = yes
-				}
-			}
-		}
-
-		target_trigger = {
-			FROM = {
-				tag = FRA
-			}
-		}
-
-		cost = 50
-
-		fire_only_once = yes
-
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 0
-				is_historical_focus_on = yes
-			}
-			modifier = {
-				factor = 0
-				OR = {
-					has_completed_focus = GRE_renegotiate_debt_with_france
-					has_completed_focus = GRE_the_gordian_knot
-				}
-			}
-			modifier = {
-				factor = 50
-				OR = {
-					has_completed_focus = GRE_recruit_the_fascists
-					has_completed_focus = GRE_the_right_to_rule
-					has_country_leader = {
-						name = "Georgios Kosmidis"
-						ruling_only = yes
-					}
-				}
-			}
-		}
-
-		visible = {
-			has_completed_focus = GRE_open_up_the_country
-			NOT = {
-				has_country_flag = GRE_france_rebuffed
-			}
-		}
-
-		complete_effect = {
-			if = { 
-				limit = { 
-					check_variable = { var = GRE_debt_to_the_ifc_france_var value = 2.5 compare = greater_than_or_equals } 
-				}
-				custom_effect_tooltip = GRE_force_debt_clearance_tt
-			}
-			set_country_flag = GRE_france_rebuffed
-			FRA = {
-				add_opinion_modifier = { 
-					target = GRE
-					modifier = GRE_greek_turncoats
-				}
-			}
-			hidden_effect = { 
-				GRE_default_on_french_debt_effect = yes
-			}
-		}
-	}
+    
 	GRE_request_italian_assistance_with_industrialisation = { #ITALY
 
 		icon = generic_factory
@@ -1514,6 +1015,7 @@ GRE_investment_decisions_category = {
 			}
 		}
 	}
+    
 	GRE_temper_italian_colonial_ambitions_in_greece = { #ITALY
 
 		icon = generic_political_discourse
@@ -1583,381 +1085,6 @@ GRE_investment_decisions_category = {
 			}
 		}
 	}
-	GRE_rebuke_italian_investment = { #ITALY
-
-		icon = generic_break_treaty
-
-		allowed = { 
-			original_tag = GRE
-		}
-
-		available = {
-			NOT = {
-				is_puppet_of = ITA
-				is_in_faction_with = ITA
-			}
-		}
-
-		target_trigger = {
-			FROM = {
-				tag = ITA
-			}
-		}
-
-		cost = 50
-
-		fire_only_once = yes
-
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 100
-				date > 1940.1.1
-				is_historical_focus_on = yes
-			}
-			modifier = {
-				factor = 0
-				has_completed_focus = GRE_recruit_the_fascists
-			}
-			modifier = {
-				factor = 0
-				check_variable = {
-   					GRE_italian_influence_over_greek_government > 6
-				}
-			}
-			modifier = {
-				factor = 10
-				OR = { 
-					has_completed_focus = GRE_the_right_to_rule
-					has_completed_focus = GRE_use_the_military
-					has_completed_focus = GRE_bring_home_the_exiled_republicans
-					has_country_leader = {
-						name = "Georgios Kosmidis"
-						ruling_only = yes
-					}
-				}
-			}
-		}
-
-		visible = {
-			has_completed_focus = GRE_rapprochement_with_the_italians	
-			NOT = {
-				has_country_flag = GRE_italy_rebuffed
-			}
-		}
-
-		complete_effect = {
-			if = { 
-				limit = { 
-					check_variable = { var = GRE_debt_to_the_ifc_italy_var value = 2.5 compare = greater_than_or_equals } 
-				}
-				custom_effect_tooltip = GRE_force_debt_clearance_tt
-			}
-			set_country_flag = GRE_italy_rebuffed
-			custom_effect_tooltip = GRE_italian_influence_shunned_tt
-			if = { 
-				limit = { 
-					check_variable = {
-   						GRE_italian_influence_over_greek_government = 6 compare = greater_than_or_equals
-					}
-				}	
-				ITA = {
-					create_wargoal = {
-						type = puppet_wargoal_focus 
-						target = GRE
-					}
-				}
-			}
-			ITA = {
-				add_opinion_modifier = { 
-					target = GRE
-					modifier = GRE_greek_turncoats
-				}
-			}
-			hidden_effect = { 
-				GRE_default_on_italian_debt_effect = yes
-			}
-		}
-	}	
-	GRE_attend_talks_with_the_presidium = { #SOVIETS
-
-		icon = generic_factory
-
-		allowed = { 
-			original_tag = GRE
-		}
-
-		available = {
-			date < 1943.1.1
-			NOT = {
-				has_war_with = SOV
-				has_country_flag = GRE_soviets_rebuffed
-				SOV = {
-					has_capitulated = yes
-					is_puppet = yes
-					NOT = { has_government = communism }
-					has_completed_focus = SOV_claim_on_the_straits
-				}
-			}
-		}
-
-		target_trigger = {
-			FROM = {
-				tag = SOV
-			}
-		}
-
-		days_remove = 15
-
-		cost = 75
-
-		fire_only_once = no
-
-		ai_will_do = {
-			factor = 5
-			modifier = {
-				factor = 0
-				is_historical_focus_on = yes
-			}
-			modifier = {
-				factor = 20
-				has_completed_focus = GRE_appeal_to_the_soviet_union
-			}
-		}
-
-		visible = { 
-			has_completed_focus = GRE_appeal_to_the_soviet_union
-			NOT = {
-				has_country_flag = GRE_soviets_rebuffed
-			}
-		}
-
-		complete_effect = {
-			custom_effect_tooltip = GRE_soviet_influence_tt
-		}
-
-		remove_effect = {
-			SOV = {
-				country_event = { id = bftb_greece.190 days = 10 }
-			}
-		}
-	}
-	GRE_host_soviet_bureaucrats_in_greece = { #SOVIETS
-
-		icon = generic_political_discourse
-
-		allowed = { 
-			original_tag = GRE
-		}
-
-		available = {
-			has_completed_focus = GRE_soviet_subsidised_railways
-			date < 1943.1.1
-			NOT = {
-				has_war_with = SOV
-				has_country_flag = GRE_soviets_rebuffed
-				SOV = {
-					has_capitulated = yes
-					is_puppet = yes
-					NOT = { has_government = communism }
-					has_completed_focus = SOV_claim_on_the_straits
-				}
-			}
-		}
-
-		target_trigger = {
-			FROM = {
-				tag = SOV
-			}
-		}
-
-		days_remove = 2
-
-		cost = 100
-
-		fire_only_once = no
-
-		ai_will_do = {
-			factor = 5
-			modifier = {
-				factor = 0
-				is_historical_focus_on = yes
-			}
-			modifier = {
-				factor = 20
-				has_completed_focus = GRE_appeal_to_the_soviet_union
-			}
-		}
-
-		visible = {
-			OR = { 
-				has_completed_focus = GRE_appeal_to_the_soviet_union
-				has_completed_focus = GRE_soviet_subsidised_railways
-			}
-			NOT = {
-				has_country_flag = GRE_soviets_rebuffed
-			}
-		}
-
-		complete_effect = {
-			custom_effect_tooltip = GRE_soviet_influence_tt
-		}
-
-		remove_effect = {
-			SOV = {
-				country_event = { id = bftb_greece.191 days = 1 }
-			}
-		}
-	}
-	GRE_invest_back_into_neglected_siberian_regions = { #SOVIETS
-
-		icon = generic_construction
-
-		allowed = { 
-			original_tag = GRE
-		}
-
-		available = {
-			is_puppet = no
-			NOT = {
-				has_war_with = SOV
-				has_country_flag = GRE_soviets_rebuffed
-				SOV = {
-					has_capitulated = yes
-					is_puppet = yes
-					NOT = { has_government = communism }
-					has_completed_focus = SOV_claim_on_the_straits
-				}
-			}
-		}
-
-		target_trigger = {
-			FROM = {
-				tag = SOV
-			}
-		}
-
-		days_remove = 90
-
-		cost = 120
-
-		fire_only_once = no
-
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 0
-				is_historical_focus_on = yes
-			}
-			modifier = {
-				factor = 20
-				has_completed_focus = GRE_appeal_to_the_soviet_union
-			}
-			modifier = {
-				factor = 80
-				check_variable = { GRE_soviet_influence_over_greek_government = 8 compare = greater_than_or_equals }
-			}
-		}
-
-		visible = {
-			has_completed_focus = GRE_appeal_to_the_soviet_union
-			NOT = {
-				has_country_flag = GRE_soviets_rebuffed
-			}
-		}
-
-		complete_effect = {
-
-		}
-
-		remove_effect = {
-			SOV = {
-				country_event = { id = bftb_greece.192 days = 1 }
-			}
-		}
-	}
-	GRE_rebuke_soviet_investment = { #ITALY
-
-		icon = generic_break_treaty
-
-		allowed = { 
-			original_tag = GRE
-		}
-
-		available = {
-			NOT = {
-				is_puppet_of = SOV
-				is_in_faction_with = SOV
-			}
-		}
-
-		target_trigger = {
-			FROM = {
-				tag = SOV
-			}
-		}
-
-		cost = 50
-
-		fire_only_once = yes
-
-		ai_will_do = {
-			factor = 1
-			modifier = {
-				factor = 100
-				date > 1940.1.1
-				is_historical_focus_on = yes
-			}
-			modifier = {
-				factor = 0
-				has_completed_focus = GRE_a_socialist_economy
-			}
-			modifier = {
-				factor = 50
-				OR = { 
-					has_completed_focus = GRE_prepare_for_the_great_anti_fascist_war
-					has_completed_focus = GRE_the_kings_government
-					has_completed_focus = GRE_compromise_with_the_monarchists
-					has_country_leader = {
-						name = "Georgios Kosmidis"
-						ruling_only = yes
-					}
-				}
-			}
-		}
-
-		visible = {
-			has_completed_focus = GRE_appeal_to_the_soviet_union	
-			NOT = {
-				has_country_flag = GRE_soviets_rebuffed
-				check_variable = { var = GRE_soviet_influence_over_greek_government value = 12 compare = greater_than_or_equals }
-			}
-		}
-
-		complete_effect = {
-			set_country_flag = GRE_soviets_rebuffed
-			custom_effect_tooltip = GRE_soviet_influence_shunned_tt
-			if = { 
-				limit = { 
-					check_variable = {
-   						GRE_soviet_influence_over_greek_government = 8 compare = greater_than_or_equals
-					}
-				}	
-				SOV = {
-					create_wargoal = {
-						type = puppet_wargoal_focus
-						target = GRE
-					}
-				}
-			}	
-			SOV = {
-				add_opinion_modifier = { 
-					target = GRE
-					modifier = GRE_greek_turncoats
-				}
-			}
-		}
-	}					
 
 	GRE_american_technologies_1 = { #USA
 
@@ -5886,7 +5013,7 @@ GRE_kathestos_4hs = {
 		}
 
 		remove_effect = {
-			add_stability = 0.05
+			add_stability = 0.01
             ###BUILDINGS###
             731 = {
 				add_building_construction = {
@@ -5983,7 +5110,6 @@ GRE_kathestos_4hs = {
 		}
 
 		remove_effect = {
-			add_stability = 0.05
             ###BUILDINGS###
             731 = {
 				add_building_construction = {
@@ -6083,7 +5209,7 @@ GRE_kathestos_4hs = {
 		}
 
 		remove_effect = {
-			add_stability = 0.05
+			add_stability = 0.01
             ###BUILDINGS###
             731 = {
 				add_building_construction = {
@@ -6184,7 +5310,7 @@ GRE_kathestos_4hs = {
 		}
 
 		remove_effect = {
-			add_stability = 0.05
+			add_stability = 0.03
             ###bonus###
             add_tech_bonus = {
 				name = establish_hospitals
@@ -6268,7 +5394,7 @@ GRE_kathestos_4hs = {
 		}
 
 		remove_effect = {
-			add_stability = 0.05
+			add_stability = 0.01
             ###BUILDINGS###
             every_state = {
                 limit = { is_controlled_by = GRE}
@@ -6356,7 +5482,7 @@ GRE_kathestos_4hs = {
 		}
 
 		remove_effect = {
-			add_stability = 0.05
+			add_stability = 0.01
             ###BUILDINGS###
             every_state = {
                 limit = { is_controlled_by = GRE}
@@ -6444,7 +5570,7 @@ GRE_kathestos_4hs = {
 		}
 
 		remove_effect = {
-			add_stability = 0.05
+			add_stability = 0.03
             ###METAXAS PLAN MECHANIC###            
             add_to_variable = { repair_speed_factor = 0.02 } 
             ###FACTION MECHANICS###
@@ -6525,7 +5651,7 @@ GRE_kathestos_4hs = {
 		}
 
 		remove_effect = {
-			add_stability = 0.05
+			add_stability = 0.02
             add_to_variable = { repair_speed_factor = 0.02 } 
             add_to_variable = { GRE_var_fct_produ = 0.01 }
             add_to_variable = { GRE_var_dck_produ = 0.01 }  
@@ -6602,7 +5728,7 @@ GRE_kathestos_4hs = {
 		}
 
 		remove_effect = {
-			add_stability = 0.05
+			add_stability = 0.02
             add_to_variable = { GRE_var_civ = 0.01 }
             add_to_variable = { GRE_var_mil = 0.01 }
             add_to_variable = { repair_speed_factor = 0.02 } 
@@ -6681,7 +5807,7 @@ GRE_kathestos_4hs = {
 		}
 
 		remove_effect = {
-			add_stability = 0.1
+			add_stability = 0.4
             add_to_variable = { repair_speed_factor = 0.02 }  
             ###FACTION MECHANICS###
             randomize_temp_variable = {
@@ -6756,7 +5882,7 @@ GRE_kathestos_4hs = {
 		}
 
 		remove_effect = {
-			add_stability = 0.05   
+			add_stability = 0.01   
             add_to_variable = { repair_speed_factor = 0.02 }  
             ###FACTION MECHANICS###
             randomize_temp_variable = {
@@ -6831,7 +5957,7 @@ GRE_kathestos_4hs = {
 		}
 
 		remove_effect = {
-			add_stability = 0.05
+			add_stability = 0.02
             add_to_variable = { GRE_var_fct_produ = 0.01 }
             add_to_variable = { GRE_var_dck_produ = 0.01 } 
             add_to_variable = { repair_speed_factor = 0.02 }  
@@ -6908,7 +6034,7 @@ GRE_kathestos_4hs = {
 		}
 
 		remove_effect = {
-			add_stability = 0.05
+			add_stability = 0.01
             custom_effect_tooltip = "Adds all the goodies"
             add_to_variable = { repair_speed_factor = 0.02 }  
             ###FACTION MECHANICS###
@@ -6984,7 +6110,7 @@ GRE_kathestos_4hs = {
 		}
 
 		remove_effect = {
-			add_stability = 0.05
+			add_stability = 0.02
             add_to_variable = { repair_speed_factor = 0.02 }  
             ###FACTION MECHANICS###
             randomize_temp_variable = {
@@ -7059,7 +6185,8 @@ GRE_kathestos_4hs = {
 		}
 
 		remove_effect = {
-			add_stability = 0.05
+			add_stability = 0.01
+            add_war_support = 0.03
             add_to_variable = { GRE_var_civ = 0.02 }
             add_to_variable = { GRE_var_mil = 0.02 }            
             add_to_variable = { repair_speed_factor = 0.06 } 
@@ -7136,7 +6263,7 @@ GRE_kathestos_4hs = {
 		}
 
 		remove_effect = {
-			add_stability = 0.05
+			add_stability = 0.01
             ###FACTION MECHANICS###
             randomize_temp_variable = {
                 var = tmp_dem
@@ -7210,7 +6337,7 @@ GRE_kathestos_4hs = {
 		}
 
 		remove_effect = {
-			add_stability = 0.05
+			add_stability = 0.01
             ###bonus### 
             add_tech_bonus = {
 				name = establish_radio_company
@@ -7291,7 +6418,7 @@ GRE_kathestos_4hs = {
 		}
 
 		remove_effect = {
-			add_stability = 0.05
+			add_stability = 0.02
             add_to_variable = { GRE_var_infr = 0.02 }
             add_to_variable = { GRE_var_civ = 0.01 }
             add_to_variable = { GRE_var_mil = 0.01 }  
@@ -7368,7 +6495,7 @@ GRE_kathestos_4hs = {
 		}
 
 		remove_effect = {
-			add_stability = 0.05
+			add_stability = 0.02
             add_to_variable = { GRE_var_civ = 0.02 }
             add_to_variable = { GRE_var_mil = 0.02 }            
             add_to_variable = { repair_speed_factor = 0.05 } 
@@ -7448,7 +6575,7 @@ GRE_kathestos_4hs = {
 		}
 
 		remove_effect = {
-			add_stability = 0.05
+			add_stability = 0.01
 			add_popularity = {
     			ideology = neutrality
     			popularity = 0.03
@@ -7513,7 +6640,7 @@ GRE_kathestos_4hs = {
 		}
 
 		remove_effect = {
-			add_stability = 0.05
+			add_stability = 0.02
 			add_popularity = {
     			ideology = neutrality
     			popularity = 0.03
@@ -7578,7 +6705,7 @@ GRE_kathestos_4hs = {
 		}
 
 		remove_effect = {
-			add_stability = 0.05
+			add_stability = 0.02
 			add_popularity = {
     			ideology = neutrality
     			popularity = 0.04

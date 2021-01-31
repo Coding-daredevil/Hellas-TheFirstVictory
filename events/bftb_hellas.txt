@@ -1342,7 +1342,7 @@ country_event = {               #GRECOSOVIET TRADE DEAL (METAXAS)
 
 	fire_only_once = yes
 	
-	option = {  ### SOVIET UNION ACCEPTS @!#
+	option = {  ### SOVIET UNION ACCEPTS
 		name = hellas.322.a    
 		ai_chance = {
 			base = 10
@@ -2200,35 +2200,1284 @@ country_event = {       ## Choose Partner to Modernize the army
     }       
 }
 
+########################################
+####                                ####
+####       INVESTMENT SCHEMES       ####
+####                                ####
+########################################
+
+#Investment Events - Small Risk Investments
+country_event = {
+	id = hellas.500
+	title = hellas.500.t
+	desc = hellas.500.desc
+	picture = GFX_report_event_gre_allied_diplomacy
+
+	is_triggered_only = yes
+	
+	option = {
+		name = hellas.500.a #small investment
+		ai_chance = {
+			base = 10
+            modifier = {
+                factor = 0
+                check_variable = { var = THIS.favor@GRE value = 30 compare = less_than }
+            }
+            modifier = {
+                factor = 2
+                check_variable = { var = THIS.favor@GRE value = 30 compare = greater_than_or_equals }
+                check_variable = { var = THIS.favor@GRE value = 50 compare = less_than }
+            }
+            modifier = {
+                factor = 4
+                check_variable = { var = THIS.favor@GRE value = 80 compare = less_than }
+                check_variable = { var = THIS.favor@GRE value = 50 compare = greater_than_or_equals }
+            }
+            modifier = {
+                factor = 8 
+                check_variable = { var = THIS.favor@GRE value = 80 compare = greater_than_or_equals }
+            }
+		}
+		add_timed_idea = {
+			idea = GRE_small_investment
+			days = 30
+		}
+		hidden_effect = {
+			GRE = {
+				country_event = { id = hellas.501 days = 2 }
+			}
+		}
+	}
+	option = {
+		name = hellas.500.b #no investment
+		ai_chance = {
+			base = 10
+		}
+		GRE = { 
+			country_event = { id = hellas.502 days = 2 }
+		}
+	}	
+}
+
+country_event = {
+	id = hellas.501
+	title = hellas.501.t
+	desc = hellas.501.desc
+	picture = GFX_report_event_gre_allied_diplomacy
+
+	is_triggered_only = yes
+    
+	option = {
+		name = hellas.501.a #small investment
+        if = {                                                                              ### - Germany weighted investments
+            limit = {
+                FROM = {
+                    original_tag = GER
+                }
+            }
+            random_list = {
+                25 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = arms_factory       
+                                size > 1
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = arms_factory       
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }
+                20 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = industrial_complex        
+                                size > 1
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = industrial_complex        
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }
+                15 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = dockyard        
+                                size > 1
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = dockyard        
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }                
+                10 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = infrastructure
+                                size > 1
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = infrastructure
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }
+                10 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = air_base
+                                size > 2
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = air_base
+                            level = 2
+                            instant_build = yes
+                        }
+                    }
+                }
+                10 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            has_built = {
+                                type = naval_base
+                                value > 2
+                            }                            
+                            free_building_slots = {
+                                building = naval_base
+                                size > 2
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = naval_base
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }
+                10 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = anti_air_building  
+                                size > 1
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = anti_air_building  
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }
+            }    
+        }
+        else_if = {                                                                         ### - French weighted investments
+            limit = {
+                FROM = {
+                    original_tag = FRA
+                }
+            }
+            random_list = {
+                5 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = arms_factory       
+                                size > 1
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = arms_factory       
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }
+                45 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = industrial_complex        
+                                size > 1
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = industrial_complex        
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }
+                10 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = dockyard        
+                                size > 1
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = dockyard        
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }                
+                10 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = infrastructure
+                                size > 1
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = infrastructure
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }
+                10 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = air_base
+                                size > 2
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = air_base
+                            level = 2
+                            instant_build = yes
+                        }
+                    }
+                }
+                10 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            has_built = {
+                                type = naval_base
+                                value > 2
+                            }                            
+                            free_building_slots = {
+                                building = naval_base
+                                size > 2
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = naval_base
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }
+                10 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = anti_air_building  
+                                size > 1
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = anti_air_building  
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }
+            }    
+        }
+        else_if = {                                                                         ### - British weighted investments
+            limit = {
+                FROM = {
+                    original_tag = ENG
+                }
+            }
+            random_list = {
+                5 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = arms_factory       
+                                size > 1
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = arms_factory       
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }
+                25 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = industrial_complex        
+                                size > 1
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = industrial_complex        
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }
+                30 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = dockyard        
+                                size > 2
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = dockyard        
+                            level = 2
+                            instant_build = yes
+                        }
+                    }
+                }                
+                10 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = infrastructure
+                                size > 1
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = infrastructure
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }
+                10 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = air_base
+                                size > 2
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = air_base
+                            level = 2
+                            instant_build = yes
+                        }
+                    }
+                }
+                10 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            has_built = {
+                                type = naval_base
+                                value > 2
+                            }                            
+                            free_building_slots = {
+                                building = naval_base
+                                size > 2
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = naval_base
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }
+                10 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = anti_air_building  
+                                size > 1
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = anti_air_building  
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }
+            }    
+        }
+        else_if = {                                                                         ### - American weighted investments
+            limit = {
+                FROM = {
+                    original_tag = USA
+                }
+            }
+            random_list = {
+                20 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = arms_factory       
+                                size > 2
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = arms_factory       
+                            level = 2
+                            instant_build = yes
+                        }
+                    }
+                }
+                20 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = industrial_complex        
+                                size > 2
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = industrial_complex        
+                            level = 2
+                            instant_build = yes
+                        }
+                    }
+                }
+                20 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = dockyard        
+                                size > 2
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = dockyard        
+                            level = 2
+                            instant_build = yes
+                        }
+                    }
+                }                
+                10 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = infrastructure
+                                size > 1
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = infrastructure
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }
+                10 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = air_base
+                                size > 2
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = air_base
+                            level = 2
+                            instant_build = yes
+                        }
+                    }
+                }
+                10 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            has_built = {
+                                type = naval_base
+                                value > 2
+                            }                            
+                            free_building_slots = {
+                                building = naval_base
+                                size > 2
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = naval_base
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }
+                10 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = anti_air_building  
+                                size > 1
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = anti_air_building  
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }
+            }    
+        }
+        else_if = {                                                                         ### - Soviet weighted investments
+            limit = {
+                FROM = {
+                    original_tag = SOV
+                }
+            }
+            random_list = {
+                30 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = arms_factory       
+                                size > 1
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = arms_factory       
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }
+                30 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = industrial_complex        
+                                size > 1
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = industrial_complex        
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }                
+                10 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = infrastructure
+                                size > 1
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = infrastructure
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }
+                10 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = air_base
+                                size > 2
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = air_base
+                            level = 2
+                            instant_build = yes
+                        }
+                    }
+                }
+                10 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            has_built = {
+                                type = naval_base
+                                value > 2
+                            }                            
+                            free_building_slots = {
+                                building = naval_base
+                                size > 2
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = naval_base
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }
+                10 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = anti_air_building  
+                                size > 1
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = anti_air_building  
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }
+            }    
+        }
+        else_if = {                                                                         ### - Japanese weighted investments
+            limit = {
+                FROM = {
+                    original_tag = JAP
+                }
+            }
+            random_list = {
+                15 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = fuel_silo       
+                                size > 1
+                                include_locked = yes
+                            }    
+                            free_building_slots = {
+                                building = synthetic_refinery       
+                                size > 1
+                                include_locked = yes
+                            }                               
+                        }
+                        add_building_construction = {
+                            type = fuel_silo       
+                            level = 1
+                            instant_build = yes
+                        }
+                        add_building_construction = {
+                            type = synthetic_refinery       
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }
+                15 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = arms_factory       
+                                size > 1
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = arms_factory       
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }
+                15 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = industrial_complex        
+                                size > 1
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = industrial_complex        
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }
+                15 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = dockyard        
+                                size > 1
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = dockyard        
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }                
+                10 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = infrastructure
+                                size > 1
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = infrastructure
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }
+                10 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = air_base
+                                size > 2
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = air_base
+                            level = 2
+                            instant_build = yes
+                        }
+                    }
+                }
+                10 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            has_built = {
+                                type = naval_base
+                                value > 2
+                            }                            
+                            free_building_slots = {
+                                building = naval_base
+                                size > 2
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = naval_base
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }
+                10 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = anti_air_building  
+                                size > 1
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = anti_air_building  
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }
+            }    
+        }
+        else = {                                                                         ### - Rest
+            random_list = {
+                20 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = arms_factory       
+                                size > 1
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = arms_factory       
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }
+                20 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = industrial_complex        
+                                size > 1
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = industrial_complex        
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }
+                20 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = dockyard        
+                                size > 1
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = dockyard        
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }                
+                10 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = infrastructure
+                                size > 1
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = infrastructure
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }
+                10 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = air_base
+                                size > 2
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = air_base
+                            level = 2
+                            instant_build = yes
+                        }
+                    }
+                }
+                10 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            has_built = {
+                                type = naval_base
+                                value > 2
+                            }                            
+                            free_building_slots = {
+                                building = naval_base
+                                size > 2
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = naval_base
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }
+                10 = {
+                    random_state = {
+                        limit = {
+                            is_core_of = GRE
+                            free_building_slots = {
+                                building = anti_air_building  
+                                size > 1
+                                include_locked = yes
+                            }                           
+                        }
+                        add_building_construction = {
+                            type = anti_air_building  
+                            level = 1
+                            instant_build = yes
+                        }
+                    }
+                }
+            }    
+        }
+        add_to_variable = { FROM.favor@GRE = 2 }
+        custom_effect_tooltip = GRE_favor_boost_miniscule_from_tt
+	}    
+}
+
+country_event = {                                                                           ### - Investment Denied
+	id = hellas.502
+	title = hellas.502.t
+	desc = hellas.502.desc
+	picture = GFX_report_event_gre_allied_diplomacy
+
+	is_triggered_only = yes
+	
+	option = {
+		name = hellas.502.a # Refused
+        custom_effect_tooltip = GRE_perhaps_improve_influence
+    }
+}
+
+country_event = {                                                                           ### - Mediocre Investment
+	id = hellas.503
+	title = hellas.503.t
+	desc = hellas.503.desc
+	picture = GFX_report_event_gre_allied_diplomacy
+
+	is_triggered_only = yes
+    
+	option = {
+		name = hellas.503.a #medium investment
+		ai_chance = {
+			base = 10
+            modifier = {
+                factor = 0
+                check_variable = { var = THIS.favor@GRE value = 30 compare = less_than }
+            }
+            modifier = {
+                factor = 0.5
+                check_variable = { var = THIS.favor@GRE value = 30 compare = greater_than_or_equals }
+                check_variable = { var = THIS.favor@GRE value = 50 compare = less_than }
+            }
+            modifier = {
+                factor = 2
+                check_variable = { var = THIS.favor@GRE value = 80 compare = less_than }
+                check_variable = { var = THIS.favor@GRE value = 50 compare = greater_than_or_equals }
+            }
+            modifier = {
+                factor = 8 
+                check_variable = { var = THIS.favor@GRE value = 80 compare = greater_than_or_equals }
+            }
+		}
+		add_timed_idea = {
+			idea = GRE_moderate_investment
+			days = 30
+		}
+		hidden_effect = {
+			GRE = {
+				country_event = { id = hellas.504 days = 2 }
+			}
+		}
+	}
+	option = {
+		name = hellas.503.b #no investment
+		ai_chance = {
+			base = 10
+		}
+		GRE = { 
+			country_event = { id = hellas.502 days = 2 }
+		}
+	}
+}
 
 
+### -> Expand Mines (limited times, offers an influence boost)
+### -> Substantial building slot expansion, additionally 1+1 factory.
+### -> Oil drilling (ONCE - country chosen gets influence boost)
+### -> Outsourcing (grants off-map factories but cancels when at war or allied with opponents)
 
+country_event = {                                                                           ### - Greece receives mediocre Investment
+	id = hellas.504
+	title = hellas.504.t
+	desc = hellas.504.desc
+	picture = GFX_report_event_gre_allied_diplomacy
 
+	is_triggered_only = yes
+    
+	option = {                                                                                  ### Opening up the Land
+		name = hellas.504.a #medium investment
+        if = {                                                                              
+            limit = {
+                FROM = {
+                    OR = {
+                        original_tag = ENG
+                        original_tag = USA
+                        original_tag = FRA
+                    }
+                }
+            }
+            custom_effect_tooltip = GRE_extra_slots_per_manpower_better_tt
+            hidden_effect = {
+                every_owned_state = {   
+                    if = {
+                        limit = {
+                            state_population_k < 400
+                        }
+                        add_extra_state_shared_building_slots = 1
+                    }
+                    else_if = {
+                        limit = {
+                            state_population_k < 800
+                        }
+                        add_extra_state_shared_building_slots = 2
+                    } 
+                    else_if = {
+                        limit = {
+                            state_population_k < 1200
+                        }
+                        add_extra_state_shared_building_slots = 3
+                    }   
+                    else_if = {
+                        limit = {
+                            state_population_k < 2000
+                        }
+                        add_extra_state_shared_building_slots = 4
+                    }  
+                    else = {
+                        add_extra_state_shared_building_slots = 5
+                    }            
+                }
+            }
+        }
+        else = {
+            custom_effect_tooltip = GRE_extra_slots_per_manpower_tt
+            every_owned_state = {   
+                if = {
+                    limit = {
+                        state_population_k < 400
+                    }
+                    add_extra_state_shared_building_slots = 0
+                }
+                else_if = {
+                    limit = {
+                        state_population_k < 800
+                    }
+                    add_extra_state_shared_building_slots = 1
+                } 
+                else_if = {
+                    limit = {
+                        state_population_k < 1200
+                    }
+                    add_extra_state_shared_building_slots = 2
+                }   
+                else_if = {
+                    limit = {
+                        state_population_k < 2000
+                    }
+                    add_extra_state_shared_building_slots = 3
+                }  
+                else = {
+                    add_extra_state_shared_building_slots = 4
+                }            
+            }        
+        }
+    }
+	option = {                                                                                  ### Outsourcing -> Leads to event below
+		name = hellas.504.b #medium investment
+        
+        custom_effect_tooltip = GRE_outsourcing_tt
+        country_event = { id = hellas.505 days = 0 }
+    }
+    
+	option = {                                                                                  ### Oil Drilling
+		name = hellas.504.c #medium investment
+        trigger = {
+            NOT = { has_country_flag = GRE_drilled_for_oil }
+        }
+        if = {                                                                              
+            limit = {
+                FROM = {
+                    OR = {
+                        original_tag = SOV
+                        original_tag = USA
+                    }
+                }
+            }
+            187 = { 
+                add_resource = { 
+                    type = oil
+                    amount = 12
+                }
+            }            
+        }
+        else = {
+            187 = { 
+                add_resource = { 
+                    type = oil
+                    amount = 8
+                }
+            }
+        }
+        custom_effect_tooltip = GRE_drilling_for_oil_tt
+        set_country_flag = GRE_drilled_for_oil
+    }
+	option = {                                                                                  ### Expand Mines
+		name = hellas.504.d #medium investment
+        if = {                                                                              
+            limit = {
+                FROM = {
+                    original_tag = GER
+                }
+            }  
+        }
+    }  
+}
 
+country_event = {                                                                           ### - Outsourcing -> Civs / Mils/ Docks
+	id = hellas.505
+	title = hellas.505.t
+	desc = hellas.505.desc
+	picture = GFX_report_event_gre_allied_diplomacy
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	is_triggered_only = yes
+    
+	option = {                                                                                  ### Civs
+		name = hellas.505.a 
+        if = {
+            limit = {
+                FROM.FROM = {
+                    OR = {
+                        original_tag = ENG
+                        original_tag = USA
+                    }
+                }
+            }
+            add_offsite_building = { type = industrial_complex level = 2 }
+            add_to_variable = { FROM.FROM.civslent@GRE = 2 }
+        }
+        else = {
+            add_offsite_building = { type = industrial_complex level = 1 }
+            add_to_variable = { FROM.FROM.civslent@GRE = 1 }
+        }
+    }
+    option = {                                                                                  ### Mils
+		name = hellas.505.b
+        if = {
+            limit = {
+                FROM.FROM = {
+                    OR = {
+                        original_tag = GER
+                        original_tag = SOV
+                    }
+                }
+            }
+            add_offsite_building = { type = arms_factory level = 2 }
+            add_to_variable = { FROM.FROM.milslent@GRE = 2 }
+        }
+        else = {
+            add_offsite_building = { type = arms_factory level = 1 }
+            add_to_variable = { FROM.FROM.milslent@GRE = 1 }
+        }
+    }
+    option = {                                                                                  ### Docs
+		name = hellas.505.c
+        if = {
+            limit = {
+                FROM.FROM = {
+                    OR = {
+                        original_tag = ENG
+                        original_tag = USA
+                    }
+                }
+            }
+            add_offsite_building = { type = dockyard level = 2 }
+            add_to_variable = { FROM.FROM.dockslent@GRE = 2 }
+        }
+        else = {
+            add_offsite_building = { type = dockyard level = 1 }
+            add_to_variable = { FROM.FROM.dockslent@GRE = 1 }
+        }
+    }
+}
 #Bad Weather
 country_event = {
 	id = hellas.100
