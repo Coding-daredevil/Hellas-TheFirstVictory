@@ -1506,7 +1506,7 @@ GRE_pay_back_debt_to_the_ifc_category = {
 			}
 		}
 
-		days_remove = 2
+		days_remove = 15
 
 		cost = 50
 
@@ -1558,7 +1558,7 @@ GRE_pay_back_debt_to_the_ifc_category = {
 		complete_effect = {
 			add_ideas = GRE_paying_off_debt_large
 			hidden_effect = { 
-				set_country_flag = { flag = GRE_large_installment_payment_flag value = 1 days = 30 }
+				set_country_flag = { flag = GRE_large_installment_payment_flag value = 1 days = 15 }
 			}
 		}
 
@@ -1592,7 +1592,7 @@ GRE_pay_back_debt_to_the_ifc_category = {
 			}
 		}
 
-		days_remove = 2
+		days_remove = 15
 
 		cost = 50
 
@@ -1642,7 +1642,7 @@ GRE_pay_back_debt_to_the_ifc_category = {
 		complete_effect = {
 			add_ideas = GRE_paying_off_debt_large
 			hidden_effect = { 
-				set_country_flag = { flag = GRE_large_installment_payment_flag value = 1 days = 30 }
+				set_country_flag = { flag = GRE_large_installment_payment_flag value = 1 days = 15 }
 			}
 		}
 
@@ -1676,7 +1676,7 @@ GRE_pay_back_debt_to_the_ifc_category = {
 			}
 		}
 
-		days_remove = 2
+		days_remove = 15
 
 		cost = 50
 
@@ -1732,7 +1732,7 @@ GRE_pay_back_debt_to_the_ifc_category = {
 		complete_effect = {
 			add_ideas = GRE_paying_off_debt_large
 			hidden_effect = { 
-				set_country_flag = { flag = GRE_large_installment_payment_flag value = 1 days = 30 }
+				set_country_flag = { flag = GRE_large_installment_payment_flag value = 1 days = 15 }
 			}
 		}
 
@@ -1919,7 +1919,7 @@ GRE_pay_back_debt_to_the_ifc_category = {
 
 		fire_only_once = yes
 
-		days_remove = 2
+		days_remove = 14
 
 		complete_effect = {
 			if = {
@@ -2988,7 +2988,7 @@ political_actions = {
 
 GRE_the_resource_storage_plan = {
 
-    the_resource_plan_oil = {
+    the_resource_plan_oil = { 
 		icon = generic_operation
 
 		allowed = { 
@@ -2996,12 +2996,13 @@ GRE_the_resource_storage_plan = {
 		}
 
 		available = {
-        
             has_completed_focus = GRE_spend_gold_for_resources
             check_variable = { var = GRE_resource_choices value = 1 compare = less_than_or_equals }
+            num_of_civilian_factories > 4
 		}
 
 		visible = {
+            #NOT = { has_country_flag = GRE_getting_resources }
             has_completed_focus = GRE_spend_gold_for_resources
             check_variable = { var = GRE_resource_choices value = 1 compare = less_than_or_equals }
 		}
@@ -3012,14 +3013,20 @@ GRE_the_resource_storage_plan = {
 
 		fire_only_once = yes
 
-		days_remove = 2
+		days_remove = 120
+        
+        modifier = {
+            civilian_factory_use = 5
+        }
         
         complete_effect = {
-            add_to_variable = { GRE_resource_choices = 1 } 
+            add_to_variable = { GRE_resource_choices = 1 }
+            set_country_flag = GRE_getting_resources
         }
         
         remove_effect = {
-            set_country_flag = GRE_res_plan_oil_secured    
+            set_country_flag = GRE_res_plan_oil_secured  
+            clr_country_flag = GRE_getting_resources
         }
     }
 
@@ -3033,9 +3040,11 @@ GRE_the_resource_storage_plan = {
 		available = {
             has_completed_focus = GRE_spend_gold_for_resources
             check_variable = { var = GRE_resource_choices value = 1 compare = less_than_or_equals }
+            num_of_civilian_factories > 4
 		}
 
 		visible = {
+            #NOT = { has_country_flag = GRE_getting_resources }
             has_completed_focus = GRE_spend_gold_for_resources
             check_variable = { var = GRE_resource_choices value = 1 compare = less_than_or_equals }
 		}
@@ -3046,14 +3055,20 @@ GRE_the_resource_storage_plan = {
 
 		fire_only_once = yes
 
-		days_remove = 2
+		days_remove = 120
+        
+        modifier = {
+            civilian_factory_use = 5
+        }
         
         complete_effect = {
-            add_to_variable = { GRE_resource_choices = 1 } 
+            add_to_variable = { GRE_resource_choices = 1 }
+            set_country_flag = GRE_getting_resources
         }
         
         remove_effect = {
-            set_country_flag = GRE_res_plan_aluminium_secured
+            set_country_flag = GRE_res_plan_aluminium_secured  
+            clr_country_flag = GRE_getting_resources
         }
     }
     
@@ -3067,9 +3082,11 @@ GRE_the_resource_storage_plan = {
 		available = {
             has_completed_focus = GRE_spend_gold_for_resources
             check_variable = { var = GRE_resource_choices value = 1 compare = less_than_or_equals }
+            num_of_civilian_factories > 4
 		}
 
 		visible = {
+            #NOT = { has_country_flag = GRE_getting_resources }
             has_completed_focus = GRE_spend_gold_for_resources
             check_variable = { var = GRE_resource_choices value = 1 compare = less_than_or_equals }
 		}
@@ -3080,14 +3097,20 @@ GRE_the_resource_storage_plan = {
 
 		fire_only_once = yes
 
-		days_remove = 2
+		days_remove = 120
+        
+        modifier = {
+            civilian_factory_use = 5
+        }
         
         complete_effect = {
-            add_to_variable = { GRE_resource_choices = 1 } 
+            add_to_variable = { GRE_resource_choices = 1 }
+            set_country_flag = GRE_getting_resources
         }
         
         remove_effect = {
-            set_country_flag = GRE_res_plan_rubber_secured
+            set_country_flag = GRE_res_plan_rubber_secured  
+            clr_country_flag = GRE_getting_resources
         }
     }
     
@@ -3101,9 +3124,11 @@ GRE_the_resource_storage_plan = {
 		available = {
             has_completed_focus = GRE_spend_gold_for_resources
             check_variable = { var = GRE_resource_choices value = 1 compare = less_than_or_equals }
+            num_of_civilian_factories > 4
 		}
 
 		visible = {
+            #NOT = { has_country_flag = GRE_getting_resources }
             has_completed_focus = GRE_spend_gold_for_resources
             check_variable = { var = GRE_resource_choices value = 1 compare = less_than_or_equals }
 		}
@@ -3114,14 +3139,20 @@ GRE_the_resource_storage_plan = {
 
 		fire_only_once = yes
 
-		days_remove = 2
+		days_remove = 120
+        
+        modifier = {
+            civilian_factory_use = 5
+        }
         
         complete_effect = {
-            add_to_variable = { GRE_resource_choices = 1 } 
+            add_to_variable = { GRE_resource_choices = 1 }
+            set_country_flag = GRE_getting_resources
         }
         
         remove_effect = {
-            set_country_flag = GRE_res_plan_tungsten_secured
+            set_country_flag = GRE_res_plan_tungsten_secured  
+            clr_country_flag = GRE_getting_resources
         }
     }
     
@@ -3135,9 +3166,11 @@ GRE_the_resource_storage_plan = {
 		available = {
             has_completed_focus = GRE_spend_gold_for_resources
             check_variable = { var = GRE_resource_choices value = 1 compare = less_than_or_equals }
+            num_of_civilian_factories > 4
 		}
 
 		visible = {
+            #NOT = { has_country_flag = GRE_getting_resources }
             has_completed_focus = GRE_spend_gold_for_resources
             check_variable = { var = GRE_resource_choices value = 1 compare = less_than_or_equals }
 		}
@@ -3148,14 +3181,20 @@ GRE_the_resource_storage_plan = {
 
 		fire_only_once = yes
 
-		days_remove = 2
+		days_remove = 120
+        
+        modifier = {
+            civilian_factory_use = 5
+        }
         
         complete_effect = {
-            add_to_variable = { GRE_resource_choices = 1 } 
+            add_to_variable = { GRE_resource_choices = 1 }
+            set_country_flag = GRE_getting_resources
         }
         
         remove_effect = {
-            set_country_flag = GRE_res_plan_steel_secured
+            set_country_flag = GRE_res_plan_steel_secured  
+            clr_country_flag = GRE_getting_resources
         }
     }
     
@@ -3169,9 +3208,11 @@ GRE_the_resource_storage_plan = {
 		available = {
             has_completed_focus = GRE_spend_gold_for_resources
             check_variable = { var = GRE_resource_choices value = 1 compare = less_than_or_equals }
+            num_of_civilian_factories > 4
 		}
 
 		visible = {
+            #NOT = { has_country_flag = GRE_getting_resources }
             has_completed_focus = GRE_spend_gold_for_resources
             check_variable = { var = GRE_resource_choices value = 1 compare = less_than_or_equals }
 		}
@@ -3182,14 +3223,20 @@ GRE_the_resource_storage_plan = {
 
 		fire_only_once = yes
 
-		days_remove = 2
+		days_remove = 120
+        
+        modifier = {
+            civilian_factory_use = 5
+        }
         
         complete_effect = {
-            add_to_variable = { GRE_resource_choices = 1 } 
+            add_to_variable = { GRE_resource_choices = 1 }
+            set_country_flag = GRE_getting_resources
         }
         
         remove_effect = {
-            set_country_flag = GRE_res_plan_chromium_secured
+            set_country_flag = GRE_res_plan_chromium_secured 
+            clr_country_flag = GRE_getting_resources
         }
     }
 
@@ -3205,9 +3252,12 @@ GRE_the_resource_storage_plan = {
             has_completed_focus = GRE_spend_gold_for_resources_2
             has_country_flag = GRE_res_plan_oil_secured
             check_variable = { var = GRE_resource_choices value = 1 compare = less_than_or_equals }
+            num_of_civilian_factories > 5
 		}
 
 		visible = {
+            #NOT = { has_country_flag = GRE_getting_resources }
+            has_country_flag = GRE_res_plan_oil_secured
             has_completed_focus = GRE_spend_gold_for_resources_2
             check_variable = { var = GRE_resource_choices value = 1 compare = less_than_or_equals }
 		}
@@ -3218,14 +3268,17 @@ GRE_the_resource_storage_plan = {
 
 		fire_only_once = yes
 
-		days_remove = 2
+		days_remove = 120
         
         complete_effect = {
             add_to_variable = { GRE_resource_choices = 1 } 
+            set_country_flag = GRE_getting_resources
         }
         
         remove_effect = {
             set_country_flag = GRE_res_plan_oil_secured_2
+            clr_country_flag = GRE_res_plan_oil_secured
+            clr_country_flag = GRE_getting_resources
         }
     }
 
@@ -3240,9 +3293,12 @@ GRE_the_resource_storage_plan = {
             has_completed_focus = GRE_spend_gold_for_resources_2
             has_country_flag = GRE_res_plan_aluminium_secured
             check_variable = { var = GRE_resource_choices value = 1 compare = less_than_or_equals }
+            num_of_civilian_factories > 5
 		}
 
 		visible = {
+            #NOT = { has_country_flag = GRE_getting_resources }
+            has_country_flag = GRE_res_plan_aluminium_secured
             has_completed_focus = GRE_spend_gold_for_resources_2
             check_variable = { var = GRE_resource_choices value = 1 compare = less_than_or_equals }
 		}
@@ -3253,15 +3309,17 @@ GRE_the_resource_storage_plan = {
 
 		fire_only_once = yes
 
-		days_remove = 2
+		days_remove = 120
         
         complete_effect = {
             add_to_variable = { GRE_resource_choices = 1 } 
+            set_country_flag = GRE_getting_resources
         }
         
         remove_effect = {
             set_country_flag = GRE_res_plan_aluminium_secured_2
-            check_variable = { var = GRE_resource_choices value = 1 compare = less_than_or_equals }
+            clr_country_flag = GRE_res_plan_aluminium_secured
+            clr_country_flag = GRE_getting_resources
         }
     }
     
@@ -3276,9 +3334,12 @@ GRE_the_resource_storage_plan = {
             has_completed_focus = GRE_spend_gold_for_resources_2
             has_country_flag = GRE_res_plan_rubber_secured
             check_variable = { var = GRE_resource_choices value = 1 compare = less_than_or_equals }
+            num_of_civilian_factories > 5
 		}
 
 		visible = {
+            #NOT = { has_country_flag = GRE_getting_resources }
+            has_country_flag = GRE_res_plan_rubber_secured
             has_completed_focus = GRE_spend_gold_for_resources_2
             check_variable = { var = GRE_resource_choices value = 1 compare = less_than_or_equals }
 		}
@@ -3289,14 +3350,17 @@ GRE_the_resource_storage_plan = {
 
 		fire_only_once = yes
 
-		days_remove = 2
+		days_remove = 120
         
         complete_effect = {
             add_to_variable = { GRE_resource_choices = 1 } 
+            set_country_flag = GRE_getting_resources
         }
         
         remove_effect = {
             set_country_flag = GRE_res_plan_rubber_secured_2
+            clr_country_flag = GRE_res_plan_rubber_secured
+            clr_country_flag = GRE_getting_resources
         }
     }
     
@@ -3311,9 +3375,12 @@ GRE_the_resource_storage_plan = {
             has_completed_focus = GRE_spend_gold_for_resources_2
             has_country_flag = GRE_res_plan_tungsten_secured
             check_variable = { var = GRE_resource_choices value = 1 compare = less_than_or_equals }
+            num_of_civilian_factories > 5
 		}
 
 		visible = {
+            #NOT = { has_country_flag = GRE_getting_resources }
+            has_country_flag = GRE_res_plan_tungsten_secured
             has_completed_focus = GRE_spend_gold_for_resources_2
             check_variable = { var = GRE_resource_choices value = 1 compare = less_than_or_equals }
 		}
@@ -3324,14 +3391,17 @@ GRE_the_resource_storage_plan = {
 
 		fire_only_once = yes
 
-		days_remove = 2
+		days_remove = 120
         
         complete_effect = {
             add_to_variable = { GRE_resource_choices = 1 } 
+            set_country_flag = GRE_getting_resources
         }
         
         remove_effect = {
             set_country_flag = GRE_res_plan_tungsten_secured_2
+            clr_country_flag = GRE_res_plan_tungsten_secured
+            clr_country_flag = GRE_getting_resources
         }
     }
     
@@ -3346,9 +3416,12 @@ GRE_the_resource_storage_plan = {
             has_completed_focus = GRE_spend_gold_for_resources_2
             has_country_flag = GRE_res_plan_steel_secured
             check_variable = { var = GRE_resource_choices value = 1 compare = less_than_or_equals }
+            num_of_civilian_factories > 5
 		}
 
 		visible = {
+            #NOT = { has_country_flag = GRE_getting_resources }
+            has_country_flag = GRE_res_plan_steel_secured
             has_completed_focus = GRE_spend_gold_for_resources_2
             check_variable = { var = GRE_resource_choices value = 1 compare = less_than_or_equals }
 		}
@@ -3359,14 +3432,17 @@ GRE_the_resource_storage_plan = {
 
 		fire_only_once = yes
 
-		days_remove = 2
+		days_remove = 120
         
         complete_effect = {
             add_to_variable = { GRE_resource_choices = 1 } 
+            set_country_flag = GRE_getting_resources
         }
         
         remove_effect = {
             set_country_flag = GRE_res_plan_steel_secured_2
+            clr_country_flag = GRE_res_plan_steel_secured
+            clr_country_flag = GRE_getting_resources
         }
     }
     
@@ -3381,9 +3457,12 @@ GRE_the_resource_storage_plan = {
             has_completed_focus = GRE_spend_gold_for_resources_2
             has_country_flag = GRE_res_plan_chromium_secured
             check_variable = { var = GRE_resource_choices value = 1 compare = less_than_or_equals }
+            num_of_civilian_factories > 5
 		}
 
 		visible = {
+            #NOT = { has_country_flag = GRE_getting_resources }
+            has_country_flag = GRE_res_plan_chromium_secured
             has_completed_focus = GRE_spend_gold_for_resources_2
             check_variable = { var = GRE_resource_choices value = 1 compare = less_than_or_equals }
 		}
@@ -3394,14 +3473,17 @@ GRE_the_resource_storage_plan = {
 
 		fire_only_once = yes
 
-		days_remove = 2
+		days_remove = 120
         
         complete_effect = {
             add_to_variable = { GRE_resource_choices = 1 } 
+            set_country_flag = GRE_getting_resources
         }
         
         remove_effect = {
             set_country_flag = GRE_res_plan_chromium_secured_2
+            clr_country_flag = GRE_res_plan_chromium_secured
+            clr_country_flag = GRE_getting_resources
         }
     }
     
@@ -3432,7 +3514,7 @@ GRE_the_resource_storage_plan = {
 
 		fire_only_once = yes
         
-        days_remove = 365
+        days_remove = 120
         
         complete_effect = {
             if = {
@@ -3511,7 +3593,7 @@ GRE_the_resource_storage_plan = {
 
 		fire_only_once = yes
         
-        days_remove = 365
+        days_remove = 120
         
         complete_effect = {
             if = {
@@ -3590,7 +3672,7 @@ GRE_the_resource_storage_plan = {
 
 		fire_only_once = yes
         
-        days_remove = 365
+        days_remove = 120
         
         complete_effect = {
             if = {
@@ -3669,7 +3751,7 @@ GRE_the_resource_storage_plan = {
 
 		fire_only_once = yes
         
-        days_remove = 365
+        days_remove = 120
         
         complete_effect = {
             if = {
@@ -3748,7 +3830,7 @@ GRE_the_resource_storage_plan = {
 
 		fire_only_once = yes
         
-        days_remove = 365
+        days_remove = 120
         
         complete_effect = {
             if = {
@@ -3827,7 +3909,7 @@ GRE_the_resource_storage_plan = {
 
 		fire_only_once = yes
         
-        days_remove = 365
+        days_remove = 120
         
         complete_effect = {
             if = {
@@ -4007,6 +4089,7 @@ GRE_grecoitalian_war_category = {
             ITA = {                                                                     
                 news_event = { id = hellenic_news.150 days = 0 }   
             }
+            hidden_effect = { set_country_flag = GRE_italian_breakthrough } 
 		}
 
 		timeout_effect = {
@@ -4020,9 +4103,230 @@ GRE_grecoitalian_war_category = {
                 }
                 complete_national_focus = GRE_stabilizing_the_line
             }
+            hidden_effect = { set_country_flag = GRE_italian_advance_halted }              ### Set flag (to allow counter-offensive).
 		}    
     
     }
+    
+    GRE_stabilize_the_line_2 = {
+
+		icon = generic_military
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		activation = {
+            has_country_flag = GRE_italian_breakthrough
+		}        
+
+		available = { 
+            custom_trigger_tooltip = {
+                tooltip = GRE_stabilized_the_line_tt
+                OR = {
+                    check_variable = { var = global.province_controllers^12001 value = ITA compare = equals }
+                    check_variable = { var = global.province_controllers^1205 value = ITA compare = equals }
+                    check_variable = { var = global.province_controllers^11895 value = ITA compare = equals }
+                    check_variable = { var = global.province_controllers^3844 value = ITA compare = equals }
+                    check_variable = { var = global.province_controllers^11818 value = ITA compare = equals }
+                }
+            }
+		}
+
+		days_mission_timeout = 30
+
+		fire_only_once = yes
+
+		visible = {
+            has_country_flag = GRE_hidden_flag
+		}
+
+		cancel_if_not_visible = no
+
+		is_good = yes
+
+		complete_effect = { 
+            news_event = { id = hellenic_news.150 days = 0 }                               ### News report event: Italians blast through greek defences.
+            ITA = {                                                                     
+                news_event = { id = hellenic_news.150 days = 0 }   
+            }
+            hidden_effect = { set_country_flag = GRE_italian_breakthrough_2 } 
+		}
+
+		timeout_effect = {
+            news_event = { id = hellenic_news.151 days = 0 }                               ### News report event: Greeks hold the Italians back.
+            ITA = {                                                                     
+                news_event = { id = hellenic_news.151 days = 0 }   
+            }
+            if = {
+                limit = {
+                    NOT = { has_completed_focus = GRE_stabilizing_the_line }
+                }
+                complete_national_focus = GRE_stabilizing_the_line
+            }
+            hidden_effect = { set_country_flag = GRE_italian_advance_halted_2 }              ### Set flag (to allow counter-offensive).
+		}     
+    }    
+
+    GRE_stabilize_the_line_3 = {
+
+		icon = generic_military
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		activation = {
+            has_country_flag = GRE_italian_breakthrough_2
+		}        
+
+		available = { 
+            custom_trigger_tooltip = {
+                tooltip = GRE_stabilized_the_line_tt
+                OR = {
+                    check_variable = { var = global.province_controllers^3988 value = ITA compare = equals }
+                    check_variable = { var = global.province_controllers^4109 value = ITA compare = equals }
+                }
+            }
+		}
+
+		days_mission_timeout = 30
+
+		fire_only_once = yes
+
+		visible = {
+            has_country_flag = GRE_hidden_flag
+		}
+
+		cancel_if_not_visible = no
+
+		is_good = yes
+
+		complete_effect = { 
+            #capitulation to game over 
+		}
+
+		timeout_effect = {
+            news_event = { id = hellenic_news.151 days = 0 }                               ### News report event: Greeks hold the Italians back.
+            ITA = {                                                                     
+                news_event = { id = hellenic_news.151 days = 0 }   
+            }
+            if = {
+                limit = {
+                    NOT = { has_completed_focus = GRE_stabilizing_the_line }
+                }
+                complete_national_focus = GRE_stabilizing_the_line
+            }
+            hidden_effect = { set_country_flag = GRE_italian_advance_halted_3 }              ### Set flag (to allow counter-offensive).
+		}     
+    }      
+
+    GRE_from_athens_to_epirus = {
+
+		icon = generic_military
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		activation = {
+            has_country_flag = GRE_italian_advance_halted_3
+		}        
+
+		available = { 
+            custom_trigger_tooltip = {
+                tooltip = GRE_the_winter_counter_offensive
+                AND = {
+                    check_variable = { var = global.province_controllers^12001 value = GRE compare = equals }
+                    check_variable = { var = global.province_controllers^1205 value = GRE compare = equals }
+                    check_variable = { var = global.province_controllers^11895 value = GRE compare = equals }
+                    check_variable = { var = global.province_controllers^3844 value = GRE compare = equals }
+                    check_variable = { var = global.province_controllers^11818 value = GRE compare = equals }
+                }
+            }
+		}
+
+		days_mission_timeout = 90
+
+		fire_only_once = yes
+
+		visible = {
+            has_country_flag = GRE_hidden_flag
+		}
+
+		cancel_if_not_visible = no
+
+		is_good = no
+
+		complete_effect = { 
+            news_event = { id = hellenic_news.152 days = 0 }                               ### News report event: Greeks smash the Italians back to Albania
+            ITA = {                                                                     
+                news_event = { id = hellenic_news.152 days = 0 }   
+            }
+            set_country_flag = GRE_thessaloniki_central_greece_reclaimed
+		}
+
+		timeout_effect = {
+            news_event = { id = hellenic_news.153 days = 0 }                               ### News report event: Greek counter-offensive has little to no success
+            ITA = {                                                                     
+                news_event = { id = hellenic_news.153 days = 0 }   
+            }
+		}    
+    }
+    
+    GRE_from_central_to_epirus = {
+
+		icon = generic_military
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		activation = {
+            has_country_flag = GRE_thessaloniki_central_greece_reclaimed
+		}        
+
+		available = { 
+            custom_trigger_tooltip = {
+                tooltip = GRE_the_winter_counter_offensive
+                AND = {
+                    check_variable = { var = global.province_controllers^9805 value = GRE compare = equals }
+                    check_variable = { var = global.province_controllers^13238 value = GRE compare = equals }
+                    check_variable = { var = global.province_controllers^3980 value = GRE compare = equals }
+                    check_variable = { var = global.province_controllers^863 value = GRE compare = equals }
+                    check_variable = { var = global.province_controllers^966 value = GRE compare = equals }
+                    check_variable = { var = global.province_controllers^9837 value = GRE compare = equals }
+                }
+            }
+		}
+
+		days_mission_timeout = 90
+
+		fire_only_once = yes
+
+		visible = {
+            has_country_flag = GRE_hidden_flag
+		}
+
+		cancel_if_not_visible = no
+
+		is_good = no
+
+		complete_effect = { 
+            news_event = { id = hellenic_news.152 days = 0 }                               ### News report event: Greeks smash the Italians back to Albania
+            ITA = {                                                                     
+                news_event = { id = hellenic_news.152 days = 0 }   
+            }
+            set_country_flag = GRE_italian_advance_halted
+		}
+
+		timeout_effect = {
+            news_event = { id = hellenic_news.153 days = 0 }                               ### News report event: Greek counter-offensive has little to no success
+            ITA = {                                                                     
+                news_event = { id = hellenic_news.153 days = 0 }   
+            }
+		}    
+    }    
     
     GRE_winter_counter_offensive = {
 
@@ -4048,7 +4352,7 @@ GRE_grecoitalian_war_category = {
             }
 		}
 
-		days_mission_timeout = 30
+		days_mission_timeout = 60
 
 		fire_only_once = yes
 
@@ -4071,12 +4375,6 @@ GRE_grecoitalian_war_category = {
             news_event = { id = hellenic_news.153 days = 0 }                               ### News report event: Greek counter-offensive has little to no success
             ITA = {                                                                     
                 news_event = { id = hellenic_news.153 days = 0 }   
-            }
-            if = {
-                limit = {
-                    NOT = { has_completed_focus = GRE_stabilizing_the_line }
-                }
-                complete_national_focus = GRE_stabilizing_the_line
             }
 		}    
     
@@ -4101,6 +4399,7 @@ GRE_grecoitalian_war_category = {
 
 		visible = {
             has_completed_focus = GRE_ochi
+            has_country_flag = GRE_italian_advance_halted
 		}
 
 		ai_will_do = {
@@ -9156,7 +9455,7 @@ GRE_kathestos_war_preparation = {
             add_to_variable = { GRE_var_night_attack = 0.02 }
             add_to_variable = { GRE_var_dig_in = 0.1 }
             add_to_variable = { GRE_var_max_dig_in =  0.03}
-            add_to_variable = { GRE_var_no_supply_grace = 5 }
+            add_to_variable = { GRE_var_no_supply_grace = 8 }
             subtract_from_variable = { GRE_var_supply_consumption =  0.01 }
             subtract_from_variable = { GRE_var_winter_attr =  0.01 } 
             add_to_variable = { GRE_var_cold_acc = 0.02 } 
@@ -9193,12 +9492,11 @@ GRE_kathestos_war_preparation = {
         complete_effect = {
             subtract_from_variable = { GRE_var_train_time_factor = 0.06 }
             add_to_variable = { GRE_var_recfact = 0.005 }
-            add_to_variable = { GRE_var_recon =  0.05 } 
             add_to_variable = { GRE_var_night_attack = 0.02 }
             subtract_from_variable = { GRE_var_org_loss =  0.01 } 
             add_to_variable = { GRE_var_dig_in = 0.1 }
             add_to_variable = { GRE_var_max_dig_in =  0.03}
-            add_to_variable = { GRE_var_no_supply_grace = 5 }
+            add_to_variable = { GRE_var_no_supply_grace = 8 }
             subtract_from_variable = { GRE_var_supply_consumption =  0.01 }
             subtract_from_variable = { GRE_var_winter_attr =  0.01 } 
             add_to_variable = { GRE_var_cold_acc = 0.02 } 
@@ -9556,7 +9854,7 @@ GRE_kathestos_war_preparation = {
             subtract_from_variable = { GRE_var_org_loss =  0.01 } 
             add_to_variable = { GRE_var_dig_in = 0.1 }
             add_to_variable = { GRE_var_max_dig_in = 0.03}
-            add_to_variable = { GRE_var_no_supply_grace = 5 }
+            add_to_variable = { GRE_var_no_supply_grace = 8 }
             subtract_from_variable = { GRE_var_supply_consumption =  0.01 }
             subtract_from_variable = { GRE_var_winter_attr =  0.01 } 
             add_to_variable = { GRE_var_cold_acc = 0.02 }  
@@ -9746,7 +10044,7 @@ GRE_kathestos_war_preparation = {
             custom_effect_tooltip = GRE_army_buffs_tt
             add_dynamic_modifier = { modifier = GRE_army_reform_hellenic_staff }
             add_dynamic_modifier = { modifier = GRE_army_reform_hellenic_army }
-            add_dynamic_modifier = { modifier = GRE_army_reform_hellenic_people }            
+            #add_dynamic_modifier = { modifier = GRE_army_reform_hellenic_people }         (THIS WILL BE ADDED BY THE PEOPLE'S SACRIFICE)   
             if = {
                 limit = {
                     check_variable = { var = GRE_army_reform_cnt value = 15 compare = less_than_or_equals }

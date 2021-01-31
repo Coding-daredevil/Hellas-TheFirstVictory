@@ -4880,7 +4880,7 @@ focus_tree = {
 							include_locked = yes
 						}
 					}
-					add_extra_state_shared_building_slots = 2
+					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = arms_factory
 						level = 1
@@ -4888,7 +4888,7 @@ focus_tree = {
 					}
 				}	
 			}
-			185 = {
+			811 = {
 				if = { 
 					limit = {
 						free_building_slots = {
@@ -4897,7 +4897,7 @@ focus_tree = {
 							include_locked = yes
 						}
 					}
-					add_extra_state_shared_building_slots = 2
+					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = arms_factory
 						level = 1
@@ -5884,6 +5884,7 @@ focus_tree = {
             subtract_from_variable = { fct_dem = 7.5}
             add_to_variable = { fct_fas = 2.5}
             faction_gui_call = yes    
+            hidden_effect = { add_ideas = GRE_kotzias }
 		}
 	}    
 
@@ -6267,7 +6268,7 @@ focus_tree = {
         relative_position_id = GRE_metaxas_military_affairs
 		x = 2
 		y = 2
-		cost = 2.15
+		cost = 1
 		ai_will_do = {
 			base = 1
 		}
@@ -6595,106 +6596,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_POLITICAL }
 		completion_reward = {
-			add_popularity = {
-   				ideology = fascism
-   	 			popularity = 0.1
-			}
-			if = { 
-				limit = { 
-					GER = { has_government = fascism }
-				}
-				GER = { 
-					add_opinion_modifier = { 
-						target = GRE
-						modifier = GRE_fascist_leanings
-					}
-				}
-			}
-			if = { 
-				limit = { 
-					ITA = { has_government = fascism }
-				}
-				ITA = { 
-					add_opinion_modifier = { 
-						target = GRE
-						modifier = GRE_fascist_leanings
-					}
-				}
-			}
-			if = { 
-				limit = { 
-					has_idea = GRE_metaxism_6
-				}
-				swap_ideas = {
-					remove_idea = GRE_metaxism_6
-					add_idea = GRE_metaxism_7
-				}
-			}
-			else_if = {
-				limit = {
-					has_country_leader = { 
-						name = "Ioannis Metaxas"
-						ruling_only = yes
-					}
-					has_government = neutrality
-					NOT = { has_idea = GRE_metaxism_6 }
-				}
-				custom_effect_tooltip = no_fascist_metaxism_spirit_tt
-			}
-			hidden_effect = { 
-				if = { 
-					limit = { 
-						GER = { has_government = fascism }
-					}
-					add_opinion_modifier = { 
-						target = GRE
-						modifier = GRE_fascist_trading_bloc
-					}
-				}
-				if = { 
-					limit = { 
-						ITA = { has_government = fascism }
-					}
-					add_opinion_modifier = { 
-						target = GRE
-						modifier = GRE_fascist_trading_bloc
-					}
-				}
-				swap_ideas = {
-					remove_idea = GRE_eon
-					add_idea = GRE_eon_fascist
-				}
-				if = {
-					limit = { 
-						has_idea = GRE_metaxism
-					}
-					remove_ideas = GRE_metaxism
-				} 
-				if = {
-					limit = { 
-						has_idea = GRE_metaxism_2
-					}	
-					remove_ideas = GRE_metaxism_2
-				}
-				if = {
-					limit = { 
-						has_idea = GRE_metaxism_3
-					}	
-					remove_ideas = GRE_metaxism_3
-				}
-				if = {
-					limit = { 
-						has_idea = GRE_metaxism_4
-					}	
-					remove_ideas = GRE_metaxism_4
-				}
-				if = {
-					limit = { 
-						has_idea = GRE_metaxism_5
-					}	
-					remove_ideas = GRE_metaxism_5
-				}
-			}
 		}
 	}
 
@@ -7117,6 +7018,7 @@ focus_tree = {
 
 		completion_reward = {
             add_stability = 0.01
+            hidden_effect = { add_ideas = GRE_koryzis }
             custom_effect_tooltip = GRE_laying_out_the_social_wellfare_plan_tt
 		}
 	}
@@ -8794,21 +8696,102 @@ focus_tree = {
         }
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_2_tt
-        custom_effect_tooltip = GRE_ochi_tt
-        if = {
-            limit = {
-                OR = {
-                    AND = { date > 1940.09.12 date < 1941.03.1 } 
-                    AND = { date > 1941.09.12 date < 1942.03.1 }
+            custom_effect_tooltip = GRE_ochi_2_tt
+            custom_effect_tooltip = GRE_ochi_tt
+            if = {
+                limit = {
+                    OR = {
+                        AND = { date > 1940.09.12 date < 1941.03.1 } 
+                        AND = { date > 1941.09.12 date < 1942.03.1 }
+                    }
+                }
+                country_event = { id = hellas.100 days = 7 }
+            }
+            #################[ STB/WS BASED BONUSES ] #######################
+            set_temp_variable = { ba = 10}
+            set_temp_variable = { bb = 0}
+            set_temp_variable = { bc = 0}
+            set_temp_variable = { bd = 0}
+            set_temp_variable = { be = 0.05}
+            set_temp_variable = { bf = 0.05}
+            set_temp_variable = { bg = -0.02}
+            set_temp_variable = { bh = 0.2}
+            set_temp_variable = { bi = 0}
+            set_temp_variable = { bj = 12}
+            set_temp_variable = { bk = -0.1}
+            set_temp_variable = { bl = -0.1}
+            set_temp_variable = { bm = -0.1}
+            set_temp_variable = { bn = 0}
+            set_temp_variable = { bo = 0.1}            
+            if = {
+                limit = {
+                    has_stability > 0.89
+                    has_war_support > 0.89
                 }
             }
-            country_event = { id = hellas.100 days = 7 }
-        }
-        add_timed_idea = { idea = GRE_ochi_timed  days = 21 }
-        add_ideas = GRE_ochi
-        country_event = { id = hellas.101 days = 0 }
-        unlock_decision_category_tooltip = GRE_grecoitalian_war_category
+            else_if = {
+                limit = {
+                    has_stability > 0.79
+                    has_war_support > 0.79
+                    
+                }
+                multiply_temp_variable = { ba = 0.5}
+                multiply_temp_variable = { bb = 0.5}
+                multiply_temp_variable = { bc = 0.5}
+                multiply_temp_variable = { bd = 0.5}
+                multiply_temp_variable = { be = 0.5}
+                multiply_temp_variable = { bf = 0.5}
+                multiply_temp_variable = { bg = 0.5}
+                multiply_temp_variable = { bh = 0.5}
+                multiply_temp_variable = { bi = 0.5}
+                multiply_temp_variable = { bj = 0.5}
+                multiply_temp_variable = { bk = 0.5}
+                multiply_temp_variable = { bl = 0.5}
+                multiply_temp_variable = { bm = 0.5}
+                multiply_temp_variable = { bn = 0.5}
+                multiply_temp_variable = { bo = 0.5}                 
+            }
+            else_if = {
+                limit = {
+                    has_stability < 0.5
+                    has_war_support < 0.5
+                }
+                multiply_temp_variable = { ba = -1}
+                multiply_temp_variable = { bb = -1}
+                multiply_temp_variable = { bc = -1}
+                multiply_temp_variable = { bd = -1}
+                multiply_temp_variable = { be = -1}
+                multiply_temp_variable = { bf = -1}
+                multiply_temp_variable = { bg = -1}
+                multiply_temp_variable = { bh = -1}
+                multiply_temp_variable = { bi = -1}
+                multiply_temp_variable = { bj = -1}
+                multiply_temp_variable = { bk = -1}
+                multiply_temp_variable = { bl = -1}
+                multiply_temp_variable = { bm = -1}
+                multiply_temp_variable = { bn = -1}
+                multiply_temp_variable = { bo = -1} 
+            }
+            add_to_variable = { GRE_var_max_cp = ba }
+            add_to_variable = { GRE_var_cp_gain = bb }
+            add_to_variable = { GRE_var_max_plan = bc }
+            add_to_variable = { GRE_var_recon = bd }
+            add_to_variable = { GRE_var_skill_bon = be }
+            add_to_variable = { GRE_var_night_attack = bf}
+            add_to_variable = { GRE_var_org_loss = bg}
+            add_to_variable = { GRE_var_dig_in = bh }
+            add_to_variable = { GRE_var_max_dig_in = bi }
+            add_to_variable = { GRE_var_no_supply_grace = bj }
+            add_to_variable = { GRE_var_train_time_factor = bk }
+            add_to_variable = { GRE_var_supply_consumption = bl }
+            add_to_variable = { GRE_var_winter_attr = bm }
+            add_to_variable = { GRE_var_cold_acc = bn }
+            add_to_variable = { GRE_var_recfact = bo }
+            ###################[ FOCUS BASED BONUSES ]##########################
+            add_timed_idea = { idea = GRE_ochi_timed  days = 21 }
+            add_to_variable = { GRE_var_skill_bon = 0.05 }
+            hidden_effect = { country_event = { id = hellas.101 days = 0 } }
+            unlock_decision_category_tooltip = GRE_grecoitalian_war_category
 		}
 	} 
     
@@ -8832,44 +8815,10 @@ focus_tree = {
         }
 
 		completion_reward = {
-            custom_effect_tooltip = GRE_ochi_tt
-        add_timed_idea = { idea = GRE_mobilization_timed  days = 90 }
-            if = {
-				limit = {
-					has_idea = GRE_ochi
-				}
-				swap_ideas = {
-					remove_idea = GRE_ochi
-					add_idea = GRE_ochi_2
-				}
-			}
-			else_if = {
-				limit = {
-					has_idea = GRE_ochi_3
-				}
-				swap_ideas = {
-					remove_idea = GRE_ochi_3
-					add_idea = GRE_ochi_5
-				}
-			}
-			else_if = {
-				limit = {
-					has_idea = GRE_ochi_4
-				}
-				swap_ideas = {
-					remove_idea = GRE_ochi_4
-					add_idea = GRE_ochi_7
-				}
-			}
-			else_if = {
-				limit = {
-					has_idea = GRE_ochi_6
-				}
-				swap_ideas = {
-					remove_idea = GRE_ochi_6
-					add_idea = GRE_ochi_8
-				}
-			}
+            
+            add_timed_idea = { idea = GRE_mobilization_timed  days = 90 }
+            add_to_variable = { GRE_var_train_time_factor = -0.2 }
+            add_to_variable = { GRE_var_recfact = 0.05 }
 		}
 	}
 
@@ -8890,43 +8839,10 @@ focus_tree = {
         }
         
 		completion_reward = {
-            custom_effect_tooltip = GRE_ochi_tt
-			if = {
-				limit = {
-					has_idea = GRE_ochi
-				}
-				swap_ideas = {
-					remove_idea = GRE_ochi
-					add_idea = GRE_ochi_3
-				}
-			}
-			else_if = {
-				limit = {
-					has_idea = GRE_ochi_2
-				}
-				swap_ideas = {
-					remove_idea = GRE_ochi_2
-					add_idea = GRE_ochi_5
-				}
-			}
-			else_if = {
-				limit = {
-					has_idea = GRE_ochi_4
-				}
-				swap_ideas = {
-					remove_idea = GRE_ochi_4
-					add_idea = GRE_ochi_6
-				}
-			}
-			else_if = {
-				limit = {
-					has_idea = GRE_ochi_7
-				}
-				swap_ideas = {
-					remove_idea = GRE_ochi_7
-					add_idea = GRE_ochi_8
-				}
-			}
+            
+			add_to_variable = { GRE_var_no_supply_grace = 4 }
+            add_to_variable = { GRE_var_winter_attr = -0.05 }
+            add_to_variable = { GRE_var_cold_acc = 0.5 }
 		}
 	} 
 
@@ -8950,43 +8866,13 @@ focus_tree = {
         }
 
 		completion_reward = {
-            custom_effect_tooltip = GRE_ochi_tt
-			if = {
-				limit = {
-					has_idea = GRE_ochi
-				}
-				swap_ideas = {
-					remove_idea = GRE_ochi
-					add_idea = GRE_ochi_4
-				}
-			}
-			else_if = {
-				limit = {
-					has_idea = GRE_ochi_2
-				}
-				swap_ideas = {
-					remove_idea = GRE_ochi_2
-					add_idea = GRE_ochi_7
-				}
-			}
-			else_if = {
-				limit = {
-					has_idea = GRE_ochi_3
-				}
-				swap_ideas = {
-					remove_idea = GRE_ochi_4
-					add_idea = GRE_ochi_6
-				}
-			}
-			else_if = {
-				limit = {
-					has_idea = GRE_ochi_5
-				}
-				swap_ideas = {
-					remove_idea = GRE_ochi_5
-					add_idea = GRE_ochi_8
-				}
-			}
+            
+            add_to_variable = { GRE_var_dig_in = 0.15 }
+            add_to_variable = { GRE_var_max_dig_in = 0.05 }
+			add_to_variable = { GRE_var_no_supply_grace = 4 }
+            add_to_variable = { GRE_var_winter_attr = -0.05 }
+            add_to_variable = { GRE_var_cold_acc = 0.005 }
+            add_to_variable = { GRE_var_recon = 0.05 }
 		}
 	}   
 
@@ -9012,8 +8898,8 @@ focus_tree = {
         }
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
-        add_ideas = GRE_tur_guar
+            
+            add_ideas = GRE_tur_guar
 		}
 	} 
 
@@ -9040,11 +8926,8 @@ focus_tree = {
         }
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_population_sacrifice_tt
-        swap_ideas = {
-            remove_idea = GRE_ochi_8
-			add_idea = GRE_ochi_9
-            }
+            custom_effect_tooltip = GRE_population_sacrifice_tt
+            add_dynamic_modifier = { modifier = GRE_army_reform_hellenic_people }
 		}
 	} 
 
@@ -9069,12 +8952,14 @@ focus_tree = {
         }
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_army_organized_tt
-        hidden_effect = {
-            remove_ideas = GRE_ochi_9
-            add_ideas = GRE_ochi_10_a
-            add_ideas = GRE_ochi_10_b
-        }
+            custom_effect_tooltip = GRE_army_organized_tt
+            add_to_variable = { GRE_var_max_cp = 20 }
+            add_to_variable = { GRE_var_cp_gain = 0.1 }
+            add_to_variable = { GRE_var_max_plan = 0.1 }
+            add_to_variable = { GRE_var_org_loss = -0.04 }
+            add_to_variable = { GRE_var_dig_in = 0.15 }
+            add_to_variable = { GRE_var_no_supply_grace = 4 }
+            add_to_variable = { GRE_var_supply_consumption = -0.1 }
 		}
 	} 
 
@@ -9215,7 +9100,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -9236,7 +9121,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	} 
 
@@ -9257,7 +9142,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -9278,7 +9163,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	} 
 
@@ -9300,7 +9185,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	} 
 
@@ -9472,7 +9357,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -9490,7 +9375,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -9508,7 +9393,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -9526,7 +9411,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -9659,7 +9544,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -9696,7 +9581,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -9750,7 +9635,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -9769,7 +9654,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -9787,7 +9672,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -9805,7 +9690,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -9823,7 +9708,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -9841,7 +9726,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -9859,7 +9744,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -9878,7 +9763,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
     
@@ -9897,7 +9782,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -9915,7 +9800,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
     
@@ -9933,7 +9818,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -9955,7 +9840,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -9973,7 +9858,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
   
@@ -9991,7 +9876,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -10009,7 +9894,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -10028,7 +9913,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -10047,7 +9932,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -10066,7 +9951,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -10098,7 +9983,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	} 
 
@@ -10117,7 +10002,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}  
  
@@ -10135,7 +10020,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -10156,7 +10041,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -10175,7 +10060,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -10193,7 +10078,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -10211,7 +10096,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
     
@@ -10228,7 +10113,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -10264,7 +10149,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	} 
 
@@ -10282,7 +10167,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	} 
 
@@ -10301,7 +10186,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	} 
 
@@ -10319,7 +10204,7 @@ focus_tree = {
         ##VENIZELIST CHECK WIKIPEDIA AND SET FLAG SO IF REPUB=FRIENDLY NO PENALTY
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -10338,7 +10223,7 @@ focus_tree = {
         ##VENIZELIST CHECK WIKIPEDIA AND SET FLAG SO IF REPUB=FRIENDLY NO PENALTY
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -10357,7 +10242,7 @@ focus_tree = {
         ##VENIZELIST CHECK WIKIPEDIA AND SET FLAG SO IF REPUB=FRIENDLY NO PENALTY
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -10375,7 +10260,7 @@ focus_tree = {
         ##VENIZELIST CHECK WIKIPEDIA AND SET FLAG SO IF REPUB=FRIENDLY NO PENALTY
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -10393,7 +10278,7 @@ focus_tree = {
         ##VENIZELIST CHECK WIKIPEDIA AND SET FLAG SO IF REPUB=FRIENDLY NO PENALTY
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -10412,7 +10297,7 @@ focus_tree = {
         ##VENIZELIST CHECK WIKIPEDIA AND SET FLAG SO IF REPUB=FRIENDLY NO PENALTY
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -10431,7 +10316,7 @@ focus_tree = {
         ##VENIZELIST CHECK WIKIPEDIA AND SET FLAG SO IF REPUB=FRIENDLY NO PENALTY
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -10449,7 +10334,7 @@ focus_tree = {
         ##VENIZELIST CHECK WIKIPEDIA AND SET FLAG SO IF REPUB=FRIENDLY NO PENALTY
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -10485,7 +10370,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	} 
 
@@ -10503,7 +10388,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	} 
 
@@ -10521,7 +10406,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
     
@@ -10539,7 +10424,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}    
 
@@ -10557,7 +10442,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}  
 
@@ -10575,7 +10460,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}  
 
@@ -10596,7 +10481,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	} 
 
@@ -10633,7 +10518,7 @@ focus_tree = {
         }
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
         
 		}
 	}     
@@ -10653,7 +10538,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
         
 		}
 	}
@@ -10672,7 +10557,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -10690,7 +10575,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -10708,7 +10593,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -10726,7 +10611,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -10745,7 +10630,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -10764,7 +10649,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
         hidden_effect = {
             set_country_flag = GRE_opted_for_war
         }
@@ -10785,7 +10670,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -10803,7 +10688,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -10821,7 +10706,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -10839,7 +10724,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -10858,7 +10743,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -10886,7 +10771,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -10905,7 +10790,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
 
@@ -10925,7 +10810,7 @@ focus_tree = {
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_ochi_tt
+        
 		}
 	}
     
@@ -11071,7 +10956,7 @@ focus_tree = {
         
 		x = 11
 		y = 1
-		cost = 2.9
+		cost = 1
 		ai_will_do = {
 			base = 1
 		}
@@ -11094,7 +10979,7 @@ focus_tree = {
         relative_position_id = GRE_the_army
 		x = -1
 		y = 1
-		cost = 2.9
+		cost = 1
 		ai_will_do = {
 			base = 1
 		}
@@ -11132,7 +11017,7 @@ focus_tree = {
         }
 		x = -1
 		y = 1
-		cost = 2.9
+		cost = 1
 		ai_will_do = {
 			base = 1
 		}
@@ -11156,7 +11041,7 @@ focus_tree = {
         relative_position_id = GRE_modernize_the_army
 		x = 1
 		y = 1
-		cost = 2.9
+		cost = 1
 		ai_will_do = {
 			base = 1
 		}
@@ -11180,7 +11065,7 @@ focus_tree = {
         relative_position_id = GRE_the_army
 		x = 1
 		y = 1
-		cost = 2.9
+		cost = 1
 		ai_will_do = {
 			base = 1
 		}
@@ -11204,7 +11089,7 @@ focus_tree = {
         relative_position_id = GRE_heavy_equipment
 		x = 1
 		y = 1
-		cost = 2.9
+		cost = 1
 		ai_will_do = {
 			base = 1
 		}
@@ -11226,7 +11111,7 @@ focus_tree = {
         relative_position_id = GRE_entrenchment
 		x = -1
 		y = 1
-		cost = 2.9
+		cost = 1
 		ai_will_do = {
 			base = 1
 		}
@@ -11242,7 +11127,7 @@ focus_tree = {
         relative_position_id = GRE_the_army
 		x = 0
 		y = 2
-		cost = 2.9
+		cost = 1
 		ai_will_do = {
 			base = 1
 		}
@@ -11262,7 +11147,7 @@ focus_tree = {
         }
 		x = 7
 		y = 1
-		cost = 2.9
+		cost = 1
 		ai_will_do = {
 			base = 1
 		}
@@ -11284,7 +11169,7 @@ focus_tree = {
         relative_position_id = GRE_the_navy
 		x = -1
 		y = 1
-		cost = 2.9
+		cost = 1
 		ai_will_do = {
 			base = 1
 		}
@@ -11306,7 +11191,7 @@ focus_tree = {
         relative_position_id = GRE_buy_subs
 		x = -1
 		y = 1
-		cost = 2.9
+		cost = 1
 		ai_will_do = {
 			base = 1
 		}
@@ -11328,7 +11213,7 @@ focus_tree = {
         relative_position_id = GRE_the_navy
 		x = 1
 		y = 1
-		cost = 2.9
+		cost = 1
 		ai_will_do = {
 			base = 1
 		}
@@ -11350,7 +11235,7 @@ focus_tree = {
         relative_position_id = GRE_buy_destroyers_and_torpedo_boats
 		x = 1
 		y = 1
-		cost = 2.9
+		cost = 1
 		ai_will_do = {
 			base = 1
 		}
@@ -11366,7 +11251,7 @@ focus_tree = {
         relative_position_id = GRE_the_navy
 		x = 0
 		y = 2
-		cost = 2.9
+		cost = 1
 		ai_will_do = {
 			base = 1
 		}
@@ -11385,7 +11270,7 @@ focus_tree = {
         }
 		x = -7
 		y = 1
-		cost = 2.9
+		cost = 1
 		ai_will_do = {
 			base = 1
 		}
@@ -11408,7 +11293,7 @@ focus_tree = {
         relative_position_id = GRE_the_airforce
 		x = 1
 		y = 1
-		cost = 2.9
+		cost = 1
 		ai_will_do = {
 			base = 1
 		}
@@ -11430,7 +11315,7 @@ focus_tree = {
         relative_position_id = GRE_fighters
 		x = 1
 		y = 1
-		cost = 2.9
+		cost = 1
 		ai_will_do = {
 			base = 1
 		}
@@ -11452,7 +11337,7 @@ focus_tree = {
         relative_position_id = GRE_the_airforce
 		x = -1
 		y = 1
-		cost = 2.9
+		cost = 1
 		ai_will_do = {
 			base = 1
 		}
@@ -11474,7 +11359,7 @@ focus_tree = {
         relative_position_id = GRE_bombers
 		x = -1
 		y = 1
-		cost = 2.9
+		cost = 1
 		ai_will_do = {
 			base = 1
 		}
@@ -11490,7 +11375,7 @@ focus_tree = {
         relative_position_id = GRE_the_airforce
 		x = 0
 		y = 2
-		cost = 2.9
+		cost = 1
 		ai_will_do = {
 			base = 1
 		}
@@ -11511,7 +11396,7 @@ focus_tree = {
         }
 		x = 0
 		y = 3
-		cost = 2.9
+		cost = 1
 		ai_will_do = {
 			base = 1
 		}
