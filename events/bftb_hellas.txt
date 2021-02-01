@@ -3330,35 +3330,37 @@ country_event = {                                                               
         }
         else = {
             custom_effect_tooltip = GRE_extra_slots_per_manpower_tt
-            every_owned_state = {   
-                if = {
-                    limit = {
-                        state_population_k < 400
+            hidden_effect = {
+                every_owned_state = {   
+                    if = {
+                        limit = {
+                            state_population_k < 400
+                        }
+                        add_extra_state_shared_building_slots = 0
                     }
-                    add_extra_state_shared_building_slots = 0
-                }
-                else_if = {
-                    limit = {
-                        state_population_k < 800
-                    }
-                    add_extra_state_shared_building_slots = 1
-                } 
-                else_if = {
-                    limit = {
-                        state_population_k < 1200
-                    }
-                    add_extra_state_shared_building_slots = 2
-                }   
-                else_if = {
-                    limit = {
-                        state_population_k < 2000
-                    }
-                    add_extra_state_shared_building_slots = 3
-                }  
-                else = {
-                    add_extra_state_shared_building_slots = 4
-                }            
-            }        
+                    else_if = {
+                        limit = {
+                            state_population_k < 800
+                        }
+                        add_extra_state_shared_building_slots = 1
+                    } 
+                    else_if = {
+                        limit = {
+                            state_population_k < 1200
+                        }
+                        add_extra_state_shared_building_slots = 2
+                    }   
+                    else_if = {
+                        limit = {
+                            state_population_k < 2000
+                        }
+                        add_extra_state_shared_building_slots = 3
+                    }  
+                    else = {
+                        add_extra_state_shared_building_slots = 4
+                    }            
+                }    
+            }
         }
     }
 	option = {                                                                                  ### Outsourcing -> Leads to event below
@@ -3402,13 +3404,90 @@ country_event = {                                                               
     }
 	option = {                                                                                  ### Expand Mines
 		name = hellas.504.d #medium investment
-        if = {                                                                              
-            limit = {
-                FROM = {
-                    original_tag = GER
-                }
-            }  
+        trigger = {
+            check_variable = { var = GRE_mine_expansion value = 2 compare = less_than_or_equals }
         }
+        if = {
+            limit = {
+                check_variable = { var = GRE_mine_expansion value = 0 compare = equals }
+            }
+            186 = { 
+                add_resource = { 
+                    type = steel
+                    amount = 3
+                }
+                add_resource = { 
+                    type = chromium
+                    amount = 8
+                }
+            }
+            47 = { 
+                add_resource = { 
+                    type = steel
+                    amount = 4
+                }
+                add_resource = { 
+                    type = tungsten
+                    amount = 2
+                }
+            }
+            add_to_variable = { FROM.favor@GRE = 5 }
+            custom_effect_tooltip = GRE_favor_boost_mediocre_from_tt
+            add_to_variable = { GRE_mine_expansion = 1 }
+        }
+        else_if = {
+            limit = {
+                check_variable = { var = GRE_mine_expansion value = 1 compare = equals }
+            }
+            186 = { 
+                add_resource = { 
+                    type = steel
+                    amount = 3
+                }
+                add_resource = { 
+                    type = chromium
+                    amount = 4
+                }
+            }
+            47 = { 
+                add_resource = { 
+                    type = steel
+                    amount = 2
+                }
+                add_resource = { 
+                    type = tungsten
+                    amount = 4
+                }
+            }
+            add_to_variable = { FROM.favor@GRE = 5 }
+            custom_effect_tooltip = GRE_favor_boost_mediocre_from_tt
+            add_to_variable = { GRE_mine_expansion = 1 }
+        }
+        else = {
+            186 = { 
+                add_resource = { 
+                    type = steel
+                    amount = 6
+                }
+                add_resource = { 
+                    type = chromium
+                    amount = 8
+                }
+            }
+            47 = { 
+                add_resource = { 
+                    type = steel
+                    amount = 6
+                }
+                add_resource = { 
+                    type = tungsten
+                    amount = 4
+                }
+            }
+            add_to_variable = { FROM.favor@GRE = 5 }
+            custom_effect_tooltip = GRE_favor_boost_mediocre_from_tt
+            add_to_variable = { GRE_mine_expansion = 1 }
+        }        
     }  
 }
 
