@@ -404,10 +404,12 @@ country_event = {               #WARNING EVENT FOR TROOP DEPLOYMENT IN ALBANIAN 
 
 	trigger = {
 		original_tag = GRE
+        date < 1942.1.1
         ITA = { 
             exists = yes 
             is_puppet = no
             is_subject = no
+            NOT = { has_war_with = GRE }
             has_government = fascism
             has_country_leader = {
                 name = "Benito Mussolini"
@@ -428,7 +430,7 @@ country_event = {               #WARNING EVENT FOR TROOP DEPLOYMENT IN ALBANIAN 
         }
         divisions_in_border_state = {
             type = infantry
-            size > 0
+            size > 4
             state = 185
             border_state = 805
         }         
@@ -459,10 +461,12 @@ country_event = {               #WARNING EVENT FOR TOO MANY DIVISIONS DEPLOYED (
 
 	trigger = {
 		original_tag = GRE
+        date < 1942.1.1
         ITA = { 
             exists = yes 
             is_puppet = no
             is_subject = no
+            NOT = { has_war_with = GRE }
             has_government = fascism
             has_country_leader = {
                 name = "Benito Mussolini"
@@ -484,7 +488,7 @@ country_event = {               #WARNING EVENT FOR TOO MANY DIVISIONS DEPLOYED (
         set_temp_variable = { x = ITA.army_intel@GRE }                              ### FORMULA: y = -0.25x + 30 where y the num of divisions and x the army intel italy has over greece (5,30 min-max)
         multiply_temp_variable = { x = -0.25 }
         add_to_temp_variable = { x = 30 }
-        num_divisions < x
+        num_divisions > x
 		date > 1936.08.04
         has_country_leader = {
             name = "Ioannis Metaxas"
@@ -2364,14 +2368,10 @@ country_event = {
                 10 = {
                     random_state = {
                         limit = {
-                            is_core_of = GRE
-                            has_built = {
-                                type = naval_base
-                                value > 2
-                            }                            
+                            is_core_of = GRE                   
                             free_building_slots = {
                                 building = naval_base
-                                size > 2
+                                size < 7
                                 include_locked = yes
                             }                           
                         }
@@ -2496,14 +2496,10 @@ country_event = {
                 10 = {
                     random_state = {
                         limit = {
-                            is_core_of = GRE
-                            has_built = {
-                                type = naval_base
-                                value > 2
-                            }                            
+                            is_core_of = GRE                        
                             free_building_slots = {
                                 building = naval_base
-                                size > 2
+                                size < 7
                                 include_locked = yes
                             }                           
                         }
@@ -2628,14 +2624,10 @@ country_event = {
                 10 = {
                     random_state = {
                         limit = {
-                            is_core_of = GRE
-                            has_built = {
-                                type = naval_base
-                                value > 2
-                            }                            
+                            is_core_of = GRE                          
                             free_building_slots = {
                                 building = naval_base
-                                size > 2
+                                size < 7
                                 include_locked = yes
                             }                           
                         }
@@ -2760,14 +2752,10 @@ country_event = {
                 10 = {
                     random_state = {
                         limit = {
-                            is_core_of = GRE
-                            has_built = {
-                                type = naval_base
-                                value > 2
-                            }                            
+                            is_core_of = GRE                      
                             free_building_slots = {
                                 building = naval_base
-                                size > 2
+                                size < 7
                                 include_locked = yes
                             }                           
                         }
@@ -2875,14 +2863,10 @@ country_event = {
                 10 = {
                     random_state = {
                         limit = {
-                            is_core_of = GRE
-                            has_built = {
-                                type = naval_base
-                                value > 2
-                            }                            
+                            is_core_of = GRE                          
                             free_building_slots = {
                                 building = naval_base
-                                size > 2
+                                size < 7
                                 include_locked = yes
                             }                           
                         }
@@ -3034,14 +3018,10 @@ country_event = {
                 10 = {
                     random_state = {
                         limit = {
-                            is_core_of = GRE
-                            has_built = {
-                                type = naval_base
-                                value > 2
-                            }                            
+                            is_core_of = GRE                          
                             free_building_slots = {
                                 building = naval_base
-                                size > 2
+                                size < 7
                                 include_locked = yes
                             }                           
                         }
@@ -3161,14 +3141,10 @@ country_event = {
                 10 = {
                     random_state = {
                         limit = {
-                            is_core_of = GRE
-                            has_built = {
-                                type = naval_base
-                                value > 2
-                            }                            
+                            is_core_of = GRE                          
                             free_building_slots = {
                                 building = naval_base
-                                size > 2
+                                size < 7
                                 include_locked = yes
                             }                           
                         }

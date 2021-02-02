@@ -182,12 +182,40 @@ on_actions = {
             }
         }
     }
+
+    ###This checks for amount of factories certain focuses will grant####
+
+    on_weekly_GRE = {
+        effect = {
+            if = {                                                                                          ### Here we check how many factories the "Bedrock of..." focus grants 
+                limit = { 
+                    NOT = { has_completed_focus = GRE_bedrock_of_balkan_financial_stability }
+                    has_completed_focus = GRE_a_game_of_shadows
+                }
+                GRE_bedrock_check = yes
+            }
+            if = {                                                                                          ### Here we check how many factories the "Open Foreign..." focus grants
+                limit = { 
+                    NOT = { has_completed_focus = GRE_open_foreign_subsidized_factories }                   
+                    has_completed_focus = GRE_a_game_of_shadows
+                }
+                GRE_subsidized_check = yes
+            }
+            if = {                                                                                          ### Here we check how many factories the "Mobilise Economy..." focus grants
+                limit = { 
+                    NOT = { has_completed_focus = GRE_mobilise_our_economy }                                
+                    has_completed_focus = GRE_a_game_of_shadows
+                }
+                GRE_mobilized_check = yes
+            }
+        }
+    }
     
     ######################################################
     
     on_monthly_GRE = {
         effect = {
-            every_country = {
+            every_country = {                                                                               ### Here we add or subtract favor points depending on the country's opinion of GRE 
                 limit = {
                     is_in_array = {
                         array = global.favor_mechanic

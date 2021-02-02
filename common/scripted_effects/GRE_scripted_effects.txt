@@ -16,6 +16,316 @@
 #}
 
 #########################################################
+##############[CALCULATE FACTORY DONATIONS]##############
+#########################################################
+##############[Subsidized]
+GRE_subsidized_check = {
+    clear_variable = sub_civs 
+    clear_variable = sub_mils 
+    hidden_effect = {
+        every_country = {
+            limit = {
+                is_in_array = {
+                    array = global.favor_mechanic
+                    value = THIS.id
+                }
+                is_major = yes
+            }
+            if = {
+                limit = {
+                    has_opinion = { target = GRE value > 79 }  
+                    check_variable = { var = favor@GRE value = 30 compare = greater_than_or_equals }
+                    check_variable = { var = favor@GRE value = 50 compare = less_than }
+                }
+                GRE = {
+                    add_to_variable = { sub_civs = 1 }
+                    add_to_variable = { sub_mils = 1 }
+                }
+            }
+            else_if = {
+                limit = {
+                    has_opinion = { target = GRE value > 79 }  
+                    check_variable = { var = favor@GRE value = 80 compare = less_than }
+                }
+                GRE = {
+                    add_to_variable = { sub_civs = 1 }
+                    add_to_variable = { sub_mils = 2 }
+                }
+            }
+            else_if = {
+                limit = {
+                    has_opinion = { target = GRE value > 79 }  
+                    check_variable = { var = favor@GRE value = 80 compare = greater_than_or_equals }
+                }
+                GRE = {
+                    add_to_variable = { sub_civs = 2 }
+                    add_to_variable = { sub_mils = 3 }
+                }
+            }
+        }
+        every_country = {
+            limit = {
+                is_in_array = {
+                    array = global.favor_mechanic
+                    value = THIS.id
+                }
+                is_major = no
+            }
+            if = {
+                limit = {
+                    has_opinion = { target = GRE value > 79 }  
+                    check_variable = { var = favor@GRE value = 30 compare = greater_than_or_equals }
+                    check_variable = { var = favor@GRE value = 50 compare = less_than }
+                }
+                GRE = {
+                    add_to_variable = { sub_civs = 1 }
+                    add_to_variable = { sub_mils = 0 }
+                }
+            }
+            else_if = {
+                limit = {
+                    has_opinion = { target = GRE value > 79 }  
+                    check_variable = { var = favor@GRE value = 80 compare = less_than }
+                }
+                GRE = {
+                    add_to_variable = { sub_civs = 1 }
+                    add_to_variable = { sub_mils = 1 }
+                }
+            }
+            else_if = {
+                limit = {
+                    has_opinion = { target = GRE value > 79 }  
+                    check_variable = { var = favor@GRE value = 80 compare = greater_than_or_equals }
+                }
+                GRE = {
+                    add_to_variable = { sub_civs = 1 }
+                    add_to_variable = { sub_mils = 2 }
+                }
+            }
+        }    
+    }
+}
+##############[Bedrock]
+GRE_bedrock_check = {
+    clear_variable =  bed_civs 
+    hidden_effect = {
+        if = { 
+            limit = {
+                country_exists = ALB
+                ALB = { has_opinion = { target = GRE value > 85 } } 
+            }
+            if = {
+                limit = {
+                    check_variable = { var = ALB.favor@GRE value = 0 compare = greater_than_or_equals }
+                    check_variable = { var = ALB.favor@GRE value = 80 compare = less_than }
+                }
+                add_to_variable = { bed_civs = 1 }
+            }
+            else_if = {
+                limit = {
+                    check_variable = { var = ALB.favor@GRE value = 80 compare = greater_than_or_equals }
+                }
+                add_to_variable = { bed_civs = 2 }  
+            }  
+        }	
+        if = { 	
+            limit = { 
+                country_exists = BUL
+                BUL = { has_opinion = { target = GRE value > 85 } } 
+            }
+            if = {
+                limit = {
+                    check_variable = { var = BUL.favor@GRE value = 0 compare = greater_than_or_equals }
+                    check_variable = { var = BUL.favor@GRE value = 80 compare = less_than }
+                }
+                add_to_variable = { bed_civs = 1 }
+            }
+            else_if = {
+                limit = {
+                    check_variable = { var = BUL.favor@GRE value = 80 compare = greater_than_or_equals }
+                }
+                add_to_variable = { bed_civs = 2 }
+            } 
+        }	
+        if = { 	
+            limit = { 
+                country_exists = HUN
+                HUN = { has_opinion = { target = GRE value > 85 } } 
+            }
+            add_to_variable = { bed_civs = 1 }
+        }	
+        if = { 
+            limit = { 
+                country_exists = YUG
+                YUG = { has_opinion = { target = GRE value > 85 } } 
+            }
+            if = {
+                limit = {
+                    check_variable = { var = YUG.favor@GRE value = 0 compare = greater_than_or_equals }
+                    check_variable = { var = YUG.favor@GRE value = 50 compare = less_than }
+                }
+                add_to_variable = { bed_civs = 1 }
+            }
+            else_if = {
+                limit = {
+                    check_variable = { var = YUG.favor@GRE value = 80 compare = less_than }
+                }
+                add_to_variable = { bed_civs = 2 }
+            }
+            else_if = {
+                limit = {
+                    check_variable = { var = YUG.favor@GRE value = 80 compare = greater_than_or_equals }
+                }
+                add_to_variable = { bed_civs = 4 }
+            }
+        }
+        if = { 	
+            limit = { 
+                country_exists = AUS
+                AUS = { has_opinion = { target = GRE value > 85 } } 
+            }
+            add_to_variable = { bed_civs = 2 }
+        }
+        if = { 	
+            limit = { 
+                country_exists = ROM
+                ROM = { has_opinion = { target = GRE value > 85 } } 
+            }
+            if = {
+                limit = {
+                    check_variable = { var = ROM.favor@GRE value = 0 compare = greater_than_or_equals }
+                    check_variable = { var = ROM.favor@GRE value = 50 compare = less_than }
+                }
+                add_to_variable = { bed_civs = 1 }
+            }
+            else_if = {
+                limit = {
+                    check_variable = { var = ROM.favor@GRE value = 80 compare = less_than }
+                }
+                add_to_variable = { bed_civs = 2 }
+            }
+            else_if = {
+                limit = {
+                    check_variable = { var = ROM.favor@GRE value = 80 compare = greater_than_or_equals }
+                }
+                add_to_variable = { bed_civs = 4 }
+            }
+        }
+        if = { 
+            limit = { 
+                country_exists = TUR
+                TUR = { has_opinion = { target = GRE value > 85 } } 
+            }
+            if = {
+                limit = {
+                    check_variable = { var = TUR.favor@GRE value = 0 compare = greater_than_or_equals }
+                    check_variable = { var = TUR.favor@GRE value = 50 compare = less_than }
+                }
+                add_to_variable = { bed_civs = 1 }
+            }
+            else_if = {
+                limit = {
+                    check_variable = { var = TUR.favor@GRE value = 80 compare = less_than }
+                }
+                add_to_variable = { bed_civs = 2 }
+            }
+            else_if = {
+                limit = {
+                    check_variable = { var = TUR.favor@GRE value = 80 compare = greater_than_or_equals }
+                }
+                add_to_variable = { bed_civs = 4 }
+            }
+        }
+        if = { 	
+            limit = { 
+                country_exists = CZE
+                CZE = { has_opinion = { target = GRE value > 85 } } 
+            }
+            add_to_variable = { bed_civs = 2 }
+        }
+    }
+}
+##############[Mobilised Economy]
+GRE_mobilized_check = {
+    clear_variable = mob_mils 
+    hidden_effect = {
+        every_country = {
+            limit = {
+                is_in_array = {
+                    array = global.favor_mechanic
+                    value = THIS.id
+                }
+                is_major = yes
+            }
+            if = {
+                limit = {
+                    has_opinion = { target = GRE value > 79 }  
+                    check_variable = { var = favor@GRE value = 30 compare = greater_than_or_equals }
+                    check_variable = { var = favor@GRE value = 50 compare = less_than }
+                }
+                GRE = {
+                    add_to_variable = { mob_mils = 2 }
+                }
+            }
+            else_if = {
+                limit = {
+                    has_opinion = { target = GRE value > 79 }  
+                    check_variable = { var = favor@GRE value = 80 compare = less_than }
+                }
+                GRE = {
+                    add_to_variable = { mob_mils = 3 }
+                }
+            }
+            else_if = {
+                limit = {
+                    has_opinion = { target = GRE value > 79 }  
+                    check_variable = { var = favor@GRE value = 80 compare = greater_than_or_equals }
+                }
+                GRE = {
+                    add_to_variable = { mob_mils = 4 }
+                }
+            }
+        }
+        every_country = {
+            limit = {
+                is_in_array = {
+                    array = global.favor_mechanic
+                    value = THIS.id
+                }
+                is_major = no
+            }
+            if = {
+                limit = {
+                    has_opinion = { target = GRE value > 79 }  
+                    check_variable = { var = favor@GRE value = 30 compare = greater_than_or_equals }
+                    check_variable = { var = favor@GRE value = 50 compare = less_than }
+                }
+                GRE = {
+                    add_to_variable = { mob_mils = 1 }
+                }
+            }
+            else_if = {
+                limit = {
+                    has_opinion = { target = GRE value > 79 }  
+                    check_variable = { var = favor@GRE value = 80 compare = less_than }
+                }
+                GRE = {
+                    add_to_variable = { mob_mils = 2 }
+                }
+            }
+            else_if = {
+                limit = {
+                    has_opinion = { target = GRE value > 79 }  
+                    check_variable = { var = favor@GRE value = 80 compare = greater_than_or_equals }
+                }
+                GRE = {
+                    add_to_variable = { mob_mils = 3 }
+                }
+            }
+        }    
+    }
+}
+#########################################################
 ###############[ MILITARY BUDGET REFRESH ]###############
 #########################################################
 

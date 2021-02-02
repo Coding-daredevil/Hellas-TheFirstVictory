@@ -4050,7 +4050,8 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			custom_effect_tooltip = GRE_open_foreign_subsidized_factories_tt
+			custom_effect_tooltip = GRE_open_foreign_subsidized_factories_tt 
+            custom_effect_tooltip = "[GetSubsidizedIntel]"
 			hidden_effect = {
                 every_country = {
                     limit = {
@@ -4513,6 +4514,7 @@ focus_tree = {
 		completion_reward = {
 			add_political_power = 100
 			custom_effect_tooltip = GRE_the_bedrock_of_balkan_financial_stability_tt
+            custom_effect_tooltip = "[GetBedrockIntel]"
 			hidden_effect = {
 				if = { 
 					limit = {
@@ -4675,6 +4677,7 @@ focus_tree = {
 					add_offsite_building = { type = industrial_complex level = 2 }
 				}
 			}
+            custom_effect_tooltip = "                                                                          "
             swap_ideas = {
                 remove_idea = GRE_domestic_competition_0
                 add_idea = GRE_domestic_competition_1
@@ -4981,10 +4984,20 @@ focus_tree = {
 	}	
 
 	focus = {
-		id = GRE_mobilise_our_economy
+		id = GRE_mobilise_our_economy 
 		icon = GFX_goal_mob
 		prerequisite = { focus = GRE_increase_our_mining_operations }
-		available = { has_war_support > 0.2 }
+		available = { 
+            has_war_support > 0.2 
+            has_stability > 0.75
+            has_completed_focus = GRE_extend_budget
+            if = {
+                limit = {
+                    has_government = neutrality
+                }
+                has_completed_focus = GRE_army_reborn
+            }
+        }
 		x = 0
 		y = 1
 		relative_position_id = GRE_increase_our_mining_operations
@@ -4995,7 +5008,10 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_WAR_SUPPORT }
 		completion_reward = {
-			add_war_support = 0.05
+            custom_effect_tooltip = GRE_mob_economy_tt
+            custom_effect_tooltip = "[GetMobilizeIntel]"
+            custom_effect_tooltip = "                                                           "
+			add_war_support = 0.05       
 			if = {
 				limit = {
 					NOT = { has_idea = partial_economic_mobilisation }
@@ -5013,6 +5029,78 @@ focus_tree = {
 			}
             else = {
                 add_political_power = 300
+            }
+            hidden_effect = {
+                add_timed_idea = { idea = GRE_prod_growth_timed  days = 90 }
+                activate_mission = GRE_factories_for_some_days
+                every_country = {
+                    limit = {
+                        is_in_array = {
+                            array = global.favor_mechanic
+                            value = THIS.id
+                        }
+                        is_major = yes
+                    }
+                    if = {
+                        limit = {
+                            has_opinion = { target = GRE value > 79 }  
+                            check_variable = { var = THIS.favor@GRE value = 30 compare = greater_than_or_equals }
+                            check_variable = { var = THIS.favor@GRE value = 50 compare = less_than }
+                        }
+                        GRE = { add_offsite_building = { type = arms_factory level = 2 } }
+                        subtract_from_variable = { THIS.favor@GRE = 5 }
+                    }
+                    else_if = {
+                        limit = {
+                            has_opinion = { target = GRE value > 79 }  
+                            check_variable = { var = THIS.favor@GRE value = 80 compare = less_than }
+                        }
+                        GRE = { add_offsite_building = { type = arms_factory level = 3 } }
+                        subtract_from_variable = { THIS.favor@GRE = 10 }
+                    }
+                    else_if = {
+                        limit = {
+                            has_opinion = { target = GRE value > 79 }  
+                            check_variable = { var = THIS.favor@GRE value = 80 compare = greater_than_or_equals }
+                        }
+                        GRE = { add_offsite_building = { type = arms_factory level = 4 } }
+                        subtract_from_variable = { THIS.favor@GRE = 15 }
+                    }
+                }
+                every_country = {
+                    limit = {
+                        is_in_array = {
+                            array = global.favor_mechanic
+                            value = THIS.id
+                        }
+                        is_major = no
+                    }
+                    if = {
+                        limit = {
+                            has_opinion = { target = GRE value > 79 }  
+                            check_variable = { var = THIS.favor@GRE value = 30 compare = greater_than_or_equals }
+                            check_variable = { var = THIS.favor@GRE value = 50 compare = less_than }
+                        }
+                        GRE = { add_offsite_building = { type = arms_factory level = 1 } }
+                        subtract_from_variable = { THIS.favor@GRE = 5 }
+                    }
+                    else_if = {
+                        limit = {
+                            has_opinion = { target = GRE value > 79 }  
+                            check_variable = { var = THIS.favor@GRE value = 80 compare = less_than }
+                        }
+                        GRE = { add_offsite_building = { type = arms_factory level = 2 } }
+                        subtract_from_variable = { THIS.favor@GRE = 7.5 }
+                    }
+                    else_if = {
+                        limit = {
+                            has_opinion = { target = GRE value > 79 }  
+                            check_variable = { var = THIS.favor@GRE value = 80 compare = greater_than_or_equals }
+                        }
+                        GRE = { add_offsite_building = { type = arms_factory level = 3 } }
+                        subtract_from_variable = { THIS.favor@GRE = 10 }
+                    }
+                }    
             }            
         }
     }		
@@ -5025,6 +5113,11 @@ focus_tree = {
 		y = 2
 		relative_position_id = GRE_open_foreign_subsidized_factories
 		cost = 11.5
+        
+        available = {
+            has_country_flag = GRE_has_occupied_territory
+        }
+        
 		ai_will_do = {
 			base = 1
 		}
@@ -5339,7 +5432,7 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			add_political_power = 240
+			add_political_power = 120
 			if = { 
 				limit = {
 					NOT = {
@@ -7843,8 +7936,11 @@ focus_tree = {
 	focus = {
 		id = GRE_a_game_of_shadows
 		icon = GFX_goal_gre_shadow
-		prerequisite = { focus = GRE_american_influencers }
-		prerequisite = { focus = GRE_cooperate_with_foreign_monopolies }
+		prerequisite = { focus = GRE_american_influencers focus = GRE_cooperate_with_foreign_monopolies }
+        
+        available = {
+            has_intelligence_agency = yes
+        }
        
 		relative_position_id = GRE_american_influencers
         x = 1
@@ -7855,7 +7951,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-            custom_effect_tooltip = GRE_american_influencers_tt
+            custom_effect_tooltip = GRE_a_game_of_shadows_tt
             unlock_decision_category_tooltip = GRE_a_game_of_shadows_category
 		}
 	}
@@ -8501,6 +8597,11 @@ focus_tree = {
 		y = 2
 		relative_position_id = GRE_open_foreign_subsidized_factories
 		cost = 17.9
+        
+        available = {
+            has_country_flag = GRE_has_occupied_territory
+        }
+        
 		ai_will_do = {
 			base = 1
 		}
@@ -8545,6 +8646,11 @@ focus_tree = {
 		y = 0
 		relative_position_id = GRE_making_use_of_our_islands
 		cost = 11.5
+        
+        available = {
+            has_country_flag = GRE_has_occupied_territory
+        }
+        
 		ai_will_do = {
 			base = 1
 		}
@@ -8617,6 +8723,11 @@ focus_tree = {
 		y = 1
 		relative_position_id = GRE_mobilise_our_economy
 		cost = 11.5
+        
+        available = {
+            has_country_flag = GRE_has_occupied_territory
+        }
+        
 		ai_will_do = {
 			base = 1
 		}
