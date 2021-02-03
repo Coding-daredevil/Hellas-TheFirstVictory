@@ -429,6 +429,38 @@ ideas = {
                 breakthrough_bonus_against = -0.1
             } 
         }
+        
+        GRE_italian_ambition = {
+        
+            allowed = {
+                original_tag = ITA 
+            }
+        
+            picture = ita_ambitions
+        
+            modifier = {
+                ai_focus_aggressive_factor = 10
+                ai_call_ally_desire_factor = -1000
+                ai_get_ally_desire_factor = -1000
+            }
+        
+        }
+        
+        GRE_italian_ambition_defensive = {
+        
+            allowed = {
+                original_tag = ITA 
+            }
+        
+            picture = ita_ambitions
+        
+            modifier = {
+                ai_focus_defense_factor = 10
+                ai_call_ally_desire_factor = -1000
+                ai_get_ally_desire_factor = -1000
+            }
+        
+        }
 
         GRE_ochi = {
         
@@ -1774,8 +1806,12 @@ ideas = {
                             is_in_faction_with = GER
                             has_non_aggression_pact_with = ITA
                             is_subject_of = ITA
+                            has_country_flag = GRE_grecoitalian_start                                       ### If the GrecoItalian war has started before, then the event must not trigger (probable use for after WW2 ends).
                         }
-                        check_variable = { var = ITA.favor@GRE value = 30 compare = less_than_or_equals }   ### As a last chance, shall Greece have managed to build somewhat good influence over the Italians, avoid giving wargoal.
+                        ITA = {
+                            is_justifying_wargoal_against = GRE                                             ### Obviously if ITA is justifying against Greece, then the event must not be triggered
+                        }
+                        check_variable = { var = ITA.favor@GRE value = 30 compare = less_than_or_equals }   ### As a last chance, if Greece have managed to build somewhat good influence over the Italians, avoid giving wargoal.
                     }
                     ITA = { country_event = hellas.200 }                                                    ### Calls event to give the italians wargoal, for some reason if you write the code here it will crash the game (won't even load to main menu).
                 }

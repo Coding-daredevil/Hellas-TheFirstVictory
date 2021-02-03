@@ -409,6 +409,7 @@ country_event = {               #WARNING EVENT FOR TROOP DEPLOYMENT IN ALBANIAN 
             exists = yes 
             is_puppet = no
             is_subject = no
+            NOT = { is_justifying_wargoal_against = GRE }
             NOT = { has_war_with = GRE }
             has_government = fascism
             has_country_leader = {
@@ -466,6 +467,7 @@ country_event = {               #WARNING EVENT FOR TOO MANY DIVISIONS DEPLOYED (
             exists = yes 
             is_puppet = no
             is_subject = no
+            NOT = { is_justifying_wargoal_against = GRE }
             NOT = { has_war_with = GRE }
             has_government = fascism
             has_country_leader = {
@@ -3533,11 +3535,20 @@ country_event = {                                                               
         }
     }
 }
-#Bad Weather
-country_event = {
+
+
+########################################
+####                                ####
+####        GRECO ITALIAN WAR       ####
+####             EVENTS             ####
+####                                ####
+########################################
+
+
+country_event = {                                                                               ### Bad Weather
 	id = hellas.100
-	title = bftb_hellas.100.t
-	desc = bftb_hellas.100.desc
+	title = hellas.100.t
+	desc = hellas.100.desc
 	#picture = GFX_report_event_gre_venizelos_speech
 
 	is_triggered_only = yes
@@ -3555,5 +3566,25 @@ country_event = {
 		GRE = {
             add_timed_idea = { idea = GRE_bad_weather  days = 120 }
 		}
+    }
+}
+
+country_event = {                                                                               ### UK offers membership into the allies while at war with ITA
+	id = hellas.101
+	title = hellas.101.t
+	desc = hellas.101.desc
+	#picture = GFX_report_event_gre_venizelos_speech
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+	
+	#Give into Greece
+	option = {
+		name = hellas.101.a
+
+		ai_chance = {
+			base = 100
+			}
     }
 }
