@@ -4191,70 +4191,6 @@ focus_tree = {
                     if = {
                         limit = {
                             has_opinion = { target = GRE value > 79 }  
-                            check_variable = { var = THIS.favor@GRE value = 30 compare = greater_than_or_equals }
-                            check_variable = { var = THIS.favor@GRE value = 50 compare = less_than }
-                        }
-                        subtract_from_variable = { THIS.favor@GRE = 2.5 }
-                        GRE = {
-                            random_owned_controlled_state = {
-                                limit = {
-                                    free_building_slots = {
-                                        building = industrial_complex
-                                        size > 0
-                                        include_locked = yes
-                                    }
-                                }
-                                add_extra_state_shared_building_slots = 2
-                                add_building_construction = {
-                                    type = industrial_complex
-                                    level = 1
-                                    instant_build = yes
-                                }
-                            }
-                        }
-                    }
-                    else_if = {
-                        limit = {
-                            has_opinion = { target = GRE value > 79 }  
-                            check_variable = { var = THIS.favor@GRE value = 80 compare = less_than }
-                        }
-                        subtract_from_variable = { THIS.favor@GRE = 5 }
-                        GRE = {
-                            random_owned_controlled_state = {
-                                limit = {
-                                    free_building_slots = {
-                                        building = arms_factory
-                                        size > 0
-                                        include_locked = yes
-                                    }
-                                }
-                                add_extra_state_shared_building_slots = 1
-                                add_building_construction = {
-                                    type = arms_factory
-                                    level = 1
-                                    instant_build = yes
-                                }
-                            }
-                            random_owned_controlled_state = {
-                                limit = {
-                                    free_building_slots = {
-                                        building = industrial_complex
-                                        size > 0
-                                        include_locked = yes
-                                    }
-                                }
-                                add_extra_state_shared_building_slots = 2
-                                add_building_construction = {
-                                    type = industrial_complex
-                                    level = 1
-                                    instant_build = yes
-                                }
-                            }
-                        }
-                    }
-                    else_if = {
-                        limit = {
-                            has_opinion = { target = GRE value > 79 }  
                             check_variable = { var = THIS.favor@GRE value = 80 compare = greater_than_or_equals }
                         }
                         subtract_from_variable = { THIS.favor@GRE = 7.5 }
@@ -4270,7 +4206,7 @@ focus_tree = {
                                 add_extra_state_shared_building_slots = 1
                                 add_building_construction = {
                                     type = arms_factory
-                                    level = 2
+                                    level = 1
                                     instant_build = yes
                                 }
                             }
@@ -4282,7 +4218,7 @@ focus_tree = {
                                         include_locked = yes
                                     }
                                 }
-                                add_extra_state_shared_building_slots = 2
+                                add_extra_state_shared_building_slots = 1
                                 add_building_construction = {
                                     type = industrial_complex
                                     level = 1
@@ -4596,7 +4532,7 @@ focus_tree = {
                             check_variable = { var = YUG.favor@GRE value = 80 compare = greater_than_or_equals }
                         }
                         add_offsite_building = { type = industrial_complex level = 4 }
-                        add_to_variable = { YUG.civslent@GRE = 4 }
+                        add_to_variable = { YUG.civslent@GRE = 3 }
                         subtract_from_variable = { YUG.favor@GRE = 10 }  
                     }
 				}
@@ -4605,7 +4541,7 @@ focus_tree = {
 						country_exists = AUS
 						AUS = { has_opinion = { target = GRE value > 85 } } 
 					}
-					add_offsite_building = { type = industrial_complex level = 2 }
+					add_offsite_building = { type = industrial_complex level = 1 }
 				}
 				if = { 	
 					limit = { 
@@ -4634,7 +4570,7 @@ focus_tree = {
                             check_variable = { var = ROM.favor@GRE value = 80 compare = greater_than_or_equals }
                         }
                         add_offsite_building = { type = industrial_complex level = 4 }
-                        add_to_variable = { ROM.civslent@GRE = 4 }
+                        add_to_variable = { ROM.civslent@GRE = 3 }
                         subtract_from_variable = { ROM.favor@GRE = 10 }  
                     }
 				}
@@ -4665,7 +4601,7 @@ focus_tree = {
                             check_variable = { var = TUR.favor@GRE value = 80 compare = greater_than_or_equals }
                         }
                         add_offsite_building = { type = industrial_complex level = 4 }
-                        add_to_variable = { TUR.civslent@GRE = 4 }
+                        add_to_variable = { TUR.civslent@GRE = 3 }
                         subtract_from_variable = { TUR.favor@GRE = 10 }  
                     }
 				}
@@ -4674,7 +4610,7 @@ focus_tree = {
 						country_exists = CZE
 						CZE = { has_opinion = { target = GRE value > 85 } } 
 					}
-					add_offsite_building = { type = industrial_complex level = 2 }
+					add_offsite_building = { type = industrial_complex level = 1 }
 				}
 			}
             custom_effect_tooltip = "                                                                          "
@@ -7026,7 +6962,6 @@ focus_tree = {
         }        
 		prerequisite = { focus = GRE_four_year_plan_2 }
         prerequisite = { focus = GRE_rearmament }
-        prerequisite = { focus = GRE_defending_our_kingdom }
 
         bypass = {
             date > 1940.1.1
@@ -7060,7 +6995,7 @@ focus_tree = {
         available = {
             custom_trigger_tooltip = {
                     tooltip = GRE_hidden_rearm_focus_tt
-                    check_variable = { var = GRE_army_reform_cnt value = 3 compare = greater_than_or_equals }
+                    check_variable = { var = GRE_army_reform_cnt value = 5 compare = greater_than_or_equals }
                 }
             custom_trigger_tooltip = {
                 tooltip = GRE_has_at_least_30000_guns
@@ -11016,12 +10951,12 @@ focus_tree = {
 		}
 
 		completion_reward = {
-            country_event = { id = hellas.401 days = 0}
             hidden_effect = {
                 set_technology = { 
                     interwar_antitank = 1
                 }                
-            }        
+            }
+            country_event = { id = hellas.401 days = 0}        
 		}
 	}
 
