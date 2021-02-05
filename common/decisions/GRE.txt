@@ -4036,7 +4036,7 @@ GRE_grecoitalian_war_category = {
             }
 		}
 
-		days_mission_timeout = 60
+		days_mission_timeout = 30
 
 		fire_only_once = yes
 
@@ -10197,8 +10197,12 @@ GRE_kathestos_exoteriki_politiki = {
 
         remove_effect = {
             set_country_flag = GRE_balkan_pact_members_rallied_against_bulgarians
-            subtract_from_variable = { BUL.favor@GRE = 5 }
-            custom_effect_tooltip = GRE_fdm_bulgaria_tt          
+            subtract_from_variable = { BUL.favor@GRE = 10 }
+            custom_effect_tooltip = GRE_fdm_bulgaria_tt  
+            subtract_from_variable = { TUR.favor@GRE = 10 }
+            subtract_from_variable = { YUG.favor@GRE = 10 }
+            subtract_from_variable = { ROM.favor@GRE = 10 }
+            custom_effect_tooltip = GRE_fdg_loss_pact_tt
         }
     }  
 
@@ -10212,11 +10216,11 @@ GRE_kathestos_exoteriki_politiki = {
 
 		available = {
             custom_trigger_tooltip = {
-                tooltip = GRE_favor_at_least_great_pact_tt
+                tooltip = GRE_favor_excellent_pact_tt
                 AND = {
-                    check_variable = { var = YUG.favor@GRE value = 50 compare = greater_than_or_equals }
-                    check_variable = { var = ROM.favor@GRE value = 50 compare = greater_than_or_equals }
-                    check_variable = { var = TUR.favor@GRE value = 50 compare = greater_than_or_equals }
+                    check_variable = { var = YUG.favor@GRE value = 80 compare = greater_than_or_equals }
+                    check_variable = { var = ROM.favor@GRE value = 80 compare = greater_than_or_equals }
+                    check_variable = { var = TUR.favor@GRE value = 80 compare = greater_than_or_equals }
                 }
             }
 		}
@@ -10237,8 +10241,30 @@ GRE_kathestos_exoteriki_politiki = {
 
         remove_effect = {
             set_country_flag = GRE_balkan_pact_bulagrian_sactions
-            subtract_from_variable = { BUL.favor@GRE = 5 }
-            custom_effect_tooltip = GRE_fdm_bulgaria_tt          
+            BUL = {
+                add_opinion_modifier = { 
+                    target = GRE
+                    modifier = GRE_bulgarian_sactions
+                } 
+                add_opinion_modifier = { 
+                    target = YUG
+                    modifier = GRE_bulgarian_sactions
+                } 
+                add_opinion_modifier = { 
+                    target = TUR
+                    modifier = GRE_bulgarian_sactions
+                } 
+                add_opinion_modifier = { 
+                    target = ROM
+                    modifier = GRE_bulgarian_sactions
+                } 
+            }
+            subtract_from_variable = { BUL.favor@GRE = 10 }
+            custom_effect_tooltip = GRE_fdg_bulgaria_tt    
+            subtract_from_variable = { TUR.favor@GRE = 15 }
+            subtract_from_variable = { YUG.favor@GRE = 15 }
+            subtract_from_variable = { ROM.favor@GRE = 15 }
+            custom_effect_tooltip = GRE_fdmm_loss_pact_tt
         }
     }
     
@@ -10283,7 +10309,61 @@ GRE_kathestos_exoteriki_politiki = {
             subtract_from_variable = { BUL.favor@GRE = 5 }
             custom_effect_tooltip = GRE_fdm_bulgaria_tt          
         }
-    }    
+    } 
+
+    request_allied_support_over_the_bulgarian_matter = {
+		icon = generic_operation
+        priority = 2
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_favor_great_allies_tt
+                AND = {
+                    check_variable = { var = ENG.favor@GRE value = 50 compare = greater_than_or_equals }
+                    check_variable = { var = FRA.favor@GRE value = 50 compare = greater_than_or_equals }
+                }
+            }
+		}
+
+		visible = {
+            ENG = { has_government = democratic }
+            FRA = { has_government = democratic }
+            has_completed_focus = GRE_the_bulgarian_question
+            has_country_flag = GRE_allies_rallied_against_bulgarians
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		fire_only_once = yes
+
+		days_remove = 120
+        cost = 250
+
+        remove_effect = {
+            set_country_flag = GRE_requested_allied_support_over_the_bulgarian_matter
+            subtract_from_variable = { BUL.favor@GRE = 5 }
+            custom_effect_tooltip = GRE_fdm_bulgaria_tt    
+            custom_effect_tooltip = GRE_fdmm_loss_allies_tt
+            hidden_effect = {
+                every_country = {                                                                         
+                    limit = {
+                        is_in_array = {
+                            array = global.favor_mechanic
+                            value = THIS.id
+                        }
+                        is_in_faction_with = ENG
+                    }
+                    subtract_from_variable = { THIS.favor@GRE = 10 }
+                }
+            }
+        }
+    }
 
     ### [BULGARIAN] AXIS PATH ###
     
@@ -10298,7 +10378,7 @@ GRE_kathestos_exoteriki_politiki = {
 		available = {
             custom_trigger_tooltip = {
                 tooltip = GRE_favor_german_at_least_great_tt
-                check_variable = { var = GER.favor@GRE value = 8 compare = greater_than_or_equals }
+                check_variable = { var = GER.favor@GRE value = 50 compare = greater_than_or_equals }
             }
 		}
 
@@ -10322,6 +10402,59 @@ GRE_kathestos_exoteriki_politiki = {
             custom_effect_tooltip = GRE_fdm_bulgaria_tt          
         }
     } 
+
+    request_axis_support_over_the_bulgarian_matter = {
+		icon = generic_operation
+        priority = 2
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_favor_german_excellent_tt
+                check_variable = { var = GER.favor@GRE value = 80 compare = greater_than_or_equals }
+            }
+		}
+
+		visible = {
+            GER = { has_government = fascism }
+            ITA = { has_government = fascism }
+            has_completed_focus = GRE_the_bulgarian_question
+            has_country_flag = GRE_axis_rallied_against_bulgarians
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		fire_only_once = yes
+
+		days_remove = 120
+        cost = 250
+
+        remove_effect = {
+            set_country_flag = GRE_requested_axis_support_over_the_bulgarian_matter
+            subtract_from_variable = { BUL.favor@GRE = 5 }
+            custom_effect_tooltip = GRE_fdm_bulgaria_tt    
+            custom_effect_tooltip = GRE_fdmm_loss_allies_tt
+            hidden_effect = {
+                every_country = {                                                                         
+                    limit = {
+                        is_in_array = {
+                            array = global.favor_mechanic
+                            value = THIS.id
+                        }
+                        is_in_faction_with = ENG
+                    }
+                    subtract_from_variable = { THIS.favor@GRE = 10 }
+                }
+            }
+        }
+    }
+
+    #################################
     
     prepare_preemptive_strike = {
 		icon = generic_operation
