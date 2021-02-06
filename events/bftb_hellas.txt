@@ -253,31 +253,31 @@ country_event = {                   ###METAX LINE SMALL
                     }
                     add_building_construction = {
                         type = bunker
-                        level = 3
-                        province = 6990
+                        level = 1
+                        province = 3936
                         instant_build = yes
                     }
                 }
-            }        
-            184 = {
+            }
+            812 = {
                 if = {
                     limit = { is_controlled_by = ROOT }
                     add_building_construction = {
                         type = bunker
                         level = 3
+                        province = 13244
+                        instant_build = yes
+                    }
+                    add_building_construction = {
+                        type = bunker
+                        level = 2
                         province = 9791
                         instant_build = yes
                     }
                     add_building_construction = {
                         type = bunker
                         level = 1
-                        province = 11774
-                        instant_build = yes
-                    }
-                    add_building_construction = {
-                        type = bunker
-                        level = 1
-                        province = 11905
+                        province = 9930
                         instant_build = yes
                     }
                 }
@@ -315,33 +315,44 @@ country_event = {               ###METAX LINE LONG
                     }
                     add_building_construction = {
                         type = bunker
-                        level = 6
-                        province = 6990
-                        instant_build = yes
-                    }
-                    add_building_construction = {
-                        type = bunker
-                        level = 3
-                        province = 936
-                        instant_build = yes
-                    }
-                    add_building_construction = {
-                        type = bunker
-                        level = 3
-                        province = 9837
+                        level = 1
+                        province = 3936
                         instant_build = yes
                     }
                 }
-            }        
-            184 = {
+            }
+            812 = {
                 if = {
                     limit = { is_controlled_by = ROOT }
+                    add_building_construction = {
+                        type = bunker
+                        level = 6
+                        province = 13244
+                        instant_build = yes
+                    }
                     add_building_construction = {
                         type = bunker
                         level = 6
                         province = 9791
                         instant_build = yes
                     }
+                    add_building_construction = {
+                        type = bunker
+                        level = 1
+                        province = 9930
+                        instant_build = yes
+                    }
+                    add_building_construction = {
+                        type = bunker
+                        level = 3
+                        province = 13243
+                        instant_build = yes
+                    }
+                }
+            }
+            184 = {
+                if = {
+                    limit = { is_controlled_by = ROOT }
                     add_building_construction = {
                         type = bunker
                         level = 3
@@ -351,13 +362,78 @@ country_event = {               ###METAX LINE LONG
                     add_building_construction = {
                         type = bunker
                         level = 3
+                        province = 13242
+                        instant_build = yes
+                    }
+                }
+            }
+            813 = {
+                if = {
+                    limit = { is_controlled_by = ROOT }
+                    add_building_construction = {
+                        type = bunker
+                        level = 3
                         province = 11905
+                        instant_build = yes
+                    }
+                }
+            }
+            810 = {
+                if = {
+                    limit = { is_controlled_by = ROOT }
+                    add_building_construction = {
+                        type = bunker
+                        level = 3
+                        province = 936
+                        instant_build = yes
+                    }
+                    add_building_construction = {
+                        type = bunker
+                        level = 2
+                        province = 9837
                         instant_build = yes
                     }
                 }
             }
         }
     }
+}
+
+country_event = {               #IMRO GETS THE BOOT BY HAVING THE SLAVS CRUSHED (METAXAS DECISION)
+	id = hellas.9
+	title = hellas.9.t
+	desc = hellas.9.desc
+    picture = GFX_report_event_belgrade_1939
+
+	trigger = {
+		original_tag = GRE
+        has_country_flag = BUL_imro_awakened_in_country_flag
+	}
+
+	fire_only_once = yes
+	
+	option = {
+		name = hellas.9.a
+        set_country_flag = BUL_repress_imro_flag
+        clr_country_flag = BUL_repress_imro_flag
+        clr_country_flag = BUL_imro_awakened_in_country_flag
+        add_political_power = 150
+        BUL = { add_political_power = -150 }
+        every_controlled_state = { 
+            limit = {
+                has_dynamic_modifier = { modifier = skirmishes_against_imro }
+            }
+            remove_dynamic_modifier = { modifier = skirmishes_against_imro }
+            if = {
+                limit = {
+                    has_dynamic_modifier = { modifier = widespread_bulgarian_sentiment_01 }
+                }
+                remove_dynamic_modifier = { modifier = widespread_bulgarian_sentiment_01 }
+            }
+            remove_core_of = BUL
+            add_core_of = ROOT
+        }     
+    }    
 }
 
 ########################################
@@ -431,10 +507,16 @@ country_event = {               #WARNING EVENT FOR TROOP DEPLOYMENT IN ALBANIAN 
         }
         divisions_in_border_state = {
             type = infantry
-            size > 4
+            size > 2
             state = 185
             border_state = 805
-        }         
+        }      
+        divisions_in_border_state = {
+            type = infantry
+            size > 2
+            state = 810
+            border_state = 805
+        }
 		date > 1936.08.04
         has_country_leader = {
             name = "Ioannis Metaxas"
@@ -1140,7 +1222,10 @@ country_event = {               #GRECOGERMAN TRADE DEAL (METAXAS)
 				check_variable = { var = GER.favor@GRE value = 80 compare = greater_than_or_equals }
 			}
 		}
-        GRE = { add_political_power = 300 }
+        GRE = { 
+            add_political_power = 300 
+            set_country_flag = GRE_grecogerman_tradedeal_accepted
+        }
         add_political_power = 75
         GER = {
             diplomatic_relation = {
@@ -1455,7 +1540,7 @@ country_event = {       ## Order AA, AT
                 has_idea = GRE_schachtplan
             }
             add_equipment_to_stockpile = { type = anti_air_equipment amount = 110 producer = GER }
-            add_equipment_to_stockpile = { type = anti_tank_equipment amount = 24 producer = GER }
+            add_equipment_to_stockpile = { type = anti_tank_equipment amount = 24 }
             add_to_variable = { GER.favor@GRE = 3 }
         }
         else_if = {
@@ -1463,7 +1548,7 @@ country_event = {       ## Order AA, AT
             has_idea = GRE_schachtplan_modified
             }
             add_equipment_to_stockpile = { type = anti_air_equipment amount = 127 producer = GER }
-            add_equipment_to_stockpile = { type = anti_tank_equipment amount = 28 producer = GER } 
+            add_equipment_to_stockpile = { type = anti_tank_equipment amount = 28 } 
             add_to_variable = { GER.favor@GRE = 4 }
         }
         else_if = {
@@ -1471,12 +1556,12 @@ country_event = {       ## Order AA, AT
             has_idea = GRE_schachtplan_fascistised
             }
             add_equipment_to_stockpile = { type = anti_air_equipment amount = 143 producer = GER }
-            add_equipment_to_stockpile = { type = anti_tank_equipment amount = 31 producer = GER } 
+            add_equipment_to_stockpile = { type = anti_tank_equipment amount = 31 } 
             add_to_variable = { GER.favor@GRE = 5 }
         }
         else = {
             add_equipment_to_stockpile = { type = anti_air_equipment amount = 100 producer = GER }
-            add_equipment_to_stockpile = { type = anti_tank_equipment amount = 22 producer = GER }       
+            add_equipment_to_stockpile = { type = anti_tank_equipment amount = 22 }       
             add_to_variable = { GER.favor@GRE = 1 }
         }
     }  
@@ -1487,7 +1572,7 @@ country_event = {       ## Order AA, AT
 			base = 100
 			}
         add_equipment_to_stockpile = { type = anti_air_equipment amount = 100 producer = ENG }
-        add_equipment_to_stockpile = { type = anti_tank_equipment amount = 22 producer = FRA }
+        add_equipment_to_stockpile = { type = anti_tank_equipment amount = 22 }
         add_to_variable = { ENG.favor@GRE = 6 }
         add_to_variable = { FRA.favor@GRE = 6 }
     }  
@@ -1498,7 +1583,7 @@ country_event = {       ## Order AA, AT
 			base = 100
 			}
         add_equipment_to_stockpile = { type = anti_air_equipment amount = 94 producer = SOV }
-        add_equipment_to_stockpile = { type = anti_tank_equipment amount = 20 producer = SOV }
+        add_equipment_to_stockpile = { type = anti_tank_equipment amount = 20 }
         add_to_variable = { SOV.favor@GRE = 5 }    
     }      
 	option = {  ##USA
@@ -1508,7 +1593,7 @@ country_event = {       ## Order AA, AT
 			base = 100
 			}
         add_equipment_to_stockpile = { type = anti_air_equipment amount = 110 producer = USA }
-        add_equipment_to_stockpile = { type = anti_tank_equipment amount = 24 producer = USA }  
+        add_equipment_to_stockpile = { type = anti_tank_equipment amount = 24 }  
         add_to_variable = { USA.favor@GRE = 4 }
     }  
 }
@@ -2283,7 +2368,7 @@ country_event = {
             }
             random_list = {
                 25 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -2300,7 +2385,7 @@ country_event = {
                     }
                 }
                 20 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -2317,7 +2402,7 @@ country_event = {
                     }
                 }
                 15 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -2334,7 +2419,7 @@ country_event = {
                     }
                 }                
                 10 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -2351,7 +2436,7 @@ country_event = {
                     }
                 }
                 10 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -2368,7 +2453,7 @@ country_event = {
                     }
                 }
                 10 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE                   
                             free_building_slots = {
@@ -2385,7 +2470,7 @@ country_event = {
                     }
                 }
                 10 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -2411,7 +2496,7 @@ country_event = {
             }
             random_list = {
                 5 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -2428,7 +2513,7 @@ country_event = {
                     }
                 }
                 45 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -2445,7 +2530,7 @@ country_event = {
                     }
                 }
                 10 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -2462,7 +2547,7 @@ country_event = {
                     }
                 }                
                 10 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -2479,7 +2564,7 @@ country_event = {
                     }
                 }
                 10 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -2496,7 +2581,7 @@ country_event = {
                     }
                 }
                 10 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE                        
                             free_building_slots = {
@@ -2513,7 +2598,7 @@ country_event = {
                     }
                 }
                 10 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -2539,7 +2624,7 @@ country_event = {
             }
             random_list = {
                 5 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -2556,7 +2641,7 @@ country_event = {
                     }
                 }
                 25 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -2573,7 +2658,7 @@ country_event = {
                     }
                 }
                 30 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -2590,7 +2675,7 @@ country_event = {
                     }
                 }                
                 10 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -2607,7 +2692,7 @@ country_event = {
                     }
                 }
                 10 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -2624,7 +2709,7 @@ country_event = {
                     }
                 }
                 10 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE                          
                             free_building_slots = {
@@ -2641,7 +2726,7 @@ country_event = {
                     }
                 }
                 10 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -2667,7 +2752,7 @@ country_event = {
             }
             random_list = {
                 20 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -2684,7 +2769,7 @@ country_event = {
                     }
                 }
                 20 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -2701,7 +2786,7 @@ country_event = {
                     }
                 }
                 20 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -2718,7 +2803,7 @@ country_event = {
                     }
                 }                
                 10 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -2735,7 +2820,7 @@ country_event = {
                     }
                 }
                 10 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -2752,7 +2837,7 @@ country_event = {
                     }
                 }
                 10 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE                      
                             free_building_slots = {
@@ -2769,7 +2854,7 @@ country_event = {
                     }
                 }
                 10 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -2795,7 +2880,7 @@ country_event = {
             }
             random_list = {
                 30 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -2812,7 +2897,7 @@ country_event = {
                     }
                 }
                 30 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -2829,7 +2914,7 @@ country_event = {
                     }
                 }                
                 10 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -2846,7 +2931,7 @@ country_event = {
                     }
                 }
                 10 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -2863,7 +2948,7 @@ country_event = {
                     }
                 }
                 10 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE                          
                             free_building_slots = {
@@ -2880,7 +2965,7 @@ country_event = {
                     }
                 }
                 10 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -2906,7 +2991,7 @@ country_event = {
             }
             random_list = {
                 15 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -2933,7 +3018,7 @@ country_event = {
                     }
                 }
                 15 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -2950,7 +3035,7 @@ country_event = {
                     }
                 }
                 15 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -2967,7 +3052,7 @@ country_event = {
                     }
                 }
                 15 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -2984,7 +3069,7 @@ country_event = {
                     }
                 }                
                 10 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -3001,7 +3086,7 @@ country_event = {
                     }
                 }
                 10 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -3018,7 +3103,7 @@ country_event = {
                     }
                 }
                 10 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE                          
                             free_building_slots = {
@@ -3035,7 +3120,7 @@ country_event = {
                     }
                 }
                 10 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -3056,7 +3141,7 @@ country_event = {
         else = {                                                                         ### - Rest
             random_list = {
                 20 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -3073,7 +3158,7 @@ country_event = {
                     }
                 }
                 20 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -3090,7 +3175,7 @@ country_event = {
                     }
                 }
                 20 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -3107,7 +3192,7 @@ country_event = {
                     }
                 }                
                 10 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -3124,7 +3209,7 @@ country_event = {
                     }
                 }
                 10 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {
@@ -3141,7 +3226,7 @@ country_event = {
                     }
                 }
                 10 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE                          
                             free_building_slots = {
@@ -3158,7 +3243,7 @@ country_event = {
                     }
                 }
                 10 = {
-                    random_state = {
+                    random_owned_controlled_state = {
                         limit = {
                             is_core_of = GRE
                             free_building_slots = {

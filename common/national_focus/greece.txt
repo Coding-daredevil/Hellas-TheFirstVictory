@@ -4071,6 +4071,14 @@ focus_tree = {
                         GRE = {
                             random_owned_controlled_state = {
                                 limit = {
+                                    OR = {
+                                        has_state_category = town
+                                        has_state_category = large_town
+                                        has_state_category = city
+                                        has_state_category = large_city
+                                        has_state_category = metropolis
+                                        has_state_category = megalopolis
+                                    }
                                     free_building_slots = {
                                         building = arms_factory
                                         size > 0
@@ -4086,6 +4094,14 @@ focus_tree = {
                             }
                             random_owned_controlled_state = {
                                 limit = {
+                                    OR = {
+                                        has_state_category = town
+                                        has_state_category = large_town
+                                        has_state_category = city
+                                        has_state_category = large_city
+                                        has_state_category = metropolis
+                                        has_state_category = megalopolis
+                                    }
                                     free_building_slots = {
                                         building = industrial_complex
                                         size > 0
@@ -4110,6 +4126,14 @@ focus_tree = {
                         GRE = {
                             random_owned_controlled_state = {
                                 limit = {
+                                    OR = {
+                                        has_state_category = town
+                                        has_state_category = large_town
+                                        has_state_category = city
+                                        has_state_category = large_city
+                                        has_state_category = metropolis
+                                        has_state_category = megalopolis
+                                    }
                                     free_building_slots = {
                                         building = arms_factory
                                         size > 0
@@ -4125,6 +4149,14 @@ focus_tree = {
                             }
                             random_owned_controlled_state = {
                                 limit = {
+                                    OR = {
+                                        has_state_category = town
+                                        has_state_category = large_town
+                                        has_state_category = city
+                                        has_state_category = large_city
+                                        has_state_category = metropolis
+                                        has_state_category = megalopolis
+                                    }
                                     free_building_slots = {
                                         building = industrial_complex
                                         size > 0
@@ -4149,6 +4181,14 @@ focus_tree = {
                         GRE = {
                             random_owned_controlled_state = {
                                 limit = {
+                                    OR = {
+                                        has_state_category = town
+                                        has_state_category = large_town
+                                        has_state_category = city
+                                        has_state_category = large_city
+                                        has_state_category = metropolis
+                                        has_state_category = megalopolis
+                                    }
                                     free_building_slots = {
                                         building = arms_factory
                                         size > 0
@@ -4158,12 +4198,20 @@ focus_tree = {
                                 add_extra_state_shared_building_slots = 1
                                 add_building_construction = {
                                     type = arms_factory
-                                    level = 3
+                                    level = 2
                                     instant_build = yes
                                 }
                             }
                             random_owned_controlled_state = {
                                 limit = {
+                                    OR = {
+                                        has_state_category = town
+                                        has_state_category = large_town
+                                        has_state_category = city
+                                        has_state_category = large_city
+                                        has_state_category = metropolis
+                                        has_state_category = megalopolis
+                                    }
                                     free_building_slots = {
                                         building = industrial_complex
                                         size > 0
@@ -4302,7 +4350,7 @@ focus_tree = {
 						include_locked = yes
 					}
 				}
-				185 = { 
+				807 = { 
 					free_building_slots = {
 						building = infrastructure
 						size < 1
@@ -4349,7 +4397,7 @@ focus_tree = {
 					}
 				}
 			}
-			185 = {
+			807 = {
 				if = {
 					limit = { 
 						is_controlled_by = ROOT 
@@ -5894,40 +5942,24 @@ focus_tree = {
 		}
 
 		completion_reward = {
-            add_stability = 0.02
-			add_war_support = 0.02
             set_party_name = { ideology = neutrality long_name = GRE_the_grand_coallition_party_long name = GRE_the_grand_coallition_party }
             hidden_effect = {
                 set_politics = { ruling_party = neutrality elections_allowed = yes }
+                clr_country_flag = GRE_faction_gui_flag
             }
-            ####DEM/COM/FAS IDEOL. DRIFT####
-            set_variable = { GRE_dem_dem_drift = 0 }
-            set_variable = { GRE_com_com_drift = 0 }
-            set_variable = { GRE_fas_fas_drift = 0 }
-            ####DEM/COM/FAS MON DRIFT####
-            set_variable = { GRE_dem_neut_drift = 0.05 }
-            set_variable = { GRE_com_neut_drift = 0.05 }
-            set_variable = { GRE_fas_neut_drift = 0.05 }  
-            ####MON####
-            set_variable = { GRE_mon_pp_fct = 0.05 }  
-            set_variable = { GRE_mon_stb_fct = 0.05 }  
-            set_variable = { GRE_mon_wr_fct = 0.05 }  
-            set_variable = { GRE_mon_cn_fct = 0.1 }       
-            ####DEM####
-            set_variable = { GRE_dem_pp_fct = 0.05 }  
-            set_variable = { GRE_dem_stb_fct = 0.05 }  
-            set_variable = { GRE_dem_wr_fct = 0.05 }  
-            set_variable = { GRE_dem_cn_fct = 0.1 } 
-            ####COM####
-            set_variable = { GRE_com_pp_fct = 0.05 }  
-            set_variable = { GRE_com_stb_fct = 0.05 }  
-            set_variable = { GRE_com_wr_fct = 0.05 }  
-            set_variable = { GRE_com_cn_fct = 0.1 } 
-            ####FAS####
-            set_variable = { GRE_fas_pp_fct = 0.05 }  
-            set_variable = { GRE_fas_stb_fct = 0.05 }  
-            set_variable = { GRE_fas_wr_fct = 0.05 }  
-            set_variable = { GRE_fas_cn_fct = 0.1 }             
+            ####GRAND COALITION MODIFIER####
+            add_dynamic_modifier = { modifier = GRE_grand_coalition_dynamic }
+            set_variable = { GRE_grand_neut_drift = 0.25 }
+            set_variable = { GRE_grand_dem_drift = 0 }
+            set_variable = { GRE_grand_com_drift = 0 }
+            set_variable = { GRE_grand_fas_drift = 0 }
+            set_variable = { GRE_grand_pp_fct = 1 }
+            set_variable = { GRE_grand_stb_fct = 0.4 }
+            set_variable = { GRE_grand_wr_fct = 0.4 }
+            set_variable = { GRE_grand_cn_fct = 1 }
+            set_variable = { GRE_grand_atk_core = 0.2 }
+            set_variable = { GRE_grand_def_core = 0.2 }
+            set_variable = { GRE_grand_surr_lim = 1 }  
 		}
 	} 
 
@@ -7174,25 +7206,25 @@ focus_tree = {
                 var = tmp_dem
                 distribution = uniform
                 min = 2
-                max = 3
+                max = 5
             }  
             randomize_temp_variable = {
                 var = tmp_com
                 distribution = uniform
                 min = 2
-                max = 3
+                max = 5
             }   
             randomize_temp_variable = {
                 var = tmp_fas
                 distribution = uniform
                 min = 2
-                max = 3
+                max = 5
             }   
             randomize_temp_variable = {
                 var = tmp_mon
                 distribution = uniform
                 min = 2
-                max = 3
+                max = 5
             }               
             add_to_variable = { fct_dem = tmp_dem}
             add_to_variable = { fct_com = tmp_com}
