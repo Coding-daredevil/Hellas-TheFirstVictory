@@ -607,6 +607,7 @@ GRE_investment_decisions_category = {
 
 		available = {
 			date < 1942.1.1
+            FROM = { exists = yes }
 			NOT = {
 				has_war_with = FROM
                 custom_trigger_tooltip = {
@@ -660,6 +661,7 @@ GRE_investment_decisions_category = {
 
 		available = {
 			date < 1942.1.1
+            FROM = { exists = yes }
 			NOT = {
 				has_war_with = FROM
                 custom_trigger_tooltip = {
@@ -2816,6 +2818,63 @@ GRE_hellenic_academy_category = {
                 add_offsite_building = { type = arms_factory level = mob_mils }
             }
 		}    
+    }
+    
+    GRE_reman_bulgarian_line = {
+
+		icon = eng_support_imperialist_coup
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		activation = {
+            has_country_flag = GRE_hidden_flag
+		}        
+
+		available = {
+            divisions_in_border_state = {
+                type = infantry
+                size > 2
+                state = 812
+                border_state = 212
+            }     
+            divisions_in_border_state = {
+                type = infantry
+                size > 0
+                state = 731
+                border_state = 212
+            } 
+		}
+
+		days_mission_timeout = 30
+
+		fire_only_once = no
+
+		visible = {
+            has_country_flag = GRE_hidden_flag
+		}
+
+		cancel_if_not_visible = no
+
+		is_good = no
+
+		complete_effect = {
+            clr_country_flag = GRE_hidden_flag
+		}
+
+		timeout_effect = {
+            BUL = {                                                                                                     ### If Greece has done nothing to counter the Bulgarian threat, either take them on, enact diplomatic ties with Balkan pact members or even ask the Axis to keep them out of the ring, then
+                declare_war_on = {                                                                                      ### Bulgaria accepts Italy's offer and declares war on Greece
+                    target = GRE
+                    type = take_state_focus
+                    generator = { 813 812 731 184 }
+                }                        
+                add_ideas = GRE_bulgarian_ambition                                                                      ### Bulgarian ambition is similar to the Italian one, where they get to keep all of Thrace/Macedonia IF they only fight with the Italians
+                # GRE = { country_event = { id = hellas.x days = 0 } }                                                  ### Greece gains event informing them of Italian-Bulgarian plans
+            } 
+		}    
+    
     }
 }
 
@@ -5501,7 +5560,8 @@ GRE_kathestos_4hs = {
             custom_effect_tooltip = com_great_tt 
             custom_effect_tooltip = fas_great_tt
             custom_effect_tooltip = mon_great_tt 
-            ######               
+            ######
+            add_to_variable = { amount_of_projects = 1 }
 		}
     }
 
@@ -5595,7 +5655,8 @@ GRE_kathestos_4hs = {
             custom_effect_tooltip = com_good_tt 
             custom_effect_tooltip = fas_good_tt
             custom_effect_tooltip = mon_good_tt 
-            ######            
+            ######  
+            add_to_variable = { amount_of_projects = 1 }
 		}
     }
 
@@ -5694,7 +5755,8 @@ GRE_kathestos_4hs = {
             custom_effect_tooltip = com_good_tt 
             custom_effect_tooltip = fas_good_tt
             custom_effect_tooltip = mon_good_tt 
-            ######          
+            ######
+            add_to_variable = { amount_of_projects = 1 }
 		}
     }
 
@@ -5790,7 +5852,8 @@ GRE_kathestos_4hs = {
             custom_effect_tooltip = com_good_tt 
             custom_effect_tooltip = fas_good_tt
             custom_effect_tooltip = mon_good_tt 
-            ######           
+            ######  
+            add_to_variable = { amount_of_projects = 1 }            
 		}
     } 
 
@@ -5869,7 +5932,8 @@ GRE_kathestos_4hs = {
             custom_effect_tooltip = com_great_tt 
             custom_effect_tooltip = fas_great_tt
             custom_effect_tooltip = mon_great_tt 
-            ######         
+            ######
+            add_to_variable = { amount_of_projects = 1 }             
 		}
     }  
 
@@ -5953,7 +6017,8 @@ GRE_kathestos_4hs = {
             custom_effect_tooltip = com_good_tt 
             custom_effect_tooltip = fas_good_tt
             custom_effect_tooltip = mon_good_tt 
-            ######             
+            ###### 
+            add_to_variable = { amount_of_projects = 1 }             
 		}
     }  
 
@@ -6036,7 +6101,8 @@ GRE_kathestos_4hs = {
             custom_effect_tooltip = com_good_tt 
             custom_effect_tooltip = fas_good_tt
             custom_effect_tooltip = mon_good_tt 
-            ######             
+            ######  
+            add_to_variable = { amount_of_projects = 1 }             
 		}
     }
 
@@ -6107,7 +6173,8 @@ GRE_kathestos_4hs = {
             custom_effect_tooltip = com_great_tt 
             custom_effect_tooltip = fas_great_tt
             custom_effect_tooltip = mon_great_tt 
-            ######            
+            ######     
+            add_to_variable = { amount_of_projects = 1 }             
 		}
     }
 
@@ -6184,7 +6251,8 @@ GRE_kathestos_4hs = {
             custom_effect_tooltip = com_great_tt 
             custom_effect_tooltip = fas_great_tt
             custom_effect_tooltip = mon_great_tt 
-            ######           
+            ###### 
+            add_to_variable = { amount_of_projects = 1 }             
 		}
     }
 
@@ -6258,7 +6326,8 @@ GRE_kathestos_4hs = {
             custom_effect_tooltip = com_great_tt 
             custom_effect_tooltip = fas_great_tt
             custom_effect_tooltip = mon_great_tt 
-            ######           
+            ###### 
+            add_to_variable = { amount_of_projects = 1 }             
 		}
     } 
 
@@ -6328,7 +6397,8 @@ GRE_kathestos_4hs = {
             custom_effect_tooltip = com_great_tt 
             custom_effect_tooltip = fas_great_tt
             custom_effect_tooltip = mon_great_tt 
-            ######             
+            ###### 
+            add_to_variable = { amount_of_projects = 1 }             
 		}
     }
 
@@ -6399,7 +6469,8 @@ GRE_kathestos_4hs = {
             custom_effect_tooltip = com_great_tt 
             custom_effect_tooltip = fas_great_tt
             custom_effect_tooltip = mon_great_tt 
-            ######            
+            ######    
+            add_to_variable = { amount_of_projects = 1 }             
 		}
     }
     
@@ -6471,7 +6542,8 @@ GRE_kathestos_4hs = {
             custom_effect_tooltip = com_great_tt 
             custom_effect_tooltip = fas_great_tt
             custom_effect_tooltip = mon_great_tt 
-            ######           
+            ###### 
+            add_to_variable = { amount_of_projects = 1 }             
 		}
     } 
 
@@ -6543,7 +6615,8 @@ GRE_kathestos_4hs = {
             custom_effect_tooltip = com_great_tt 
             custom_effect_tooltip = fas_great_tt
             custom_effect_tooltip = mon_great_tt 
-            ######            
+            ######    
+            add_to_variable = { amount_of_projects = 1 }             
 		}
     } 
  
@@ -6613,7 +6686,8 @@ GRE_kathestos_4hs = {
             custom_effect_tooltip = com_great_tt 
             custom_effect_tooltip = fas_great_tt
             custom_effect_tooltip = mon_great_tt 
-            ######           
+            ######    
+            add_to_variable = { amount_of_projects = 1 }             
 		}
     } 
 
@@ -6686,7 +6760,8 @@ GRE_kathestos_4hs = {
             custom_effect_tooltip = com_great_tt 
             custom_effect_tooltip = fas_great_tt
             custom_effect_tooltip = mon_great_tt 
-            ######            
+            ######    
+            add_to_variable = { amount_of_projects = 1 }             
 		}
     } 
 
@@ -6755,7 +6830,8 @@ GRE_kathestos_4hs = {
             custom_effect_tooltip = com_good_tt 
             custom_effect_tooltip = fas_good_tt
             custom_effect_tooltip = mon_good_tt 
-            ######            
+            ######  
+            add_to_variable = { amount_of_projects = 1 }             
 		}
     }
 
@@ -6831,7 +6907,8 @@ GRE_kathestos_4hs = {
             custom_effect_tooltip = com_great_tt 
             custom_effect_tooltip = fas_great_tt
             custom_effect_tooltip = mon_good_tt 
-            ######            
+            ######  
+            add_to_variable = { amount_of_projects = 1 }             
 		}
     }   
 
@@ -6903,7 +6980,8 @@ GRE_kathestos_4hs = {
             custom_effect_tooltip = com_good_tt 
             custom_effect_tooltip = fas_good_tt
             custom_effect_tooltip = mon_good_tt 
-            ######           
+            ######   
+            add_to_variable = { amount_of_projects = 1 }             
 		}
     } 
 
@@ -6975,7 +7053,8 @@ GRE_kathestos_4hs = {
             custom_effect_tooltip = com_great_tt 
             custom_effect_tooltip = fas_great_tt
             custom_effect_tooltip = mon_great_tt 
-            ######            
+            ######   
+            add_to_variable = { amount_of_projects = 1 }             
 		}
     }     
 ######################
@@ -7038,7 +7117,8 @@ GRE_kathestos_4hs = {
             custom_effect_tooltip = com_norm_tt
             custom_effect_tooltip = fas_great_tt
             custom_effect_tooltip = mon_great_tt 
-            ######           
+            ######   
+            add_to_variable = { amount_of_projects = 1 }             
 		}
     }
 
@@ -7098,7 +7178,8 @@ GRE_kathestos_4hs = {
             custom_effect_tooltip = com_norm_tt
             custom_effect_tooltip = fas_great_tt
             custom_effect_tooltip = mon_great_tt 
-            ######               
+            ###### 
+            add_to_variable = { amount_of_projects = 1 }             
 		}
     } 
 
@@ -7157,9 +7238,88 @@ GRE_kathestos_4hs = {
             custom_effect_tooltip = com_norm_tt
             custom_effect_tooltip = fas_great_tt
             custom_effect_tooltip = mon_great_tt 
-            ######             
+            ######   
+            add_to_variable = { amount_of_projects = 1 }             
 		}
-    }    
+    } 
+
+    fix_inaccessible_regions = {
+		icon = eng_support_imperialist_coup
+
+		allowed = { 
+			original_tag = GRE
+		}
+        
+		fire_only_once = yes
+        
+        cost = 125
+        days_remove = 180
+
+		available = {
+            has_idea = GRE_dimitratos
+            check_variable = { amount_of_projects > 14 }
+		}
+
+		visible = {
+            has_country_flag = GRE_step_2_finished 
+		}
+
+		cancel_if_not_visible = no
+
+
+		remove_effect = {
+            every_controlled_state = { 
+                if = {
+                    limit = {
+                        has_dynamic_modifier = { modifier = GRE_inaccessible_region }
+                    }
+                remove_dynamic_modifier = { modifier = GRE_inaccessible_region }
+                }
+            }
+			add_stability = 0.05
+			add_popularity = {
+    			ideology = neutrality
+    			popularity = 0.12
+			}
+            ###FACTION MECHANICS###
+            randomize_temp_variable = {
+                var = tmp_dem
+                distribution = uniform
+                min = 2
+                max = 4
+            }  
+            randomize_temp_variable = {
+                var = tmp_com
+                distribution = uniform
+                min = 2
+                max = 4
+            }   
+            randomize_temp_variable = {
+                var = tmp_fas
+                distribution = uniform
+                min = 2
+                max = 4
+            }   
+            randomize_temp_variable = {
+                var = tmp_mon
+                distribution = uniform
+                min = 2
+                max = 4
+            }               
+            add_to_variable = { fct_dem = tmp_dem}
+            add_to_variable = { fct_com = tmp_com}
+            add_to_variable = { fct_fas = tmp_fas}  
+            add_to_variable = { fct_mon = tmp_mon}   
+            faction_gui_call = yes
+            custom_effect_tooltip = fact_inf_tt 
+            custom_effect_tooltip = dem_great_tt 
+            custom_effect_tooltip = com_great_tt 
+            custom_effect_tooltip = fas_great_tt
+            custom_effect_tooltip = mon_great_tt 
+            ######  
+            add_to_variable = { amount_of_projects = 1 }             
+		}
+    }
 }
 
 GRE_kathestos_asfaleia {
@@ -7186,7 +7346,7 @@ GRE_kathestos_asfaleia {
 
         
         remove_effect = {
-            add_stability = 0.02
+            add_stability = -0.02
             set_country_flag = GRE_asfaleia_forces_organized
             ####ASFALEIA MECHANIC###
             subtract_from_variable = { GRE_var_ag_up = 0.05 } 
@@ -7196,7 +7356,7 @@ GRE_kathestos_asfaleia {
             add_to_variable = { GRE_var_int_ag_def = 0.02 } 
             add_to_variable = { GRE_var_def_drift = 0.05 } 
             add_to_variable = { GRE_var_pp_gain_asf = 0.08 } 
-            add_to_variable = { GRE_var_enc_asf = 0.027 } 
+            add_to_variable = { GRE_var_enc_asf = 0.045 } 
             subtract_from_variable = { GRE_var_local_intel_enemies = 0.025 }  
             ###FACTION MECHANICS###
             randomize_temp_variable = {
@@ -7261,7 +7421,7 @@ GRE_kathestos_asfaleia {
 
         
         remove_effect = {
-            add_stability = -0.02
+            add_stability = -0.03
             set_country_flag = GRE_first_arrest_wave
 			add_popularity = {
     			ideology = communism
@@ -7343,7 +7503,7 @@ GRE_kathestos_asfaleia {
         }
         
         remove_effect = {
-            add_stability = -0.03             
+            add_stability = -0.05             
             add_to_variable = { GRE_var_int_ag_def = 0.025 }  
             add_to_variable = { GRE_var_enc_asf = 0.025 }   
             ###FACTION MECHANICS###
@@ -7488,6 +7648,7 @@ GRE_kathestos_asfaleia {
         }
         
         remove_effect = {
+            add_stability = -0.05
             subtract_from_variable = { GRE_var_ag_up = 0.025 }
             subtract_from_variable = { GRE_var_civ_others = 2.5 }
             subtract_from_variable = { GRE_var_arm_others = 2.5 }
@@ -7563,6 +7724,7 @@ GRE_kathestos_asfaleia {
         }
         
         remove_effect = {
+            add_stability = -0.08
             add_to_variable = { GRE_var_int_ag_def = 0.25 }   
             ###FACTION MECHANICS###
             randomize_temp_variable = {
@@ -7705,6 +7867,7 @@ GRE_kathestos_asfaleia {
         }
         
         remove_effect = {
+            add_stability = 0.03
             set_country_flag = stop_communist_uprising
             add_to_variable = { GRE_var_op_slot = 1 }
             subtract_from_variable = { GRE_var_civ_others = 10 } 
@@ -7778,6 +7941,7 @@ GRE_kathestos_asfaleia {
         }
         
         remove_effect = {
+            add_stability = -0.03
             set_country_flag = stop_democratic_uprising
             subtract_from_variable = { GRE_var_civ_others = 7.5 } 
             subtract_from_variable = { GRE_var_arm_others = 2.5 } 
@@ -7916,6 +8080,7 @@ GRE_kathestos_asfaleia {
 
         
         remove_effect = {
+            add_stability = 0.01
             set_country_flag = GRE_war_on_minorities
             add_to_variable = { GRE_var_int_ag_def = 0.1 }
             add_to_variable = { GRE_var_pp_gain_asf = 0.05 } 
@@ -7987,6 +8152,7 @@ GRE_kathestos_asfaleia {
         }
         
         remove_effect = {
+            add_stability = 0.02
             subtract_from_variable = { GRE_var_civ_others = 7.5 }   
             subtract_from_variable = { GRE_var_arm_others = 2.5 } 
             add_to_variable = { GRE_var_int_ag_def = 0.05 } 
@@ -8059,6 +8225,7 @@ GRE_kathestos_asfaleia {
 
         
         remove_effect = {
+            add_stability = 0.01
             subtract_from_variable = { GRE_var_civ_others = 5 } 
             subtract_from_variable = { GRE_var_arm_others = 2.5 } 
             add_to_variable = { GRE_var_int_ag_def = 0.05 } 
@@ -8129,6 +8296,7 @@ GRE_kathestos_asfaleia {
 
         
         remove_effect = {
+            add_stability = 0.01
             subtract_from_variable = { GRE_var_civ_others = 5 } 
             subtract_from_variable = { GRE_var_arm_others = 2.5 }
             subtract_from_variable = { GRE_var_local_intel_enemies = 0.025 }   
@@ -8198,6 +8366,7 @@ GRE_kathestos_asfaleia {
 
         
         remove_effect = {
+            add_stability = 0.03
             add_to_variable = { GRE_var_pp_gain_asf = 0.05 } 
             add_to_variable = { GRE_var_def_drift = 0.05 }
             ###FACTION MECHANICS###

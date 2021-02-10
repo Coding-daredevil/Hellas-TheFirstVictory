@@ -487,8 +487,14 @@ country_event = {               #WARNING EVENT FOR TROOP DEPLOYMENT IN ALBANIAN 
             exists = yes 
             is_puppet = no
             is_subject = no
-            NOT = { is_justifying_wargoal_against = GRE }
-            NOT = { has_war_with = GRE }
+            NOT = { 
+                is_justifying_wargoal_against = GRE 
+                has_war_with = GRE
+                focus_progress = {
+                    focus = ITA_greece_war_goal
+                    progress > 0.05
+                }
+            }
             has_government = fascism
             has_country_leader = {
                 name = "Benito Mussolini"
@@ -520,10 +526,7 @@ country_event = {               #WARNING EVENT FOR TROOP DEPLOYMENT IN ALBANIAN 
             border_state = 805
         }
 		date > 1936.08.04
-        has_country_leader = {
-            name = "Ioannis Metaxas"
-            ruling_only = yes
-        }
+        has_country_flag = GRE_kathestos_proclaimed
 	}
 
 	mean_time_to_happen = {
@@ -2362,6 +2365,7 @@ country_event = {
     
 	option = {
 		name = hellas.501.a #small investment
+        fixed_random_seed = no
         if = {                                                                              ### - Germany weighted investments
             limit = {
                 FROM = {
@@ -3438,7 +3442,7 @@ country_event = {                                                               
 	option = {                                                                                  ### Oil Drilling
 		name = hellas.504.c #medium investment
         trigger = {
-            NOT = { has_country_flag = GRE_drilled_for_oil }
+            check_variable = { var = GRE_drilled_for_oil value = 0 compare = equals }
         }
         if = {                                                                              
             limit = {
@@ -3465,7 +3469,7 @@ country_event = {                                                               
             }
         }
         custom_effect_tooltip = GRE_drilling_for_oil_tt
-        set_country_flag = GRE_drilled_for_oil
+        add_to_variable = { GRE_drilled_for_oil = 1 }
     }
 	option = {                                                                                  ### Expand Mines
 		name = hellas.504.d #medium investment
@@ -3663,7 +3667,7 @@ country_event = {                                                               
 	id = hellas.101
 	title = hellas.101.t
 	desc = hellas.101.desc
-	#picture = GFX_report_event_gre_venizelos_speech
+	picture = GFX_report_event_degaulle_churchill
 
 	is_triggered_only = yes
 
@@ -3672,9 +3676,192 @@ country_event = {                                                               
 	#Give into Greece
 	option = {
 		name = hellas.101.a
+        
+        hidden_effect = {
+            country_event = { id = hellas.105 days = 0 }                                         ## Send "German" warning that if you grany any military access, they will take it as a a casus beli.
+        }
+    }
+}
 
-		ai_chance = {
+country_event = {                                                                               ### Greece left Bulgarian border unmanned, make Bulgars declare war (mission -> ) 
+	id = hellas.102
+	title = hellas.102.t
+	desc = hellas.102.desc
+	picture = GFX_report_event_bul_military_parade_vidin
+
+	trigger = {
+        original_tag = GRE
+        OR = {
+            ITA = { has_war_with = GRE }
+            BUL = { is_in_faction_with = GER }
+            BUL = { is_in_faction_with = ITA }
+        }
+        divisions_in_border_state = {
+            type = infantry
+            size < 3
+            state = 812
+            border_state = 212
+        }     
+        divisions_in_border_state = {
+            type = infantry
+            size < 1
+            state = 731
+            border_state = 212
+        } 
+	}
+
+	fire_only_once = no
+	
+	#Give into Greece
+	option = {
+		name = hellas.102.a
+
+        activate_mission = GRE_reman_bulgarian_line
+    }
+}
+
+country_event = {                                                                               ### Greece left Bulgarian border unmanned, make Bulgars declare war (mission -> ) 
+	id = hellas.103
+	title = hellas.103.t
+	desc = hellas.103.desc
+	picture = GFX_report_event_italian_preparations
+
+	trigger = {
+        original_tag = GRE
+        OR = {
+            AND = {
+                ALB = { exists = no }
+                ITA = { 
+                    controls_state = 44 
+                    controls_state = 805
+                }
+            }
+            AND = {
+                ALB = { exists = yes }
+                OR = {
+                    is_puppet_of = ITA 
+                    is_subject_of = ITA
+                }
+            
+            }
+        }
+	}
+
+	fire_only_once = yes
+	
+	option = {
+		name = hellas.103.a
+        44 = {
+            if = {
+                limit = { 
+                    is_controlled_by = ITA 
+                    free_building_slots = {
+                        building = infrastructure
+                        size > 2
+                        include_locked = yes
+                    }
+                }
+                add_building_construction = {
+                    type = infrastructure
+                    level = 2
+                    instant_build = yes
+                }
+                add_building_construction = {
+                    type = air_base
+                    level = 1
+                    instant_build = yes
+                }
+                add_building_construction = {
+                    type = naval_base
+                    level = 2
+                    province = 11767
+                    instant_build = yes
+				}
+            }
+        }
+        805 = {
+            if = {
+                limit = { 
+                    is_controlled_by = ITA 
+                    free_building_slots = {
+                        building = infrastructure
+                        size > 1
+                        include_locked = yes
+                    }
+                }
+                add_building_construction = {
+                    type = infrastructure
+                    level = 1
+                    instant_build = yes
+                }
+            }
+        }        
+    }
+}
+
+country_event = {                                                                               ### Event so German AI declares war on the Yugolavia on 10th of April (if they don't do so themselves)
+	id = hellas.104
+	title = hellas.104.t
+	desc = hellas.104.desc
+	picture = GFX_report_event_bul_ff_troops_yugoslavia
+
+	trigger = {
+        original_tag = GER
+        has_annex_war_goal = YUG
+        YUG = { 
+            exists = yes 
+            NOT = { 
+                is_in_faction_with = GER
+                is_in_faction_with = ITA
+                is_in_faction_with = BUL
+            }
+        }
+        ITA = { has_war_with = GRE }
+        GRE = {
+            exists = yes 
+            has_capitulated = no
+        }
+        OR = {
+            date > 1940.04.09
+            AND = {
+                NOT = { check_variable = { var = global.province_controllers^3896 value = ITA compare = equals } }
+                NOT = { check_variable = { var = global.province_controllers^9780 value = ITA compare = equals } }
+            }
+        }
+	}
+
+	fire_only_once = yes
+	
+	option = {
+		name = hellas.104.a
+
+        ai_chance = {
 			base = 100
-			}
+        }
+        
+        declare_war_on = {                                                                                      ### Germany declares war on Yugoslavia
+            target = YUG
+            type = annex_everything
+        } 
+    }
+    
+    option = {
+		name = hellas.104.b
+    }   
+}
+
+country_event = {                                                                               ### UK offers membership into the allies while at war with ITA
+	id = hellas.105
+	title = hellas.105.t
+	desc = hellas.105.desc
+	picture = GFX_report_event_germany_politician_handshake
+
+	is_triggered_only = yes
+
+	fire_only_once = no
+	
+	#Give into Greece
+	option = {
+		name = hellas.105.a
     }
 }

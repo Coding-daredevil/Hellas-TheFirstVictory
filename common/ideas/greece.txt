@@ -39,6 +39,24 @@ ideas = {
             }     
         }
         
+        GRE_new_corporatism_combined = {
+        
+            allowed = {
+                original_tag = GRE
+            }
+            
+            picture = gre_new_corp
+
+            modifier = {
+                political_power_factor	= 0.1
+				research_speed_factor = 0.05
+                global_building_slots_factor = 0.6
+                consumer_goods_factor = -0.03
+                production_speed_buildings_factor = 0.10
+                monthly_population = 0.5
+            }     
+        }
+        
         GRE_met_line = {
         
             allowed = {
@@ -791,6 +809,17 @@ ideas = {
 				always = yes
 			}
             
+            cancel = {
+                has_idea = GRE_sophistry_and_science_idea
+                has_idea = GRE_new_corporatism
+            }
+            
+            on_remove = {
+                remove_ideas = GRE_sophistry_and_science_idea
+                remove_ideas = GRE_new_corporatism
+                add_ideas = GRE_new_corporatism_combined
+            }
+            
 			picture = gre_ind_grow
 				
 			removal_cost = -1
@@ -1283,7 +1312,7 @@ ideas = {
 				always = yes
 			}
 
-			picture = generic_manpower_bonus
+			picture = gre_eon
 				
 			removal_cost = -1
 				
@@ -3163,7 +3192,77 @@ ideas = {
         
         traits = { national_photographer }
     }
-
+    
+    GRE_kanelopoulos = {
+    
+        picture = gre_min_kanel
+    
+        allowed = {
+            original_tag = GRE 
+        }
+        
+        available = {
+            has_country_flag = GRE_regime_proclaimed_tt
+            has_completed_focus = GRE_eon_2
+        }
+        
+        cost = 75
+        
+        traits = { leader_of_eon }
+    }
+    
+    GRE_kyrou = {
+    
+        picture = gre_min_kyrou
+    
+        allowed = {
+            original_tag = GRE 
+        }
+        
+        available = {
+            has_country_flag = GRE_regime_proclaimed_tt
+        }
+        
+        cost = 125
+        
+        traits = { nationalist_editor }
+    }
+    
+    GRE_apostolidis = {
+    
+        picture = gre_min_apostol
+    
+        allowed = {
+            original_tag = GRE 
+        }
+        
+        available = {
+            has_country_flag = GRE_regime_proclaimed_tt
+        }
+        
+        cost = 150
+        
+        traits = { minister_of_economics }
+    }
+    
+    GRE_tourkovasilis = {
+    
+        picture = gre_min_tourkovasilis
+    
+        allowed = {
+            original_tag = GRE 
+        }
+        
+        available = {
+            has_country_flag = GRE_regime_proclaimed_tt
+        }
+        
+        cost = 75
+        
+        traits = { dubious_personality }
+    }
+    
+    
 	GRE_damaskinos = {
 
 		picture = generic_political_advisor_europe_5

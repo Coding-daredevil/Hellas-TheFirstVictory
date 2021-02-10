@@ -880,6 +880,7 @@ GRE_line_pop = {
         }        
     }
 }
+
 ######################################################################################
 ###############################[ Faction Favor Mechanic ]#############################
 ######################################################################################
@@ -900,10 +901,20 @@ GRE_add_faction_favor = {
         limit = {
             has_idea = GRE_koryzis
         }
+        add_to_temp_variable = { fmon = 0.75 }
+        add_to_temp_variable = { fdem = 0.75 }
+        add_to_temp_variable = { fcom = 0.75 }
+        add_to_temp_variable = { ffas = 0.75 }
+    }
+    if = {
+        limit = {
+            has_idea = GRE_dimitratos
+        }
         add_to_temp_variable = { fmon = 0.5 }
-        add_to_temp_variable = { fdem = 0.5 }
-        add_to_temp_variable = { fcom = 0.5 }
+        add_to_temp_variable = { fdem = 1.0 }
+        add_to_temp_variable = { fcom = 1.0 }
         add_to_temp_variable = { ffas = 0.5 }
+    
     }
     add_to_variable = { fct_mon = fmon } 
     add_to_variable = { fct_mon = fdem } 
