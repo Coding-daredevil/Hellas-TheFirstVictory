@@ -4240,7 +4240,7 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY }
 		completion_reward = {
-			add_stability = 0.08
+			add_stability = 0.04
 			47 = {
 				if = {
 					limit = { 
@@ -4565,6 +4565,7 @@ focus_tree = {
 				remove_idea = GRE_foreign_monopolies
 				add_idea = GRE_foreign_monopolies_2
 			}
+            add_stability = 0.02
 			add_political_power = 80
 			add_ideas = free_trade
 		}
@@ -4625,7 +4626,7 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_STABILITY }
 		completion_reward = {
-			add_stability = 0.04
+			add_stability = -0.05
             add_war_support = 0.04
 			add_ideas = limited_exports
 		}
@@ -5472,6 +5473,9 @@ focus_tree = {
 				remove_idea = GRE_schachtplan
 				add_idea = GRE_schachtplan_modified
 			}
+            add_to_variable = { fct_fas = 3 }
+            faction_gui_call = yes
+            custom_effect_tooltip = fct_fminor_boost_tt
 		}
 	}
 
@@ -5506,7 +5510,11 @@ focus_tree = {
 		}
 
 		completion_reward = {
+            add_stability = -0.05
 			unlock_decision_tooltip = GRE_request_italian_assistance_with_industrialisation
+            add_to_variable = { fct_fas = 3 }
+            faction_gui_call = yes
+            custom_effect_tooltip = fct_fminor_boost_tt
 		}
 	}	
 
@@ -5531,12 +5539,16 @@ focus_tree = {
 		}
 
 		completion_reward = {
+            add_stability = -0.01
 			unlock_decision_tooltip = GRE_trade_manufactured_ship_parts_for_investment
 			diplomatic_relation = {
 				country = ENG
 				relation = docking_rights
 				active = yes
             }
+            add_to_variable = { fct_dem = 5 }
+            faction_gui_call = yes
+            custom_effect_tooltip = fct_dmediocre_boost_tt
 		}
 	}	
 
@@ -5576,6 +5588,9 @@ focus_tree = {
 				set_variable = { var = GRE_debt_to_the_ifc_france_var value = 0 }
 				GRE_debt_check_effect = yes
 			}
+            add_to_variable = { fct_dem = 5 }
+            faction_gui_call = yes
+            custom_effect_tooltip = fct_dmediocre_boost_tt
 		}
 	}	
 
@@ -5610,7 +5625,10 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			unlock_decision_tooltip = GRE_attend_talks_with_the_presidium
+			add_stability = -0.05
+            add_to_variable = { fct_com = 10 }
+            faction_gui_call = yes
+            custom_effect_tooltip = fct_cmajor_boost_tt
 		}
 	}
 
@@ -8700,7 +8718,7 @@ focus_tree = {
 		completion_reward = {
             
             add_timed_idea = { idea = GRE_mobilization_timed  days = 90 }
-            add_to_variable = { GRE_var_train_time_factor = -0.2 }
+            subtract_from_variable = { GRE_var_train_time_factor = 0.2 }
             add_to_variable = { GRE_var_recfact = 0.05 }
 		}
 	}
@@ -8725,7 +8743,7 @@ focus_tree = {
             
 			add_to_variable = { GRE_var_no_supply_grace = 4 }
             add_to_variable = { GRE_var_winter_attr = -0.05 }
-            add_to_variable = { GRE_var_cold_acc = 0.5 }
+            add_to_variable = { GRE_var_cold_acc = 0.05 }
 		}
 	} 
 
@@ -8754,7 +8772,7 @@ focus_tree = {
             add_to_variable = { GRE_var_max_dig_in = 0.05 }
 			add_to_variable = { GRE_var_no_supply_grace = 4 }
             add_to_variable = { GRE_var_winter_attr = -0.05 }
-            add_to_variable = { GRE_var_cold_acc = 0.005 }
+            add_to_variable = { GRE_var_cold_acc = 0.05 }
             add_to_variable = { GRE_var_recon = 0.05 }
 		}
 	}   
@@ -8866,7 +8884,7 @@ focus_tree = {
         }
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_prepare_spring_offensive_tt
+            custom_effect_tooltip = GRE_prepare_spring_offensive_tt
 		}
 	}
 

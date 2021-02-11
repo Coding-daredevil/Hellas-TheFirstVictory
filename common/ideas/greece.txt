@@ -293,6 +293,49 @@ ideas = {
         
         }
         
+        GRE_italian_ambition_ultra_offensive = {
+        
+            allowed = {
+                original_tag = ITA 
+            }
+            
+            #cancel = {
+            #    has_global_flag = GRE_grecoitalian_start
+            #    GRE = { is_in_faction_with = ENG }
+            #}
+        
+            picture = ita_ambitions
+        
+            modifier = {
+                ai_focus_aggressive_factor = 1000
+                ai_call_ally_desire_factor = -1000
+                ai_get_ally_desire_factor = -1000
+            }
+        
+        }
+        
+        ITA_spring_offensive = {
+        
+            allowed = {
+                original_tag = ITA 
+            }
+        
+            picture = ita_spring_off
+        
+            modifier = {
+                breakthrough_factor = 0.1
+                army_morale_factor = 0.15
+            }
+            
+            on_remove = {
+                swap_ideas = { 
+                    remove_idea = GRE_italian_ambition_ultra_offensive
+                    add_idea = GRE_italian_ambition
+                }    
+            }
+        
+        }
+        
         GRE_bulgarian_ambition = {
         
             allowed = {
@@ -3202,7 +3245,7 @@ ideas = {
         }
         
         available = {
-            has_country_flag = GRE_regime_proclaimed_tt
+            has_country_flag = GRE_kathestos_proclaimed
             has_completed_focus = GRE_eon_2
         }
         
@@ -3220,12 +3263,30 @@ ideas = {
         }
         
         available = {
-            has_country_flag = GRE_regime_proclaimed_tt
+            has_country_flag = GRE_kathestos_proclaimed
         }
         
         cost = 125
         
         traits = { nationalist_editor }
+    }
+    
+    GRE_dimitratos = {
+    
+        picture = gre_min_dimitratos
+    
+        allowed = {
+            original_tag = GRE 
+        }
+        
+        available = {
+            has_country_flag = GRE_kathestos_proclaimed
+            has_completed_focus = GRE_public_works
+        }
+        
+        cost = 125
+        
+        traits = { subminister_of_labour }
     }
     
     GRE_apostolidis = {
@@ -3237,7 +3298,7 @@ ideas = {
         }
         
         available = {
-            has_country_flag = GRE_regime_proclaimed_tt
+            has_country_flag = GRE_kathestos_proclaimed
         }
         
         cost = 150
@@ -3254,7 +3315,7 @@ ideas = {
         }
         
         available = {
-            has_country_flag = GRE_regime_proclaimed_tt
+            has_country_flag = GRE_kathestos_proclaimed
         }
         
         cost = 75
@@ -3262,6 +3323,39 @@ ideas = {
         traits = { dubious_personality }
     }
     
+    GRE_bastias = {
+    
+        picture = gre_min_bastikas
+    
+        allowed = {
+            original_tag = GRE 
+        }
+        
+        available = {
+            has_country_flag = GRE_kathestos_proclaimed
+        }
+        
+        cost = 100
+        
+        traits = { director_of_arts_and_letters }
+    }
+    
+    GRE_prevelakis = {
+    
+        picture = gre_min_prevelakis
+    
+        allowed = {
+            original_tag = GRE 
+        }
+        
+        available = {
+            has_country_flag = GRE_kathestos_proclaimed
+        }
+        
+        cost = 75
+        
+        traits = { director_of_good_arts }
+    }
     
 	GRE_damaskinos = {
 

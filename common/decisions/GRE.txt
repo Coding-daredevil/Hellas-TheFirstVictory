@@ -4173,7 +4173,6 @@ GRE_grecoitalian_war_category = {
                     check_variable = { var = global.province_controllers^3980 value = ITA compare = equals }
                     check_variable = { var = global.province_controllers^966 value = ITA compare = equals }
                     check_variable = { var = global.province_controllers^936 value = ITA compare = equals }
-                    check_variable = { var = global.province_controllers^12001 value = ITA compare = equals }
                 }
             }
 		}
@@ -4209,7 +4208,11 @@ GRE_grecoitalian_war_category = {
                 }
                 complete_national_focus = GRE_stabilizing_the_line
             }
-            hidden_effect = { set_country_flag = GRE_italian_advance_halted }              ### Set flag (to allow counter-offensive).
+            hidden_effect = { 
+                set_country_flag = GRE_italian_advance_halted                              ### Set flag (to allow counter-offensive).  
+                #activate_decision = the_winter_counter_offensive                           ## Automatically begin counter offensive to avoid cheese tactics by player. To be determined.
+                #activate_mission = GRE_winter_counter_offensive
+            }              
 		}    
     
     }
@@ -4228,7 +4231,7 @@ GRE_grecoitalian_war_category = {
 
 		available = { 
             custom_trigger_tooltip = {
-                tooltip = GRE_stabilized_the_line_tt
+                tooltip = GRE_stabilized_the_line_2_tt
                 OR = {
                     check_variable = { var = global.province_controllers^12001 value = ITA compare = equals }
                     check_variable = { var = global.province_controllers^1205 value = ITA compare = equals }
@@ -4288,7 +4291,7 @@ GRE_grecoitalian_war_category = {
 
 		available = { 
             custom_trigger_tooltip = {
-                tooltip = GRE_stabilized_the_line_tt
+                tooltip = GRE_stabilized_the_line_3_tt
                 OR = {
                     check_variable = { var = global.province_controllers^3988 value = ITA compare = equals }
                     check_variable = { var = global.province_controllers^4109 value = ITA compare = equals }
@@ -4341,7 +4344,7 @@ GRE_grecoitalian_war_category = {
 
 		available = { 
             custom_trigger_tooltip = {
-                tooltip = GRE_the_winter_counter_offensive
+                tooltip = GRE_the_winter_counter_offensive_tt
                 AND = {
                     check_variable = { var = global.province_controllers^12001 value = GRE compare = equals }
                     check_variable = { var = global.province_controllers^1205 value = GRE compare = equals }
@@ -4394,7 +4397,7 @@ GRE_grecoitalian_war_category = {
 
 		available = { 
             custom_trigger_tooltip = {
-                tooltip = GRE_the_winter_counter_offensive
+                tooltip = GRE_the_winter_counter_offensive_tt
                 AND = {
                     check_variable = { var = global.province_controllers^9805 value = GRE compare = equals }
                     check_variable = { var = global.province_controllers^13238 value = GRE compare = equals }
@@ -4448,7 +4451,7 @@ GRE_grecoitalian_war_category = {
 
 		available = { 
             custom_trigger_tooltip = {
-                tooltip = GRE_the_winter_counter_offensive
+                tooltip = GRE_the_winter_counter_offensive_tt
                 AND = {
                     check_variable = { var = global.province_controllers^914 value = GRE compare = equals }
                     check_variable = { var = global.province_controllers^13234 value = GRE compare = equals }
@@ -4469,6 +4472,7 @@ GRE_grecoitalian_war_category = {
 		cancel_if_not_visible = no
 
 		is_good = no
+        
 
 		complete_effect = { 
             news_event = { id = hellenic_news.152 days = 0 }                               ### News report event: Greeks smash the Italians back to Albania
@@ -5210,7 +5214,7 @@ GRE_kathestos_4hs = {
 
 		complete_effect = {
             clear_country_flag = GRE_comm_upr_1
-            add_stability = 0.08
+            add_stability = 0.04
             add_to_variable = { fct_com = 2.5 }
             faction_gui_call = yes
 		}
@@ -5516,7 +5520,7 @@ GRE_kathestos_4hs = {
 		}
 
 		remove_effect = {
-			add_stability = 0.05
+			add_stability = 0.04
             set_country_flag = GRE_step_2_finished
             add_to_variable = { GRE_var_civ = 0.01 }
             add_to_variable = { GRE_var_mil = 0.01 }
@@ -6360,7 +6364,7 @@ GRE_kathestos_4hs = {
 		}
 
 		remove_effect = {
-			add_stability = 0.07
+			add_stability = 0.04
             add_to_variable = { repair_speed_factor = 0.02 }  
             ###FACTION MECHANICS###
             randomize_temp_variable = {

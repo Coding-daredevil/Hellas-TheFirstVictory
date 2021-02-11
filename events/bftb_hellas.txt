@@ -86,8 +86,8 @@ country_event = {
 		ai_chance = {
 			base = 100
 			}
-        add_stability = 0.05
-        add_war_support = 0.1
+        add_stability = 0.02
+        add_war_support = 0.08
         remove_country_leader_trait = greek_dictator
         add_country_leader_trait = arkhigos_0
         complete_national_focus = GRE_the_4th_of_august_regime
@@ -113,7 +113,7 @@ country_event = {
 		ai_chance = {
 			base = 100
 			}
-        add_stability = 0.05
+        add_stability = 0.02
         custom_effect_tooltip = GRE_unlock_hell_path_tt
     } 
 	option = {
@@ -122,7 +122,7 @@ country_event = {
 		ai_chance = {
 			base = 100
 			}
-        add_stability = 0.05
+        add_stability = 0.01
         custom_effect_tooltip = GRE_unlock_fasc_path_tt
         set_country_flag = GRE_fascistized     
         complete_national_focus = GRE_recruit_the_fascists_2
@@ -146,7 +146,7 @@ country_event = {       ### CRETAN UPRISING
 		ai_chance = {
 			base = 100
 			}
-        add_stability = 0.05
+        add_stability = 0.03
         custom_effect_tooltip =  hellas.4.a_tt
         set_country_flag = GRE_church_dealt
     } 
@@ -156,7 +156,7 @@ country_event = {       ### CRETAN UPRISING
 		ai_chance = {
 			base = 100
 			}
-        add_stability = 0.05
+        add_stability = 0.03
         custom_effect_tooltip =  hellas.4.b_tt
         set_country_flag = GRE_church_dealt
     }  
@@ -179,7 +179,7 @@ country_event = {
 		ai_chance = {
 			base = 100
 			}
-        add_stability = 0.05
+        add_stability = 0.02
         custom_effect_tooltip =  hellas.5.a_tt
     } 
 	option = {
@@ -188,7 +188,7 @@ country_event = {
 		ai_chance = {
 			base = 100
 			}
-        add_stability = 0.05
+        add_stability = 0.02
         custom_effect_tooltip =  hellas.5.b_tt
     }  
 }
@@ -3638,12 +3638,52 @@ country_event = {                                                               
 ####                                ####
 ########################################
 
+country_event = {                                                                               ### Add priority over the region of Greece for Italians
+	id = hellas.99
+	title = hellas.99.t
+	desc = hellas.99.desc
+	#picture = GFX_report_event_gre_venizelos_speech
+
+	trigger = {
+        original_tag = ITA
+        is_ai = yes
+        is_historical_focus_on = yes
+        date > 1940.9.1
+        focus_progress = {
+            focus = ITA_greece_war_goal
+            progress > 0.05
+        }
+    }
+
+	fire_only_once = yes
+	
+	option = {
+		name = hellas.99.a
+
+		ai_chance = {
+			base = 100
+        }
+
+		add_ai_strategy = {
+            type = area_priority
+            id = grecoalbanian_border
+            value = 1000
+        }
+        
+        add_ai_strategy = {
+            type = antagonize
+            id = GRE
+            value = 500
+        }
+        
+    }
+}
 
 country_event = {                                                                               ### Bad Weather
 	id = hellas.100
 	title = hellas.100.t
 	desc = hellas.100.desc
-	#picture = GFX_report_event_gre_venizelos_speech
+	picture = GFX_report_event_gre_winter_soldiers_celebrating
 
 	is_triggered_only = yes
 
@@ -3807,7 +3847,7 @@ country_event = {                                                               
 
 	trigger = {
         original_tag = GER
-        has_annex_war_goal = YUG
+        #has_annex_war_goal = YUG
         YUG = { 
             exists = yes 
             NOT = { 
@@ -3821,13 +3861,13 @@ country_event = {                                                               
             exists = yes 
             has_capitulated = no
         }
-        OR = {
-            date > 1940.04.09
-            AND = {
-                NOT = { check_variable = { var = global.province_controllers^3896 value = ITA compare = equals } }
-                NOT = { check_variable = { var = global.province_controllers^9780 value = ITA compare = equals } }
-            }
-        }
+        #OR = {
+        date > 1941.04.04
+        #    AND = {
+        #        NOT = { check_variable = { var = global.province_controllers^3896 value = ITA compare = equals } }
+        #        NOT = { check_variable = { var = global.province_controllers^9780 value = ITA compare = equals } }
+        #    }
+        #}
 	}
 
 	fire_only_once = yes
@@ -3865,3 +3905,42 @@ country_event = {                                                               
 		name = hellas.105.a
     }
 }
+
+news_event = {                                                                               ### Italian Spring Offensive
+	id = hellas.106
+	title = hellas.106.t
+	desc = hellas.106.desc
+	picture = GFX_report_event_italian_rise
+
+	trigger = {
+        original_tag = ITA
+        is_historical_focus_on = yes
+        has_war_with = GRE
+        controls_state = 44
+        date > 1941.3.8
+    }
+
+	fire_only_once = yes
+	
+	option = {
+		name = hellas.106.a
+
+		ai_chance = {
+			base = 100
+        }
+        
+        swap_ideas = { 
+            remove_idea = GRE_italian_ambition
+            add_idea = GRE_italian_ambition_ultra_offensive
+        }
+
+		add_timed_idea = {
+            idea = ITA_spring_offensive
+            days = 7
+        }
+        
+        GRE = { country_event = { id = hellenic_news.152 days = 0 } }
+        
+    }
+}
+
