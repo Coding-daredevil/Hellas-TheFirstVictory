@@ -3882,7 +3882,9 @@ country_event = {                                                               
         declare_war_on = {                                                                                      ### Germany declares war on Yugoslavia
             target = YUG
             type = annex_everything
-        } 
+        }
+
+        GRE = { country_event = { id = hellenic_news.153 days = 0 }  }
     }
     
     option = {
@@ -3906,7 +3908,7 @@ country_event = {                                                               
     }
 }
 
-news_event = {                                                                               ### Italian Spring Offensive
+news_event = {                                                                                  ### Italian Spring Offensive
 	id = hellas.106
 	title = hellas.106.t
 	desc = hellas.106.desc
@@ -3933,13 +3935,27 @@ news_event = {                                                                  
             remove_idea = GRE_italian_ambition
             add_idea = GRE_italian_ambition_ultra_offensive
         }
-
-		add_timed_idea = {
-            idea = ITA_spring_offensive
-            days = 7
+        
+        if = {
+            limit = { 
+                GRE = { has_completed_focus = GRE_prepare_spring_offensive }
+            }
+            add_timed_idea = {
+                idea = ITA_spring_offensive
+                days = 7
+            }
+        }
+        else = {
+            add_timed_idea = {
+                idea = ITA_spring_offensive
+                days = 30
+            }
         }
         
-        GRE = { country_event = { id = hellenic_news.152 days = 0 } }
+        GRE = { 
+            country_event = { id = hellenic_news.152 days = 0 } 
+            set_country_flag = GRE_italian_spring_offensive_started
+        }
         
     }
 }

@@ -4487,7 +4487,6 @@ GRE_grecoitalian_war_category = {
                 news_event = { id = hellenic_news.153 days = 0 }   
             }
 		}    
-    
     }
 
     the_winter_counter_offensive = {
@@ -4562,11 +4561,15 @@ GRE_grecoitalian_war_category = {
 		available = {
 			has_war_with = ITA
             has_completed_focus = GRE_prepare_spring_offensive
+            ITA = {
+                NOT = {
+                    has_idea = ITA_spring_offensive
+                }
+            }
 		}
 
 		visible = {
-			has_completed_focus = GRE_ochi
-            has_completed_focus = GRE_prepare_spring_offensive
+			has_country_flag = GRE_italian_spring_offensive_started
 		}
 
 		ai_will_do = {
@@ -4575,14 +4578,60 @@ GRE_grecoitalian_war_category = {
 
 		fire_only_once = yes
 
-		days_remove = 90
+		days_remove = 30
 
 		targeted_modifier = {
 			tag = ITA
 			attack_bonus_against = 0.15
 			breakthrough_bonus_against = 0.15
 		}
+        
+        complete_effect = { 
+            activate_mission = the_spring_offensive_mission
+        }
 	}
+    
+    the_spring_offensive_mission = {
+
+		icon = generic_military
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		activation = {
+            always = no
+		}        
+
+		available = { 
+            custom_trigger_tooltip = {
+                tooltip = GRE_the_spring_offensive_mission_tt
+                AND = {
+                    check_variable = { var = global.province_controllers^9780 value = GRE compare = equals }
+                    check_variable = { var = global.province_controllers^11767 value = GRE compare = equals }
+                }
+            }
+		}
+
+		days_mission_timeout = 60
+
+		fire_only_once = yes
+
+		visible = {
+            has_country_flag = GRE_hidden_flag
+		}
+
+		cancel_if_not_visible = no
+
+		is_good = no
+        
+
+		complete_effect = { 
+		}
+
+		timeout_effect = {
+		}    
+    }
 
 	epixeirhsh_annivas = {
 		icon = generic_operation
