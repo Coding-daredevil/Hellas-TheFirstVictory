@@ -482,7 +482,29 @@ GRE_faction_refresh_mon_effect = {
         }
         multiply_temp_variable = { x = 2}
     } 
-    set_variable = { GRE_mon_wr_fct = x }   
+    set_variable = { GRE_mon_wr_fct = x }
+    ##################[ STB/WS WEEKLY ]##################
+    set_temp_variable = { x = fct_mon}
+    if = {
+        limit = {
+            check_variable = { var = fct_mon value = 80 compare = less_than }
+        }
+        multiply_temp_variable = { x = 0.025 }
+        subtract_from_temp_variable = { x = 2 }
+    }
+    else = {
+        multiply_temp_variable = { x = 0.01 }
+        subtract_from_temp_variable = { x = 0.8 }       
+    }
+    if = { 
+        limit = {
+            has_government = neutrality
+        }
+        multiply_temp_variable = { x = 2}
+    } 
+    divide_temp_variable = { x = 100 }
+    set_variable = { GRE_mon_wstb = x }
+    set_variable = { GRE_mon_wws = x }    
     ##################[ CONSCRIPTION ]##################
     set_temp_variable = { x = fct_mon}
     divide_temp_variable = { x = 4 } 
@@ -562,6 +584,28 @@ GRE_faction_refresh_dem_effect = {
         multiply_temp_variable = { x = 2}
     } 
     set_variable = { GRE_dem_wr_fct = x }   
+    ##################[ STB/WS WEEKLY ]##################
+    set_temp_variable = { x = fct_dem}
+    if = {
+        limit = {
+            check_variable = { var = fct_dem value = 80 compare = less_than }
+        }
+        multiply_temp_variable = { x = 0.025 }
+        subtract_from_temp_variable = { x = 2 }
+    }
+    else = {
+        multiply_temp_variable = { x = 0.01 }
+        subtract_from_temp_variable = { x = 0.8 }       
+    }
+    if = { 
+        limit = {
+            has_government = democratic
+        }
+        multiply_temp_variable = { x = 2}
+    } 
+    divide_temp_variable = { x = 100 }
+    set_variable = { GRE_dem_wstb = x }
+    set_variable = { GRE_dem_wws = x }
     ##################[ CONSCRIPTION ]##################
     set_temp_variable = { x = fct_dem}
     divide_temp_variable = { x = 4 } 
@@ -620,7 +664,7 @@ GRE_faction_refresh_com_effect = {
         }
         multiply_temp_variable = { x = 2}
     } 
-    set_variable = { GRE_com_stb_fct = x } 
+    set_variable = { GRE_com_stb_fct = x }
     ##################[ WAR SUPPORT ]##################
     set_temp_variable = { x = fct_com}
     if = {
@@ -640,7 +684,29 @@ GRE_faction_refresh_com_effect = {
         }
         multiply_temp_variable = { x = 2}
     } 
-    set_variable = { GRE_com_wr_fct = x }   
+    set_variable = { GRE_com_wr_fct = x }
+    ##################[ STB/WS WEEKLY ]##################
+    set_temp_variable = { x = fct_com}
+    if = {
+        limit = {
+            check_variable = { var = fct_com value = 80 compare = less_than }
+        }
+        multiply_temp_variable = { x = 0.025 }
+        subtract_from_temp_variable = { x = 2 }
+    }
+    else = {
+        multiply_temp_variable = { x = 0.01 }
+        subtract_from_temp_variable = { x = 0.8 }       
+    }
+    if = { 
+        limit = {
+            has_government = communism
+        }
+        multiply_temp_variable = { x = 2}
+    } 
+    divide_temp_variable = { x = 100 }
+    set_variable = { GRE_com_wstb = x }
+    set_variable = { GRE_com_wws = x }
     ##################[ CONSCRIPTION ]##################
     set_temp_variable = { x = fct_com}
     divide_temp_variable = { x = 4 } 
@@ -676,7 +742,7 @@ GRE_faction_refresh_fas_effect = {
     subtract_from_temp_variable = { x = 0.05 }
     if = { 
         limit = {
-            has_government = fascist
+            has_government = fascism
         }
         multiply_temp_variable = { x = 2}
     } 
@@ -696,7 +762,7 @@ GRE_faction_refresh_fas_effect = {
     }
     if = { 
         limit = {
-            has_government = fascist
+            has_government = fascism
         }
         multiply_temp_variable = { x = 2}
     } 
@@ -716,11 +782,33 @@ GRE_faction_refresh_fas_effect = {
     }
     if = { 
         limit = {
-            has_government = fascist
+            has_government = fascism
         }
         multiply_temp_variable = { x = 2}
     } 
-    set_variable = { GRE_fas_wr_fct = x }   
+    set_variable = { GRE_fas_wr_fct = x }  
+    ##################[ STB/WS WEEKLY ]##################
+    set_temp_variable = { x = fct_fas}
+    if = {
+        limit = {
+            check_variable = { var = fct_fas value = 80 compare = less_than }
+        }
+        multiply_temp_variable = { x = 0.025 }
+        subtract_from_temp_variable = { x = 2 }
+    }
+    else = {
+        multiply_temp_variable = { x = 0.01 }
+        subtract_from_temp_variable = { x = 0.8 }       
+    }
+    if = { 
+        limit = {
+            has_government = fascism
+        }
+        multiply_temp_variable = { x = 2}
+    } 
+    divide_temp_variable = { x = 100 }
+    set_variable = { GRE_fas_wstb = x }
+    set_variable = { GRE_fas_wws = x }     
     ##################[ CONSCRIPTION ]##################
     set_temp_variable = { x = fct_fas}
     divide_temp_variable = { x = 4 } 
@@ -728,7 +816,7 @@ GRE_faction_refresh_fas_effect = {
     divide_temp_variable = { x = 100 }
     if = { 
         limit = {
-            has_government = fascist
+            has_government = fascism
         }
         multiply_temp_variable = { x = 2}
     } 

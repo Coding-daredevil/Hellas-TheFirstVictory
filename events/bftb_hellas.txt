@@ -3736,6 +3736,7 @@ country_event = {                                                               
             BUL = { is_in_faction_with = GER }
             BUL = { is_in_faction_with = ITA }
         }
+        BUL = { NOT = { has_war_with = GRE } }
         divisions_in_border_state = {
             type = infantry
             size < 3
@@ -3797,7 +3798,7 @@ country_event = {                                                               
                     is_controlled_by = ITA 
                     free_building_slots = {
                         building = infrastructure
-                        size > 2
+                        size > 1
                         include_locked = yes
                     }
                 }
@@ -3806,17 +3807,17 @@ country_event = {                                                               
                     level = 2
                     instant_build = yes
                 }
-                add_building_construction = {
-                    type = air_base
-                    level = 1
-                    instant_build = yes
-                }
-                add_building_construction = {
-                    type = naval_base
-                    level = 2
-                    province = 11767
-                    instant_build = yes
-				}
+            }
+            add_building_construction = {
+                type = air_base
+                level = 1
+                instant_build = yes
+            }
+            add_building_construction = {
+                type = naval_base
+                level = 2
+                province = 11767
+                instant_build = yes
             }
         }
         805 = {
@@ -3960,3 +3961,232 @@ news_event = {                                                                  
     }
 }
 
+country_event = {                                                                                  ### Start the big chain of events
+	id = hellas.107
+	title = hellas.107.t
+	desc = hellas.107.desc
+	#picture = GFX_report_event_italian_rise
+
+	trigger = {
+        original_tag = GRE
+        has_global_flag = GRE_grecoitalian_start
+        OR = {
+            has_country_flag = GRE_captured_all_of_albania
+            AND = {
+                controls_state = 44
+                check_variable = { var = global.province_controllers^9780 value = GRE compare = equals }
+                check_variable = { var = global.province_controllers^11767 value = GRE compare = equals }
+            }    
+        }
+    }
+
+	fire_only_once = yes
+	
+	option = {                                                                                      ## Continue the war 
+		name = hellas.107.a
+        
+        country_event = { id = hellas.108 days = 0 } 
+    }
+    
+    option = {                                                                                      ## Put an end to the war
+		name = hellas.107.b
+
+    }
+}
+
+country_event = {                                                                                  ### Path of Diplomacy
+	id = hellas.108
+	title = hellas.108.t
+	desc = hellas.108.desc
+	#picture = GFX_report_event_germany_politician_handshake
+
+	is_triggered_only = yes
+
+	fire_only_once = no
+	
+	option = {                                                                                      ## Approach the Germans to mediate
+		name = hellas.108.a
+        
+        hidden_effect = {
+            GER = { country_event = { id = hellas.109 days = 0 }  }
+        }
+    }
+    
+    option = {                                                                                      ## Nevermind (/continue war)
+		name = hellas.108.b
+        
+    }
+}
+
+country_event = {                                                                                  ### Approach the Germans 
+	id = hellas.109
+	title = hellas.109.t
+	desc = hellas.109.desc
+	#picture = GFX_report_event_germany_politician_handshake
+
+	is_triggered_only = yes
+
+	fire_only_once = no
+	
+	option = {                                                                                      ## Germans Accept -> Toss the ball to the Italians 
+		name = hellas.109.a
+        
+        ai_chance = {
+			base = 1
+			modifier = {
+				factor = 1000
+				check_variable = { var = GER.favor@GRE value = 80 compare = greater_than_or_equals }
+			}
+            modifier = {
+                factor = 10
+                check_variable = { var = GER.favor@GRE value = 60 compare = greater_than_or_equals }
+                check_variable = { var = GER.favor@GRE value = 80 compare = less_than }
+            }
+		}
+        
+        hidden_effect = {
+            ITA = { country_event = { id = hellas.110 days = 0 }  }
+        }
+    }
+    
+    option = {                                                                                      ## Germans Decline (/continue war)
+		name = hellas.109.b
+        
+        ai_chance = {
+			base = 5
+			modifier = {
+				factor = 0
+				check_variable = { var = GER.favor@GRE value = 80 compare = greater_than_or_equals }
+			}
+            modifier = {
+                factor = 0.5
+                check_variable = { var = GER.favor@GRE value = 60 compare = greater_than_or_equals }
+                check_variable = { var = GER.favor@GRE value = 80 compare = less_than }
+            }
+		}
+        
+        GRE = { country_event = { id = hellas.112 days = 0 }  } 
+    }
+}
+
+country_event = {                                                                                  ### Germans toss the ball to the Italians
+	id = hellas.110
+	title = hellas.110.t
+	desc = hellas.110.desc
+	#picture = GFX_report_event_germany_politician_handshake
+
+	is_triggered_only = yes
+
+	fire_only_once = no
+	
+	option = {                                                                                      ## Italians Accept, open negotiations for land.
+		name = hellas.110.a
+        
+        ai_chance = {
+			base = 1
+			modifier = {
+				factor = 100
+				check_variable = { var = ITA.favor@GRE value = 80 compare = greater_than_or_equals }
+			}
+            modifier = {
+                factor = 1000
+                GRE = { has_collaboration = { target = ITA value > 0.5} }
+            }
+		}
+        
+        hidden_effect = {
+            GRE = { country_event = { id = hellas.111 days = 0 }  }                                 
+        }
+    }
+    
+    option = {                                                                                      ## Italians Decline (/continue war)
+		name = hellas.110.b
+        
+        ai_chance = {
+			base = 10
+
+		}
+        
+        GRE = { country_event = { id = hellas.112 days = 0 }  } 
+    }
+}
+
+country_event = {                                                                                  ### Greek demands for war reparation
+	id = hellas.111
+	title = hellas.111.t
+	desc = hellas.111.desc
+	#picture = GFX_report_event_germany_politician_handshake
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+    
+    immediate = {
+        hidden_effect = {
+            add_political_power = 1000
+            add_stability = 0.5
+            add_war_support = 0.5
+            white_peace = ITA 
+            news_event = { id = hellenic_news.154 }
+            complete_national_focus = GRE_the_weaves_of_fate
+            set_country_flag = GRE_grecoitalian_won
+        } 
+    }
+	
+	option = {                                                                                      ## Demand Albania & Dodecanese                                                                             
+		name = hellas.111.a
+        trigger = { 
+            check_variable = { var = ITA.favor@GRE value = 80 compare = greater_than_or_equals }
+            has_collaboration = { target = ITA value > 0.6}
+        }
+        set_state_owner = 44
+        set_state_owner = 805
+        set_state_owner = 164
+        #add_state_core = 805
+    }
+    
+    option = {                                                                                      ## Demand Northern Epirus & Dodecanese
+		name = hellas.111.b
+        trigger = { 
+            check_variable = { var = ITA.favor@GRE value = 80 compare = greater_than_or_equals }
+        }
+        set_state_owner = 805
+        set_state_owner = 164
+        #add_state_core = 805        
+    }
+    
+    option = {                                                                                      ## Demand Northern Epirus
+		name = hellas.111.c
+        set_state_owner = 805
+        #add_state_core = 805
+    }
+    
+    option = {                                                                                      ## Demand Dodecanese
+		name = hellas.111.d  
+        set_state_owner = 164
+    }
+}
+
+country_event = {                                                                                  ### Greece was denied 
+	id = hellas.112
+	title = hellas.112.t
+	desc = {                                                                                        ## Greece was denied by the Germans
+        text = hellas.112.desc_ger
+        trigger = { FROM = { original_tag = GER } }
+    }
+    desc = {                                                                                        ## Greece was denied by the Italians
+        text = hellas.112.desc_ita
+        trigger = { FROM = { original_tag = ITA } }                                                 
+    }
+	#picture = GFX_report_event_germany_politician_handshake
+
+	is_triggered_only = yes
+
+	fire_only_once = no
+	
+	option = {                                                                                      ## Continue the war 
+		name = hellas.112.a
+    
+        ###                                                                                         
+    }
+}

@@ -49,11 +49,14 @@ ideas = {
 
             modifier = {
                 political_power_factor	= 0.1
+                political_power_gain = 0.5
 				research_speed_factor = 0.05
-                global_building_slots_factor = 0.6
-                consumer_goods_factor = -0.03
+                global_building_slots_factor = 0.8
+                consumer_goods_factor = -0.05
                 production_speed_buildings_factor = 0.10
-                monthly_population = 0.5
+                monthly_population = 0.75
+                industrial_capacity_factory = 0.05
+                industrial_capacity_dockyard = 0.05
             }     
         }
         
@@ -265,8 +268,8 @@ ideas = {
         
             modifier = {
                 ai_focus_aggressive_factor = 10
-                ai_call_ally_desire_factor = -1000
-                ai_get_ally_desire_factor = -1000
+                ai_call_ally_desire_factor = -100000
+                ai_get_ally_desire_factor = -100000
             }
         
         }
@@ -287,8 +290,8 @@ ideas = {
         
             modifier = {
                 ai_focus_defense_factor = 10
-                ai_call_ally_desire_factor = -1000
-                ai_get_ally_desire_factor = -1000
+                ai_call_ally_desire_factor = -100000
+                ai_get_ally_desire_factor = -100000
             }
         
         }
@@ -308,8 +311,8 @@ ideas = {
         
             modifier = {
                 ai_focus_aggressive_factor = 1000
-                ai_call_ally_desire_factor = -1000
-                ai_get_ally_desire_factor = -1000
+                ai_call_ally_desire_factor = -100000
+                ai_get_ally_desire_factor = -100000
             }
         
         }
@@ -855,11 +858,15 @@ ideas = {
             cancel = {
                 has_idea = GRE_sophistry_and_science_idea
                 has_idea = GRE_new_corporatism
+                has_idea = GRE_industrializing_society
+                has_idea = GRE_farmer_culture
             }
             
             on_remove = {
                 remove_ideas = GRE_sophistry_and_science_idea
                 remove_ideas = GRE_new_corporatism
+                remove_ideas = GRE_industrializing_society
+                remove_ideas = GRE_farmer_culture
                 add_ideas = GRE_new_corporatism_combined
             }
             
@@ -923,7 +930,6 @@ ideas = {
                 industrial_capacity_dockyard = -0.3
 				industrial_capacity_factory = -0.3
                 industry_repair_factor = -0.25
-                mobilization_speed = -0.1
 			}
 		}
 
@@ -944,9 +950,6 @@ ideas = {
 			modifier = {
 				consumer_goods_factor = -0.02
                 monthly_population = 0.25
-                local_resources_factor = 0.08
-                supply_consumption_factor = -0.05
-                production_lack_of_resource_penalty_factor = -0.1
 				political_power_gain = 0.5
 			}
 		}
@@ -965,13 +968,10 @@ ideas = {
 				
 			removal_cost = -1
 				
-			modifier = {
-                production_factory_max_efficiency_factor = 0.05
-                industry_repair_factor = 0.25                
+			modifier = {              
                 global_building_slots_factor = 0.25 
                 industrial_capacity_dockyard = 0.05
 				industrial_capacity_factory = 0.05
-                mobilization_speed = 0.1
 			}
 		}
 
@@ -1132,7 +1132,7 @@ ideas = {
 			removal_cost = -1
 				
 			modifier = {
-				stability_factor = -0.1	
+				stability_factor = -0.2
 				consumer_goods_factor = 0.15	
 			}
 		}
@@ -1157,7 +1157,7 @@ ideas = {
 			removal_cost = -1
 				
 			modifier = {
-				stability_factor = -0.075	
+				stability_factor = -0.15	
 				consumer_goods_factor = 0.1	
 			}
 		}
@@ -1182,7 +1182,7 @@ ideas = {
 			removal_cost = -1
 				
 			modifier = {
-				stability_factor = -0.05	
+				stability_factor = -0.1	
 				consumer_goods_factor = 0.05	
 			}
 		}
@@ -1362,6 +1362,53 @@ ideas = {
 			modifier = {
 				war_support_factor = 0.08
 				neutrality_drift = 0.08
+			}
+		}
+        
+        GRE_eon_kanellopoulos_year_1 = {
+				
+			allowed = {
+				original_tag = GRE
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			picture = gre_eon
+				
+			removal_cost = -1
+				
+			modifier = {
+				war_support_factor = 0.1
+				neutrality_drift = 0.1
+                army_morale_factor = 0.05
+                supply_consumption_factor = -0.05
+                industry_repair_factor = 0.15
+			}
+		}
+        
+        GRE_eon_kanellopoulos_year_2 = {
+				
+			allowed = {
+				original_tag = GRE
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			picture = gre_eon
+				
+			removal_cost = -1
+				
+			modifier = {
+				war_support_factor = 0.15
+				neutrality_drift = 0.15
+                army_org_factor = 0.05
+                army_morale_factor = 0.1
+                supply_consumption_factor = -0.1
+                industry_repair_factor = 0.25
 			}
 		}
 
@@ -1652,16 +1699,16 @@ ideas = {
             
             modifier = {
                 political_power_cost = 0.2
-                party_popularity_stability_factor = -0.25
-                democratic_acceptance = 25
-                communism_acceptance = 25
-                fascism_acceptance = 25 
-                neutrality_acceptance = 25
-                civilian_intel_to_others = 50
-                army_intel_to_others = 25
-                navy_intel_to_others = 25
-                airforce_intel_to_others = 25
-                intelligence_agency_defense = -0.25
+                party_popularity_stability_factor = -0.4
+                democratic_acceptance = 5
+                communism_acceptance = 5
+                fascism_acceptance = 5 
+                neutrality_acceptance = 5
+                civilian_intel_to_others = 75
+                army_intel_to_others = 50
+                navy_intel_to_others = 50
+                airforce_intel_to_others = 50
+                intelligence_agency_defense = -0.5
             }   
         }
 
@@ -1681,16 +1728,16 @@ ideas = {
             
             modifier = {
                 political_power_cost = 0.1
-                party_popularity_stability_factor = -0.125
-                democratic_acceptance = 10
-                communism_acceptance = 10
-                fascism_acceptance = 10 
-                neutrality_acceptance = 10
-                civilian_intel_to_others = 25
-                army_intel_to_others = 12.5
-                navy_intel_to_others = 12.5
-                airforce_intel_to_others = 12.5
-                intelligence_agency_defense = -0.125
+                party_popularity_stability_factor = -0.2
+                democratic_acceptance = 2
+                communism_acceptance = 2
+                fascism_acceptance = 2 
+                neutrality_acceptance = 2
+                civilian_intel_to_others = 50
+                army_intel_to_others = 25
+                navy_intel_to_others = 25
+                airforce_intel_to_others = 25
+                intelligence_agency_defense = -0.25
             }   
         }
 
@@ -1757,21 +1804,25 @@ ideas = {
 			picture = gre_dom_0
 				
 			removal_cost = -1
+            
+            on_remove = {
+                add_ideas = GRE_domestic_competition_1_hidden
+            }
 				
 			modifier = {
-                stability_factor = -0.1
-                political_power_gain = -0.1
-                production_speed_buildings_factor = -0.2
-                research_speed_factor = -0.2
-                equipment_upgrade_xp_cost = 0.25
-                non_core_manpower = -0.1
+                political_power_gain = -0.15
+                production_speed_buildings_factor = -0.25
+                research_speed_factor = -0.25
+                equipment_upgrade_xp_cost = 0.5
+                #non_core_manpower = -0.1
                 #encryption_factor = 0
                 #production_lack_of_resource_penalty_factor = 0
                 #min_export = 0
                 #local_resources_factor = 0
                 #economy_cost_factor = 0
                 #trade_laws_cost_factor = 0
-                #mobilization_laws_cost_factor = 0                   
+                #mobilization_laws_cost_factor = 0    
+                custom_modifier_tooltip = GRE_domestic_competition_tt
 			}
 		}
 
@@ -1788,20 +1839,25 @@ ideas = {
 			picture = gre_dom_1
 				
 			removal_cost = -1
+            
+            on_remove = {
+                add_ideas = GRE_domestic_competition_2_hidden
+            }
 				
 			modifier = {
-                political_power_gain = 0.1
+                #political_power_gain = 0.00
                 production_speed_buildings_factor = -0.05
                 research_speed_factor = -0.1
-                #equipment_upgrade_xp_cost = 0
+                equipment_upgrade_xp_cost = 0.25
                 #non_core_manpower = 0
-                encryption_factor = 0.1
-                production_lack_of_resource_penalty_factor = -0.05
-                min_export = -0.05
-                local_resources_factor = 0.05
-                economy_cost_factor = -0.05
-                trade_laws_cost_factor = -0.05
-                mobilization_laws_cost_factor = -0.05               
+                #encryption_factor = 0.1
+                #production_lack_of_resource_penalty_factor = -0.05
+                #min_export = -0.05
+                #local_resources_factor = 0.05
+                #economy_cost_factor = -0.05
+                #trade_laws_cost_factor = -0.05
+                #mobilization_laws_cost_factor = -0.05
+                custom_modifier_tooltip = GRE_domestic_competition_tt
 			}
 		}
         
@@ -1818,20 +1874,25 @@ ideas = {
 			picture = gre_dom_1
 				
 			removal_cost = -1
+            
+            on_remove = {
+                add_ideas = GRE_domestic_competition_3_hidden
+            }
 				
 			modifier = {
                 political_power_gain = 0.2
                 production_speed_buildings_factor = 0.05
                 #research_speed_factor = 0
-                equipment_upgrade_xp_cost = -0.1
-                non_core_manpower = 0.02
-                encryption_factor = 0.15
-                production_lack_of_resource_penalty_factor = -0.1
-                min_export = -0.1
-                local_resources_factor = 0.1
+                #equipment_upgrade_xp_cost = 0
+                #non_core_manpower = 0.02
+                #encryption_factor = 0.15
+                #production_lack_of_resource_penalty_factor = -0.1
+                #min_export = -0.1
+                #local_resources_factor = 0.1
                 economy_cost_factor = -0.1
                 trade_laws_cost_factor = -0.1
-                mobilization_laws_cost_factor = -0.1                   
+                mobilization_laws_cost_factor = -0.1
+                custom_modifier_tooltip = GRE_domestic_competition_tt
 			}
 		}
         
@@ -1854,15 +1915,16 @@ ideas = {
                 production_speed_buildings_factor = 0.2
                 research_speed_factor = 0.1
                 equipment_upgrade_xp_cost = -0.25
-                non_core_manpower = 0.05
-                encryption_factor = 0.2
-                production_lack_of_resource_penalty_factor = -0.15
-                min_export = -0.15
-                local_resources_factor = 0.15
+                #non_core_manpower = 0.05
+                #encryption_factor = 0.2
+                #production_lack_of_resource_penalty_factor = -0.15
+                #min_export = -0.15
+                #local_resources_factor = 0.15
                 economy_cost_factor = -0.15
                 trade_laws_cost_factor = -0.15
                 mobilization_laws_cost_factor = -0.15               
-			}
+                custom_modifier_tooltip = GRE_domestic_competition_tt
+            }
 		}        
 
 		GRE_foreign_monopolies = {
@@ -3244,9 +3306,47 @@ ideas = {
             original_tag = GRE 
         }
         
+        on_add = {
+            if = {
+                limit = {
+                    has_idea = GRE_eon
+                }
+                activate_mission = GRE_kanellopoulos_mission_1
+            }
+            else_if = {
+                limit = {
+                    has_idea = GRE_eon_kanellopoulos_year_1
+                }
+                activate_mission = GRE_kanellopoulos_mission_2
+            }
+        }
+        
+        on_remove = {
+            if = {
+                limit = {
+                    has_idea = GRE_eon
+                }
+                remove_mission = GRE_kanellopoulos_mission_1
+            }
+            else_if = {
+                limit = {
+                    has_idea = GRE_eon_kanellopoulos_year_1
+                }
+                remove_mission = GRE_kanellopoulos_mission_2
+            }
+        }
+        
+        visible = {
+            NOT = { has_idea = GRE_eon_kanellopoulos_year_2 }
+        }
+        
         available = {
             has_country_flag = GRE_kathestos_proclaimed
             has_completed_focus = GRE_eon_2
+            custom_trigger_tooltip = {
+                tooltip = GRE_kanellopoulos_reforms_tt
+                NOT = { has_idea = GRE_eon_kanellopoulos_year_2 }
+            }
         }
         
         cost = 75
@@ -4899,6 +4999,114 @@ theorist = {
 	}
 
 	hidden_ideas = {
+    
+		GRE_domestic_competition_0_hidden = {
+				
+			allowed = {
+				original_tag = GRE
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+            
+            cancel = {
+                NOT = { has_idea = GRE_domestic_competition_0 }
+            }
+
+			picture = gre_dom_0
+				
+			removal_cost = -1
+            
+            research_bonus = {
+                infantry_weapons = -0.75
+                motorized_equipment = -0.75
+                armor = -0.75
+                artillery = -0.75
+                air_equipment = -0.75
+            }
+		}
+        
+        GRE_domestic_competition_1_hidden = {
+				
+			allowed = {
+				original_tag = GRE
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+            
+            cancel = {
+                NOT = { has_idea = GRE_domestic_competition_1 }
+            }
+
+			picture = gre_dom_0
+				
+			removal_cost = -1
+            
+            research_bonus = {
+                infantry_weapons = -0.5
+                motorized_equipment = -0.5
+                armor = -0.5
+                artillery = -0.5
+                air_equipment = -0.5
+            }
+		}
+        
+        GRE_domestic_competition_2_hidden = {
+				
+			allowed = {
+				original_tag = GRE
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+            
+            cancel = {
+                NOT = { has_idea = GRE_domestic_competition_2 }
+            }
+
+			picture = gre_dom_0
+				
+			removal_cost = -1
+            
+            research_bonus = {
+                infantry_weapons = -0.15
+                motorized_equipment = -0.15
+                armor = -0.15
+                artillery = -0.15
+                air_equipment = -0.15
+            }
+		}
+        
+        GRE_domestic_competition_3_hidden = {
+				
+			allowed = {
+				original_tag = GRE
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+            
+            cancel = {
+                NOT = { has_idea = GRE_domestic_competition_3 }
+            }
+
+			picture = gre_dom_2
+				
+			removal_cost = -1
+            
+            research_bonus = {
+                infantry_weapons = 0.05
+                motorized_equipment = 0.05
+                armor = 0.05
+                artillery = 0.05
+                air_equipment = 0.05
+            }
+		}
     
         GRE_obsolescent_dogma = {
         
