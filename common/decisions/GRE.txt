@@ -4368,17 +4368,17 @@ GRE_grecoitalian_war_category = {
 		is_good = no
 
 		complete_effect = { 
-            news_event = { id = hellenic_news.152 days = 0 }                               ### News report event: Greeks smash the Italians back to Albania
+            news_event = { id = hellenic_news.150 days = 0 }                               ### News report event: Greeks smash the Italians back to Albania
             ITA = {                                                                     
-                news_event = { id = hellenic_news.152 days = 0 }   
+                news_event = { id = hellenic_news.150 days = 0 }   
             }
             set_country_flag = GRE_thessaloniki_central_greece_reclaimed
 		}
 
 		timeout_effect = {
-            news_event = { id = hellenic_news.153 days = 0 }                               ### News report event: Greek counter-offensive has little to no success
+            news_event = { id = hellenic_news.151 days = 0 }                               ### News report event: Greek counter-offensive has little to no success
             ITA = {                                                                     
-                news_event = { id = hellenic_news.153 days = 0 }   
+                news_event = { id = hellenic_news.151 days = 0 }   
             }
 		}    
     }
@@ -4430,10 +4430,10 @@ GRE_grecoitalian_war_category = {
 		}
 
 		timeout_effect = {
-            news_event = { id = hellenic_news.153 days = 0 }                               ### News report event: Greek counter-offensive has little to no success
-            ITA = {                                                                     
-                news_event = { id = hellenic_news.153 days = 0 }   
-            }
+            #news_event = { id = hellenic_news.153 days = 0 }                               ### News report event: Greek counter-offensive has little to no success
+            #ITA = {                                                                     
+            #    news_event = { id = hellenic_news.153 days = 0 }   
+            #}
 		}    
     }    
     
@@ -4482,10 +4482,10 @@ GRE_grecoitalian_war_category = {
 		}
 
 		timeout_effect = {
-            news_event = { id = hellenic_news.153 days = 0 }                               ### News report event: Greek counter-offensive has little to no success
-            ITA = {                                                                     
-                news_event = { id = hellenic_news.153 days = 0 }   
-            }
+            #news_event = { id = hellenic_news.153 days = 0 }                               ### News report event: Greek counter-offensive has little to no success
+            #ITA = {                                                                     
+            #    news_event = { id = hellenic_news.153 days = 0 }   
+            #}
 		}    
     }
 
@@ -4656,6 +4656,116 @@ GRE_grecoitalian_war_category = {
             ### NOTHING
 		}    
     }
+    
+    rush_to_sofia = {
+		icon = generic_operation
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+			has_global_flag = GRE_grecoitalian_start
+            has_completed_focus = GRE_turn_attention_back_to_metaxas_line
+            NOT = { has_idea = GRE_exhausted } 
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		fire_only_once = yes
+
+		days_remove = 30
+        
+        visible = {
+            has_global_flag = GRE_grecoitalian_start
+            has_completed_focus = GRE_turn_attention_back_to_metaxas_line
+        }
+
+        modifier = {
+            winter_attrition_factor = -0.05
+            supply_consumption_factor = -0.05
+        }
+
+		targeted_modifier = {
+			tag = BUL
+			attack_bonus_against = 0.05
+			breakthrough_bonus_against = 0.1
+		}
+        
+        complete_effect = {
+            activate_mission = the_bulgarian_capitulation
+            custom_effect_tooltip = the_bulgarian_capitulation_tt
+            declare_war_on = {           
+                target = BUL
+                type = annex_everything
+            }
+        }
+        
+        remove_effect = {
+           add_timed_idea = { idea = GRE_exhausted  days = 20 }
+        }
+	}
+    
+    the_bulgarian_capitulation = {
+
+		icon = generic_military
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		activation = {
+            always = no
+		}        
+
+		available = { 
+            BUL = { has_capitulated = yes }
+            GER = { NOT = { has_war_with = YUG } }
+		}
+
+		days_mission_timeout = 30
+
+		fire_only_once = yes
+
+		visible = {
+            has_decision = rush_to_sofia
+		}
+
+		cancel_if_not_visible = no
+
+		is_good = no
+        
+
+		complete_effect = {
+            hidden_effect = {
+                every_country = {
+                    limit = {
+                        is_in_faction_with = BUL
+                        NOT = { original_tag = BUL }
+                    }
+                    GRE_set_country_willing_to_help_bulgaria = yes 
+                }
+            }
+            white_peace = BUL
+            puppet = BUL
+            country_event = { id = hellas.113 days = 0 }
+            BUL = { remove_ideas = GRE_bulgarian_ambition }
+		}
+
+		timeout_effect = {
+            hidden_effect = {
+                every_country = {
+                    limit = {
+                        is_in_faction_with = BUL 
+                        NOT = { original_tag = BUL }
+                    }
+                    GRE_set_country_willing_to_help_bulgaria = yes 
+                }
+            }
+		}    
+    }
 
 	epixeirhsh_annivas = {
 		icon = generic_operation
@@ -4697,45 +4807,6 @@ GRE_grecoitalian_war_category = {
         }
 	}
 
-	rush_to_sofia = {
-		icon = generic_operation
-
-		allowed = { 
-			original_tag = GRE
-		}
-
-		available = {
-			has_war_with = ITA
-            has_completed_focus = GRE_turn_attention_back_to_metaxas_line
-		}
-
-		visible = {
-            has_completed_focus = GRE_turn_attention_back_to_metaxas_line
-		}
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		fire_only_once = yes
-
-		days_remove = 90
-
-        modifier = {
-            winter_attrition_factor = -0.2
-            supply_consumption_factor = -0.1
-        }
-
-		targeted_modifier = {
-			tag = ITA
-			attack_bonus_against = 0.05
-			breakthrough_bonus_against = 0.05
-		}
-        
-        remove_effect = {
-           add_timed_idea = { idea = GRE_exhausted  days = 20 }
-        }
-	}
 
 	entrench_on_the_yugoslavian_line = {
 		icon = generic_operation
@@ -5860,14 +5931,14 @@ GRE_kathestos_4hs = {
 
 		remove_effect = {
             ###BUILDINGS###
-            731 = {
+            182 = {
 				add_building_construction = {
 					type = air_base
 					level = 2
 					instant_build = yes
                 }
             }
-            184 = {
+            811 = {
 				add_building_construction = {
 					type = air_base
 					level = 2
@@ -8724,7 +8795,8 @@ GRE_kathestos_propaganda {
         complete_effect = {
             add_to_variable = { GRE_var_pp_gain_prop = 0.05 } 
             add_to_variable = { GRE_var_pp_factor_prop = 0.01 } 
-            add_to_variable = { GRE_var_pt_pop_fct = 0.025 }
+            add_to_variable = { GRE_var_pt_pop_fct = 0.025 } 
+            add_to_variable = { GRE_var_week_stb = 0.001 }
             add_to_variable = { GRE_var_drift_neutral = 0.01 } 
             ###FACTION MECHANICS###
             randomize_temp_variable = {
@@ -9104,6 +9176,7 @@ GRE_kathestos_propaganda {
             add_to_variable = { GRE_var_pp_gain_prop = 0.05 } 
             add_to_variable = { GRE_var_pp_factor_prop = 0.01 } 
             add_to_variable = { GRE_var_pt_pop_fct = 0.025 }
+            add_to_variable = { GRE_var_week_stb = 0.001 } 
             add_to_variable = { GRE_var_drift_neutral = 0.01 } 
             ###FACTION MECHANICS###
             randomize_temp_variable = {
@@ -9173,7 +9246,8 @@ GRE_kathestos_propaganda {
         complete_effect = {
             add_to_variable = { GRE_var_pp_gain_prop = 0.05 } 
             add_to_variable = { GRE_var_pp_factor_prop = 0.01 }
-            add_to_variable = { GRE_var_pt_pop_fct = 0.025 }   
+            add_to_variable = { GRE_var_pt_pop_fct = 0.025 }
+            add_to_variable = { GRE_var_week_stb = 0.001 } 
             add_to_variable = { GRE_var_drift_neutral = 0.01 }     
             ###FACTION MECHANICS###
             randomize_temp_variable = {
@@ -9244,6 +9318,8 @@ GRE_kathestos_propaganda {
             add_to_variable = { GRE_var_pp_gain_prop = 0.05 } 
             add_to_variable = { GRE_var_pp_factor_prop = 0.01 } 
             add_to_variable = { GRE_var_pt_pop_fct = 0.025 }
+            add_to_variable = { GRE_var_week_stb = 0.001 } 
+            add_to_variable = { GRE_var_week_war_stb = 0.001 }
             add_to_variable = { GRE_var_drift_neutral = 0.01 } 
             ###FACTION MECHANICS###
             randomize_temp_variable = {
@@ -11906,70 +11982,38 @@ GRE_kathestos_exoteriki_politiki = {
 
 GRE_infl_majors_category = {
 
-	GRE_win_american_favor = { #USA
+    GRE_win_major_favor = {
+        on_map_mode = map_and_decisions_view
+        highlight_states = { state = FROM.capital }
 
 		icon = deal
-        on_map_mode = map_and_decisions_view
-        highlight_states = { state = 361 }
 
 		allowed = { 
 			original_tag = GRE
 		}
 
 		available = {
+            FROM = { has_opinion = { target = GRE value > 0 } }
+            NOT = { has_war_with = FROM }
 		}
 
 		target_trigger = {
 			FROM = {
-				tag = USA
+                OR = {
+                    original_tag = USA
+                    original_tag = ENG 
+                    original_tag = FRA 
+                    original_tag = SOV 
+                    original_tag = GER
+                    original_tag = JAP
+                    original_tag = ITA
+                }
 			}
 		}
 
 		cost = 50
 
 		fire_only_once = no
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		visible = {
-			has_completed_focus = GRE_american_influencers
-		}
-
-		remove_effect = {
-            add_to_variable = { FROM.favor@GRE = 10 }
-            add_to_variable = { GRE_total_favor = 10 }
-		}
-	}	
-
-	GRE_win_british_favor = {
-
-		icon = deal
-        on_map_mode = map_and_decisions_view
-        highlight_states = { state = 126 }
-
-		allowed = { 
-			original_tag = GRE
-		}
-
-		available = {
-            ENG = { has_opinion = { target = GRE value > 0 } }
-		}
-
-		target_trigger = {
-			FROM = {
-				tag = ENG
-			}
-		}
-
-		cost = 50
-
-		fire_only_once = no
-
-		ai_will_do = {
-			factor = 1
-		}
 
 		visible = {
 			has_completed_focus = GRE_a_game_of_shadows
@@ -11978,207 +12022,15 @@ GRE_infl_majors_category = {
 		remove_effect = {
             add_to_variable = { FROM.favor@GRE = 10 }
             add_to_variable = { GRE_total_favor = 10 }
-		}
-	}
-    
-    
-	GRE_win_french_favor = {
-        on_map_mode = map_and_decisions_view
-        highlight_states = { state = 16 }
-
-		icon = deal
-
-		allowed = { 
-			original_tag = GRE
-		}
-
-		available = {
-            FRA = { has_opinion = { target = GRE value > 0 } }
-		}
-
-		target_trigger = {
-			FROM = {
-				tag = FRA
-			}
-		}
-
-		cost = 50
-
-		fire_only_once = no
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		visible = {
-			has_completed_focus = GRE_a_game_of_shadows
-		}
-
-		remove_effect = {
-            add_to_variable = { FROM.favor@GRE = 10 }
-            add_to_variable = { GRE_total_favor = 10 }
-		}
-	}    
-    
-	GRE_win_soviet_favor = {
-        on_map_mode = map_and_decisions_view
-        highlight_states = { state = 219 }
-
-		icon = deal
-
-		allowed = { 
-			original_tag = GRE
-		}
-
-		available = {
-            SOV = { has_opinion = { target = GRE value > 0 } }
-		}
-
-		target_trigger = {
-			FROM = {
-				tag = SOV
-			}
-		}
-
-		cost = 50
-
-		fire_only_once = no
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		visible = {
-			has_completed_focus = GRE_a_game_of_shadows
-		}
-
-		remove_effect = {
-            add_to_variable = { FROM.favor@GRE = 10 }
-            add_to_variable = { GRE_total_favor = 10 }
-		}
-	}
-
-	GRE_win_german_favor = { #USA
-
-		icon = deal
-        on_map_mode = map_and_decisions_view
-        highlight_states = { state = 64 }
-        
-		allowed = { 
-			original_tag = GRE
-		}
-
-		available = {
-            USA = { has_opinion = { target = GRE value > 0 } }
-		}
-
-		target_trigger = {
-			FROM = {
-				tag = GER
-			}
-		}
-
-		cost = 50
-
-		fire_only_once = no
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		visible = {
-			has_completed_focus = GRE_a_game_of_shadows  
-		}
-
-		remove_effect = {
-            add_to_variable = { FROM.favor@GRE = 10 }
-            add_to_variable = { GRE_total_favor = 10 }        
-		}
-	}    
-
-	GRE_win_japanese_favor = {
-
-		icon = deal
-        on_map_mode = map_and_decisions_view
-        highlight_states = { state = 282 }
-
-		allowed = { 
-			original_tag = GRE
-		}
-
-		available = {
-            JAP = { has_opinion = { target = GRE value > 0 } }
-		}
-
-		target_trigger = {
-			FROM = {
-				tag = JAP
-			}
-		}
-
-		cost = 50
-
-		fire_only_once = no
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		visible = {
-			has_completed_focus = GRE_a_game_of_shadows
-		}
-
-		remove_effect = {
-            add_to_variable = { FROM.favor@GRE = 10 }
-            add_to_variable = { GRE_total_favor = 10 }
-		}
-	}
-
-
-	GRE_win_italian_favor = {
-        on_map_mode = map_and_decisions_view
-        highlight_states = { state = 2 }
-
-		icon = deal
-
-		allowed = { 
-			original_tag = GRE
-		}
-
-		available = {
-            ITA = { has_opinion = { target = GRE value > 0 } }
-		}
-
-		target_trigger = {
-			FROM = {
-				tag = ITA
-			}
-		}
-
-		cost = 50
-
-		fire_only_once = no
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		visible = {
-			has_completed_focus = GRE_a_game_of_shadows
-		}
-
-		remove_effect = {
-            add_to_variable = { FROM.favor@GRE = 10 }
-            add_to_variable = { GRE_total_favor = 10 }
-		}
-	} 
+		}    
+    }
 }
 
 GRE_infl_balkans_category = {
 
-	GRE_win_turkish_favor = {
+    GRE_win_balkan_favor = {
         on_map_mode = map_and_decisions_view
-        highlight_states = { state = 49 }
+        highlight_states = { state = FROM.capital }
 
 		icon = deal
 
@@ -12187,22 +12039,25 @@ GRE_infl_balkans_category = {
 		}
 
 		available = {
-            TUR = { has_opinion = { target = GRE value > 0 } }
+            FROM = { has_opinion = { target = GRE value > 0 } }
+            NOT = { has_war_with = FROM }
 		}
 
 		target_trigger = {
 			FROM = {
-				tag = TUR
+                OR = {
+                    original_tag = TUR
+                    original_tag = ALB 
+                    original_tag = YUG 
+                    original_tag = ROM 
+                    original_tag = BUL 
+                }
 			}
 		}
 
 		cost = 50
 
 		fire_only_once = no
-
-		ai_will_do = {
-			factor = 1
-		}
 
 		visible = {
 			has_completed_focus = GRE_a_game_of_shadows
@@ -12211,169 +12066,17 @@ GRE_infl_balkans_category = {
 		remove_effect = {
             add_to_variable = { FROM.favor@GRE = 10 }
             add_to_variable = { GRE_total_favor = 10 }
-		}
-	}
-
-
-	GRE_win_bulgarian_favor = {
-        on_map_mode = map_and_decisions_view
-        highlight_states = { state = 48 }
-
-		icon = deal
-
-		allowed = { 
-			original_tag = GRE
-		}
-
-		available = {
-            BUL = { has_opinion = { target = GRE value > 0 } }
-		}
-
-		target_trigger = {
-			FROM = {
-				tag = BUL
-			}
-		}
-
-		cost = 50
-
-		fire_only_once = no
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		visible = {
-			has_completed_focus = GRE_a_game_of_shadows
-		}
-
-		remove_effect = {
-            add_to_variable = { FROM.favor@GRE = 10 }
-            add_to_variable = { GRE_total_favor = 10 }
-		}
-	}
-
-	GRE_win_romanian_favor = {
-        on_map_mode = map_and_decisions_view
-        highlight_states = { state = 46 }
-
-		icon = deal
-
-		allowed = { 
-			original_tag = GRE
-		}
-
-		available = {
-            ROM = { has_opinion = { target = GRE value > 0 } }
-		}
-
-		target_trigger = {
-			FROM = {
-				tag = ROM
-			}
-		}
-
-		cost = 50
-
-		fire_only_once = no
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		visible = {
-			has_completed_focus = GRE_a_game_of_shadows
-		}
-
-		remove_effect = {
-            add_to_variable = { FROM.favor@GRE = 10 }
-            add_to_variable = { GRE_total_favor = 10 }
-		}
-	}
-
-	GRE_win_yugoslav_favor = {
-        on_map_mode = map_and_decisions_view
-        highlight_states = { state = 107 }
-
-		icon = deal
-
-		allowed = { 
-			original_tag = GRE
-		}
-
-		available = {
-            YUG = { has_opinion = { target = GRE value > 0 } }
-		}
-
-		target_trigger = {
-			FROM = {
-				tag = YUG
-			}
-		}
-
-		cost = 50
-
-		fire_only_once = no
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		visible = {
-			has_completed_focus = GRE_a_game_of_shadows
-		}
-
-		remove_effect = {
-            add_to_variable = { FROM.favor@GRE = 10 }
-            add_to_variable = { GRE_total_favor = 10 }
-		}
-	}
+		}    
+    }
     
-	GRE_win_albanian_favor = {
-        on_map_mode = map_and_decisions_view
-        highlight_states = { state = 44 }
-
-		icon = deal
-
-		allowed = { 
-			original_tag = GRE
-		}
-
-		available = {
-            ALB = { has_opinion = { target = GRE value > 0 } }
-		}
-
-		target_trigger = {
-			FROM = {
-				tag = ALB
-			}
-		}
-
-		cost = 50
-
-		fire_only_once = no
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		visible = {
-			has_completed_focus = GRE_a_game_of_shadows
-		}
-
-		remove_effect = {
-            add_to_variable = { FROM.favor@GRE = 10 }
-            add_to_variable = { GRE_total_favor = 10 }
-		}
-	}    
 }
 
 
 GRE_infl_rest_category = {
- 
-	GRE_win_chinese_favor = {
+
+    GRE_win_rest_favor = {
         on_map_mode = map_and_decisions_view
-        highlight_states = { state = 750 }
+        highlight_states = { state = FROM.capital }
 
 		icon = deal
 
@@ -12382,25 +12085,25 @@ GRE_infl_rest_category = {
 		}
 
 		available = {
-            CHI = { 
-                has_opinion = { target = GRE value > 0 } 
-                is_puppet = no
-            }
-            
+            FROM = { has_opinion = { target = GRE value > 0 } }
+            NOT = { has_war_with = FROM }
 		}
 
 		target_trigger = {
 			FROM = {
-				tag = CHI
+                OR = {
+                    original_tag = CHI
+                    original_tag = VEN 
+                    original_tag = SPR 
+                    original_tag = IRQ 
+                    original_tag = SAU 
+                }
 			}
 		}
+
 		cost = 50
 
 		fire_only_once = no
-
-		ai_will_do = {
-			factor = 1
-		}
 
 		visible = {
 			has_completed_focus = GRE_a_game_of_shadows
@@ -12409,163 +12112,8 @@ GRE_infl_rest_category = {
 		remove_effect = {
             add_to_variable = { FROM.favor@GRE = 10 }
             add_to_variable = { GRE_total_favor = 10 }
-		}
-	}
-
-
-
-	GRE_win_venezuelean_favor = {
-        on_map_mode = map_and_decisions_view
-        highlight_states = { state = 307 }
-
-		icon = deal
-
-		allowed = { 
-			original_tag = GRE
-		}
-
-		available = {
-            VEN = { has_opinion = { target = GRE value > 0 } }
-		}
-
-		target_trigger = {
-			FROM = {
-				tag = VEN
-			}
-		}
-
-		cost = 50
-
-		fire_only_once = no
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		visible = {
-			has_completed_focus = GRE_a_game_of_shadows
-		}
-
-		remove_effect = {
-            add_to_variable = { FROM.favor@GRE = 10 }
-            add_to_variable = { GRE_total_favor = 10 }
-		}
-	}    
-
-	GRE_win_spanish_favor = {
-        on_map_mode = map_and_decisions_view
-        highlight_states = { state = 41 }
-
-		icon = deal
-
-		allowed = { 
-			original_tag = GRE
-		}
-
-		available = {
-            SPR = { has_opinion = { target = GRE value > 0 } }
-		}
-
-		target_trigger = {
-			FROM = {
-				tag = SPR
-			}
-		}
-
-		cost = 50
-
-		fire_only_once = no
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		visible = {
-			has_completed_focus = GRE_a_game_of_shadows
-		}
-
-		remove_effect = {
-            add_to_variable = { FROM.favor@GRE = 10 }
-            add_to_variable = { GRE_total_favor = 10 }
-		}
-	} 
-
-
-	GRE_win_iraqi_favor = {
-        on_map_mode = map_and_decisions_view
-        highlight_states = { state = 291 }
-
-		icon = deal
-
-		allowed = { 
-			original_tag = GRE
-		}
-
-		available = {
-            IRQ = { has_opinion = { target = GRE value > 0 } }
-		}
-
-		target_trigger = {
-			FROM = {
-				tag = IRQ
-			}
-		}
-
-		cost = 50
-
-		fire_only_once = no
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		visible = {
-			has_completed_focus = GRE_a_game_of_shadows
-		}
-
-		remove_effect = {
-            add_to_variable = { FROM.favor@GRE = 10 }
-            add_to_variable = { GRE_total_favor = 10 }
-		}
-	}
-
-	GRE_win_arabian_favor = {
-        on_map_mode = map_and_decisions_view
-        highlight_states = { state = 292 }
-
-		icon = deal
-
-		allowed = { 
-			original_tag = GRE
-		}
-
-		available = {
-            SAU = { has_opinion = { target = GRE value > 0 } }
-		}
-
-		target_trigger = {
-			FROM = {
-				tag = SAU
-			}
-		}
-
-		cost = 50
-
-		fire_only_once = no
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		visible = {
-			has_completed_focus = GRE_a_game_of_shadows
-		}
-
-		remove_effect = {
-            add_to_variable = { FROM.favor@GRE = 10 }
-            add_to_variable = { GRE_total_favor = 10 }
-		}
-	} 
+		}    
+    }
 }
 
 GRE_faction_gui_decision_category = {

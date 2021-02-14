@@ -246,10 +246,9 @@ ideas = {
             	
 			removal_cost = -1
 
-            targeted_modifier = {
-                tag = ITA
-                attack_bonus_against = -0.1
-                breakthrough_bonus_against = -0.1
+            modifier = {
+                army_attack_factor = -0.1
+                breakthrough_factor = -0.1
             } 
         }
         
@@ -4427,13 +4426,33 @@ theorist = {
 	}
 
 #DESIGNERS
+    ### EARLY GAME - PREWAR, UNDER DEVELOPMENT ###                                  - DOMCOM0
+     ## British
+     ## American
+     ## Soviet
+     ## German
+     ## Italians
+    
+    ### MID GAME - Advanced through cooperation with foreign monopolies             - DOMCOM1
+     ## British
+     ## American 
+     ## Soviet 
+     ## German 
+    
+    ### MID/LATE GAME - Domestic Competition @level 2                               - DOMCOM2
+     ## Choice to develop
+     ## High Quality Ones (accessed only if you conquered them)
+    
+    ### Ultra Late - Domestic Competition @Level 3                                  - DOMCOM3 
+     ## Choice to develop
 	tank_manufacturer = { 
 		
 		designer = yes
+         
+        ########################[ Early Tank Manufacturers ]###############################
+        GRE_vickers_armstrong = {                                                    ## ENG
 		
-		GRE_biamax = {
-			
-			picture = gre_biamax
+			picture = vickers_armstrong_eng
 
 			allowed = {
 				original_tag = GRE
@@ -4441,28 +4460,82 @@ theorist = {
 			}
 
 			available = {
-				has_completed_focus = GRE_crack_down_on_foreign_monopolies
-			}
-			
-			research_bonus = {
-				armor = 0.25
-			}
-			
-			traits = { fast_tank_manufacturer }
-				
-			ai_will_do = {
-				factor = 1
+				NOT = { has_war_with = ENG }
 			}
 
-			modifier = { 
-				motorized_defence_factor = 0.1
-				motorized_attack_factor = 0.05
-				mechanized_defence_factor = 0.1
-				mechanized_attack_factor = 0.05
+			cost = 75
+            
+			research_bonus = {
+				armor = 0.05
 			}
+            
+			traits = { foreign_manufacturer }
+		}
+        
+        GRE_astrov_design_bureau = {                                                      ## SOV
+			
+            picture = astrov_design_bureau
+			
+			allowed = {
+				original_tag = GRE
+			}
+			
+            cost = 75
+            
+			research_bonus = {
+				armor = 0.05
+			}
+			traits = { foreign_manufacturer }
+		}
+        
+        GRE_chrysler = {                                                                   ## USA
+			
+			picture = chrysler
+            
+			allowed = {
+				original_tag = GRE
+			}
+            
+            cost = 75
+
+			research_bonus = {
+				armor = 0.05
+			}
+            traits = { foreign_manufacturer }
+		}
+        
+        GRE_osaka_army_arsenal = {                                                          ## JAP
+			
+            picture = osaka_army_arsenal
+            
+			allowed = {
+				original_tag = GRE
+			}
+				
+			research_bonus = {
+				armor = 0.05
+			}
+			
+            cost = 75
+            traits = { foreign_manufacturer }
+		}
+        
+        GRE_AMX = {                                                                     ## FRA
+		
+			picture = FRA_atelier_puteaux
+
+			allowed = {
+				original_tag = GRE
+			}
+			research_bonus = {
+				armor = 0.05
+			}
+            
+            cost = 75
+            traits = { foreign_manufacturer }
 		}
 
-		GRE_man = {	
+		GRE_man = {	                                                                    ## GER
 
 			picture = GER_MAN
 
@@ -4475,20 +4548,15 @@ theorist = {
 				NOT = { has_war_with = GER }
 			}
 
-			cost = 120
+			cost = 75
 			
 			research_bonus = {
 				armor = 0.1
 			}
-			
-			traits = { heavy_tank_manufacturer }
-				
-			ai_will_do = {
-				factor = 1
-			}
+            traits = { foreign_manufacturer }
 		}
 
-		GRE_fiat = {	
+		GRE_fiat = {                                                                    ## ITA 	
 		
 			picture = fiat
 
@@ -4502,22 +4570,17 @@ theorist = {
 				NOT = { has_war_with = ITA }
 			}
 
-			cost = 120
+			cost = 75
 			
 			research_bonus = {
 				armor = 0.1
 			}
-			
-			traits = { infantry_tank_manufacturer }
-				
-			ai_will_do = {
-				factor = 1
-			}
+            traits = { foreign_manufacturer }
 		}
-
-		GRE_vickers_armstrong = {
-		
-			picture = vickers_armstrong_eng
+        
+        GRE_biamax = {
+			
+			picture = gre_biamax
 
 			allowed = {
 				original_tag = GRE
@@ -4525,27 +4588,131 @@ theorist = {
 			}
 
 			available = {
-				NOT = { has_war_with = ENG }
+				has_completed_focus = GRE_crack_down_on_foreign_monopolies
 			}
-
-			cost = 120
-			
+            
 			research_bonus = {
-				armor = 0.1
+				armor = 0.25
 			}
 			
-			traits = { medium_tank_manufacturer }
-				
-			ai_will_do = {
-				factor = 1
+			traits = { fast_tank_manufacturer }
+
+			modifier = { 
+				motorized_defence_factor = 0.1
+				motorized_attack_factor = 0.05
+				mechanized_defence_factor = 0.1
+				mechanized_attack_factor = 0.05
 			}
 		}
+
 	}
 
 	aircraft_manufacturer = { 
 			
 		designer = yes
 		
+        ########################[ Early Plane Manufacturers ]###############################
+        
+        GRE_mig_design_bureau = {
+			
+            picture = mig_design_bureau
+			
+            cost = 75
+			
+			allowed = {
+				original_tag = GRE
+			}
+			
+			research_bonus = {
+				air_equipment = 0.05
+			}
+			traits = { foreign_manufacturer }
+		}
+        
+        GRE_boeing = {
+			
+            picture = boeing
+			
+            cost = 75
+			
+			allowed = {
+				original_tag = GRE
+			}
+			
+			research_bonus = {
+				air_equipment = 0.05
+			}
+            traits = { foreign_manufacturer }
+		}
+        
+        GRE_yokosuka = {
+
+            picture = yokosuka
+			
+            cost = 75
+			
+			allowed = {
+				original_tag = GRE
+			}
+			
+			research_bonus = {
+				air_equipment = 0.05
+			}
+            traits = { foreign_manufacturer }
+		}
+        
+        GRE_supermarine = {
+			
+            picture = supermarine
+			
+            cost = 75
+			
+			allowed = {
+				original_tag = GRE
+			}
+			
+			research_bonus = {
+				air_equipment = 0.05
+			}
+            traits = { foreign_manufacturer }
+		}
+        
+        GRE_bloch = {
+        
+            picture = bloch
+			
+            cost = 75
+			
+			allowed = {
+				original_tag = GRE
+			}
+			
+			research_bonus = {
+				air_equipment = 0.05
+			}
+            traits = { foreign_manufacturer }
+		}
+        
+        GRE_junkers = { 
+        
+            picture = junkers
+			
+            cost = 75
+			
+			allowed = {
+				original_tag = GRE
+			}
+			
+			research_bonus = {
+				air_equipment = 0.05
+			}
+			
+			ai_will_do = {
+				factor = 1
+			}
+            traits = { foreign_manufacturer }
+		}
+        
 		gnaf = {
 			
 			picture = generic_air_manufacturer_3
@@ -4616,6 +4783,55 @@ theorist = {
 	naval_manufacturer = { 
 			
 		designer = yes
+        
+        GRE_john_brown_company = {
+        
+            picture = john_brown_company
+			
+			cost = 75
+			
+			allowed = {
+				original_tag = GRE
+			}
+			
+			research_bonus = {
+				naval_equipment = 0.15
+			}
+            traits = { foreign_manufacturer }
+		}
+        
+        GRE_electric_boat_company = {
+        
+            picture = electric_boat_company
+			
+			cost = 75
+			
+			allowed = {
+				original_tag = GRE
+			}
+			
+			research_bonus = {
+				naval_equipment = 0.15
+			}
+			
+			traits = { foreign_manufacturer }
+		}
+        
+        GRE_kure_naval_arsenal = {
+        
+            picture = kure_naval_arsenal
+			
+			cost = 75
+			
+			allowed = {
+				original_tag = GRE
+			}
+						
+			research_bonus = {
+				naval_equipment = 0.15
+			}
+            traits = { foreign_manufacturer }
+		}
 		
 		royal_hellenic_naval_shipyard = {
 			
@@ -4703,6 +4919,57 @@ theorist = {
 
 	industrial_concern = {
 		
+        GRE_stalingrad_tractor_factory = {
+        
+            picture = stalingrad_tractor_factory
+		
+			cost = 75
+			
+			allowed = {
+				original_tag = GRE
+			}
+			
+			research_bonus = {
+				industry = 0.15
+			}
+            traits = { foreign_manufacturer }
+		}
+		
+		GRE_general_electric = {
+        
+            picture = general_electric
+			
+			cost = 75
+			
+			allowed = {
+				original_tag = GRE
+			}
+			
+			research_bonus = {
+				electronics = 0.15
+			}
+			
+			traits = { electronics_concern }
+			
+			traits = { foreign_manufacturer }
+		}
+        
+        GRE_krupp = {
+        
+            picture = krupp
+			
+			cost = 75
+			
+			allowed = {
+				original_tag = GRE
+			}
+			
+			research_bonus = {
+				industry = 0.15
+				
+			}
+		}
+        
 		GRE_dep = {
 			
 			picture = gre_dep
@@ -4748,6 +5015,7 @@ theorist = {
 			}
 			
 			traits = { british_industrial_benefactor }
+            traits = { foreign_manufacturer }
 			
 		}
 
@@ -4772,6 +5040,7 @@ theorist = {
 			}
 			
 			traits = { german_technological_patron }
+            traits = { foreign_manufacturer }
 
 			modifier = { 
 				min_export = 0.05
@@ -4855,6 +5124,103 @@ theorist = {
 	materiel_manufacturer = {
 		
 		designer = yes
+        
+        GRE_tula_arms_plant = {
+
+            picture = tula_arms_plant
+			
+            cost = 75
+			
+			allowed = {
+				original_tag = GRE
+			}
+			
+			research_bonus = {
+				infantry_weapons = 0.05
+			}
+            
+			traits = { foreign_manufacturer }
+		}
+        
+        GRE_springfield_armory = {
+        
+            picture = springfield_armory
+			
+            cost = 75
+			
+			allowed = {
+				original_tag = GRE
+			}
+			
+			research_bonus = {
+				infantry_weapons = 0.05
+			}
+            traits = { foreign_manufacturer }
+		}
+        
+        GRE_nissan = {
+
+            picture = nissan
+			
+            cost = 75
+			
+			allowed = {
+				original_tag = GRE
+			}
+
+			research_bonus = {
+				motorized_equipment = 0.05
+			}
+            traits = { foreign_manufacturer }
+		}
+        
+        GRE_lancia = {
+			
+            picture = lancia
+			
+            cost = 75
+			
+			allowed = {
+				original_tag = GRE
+			}
+			
+			research_bonus = {
+				motorized_equipment = 0.15
+			}
+            traits = { foreign_manufacturer }
+		}
+        
+        GRE_mas = {
+        
+            picture = mas
+			
+            cost = 75
+			
+			allowed = {
+				original_tag = GRE
+			}
+            
+			research_bonus = {
+				infantry_weapons = 0.05
+			}
+            traits = { foreign_manufacturer }
+		}
+		
+		GRE_mauser = {
+
+            picture = mauser
+			
+            cost = 75
+			
+			allowed = {
+				original_tag = GRE
+			}
+			
+			research_bonus = {
+				infantry_weapons = 0.05
+			}
+            traits = { foreign_manufacturer }
+		}
 		
 		GRE_pyrkal = {
 
@@ -4928,6 +5294,7 @@ theorist = {
 			}
 			
 			traits = { infantry_equipment_manufacturer }
+            traits = { foreign_manufacturer }
 		}
 
 		GRE_rheinmetall = {
@@ -4950,6 +5317,7 @@ theorist = {
 			}
 			
 			traits = { artillery_manufacturer }
+            traits = { foreign_manufacturer }
 		}
 
 		GRE_ford_motor_company = {
@@ -4972,6 +5340,7 @@ theorist = {
 			}
 			
 			traits = { motorized_equipment_manufacturer }
+            traits = { foreign_manufacturer }
 		}
 
 		GRE_grabin_design_bureau = {
@@ -4995,6 +5364,7 @@ theorist = {
 			}
 			
 			traits = { artillery_manufacturer }
+            traits = { foreign_manufacturer }
 		}
 	}
 

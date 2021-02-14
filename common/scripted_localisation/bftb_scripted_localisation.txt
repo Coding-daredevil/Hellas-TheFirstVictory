@@ -308,42 +308,37 @@ defined_text = {
 defined_text = {
 	name = GetFavorPercentageTOTAL
 	text = {
+        trigger = {
+        check_variable = { var = GRE.TotalFavor value = 80 compare = greater_than_or_equals }
+        }
+        localization_key = GRE_favor_excellent
+    }
+	text = {
 		trigger = {
-			original_tag = GRE
-			check_variable = { var = GRE_total_favor value = 1000 compare = greater_than_or_equals }
+			check_variable = { var = GRE.TotalFavor value = 80 compare = less_than }
+            check_variable = { var = GRE.TotalFavor value = 50 compare = greater_than_or_equals }
 		}
-		localization_key = GRE_favor_excellent_2
+		localization_key = GRE_favor_good
 	}
 	text = {
 		trigger = {
-			original_tag = GRE
-			check_variable = { var = GRE_total_favor value = 1000 compare = less_than }
-            check_variable = { var = GRE_total_favor value = 625 compare = greater_than_or_equals }
+			check_variable = { var = GRE.TotalFavor value = 50 compare = less_than }
+            check_variable = { var = GRE.TotalFavor value = 30 compare = greater_than_or_equals }
 		}
-		localization_key = GRE_favor_good_2
+		localization_key = GRE_favor_mediocre
 	}
 	text = {
 		trigger = {
-			original_tag = GRE
-			check_variable = { var = GRE_total_favor value = 625 compare = less_than }
-            check_variable = { var = GRE_total_favor value = 380 compare = greater_than_or_equals }
+			check_variable = { var = GRE.TotalFavor value = 30 compare = less_than }
+            check_variable = { var = GRE.TotalFavor value = 0 compare = greater_than_or_equals } 
 		}
-		localization_key = GRE_favor_mediocre_2
+		localization_key = GRE_favor_insignificant
 	}
 	text = {
 		trigger = {
-			original_tag = GRE
-			check_variable = { var = GRE_total_favor value = 380 compare = less_than }
-            check_variable = { var = GRE_total_favor value = 0 compare = greater_than_or_equals } 
+			check_variable = { var = GRE.TotalFavor value = 0 compare = less_than }
 		}
-		localization_key = GRE_favor_insignificant_2
-	}
-	text = {
-		trigger = {
-			original_tag = GRE
-			check_variable = { var = GRE_total_favor value = 0 compare = less_than }
-		}
-		localization_key = GRE_favor_abysmal_2
+		localization_key = GRE_favor_abysmal
 	}     
 }
 
