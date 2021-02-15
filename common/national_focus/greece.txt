@@ -4568,6 +4568,19 @@ focus_tree = {
             add_stability = 0.02
 			add_political_power = 80
 			add_ideas = free_trade
+            every_country = {
+                limit = {
+                    is_in_array = {
+                        array = global.favor_mechanic
+                        value = THIS.id
+                    }
+                    is_major = yes
+                }
+                add_opinion_modifier = {
+                    target = GRE
+                    modifier = GRE_luxury_commodities
+                }
+            }
 		}
 	}	
 
@@ -4659,7 +4672,7 @@ focus_tree = {
 							include_locked = yes
 						}
 					}
-					add_extra_state_shared_building_slots = 2
+					add_extra_state_shared_building_slots = 1
 					add_building_construction = {
 						type = industrial_complex
 						level = 1
@@ -4690,24 +4703,24 @@ focus_tree = {
 					modifier = GRE_tobacco_exports
 				}
 			}
-			USA = {
-				add_opinion_modifier = {
-					target = ROOT
-					modifier = GRE_tobacco_exports
-				}
-			}
+			#USA = {
+			#	add_opinion_modifier = {
+			#		target = ROOT
+			#		modifier = GRE_tobacco_exports
+			#	}
+			#}
 			FRA = {
 				add_opinion_modifier = {
 					target = ROOT
 					modifier = GRE_tobacco_exports
 				}
 			}
-			ENG = {
-				add_opinion_modifier = {
-					target = ROOT
-					modifier = GRE_tobacco_exports
-				}
-			}
+			#ENG = {                                                    ###British declined Greek tobacco historically as they were used to the American. You may get it through decision.
+			#	add_opinion_modifier = {
+			#		target = ROOT
+			#		modifier = GRE_tobacco_exports
+			#	}
+			#}
 			hidden_effect = { 
 				GER = {
 					add_opinion_modifier = {
@@ -4715,19 +4728,7 @@ focus_tree = {
 						modifier = GRE_luxury_exports
 					}
 				}
-				USA = {
-					add_opinion_modifier = {
-						target = ROOT
-						modifier = GRE_luxury_exports
-					}
-				}
 				FRA = {
-					add_opinion_modifier = {
-						target = ROOT
-						modifier = GRE_luxury_exports
-					}
-				}
-				ENG = {
 					add_opinion_modifier = {
 						target = ROOT
 						modifier = GRE_luxury_exports
@@ -5329,7 +5330,21 @@ focus_tree = {
                     has_completed_focus = GRE_crack_down_on_foreign_monopolies
                 }
                 GRE_tied_economy_solved = yes
-            }             
+            }
+            every_country = {
+                limit = {
+                    is_in_array = {
+                        array = global.favor_mechanic
+                        value = THIS.id
+                    }
+                    is_major = yes
+                    check_variable = { var = THIS.favor@GRE value = 30 compare = greater_than_or_equals }
+                }
+                add_opinion_modifier = {
+                    target = GRE
+                    modifier = GRE_monopoly_cooperation
+                }
+            }
 		}
 	}
 
@@ -5482,7 +5497,7 @@ focus_tree = {
 	focus = {
 		id = GRE_rapprochement_with_the_italians
 		icon = GFX_focus_befriend_italy
-		prerequisite = { focus = GRE_bolster_the_schachtplan }
+		prerequisite = { focus = GRE_bolster_the_schachtplan focus = GRE_british_docking_rights }
 		available = { 
 			NOT = {
 				has_country_flag = GRE_italy_rebuffed
@@ -5491,7 +5506,7 @@ focus_tree = {
 		bypass = {
 			has_country_flag = GRE_italy_rebuffed
 		}
-		x = 0
+		x = 1
 		y = 1
 		relative_position_id = GRE_bolster_the_schachtplan
 		cost = 2.15
@@ -7721,8 +7736,7 @@ focus_tree = {
 	focus = {
 		id = GRE_american_influencers
 		icon = GFX_american_plan
-		prerequisite = { focus = GRE_appeal_to_the_soviet_union }
-		prerequisite = { focus = GRE_rapprochement_with_the_italians }
+		prerequisite = { focus = GRE_bolster_the_schachtplan focus = GRE_british_docking_rights focus = GRE_renegotiate_debt_with_france }
        
 		relative_position_id = GRE_appeal_to_the_soviet_union
         x = -1
@@ -7783,10 +7797,18 @@ focus_tree = {
 	focus = {
 		id = GRE_the_great_gambit
 		icon = GFX_focus_jap_cast_the_die
-		prerequisite = { focus = GRE_appeal_to_the_soviet_union }
-		prerequisite = { focus = GRE_rapprochement_with_the_italians }
-        prerequisite = { focus = GRE_american_influencers }
         prerequisite = { focus = GRE_the_unthinkable }
+        prerequisite = { focus = GRE_american_influencers }
+        
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_the_great_gambit_trigger_tt
+                has_completed_focus = GRE_rapprochement_with_the_italians
+                has_completed_focus = GRE_appeal_to_the_soviet_union
+                has_completed_focus = GRE_british_docking_rights
+                has_completed_focus = GRE_renegotiate_debt_with_france
+            }
+        }
        
 		relative_position_id = GRE_appeal_to_the_soviet_union
         x = -2
@@ -8313,7 +8335,7 @@ focus_tree = {
                     country_exists = JAP
                 }
                 set_technology = { 
-                    naval_bomber2 = 1 
+                    naval_bomber1 = 1 
                 }
             }
             custom_effect_tooltip = GRE_arm_the_japanese_tt

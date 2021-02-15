@@ -589,12 +589,1594 @@ crisis = {
 #GREECE INVESTMENT DECISIONS
 GRE_investment_decisions_category = {
 
+    GRE_expand_collapse_foreign_manufacturer_buffs = {
+        icon = decision_generic_decision
+    
+        allowed = { 
+			original_tag = GRE
+		}
+        
+        fire_only_once = no
+        days_remove = 0
+        days_re_enable = 0
+        priority = 12
+        
+        visible = {
+            has_completed_focus = GRE_open_up_the_country
+        }
+        
+        complete_effect = {
+            hidden_effect = {
+                if = {
+                    limit = {
+                        NOT = { has_country_flag = toggle_fm }
+                    }
+                    set_country_flag = toggle_fm
+                }
+                else = {
+                    clr_country_flag = toggle_fm 
+                }
+            }
+        }
+    }
+    
+    GRE_foreign_manufacturer_armor_investments = {
+        icon = generic_tank
+
+		allowed = { 
+			original_tag = GRE
+		}
+        
+        priority = 12
+        days_re_enable = 550
+
+		target_trigger = {
+			FROM = {
+                OR = {
+                    original_tag = GER 
+                    original_tag = FRA 
+                    original_tag = ENG 
+                    original_tag = SOV 
+                    original_tag = ITA 
+                    original_tag = JAP
+                    original_tag = USA 
+                }
+			}
+		}
+
+		available = {
+			date < 1942.1.1
+            FROM = { exists = yes }
+			NOT = {
+				has_war_with = FROM
+                custom_trigger_tooltip = {
+                    tooltip = GRE_favor_abysmal_from_tt
+                    check_variable = { var = FROM.favor@GRE value = 0 compare = less_than }
+                }
+			}
+            if = {
+                limit = {
+                    FROM = { original_tag = GER }
+                }
+                has_completed_focus = GRE_bolster_the_schachtplan
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = ENG }
+                }
+                has_completed_focus = GRE_british_docking_rights
+            } 
+            else_if = {
+                limit = {
+                    FROM = { original_tag = FRA }
+                }
+                has_completed_focus = GRE_renegotiate_debt_with_france
+            }             
+            else_if = {
+                limit = {
+                    FROM = { original_tag = SOV }
+                }
+                has_completed_focus = GRE_appeal_to_the_soviet_union
+            } 
+            else_if = {
+                limit = {
+                    FROM = { original_tag = USA }
+                }
+                has_completed_focus = GRE_american_influencers
+            } 
+            else_if = {
+                limit = {
+                    FROM = { original_tag = JAP }
+                }
+                has_completed_focus = GRE_arm_the_japanese
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = ITA }
+                }
+                has_completed_focus = GRE_rapprochement_with_the_italians
+            }
+		}
+        
+		visible = {
+            NOT = { has_country_flag = toggle_fm }
+			has_completed_focus = GRE_open_up_the_country
+            if = {
+                limit = {
+                    FROM = { original_tag = GER }
+                }
+                has_idea = GRE_man
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = ENG }
+                }
+                has_idea = GRE_vickers_armstrong
+            } 
+            else_if = {
+                limit = {
+                    FROM = { original_tag = FRA }
+                }
+                has_idea = GRE_AMX
+            }             
+            else_if = {
+                limit = {
+                    FROM = { original_tag = SOV }
+                }
+                has_idea = GRE_astrov_design_bureau
+            } 
+            else_if = {
+                limit = {
+                    FROM = { original_tag = USA }
+                }
+                has_idea = GRE_chrysler
+            } 
+            else_if = {
+                limit = {
+                    FROM = { original_tag = JAP }
+                }
+                has_idea = GRE_osaka_army_arsenal
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = ITA }
+                }
+                has_idea = GRE_fiat
+            }  
+		}
+        
+        days_remove = 14
+        cost = 25
+
+		remove_effect = {
+            ########################[German Medium Tanks]#########################
+			if = {
+                limit = {
+                    FROM = { original_tag = GER }
+                    has_idea = GRE_domestic_competition_0_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.8
+                    uses = 1
+                    category = cat_medium_armor
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = GER }
+                    has_idea = GRE_domestic_competition_1_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.55
+                    uses = 1
+                    category = cat_medium_armor
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = GER }
+                    has_idea = GRE_domestic_competition_2_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.3
+                    uses = 1
+                    category = cat_medium_armor
+                }
+            }
+            ######################################################################
+            ########################[British Medium Tanks]########################
+			else_if = {
+                limit = {
+                    FROM = { original_tag = ENG }
+                    has_idea = GRE_domestic_competition_0_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.75
+                    uses = 1
+                    category = cat_medium_armor
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = ENG }
+                    has_idea = GRE_domestic_competition_1_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.5
+                    uses = 1
+                    category = cat_medium_armor
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = ENG }
+                    has_idea = GRE_domestic_competition_2_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.25
+                    uses = 1
+                    category = cat_medium_armor
+                }
+            }
+            ######################################################################
+            #########################[French Light Tanks]#########################
+			else_if = {
+                limit = {
+                    FROM = { original_tag = FRA }
+                    has_idea = GRE_domestic_competition_0_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.65
+                    uses = 1
+                    category = cat_light_armor
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = FRA }
+                    has_idea = GRE_domestic_competition_1_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.45
+                    uses = 1
+                    category = cat_light_armor
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = FRA }
+                    has_idea = GRE_domestic_competition_2_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.2
+                    uses = 1
+                    category = cat_light_armor
+                }
+            }
+            ######################################################################
+            ########################[Soviet Heavy Tanks]##########################
+			else_if = {
+                limit = {
+                    FROM = { original_tag = SOV }
+                    has_idea = GRE_domestic_competition_0_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.8
+                    uses = 1
+                    category = cat_heavy_armor
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = SOV }
+                    has_idea = GRE_domestic_competition_1_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.55
+                    uses = 1
+                    category = cat_heavy_armor
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = SOV }
+                    has_idea = GRE_domestic_competition_2_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.35
+                    uses = 1
+                    category = cat_heavy_armor
+                }
+            }
+            ######################################################################
+            ########################[American Heavy Tanks]########################
+			else_if = {
+                limit = {
+                    FROM = { original_tag = USA }
+                    has_idea = GRE_domestic_competition_0_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.75
+                    uses = 1
+                    category = cat_heavy_armor
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = USA }
+                    has_idea = GRE_domestic_competition_1_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.5
+                    uses = 1
+                    category = cat_heavy_armor
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = USA }
+                    has_idea = GRE_domestic_competition_2_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.3
+                    uses = 1
+                    category = cat_heavy_armor
+                }
+            }
+            ######################################################################
+            ########################[Italian Light Tanks]#########################
+			else_if = {
+                limit = {
+                    FROM = { original_tag = ITA }
+                    has_idea = GRE_domestic_competition_0_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.6
+                    uses = 1
+                    category = cat_light_armor
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = ITA }
+                    has_idea = GRE_domestic_competition_1_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.4
+                    uses = 1
+                    category = cat_light_armor
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = ITA }
+                    has_idea = GRE_domestic_competition_2_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.15
+                    uses = 1
+                    category = cat_light_armor
+                }
+            }
+            ######################################################################
+            ########################[Japanese Light Tanks]#########################
+			else_if = {
+                limit = {
+                    FROM = { original_tag = JAP }
+                    has_idea = GRE_domestic_competition_0_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.65
+                    uses = 1
+                    category = cat_light_armor
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = JAP }
+                    has_idea = GRE_domestic_competition_1_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.45
+                    uses = 1
+                    category = cat_light_armor
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = JAP }
+                    has_idea = GRE_domestic_competition_2_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.2
+                    uses = 1
+                    category = cat_light_armor
+                }
+            }
+		}
+    }
+
+    GRE_foreign_manufacturer_naval_investments = {
+        icon = generic_naval
+
+		allowed = { 
+			original_tag = GRE
+		}
+        
+        priority = 12
+        days_re_enable = 550
+
+		target_trigger = {
+			FROM = {
+                OR = {
+                    original_tag = ENG 
+                    original_tag = JAP
+                    original_tag = USA 
+                    original_tag = GER
+                }
+			}
+		}
+
+		available = {
+			date < 1942.1.1
+            FROM = { exists = yes }
+			NOT = {
+				has_war_with = FROM
+                custom_trigger_tooltip = {
+                    tooltip = GRE_favor_abysmal_from_tt
+                    check_variable = { var = FROM.favor@GRE value = 0 compare = less_than }
+                }
+			}
+            if = {
+                limit = {
+                    FROM = { original_tag = ENG }
+                }
+                has_completed_focus = GRE_british_docking_rights
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = USA }
+                }
+                has_completed_focus = GRE_american_influencers
+            } 
+            else_if = {
+                limit = {
+                    FROM = { original_tag = JAP }
+                }
+                has_completed_focus = GRE_arm_the_japanese
+            }
+		}
+        
+		visible = {
+            NOT = { has_country_flag = toggle_fm }
+			has_completed_focus = GRE_open_up_the_country
+            if = {
+                limit = {
+                    FROM = { original_tag = ENG }
+                }
+                has_idea = GRE_john_brown_company
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = USA }
+                }
+                has_idea = GRE_electric_boat_company
+            } 
+            else_if = {
+                limit = {
+                    FROM = { original_tag = JAP }
+                }
+                has_idea = GRE_kure_naval_arsenal
+            } 
+            else_if = {
+                limit = {
+                    FROM = { original_tag = GER }
+                }
+                has_idea = GRE_blohm_und_voss
+            }
+		}
+        
+        days_remove = 14
+        cost = 250
+
+		remove_effect = {
+            ######################################################################
+            ##########################[British Naval Aid]#########################
+			if = {
+                limit = {
+                    FROM = { original_tag = ENG }
+                }
+                add_tech_bonus = {
+                    bonus = 1
+                    uses = 1
+                    category = cat_fleet_in_being
+                }
+                add_tech_bonus = {
+                    bonus = 1
+                    uses = 1
+                    category = dd_tech
+                }
+                add_tech_bonus = {
+                    bonus = 1
+                    uses = 2
+                    category = asw_tech
+                }
+                add_tech_bonus = {
+                    bonus = 1
+                    uses = 2
+                    category = naval_equipment
+                }
+            }
+            ######################################################################
+            ##########################[German Naval Aid]#########################
+			else_if = {
+                limit = {
+                    FROM = { original_tag = GER }
+                }
+                add_tech_bonus = {
+                    bonus = 1
+                    uses = 1
+                    category = cat_trade_interdiction
+                }
+                add_tech_bonus = {
+                    bonus = 1
+                    uses = 1
+                    category = ss_tech
+                }
+                add_tech_bonus = {
+                    bonus = 1
+                    uses = 3
+                    category = naval_equipment
+                }
+            }           
+            ######################################################################
+            ########################[American Naval Aid]########################
+			else_if = {
+                limit = {
+                    FROM = { original_tag = USA }
+                }
+                add_tech_bonus = {
+                    bonus = 1
+                    uses = 1
+                    category = cat_base_strike
+                }
+                add_tech_bonus = {
+                    bonus = 1
+                    uses = 1
+                    category = cl_tech
+                }
+                add_tech_bonus = {
+                    bonus = 1
+                    uses = 1
+                    category = ca_tech
+                }
+                add_tech_bonus = {
+                    bonus = 1
+                    uses = 3
+                    category = naval_equipment
+                }
+            }
+            ######################################################################
+            ########################[Japanese Naval Aid]##########################
+			else_if = {
+                limit = {
+                    FROM = { original_tag = JAP }
+                }
+                add_tech_bonus = {
+                    bonus = 1.5
+                    uses = 1
+                    category = cat_base_strike
+                }
+                add_tech_bonus = {
+                    bonus = 1
+                    uses = 1
+                    category = cl_tech
+                }
+                add_tech_bonus = {
+                    bonus = 1
+                    uses = 1
+                    category = cv_tech
+                }
+                add_tech_bonus = {
+                    bonus = 1
+                    uses = 3
+                    category = naval_equipment
+                }
+            }
+		}
+    }
+    
+    GRE_foreign_manufacturer_aircraft_investments = {
+        icon = generic_air
+
+		allowed = { 
+			original_tag = GRE
+		}
+        
+        priority = 12
+        days_re_enable = 550
+
+		target_trigger = {
+			FROM = {
+                OR = {
+                    original_tag = GER 
+                    original_tag = FRA 
+                    original_tag = ENG 
+                    original_tag = SOV 
+                    original_tag = JAP
+                    original_tag = USA 
+                }
+			}
+		}
+
+		available = {
+			date < 1942.1.1
+            FROM = { exists = yes }
+			NOT = {
+				has_war_with = FROM
+                custom_trigger_tooltip = {
+                    tooltip = GRE_favor_abysmal_from_tt
+                    check_variable = { var = FROM.favor@GRE value = 0 compare = less_than }
+                }
+			}
+            if = {
+                limit = {
+                    FROM = { original_tag = GER }
+                }
+                has_completed_focus = GRE_bolster_the_schachtplan
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = ENG }
+                }
+                has_completed_focus = GRE_british_docking_rights
+            } 
+            else_if = {
+                limit = {
+                    FROM = { original_tag = FRA }
+                }
+                has_completed_focus = GRE_renegotiate_debt_with_france
+            }             
+            else_if = {
+                limit = {
+                    FROM = { original_tag = SOV }
+                }
+                has_completed_focus = GRE_appeal_to_the_soviet_union
+            } 
+            else_if = {
+                limit = {
+                    FROM = { original_tag = USA }
+                }
+                has_completed_focus = GRE_american_influencers
+            } 
+            else_if = {
+                limit = {
+                    FROM = { original_tag = JAP }
+                }
+                has_completed_focus = GRE_arm_the_japanese
+            }
+		}
+        
+		visible = {
+            NOT = { has_country_flag = toggle_fm }
+			has_completed_focus = GRE_open_up_the_country
+            if = {
+                limit = {
+                    FROM = { original_tag = GER }
+                }
+                has_idea = GRE_junkers
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = ENG }
+                }
+                has_idea = GRE_supermarine
+            } 
+            else_if = {
+                limit = {
+                    FROM = { original_tag = FRA }
+                }
+                has_idea = GRE_bloch
+            }             
+            else_if = {
+                limit = {
+                    FROM = { original_tag = SOV }
+                }
+                has_idea = GRE_mig_design_bureau
+            } 
+            else_if = {
+                limit = {
+                    FROM = { original_tag = USA }
+                }
+                has_idea = GRE_boeing
+            } 
+            else_if = {
+                limit = {
+                    FROM = { original_tag = JAP }
+                }
+                has_idea = GRE_yokosuka
+            }  
+		}
+        
+        days_remove = 14
+        cost = 35
+
+		remove_effect = {
+            ########################[German CAS]#########################
+			if = {
+                limit = {
+                    FROM = { original_tag = GER }
+                    has_idea = GRE_domestic_competition_0_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.85
+                    uses = 1
+                    category = cas_bomber
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = GER }
+                    has_idea = GRE_domestic_competition_1_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.6
+                    uses = 1
+                    category = cas_bomber
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = GER }
+                    has_idea = GRE_domestic_competition_2_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.35
+                    uses = 1
+                    category = cas_bomber
+                }
+            }
+            ######################################################################
+            ########################[British Fighters]########################
+			else_if = {
+                limit = {
+                    FROM = { original_tag = ENG }
+                    has_idea = GRE_domestic_competition_0_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.75
+                    uses = 1
+                    category = light_fighter
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = ENG }
+                    has_idea = GRE_domestic_competition_1_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.5
+                    uses = 1
+                    category = light_fighter
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = ENG }
+                    has_idea = GRE_domestic_competition_2_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.25
+                    uses = 1
+                    category = light_fighter
+                }
+            }
+            ######################################################################
+            ########################[French Medium Aircraft]######################
+			else_if = {
+                limit = {
+                    FROM = { original_tag = FRA }
+                    has_idea = GRE_domestic_competition_0_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.7
+                    uses = 1
+                    category = medium_air
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = FRA }
+                    has_idea = GRE_domestic_competition_1_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.5
+                    uses = 1
+                    category = medium_air
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = FRA }
+                    has_idea = GRE_domestic_competition_2_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.25
+                    uses = 1
+                    category = medium_air
+                }
+            }
+            ######################################################################
+            ########################[Soviet Light Fight]##########################
+			else_if = {
+                limit = {
+                    FROM = { original_tag = SOV }
+                    has_idea = GRE_domestic_competition_0_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.7
+                    uses = 1
+                    category = light_fighter
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = SOV }
+                    has_idea = GRE_domestic_competition_1_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.45
+                    uses = 1
+                    category = light_fighter
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = SOV }
+                    has_idea = GRE_domestic_competition_2_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.25
+                    uses = 1
+                    category = light_fighter
+                }
+            }
+            ######################################################################
+            ########################[American Heavy Bombers]######################
+			else_if = {
+                limit = {
+                    FROM = { original_tag = USA }
+                    has_idea = GRE_domestic_competition_0_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.75
+                    uses = 1
+                    category = cat_strategic_bomber
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = USA }
+                    has_idea = GRE_domestic_competition_1_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.5
+                    uses = 1
+                    category = cat_strategic_bomber
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = USA }
+                    has_idea = GRE_domestic_competition_2_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.3
+                    uses = 1
+                    category = cat_strategic_bomber
+                }
+            }
+            ######################################################################
+            ########################[Japanese Naval Bomb]#########################
+			else_if = {
+                limit = {
+                    FROM = { original_tag = JAP }
+                    has_idea = GRE_domestic_competition_0_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.85
+                    uses = 1
+                    category = naval_bomber
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = JAP }
+                    has_idea = GRE_domestic_competition_1_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.75
+                    uses = 1
+                    category = naval_bomber
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = JAP }
+                    has_idea = GRE_domestic_competition_2_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.65
+                    uses = 1
+                    category = naval_bomber
+                }
+            }
+		}
+    }
+
+    GRE_foreign_manufacturer_materiel_investments = {
+        icon = generic_industry
+
+		allowed = { 
+			original_tag = GRE
+		}
+        
+        priority = 12
+        days_re_enable = 550
+
+		target_trigger = {
+			FROM = {
+                OR = {
+                    original_tag = GER 
+                    original_tag = FRA 
+                    original_tag = ENG 
+                    original_tag = SOV 
+                    original_tag = ITA 
+                    original_tag = JAP
+                    original_tag = USA 
+                }
+			}
+		}
+
+		available = {
+			date < 1942.1.1
+            FROM = { exists = yes }
+			NOT = {
+				has_war_with = FROM
+                custom_trigger_tooltip = {
+                    tooltip = GRE_favor_abysmal_from_tt
+                    check_variable = { var = FROM.favor@GRE value = 0 compare = less_than }
+                }
+			}
+            if = {
+                limit = {
+                    FROM = { original_tag = GER }
+                }
+                has_completed_focus = GRE_bolster_the_schachtplan
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = ENG }
+                }
+                has_completed_focus = GRE_british_docking_rights
+            } 
+            else_if = {
+                limit = {
+                    FROM = { original_tag = FRA }
+                }
+                has_completed_focus = GRE_renegotiate_debt_with_france
+            }             
+            else_if = {
+                limit = {
+                    FROM = { original_tag = SOV }
+                }
+                has_completed_focus = GRE_appeal_to_the_soviet_union
+            } 
+            else_if = {
+                limit = {
+                    FROM = { original_tag = USA }
+                }
+                has_completed_focus = GRE_american_influencers
+            } 
+            else_if = {
+                limit = {
+                    FROM = { original_tag = JAP }
+                }
+                has_completed_focus = GRE_arm_the_japanese
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = ITA }
+                }
+                has_completed_focus = GRE_rapprochement_with_the_italians
+            }
+		}
+        
+		visible = {
+            NOT = { has_country_flag = toggle_fm }
+			has_completed_focus = GRE_open_up_the_country
+            if = {
+                limit = {
+                    FROM = { original_tag = GER }
+                }
+                OR = {
+                    has_idea = GRE_mauser
+                    has_idea = GRE_rheinmetall
+                } 
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = ENG }
+                }
+                has_idea = GRE_rsaf_enfield
+            } 
+            else_if = {
+                limit = {
+                    FROM = { original_tag = FRA }
+                }
+                has_idea = GRE_mas
+            }             
+            else_if = {
+                limit = {
+                    FROM = { original_tag = SOV }
+                }
+                OR = {
+                    has_idea = GRE_tula_arms_plant
+                    has_idea = GRE_grabin_design_bureau
+                }
+            } 
+            else_if = {
+                limit = {
+                    FROM = { original_tag = USA }
+                }
+                has_idea = GRE_springfield_armory
+            } 
+            else_if = {
+                limit = {
+                    FROM = { original_tag = JAP }
+                }
+                has_idea = GRE_nissan
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = ITA }
+                }
+                has_idea = GRE_lancia
+            }  
+		}
+        
+        days_remove = 14
+        cost = 25
+
+		remove_effect = {
+            ########################[German Guns/Art]#########################
+			if = {
+                limit = {
+                    FROM = { original_tag = GER }
+                    has_idea = GRE_domestic_competition_0_hidden
+                    has_idea = GRE_mauser
+                }
+                add_tech_bonus = {
+                    bonus = 0.8
+                    uses = 1
+                    category = infantry_weapons
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = GER }
+                    has_idea = GRE_domestic_competition_1_hidden
+                    has_idea = GRE_mauser
+                }
+                add_tech_bonus = {
+                    bonus = 0.55
+                    uses = 1
+                    category = infantry_weapons
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = GER }
+                    has_idea = GRE_domestic_competition_2_hidden
+                    has_idea = GRE_mauser
+                }
+                add_tech_bonus = {
+                    bonus = 0.3
+                    uses = 1
+                    category = infantry_weapons
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = GER }
+                    has_idea = GRE_domestic_competition_0_hidden
+                    has_idea = GRE_rheinmetall
+                }
+                add_tech_bonus = {
+                    bonus = 0.8
+                    uses = 1
+                    category = artillery
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = GER }
+                    has_idea = GRE_domestic_competition_1_hidden
+                    has_idea = GRE_rheinmetall
+                }
+                add_tech_bonus = {
+                    bonus = 0.55
+                    uses = 1
+                    category = artillery
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = GER }
+                    has_idea = GRE_domestic_competition_2_hidden
+                    has_idea = GRE_rheinmetall
+                }
+                add_tech_bonus = {
+                    bonus = 0.3
+                    uses = 1
+                    category = artillery
+                }
+            }
+            ######################################################################
+            ###########################[British Weapons]##########################
+			else_if = {
+                limit = {
+                    FROM = { original_tag = ENG }
+                    has_idea = GRE_domestic_competition_0_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.8
+                    uses = 1
+                    category = infantry_weapons
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = ENG }
+                    has_idea = GRE_domestic_competition_1_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.55
+                    uses = 1
+                    category = infantry_weapons
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = ENG }
+                    has_idea = GRE_domestic_competition_2_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.3
+                    uses = 1
+                    category = infantry_weapons
+                }
+            }
+            ######################################################################
+            ###########################[French Artillery]#########################
+			else_if = {
+                limit = {
+                    FROM = { original_tag = FRA }
+                    has_idea = GRE_domestic_competition_0_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.65
+                    uses = 1
+                    category = artillery
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = FRA }
+                    has_idea = GRE_domestic_competition_1_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.45
+                    uses = 1
+                    category = artillery
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = FRA }
+                    has_idea = GRE_domestic_competition_2_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.2
+                    uses = 1
+                    category = artillery
+                }
+            }
+            ######################################################################
+            ########################[Soviet Guns/Artill]##########################
+			else_if = {
+                limit = {
+                    FROM = { original_tag = SOV }
+                    has_idea = GRE_domestic_competition_0_hidden
+                    has_idea = GRE_tula_arms_plant
+                }
+                add_tech_bonus = {
+                    bonus = 0.75
+                    uses = 1
+                    category = infantry_weapons
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = SOV }
+                    has_idea = GRE_domestic_competition_1_hidden
+                    has_idea = GRE_tula_arms_plant
+                }
+                add_tech_bonus = {
+                    bonus = 0.5
+                    uses = 1
+                    category = infantry_weapons
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = SOV }
+                    has_idea = GRE_domestic_competition_2_hidden
+                    has_idea = GRE_tula_arms_plant
+                }
+                add_tech_bonus = {
+                    bonus = 0.25
+                    uses = 1
+                    category = infantry_weapons
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = SOV }
+                    has_idea = GRE_domestic_competition_0_hidden
+                    has_idea = GRE_grabin_design_bureau
+                }
+                add_tech_bonus = {
+                    bonus = 0.85
+                    uses = 1
+                    category = artillery
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = SOV }
+                    has_idea = GRE_domestic_competition_1_hidden
+                    has_idea = GRE_grabin_design_bureau
+                }
+                add_tech_bonus = {
+                    bonus = 0.6
+                    uses = 1
+                    category = artillery
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = SOV }
+                    has_idea = GRE_domestic_competition_2_hidden
+                    has_idea = GRE_grabin_design_bureau
+                }
+                add_tech_bonus = {
+                    bonus = 0.35
+                    uses = 1
+                    category = artillery
+                }
+            }
+            ######################################################################
+            ############################[American Guns]###########################
+			else_if = {
+                limit = {
+                    FROM = { original_tag = USA }
+                    has_idea = GRE_domestic_competition_0_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 1
+                    uses = 1
+                    category = infantry_weapons
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = USA }
+                    has_idea = GRE_domestic_competition_1_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.75
+                    uses = 1
+                    category = infantry_weapons
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = USA }
+                    has_idea = GRE_domestic_competition_2_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.55
+                    uses = 1
+                    category = infantry_weapons
+                }
+            }
+            ######################################################################
+            ##########################[Italian Vehicles]##########################
+			else_if = {
+                limit = {
+                    FROM = { original_tag = ITA }
+                    has_idea = GRE_domestic_competition_0_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.65
+                    uses = 1
+                    category = motorized_equipment
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = ITA }
+                    has_idea = GRE_domestic_competition_1_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.45
+                    uses = 1
+                    category = motorized_equipment
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = ITA }
+                    has_idea = GRE_domestic_competition_2_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.2
+                    uses = 1
+                    category = motorized_equipment
+                }
+            }
+            ######################################################################
+            ##########################[Japanese Vehicles]#########################
+			else_if = {
+                limit = {
+                    FROM = { original_tag = JAP }
+                    has_idea = GRE_domestic_competition_0_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.6
+                    uses = 1
+                    category = motorized_equipment
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = JAP }
+                    has_idea = GRE_domestic_competition_1_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.4
+                    uses = 1
+                    category = motorized_equipment
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = JAP }
+                    has_idea = GRE_domestic_competition_2_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.15
+                    uses = 1
+                    category = motorized_equipment
+                }
+            }
+		}
+    }
+
+    GRE_foreign_manufacturer_industrial_investments = {
+        icon = generic_factory
+
+		allowed = { 
+			original_tag = GRE
+		}
+        
+        priority = 12
+        days_re_enable = 550
+
+		target_trigger = {
+			FROM = {
+                OR = {
+                    original_tag = GER 
+                    original_tag = ENG 
+                    original_tag = SOV 
+                    original_tag = USA 
+                }
+			}
+		}
+
+		available = {
+			date < 1942.1.1
+            FROM = { exists = yes }
+			NOT = {
+				has_war_with = FROM
+                custom_trigger_tooltip = {
+                    tooltip = GRE_favor_abysmal_from_tt
+                    check_variable = { var = FROM.favor@GRE value = 0 compare = less_than }
+                }
+			}
+            if = {
+                limit = {
+                    FROM = { original_tag = GER }
+                }
+                has_completed_focus = GRE_bolster_the_schachtplan
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = ENG }
+                }
+                has_completed_focus = GRE_british_docking_rights
+            }           
+            else_if = {
+                limit = {
+                    FROM = { original_tag = SOV }
+                }
+                has_completed_focus = GRE_appeal_to_the_soviet_union
+            } 
+            else_if = {
+                limit = {
+                    FROM = { original_tag = USA }
+                }
+                has_completed_focus = GRE_american_influencers
+            } 
+		}
+        
+		visible = {
+            NOT = { has_country_flag = toggle_fm }
+			has_completed_focus = GRE_open_up_the_country
+            if = {
+                limit = {
+                    FROM = { original_tag = GER }
+                }
+                OR = {
+                    has_idea = GRE_siemens
+                    has_idea = GRE_krupp
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = ENG }
+                }
+                has_idea = GRE_english_electric
+            }            
+            else_if = {
+                limit = {
+                    FROM = { original_tag = SOV }
+                }
+                has_idea = GRE_stalingrad_tractor_factory
+            } 
+            else_if = {
+                limit = {
+                    FROM = { original_tag = USA }
+                }
+                has_idea = GRE_general_electric
+            }   
+		}
+        
+        days_remove = 14
+        cost = 75
+
+		remove_effect = {
+            ########################[German Industry/Electronics]#########################
+			if = {
+                limit = {
+                    FROM = { original_tag = GER }
+                    has_idea = GRE_krupp
+                }
+                add_tech_bonus = {
+                    bonus = 0.5
+                    uses = 1
+                    category = industry
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = GER }
+                    has_idea = GRE_domestic_competition_0_hidden
+                    has_idea = GRE_siemens
+                }
+                add_tech_bonus = {
+                    bonus = 0.75
+                    uses = 1
+                    category = electronics
+                }
+            }
+            ######################################################################
+            #########################[British Electronics]########################
+			else_if = {
+                limit = {
+                    FROM = { original_tag = ENG }
+                    has_idea = GRE_domestic_competition_0_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.7
+                    uses = 1
+                    category = electronics
+                }
+                add_tech_bonus = {
+                    bonus = 0.25
+                    uses = 1
+                    category = radar_tech
+                }
+            }
+            ######################################################################
+            ##########################[Soviet Industry]###########################
+			else_if = {
+                limit = {
+                    FROM = { original_tag = SOV }
+                    has_idea = GRE_domestic_competition_0_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.65
+                    uses = 1
+                    category = industry
+                }
+            }
+            ######################################################################
+            ########################[American Electronics]########################
+			else_if = {
+                limit = {
+                    FROM = { original_tag = USA }
+                    has_idea = GRE_domestic_competition_0_hidden
+                }
+                add_tech_bonus = {
+                    bonus = 0.75
+                    uses = 1
+                    category = electronics
+                }
+            }
+		}
+    }    
+
+    GRE_expand_collapse_low_risk_investments = {
+        icon = decision_generic_decision
+    
+        allowed = { 
+			original_tag = GRE
+		}
+        
+        fire_only_once = no
+        days_remove = 0
+        days_re_enable = 0
+        priority = 10
+        
+        visible = {
+            has_completed_focus = GRE_open_up_the_country
+        }
+        
+        complete_effect = {
+            hidden_effect = {
+                if = {
+                    limit = {
+                        NOT = { has_country_flag = toggle_low_risk }
+                    }
+                    set_country_flag = toggle_low_risk
+                }
+                else = {
+                    clr_country_flag = toggle_low_risk 
+                }
+            }
+        }
+    }
+    
     GRE_low_risk_investment = {
         icon = generic_factory
 
 		allowed = { 
 			original_tag = GRE
 		}
+        
+        priority = 9
 
 		target_trigger = {
 			FROM = {
@@ -618,6 +2200,7 @@ GRE_investment_decisions_category = {
 		}
         
 		visible = {
+            NOT = { has_country_flag = toggle_low_risk }
 			has_completed_focus = GRE_open_up_the_country
             if = {
                 limit = {
@@ -643,6 +2226,38 @@ GRE_investment_decisions_category = {
 		}
     }
     
+    GRE_expand_collapse_medium_risk_investments = {
+        icon = decision_generic_decision
+    
+        allowed = { 
+			original_tag = GRE
+		}
+        
+        priority = 8
+        
+        fire_only_once = no 
+        days_remove = 0
+        days_re_enable = 0
+        
+        visible = {
+            has_completed_focus = GRE_open_up_the_country
+        }
+        
+        complete_effect = {
+            hidden_effect = {
+                if = {
+                    limit = {
+                        NOT = { has_country_flag = toggle_medium_risk }
+                    }
+                    set_country_flag = toggle_medium_risk
+                }
+                else = {
+                    clr_country_flag = toggle_medium_risk 
+                }
+            }
+        }
+    } 
+    
     GRE_medium_risk_investment = {
         icon = generic_factory
 
@@ -658,6 +2273,8 @@ GRE_investment_decisions_category = {
                 }          
 			}
 		}
+
+        priority = 7
 
 		available = {
 			date < 1942.1.1
@@ -711,6 +2328,7 @@ GRE_investment_decisions_category = {
 		}
         
 		visible = {
+            NOT = { has_country_flag = toggle_medium_risk }
 			has_completed_focus = GRE_open_up_the_country
             if = {
                 limit = {
@@ -2601,7 +4219,8 @@ GRE_hellenic_academy_category = {
 
 		fire_only_once = no
 
-        days_remove = 30
+        days_remove = 14
+        cost = 75
         
         complete_effect = {
             custom_effect_tooltip = "By utilizing the schachtplan we will be buying arms at a cheaper price and either incorporating them on our armed forces, or immediately reselling them back to the spanish.\n"
@@ -2750,7 +4369,7 @@ GRE_hellenic_academy_category = {
                 limit = {
                     has_idea = GRE_arms_deal
                 }
-                add_political_power = 150
+                add_political_power = 250
             }
             else_if = {
                 limit = {
@@ -2760,7 +4379,7 @@ GRE_hellenic_academy_category = {
 					remove_idea = GRE_arms_deal_1
 					add_idea = GRE_arms_deal
 				}
-                add_political_power = 100
+                add_political_power = 200
             }
             else_if = {
                 limit = {
@@ -2770,10 +4389,11 @@ GRE_hellenic_academy_category = {
 					remove_idea = GRE_arms_deal_2
 					add_idea = GRE_arms_deal
 				}
-                add_political_power = 50
+                add_political_power = 150
             }            
             else_if = {
                 add_ideas = GRE_arms_deal
+                add_political_power = 100
             }
 		}    
     }
@@ -5444,7 +7064,7 @@ GRE_kathestos_4hs = {
 		is_good = no
 
 		complete_effect = {
-            clear_country_flag = GRE_comm_upr_1
+            clr_country_flag = GRE_comm_upr_1
             add_stability = 0.04
             add_to_variable = { fct_com = 2.5 }
             faction_gui_call = yes
@@ -5903,7 +7523,7 @@ GRE_kathestos_4hs = {
 		}
 
 		available = {
-            um_of_available_civilian_factories > 2
+            num_of_available_civilian_factories > 2
             has_completed_focus = GRE_public_works 
 		}
 

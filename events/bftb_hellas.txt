@@ -1268,6 +1268,10 @@ country_event = {               #GRECOGERMAN TRADE DEAL (METAXAS)
             }  
         }  
         add_ideas = GRE_grecogerman_trade_ger
+        add_opinion_modifier = { 
+            target = GRE
+            modifier = GRE_german_trade_partner
+        }
         GRE = { add_ideas = GRE_grecogerman_trade_gre } 
         hidden_effect = {
             every_country = {
@@ -1478,6 +1482,10 @@ country_event = {               #GRECOSOVIET TRADE DEAL (METAXAS)
             }  
         }  
         add_ideas = GRE_grecosoviet_trade_sov
+        add_opinion_modifier = { 
+            target = GRE
+            modifier = GRE_soviet_trade_partner
+        }        
         GRE = { add_ideas = GRE_grecosoviet_trade_gre } 
         add_to_variable = { SOV.favor@GRE = 30 }
     }  
@@ -3737,6 +3745,7 @@ country_event = {                                                               
             BUL = { is_in_faction_with = ITA }
         }
         BUL = { 
+            exists = yes
             NOT = { has_war_with = GRE } 
             OR = {
                 NOT = { is_puppet_of = GRE }
@@ -4218,7 +4227,7 @@ country_event = {                                                               
         
         if = {
             limit = {
-                has_collaboration = { target = BUL value > 0.8}
+                has_collaboration = { target = BUL value > 0.75}
             }
             annex_country = {
                 target = BUL
