@@ -483,6 +483,7 @@ country_event = {               #WARNING EVENT FOR TROOP DEPLOYMENT IN ALBANIAN 
 	trigger = {
 		original_tag = GRE
         date < 1942.1.1
+        NOT = { has_global_flag = GRE_grecoitalian_ended }
         ITA = { 
             exists = yes 
             is_puppet = no
@@ -550,10 +551,15 @@ country_event = {               #WARNING EVENT FOR TOO MANY DIVISIONS DEPLOYED (
 	trigger = {
 		original_tag = GRE
         date < 1942.1.1
+        NOT = { has_global_flag = GRE_grecoitalian_ended }
         ITA = { 
             exists = yes 
             is_puppet = no
             is_subject = no
+            focus_progress = {
+                focus = ITA_greece_war_goal
+                progress > 0.05
+            }            
             NOT = { is_justifying_wargoal_against = GRE }
             NOT = { has_war_with = GRE }
             has_government = fascism
@@ -662,18 +668,11 @@ country_event = {               #GERMAN BOOK COLLABORATION
 
 	fire_only_once = yes
 	
-	option = { ##Normal Investment
+	option = {
 		name = hellas.301.a
         
         custom_effect_tooltip = GRE_fbm_germany_tt
         add_to_variable = { GER.favor@GRE = 5 }
-    }  
-    option = { ##Heavy Investment
-        name = hellas.302.b
-        
-        add_political_power = -50
-        custom_effect_tooltip = GRE_fbg_germany_tt
-        add_to_variable = { GER.favor@GRE = 10 }
     }
 }
 
@@ -714,6 +713,8 @@ country_event = {               #THESSALONIKI 1936 EXHIBITION
         custom_effect_tooltip = GRE_fbs_balkan_tt
         subtract_from_variable = { BUL.favor@GRE = 1 }
         subtract_from_variable = { ITA.favor@GRE = 1 }
+        custom_effect_tooltip = GRE_fds_italy_tt
+        custom_effect_tooltip = GRE_fds_bulgaria_tt
     }  
 }
 
@@ -749,7 +750,7 @@ country_event = {               #INONU VISIT TO ATHENS
         custom_effect_tooltip = GRE_fbm_turkey_tt
     }  
     option = { ## Take some steps back
-        name = hellas.304.c
+        name = hellas.304.b
         
         subtract_from_variable = { TUR.favor@GRE = 5 }
         custom_effect_tooltip = GRE_fdm_turkey_tt
@@ -841,7 +842,7 @@ country_event = {               #METAXAS VISITS KEMALS FUNERAL
 	fire_only_once = yes
 	
 	option = {
-		name = hellas.307.a.
+		name = hellas.307.a
         add_to_variable = { TUR.favor@GRE = 5 }  
         custom_effect_tooltip = GRE_fbm_turkey_tt        
     }  
@@ -860,6 +861,8 @@ country_event = {               #BELGRADE 1939 - YUGOLAV PRINCE REVEALS BULGARIA
 	option = {
 		name = hellas.308.a
         
+        unlock_decision_tooltip = reprimand_the_british
+        set_country_flag = reprimand_the_british_available
         custom_effect_tooltip = GRE_fbm_balkan_tt
         custom_effect_tooltip = GRE_fdm_bulgaria_tt
         add_to_variable = { YUG.favor@GRE =  5 }
@@ -882,12 +885,31 @@ country_event = {               #BELGRADE 1939 - YUGOSLAV PRINCE REVEALS BRITISH
 	option = { ##PROTEST HEAVILY
 		name = hellas.309.a
         add_political_power = -50
-        add_to_variable = { ENG.favor@GRE = 5 }
-        custom_effect_tooltip = GRE_fbm_british_tt
+        hidden_effect = {
+            ountry_event = { id = hellas.3095 days = 14 }
+        }
     }  
     option = { ##KEEP QUITE
         name = hellas.309.b
     }
+}
+
+country_event = {               #BRITISH RESPONSE
+	id = hellas.3095
+	title = hellas.3095.t
+	desc = hellas.3095.desc
+    picture = GFX_report_event_belgrade_1939
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+	
+	option = { ##BRITISH YIELD
+		name = hellas.3095.a
+        add_political_power = 75
+        add_to_variable = { ENG.favor@GRE = 5 }
+        custom_effect_tooltip = GRE_fbm_british_tt
+    }  
 }
 
 country_event = {               #BUCHAREST 1939
@@ -1041,6 +1063,25 @@ country_event = {               #ITALIANS ACCEPT RAPPROACHMENT
     }  
 }
 
+country_event = {               #GOEBBELS VISIT TO ATHENS
+	id = hellas.324
+	title = hellas.324.t
+	desc = hellas.324.desc
+    picture = GFX_report_event_goebbels_athens
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+	
+	option = {
+		name = hellas.324.a
+        
+        add_political_power = 50
+        add_to_variable = { GER.favor@GRE = 5 }
+        custom_effect_tooltip = GRE_fbm_germany_tt
+    }  
+}
+
 country_event = {               #THE GRUESOME DECISION
 	id = hellas.330
 	title = hellas.330.t
@@ -1072,7 +1113,7 @@ country_event = {               #THE GRUESOME DECISION
 
     ###EVENTS SENT TO OTHER NATIONS###
 
-country_event = {               #COUNCIL OF BELGRADE
+country_event = {                               # BRITISH DEAL
 	id = hellas.318
 	title = hellas.318.t
 	desc = hellas.318.desc
@@ -3739,6 +3780,8 @@ country_event = {                                                               
 
 	trigger = {
         original_tag = GRE
+        NOT = { has_global_flag = GRE_grecoitalian_ended }
+        has_global_flag = GRE_grecoitalian_start
         OR = {
             ITA = { has_war_with = GRE }
             BUL = { is_in_faction_with = GER }
@@ -4144,7 +4187,8 @@ country_event = {                                                               
             white_peace = ITA 
             news_event = { id = hellenic_news.154 }
             complete_national_focus = GRE_the_weaves_of_fate
-            set_country_flag = GRE_grecoitalian_won
+            set_global_flag = GRE_grecoitalian_ended
+            clr_global_flag = GRE_grecoitalian_start
         } 
     }
 	
@@ -4255,10 +4299,13 @@ country_event = {                                                               
             }
         }
     
-        set_autonomy = {
-            target = BUL
-            autonomy_state = integrated_puppet
-        }                                                                                         
+        hidden_effect = {
+            puppet = BUL
+            set_autonomy = {
+                target = BUL
+                autonomy_state = autonomy_integrated_puppet
+            }
+        }
     }
     
     option = {                                                                                      ## Keep as it is

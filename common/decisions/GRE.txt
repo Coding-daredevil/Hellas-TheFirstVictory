@@ -6342,7 +6342,7 @@ GRE_grecoitalian_war_category = {
 
 		available = { 
             BUL = { has_capitulated = yes }
-            GER = { NOT = { has_war_with = YUG } }
+            #GER = { NOT = { has_war_with = YUG } }
 		}
 
 		days_mission_timeout = 30
@@ -7109,7 +7109,7 @@ GRE_kathestos_4hs = {
         }
     }  
 
-###Public_Works_Social_wellfare_Wave1_TODO
+###Public_Works_Social_wellfare_Wave1
 
 	buisiness_owners_capital = {
 		icon = eng_support_imperialist_coup
@@ -11823,6 +11823,7 @@ GRE_kathestos_war_preparation = {
 		visible = {
             has_completed_focus = GRE_the_construction_of_the_metaxas_line
             check_variable = { var = GRE_metaxas_line value = 1 compare = greater_than_or_equals }
+            check_variable = { var = GRE_metaxas_line value = 3 compare = less_than }
             NOT = { has_decision = metaxas_line }
             NOT = { has_decision = further_extend_line }
 		}
@@ -11839,7 +11840,6 @@ GRE_kathestos_war_preparation = {
         complete_effect = {  
             custom_effect_tooltip = GRE_metaxas_line_revealed_tt
             GRE_line_pop = yes
-            set_variable = { GRE_metaxas_line = 3 } 
         }
     }     
 
@@ -11955,7 +11955,7 @@ GRE_kathestos_war_preparation = {
 
 GRE_kathestos_exoteriki_politiki = {
 
-    ### GERMAN SUB-CATEGORY ###
+    ### GERMAN PATH ###
 
     freude_und_arbeit_nach_bucharest= {
 		icon = generic_operation
@@ -12333,7 +12333,45 @@ GRE_kathestos_exoteriki_politiki = {
             subtract_from_variable = { BUL.favor@GRE = 5 }
             custom_effect_tooltip = GRE_fdm_bulgaria_tt          
         }
-    }   
+    }
+
+    begin_plans_for_bulgarian_atonement = {
+		icon = generic_operation
+        priority = 2
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            BUL = { has_opinion = { target = GRE value > 0 } }
+		}
+
+		visible = {
+            has_completed_focus = GRE_the_bulgarian_question
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		fire_only_once = yes
+
+		days_remove = 60
+        cost = 75
+
+        remove_effect = {
+            set_country_flag = GRE_pro_bulgarian_plans
+            add_to_variable = { BUL.favor@GRE = 5 }
+            BUL = {
+                add_opinion_modifier = { 
+                    target = GRE
+                    modifier = GRE_approached_bulgarians
+                } 
+            }
+            custom_effect_tooltip = GRE_fbm_bulgaria_tt       
+        }
+    }
 
     ### [BULGARIAN] BALKAN PACT PATH ###
     
@@ -13024,7 +13062,301 @@ GRE_kathestos_exoteriki_politiki = {
             set_country_flag = GRE_trade_deal_soviets
             SOV = { country_event = hellas.322 }
         }
-    }    
+    }
+
+    #### BALKAN PATH (HEADER) ####
+    
+    form_balkan_initiative = {
+		icon = generic_operation
+        priority = 0
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_balkanpact_refined_strategy_tt
+                has_country_flag = GRE_grecoyugoslav_common_strategy_defined
+                has_country_flag = GRE_grecoturkish_common_strategy_defined
+                has_country_flag = GRE_grecoromanian_common_strategy_defined
+            }
+		}
+
+		visible = {
+            has_completed_focus = GRE_the_balkan_pact
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		fire_only_once = yes
+
+        cost = 25
+        
+		days_remove = 30
+        
+        remove_effect = {
+            clr_country_flag = GRE_grecoyugoslav_common_strategy_defined
+            clr_country_flag = GRE_grecoturkish_common_strategy_defined
+            clr_country_flag = GRE_grecoromanian_common_strategy_defined
+            set_country_flag = GRE_balkan_pact_reinforced
+            add_political_power = 300
+        }
+    }
+    
+    ### YUGOSLAVIAN PATH ###
+    
+    establish_additional_communication_channels_yug = {
+		icon = generic_operation
+        priority = 0
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_favor_yug_at_least_mediocre_tt
+                check_variable = { var = YUG.favor@GRE value = 30 compare = greater_than_or_equals }
+            }
+		}
+
+		visible = {
+            has_completed_focus = GRE_the_balkan_pact
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		fire_only_once = yes
+
+        cost = 25
+        
+		days_remove = 30
+        
+        remove_effect = {
+            set_country_flag = GRE_grecoyugoslav_channels_established
+        }
+    }
+    
+    define_common_strategy_yug = {
+		icon = generic_operation
+        priority = 0
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_favor_yug_at_least_great_tt
+                check_variable = { var = YUG.favor@GRE value = 50 compare = greater_than_or_equals }
+            }
+		}
+
+		visible = {
+            has_completed_focus = GRE_the_balkan_pact
+            has_country_flag = GRE_grecoyugoslav_channels_established
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		fire_only_once = yes
+
+        cost = 50
+        
+		days_remove = 30
+        
+        remove_effect = {
+            clr_country_flag = GRE_grecoyugoslav_channels_established
+            set_country_flag = GRE_grecoyugoslav_common_strategy_defined
+            YUG = {
+                add_opinion_modifier = { 
+                    target = GRE
+                    modifier = GRE_common_balkan_strategy
+                }
+            }
+            hidden_effect = {
+                add_opinion_modifier = { 
+                    target = YUG
+                    modifier = GRE_common_balkan_strategy
+                }
+            }  
+        }
+    }
+    
+    ### TURKISH PATH ###
+    
+    establish_additional_communication_channels_turkey = {
+		icon = generic_operation
+        priority = 0
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_favor_tur_at_least_mediocre_tt
+                check_variable = { var = TUR.favor@GRE value = 30 compare = greater_than_or_equals }
+            }
+		}
+
+		visible = {
+            has_completed_focus = GRE_the_balkan_pact
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		fire_only_once = yes
+
+        cost = 25
+        
+		days_remove = 30
+        
+        remove_effect = {
+            set_country_flag = GRE_grecoturkish_channels_established
+        }
+    }
+    
+    define_common_strategy_turkey = {
+		icon = generic_operation
+        priority = 0
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_favor_yug_at_least_great_tt
+                check_variable = { var = YUG.favor@GRE value = 50 compare = greater_than_or_equals }
+            }
+		}
+
+		visible = {
+            has_completed_focus = GRE_the_balkan_pact
+            has_country_flag = GRE_grecoturkish_channels_established
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		fire_only_once = yes
+
+        cost = 50
+        
+		days_remove = 30
+        
+        remove_effect = {
+            clr_country_flag = GRE_grecoturkish_channels_established
+            set_country_flag = GRE_grecoturkish_common_strategy_defined
+            TUR = {
+                add_opinion_modifier = { 
+                    target = GRE
+                    modifier = GRE_common_balkan_strategy
+                }
+            }
+            hidden_effect = {
+                add_opinion_modifier = { 
+                    target = TUR
+                    modifier = GRE_common_balkan_strategy
+                }
+            }  
+        }
+    }
+    
+    ### ROMANIAN PATH ###
+    
+    establish_additional_communication_channels_rom = {
+		icon = generic_operation
+        priority = 0
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_favor_rom_at_least_mediocre_tt
+                check_variable = { var = ROM.favor@GRE value = 30 compare = greater_than_or_equals }
+            }
+		}
+
+		visible = {
+            has_completed_focus = GRE_the_balkan_pact
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		fire_only_once = yes
+
+        cost = 25
+        
+		days_remove = 30
+        
+        remove_effect = {
+            set_country_flag = GRE_grecoromanian_channels_established
+        }
+    }
+    
+    define_common_strategy_rom = {
+		icon = generic_operation
+        priority = 0
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_favor_yug_at_least_great_tt
+                check_variable = { var = ROM.favor@GRE value = 50 compare = greater_than_or_equals }
+            }
+		}
+
+		visible = {
+            has_completed_focus = GRE_the_balkan_pact
+            has_country_flag = GRE_grecoromanian_channels_established
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		fire_only_once = yes
+
+        cost = 50
+        
+		days_remove = 30
+        
+        remove_effect = {
+            clr_country_flag = GRE_grecoromanian_channels_established
+            set_country_flag = GRE_grecoromanian_common_strategy_defined
+            ROM = {
+                add_opinion_modifier = { 
+                    target = GRE
+                    modifier = GRE_common_balkan_strategy
+                }
+            }
+            hidden_effect = {
+                add_opinion_modifier = { 
+                    target = ROM
+                    modifier = GRE_common_balkan_strategy
+                }
+            }  
+        }
+    }
     
     ######################################################
 
@@ -13059,7 +13391,38 @@ GRE_kathestos_exoteriki_politiki = {
         timeout_effect = {
             country_event = { id = hellas.303 days = 0 }
         }
-    }  
+    }
+
+    goebbels_visit_to_athens = {
+		icon = generic_operation
+        priority = 90325
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            always = no
+		}
+        
+        activation = {
+            date > 1936.09.01
+        }
+
+        is_good = yes
+        days_mission_timeout = 30
+
+		visible = {
+            has_completed_focus = GRE_foreign_policy
+		}
+
+		fire_only_once = yes
+		days_remove = 21
+
+        
+        timeout_effect = {
+            country_event = { id = hellas.324 days = 0 }
+        } 
+    }
     
     ionou_visit_to_athens= {
 		icon = generic_operation
@@ -13336,9 +13699,34 @@ GRE_kathestos_exoteriki_politiki = {
         
         timeout_effect = {
             country_event = { id = hellas.308 days = 0 }
-            country_event = { id = hellas.309 days = 0 }
         }
-    }    
+    }
+
+    reprimand_the_british = {
+		icon = generic_operation
+        priority = 70129
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            always = no
+		}
+
+		visible = {
+            has_completed_focus = GRE_the_balkan_pact
+            has_country_flag = reprimand_the_british_available
+		}
+
+		fire_only_once = yes
+
+		days_remove = 7
+ 
+        timeout_effect = {   
+            country_event = { id = hellas.309 days = 0 }  ### Event that shows british apologize and Loraine getting recalled.
+        }
+    }  
     
     bucharest_1939= {
 		icon = generic_operation
