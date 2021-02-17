@@ -3194,12 +3194,26 @@ ideas = {
                 name = "Ioannis Metaxas"
                 ruling_only = yes
             }
+            NOT = { has_country_flag = GRE_kotzias_safe_removal }
+        }
+        
+        cancel = {
+            has_country_flag = GRE_kotzias_safe_removal
+        }
+        
+        visible = {
+            NOT = { has_country_flag = GRE_kotzias_safe_removal }
         }
         
         on_remove = {
-            add_to_variable = { GER.favor@GRE = -20 }
-            add_to_variable = { ITA.favor@GRE = -10 }
-            add_to_variable = { JAP.favor@GRE = -5 }
+            if = {
+                limit = {
+                    NOT = { has_country_flag = kotzias_safe_removal }
+                }
+                add_to_variable = { GER.favor@GRE = -20 }
+                add_to_variable = { ITA.favor@GRE = -10 }
+                add_to_variable = { JAP.favor@GRE = -5 }
+            }
             custom_effect_tooltip = GRE_kotzias_remove_tt
         }
         

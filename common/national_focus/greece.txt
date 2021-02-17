@@ -253,6 +253,127 @@ focus_tree = {
         }	
 	}	
 
+
+	focus = {
+		id = GRE_connecting_our_prefectures
+		icon = GFX_goal_generic_construct_infrastructure
+		prerequisite = { focus = GRE_utilize_our_strengths }
+		available = {
+			OR = {
+				has_full_control_of_state = 186
+				has_full_control_of_state = 47
+				has_full_control_of_state = 185
+			}
+		}
+		x = 0
+		y = 1
+		relative_position_id = GRE_utilize_our_strengths
+		cost = 2.9
+		ai_will_do = {
+			base = 1
+		}
+
+		bypass = { 
+			AND = { 
+				47 = {
+					free_building_slots = {
+						building = infrastructure
+						size < 1
+						include_locked = yes
+					}
+				}
+				186 = { 
+					free_building_slots = {
+						building = infrastructure
+						size < 1
+						include_locked = yes
+					}
+				}
+				807 = { 
+					free_building_slots = {
+						building = infrastructure
+						size < 1
+						include_locked = yes
+					}
+				}
+			}	
+		}
+
+		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY }
+		completion_reward = {
+			add_stability = 0.04
+			47 = {
+				if = {
+					limit = { 
+						is_controlled_by = ROOT 
+						free_building_slots = {
+							building = infrastructure
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}			
+			186 = {
+				if = {
+					limit = { 
+						is_controlled_by = ROOT 
+						free_building_slots = {
+							building = infrastructure
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+			807 = {
+				if = {
+					limit = { 
+						is_controlled_by = ROOT 
+						free_building_slots = {
+							building = infrastructure
+							size > 1
+							include_locked = yes
+						}
+					}
+					add_building_construction = {
+						type = infrastructure
+						level = 1
+						instant_build = yes
+					}
+				}
+			}
+		}			
+	}
+    
+	focus = {
+		id = GRE_sophistry_and_science
+		icon = GFX_focus_research2
+		prerequisite = { focus = GRE_connecting_our_prefectures }
+		x = 0
+		y = 1
+		relative_position_id = GRE_connecting_our_prefectures
+		cost = 2.9
+		ai_will_do = {
+			base = 1
+		}
+
+		search_filters = { FOCUS_FILTER_RESEARCH }
+		completion_reward = {
+			add_ideas = GRE_sophistry_and_science_idea
+		}
+	}
+
 	focus = {
 		id = GRE_open_foreign_subsidized_factories
 		icon = GFX_goal_generic_production2
@@ -280,7 +401,7 @@ focus_tree = {
                     }
                     if = {
                         limit = { 
-                            target = GRE value > 79 
+                            has_opinion = { target = GRE value > 79 } 
                             check_variable = { var = THIS.favor@GRE value = 30 compare = greater_than_or_equals }
                         }
                         GRE = {
@@ -408,108 +529,6 @@ focus_tree = {
 			custom_effect_tooltip = GRE_paying_back_our_debts_in_bulk_FRA_tt
 			custom_effect_tooltip = GRE_paying_back_our_debts_in_bulk_ITA_tt
 		}
-	}
-
-	focus = {
-		id = GRE_connecting_our_prefectures
-		icon = GFX_goal_generic_construct_infrastructure
-		prerequisite = { focus = GRE_utilize_our_strengths }
-		available = {
-			OR = {
-				has_full_control_of_state = 186
-				has_full_control_of_state = 47
-				has_full_control_of_state = 185
-			}
-		}
-		x = 0
-		y = 1
-		relative_position_id = GRE_utilize_our_strengths
-		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
-
-		bypass = { 
-			AND = { 
-				47 = {
-					free_building_slots = {
-						building = infrastructure
-						size < 1
-						include_locked = yes
-					}
-				}
-				186 = { 
-					free_building_slots = {
-						building = infrastructure
-						size < 1
-						include_locked = yes
-					}
-				}
-				807 = { 
-					free_building_slots = {
-						building = infrastructure
-						size < 1
-						include_locked = yes
-					}
-				}
-			}	
-		}
-
-		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY }
-		completion_reward = {
-			add_stability = 0.04
-			47 = {
-				if = {
-					limit = { 
-						is_controlled_by = ROOT 
-						free_building_slots = {
-							building = infrastructure
-							size > 1
-							include_locked = yes
-						}
-					}
-					add_building_construction = {
-						type = infrastructure
-						level = 1
-						instant_build = yes
-					}
-				}
-			}			
-			186 = {
-				if = {
-					limit = { 
-						is_controlled_by = ROOT 
-						free_building_slots = {
-							building = infrastructure
-							size > 1
-							include_locked = yes
-						}
-					}
-					add_building_construction = {
-						type = infrastructure
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-			807 = {
-				if = {
-					limit = { 
-						is_controlled_by = ROOT 
-						free_building_slots = {
-							building = infrastructure
-							size > 1
-							include_locked = yes
-						}
-					}
-					add_building_construction = {
-						type = infrastructure
-						level = 1
-						instant_build = yes
-					}
-				}
-			}
-		}			
 	}	
 
 	focus = {
@@ -558,24 +577,6 @@ focus_tree = {
 			}
 		}
 	}		
-
-	focus = {
-		id = GRE_sophistry_and_science
-		icon = GFX_focus_research2
-		prerequisite = { focus = GRE_connecting_our_prefectures }
-		x = 0
-		y = 1
-		relative_position_id = GRE_connecting_our_prefectures
-		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
-
-		search_filters = { FOCUS_FILTER_RESEARCH }
-		completion_reward = {
-			add_ideas = GRE_sophistry_and_science_idea
-		}
-	}
 
 	focus = {
 		id = GRE_bedrock_of_balkan_financial_stability
@@ -3569,9 +3570,7 @@ focus_tree = {
 				limit = {
 					has_idea = GRE_arms_deal_2
 				}
-				swap_ideas = {
-					remove_idea = GRE_arms_deal_2
-				}
+                remove_ideas = GRE_arms_deal_2
             } 
             subtract_from_variable = { GRE_gold_reserves = 1 }
             hidden_effect = {            
@@ -3625,9 +3624,7 @@ focus_tree = {
 				limit = {
 					has_idea = GRE_arms_deal_2
 				}
-				swap_ideas = {
-					remove_idea = GRE_arms_deal_2
-				}
+				remove_ideas = GRE_arms_deal_2
             }
             subtract_from_variable = { GRE_gold_reserves = 1 }
             add_ideas = GRE_spend_for_growth
@@ -3683,9 +3680,7 @@ focus_tree = {
 				limit = {
 					has_idea = GRE_arms_deal_2
 				}
-				swap_ideas = {
-					remove_idea = GRE_arms_deal_2
-				}
+                remove_ideas = GRE_arms_deal_2
             }
             subtract_from_variable = { GRE_gold_reserves = 1 }
             unlock_decision_category_tooltip = GRE_the_resource_storage_plan    
@@ -3734,9 +3729,7 @@ focus_tree = {
 				limit = {
 					has_idea = GRE_arms_deal_2
 				}
-				swap_ideas = {
-					remove_idea = GRE_arms_deal_2
-				}
+                remove_ideas = GRE_arms_deal_2
             }
             subtract_from_variable = { GRE_gold_reserves = 1 }
             subtract_from_variable  = { GRE_resource_choices = 3 }
@@ -4000,7 +3993,6 @@ focus_tree = {
 				}			
 				SPR = {
 				add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 1000 producer = ITA }
-				add_equipment_to_stockpile = { type = infantry_uniforms  amount = 1000 producer = ITA }
 				add_equipment_to_stockpile = { type = support_equipment_1 amount = 100 producer = ITA }
 				}	
 			}
@@ -4017,7 +4009,6 @@ focus_tree = {
 				}			
 				D01 = {
 				add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 1000 producer = ITA }
-				add_equipment_to_stockpile = { type = infantry_uniforms  amount = 1000 producer = ITA }
 				add_equipment_to_stockpile = { type = support_equipment_1 amount = 50 producer = ITA }
 				}	
 			}
@@ -4034,7 +4025,6 @@ focus_tree = {
 				}			
 				D03 = {
 				add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 1000 producer = ITA }
-				add_equipment_to_stockpile = { type = infantry_uniforms  amount = 1000 producer = ITA }
 				add_equipment_to_stockpile = { type = support_equipment_1 amount = 50 producer = ITA }
 				}	
 			}
@@ -4048,6 +4038,9 @@ focus_tree = {
 		id = GRE_extend_arms_sales_to_the_chinese
 		icon = GFX_goal_chi_chiang
 		prerequisite = { focus = GRE_utilize_arms_production }
+		relative_position_id = GRE_utilize_arms_production     
+        x = 8
+		y = 0
 		available = {
             CHI = {
 				exists = yes
@@ -4060,10 +4053,7 @@ focus_tree = {
 				NOT = { has_war_with = GRE }
 				NOT = { is_in_faction_with = GRE }
 			}
-		}        
-		relative_position_id = GRE_utilize_arms_production
-        x = 8
-		y = 0
+		}   
 		cost = 2.9
 		ai_will_do = {
 			base = 1
@@ -4140,6 +4130,7 @@ focus_tree = {
 		icon = GFX_goal_CCP_maozedong
 		prerequisite = { focus = GRE_utilize_arms_production }
         prerequisite = { focus = GRE_extend_arms_sales_to_the_chinese } 
+		relative_position_id = GRE_extend_arms_sales_to_the_chinese
 		available = {
             PRC = {
 				exists = yes
@@ -4153,7 +4144,6 @@ focus_tree = {
 				NOT = { is_in_faction_with = GRE }
 			}
 		}        
-		relative_position_id = GRE_extend_arms_sales_to_the_chinese
         x = -1
 		y = 1
 		cost = 2.9
@@ -6762,7 +6752,6 @@ focus_tree = {
 		id = GRE_the_industrial_revolution
 		icon = GFX_goal_gre_triumph
         prerequisite = { focus = GRE_glorious_struggle_in_triumph }  
-        mutually_exclusive = { focus = GRE_opt_for_total_war }
         relative_position_id = GRE_glorious_struggle_in_triumph
         available = {
             OR = {
@@ -6790,7 +6779,6 @@ focus_tree = {
 		id = GRE_the_third_hellenic_civilization
 		icon = GFX_goal_gre_triumph
         prerequisite = { focus = GRE_glorious_struggle_in_triumph }  
-        mutually_exclusive = { focus = GRE_opt_for_total_war }
         relative_position_id = GRE_glorious_struggle_in_triumph
         x = 6
 		y = 1
@@ -6809,8 +6797,7 @@ focus_tree = {
 	focus = {
 		id = GRE_the_diplomatic_orchestration
 		icon = GFX_goal_gre_triumph
-        prerequisite = { focus = GRE_glorious_struggle_in_triumph }  
-        mutually_exclusive = { focus = GRE_opt_for_total_war }
+        prerequisite = { focus = GRE_glorious_struggle_in_triumph } 
         relative_position_id = GRE_glorious_struggle_in_triumph
         x = 14
 		y = 1
