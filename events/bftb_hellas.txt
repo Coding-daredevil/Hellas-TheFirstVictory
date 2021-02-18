@@ -114,6 +114,7 @@ country_event = {
 			base = 100
 			}
         add_stability = 0.02
+        add_war_support = 0.04
         custom_effect_tooltip = GRE_unlock_hell_path_tt
     } 
 	option = {
@@ -123,6 +124,7 @@ country_event = {
 			base = 100
 			}
         add_stability = 0.01
+        add_war_support = 0.02
         custom_effect_tooltip = GRE_unlock_fasc_path_tt
         set_country_flag = GRE_fascistized     
         complete_national_focus = GRE_recruit_the_fascists_2
@@ -609,6 +611,8 @@ country_event = {               #WARNING EVENT FOR TOO MANY DIVISIONS DEPLOYED (
 ####                                ####
 ########################################
 
+#####[ METAXAS PATH ]#####
+
 country_event = {               #FREUDE UND ARBEIT NACH BUCHAREST
 	id = hellas.300
 	title = hellas.300.t
@@ -872,7 +876,7 @@ country_event = {               #BELGRADE 1939 - YUGOLAV PRINCE REVEALS BULGARIA
     }  
 }
 
-country_event = {               #BELGRADE 1939 - YUGOSLAV PRINCE REVEALS BRITISH DEAL WITH BULGARIANS
+country_event = {               #BELGRADE 1939 - YUGOSLAV PRINCE REVEALS BRITISH DEAL WITH BULGARIANS - PART 2
 	id = hellas.309
 	title = hellas.309.t
 	desc = hellas.309.desc
@@ -1045,6 +1049,66 @@ country_event = {               #COUNCIL OF BELGRADE
     }  
 }
 
+country_event = {               #THE PRO-AXIS PLOT
+	id = hellas.317
+	title = hellas.317.t
+	desc = {                                                                                        ## Greece was denied by the Germans
+        text = hellas.317.desc
+        trigger = {
+            has_country_flag = prepared_for_1940_plot
+            has_country_flag = GRE_kotzias_safe_removal
+        }
+    }
+    picture = GFX_report_event_1940_plot
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+    
+    immediate = {
+        set_country_flag = GRE_plot_occurred
+    }
+	
+	option = {                                      ## Went in prepared
+		name = hellas.317.a
+        trigger = {
+            has_country_flag = prepared_for_1940_plot
+            has_country_flag = GRE_kotzias_safe_removal
+        }
+        add_political_power = 400
+    }  
+
+    option = {                                      ## Went in partially unprepared
+		name = hellas.317.b
+        trigger = {
+            OR = {
+                AND = {
+                    has_country_flag = prepared_for_1940_plot
+                    NOT = { has_country_flag = GRE_kotzias_safe_removal }
+                }
+                AND = {
+                    has_country_flag = GRE_kotzias_safe_removal
+                    NOT = { has_country_flag = prepared_for_1940_plot }
+                }
+            }
+        }
+        add_political_power = -100
+        add_stability = -0.1
+        add_war_support = -0.05
+    } 
+    
+    option = {                                      ## Went in completely unprepared
+		name = hellas.317.c
+        trigger = {
+            NOT = { has_country_flag = prepared_for_1940_plot }
+            NOT = { has_country_flag = GRE_kotzias_safe_removal }
+        }
+        add_political_power = -400
+        add_stability = -0.4
+        add_war_support = -0.2
+    } 
+}
+
 country_event = {               #ITALIANS ACCEPT RAPPROACHMENT
 	id = hellas.323
 	title = hellas.323.t
@@ -1111,12 +1175,112 @@ country_event = {               #THE GRUESOME DECISION
 }
 
 
-    ###EVENTS SENT TO OTHER NATIONS###
+#####[ BRITISH / FRENCH / ALLIED PATH ]#####
+### 318x - ENG events
+country_event = {                               #Not protected ENG telecom
+	id = hellas.3180
+	title = hellas.3180.t
+	desc = hellas.3180.desc
+    picture = report_event_radar_01
+    
+	trigger = {
+		original_tag = GRE
+		date > 1938.01.02
+        NOT = { has_country_flag = GRE_protected_eng_telecom }
+	}
+
+	fire_only_once = yes
+	
+	option = {
+		name = hellas.3180.a
+        add_political_power = -75
+        add_tech_bonus = {
+            bonus = 1.0
+            uses = 1
+            category = electronics
+        }
+        add_tech_bonus = {
+            bonus = 1.0
+            uses = 1
+            category = radar_tech
+        }
+    } 
+
+    option = {
+		name = hellas.3180.b
+        trigger = {
+            count_triggers = {
+                amount = 1
+                check_variable = { var = GRE_debt_to_the_ifc_britain_var value = 0 compare = equals }
+                check_variable = { var = ENG.favor@GRE value = 50 compare = greater_than_or_equals }
+            }
+        }
+    } 
+
+    option = {
+		name = hellas.3180.c
+        trigger = {
+            count_triggers = {
+                amount = 0
+                check_variable = { var = GRE_debt_to_the_ifc_britain_var value = 0 compare = equals }
+                check_variable = { var = ENG.favor@GRE value = 50 compare = greater_than_or_equals }
+            }
+        }
+        add_political_power = 25
+        add_to_variable = { ENG.favor@GRE = -15 }
+        custom_effect_tooltip = GRE_fdg_british_tt
+    }     
+}
+
+#####[ EVENTS SENT TO OTHER NATIONS ]#####
+
+
+country_event = {               #Grecobritish tobacco deal
+	id = hellas.3181
+	title = hellas.3181.t
+	desc = hellas.3181.desc
+    picture = GFX_report_event_belgrade_1939
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+	
+	option = {                                                      ### BRITAIN ACCEPTS
+		name = hellas.3181.a    
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 1000
+				check_variable = { var = ENG.favor@GRE value = 80 compare = greater_than_or_equals }
+			}
+		}
+        GRE = { add_political_power = 75 }
+        add_political_power = 75
+        add_to_variable = { ENG.favor@GRE = 10 }
+        add_opinion_modifier = { 
+            target = GRE
+            modifier = GRE_tob_exp_britain
+        }        
+    }  
+	option = {                                                      ### BRITAIN DECLINES BUT STILL YOU GET SOMETHING
+		name = hellas.3181.b    
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 3
+				check_variable = { var = ENG.favor@GRE value = 80 compare = less_than }
+			}
+		}        
+        GRE = { add_political_power = 25 }
+        ENG = { add_political_power = 25 }
+        add_to_variable = { ENG.favor@GRE = 5 }
+    }     
+}
 
 country_event = {                               # BRITISH DEAL
-	id = hellas.318
-	title = hellas.318.t
-	desc = hellas.318.desc
+	id = hellas.3182
+	title = hellas.3182.t
+	desc = hellas.3182.desc
     picture = GFX_report_event_belgrade_1939
 
 	is_triggered_only = yes
@@ -1124,7 +1288,7 @@ country_event = {                               # BRITISH DEAL
 	fire_only_once = yes
 	
 	option = {  ### BRITAIN ACCEPTS
-		name = hellas.318.a    
+		name = hellas.3182.a    
 		ai_chance = {
 			base = 10
 			modifier = {
@@ -1212,9 +1376,10 @@ country_event = {                               # BRITISH DEAL
                 }
             } 
         }
+        news_event = { id = hellenic_news.200 days = 0 }
     }  
 	option = {  ### BRITAIN DECLINES
-		name = hellas.318.b    
+		name = hellas.3182.b    
 		ai_chance = {
 			base = 10
 			modifier = {
@@ -1429,48 +1594,6 @@ country_event = {               #Last Ditch Attempt
 		}
         add_political_power = 50
     }
-}
-
-country_event = {               #Grecobritish tobacco deal
-	id = hellas.321
-	title = hellas.321.t
-	desc = hellas.321.desc
-    picture = GFX_report_event_belgrade_1939
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-	
-	option = {  ### BRITAIN ACCEPTS
-		name = hellas.321.a    
-		ai_chance = {
-			base = 10
-			modifier = {
-				factor = 1000
-				check_variable = { var = ENG.favor@GRE value = 80 compare = greater_than_or_equals }
-			}
-		}
-        GRE = { add_political_power = 75 }
-        add_political_power = 75
-        add_to_variable = { ENG.favor@GRE = 10 }
-        add_opinion_modifier = { 
-            target = GRE
-            modifier = GRE_tob_exp_britain
-        }        
-    }  
-	option = {  ### BRITAIN DECLINES
-		name = hellas.321.b    
-		ai_chance = {
-			base = 10
-			modifier = {
-				factor = 0
-				check_variable = { var = ENG.favor@GRE value = 80 compare = less_than }
-			}
-		}        
-        GRE = { add_political_power = 25 }
-        ENG = { add_political_power = 25 }
-        add_to_variable = { ENG.favor@GRE = 5 }
-    }     
 }
 
 country_event = {               #GRECOSOVIET TRADE DEAL (METAXAS)
@@ -3494,6 +3617,7 @@ country_event = {                                                               
         }
         if = {                                                                              
             limit = {
+                check_variable = { var = GRE_drilled_for_oil value = 0 compare = equals }
                 FROM = {
                     OR = {
                         original_tag = SOV
@@ -3506,18 +3630,23 @@ country_event = {                                                               
                     type = oil
                     amount = 12
                 }
-            }            
+            } 
+            custom_effect_tooltip = GRE_drilling_for_oil_tt
+            add_to_variable = { GRE_drilled_for_oil = 1 }        
         }
-        else = {
+        else_if = {
+            limit = {
+                check_variable = { var = GRE_drilled_for_oil value = 0 compare = equals }
+            }
             187 = { 
                 add_resource = { 
                     type = oil
                     amount = 8
                 }
             }
+            custom_effect_tooltip = GRE_drilling_for_oil_tt
+            add_to_variable = { GRE_drilled_for_oil = 1 }  
         }
-        custom_effect_tooltip = GRE_drilling_for_oil_tt
-        add_to_variable = { GRE_drilled_for_oil = 1 }
     }
 	option = {                                                                                  ### Expand Mines
 		name = hellas.504.d #medium investment
@@ -3818,7 +3947,7 @@ country_event = {                                                               
     }
 }
 
-country_event = {                                                                               ### Greece left Bulgarian border unmanned, make Bulgars declare war (mission -> ) 
+country_event = {                                                                               ### Add infustructure to Albania, plus minor bases
 	id = hellas.103
 	title = hellas.103.t
 	desc = hellas.103.desc
@@ -3974,7 +4103,6 @@ news_event = {                                                                  
 
 	trigger = {
         original_tag = ITA
-        is_historical_focus_on = yes
         has_war_with = GRE
         controls_state = 44
         date > 1941.3.8

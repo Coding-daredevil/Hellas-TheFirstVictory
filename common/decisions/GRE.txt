@@ -6563,6 +6563,40 @@ GRE_economic_fluidity = {
 
 GRE_kathestos_4hs = {
 
+    the_1940_plot = {
+        priority = 10000
+        
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            always = no
+		}
+        
+        activation = {
+            date > 1940.05.02
+        }
+
+        is_good = no
+        days_mission_timeout = 30
+
+		visible = {
+            has_completed_focus = GRE_establish_asfaleia
+            check_variable = { var = amount_of_work_in_asfaleia value = 7 compare = greater_than_or_equals }
+            has_country_flag = GRE_kotzias_safe_removal
+            has_country_flag = prepared_for_1940_plot
+		}
+
+		fire_only_once = yes
+		days_remove = 7
+
+        
+        timeout_effect = {
+            country_event = { id = hellas.317 days = 0 }
+        }
+    } 
+
     GRE_kanellopoulos_mission_1 = {
 
 		icon = eng_support_imperialist_coup
@@ -10518,7 +10552,89 @@ GRE_kathestos_asfaleia {
         remove_effect = {   
         }
     }
+    
+    talks_of_a_pro_axis_plot = {
+		icon = generic_operation
 
+		allowed = { 
+			original_tag = GRE
+		}
+
+		visible = {
+            has_completed_focus = GRE_establish_asfaleia
+            check_variable = { var = amount_of_work_in_asfaleia value = 7 compare = greater_than_or_equals }
+		}
+        
+        cost = 25
+
+		fire_only_once = yes
+
+		days_remove = 45
+
+        
+        remove_effect = {
+            custom_effect_tooltip = talks_of_a_pro_axis_plot_tt
+            set_country_flag = pro_axis_plot_being_investigated
+        }
+    }
+    
+    close_surveilance_of_ringleaders = {
+		icon = generic_operation
+
+		allowed = { 
+			original_tag = GRE
+		}
+        
+        available = {
+            has_country_flag = pro_axis_plot_being_investigated
+        }
+
+		visible = {
+            has_completed_focus = GRE_establish_asfaleia
+            check_variable = { var = amount_of_work_in_asfaleia value = 7 compare = greater_than_or_equals }
+            has_country_flag = pro_axis_plot_being_investigated
+		}
+        
+        cost = 25
+
+		fire_only_once = yes
+
+		days_remove = 180
+        
+        modifier = {
+            political_power_factor = -0.1
+        }
+
+        
+        remove_effect = {
+            set_country_flag = pro_axis_plot_being_investigated
+        }
+    }
+    
+    take_precautionary_steps = {
+		icon = generic_operation
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		visible = {
+            has_completed_focus = GRE_establish_asfaleia
+            check_variable = { var = amount_of_work_in_asfaleia value = 7 compare = greater_than_or_equals }
+            has_country_flag = pro_axis_plot_being_investigated
+		}
+        
+        cost = 25
+
+		fire_only_once = yes
+
+		days_remove = 14
+        
+        remove_effect = {
+            set_country_flag = prepared_for_1940_plot
+        }
+    }
+    
     kotzias_suspicious_actions = {
 		icon = generic_operation
 
@@ -10533,6 +10649,7 @@ GRE_kathestos_asfaleia {
 		visible = {
             has_completed_focus = GRE_establish_asfaleia
             check_variable = { var = amount_of_work_in_asfaleia value = 7 compare = greater_than_or_equals }
+            has_country_flag = pro_axis_plot_being_investigated
 		}
         
         cost = 25
@@ -10563,13 +10680,14 @@ GRE_kathestos_asfaleia {
 		visible = {
             has_completed_focus = GRE_establish_asfaleia
             check_variable = { var = amount_of_work_in_asfaleia value = 7 compare = greater_than_or_equals }
+            has_country_flag = kotzias_suspicious_actions_investigation_start
 		}
         
         cost = 50
 
 		fire_only_once = yes
 
-		days_remove = 90
+		days_remove = 7
 
         
         remove_effect = {
@@ -10578,30 +10696,7 @@ GRE_kathestos_asfaleia {
             swap_ruler_traits = { remove = arkhigos_3 add = arkhigos_4_kotzias_incorp }
         }
     }
-
-    the_1940_plot = {
-		icon = generic_operation
-
-		allowed = { 
-			original_tag = GRE
-		}
-
-		visible = {
-            has_completed_focus = GRE_establish_asfaleia
-		}
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		fire_only_once = yes
-
-		days_remove = 1
-
-        
-        remove_effect = {
-        }
-    }    
+ 
 }
 
 GRE_kathestos_propaganda {
@@ -13005,7 +13100,7 @@ GRE_kathestos_exoteriki_politiki = {
 
     ### BRITISH / FRENCH / ALLIED PATH ###
 
-    ensure_british_of_common_medit_policy= {
+    ensure_british_of_common_medit_policy = {
 		icon = generic_operation
         #priority = 90325
         priority = 5
@@ -13030,6 +13125,7 @@ GRE_kathestos_exoteriki_politiki = {
 
         
         complete_effect = {
+            ENG = { add_political_power = 25 }
             add_to_variable = { ENG.favor@GRE = 5 }
             set_country_flag = GRE_ensure_british_for_common_policy
         }
@@ -13082,7 +13178,6 @@ GRE_kathestos_exoteriki_politiki = {
         }
     }    
 
-
     declare_will_to_befriend_british = {
 		icon = generic_operation
         #priority = 70329
@@ -13113,66 +13208,38 @@ GRE_kathestos_exoteriki_politiki = {
         
         complete_effect = {
             set_country_flag = GRE_will_to_befriend_british
+            ENG = { add_political_power = 50 }
+            add_political_power = 50
             add_to_variable = { ENG.favor@GRE = 10 }
-            every_country = {
-                limit = {
-                    is_in_array = {
-                        array = global.favor_mechanic
-                        value = THIS.id
-                    }
-                }
-                if = {
+            custom_effect_tooltip = declare_will_to_befriend_british_tt
+            hidden_effect = {
+                every_country = {
                     limit = {
-                        is_in_faction_with = ENG
-                    }
-                    add_to_variable = { THIS.favor@GRE = 10 }
-                }
-                else_if = {
-                    limit = {
-                        OR = {
-                        original_tag = GER
-                        original_tag = ITA
+                        is_in_array = {
+                            array = global.favor_mechanic
+                            value = THIS.id
                         }
-                        NOT = { is_in_faction_with = ENG }
                     }
-                    subtract_from_variable = { THIS.favor@GRE = 10 }    
+                    if = {
+                        limit = {
+                            is_in_faction_with = ENG
+                        }
+                        add_to_variable = { THIS.favor@GRE = 10 }
+                    }
+                    else_if = {
+                        limit = {
+                            OR = {
+                            original_tag = GER
+                            original_tag = ITA
+                            }
+                            NOT = { is_in_faction_with = ENG }
+                        }
+                        subtract_from_variable = { THIS.favor@GRE = 10 }    
+                    }
                 }
             }
         }
     }
-
-    grecobritish_tradedeal = {
-		icon = generic_operation
-        #priority = 51129
-        priority = 5
-
-		allowed = { 
-			original_tag = GRE
-		}
-
-		available = {
-            date > 1940.01.01
-            has_country_flag = GRE_will_to_befriend_british
-		}
-
-		visible = {
-            has_completed_focus = GRE_allied_courting
-            has_country_flag = GRE_will_to_befriend_british
-		}
-
-		ai_will_do = {
-			factor = 1
-		}
-
-		fire_only_once = yes
-
-		days_remove = 1
-
-        
-        complete_effect = {
-            country_event = { id = hellas.317 days = 0 }
-        }
-    }     
 
     grecoenglish_tobacco_deal= {
 		icon = generic_operation
@@ -13203,11 +13270,43 @@ GRE_kathestos_exoteriki_politiki = {
 
         
         complete_effect = {
-            ENG = { country_event = hellas.321 }
+            ENG = { country_event = hellas.3181 }
         }
     }
     
-    ask_british_for_a_pact= {
+    grecobritish_tradedeal = {
+		icon = generic_operation
+        #priority = 51129
+        priority = 5
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            date > 1940.01.01
+            has_country_flag = GRE_will_to_befriend_british
+		}
+
+		visible = {
+            has_completed_focus = GRE_allied_courting
+            has_country_flag = GRE_will_to_befriend_british
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		fire_only_once = yes
+
+		days_remove = 1
+        
+        complete_effect = {
+            ENG = { country_event = { id = hellas.3182 days = 0 } }
+        }
+    }     
+    
+    ask_british_for_a_pact = {
 		icon = generic_operation
         #priority = 100002
         priority = 5
@@ -13235,7 +13334,8 @@ GRE_kathestos_exoteriki_politiki = {
 
         
         complete_effect = {
-            ENG = { country_event = hellas.318 }
+            ###ENG = { country_event = hellas.318 }
+            add_political_power = 250
             custom_effect_tooltip = GRE_favor_british_pact_tt
         }
     }    
@@ -13431,6 +13531,8 @@ GRE_kathestos_exoteriki_politiki = {
         
         remove_effect = {
             set_country_flag = GRE_grecoyugoslav_channels_established
+            add_to_variable = { YUG.favor@GRE = 5 }
+            custom_effect_tooltip = GRE_fbm_yug_tt
         }
     }
     
@@ -13718,6 +13820,8 @@ GRE_kathestos_exoteriki_politiki = {
         
         remove_effect = {
             set_country_flag = GRE_grecoturkish_channels_established
+            add_to_variable = { TUR.favor@GRE = 5 }
+            custom_effect_tooltip = GRE_fbm_turkey_tt
         }
     }
     
@@ -13966,6 +14070,8 @@ GRE_kathestos_exoteriki_politiki = {
         
         remove_effect = {
             set_country_flag = GRE_grecoromanian_channels_established
+            add_to_variable = { ROM.favor@GRE = 5 }
+            custom_effect_tooltip = GRE_fbm_romania_tt
         }
     }
     
@@ -14381,7 +14487,7 @@ GRE_kathestos_exoteriki_politiki = {
 
 		days_remove = 7
  
-        timeout_effect = {   
+        remove_effect = {   
             country_event = { id = hellas.309 days = 0 }  ### Event that shows british apologize and Loraine getting recalled.
         }
     }  

@@ -3198,7 +3198,10 @@ ideas = {
         }
         
         cancel = {
-            has_country_flag = GRE_kotzias_safe_removal
+            OR = {
+                has_country_flag = GRE_kotzias_safe_removal
+                has_country_flag = GRE_plot_occurred
+            }
         }
         
         visible = {
@@ -4960,7 +4963,7 @@ theorist = {
 			}
 			
 			research_bonus = {
-				industry = 0.15
+				industry = 0.05
 			}
             traits = { foreign_manufacturer }
 		}
@@ -4970,13 +4973,18 @@ theorist = {
             picture = general_electric
 			
 			cost = 75
+            
+            cancel = {
+                date > 1938.2.1
+                NOT = { has_country_flag = GRE_protected_eng_telecom }
+            }
 			
 			allowed = {
 				original_tag = GRE
 			}
 			
 			research_bonus = {
-				electronics = 0.15
+				electronics = 0.05
 			}
 			
 			traits = { electronics_concern }
@@ -4995,7 +5003,7 @@ theorist = {
 			}
 			
 			research_bonus = {
-				industry = 0.15	
+				industry = 0.05	
 			}
             
             traits = { foreign_manufacturer }
@@ -5042,7 +5050,7 @@ theorist = {
 			cost = 120
 			
 			research_bonus = {
-				industry = 0.15
+				industry = 0.05
 			}
 			
 			traits = { british_industrial_benefactor }
@@ -5067,7 +5075,7 @@ theorist = {
 			cost = 120
 			
 			research_bonus = {
-				electronics = 0.15
+				electronics = 0.05
 			}
 			
 			traits = { german_technological_patron }
