@@ -206,7 +206,20 @@ on_actions = {
             }
         }
     }
-
+    
+    ###This updates war strain when in war####
+    
+    on_daily_GRE = {
+        effect = {
+            if = {
+                limit = {
+                    has_dynamic_modifier = { modifier = GRE_war_strain }
+                }
+            GRE_update_strain_on_industry = yes
+            }
+        }
+    }
+    
     ###This checks for amount of factories certain focuses will grant####
 
     on_weekly_GRE = {
@@ -373,6 +386,7 @@ on_actions = {
 				}
                 ##########################################[Greek Effects]##########################################
                 GRE = {
+                    add_dynamic_modifier = { modifier = GRE_war_strain }    ## testing for older savegames
                     set_global_flag = GRE_grecoitalian_start
                     if = {                                                                                                      ### Basically make sure the mission of holding the line only activates if the Italians enact a war while bordering Greece (other case is Greece provoked them so they won't have claimed an easy victory as they did historically)
                         limit = {

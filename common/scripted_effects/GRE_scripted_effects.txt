@@ -20,6 +20,30 @@ GRE_check = {
 }
 
 #########################################################
+##################[WAR STRAIN EFFECTS]###################
+#########################################################
+GRE_update_strain_on_industry = {
+
+    set_temp_variable = { x = max_available_manpower_k }                        #[0 manpower in field, -> +40% industry bonus] [ 250.000 manpower in field -> -15% industry bonus ] [ 1.500.000 manpower in field -> -50% industry bonus ]
+    subtract_from_temp_variable = { x = manpower_k }
+    add_to_temp_variable = { x = casualties_k } 
+    if = {
+        limit = {
+            check_variable = { x < 250 }
+        }
+        multiply_temp_variable = { x = -0.26 }                                 # y = 0.26x - 4
+        add_to_temp_variable = { x = 40 }
+    }
+    else = {
+        multiply_temp_variable = { x = -0.028 }                               # y = -0.028x - 8
+        add_to_temp_variable = { x = -8 }
+    }
+    divide_temp_variable = { x = 100 }
+    set_variable = { strain_fct = x }
+    set_variable = { strain_dck = x }
+ 
+}
+#########################################################
 ##############[GRECO-ITALIAN WAR AI FIXES]###############
 #########################################################
 GRE_stop_italians_manning_bulgarian_borders = {

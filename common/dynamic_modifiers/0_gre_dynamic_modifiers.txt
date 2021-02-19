@@ -179,9 +179,28 @@ GRE_yfipourgeio_propagandas = {
     neutrality_drift = GRE_var_drift_neutral
 }  
 
+GRE_war_strain = {
+    enable = {
+        NOT = { has_capitulated = yes }
+        OR = {
+            has_offensive_war = yes
+            has_defensive_war_with = ITA
+        }  
+    }
+    icon = GFX_idea_gre_war_strain
+    
+    political_power_factor = -1.5
+    production_speed_industrial_complex_factor = -0.8
+    production_speed_arms_factory_factor = -0.8
+    production_speed_infrastructure_factor = -0.25
+    industrial_capacity_factory = strain_fct
+    industrial_capacity_dockyard = strain_dck
+    
+    custom_modifier_tooltip = GRE_war_strain_desc
+}
 
 GRE_metaxas_plan = {
-    enable = { always = yes }
+    enable = { NOT = { has_war = yes } }
     icon = GFX_idea_man_five_year_plan_industry
     
     industrial_capacity_factory = GRE_var_fct_produ
