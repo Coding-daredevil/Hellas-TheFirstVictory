@@ -2465,6 +2465,7 @@ GRE_pay_back_debt_to_the_ifc_category = {
             FROM = { add_political_power = 10 }
             set_variable = { GRE.debt_package = 5 }
             FROM = { GRE_update_debt_status = yes }
+            remove_ideas = GRE_paying_off_debt_small
 		}    
     }
     
@@ -2520,6 +2521,7 @@ GRE_pay_back_debt_to_the_ifc_category = {
             FROM = { add_political_power = 20 }
             set_variable = { GRE.debt_package = 10 }
             FROM = { GRE_update_debt_status = yes }
+            remove_ideas = GRE_paying_off_debt_large
 		}
     }
     
@@ -2697,7 +2699,7 @@ GRE_pay_back_debt_to_the_ifc_category = {
 
 		available = {
             custom_trigger_tooltip = {
-                tooltip = GRE_at_least_60_total_debt
+                tooltip = GRE_at_least_60_total_debt_tt
                 check_variable = { GRE_debt_to_the_ifc_paid_var > 179 }
             }
 		}
@@ -3316,8 +3318,8 @@ GRE_hellenic_academy_category = {
         cost = 75
         
         complete_effect = {
-            custom_effect_tooltip = "By utilizing the schachtplan we will be buying arms at a cheaper price and either incorporating them on our armed forces, or immediately reselling them back to the spanish.\\n"
-            custom_effect_tooltip = "§G The better the Schachtplan state is, the better rates we will be able to get.§!\\n"
+            custom_effect_tooltip = GRE_utilize_schlachtplan_tt
+            custom_effect_tooltip = GRE_utilize_schlachtplan_2_tt
         }
             
 		remove_effect = {
@@ -3363,18 +3365,8 @@ GRE_hellenic_academy_category = {
         }
         
         visible = {
-            SPR = {
-                exists = yes
-                has_civil_war = yes
-                NOT = { has_war_with = GRE }
-                NOT = { is_in_faction_with = GRE }
-            }
-            D01 = {
-                exists = yes
-                has_civil_war = yes
-                NOT = { has_war_with = GRE }
-                NOT = { is_in_faction_with = GRE }
-            }
+            has_global_flag = spanish_civil_war
+            NOT = { has_global_flag = scw_over }
         }
 
 		ai_will_do = {
@@ -3606,7 +3598,8 @@ political_actions = {
 
 		available = {
 			NOT = { has_war_with = USA }
-			has_completed_focus = GRE_british_docking_rights
+			has_completed_focus = GRE_american_influencers
+            has_completed_focus = GRE_the_navy
 		}
 
 		cost = 0
@@ -3717,6 +3710,7 @@ political_actions = {
 
 		available = {
 			has_completed_focus = GRE_bolster_the_schachtplan
+            has_completed_focus = GRE_the_navy
 		}
 
 		cost = 0
@@ -5852,6 +5846,10 @@ GRE_economic_fluidity = {
 		ai_will_do = {
 			factor = 1
 		}
+        
+        available = {
+            has_country_flag = GRE_debt_free
+        }
         
         available = {
             has_completed_focus = GRE_open_foreign_subsidized_factories

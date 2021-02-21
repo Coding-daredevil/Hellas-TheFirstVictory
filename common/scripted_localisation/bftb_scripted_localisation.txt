@@ -102,27 +102,62 @@ defined_text = {
     name = GetAdditionalArmyEffects
     text = {
         trigger = {
-        has_idea = GRE_obsolescent_dogma
-        has_idea = GRE_complete_lack_of_heavy_equipment
+            has_idea = GRE_obsolescent_dogma
+            has_idea = GRE_complete_lack_of_heavy_equipment
         }
         localization_key = GRE_both_effects_addon
     }
     text = {
         trigger = {
-        has_idea = GRE_obsolescent_dogma
+            has_idea = GRE_obsolescent_dogma
+            NOT = { has_idea = GRE_entrenching_tactics }
         }
         localization_key = GRE_dogma_effect_addon
     }    
     text = {
         trigger = {
-        has_idea = GRE_complete_lack_of_heavy_equipment
+            has_idea = GRE_complete_lack_of_heavy_equipment
         }
         localization_key = GRE_heavy_equipment_effect_addon
-    }  
+    }
+    text = {
+        trigger = {
+            has_idea = GRE_obsolescent_dogma
+            has_idea = GRE_entrenching_tactics
+            NOT = { has_tech = GRE_infantry_tactics }
+        }
+        localization_key = GRE_taktiki_dogma_effect_addon
+    }
+    text = {
+        trigger = {
+            has_idea = GRE_obsolescent_dogma
+            has_idea = GRE_entrenching_tactics
+            has_tech = GRE_infantry_tactics
+        }
+        localization_key = GRE_taktikes_dogma_effect_addon
+    }
+    text = {
+        trigger = {
+            NOT = { has_idea = GRE_obsolescent_dogma }
+            has_idea = GRE_entrenching_tactics
+            NOT = { has_tech = GRE_infantry_tactics }
+        }
+        localization_key = GRE_taktiki_effect_addon
+    }
+    text = {
+        trigger = {
+            NOT = { has_idea = GRE_obsolescent_dogma }
+            has_idea = GRE_entrenching_tactics
+            has_tech = GRE_infantry_tactics
+        }
+        localization_key = GRE_taktikes_effect_addon
+    }
     text = {
         trigger = {
         NOT = { has_idea = GRE_obsolescent_dogma }
         NOT = { has_idea = GRE_complete_lack_of_heavy_equipment }
+        NOT = { has_idea = GRE_entrenching_tactics }
+        NOT = { has_tech = GRE_infantry_tactics }
         }
         localization_key = ""
     }     

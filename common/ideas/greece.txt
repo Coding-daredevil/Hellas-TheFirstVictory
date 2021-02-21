@@ -688,8 +688,7 @@ ideas = {
 			removal_cost = -1
 				
 			modifier = {
-				stability_factor = -0.25
-				consumer_goods_factor = 0.2	
+                custom_modifier_tooltip = GRE_debt_to_the_ifc_fake_tt
 			}
 		}
 
@@ -1340,9 +1339,9 @@ ideas = {
 				always = yes
 			}
             
-            cancel  = {
-                NOT = { has_country_flag = GRE_small_installment_payment_flag }
-            }
+            #cancel  = {
+            #    NOT = { has_country_flag = GRE_small_installment_payment_flag }
+            #}
 
 			picture = generic_foreign_capital
 				
@@ -1364,9 +1363,9 @@ ideas = {
 				always = yes
 			}
             
-            cancel  = {
-                NOT = { has_country_flag = GRE_large_installment_payment_flag }
-            }
+            #cancel  = {
+            #    NOT = { has_country_flag = GRE_large_installment_payment_flag }
+            #}
 
 			picture = SPR_relocate_the_gold_reserves
 				
@@ -1533,11 +1532,14 @@ ideas = {
         }
         
         available = {
-            has_country_leader = {
-                name = "Ioannis Metaxas"
-                ruling_only = yes
+            NOT = {
+                has_country_leader = {
+                    name = "Aléxandros Koryzís"
+                    ruling_only = yes
+                }
             }
             has_completed_focus = GRE_laying_out_the_social_wellfare_plan
+            has_country_flag = GRE_kathestos_proclaimed
         }
         
         traits = { minister_of_social_wellfare }
@@ -1872,10 +1874,7 @@ ideas = {
 		}
 
 		available = {
-            has_country_leader = {
-                name = "Ioannis Metaxas"
-                ruling_only = yes
-            }
+            has_country_flag = GRE_kathestos_proclaimed
 		}
 		
 		traits = { sharp_tongued_lawyer }
@@ -1892,10 +1891,7 @@ ideas = {
 		}
 
 		available = {
-			has_country_leader = {
-                name = "Ioannis Metaxas"
-                ruling_only = yes
-            }
+			has_country_flag = GRE_kathestos_proclaimed
 		}
 		
 		traits = { war_industrialist }
@@ -2162,10 +2158,7 @@ theorist = {
 		}
 			
 		available = {
-			has_country_leader = {
-                name = "Ioannis Metaxas"
-                ruling_only = yes
-            }
+			has_country_flag = GRE_kathestos_proclaimed
 		}
 
 		traits = { army_chief_entrenchment_expert }
@@ -2280,10 +2273,7 @@ theorist = {
 			}
 			
 			available = {
-				has_country_leader = {
-					name = "Ioannis Metaxas"
-					ruling_only = yes
-				}
+				has_country_flag = GRE_kathestos_proclaimed
 			}
 
 			traits = { army_chief_defensive_3 }
@@ -2503,10 +2493,7 @@ theorist = {
 			}
 			
 			available = {
-				has_country_leader = { 
-					name = "Ioannis Metaxas"
-					ruling_only = yes
-				}		
+				has_country_flag = GRE_kathestos_proclaimed		
 			}
 
 			traits = { navy_chief_commerce_raiding_3 }
@@ -2720,10 +2707,7 @@ theorist = {
 			}
 
 			available = {
-				has_country_leader = {
-					name = "Ioannis Metaxas"
-					ruling_only = yes
-				}
+				has_country_flag = GRE_kathestos_proclaimed
 			}
 			
 			traits = { air_naval_strike_3 }
@@ -3316,10 +3300,7 @@ theorist = {
 			}
 
 			available = {
-				has_country_leader = {
-					name = "Ioannis Metaxas"
-					ruling_only = yes
-				}
+				has_country_flag = GRE_kathestos_proclaimed
 			}
 			
 			research_bonus = {
@@ -4094,7 +4075,24 @@ theorist = {
                     build_cost_ic = 0.30 instant = yes
                 }
 			}       
-        }    
+        }
+
+        GRE_entrenching_tactics = {
+        
+            allowed = {
+                original_tag = GRE
+            }
+            
+            allowed_civil_war = {
+                always = yes
+            }
+            
+            removal_cost = -1
+            
+			modifier = {
+                dont_lose_dig_in_on_attack = 1.0
+            }          
+        } 
 
         GRE_army_leadership_0 = {
         
