@@ -19,6 +19,76 @@ GRE_check = {
     add_political_power = 500
 }
 
+
+spawn_subs = { 
+    for_each_loop = {                                                          ## For here is either 1->6 or 1->12 depending on what we set before.
+        array = ship_builder
+        
+        if = {
+            limit = {
+                FROM = { original_tag = GER }
+            }
+            add_equipment_production = {
+                equipment = {
+                    type = ship_hull_submarine_3
+                    creator = "GRE"
+                    version_name = "U-boat Class"
+                }  
+                requested_factories = 1
+                progress = 0.99
+                amount = 1
+            }
+        }
+        else = {
+            add_equipment_production = {
+                equipment = {
+                    type = ship_hull_submarine_3
+                    creator = "GRE"
+                    version_name = "Undine Class"
+                }  
+                requested_factories = 1
+                progress = 0.99
+                amount = 1
+            }
+        }
+    }
+    clear_array = ship_builder
+}
+
+spawn_ships = { 
+    for_each_loop = {
+        array = ship_builder
+        
+        if = {
+            limit = {
+                FROM = { original_tag = ENG }
+            }
+            add_equipment_production = {
+                equipment = {
+                    type = ship_hull_light_3
+                    creator = "GRE"
+                    version_name = "J/K/N Class"
+                }  
+                requested_factories = 1
+                progress = 0.99
+                amount = 1
+            }
+        }
+        else = {
+            add_equipment_production = {
+                equipment = {
+                    type = ship_hull_light_3
+                    creator = "GRE"
+                    version_name = "Benson & Gleaves Class"
+                }  
+                requested_factories = 1
+                progress = 0.99
+                amount = 1
+            }
+        }
+    }
+    clear_array = ship_builder
+}
 #########################################################
 ##################[WAR STRAIN EFFECTS]###################
 #########################################################

@@ -2407,7 +2407,403 @@ GRE_investment_decisions_category = {
 				country_event = { id = bftb_greece.186 days = 10 }
 			}
 		}
-	}   
+	} 
+
+    GRE_buy_subs = {
+        on_map_mode = map_and_decisions_view
+        highlight_states = { state = FROM.capital } 
+
+		icon = sub
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_favor_at_least_mediocre_from_tt
+                check_variable = { FROM.favor@GRE > 29 }
+            }
+            NOT = { has_war_with = FROM }
+		}
+
+		target_trigger = {
+			FROM = {
+                OR = {
+                    original_tag = ENG
+                    original_tag = GER
+                }
+			}
+		}
+
+		cost = 730
+        days_remove = 1
+
+		fire_only_once = no
+
+		visible = {
+            has_completed_focus = GRE_buy_subs
+            NOT = { 
+                has_country_flag = subs_ordered 
+                has_country_flag = toggle_adio
+            }
+		}
+        
+        complete_effect = {
+            set_country_flag = subs_ordered
+            add_to_variable = { FROM.favor@GRE = 5 }
+            custom_effect_tooltip = GRE_favor_boost_mediocre_from_tt
+        }
+        remove_effect = {
+            if = {
+                limit = {
+                    FROM = { original_tag = GER }
+                } 
+                create_equipment_variant = {
+                    name = "U-boat Class"
+                    type = ship_hull_submarine_3
+                    name_group = GRE_SS_HISTORICAL
+                    parent_version = 0
+                    modules = {
+                        fixed_ship_torpedo_slot = ship_torpedo_sub_3
+                        mid_1_custom_slot = ship_sub_snorkel_1
+                        fixed_ship_engine_slot = sub_ship_engine_3
+                        rear_1_custom_slot = ship_torpedo_sub_3
+                    }
+                }
+                if = { 
+                    limit = {
+                        GER = { NOT = { has_war_with = ENG } }
+                    }              
+                    resize_array = { ship_builder = 12 }                ## Tell it to build 12 ships
+                }
+                else = {
+                    resize_array = { ship_builder = 6 }                 ## Tell it to build  6 ships
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = ENG }
+                } 
+                create_equipment_variant = {
+                    name = "Undine Class"
+                    type = ship_hull_submarine_3
+                    name_group = GRE_SS_HISTORICAL
+                    parent_version = 0
+                    modules = {
+                        fixed_ship_torpedo_slot = ship_torpedo_sub_3
+                        mid_1_custom_slot = ship_sub_snorkel_1
+                        fixed_ship_engine_slot = sub_ship_engine_3
+                        rear_1_custom_slot = ship_torpedo_sub_3
+                    }
+                }
+                if = { 
+                    limit = {
+                        GER = { NOT = { has_war_with = ENG } }
+                    }
+                    resize_array = { ship_builder = 12 }                ## Tell it to build 12 ships
+                }
+                else = {
+                    resize_array = { ship_builder = 6 }                 ## Tell it to build  6 ships
+                }
+            }
+            spawn_subs = yes                                            ### -> Scripted effect
+        }
+    }
+    
+    GRE_buy_destroyers_and_torpedo_boats = {
+        on_map_mode = map_and_decisions_view
+        highlight_states = { state = FROM.capital }
+
+		icon = generic_naval
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_favor_at_least_mediocre_from_tt
+                check_variable = { FROM.favor@GRE > 29 }
+            }
+            NOT = { has_war_with = FROM }
+		}
+
+		target_trigger = {
+			FROM = {
+                OR = {
+                    original_tag = ENG
+                    original_tag = USA
+                }
+			}
+		}
+
+		cost = 0
+        days_remove = 730
+
+		fire_only_once = no
+
+		visible = {
+            has_completed_focus = GRE_buy_destroyers_and_torpedo_boats
+            NOT = { 
+                has_country_flag = destr_ordered 
+                has_country_flag = toggle_adio
+            }
+		}
+        
+        complete_effect = {
+            set_country_flag = destr_ordered
+            add_to_variable = { FROM.favor@GRE = 5 }
+            custom_effect_tooltip = GRE_favor_boost_mediocre_from_tt
+        }
+        
+        remove_effect = {
+            if = {
+                limit = {
+                    FROM = { original_tag = USA }
+                } 
+                create_equipment_variant = {
+                    name = "Benson & Gleaves Class"
+                    type = ship_hull_light_3
+                    name_group = GRE_DD_HISTORICAL
+                    parent_version = 0
+                    modules = {
+                        fixed_ship_battery_slot = dp_light_battery
+                        fixed_ship_anti_air_slot = ship_anti_air_1
+                        fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+                        fixed_ship_radar_slot = ship_sonar_2
+                        fixed_ship_engine_slot = light_ship_engine_2
+                        fixed_ship_torpedo_slot = ship_torpedo_2
+                        mid_1_custom_slot = ship_torpedo_2
+                        rear_1_custom_slot = ship_depth_charge_1
+                    }
+                }
+                resize_array = { ship_builder = 6 }                     ## Tell it to build  6 ships
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = ENG }
+                } 
+                create_equipment_variant = {
+                    name = "J/K/N Class"
+                    type = ship_hull_light_3
+                    name_group = GRE_DD_HISTORICAL
+                    modules = {
+                        fixed_ship_battery_slot = ship_light_battery_2
+                        fixed_ship_anti_air_slot = ship_anti_air_1
+                        fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+                        fixed_ship_radar_slot = ship_sonar_2
+                        fixed_ship_engine_slot = light_ship_engine_2
+                        fixed_ship_torpedo_slot = ship_torpedo_1
+                        front_1_custom_slot = empty
+                        mid_1_custom_slot = ship_torpedo_2
+                        rear_1_custom_slot = ship_depth_charge_2
+                    }
+                }
+                if = { 
+                    limit = {
+                        GER = { NOT = { has_war_with = ENG } }
+                    }
+                    resize_array = { ship_builder = 10 }                ## Tell it to build 10 ships
+                }
+                else = {
+                    resize_array = { ship_builder = 4 }                 ## Tell it to build  4 ships
+                }
+            }
+            spawn_ships = yes                                            ### -> Scripted effect
+        }
+        
+    }
+    
+    GRE_buy_battleships = {
+        on_map_mode = map_and_decisions_view
+        highlight_states = { state = FROM.capital }
+
+		icon = ship
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_favor_at_least_mediocre_from_tt
+                check_variable = { FROM.favor@GRE > 29 }
+            }
+            NOT = { has_war_with = FROM }
+		}
+
+		target_trigger = {
+			FROM = {
+                OR = {
+                    original_tag = ENG
+                    original_tag = USA
+                    original_tag = JAP
+                    original_tag = GER
+                }
+			}
+		}
+
+		cost = 0
+        days_remove = 1095
+
+		fire_only_once = no
+
+		visible = {
+            has_completed_focus = GRE_the_battleships
+            NOT = { 
+                has_country_flag = battl_ordered 
+                has_country_flag = toggle_adio
+            }
+		}
+        
+        complete_effect = {
+            set_country_flag = battl_ordered
+            add_to_variable = { FROM.favor@GRE = 5 }
+            custom_effect_tooltip = GRE_favor_boost_mediocre_from_tt
+        }
+        
+        remove_effect = {
+            if = {
+                limit = {
+                    FROM = { original_tag = GER }
+                } 
+                create_equipment_variant = {
+                    name = "Bismarck Class"
+                    type = ship_hull_heavy_2
+                    name_group = GRE_BB_HISTORICAL
+                    parent_version = 0
+                    modules = {
+                        fixed_ship_battery_slot = ship_heavy_battery_3
+                        fixed_ship_anti_air_slot = ship_anti_air_1
+                        fixed_ship_fire_control_system_slot = ship_fire_control_system_1
+                        fixed_ship_radar_slot = empty
+                        fixed_ship_engine_slot = heavy_ship_engine_2
+                        fixed_ship_secondaries_slot = ship_secondaries_2
+                        fixed_ship_armor_slot = ship_armor_bb_2
+                        front_1_custom_slot = ship_anti_air_1
+                        mid_1_custom_slot = ship_airplane_launcher_1
+                        mid_2_custom_slot = ship_secondaries_2
+                        rear_1_custom_slot = ship_heavy_battery_3
+                    }
+                }
+                add_equipment_production = {
+                    equipment = {
+                        type = ship_hull_heavy_2
+                        creator = "GRE"
+                        version_name = "Bismarck Class"
+                    }  
+                    requested_factories = 1
+                    progress = 0.99
+                    amount = 1
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = JAP }
+                } 
+                create_equipment_variant = {
+                    name = "Nagato Class"
+                    name_group = GRE_BB_HISTORICAL
+                    type = ship_hull_heavy_1
+                    parent_version = 0
+                    modules = {
+                        fixed_ship_battery_slot = ship_heavy_battery_2
+                        fixed_ship_anti_air_slot = ship_anti_air_1
+                        fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+                        fixed_ship_radar_slot = empty
+                        fixed_ship_engine_slot = heavy_ship_engine_1
+                        fixed_ship_secondaries_slot = ship_secondaries_1
+                        fixed_ship_armor_slot = ship_armor_bb_1
+                        front_1_custom_slot = empty
+                        mid_1_custom_slot = ship_secondaries_1
+                        mid_2_custom_slot = ship_airplane_launcher_1
+                        rear_1_custom_slot = ship_heavy_battery_2
+                    }
+                }
+                add_equipment_production = {
+                    equipment = {
+                        type = ship_hull_heavy_1
+                        creator = "GRE"
+                        version_name = "Nagato Class"
+                    }  
+                    requested_factories = 1
+                    progress = 0.99
+                    amount = 1
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = ENG }
+                } 
+                create_equipment_variant = {
+                    name = "Lion Class" # 1938 variant
+                    type = ship_hull_heavy_2
+                    name_group = GRE_BB_HISTORICAL
+                    parent_version = 0
+                    modules = {
+                        fixed_ship_battery_slot = ship_heavy_battery_3
+                        fixed_ship_anti_air_slot = ship_anti_air_1
+                        fixed_ship_fire_control_system_slot = ship_fire_control_system_2
+                        fixed_ship_radar_slot = empty
+                        fixed_ship_engine_slot = heavy_ship_engine_2
+                        fixed_ship_secondaries_slot = dp_ship_secondaries
+                        fixed_ship_armor_slot = ship_armor_bb_2
+                        front_1_custom_slot = ship_anti_air_1
+                        mid_1_custom_slot = ship_airplane_launcher_1
+                        mid_2_custom_slot = dp_ship_secondaries
+                        rear_1_custom_slot = ship_heavy_battery_3
+                    }
+                }
+                add_equipment_production = {
+                    equipment = {
+                        type = ship_hull_heavy_2
+                        creator = "GRE"
+                        version_name = "Lion Class"
+                    }  
+                    requested_factories = 1
+                    progress = 0.99
+                    amount = 1
+                }
+            }
+            else_if = {
+                limit = {
+                    FROM = { original_tag = USA }
+                } 
+                create_equipment_variant = {
+                    name = "North Carolina Class"
+                    type = ship_hull_heavy_3
+                    name_group = GRE_BB_HISTORICAL
+                    parent_version = 0
+                    modules = {
+                        fixed_ship_battery_slot = ship_heavy_battery_3
+                        fixed_ship_anti_air_slot = ship_anti_air_1
+                        fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+                        fixed_ship_radar_slot = empty
+                        fixed_ship_engine_slot = heavy_ship_engine_2
+                        fixed_ship_secondaries_slot = dp_ship_secondaries
+                        fixed_ship_armor_slot = ship_armor_bb_2
+                        front_1_custom_slot = ship_heavy_battery_3
+                        mid_1_custom_slot = empty
+                        mid_2_custom_slot = dp_ship_secondaries
+                        mid_3_custom_slot = empty
+                        rear_1_custom_slot = ship_airplane_launcher_1
+                    }
+                }
+                add_equipment_production = {
+                    equipment = {
+                        type = ship_hull_heavy_3
+                        creator = "GRE"
+                        version_name = "North Carolina Class"
+                    }  
+                    requested_factories = 1
+                    progress = 0.99
+                    amount = 1
+                }
+            }
+        }
+        
+    }
 }
 
 #GREECE DEBT DECISIONS
@@ -3285,6 +3681,11 @@ GRE_hellenic_academy_category = {
 		}
 
 		available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_spanish_civil_war_underway_tt
+                has_global_flag = spanish_civil_war
+                NOT = { has_global_flag = scw_over }
+            }
             OR = {
                 has_idea = GRE_schachtplan
                 has_idea = GRE_schachtplan_modified
@@ -3293,18 +3694,8 @@ GRE_hellenic_academy_category = {
         }
         
         visible = {
-            SPR = {
-                exists = yes
-                has_civil_war = yes
-                NOT = { has_war_with = GRE }
-                NOT = { is_in_faction_with = GRE }
-            }
-            D01 = {
-                exists = yes
-                has_civil_war = yes
-                NOT = { has_war_with = GRE }
-                NOT = { is_in_faction_with = GRE }
-            }
+            has_global_flag = spanish_civil_war
+            NOT = { has_global_flag = scw_over }
         }
 
 		ai_will_do = {
@@ -3356,6 +3747,11 @@ GRE_hellenic_academy_category = {
 		}
 
 		available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_spanish_civil_war_underway_tt
+                has_global_flag = spanish_civil_war
+                NOT = { has_global_flag = scw_over }
+            }
             has_equipment = {
                 infantry_equipment > 2999
             }
@@ -3583,6 +3979,45 @@ GRE_hellenic_academy_category = {
             } 
 		}    
     
+    }
+    
+    
+    GRE_further_extend_the_budget = {
+		icon = eng_support_imperialist_coup
+
+		allowed = { 
+			original_tag = GRE
+		}
+        
+		fire_only_once = no
+        
+        cost = 25
+        days_remove = 7
+        
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_maximized_budget_tt
+                check_variable = { GRE_budget_consumer < 0.175 }
+                check_variable = { GRE_budget_construction < 0.35 }
+                check_variable = { GRE_budget_pp_cost < 0.7 }
+                check_variable = { GRE_budget_resources < 0.35 }
+            }      
+        }
+        
+		visible = {
+            has_completed_focus = GRE_extend_budget
+		}
+
+		cancel_if_not_visible = no
+
+		remove_effect = {
+            add_to_variable = { GRE_budget_consumer = 0.025 }
+            add_to_variable = { GRE_budget_construction = -0.05 }
+            add_to_variable = { GRE_budget_pp_cost = 0.1 }
+            add_to_variable = { GRE_budget_resources = -0.05 }
+            add_to_variable = { GRE_budget_choices = 2 }
+            custom_effect_tooltip = GRE_further_extend_the_budget_2_tt
+		}
     }
 }
 
@@ -5875,6 +6310,43 @@ GRE_economic_fluidity = {
             custom_effect_tooltip = GRE_ass_tt
             set_country_flag = GRE_assets_solidified
 		}    
+    }
+    
+    GRE_alleviate_budget_effects = {
+		icon = eng_support_imperialist_coup
+
+		allowed = { 
+			original_tag = GRE
+		}
+        
+		fire_only_once = no
+        
+        cost = 25
+        days_remove = 7
+        
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_minimized_budget_tt
+                #check_variable = { GRE_budget_consumer > 0.00 }
+                #check_variable = { GRE_budget_construction > 0.00 }
+                check_variable = { GRE_budget_pp_cost > 0.00 }
+                #check_variable = { GRE_budget_resources > 0.00 }
+            }      
+        }
+        
+		visible = {
+            has_completed_focus = GRE_extend_budget
+		}
+
+		cancel_if_not_visible = no
+
+		remove_effect = {
+            add_to_variable = { GRE_budget_consumer = -0.025 }
+            add_to_variable = { GRE_budget_construction = 0.05 }
+            add_to_variable = { GRE_budget_pp_cost = -0.1 }
+            add_to_variable = { GRE_budget_resources = 0.05 }
+            custom_effect_tooltip = GRE_alleviate_budget_effects_tt
+		}
     }
     
 }

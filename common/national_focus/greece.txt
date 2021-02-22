@@ -1753,7 +1753,7 @@ focus_tree = {
 		available = { 
 			custom_trigger_tooltip = { 
                 tooltip = GRE_at_least_40_ita_debt_tt
-                check_variable = { GRE.debt@ITA < 60 }
+                check_variable = { GRE.debt@ITA < 61 }
             }
 		}
 		bypass = {
@@ -7255,6 +7255,15 @@ focus_tree = {
 		completion_reward = {
             custom_effect_tooltip = GRE_buy_subs_2_tt
             subtract_from_variable = { GRE_budget_choices = 1 }
+            hidden_effect = {
+                add_tech_bonus = {
+                    name = GRE_german_submarine_expertise
+                    bonus = 8.0
+                    uses = 3
+                    category = submarine_doctrine
+                }
+                add_ideas = GRE_submarine_expertise
+            }
 		}
 	}    
     
@@ -7304,6 +7313,7 @@ focus_tree = {
 		completion_reward = {
             custom_effect_tooltip = GRE_buy_bb_tt
             subtract_from_variable = { GRE_budget_choices = 1 }
+            hidden_effect = { add_ideas = GRE_masters_of_shipbuilding }
 		}
 	} 
     
@@ -7517,6 +7527,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
+            custom_effect_tooltip = GRE_extend_budget_tt
 		}
 	}
 
@@ -7535,7 +7546,29 @@ focus_tree = {
         relative_position_id = GRE_extend_budget
         available = {
             date > 1941.1.1
-            has_country_flag = GRE_victor_in_a_big_war
+            OR = {
+                has_country_flag = GRE_victor_in_a_big_war
+                custom_trigger_tooltip = {
+                    tooltip = GRE_genikon_epiteleion_stratou_tt
+                    count_triggers = {
+                        amount = 10
+                        has_completed_focus = GRE_conduct_exercises
+                        has_completed_focus = GRE_modernize_the_army
+                        has_completed_focus = GRE_discard_the_old_dogmas
+                        has_completed_focus = GRE_heavy_equipment
+                        has_completed_focus = GRE_entrenchment
+                        has_completed_focus = GRE_infantry_warfare
+                        has_completed_focus = GRE_bombers
+                        has_completed_focus = GRE_fighters
+                        has_completed_focus = GRE_heavy_fighters
+                        has_completed_focus = GRE_naval_bombers
+                        has_completed_focus = GRE_buy_subs
+                        has_completed_focus = GRE_buy_subs_2
+                        has_completed_focus = GRE_buy_destroyers_and_torpedo_boats
+                        has_completed_focus = GRE_the_battleships
+                    }
+                }
+            }
         }
 		x = 0
 		y = 1
@@ -7881,6 +7914,9 @@ focus_tree = {
 		id = GRE_genikon_epiteleion_aeroporias
 		icon = GFX_goal_gea
         prerequisite = { focus = GRE_extend_budget }
+        available = {
+            has_completed_focus = GRE_genikon_epiteleion_stratou
+        }
         relative_position_id = GRE_extend_budget
 		x = -13
 		y = 2
@@ -8001,6 +8037,9 @@ focus_tree = {
 		id = GRE_genikon_epiteleion_nautikou
 		icon = GFX_goal_gen
         prerequisite = { focus = GRE_extend_budget }
+        available = {
+            has_completed_focus = GRE_genikon_epiteleion_stratou
+        }
         relative_position_id = GRE_extend_budget
 		x = 13
 		y = 2
