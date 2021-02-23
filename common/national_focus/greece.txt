@@ -873,6 +873,8 @@ focus_tree = {
 
 		completion_reward = {
 			add_political_power = 120
+            hidden_effect = { add_dynamic_modifier = { modifier = GRE_alternating_tariffs } }
+            custom_effect_tooltip = GRE_tariff_tt
 		}
 	}
 
@@ -5000,9 +5002,10 @@ focus_tree = {
 		id = GRE_entrench_on_the_Yugoslavian_borders
 		icon = GFX_goal_gre_yug_att
         prerequisite = { focus = GRE_prepare_spring_offensive }
-		available = {
-
-		}   
+        available = {
+            NOT = { YUG = { is_in_faction_with = GER } }
+        }
+        
         relative_position_id = GRE_prepare_spring_offensive     
         x = 0
 		y = 1
@@ -5013,10 +5016,12 @@ focus_tree = {
         
         bypass = {
             NOT = { has_global_flag = GRE_grecoitalian_start }
+            YUG = { has_capitulated = yes }
         }
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_entrench_on_the_Yugoslavian_borders_tt
+            YUG = { give_military_access = GER }
+            custom_effect_tooltip = GRE_entrench_on_the_Yugoslavian_borders_tt
 		}
 	}
 
@@ -5348,6 +5353,8 @@ focus_tree = {
             has_capitulated = yes
 		}   
         relative_position_id = GRE_the_weaves_of_fate
+        available_if_capitulated = yes
+        
         x = -12
 		y = 2
 		cost = 2.9
@@ -5375,7 +5382,8 @@ focus_tree = {
 		ai_will_do = {
 			base = 1
 		}
-
+        
+        available_if_capitulated = yes
 
 		completion_reward = {
         custom_effect_tooltip = GRE_resistance_tt
@@ -5390,9 +5398,9 @@ focus_tree = {
         x = 0
 		y = 1
 		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
+		
+        
+        available_if_capitulated = yes
 
 
 		completion_reward = {
@@ -5408,9 +5416,9 @@ focus_tree = {
         x = 0
 		y = 1
 		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
+		
+        
+        available_if_capitulated = yes
 
 
 		completion_reward = {
@@ -5430,7 +5438,8 @@ focus_tree = {
 			base = 1
 		}
 
-
+        available_if_capitulated = yes
+        
 		completion_reward = {
         
 		}
@@ -5447,8 +5456,9 @@ focus_tree = {
 		ai_will_do = {
 			base = 1
 		}
-
-
+        
+        available_if_capitulated = yes
+        
 		completion_reward = {
         
 		}
@@ -5467,6 +5477,7 @@ focus_tree = {
 			base = 1
 		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         custom_effect_tooltip = GRE_form_EAM_tt
@@ -5486,6 +5497,7 @@ focus_tree = {
 			base = 1
 		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         custom_effect_tooltip = GRE_avoid_EAM_tt
@@ -5505,6 +5517,7 @@ focus_tree = {
 			base = 1
 		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         custom_effect_tooltip = GRE_form_EDES_tt
@@ -5524,6 +5537,7 @@ focus_tree = {
 			base = 1
 		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         custom_effect_tooltip = GRE_avoid_EDES_tt
@@ -5545,6 +5559,7 @@ focus_tree = {
 			base = 1
 		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         custom_effect_tooltip = GRE_light_up_the_fireworks_tt
@@ -5563,6 +5578,7 @@ focus_tree = {
 			base = 1
 		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         custom_effect_tooltip = GRE_expand_cooperation_between_resistance_groups_tt
@@ -5581,6 +5597,7 @@ focus_tree = {
 			base = 1
 		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         
@@ -5599,6 +5616,7 @@ focus_tree = {
 			base = 1
 		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         custom_effect_tooltip = GRE_the_struggle_of_the_free_spirited_tt
@@ -5618,6 +5636,7 @@ focus_tree = {
 			base = 1
 		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         
@@ -5636,6 +5655,7 @@ focus_tree = {
 			base = 1
 		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         custom_effect_tooltip = GRE_hellenic_state_tt
@@ -5654,6 +5674,7 @@ focus_tree = {
 			base = 1
 		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         custom_effect_tooltip = GRE_hellenic_state_tt
@@ -5672,6 +5693,7 @@ focus_tree = {
 			base = 1
 		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         
@@ -5691,6 +5713,7 @@ focus_tree = {
 			base = 1
 		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         
@@ -5709,6 +5732,7 @@ focus_tree = {
 			base = 1
 		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         
@@ -5727,6 +5751,7 @@ focus_tree = {
 			base = 1
 		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         
@@ -5745,6 +5770,7 @@ focus_tree = {
 			base = 1
 		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         
@@ -5763,6 +5789,7 @@ focus_tree = {
 			base = 1
 		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         
@@ -5781,6 +5808,7 @@ focus_tree = {
 			base = 1
 		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         
@@ -5800,6 +5828,7 @@ focus_tree = {
 			base = 1
 		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         
@@ -5819,6 +5848,7 @@ focus_tree = {
 			base = 1
 		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         
@@ -5837,6 +5867,7 @@ focus_tree = {
 			base = 1
 		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         
@@ -5855,6 +5886,7 @@ focus_tree = {
 			base = 1
 		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         
@@ -5877,6 +5909,7 @@ focus_tree = {
 			base = 1
 		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         
@@ -5895,6 +5928,7 @@ focus_tree = {
 			base = 1
 		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         
@@ -5913,6 +5947,7 @@ focus_tree = {
 			base = 1
 		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         
@@ -5931,6 +5966,7 @@ focus_tree = {
 			base = 1
 		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         
@@ -5950,6 +5986,7 @@ focus_tree = {
 			base = 1
 		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         
@@ -5969,6 +6006,7 @@ focus_tree = {
 			base = 1
 		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         
@@ -5988,6 +6026,7 @@ focus_tree = {
 			base = 1
 		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         
@@ -6002,9 +6041,8 @@ focus_tree = {
         x = -1
 		y = 1
 		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
+
+        available_if_capitulated = yes
     }
     
 	focus = {
@@ -6017,9 +6055,8 @@ focus_tree = {
         x = 1
 		y = 1
 		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
+
+        available_if_capitulated = yes
 
 		completion_reward = {
         
@@ -6036,10 +6073,9 @@ focus_tree = {
         x = 3
 		y = 1
 		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
 
+        available_if_capitulated = yes
+        
 		completion_reward = {
         
 		}
@@ -6053,10 +6089,8 @@ focus_tree = {
         x = -2
 		y = 1
 		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         
@@ -6074,9 +6108,8 @@ focus_tree = {
         x = -2
 		y = 0 
 		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
+
+        available_if_capitulated = yes
 
 
 		completion_reward = {
@@ -6093,9 +6126,8 @@ focus_tree = {
         x = -2
 		y = 1 
 		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
+
+        available_if_capitulated = yes
 
 
 		completion_reward = {
@@ -6111,9 +6143,8 @@ focus_tree = {
         x = -2
 		y = 2
 		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
+
+        available_if_capitulated = yes
 
 
 		completion_reward = {
@@ -6129,9 +6160,8 @@ focus_tree = {
         x = -2
 		y = 3
 		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
+
+        available_if_capitulated = yes
 
 
 		completion_reward = {
@@ -6147,9 +6177,8 @@ focus_tree = {
         x = 0
 		y = 3
 		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
+
+        available_if_capitulated = yes
 
 		completion_reward = {
         
@@ -6164,9 +6193,8 @@ focus_tree = {
         x = 8
 		y = 1
 		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
+
+        available_if_capitulated = yes
 
 
 		completion_reward = {
@@ -6182,9 +6210,8 @@ focus_tree = {
         x = 0
 		y = 1
 		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
+
+        available_if_capitulated = yes
 
 
 		completion_reward = {
@@ -6200,9 +6227,8 @@ focus_tree = {
         x = -3
 		y = 0
 		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
+
+        available_if_capitulated = yes
 
 
 		completion_reward = {
@@ -6219,9 +6245,8 @@ focus_tree = {
         x = 1
 		y = 1
 		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
+
+        available_if_capitulated = yes
 
 
 		completion_reward = {
@@ -6237,9 +6262,8 @@ focus_tree = {
         x = 0
 		y = 1
 		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
+
+        available_if_capitulated = yes
         ##VENIZELIST CHECK WIKIPEDIA AND SET FLAG SO IF REPUB=FRIENDLY NO PENALTY
 
 		completion_reward = {
@@ -6256,10 +6280,8 @@ focus_tree = {
         x = -1
 		y = 1
 		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
-        ##VENIZELIST CHECK WIKIPEDIA AND SET FLAG SO IF REPUB=FRIENDLY NO PENALTY
+
+        available_if_capitulated = yes
 
 		completion_reward = {
         
@@ -6275,10 +6297,8 @@ focus_tree = {
         x = 1
 		y = 1
 		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
-        ##VENIZELIST CHECK WIKIPEDIA AND SET FLAG SO IF REPUB=FRIENDLY NO PENALTY
+
+        available_if_capitulated = yes
 
 		completion_reward = {
         
@@ -6293,10 +6313,8 @@ focus_tree = {
         x = -1
 		y = 1
 		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
-        ##VENIZELIST CHECK WIKIPEDIA AND SET FLAG SO IF REPUB=FRIENDLY NO PENALTY
+
+        available_if_capitulated = yes
 
 		completion_reward = {
         
@@ -6311,10 +6329,8 @@ focus_tree = {
         x = 0
 		y = 1
 		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
-        ##VENIZELIST CHECK WIKIPEDIA AND SET FLAG SO IF REPUB=FRIENDLY NO PENALTY
+
+        available_if_capitulated = yes
 
 		completion_reward = {
         
@@ -6330,11 +6346,9 @@ focus_tree = {
         x = -1
 		y = 1
 		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
-        ##VENIZELIST CHECK WIKIPEDIA AND SET FLAG SO IF REPUB=FRIENDLY NO PENALTY
 
+        available_if_capitulated = yes
+        
 		completion_reward = {
         
 		}
@@ -6349,11 +6363,9 @@ focus_tree = {
         x = 1
 		y = 1
 		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
-        ##VENIZELIST CHECK WIKIPEDIA AND SET FLAG SO IF REPUB=FRIENDLY NO PENALTY
 
+        available_if_capitulated = yes
+        
 		completion_reward = {
         
 		}
@@ -6367,11 +6379,9 @@ focus_tree = {
         x = 1
 		y = 5
 		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
-        ##VENIZELIST CHECK WIKIPEDIA AND SET FLAG SO IF REPUB=FRIENDLY NO PENALTY
 
+        available_if_capitulated = yes
+        
 		completion_reward = {
         
 		}
@@ -6385,10 +6395,8 @@ focus_tree = {
         x = 3
 		y = 1
 		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         custom_effect_tooltip = GRE_greek_expeditionary_force_tt
@@ -6403,10 +6411,8 @@ focus_tree = {
         x = 0
 		y = 1
 		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         
@@ -6421,10 +6427,8 @@ focus_tree = {
         x = 0
 		y = 1
 		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         
@@ -6439,10 +6443,8 @@ focus_tree = {
         x = 0
 		y = 6
 		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
 
+        available_if_capitulated = yes
 
 		completion_reward = {
         
@@ -6457,11 +6459,9 @@ focus_tree = {
         x = 0
 		y = 2
 		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
 
-
+        available_if_capitulated = yes
+        
 		completion_reward = {
         
 		}
@@ -6475,11 +6475,9 @@ focus_tree = {
         x = 0
 		y = 1
 		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
 
-
+        available_if_capitulated = yes
+        
 		completion_reward = {
         
 		}
@@ -6493,11 +6491,9 @@ focus_tree = {
         x = 0
 		y = 1
 		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
 
-
+        available_if_capitulated = yes
+        
 		completion_reward = {
         
 		}
@@ -6514,11 +6510,9 @@ focus_tree = {
         x = 0
 		y = 2
 		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
 
-
+        available_if_capitulated = yes
+        
 		completion_reward = {
         
 		}
@@ -7181,6 +7175,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
+            custom_effect_tooltip = GRE_additional_deals_tt
 		}
 	}
 
@@ -7330,6 +7325,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
+            custom_effect_tooltip = GRE_seek_aid_from_diaspora_tt
 		}
 	}    
     
@@ -7506,6 +7502,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
+            custom_effect_tooltip = GRE_fundraising_an_airforce_focus_tt
 		}
 	}
 

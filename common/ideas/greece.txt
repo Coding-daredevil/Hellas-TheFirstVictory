@@ -253,6 +253,36 @@ ideas = {
             } 
         }
         
+        GRE_german_ambition = {
+        
+            allowed = {
+                original_tag = GER 
+            }
+            
+            cancel = {
+                NOT = { has_global_flag = GRE_grecoitalian_start }
+                has_war_with = SOV
+            }
+        
+            picture = ger_ambitions
+        
+             modifier = {
+                ai_focus_aggressive_factor = 10000
+                army_speed_factor = 0.25
+            }
+            targeted_modifier = {
+                tag = YUG
+                attack_bonus_against = 0.250
+                breakthrough_bonus_against = 0.25
+            }
+            targeted_modifier = {
+                tag = GRE
+                attack_bonus_against = 0.250
+                breakthrough_bonus_against = 0.25
+            }
+        
+        }
+        
         GRE_italian_ambition = {
         
             allowed = {
@@ -754,6 +784,10 @@ ideas = {
 			allowed_civil_war = {
 				always = yes
 			}
+            
+            cancel = {
+                has_war_with = GER
+            }
 
 			picture = gre_schachtplan
 				
@@ -779,6 +813,10 @@ ideas = {
 			allowed_civil_war = {
 				always = yes
 			}
+            
+            cancel = {
+                has_war_with = GER
+            }
 
 			picture = gre_schachtplan2
 				
@@ -798,7 +836,119 @@ ideas = {
 					has_war_with = GER
 				}
 			}
+            
+            cancel = {
+                has_war_with = GER
+            }
+            
+            on_remove = {
+                if = {
+                    limit = {
+                        has_completed_focus = GRE_tariff
+                    }
+                add_ideas = GRE_schachtplan_incorporated
+                }
+            }
+            
+			allowed_civil_war = {
+				always = yes
+			}
 
+			picture = gre_schachtplan3
+				
+			removal_cost = -1
+				
+			modifier = {
+				stability_factor = 0.04
+				min_export = -0.1
+				consumer_goods_factor = -0.05			
+			}
+		}
+        
+        ### TARIFF SCHEMES ###
+        
+        GRtar_trade_1 = {
+
+			allowed_civil_war = {
+				always = yes
+			}
+				
+			removal_cost = -1
+            picture = gre_schachtplan3
+            
+            cancel = {
+                check_variable = { ROOT.favor@GRE < 30 }
+            }
+            
+            on_remove = {
+                set_variable = { GRE.tariff_level@ROOT = 0 }
+            }
+            
+            targeted_modifier = {
+                tag = GRE
+                trade_cost_for_target_factor = 0.05
+                cic_to_target_factor = 0.02
+            }
+            
+		}
+        
+        GRtar_trade_2 = {
+
+
+			allowed_civil_war = {
+				always = yes
+			}
+				
+			removal_cost = -1
+            picture = gre_schachtplan3
+            
+            cancel = {
+                check_variable = { ROOT.favor@GRE < 30 }
+            }
+            
+            on_remove = {
+                set_variable = { GRE.tariff_level@ROOT = 0 }
+            }
+            
+            targeted_modifier = {
+                tag = GRE
+                trade_cost_for_target_factor = 0.10
+                cic_to_target_factor = 0.03
+            }
+		}
+        
+        GRtar_trade_3 = {
+
+			allowed_civil_war = {
+				always = yes
+			}
+				
+			removal_cost = -1
+            picture = gre_schachtplan3
+            
+            cancel = {
+                check_variable = { ROOT.favor@GRE < 30 }
+            }
+            
+            on_remove = {
+                set_variable = { GRE.tariff_level@ROOT = 0 }
+            }
+            
+            targeted_modifier = {
+                tag = GRE
+                trade_cost_for_target_factor = 0.15
+                cic_to_target_factor = 0.05
+            }
+		}
+        
+        ######################
+        
+        GRE_schachtplan_incorporated = {
+				
+			allowed = {
+				original_tag = GRE
+			}
+            
 			allowed_civil_war = {
 				always = yes
 			}
@@ -1323,9 +1473,11 @@ ideas = {
 			removal_cost = -1
 				
 			modifier = {
-				stability_factor = 0.08	
+				stability_factor = 0.05	
+                stability_weekly = 0.003
 				political_power_factor	= 0.15
-				consumer_goods_factor = 0.02
+				consumer_goods_factor = 0.05
+                custom_modifier_tooltip = GRE_booming_tourism_tt
 			}
 		}
         
@@ -3432,37 +3584,10 @@ theorist = {
             picture = general_electric
 			
 			cost = 75
-            
-            cancel = {
-                date > 1938.2.1
-                NOT = { has_country_flag = GRE_protected_eng_telecom }
-            }
 			
 			allowed = {
 				original_tag = GRE
 			}
-            
-            on_add = {
-                custom_effect_tooltip = manufacturer_reduced_cost_tt
-                if = { 
-                    limit = {
-                        check_variable = { GRE.debt@ENG > 79 }
-                    }
-                    add_political_power = 50
-                }
-                else_if = { 
-                    limit = {
-                        check_variable = { GRE.debt@ENG > 49 }
-                    }
-                    add_political_power = 25
-                }
-                else_if = { 
-                    limit = {
-                        check_variable = { GRE.debt@ENG > 29 }
-                    }
-                    add_political_power = 10
-                }
-            }
 			
 			research_bonus = {
 				electronics = 0.05
@@ -3528,6 +3653,11 @@ theorist = {
 				NOT = { has_war_with = ENG }
 			}
             
+            cancel = {
+                date > 1938.2.1
+                NOT = { has_country_flag = GRE_protected_eng_telecom }
+            }
+            
             on_add = {
                 custom_effect_tooltip = manufacturer_reduced_cost_tt
                 if = { 
@@ -3550,7 +3680,7 @@ theorist = {
                 }
             }
 
-			cost = 120
+			cost = 75
 			
 			research_bonus = {
 				industry = 0.05

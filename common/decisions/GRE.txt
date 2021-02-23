@@ -2409,7 +2409,7 @@ GRE_investment_decisions_category = {
 		}
 	} 
 
-    GRE_buy_subs = {
+    GRE_buy_subs_dec = {
         on_map_mode = map_and_decisions_view
         highlight_states = { state = FROM.capital } 
 
@@ -2436,8 +2436,8 @@ GRE_investment_decisions_category = {
 			}
 		}
 
-		cost = 730
-        days_remove = 1
+		cost = 0
+        days_remove = 730
 
 		fire_only_once = no
 
@@ -2511,7 +2511,7 @@ GRE_investment_decisions_category = {
         }
     }
     
-    GRE_buy_destroyers_and_torpedo_boats = {
+    GRE_buy_dest_dec = {
         on_map_mode = map_and_decisions_view
         highlight_states = { state = FROM.capital }
 
@@ -2615,7 +2615,7 @@ GRE_investment_decisions_category = {
         
     }
     
-    GRE_buy_battleships = {
+    GRE_buy_batt_dec = {
         on_map_mode = map_and_decisions_view
         highlight_states = { state = FROM.capital }
 
@@ -2801,8 +2801,448 @@ GRE_investment_decisions_category = {
                     amount = 1
                 }
             }
+        }  
+    }
+    
+    GRE_buy_arms = {
+        on_map_mode = map_and_decisions_view
+        highlight_states = { state = FROM.capital }
+
+		icon = generic_industry
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_budget_left_tt
+                check_variable = { var = GRE_budget_choices value = 0 compare = greater_than } 
+            }
+            custom_trigger_tooltip = {
+                tooltip = GRE_favor_at_least_mediocre_from_tt
+                check_variable = { FROM.favor@GRE > 29 }
+            }
+            NOT = { has_war_with = FROM }
+		}
+
+		target_trigger = {
+			FROM = {
+                OR = {
+                    original_tag = ENG
+                    original_tag = USA
+                    original_tag = GER
+                    original_tag = FRA
+                    original_tag = SOV
+                }
+			}
+		}
+
+		cost = 75
+        days_remove = 30
+
+		fire_only_once = yes
+
+		visible = {
+            has_completed_focus = GRE_seek_additional_deals
+            NOT = {
+                has_country_flag = weaps_ordered
+                has_country_flag = toggle_adio
+            }
+		}
+        
+        complete_effect = {
+            set_country_flag = weaps_ordered
+            subtract_from_variable = { GRE_budget_choices = 1 }
         }
         
+        remove_effect = {
+            set_temp_variable = { x = 1000 }
+            if = { 
+                limit = { check_variable = { FROM.favor@GRE > 79 } }
+                multiply_temp_variable = { x = 3 }
+            }
+            else_if = {
+                limit = { check_variable = { FROM.favor@GRE > 49 } }
+                multiply_temp_variable = { x = 2 }
+            }
+            add_to_temp_variable = { x = 9000 }
+            add_equipment_to_stockpile = { type = infantry_equipment_1 amount = x producer = FROM }
+        }
+    }
+    
+    GRE_buy_art = {
+        on_map_mode = map_and_decisions_view
+        highlight_states = { state = FROM.capital }
+
+		icon = artillery
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_budget_left_tt
+                check_variable = { var = GRE_budget_choices value = 0 compare = greater_than } 
+            }
+            custom_trigger_tooltip = {
+                tooltip = GRE_favor_at_least_mediocre_from_tt
+                check_variable = { FROM.favor@GRE > 29 }
+            }
+            NOT = { has_war_with = FROM }
+		}
+
+		target_trigger = {
+			FROM = {
+                OR = {
+                    original_tag = ENG
+                    original_tag = USA
+                    original_tag = GER
+                    original_tag = FRA
+                    original_tag = SOV
+                }
+			}
+		}
+
+		cost = 75
+        days_remove = 30
+
+		fire_only_once = yes
+
+		visible = {
+            has_completed_focus = GRE_seek_additional_deals
+            NOT = {
+                has_country_flag = art_ordered
+                has_country_flag = toggle_adio
+            }
+		}
+        
+        complete_effect = {
+            set_country_flag = art_ordered
+            subtract_from_variable = { GRE_budget_choices = 1 }
+        }
+        
+        remove_effect = {
+            set_temp_variable = { x = 100 }
+            if = { 
+                limit = { check_variable = { FROM.favor@GRE > 79 } }
+                multiply_temp_variable = { x = 3 }
+            }
+            else_if = {
+                limit = { check_variable = { FROM.favor@GRE > 49 } }
+                multiply_temp_variable = { x = 2 }
+            }
+            add_to_temp_variable = { x = 500 }
+            add_equipment_to_stockpile = { type = artillery_equipment_2 amount = x producer = FROM }
+        }
+    }
+    
+    GRE_fundraising_an_airforce = {
+
+		icon = generic_air
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		cost = 25
+        days_remove = 30
+
+		fire_only_once = yes
+
+		visible = {
+            has_completed_focus = GRE_fundraising_an_airforce
+            NOT = {
+                has_country_flag = airforce_funded
+                has_country_flag = toggle_adio
+            }
+		}
+        
+        complete_effect = {
+            set_country_flag = airforce_funded
+            custom_effect_tooltip = GRE_fundraising_an_airforce_tt
+        }
+        
+        remove_effect = {
+            if = { 
+                limit = { NOT = { has_completed_focus = GRE_dreams_of_a_grand_coalition } }
+                if = {
+                    limit = {                                                                           ## If all factions are friendly
+                        check_variable = { fct_com > 70 }
+                        check_variable = { fct_mon > 70 }
+                        check_variable = { fct_dem > 70 }
+                        check_variable = { fct_fas > 70 }
+                    }
+                    if = {
+                        limit = { has_tech = fighter3 }
+                        add_equipment_to_stockpile = { type = fighter_equipment_3 amount = 48 producer = GRE }
+                    }
+                    else_if = {
+                        limit = { has_tech = fighter2 }
+                        add_equipment_to_stockpile = { type = fighter_equipment_2 amount = 48 producer = GRE }
+                    }
+                    else_if = {
+                        limit = { has_tech = fighter1 }
+                        add_equipment_to_stockpile = { type = fighter_equipment_1 amount = 48 producer = GRE }
+                    }
+                    if = {
+                        limit = { has_tech = CAS3 }
+                        add_equipment_to_stockpile = { type = CAS_equipment_3 amount = 36 producer = GRE }
+                    }
+                    else_if = {
+                        limit = { has_tech = CAS2 }
+                        add_equipment_to_stockpile = { type = CAS_equipment_2 amount = 36 producer = GRE }
+                    }
+                    else_if = {
+                        limit = { has_tech = CAS1 }
+                        add_equipment_to_stockpile = { type = CAS_equipment_1 amount = 36 producer = GRE }
+                    }
+                    if = {
+                        limit = { has_tech = naval_bomber3 }
+                        add_equipment_to_stockpile = { type = nav_bomber_equipment_3 amount = 36 producer = GRE }
+                    }
+                    else_if = {
+                        limit = { has_tech = naval_bomber2 }
+                        add_equipment_to_stockpile = { type = nav_bomber_equipment_2 amount = 36 producer = GRE }
+                    }
+                    else_if = {
+                        limit = { has_tech = naval_bomber1 }
+                        add_equipment_to_stockpile = { type = nav_bomber_equipment_1 amount = 36 producer = GRE }
+                    }
+                    if = {
+                        limit = { has_tech = tactical_bomber3 }
+                        add_equipment_to_stockpile = { type = tac_bomber_equipment_3 amount = 48 producer = GRE }
+                    }
+                    else_if = {
+                        limit = { has_tech = tactical_bomber2 }
+                        add_equipment_to_stockpile = { type = tac_bomber_equipment_2 amount = 48 producer = GRE }
+                    }
+                    else_if = {
+                        limit = { has_tech = tactical_bomber1 }
+                        add_equipment_to_stockpile = { type = tac_bomber_equipment_1 amount = 48 producer = GRE }
+                    }
+                }
+                else_if = {
+                    limit = {                                                                           ## If 3/4 factions are at least friendly
+                        count_triggers = {
+                            amount = 3
+                            check_variable = { fct_com > 70 }
+                            check_variable = { fct_mon > 70 }
+                            check_variable = { fct_dem > 70 }
+                            check_variable = { fct_fas > 70 }
+                        }
+                    }
+                    if = {
+                        limit = { has_tech = fighter3 }
+                        add_equipment_to_stockpile = { type = fighter_equipment_3 amount = 36 producer = GRE }
+                    }
+                    else_if = {
+                        limit = { has_tech = fighter2 }
+                        add_equipment_to_stockpile = { type = fighter_equipment_2 amount = 36 producer = GRE }
+                    }
+                    else_if = {
+                        limit = { has_tech = fighter1 }
+                        add_equipment_to_stockpile = { type = fighter_equipment_1 amount = 36 producer = GRE }
+                    }
+                    if = {
+                        limit = { has_tech = CAS3 }
+                        add_equipment_to_stockpile = { type = CAS_equipment_3 amount = 28 producer = GRE }
+                    }
+                    else_if = {
+                        limit = { has_tech = CAS2 }
+                        add_equipment_to_stockpile = { type = CAS_equipment_2 amount = 28 producer = GRE }
+                    }
+                    else_if = {
+                        limit = { has_tech = CAS1 }
+                        add_equipment_to_stockpile = { type = CAS_equipment_1 amount = 28 producer = GRE }
+                    }
+                    if = {
+                        limit = { has_tech = naval_bomber3 }
+                        add_equipment_to_stockpile = { type = nav_bomber_equipment_3 amount = 28 producer = GRE }
+                    }
+                    else_if = {
+                        limit = { has_tech = naval_bomber2 }
+                        add_equipment_to_stockpile = { type = nav_bomber_equipment_2 amount = 28 producer = GRE }
+                    }
+                    else_if = {
+                        limit = { has_tech = naval_bomber1 }
+                        add_equipment_to_stockpile = { type = nav_bomber_equipment_1 amount = 28 producer = GRE }
+                    }
+                    if = {
+                        limit = { has_tech = tactical_bomber3 }
+                        add_equipment_to_stockpile = { type = tac_bomber_equipment_3 amount = 36 producer = GRE }
+                    }
+                    else_if = {
+                        limit = { has_tech = tactical_bomber2 }
+                        add_equipment_to_stockpile = { type = tac_bomber_equipment_2 amount = 36 producer = GRE }
+                    }
+                    else_if = {
+                        limit = { has_tech = tactical_bomber1 }
+                        add_equipment_to_stockpile = { type = tac_bomber_equipment_1 amount = 36 producer = GRE }
+                    }
+                }
+                else_if = {
+                    limit = {                                                                           ## If 3/4 factions are at least friendly
+                        count_triggers = {
+                            amount = 2
+                            check_variable = { fct_com > 70 }
+                            check_variable = { fct_mon > 70 }
+                            check_variable = { fct_dem > 70 }
+                            check_variable = { fct_fas > 70 }
+                        }
+                    }
+                    if = {
+                        limit = { has_tech = fighter3 }
+                        add_equipment_to_stockpile = { type = fighter_equipment_3 amount = 30 producer = GRE }
+                    }
+                    else_if = {
+                        limit = { has_tech = fighter2 }
+                        add_equipment_to_stockpile = { type = fighter_equipment_2 amount = 30 producer = GRE }
+                    }
+                    else_if = {
+                        limit = { has_tech = fighter1 }
+                        add_equipment_to_stockpile = { type = fighter_equipment_1 amount = 30 producer = GRE }
+                    }
+                    if = {
+                        limit = { has_tech = CAS3 }
+                        add_equipment_to_stockpile = { type = CAS_equipment_3 amount = 20 producer = GRE }
+                    }
+                    else_if = {
+                        limit = { has_tech = CAS2 }
+                        add_equipment_to_stockpile = { type = CAS_equipment_2 amount = 20 producer = GRE }
+                    }
+                    else_if = {
+                        limit = { has_tech = CAS1 }
+                        add_equipment_to_stockpile = { type = CAS_equipment_1 amount = 20 producer = GRE }
+                    }
+                    if = {
+                        limit = { has_tech = naval_bomber3 }
+                        add_equipment_to_stockpile = { type = nav_bomber_equipment_3 amount = 20 producer = GRE }
+                    }
+                    else_if = {
+                        limit = { has_tech = naval_bomber2 }
+                        add_equipment_to_stockpile = { type = nav_bomber_equipment_2 amount = 20 producer = GRE }
+                    }
+                    else_if = {
+                        limit = { has_tech = naval_bomber1 }
+                        add_equipment_to_stockpile = { type = nav_bomber_equipment_1 amount = 20 producer = GRE }
+                    }
+                    if = {
+                        limit = { has_tech = tactical_bomber3 }
+                        add_equipment_to_stockpile = { type = tac_bomber_equipment_3 amount = 30 producer = GRE }
+                    }
+                    else_if = {
+                        limit = { has_tech = tactical_bomber2 }
+                        add_equipment_to_stockpile = { type = tac_bomber_equipment_2 amount = 30 producer = GRE }
+                    }
+                    else_if = {
+                        limit = { has_tech = tactical_bomber1 }
+                        add_equipment_to_stockpile = { type = tac_bomber_equipment_1 amount = 30 producer = GRE }
+                    }
+                }
+                else = {
+                    if = {
+                        limit = { has_tech = fighter3 }
+                        add_equipment_to_stockpile = { type = fighter_equipment_3 amount = 24 producer = GRE }
+                    }
+                    else_if = {
+                        limit = { has_tech = fighter2 }
+                        add_equipment_to_stockpile = { type = fighter_equipment_2 amount = 24 producer = GRE }
+                    }
+                    else_if = {
+                        limit = { has_tech = fighter1 }
+                        add_equipment_to_stockpile = { type = fighter_equipment_1 amount = 24 producer = GRE }
+                    }
+                    if = {
+                        limit = { has_tech = CAS3 }
+                        add_equipment_to_stockpile = { type = CAS_equipment_3 amount = 16 producer = GRE }
+                    }
+                    else_if = {
+                        limit = { has_tech = CAS2 }
+                        add_equipment_to_stockpile = { type = CAS_equipment_2 amount = 16 producer = GRE }
+                    }
+                    else_if = {
+                        limit = { has_tech = CAS1 }
+                        add_equipment_to_stockpile = { type = CAS_equipment_1 amount = 16 producer = GRE }
+                    }
+                    if = {
+                        limit = { has_tech = naval_bomber3 }
+                        add_equipment_to_stockpile = { type = nav_bomber_equipment_3 amount = 16 producer = GRE }
+                    }
+                    else_if = {
+                        limit = { has_tech = naval_bomber2 }
+                        add_equipment_to_stockpile = { type = nav_bomber_equipment_2 amount = 16 producer = GRE }
+                    }
+                    else_if = {
+                        limit = { has_tech = naval_bomber1 }
+                        add_equipment_to_stockpile = { type = nav_bomber_equipment_1 amount = 16 producer = GRE }
+                    }
+                    if = {
+                        limit = { has_tech = tactical_bomber3 }
+                        add_equipment_to_stockpile = { type = tac_bomber_equipment_3 amount = 24 producer = GRE }
+                    }
+                    else_if = {
+                        limit = { has_tech = tactical_bomber2 }
+                        add_equipment_to_stockpile = { type = tac_bomber_equipment_2 amount = 24 producer = GRE }
+                    }
+                    else_if = {
+                        limit = { has_tech = tactical_bomber1 }
+                        add_equipment_to_stockpile = { type = tac_bomber_equipment_1 amount = 24 producer = GRE }
+                    }
+                }
+            }
+            else = {
+                if = {
+                    limit = { has_tech = fighter3 }
+                    add_equipment_to_stockpile = { type = fighter_equipment_3 amount = 72 producer = GRE }
+                }
+                else_if = {
+                    limit = { has_tech = fighter2 }
+                    add_equipment_to_stockpile = { type = fighter_equipment_2 amount = 72 producer = GRE }
+                }
+                else_if = {
+                    limit = { has_tech = fighter1 }
+                    add_equipment_to_stockpile = { type = fighter_equipment_1 amount = 72 producer = GRE }
+                }
+                if = {
+                    limit = { has_tech = CAS3 }
+                    add_equipment_to_stockpile = { type = CAS_equipment_3 amount = 52 producer = GRE }
+                }
+                else_if = {
+                    limit = { has_tech = CAS2 }
+                    add_equipment_to_stockpile = { type = CAS_equipment_2 amount = 52 producer = GRE }
+                }
+                else_if = {
+                    limit = { has_tech = CAS1 }
+                    add_equipment_to_stockpile = { type = CAS_equipment_1 amount = 52 producer = GRE }
+                }
+                if = {
+                    limit = { has_tech = naval_bomber3 }
+                    add_equipment_to_stockpile = { type = nav_bomber_equipment_3 amount = 52 producer = GRE }
+                }
+                else_if = {
+                    limit = { has_tech = naval_bomber2 }
+                    add_equipment_to_stockpile = { type = nav_bomber_equipment_2 amount = 52 producer = GRE }
+                }
+                else_if = {
+                    limit = { has_tech = naval_bomber1 }
+                    add_equipment_to_stockpile = { type = nav_bomber_equipment_1 amount = 52 producer = GRE }
+                }
+                if = {
+                    limit = { has_tech = tactical_bomber3 }
+                    add_equipment_to_stockpile = { type = tac_bomber_equipment_3 amount = 72 producer = GRE }
+                }
+                else_if = {
+                    limit = { has_tech = tactical_bomber2 }
+                    add_equipment_to_stockpile = { type = tac_bomber_equipment_2 amount = 72 producer = GRE }
+                }
+                else_if = {
+                    limit = { has_tech = tactical_bomber1 }
+                    add_equipment_to_stockpile = { type = tac_bomber_equipment_1 amount = 72 producer = GRE }
+                }
+            }
+        }
     }
 }
 
@@ -3037,10 +3477,10 @@ GRE_pay_back_debt_to_the_ifc_category = {
 
 		available = {
             custom_trigger_tooltip = {
-                tooltip = "§RAt least half of our debt is repayed§!"
+                tooltip = GRE_at_least_50_total_debt_tt
                 OR = {
-                check_variable = { var = GRE_debt_to_the_ifc_paid_var value = 15 compare = greater_than_or_equals }
-                has_country_flag = GRE_completely_debt_free
+                check_variable = { var = GRE_debt_to_the_ifc_paid_var value = 150 compare = greater_than_or_equals }
+                has_country_flag = GRE_debt_free
                 }
             }
 		}
@@ -3057,7 +3497,7 @@ GRE_pay_back_debt_to_the_ifc_category = {
             }
             OR = {
             check_variable = { var = GRE_debt_to_the_ifc_paid_var value = 15 compare = greater_than_or_equals }
-            has_country_flag = GRE_completely_debt_free
+            has_country_flag = GRE_debt_free
             }
         }
 
@@ -3144,7 +3584,7 @@ GRE_pay_back_debt_to_the_ifc_category = {
 		}
 
 		available = {
-            has_country_flag = GRE_completely_debt_free
+            has_country_flag = GRE_debt_free
             ENG = { has_opinion = { target = GRE value > 60 } }
 		}
 
@@ -3214,7 +3654,7 @@ GRE_pay_back_debt_to_the_ifc_category = {
 		}
 
 		available = {
-            has_country_flag = GRE_completely_debt_free
+            has_country_flag = GRE_debt_free
             SOV = { has_opinion = { target = GRE value > 60 } }
 		}
 
@@ -3287,7 +3727,7 @@ GRE_pay_back_debt_to_the_ifc_category = {
 		}
 
 		available = {
-            has_country_flag = GRE_completely_debt_free
+            has_country_flag = GRE_debt_free
             USA = { has_opinion = { target = GRE value > 60 } }
 		}
 
@@ -3360,7 +3800,7 @@ GRE_pay_back_debt_to_the_ifc_category = {
 		}
 
 		available = {
-            has_country_flag = GRE_completely_debt_free
+            has_country_flag = GRE_debt_free
             GER = { has_opinion = { target = GRE value > 60 } }
 		}
 
@@ -6268,7 +6708,194 @@ GRE_grecoitalian_war_category = {
     
 }
 
-GRE_economic_fluidity = { 
+GRE_economic_fluidity = {
+
+    GRE_expand_collapse_tariff_decisions = {
+        icon = decision_generic_decision
+    
+        allowed = { 
+			original_tag = GRE
+		}
+        
+        fire_only_once = no
+        days_remove = 0
+        days_re_enable = 0
+        priority = 12
+        
+        visible = {
+            has_completed_focus = GRE_tariff
+        }
+        
+        complete_effect = {
+            hidden_effect = {
+                if = {
+                    limit = {
+                        NOT = { has_country_flag = toggle_fm }
+                    }
+                    set_country_flag = toggle_tariff
+                }
+                else = {
+                    clr_country_flag = toggle_tariff
+                }
+            }
+        }
+    }
+
+    impose_tarrifs = {
+    
+		icon = tariff
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		target_trigger = {
+			FROM = {
+                is_in_array = {
+                    array = global.favor_mechanic
+                    value = THIS.id
+                }          
+			}
+		}
+        
+        available = {
+            has_country_flag = GRE_debt_free
+        }
+        
+        available = {
+            has_completed_focus = GRE_open_foreign_subsidized_factories
+            has_completed_focus = GRE_bedrock_of_balkan_financial_stability
+            has_completed_focus = GRE_economic_fluidity_plans
+        }
+        
+        visible = {
+            has_completed_focus = GRE_tariff
+            if = {
+                limit = {
+                    FROM = { is_major = no }
+                }
+                check_variable = { FROM.favor@GRE > 49 }
+            }
+            FROM = { NOT = { has_idea = GRtar_trade_3 } }
+            NOT = { has_country_flag = toggle_tariff }
+        }
+
+        cost = 50
+
+		fire_only_once = no
+
+		days_remove = 0
+
+		complete_effect = {
+            FROM = { 
+                if = {
+                    limit = {
+                        has_idea = GRtar_trade_2
+                    }
+                    swap_ideas = {
+                        remove_idea = GRtar_trade_2
+                        add_idea = GRtar_trade_3
+                    }
+                    set_variable = { GRE.tariff_level@FROM = 3 }
+                }
+                else_if = {
+                    limit = {
+                        has_idea = GRtar_trade_1
+                    }
+                    swap_ideas = {
+                        remove_idea = GRtar_trade_1
+                        add_idea = GRtar_trade_2
+                    }
+                    set_variable = { GRE.tariff_level@FROM = 2 }
+                }
+                else = {
+                    add_ideas = GRtar_trade_1
+                    set_variable = { GRE.tariff_level@FROM = 1 }
+                }
+            }
+		}    
+    }
+    
+    reduce_tariffs = {
+    
+		icon = tariff
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		target_trigger = {
+			FROM = {
+                is_in_array = {
+                    array = global.favor_mechanic
+                    value = THIS.id
+                }          
+			}
+		}
+        
+        available = {
+            has_country_flag = GRE_debt_free
+        }
+        
+        available = {
+            has_completed_focus = GRE_open_foreign_subsidized_factories
+            has_completed_focus = GRE_bedrock_of_balkan_financial_stability
+            has_completed_focus = GRE_economic_fluidity_plans
+        }
+        
+        visible = {
+            has_completed_focus = GRE_tariff
+            if = {
+                limit = {
+                    FROM = { is_major = no }
+                }
+                check_variable = { FROM.favor@GRE > 49 }
+            }
+            FROM = {
+                OR = {
+                    has_idea = GRtar_trade_1
+                    has_idea = GRtar_trade_2 
+                    has_idea = GRtar_trade_3
+                }
+            }
+            NOT = { has_country_flag = toggle_tariff }
+        }
+
+        cost = 0
+
+		fire_only_once = no
+
+		days_remove = 0
+
+		complete_effect = {
+            FROM = { 
+                if = {
+                    limit = {
+                        has_idea = GRtar_trade_3
+                    }
+                    swap_ideas = {
+                        remove_idea = GRtar_trade_3
+                        add_idea = GRtar_trade_2
+                    }
+                    set_variable = { GRE.tariff_level@FROM = 2 }
+                }
+                else_if = {
+                    limit = {
+                        has_idea = GRtar_trade_2
+                    }
+                    swap_ideas = {
+                        remove_idea = GRtar_trade_2
+                        add_idea = GRtar_trade_1
+                    }
+                    set_variable = { GRE.tariff_level@FROM = 1 }
+                }
+                else = {
+                    remove_ideas = GRtar_trade_1
+                    set_variable = { GRE.tariff_level@FROM = 0 }
+                }
+            }
+		}    
+    }
 
 	solidify_assets = {
     

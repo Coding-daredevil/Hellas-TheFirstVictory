@@ -114,100 +114,263 @@ GRE_update_strain_on_industry = {
  
 }
 #########################################################
+################[Führer Directive No. 25]################
+#########################################################
+GER_ignore_soviet = {
+    if = {
+        limit = {
+            check_variable = { GER.ai_strategy_ignore@SOV < 1999 }
+            check_variable = { GER.ai_strategy_ignore_claim@SOV < 1999 }
+            check_variable = { GER.ai_strategy_antagonize@SOV > -4999 }
+        }
+        add_ai_strategy = {
+            type = ignore
+            id = SOV
+            value = 2000
+        }
+        add_ai_strategy = {
+            type = ignore_claim
+            id = SOV
+            value = 2000
+        }
+        add_ai_strategy = {
+            type = antagonize
+            id = SOV
+            value = -5000
+        }
+    }
+}
+
+GER_return_attention_soviet = {
+    if = {
+        limit = {
+            check_variable = { GER.ai_strategy_ignore@SOV > 1999 }
+            check_variable = { GER.ai_strategy_ignore_claim@SOV > 1999 }
+            check_variable = { GER.ai_strategy_antagonize@SOV < -4999 }
+        }
+        add_ai_strategy = {
+            type = ignore
+            id = SOV
+            value = -2000
+        }
+        add_ai_strategy = {
+            type = ignore_claim
+            id = SOV
+            value = -2000
+        }
+        add_ai_strategy = {
+            type = antagonize
+            id = SOV
+            value = 5000
+        }
+    }
+}
+
+GRE_enable_german_onslaught = {
+    if = {
+        limit = {
+            check_variable = { GER.ai_strategy_antagonize@YUG < 3999 }
+        }
+        GER = {
+            add_ai_strategy = {
+                type = conquer
+                id = YUG
+                value = 4000
+            }
+            add_ai_strategy = {
+                type = conquer
+                id = GRE
+                value = 2000
+            }
+            add_ai_strategy = {
+                type = antagonize
+                id = GRE
+                value = 2000
+            }
+            add_ai_strategy = {
+                type = invade
+                id = YUG
+                value = 4000
+            }
+            add_ai_strategy = {
+                type = invade
+                id = GRE
+                value = 2000
+            }
+            add_ai_strategy = {
+                type = antagonize
+                id = GRE
+                value = 2000
+            }
+            add_ai_strategy = {
+                type = area_priority
+                id = balkans
+                value = 10000
+            }    
+        }
+    }
+}
+
+GRE_disable_german_onslaught = {
+    if = {
+        limit = {
+            check_variable = { GER.ai_strategy_antagonize@YUG > 3999 }
+        }
+        GER = {
+            add_ai_strategy = {
+                type = conquer
+                id = YUG
+                value = -4000
+            }
+            add_ai_strategy = {
+                type = conquer
+                id = GRE
+                value = -2000
+            }
+            add_ai_strategy = {
+                type = invade
+                id = YUG
+                value = -4000
+            }
+            add_ai_strategy = {
+                type = invade
+                id = GRE
+                value = -2000
+            }
+            add_ai_strategy = {
+                type = area_priority
+                id = balkans
+                value = -10000
+            }    
+        }
+    }
+}
+
+#########################################################
 ##############[GRECO-ITALIAN WAR AI FIXES]###############
 #########################################################
 GRE_stop_italians_manning_bulgarian_borders = {
-    ITA = {
-        add_ai_strategy = {
-            type = dont_defend_ally_borders
-            id = BUL
-            value = 200
+    if = {
+        limit = {
+            check_variable = { ITA.ai_strategy_dont_defend_ally_borders@ITA < 199 }
+        } 
+        ITA = {
+            add_ai_strategy = {
+                type = dont_defend_ally_borders
+                id = BUL
+                value = 200
+            }
         }
     }
 }
 
 GRE_allow_italians_manning_bulgarian_borders = {
-    ITA = {
-        add_ai_strategy = {
-            type = dont_defend_ally_borders
-            id = BUL
-            value = -200
+    if = {
+        limit = {
+            check_variable = { ITA.ai_strategy_dont_defend_ally_borders@ITA > 199 }
+        } 
+        ITA = {
+            add_ai_strategy = {
+                type = dont_defend_ally_borders
+                id = BUL
+                value = -200
+            }
         }
     }
 }
 
 GRE_set_germans_unwilling = {
-    GER = {
-        add_ai_strategy = {
-            type = dont_defend_ally_borders
-            id = ITA
-            value = 200
+    if = {
+        limit = {
+            check_variable = { GER.ai_strategy_dont_defend_ally_borders@ITA < 1999 }
+        } 
+        GER = {
+            add_ai_strategy = {
+                type = dont_defend_ally_borders
+                id = ITA
+                value = 2000
+            }
+            add_ai_strategy = {
+                type = dont_join_wars_with
+                id = ITA
+                target_country = GRE
+                value = 5000
+            }
+            add_ai_strategy = {
+                type = dont_join_wars_with
+                id = BUL
+                target_country = GRE
+                value = 5000
+            }    
         }
-        add_ai_strategy = {
-            type = dont_join_wars_with
-            id = ITA
-            target_country = GRE
-            value = 500
-        }
-        add_ai_strategy = {
-            type = dont_join_wars_with
-            id = BUL
-            target_country = GRE
-            value = 500
-        }    
     }
 }
 
 GRE_set_germans_willing = {
-    GER = {
-        add_ai_strategy = {
-            type = dont_defend_ally_borders
-            id = ITA
-            value = -200
-        }
-        add_ai_strategy = {
-            type = dont_join_wars_with
-            id = ITA
-            target_country = GRE
-            value = -500
-        }
-        add_ai_strategy = {
-            type = dont_join_wars_with
-            id = BUL
-            target_country = GRE
-            value = -500
+    if = {
+        limit = {
+            check_variable = { GER.ai_strategy_dont_defend_ally_borders@ITA > 1999 }
+        } 
+        GER = {
+            add_ai_strategy = {
+                type = dont_defend_ally_borders
+                id = ITA
+                value = -2000
+            }
+            add_ai_strategy = {
+                type = dont_join_wars_with
+                id = ITA
+                target_country = GRE
+                value = -5000
+            }
+            add_ai_strategy = {
+                type = dont_join_wars_with
+                id = BUL
+                target_country = GRE
+                value = -5000
+            }    
         }
     }
 }
 
 GRE_set_country_unwilling_to_help_bulgaria = {
-    THIS = {
-        add_ai_strategy = {
-            type = dont_defend_ally_borders
-            id = BUL
-            value = -200
-        }
-        add_ai_strategy = {
-            type = dont_join_wars_with
-            id = BUL
-            target_country = GRE
-            value = -500
+    if = {
+        limit = {
+            check_variable = { THIS.ai_strategy_dont_defend_ally_borders@ITA < 199 }
+        } 
+        THIS = {
+            add_ai_strategy = {
+                type = dont_defend_ally_borders
+                id = BUL
+                value = 200
+            }
+            add_ai_strategy = {
+                type = dont_join_wars_with
+                id = BUL
+                target_country = GRE
+                value = 500
+            }
         }
     }
 }
 
 GRE_set_country_willing_to_help_bulgaria = {
-    THIS = {
-        add_ai_strategy = {
-            type = dont_defend_ally_borders
-            id = BUL
-            value = 200
-        }
-        add_ai_strategy = {
-            type = dont_join_wars_with
-            id = BUL
-            target_country = GRE
-            value = 500
+    if = {
+        limit = {
+            check_variable = { THIS.ai_strategy_dont_defend_ally_borders@ITA > 199 }
+        } 
+        THIS = {
+            add_ai_strategy = {
+                type = dont_defend_ally_borders
+                id = BUL
+                value = -200
+            }
+            add_ai_strategy = {
+                type = dont_join_wars_with
+                id = BUL
+                target_country = GRE
+                value = -500
+            }
         }
     }
 }
@@ -1200,6 +1363,12 @@ GRE_add_favor = {
         set_temp_variable = { x = -5 }                       
     }
     #############################[ Additional ]###############################
+    if = {                                                                                                      ## Tourism always good                                                                                
+        limit = {
+            has_idea = GRE_booming_tourism
+        }
+        add_to_temp_variable = { x = 1 }
+    }
     if = {                                                                                                      ## If both nations share the same ideology, give 1 extra point. Otherwise, subtract when
         limit = {
             check_variable = { THIS.current_party_ideology_group = GRE.current_party_ideology_group }
