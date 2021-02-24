@@ -1,0 +1,195 @@
+# befriend
+# conquer
+# antagonize
+# build_ship
+# build_army
+# unit_ratio
+# build_building
+# research_tech
+# garrison
+# protect
+# influence
+# send_volunteers_desire
+
+Italian_strategy_A_preparing_war = {                                                            ## Step A is when Italy prepares for war with Greece (either through focus or wargoal)
+    allowed = {
+        original_tag = ITA
+    }
+    enable = {
+        OR = {
+            focus_progress = {
+                focus = ITA_greece_war_goal
+                progress > 0.01
+            }
+            is_justifying_wargoal_against = GRE
+            has_wargoal_against = GRE
+            has_global_flag = GRE_grecoitalian_start
+        }
+    }
+    
+    abort_when_not_enabled = yes
+    
+    ai_strategy = {
+        type = area_priority
+        id = grecoalbanian_border
+        value = 1000
+    }
+    
+    ai_strategy = {                                                                            ## Preferably avoid naval invasions (commit on albanian front)
+		type = invade
+		id = GRE			
+		value = -10
+	}
+    
+    ai_strategy = {
+        type = antagonize
+        id = GRE
+        value = 1000
+    }
+
+}
+
+Italian_strategy_B_selfish_war = {
+    allowed = {
+        original_tag = ITA                                                                      ## Idea defines Italian desire NOT to call any allies and commit to the conquest of Greece alone.
+    }                                                                                           ## Only exception is the wish of including Bulgaria (historical), but they were not ready to commit and Turkish guarantees scared them off.
+    enable = {
+        has_global_flag = GRE_grecoitalian_start
+        OR = {
+            has_idea = GRE_italian_ambition     
+            has_idea = GRE_italian_ambition_defensive 
+            has_idea = GRE_italian_ambition_ultra_offensive 
+        }
+    }
+    
+    abort_when_not_enabled = yes
+    
+    ai_strategy = {                                                                             ## However, Italy will commit only to Albania, as historically they desired Bulgaria's help to split Greek forces.
+        type = dont_defend_ally_borders
+        id = BUL
+        value = 1000
+    }
+}
+
+German_strategy_A_non_participation = {
+    allowed = {
+        original_tag = GER
+    }
+    enable = {
+        has_global_flag = GRE_grecoitalian_start
+        ITA = { 
+            OR = {
+                has_idea = GRE_italian_ambition     
+                has_idea = GRE_italian_ambition_defensive 
+                has_idea = GRE_italian_ambition_ultra_offensive 
+            }
+        }
+        GRE = {
+            NOT = { is_in_faction_with = ENG }
+            NOT = { gives_military_access_to = ENG }
+        }
+    }
+    abort_when_not_enabled = yes
+    
+    ai_strategy = {
+        type = dont_defend_ally_borders
+        id = ITA
+        value = 2000
+    }
+    ai_strategy = {
+        type = dont_join_wars_with
+        id = ITA
+        target_country = GRE
+        value = 5000
+    }
+    ai_strategy = {                                                                         ## Just in case Bulgaria had joined the war vs Italy, let those three fight it out.
+        type = dont_join_wars_with
+        id = BUL
+        target_country = GRE
+        value = 5000
+    }
+    ai_strategy = {
+        type = dont_defend_ally_borders
+        id = BUL
+        value = 2000
+    } 
+}
+
+German_strategy_B_directive = {
+    allowed = {
+        original_tag = GER
+    }
+    enable = {
+        has_global_flag = GRE_grecoitalian_start
+        date > 1941.03.20
+        NOT = { YUG = { is_in_faction_with = GER } }
+    }
+    abort = {
+        YUG = { has_capitulated = yes }
+    }
+    
+    ai_strategy = {
+        type = antagonize
+        id = YUG
+        value = 4000
+    }
+    ai_strategy = {
+        type = area_priority
+        id = yugoslavia
+        value = 10000
+    }  
+}
+
+German_strategy_C_marita = {
+    allowed = {
+        original_tag = GER
+    }
+    enable = {
+        has_global_flag = GRE_grecoitalian_start
+        date > 1941.04.06
+        YUG = { has_capitulated = yes }
+    }
+    abort = {
+        GRE = { has_capitulated = yes }
+    }
+    
+    ai_strategy = {
+        type = antagonize
+        id = GRE
+        value = 4000
+    }
+    ai_strategy = {
+        type = area_priority
+        id = greece
+        value = 10000
+    }  
+}
+
+German_strategy_D_balkans_before_barbarossa = {
+    allowed = {
+        original_tag = GER
+    }
+    enable = {
+        has_global_flag = GRE_grecoitalian_start
+        has_war_with = GRE
+    }
+    
+    abort_when_not_enabled = yes
+    
+    ai_strategy = {
+        type = ignore
+        id = SOV
+        value = 20000
+    }
+    ai_strategy = {
+        type = ignore_claim
+        id = SOV
+        value = 20000
+    }
+    ai_strategy = {
+        type = antagonize
+        id = SOV
+        value = -50000
+    }
+    
+}

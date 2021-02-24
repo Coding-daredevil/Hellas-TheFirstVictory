@@ -389,6 +389,8 @@ on_actions = {
                 GRE = {
                     add_dynamic_modifier = { modifier = GRE_war_strain }    ## testing for older savegames
                     set_global_flag = GRE_grecoitalian_start
+                    set_country_flag = GRE_stop_checking_fortifications                                                          ## Stops checking for fortifications on the Italian border w/ Albania.
+                    set_variable = { grecoitalian_war_counter = 0 }
                     if = {                                                                                                      ### Basically make sure the mission of holding the line only activates if the Italians enact a war while bordering Greece (other case is Greece provoked them so they won't have claimed an easy victory as they did historically)
                         limit = {
                             ITA = { is_neighbor_of = GRE }
@@ -461,9 +463,11 @@ on_actions = {
                     }                    
                     ITA = {
                         add_ideas = GRE_italian_ambition                                                                        ### Basically stops the Italians from calling any allies to the war (historical). To make the player also wanna do the same, if Italy doesn't call anyone and wins the war, then the entirety of Greece will fall under her control.
-                        GRE_stop_italians_manning_bulgarian_borders = yes
+                        #stop_italians_manning_bulgarian_borders = yes
                     }
-                    GER = { GRE_set_germans_unwilling = yes }
+                    GER = { 
+                        #GRE_set_germans_unwilling = yes 
+                    }
                 }
                 ##########################################[Bulgarian Effects]##########################################
                 if = {
@@ -495,7 +499,9 @@ on_actions = {
                         #has_country_flag = GRE_grecogerman_tradedeal_accepted
                         NOT = { is_in_faction_with = ENG }
                     }
-                    GER = { GRE_set_country_unwilling_to_help_bulgaria = yes }
+                    GER = { 
+                        #set_country_unwilling_to_help_bulgaria = yes 
+                    }
                 }
                 ##########################################[Yugoslavian Effects]#######################################
                 ##########################################[Turkish Effects]###########################################
@@ -516,7 +522,7 @@ on_actions = {
                 }
                 ITA = {
                     remove_ideas = GRE_italian_ambition
-                    GRE_allow_italians_manning_bulgarian_borders = yes
+                    #GRE_allow_italians_manning_bulgarian_borders = yes
                 }
                 if = {
                     limit = {
@@ -527,10 +533,9 @@ on_actions = {
                     }
                 }
                 GER = { 
-                    GRE_set_germans_willing = yes 
-                    GRE_set_country_willing_to_help_bulgaria = yes
+                    #GRE_set_germans_willing = yes 
+                    #GRE_set_country_willing_to_help_bulgaria = yes
                 }
-                
             }
         }   
     }
@@ -547,7 +552,7 @@ on_actions = {
 				}
                 ITA = {
                     remove_ideas = GRE_italian_ambition
-                    GRE_allow_italians_manning_bulgarian_borders = yes
+                    #GRE_allow_italians_manning_bulgarian_borders = yes
                 }
                 if = {
                     limit = {
@@ -558,8 +563,8 @@ on_actions = {
                     }
                 }
                 GER = { 
-                    GRE_set_germans_willing = yes 
-                    GRE_set_country_willing_to_help_bulgaria = yes
+                    #GRE_set_germans_willing = yes 
+                    #GRE_set_country_willing_to_help_bulgaria = yes
                 }
             }
         }   
@@ -622,12 +627,12 @@ on_actions = {
 				}
                 ITA = {
                     remove_ideas = GRE_italian_ambition
-                    GRE_allow_italians_manning_bulgarian_borders = yes
+                    #GRE_allow_italians_manning_bulgarian_borders = yes
                 }
                 GER = { 
-                    GRE_set_germans_willing = yes
-                    GER_ignore_soviet = yes
-                    GRE_enable_german_onslaught = yes 
+                    #GRE_set_germans_willing = yes 
+                    #GER_ignore_soviet = yes
+                    #enable_german_onslaught_on_yugoslavia = yes
                     add_ideas = GRE_german_ambition
                 }
 			}           
@@ -639,10 +644,13 @@ on_actions = {
             if = {
                 limit = {
                     ROOT = { original_tag = YUG }
+                    ITA = { has_war_with = GRE }
+                    BUL = { exists = yes is_subject = no }
                 }
-                GER = {
-                    GRE_set_country_willing_to_help_bulgaria = yes 
-                }
+                #GER = {
+                #    disable_german_onslaught_on_yugoslavia = yes
+                #    enable_german_onslaught_on_greece = yes
+                #}
             }
         }
     }
@@ -653,10 +661,38 @@ on_actions = {
                 limit = {
                     ROOT = { original_tag = GRE }
                 }
-                GER = {
-                    GER_return_attention_soviet = yes
-                    GRE_disable_german_onslaught = yes
-                    remove_ideas = GRE_german_ambition
+                #GER = {
+                #    GER_return_attention_soviet = yes
+                #    clr_country_flag = ignore_soviets
+                #    disable_german_onslaught_on_greece = yes
+                #    set_country_flag = hitler_on_speed_2
+                #    remove_ideas = GRE_german_ambition
+                #}
+                #clr_global_flag = GRE_grecoitalian_start
+            }
+        }
+    }
+    
+    on_daily_GRE = {
+        effect = {
+            if = {
+                limit = {
+                    has_global_flag = GRE_grecoitalian_start
+                }
+                add_to_variable = { grecoitalian_war_counter = 1 }                                          ## First and foremost, set the counter (counts days since start of war, possibly better than just checking global flag constantly)
+            
+                #if = {
+                #    limit = {
+                #        date = 1941.03.20
+                #    }
+                #    GRE_set_country_willing_to_help_bulgaria = yes                                          ## Allow Germans to start manning up the Bulgarian border (= preparation for operation Marita)
+                #    clr_country_flag = unwilling_to_help_bulgaria
+                #}
+                if = {
+                    limit = {
+                        date = 1941.04.06                                                                   
+                    }
+                    GER = { country_event = { id = hellas.104 days = 0 } }                                    ## Fuhrer Directive event sent to Germans.
                 }
             }
         }

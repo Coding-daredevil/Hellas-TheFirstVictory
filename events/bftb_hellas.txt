@@ -3804,46 +3804,46 @@ country_event = {                                                               
 ####                                ####
 ########################################
 
-country_event = {                                                                               ### Add priority over the region of Greece for Italians
-	id = hellas.99
-	title = hellas.99.t
-	desc = hellas.99.desc
-	#picture = GFX_report_event_gre_venizelos_speech
-
-	trigger = {
-        original_tag = ITA
-        is_ai = yes
-        is_historical_focus_on = yes
-        date > 1940.9.1
-        focus_progress = {
-            focus = ITA_greece_war_goal
-            progress > 0.05
-        }
-    }
-
-	fire_only_once = yes
-	
-	option = {
-		name = hellas.99.a
-
-		ai_chance = {
-			base = 100
-        }
-
-		add_ai_strategy = {
-            type = area_priority
-            id = grecoalbanian_border
-            value = 1000
-        }
-        
-        add_ai_strategy = {
-            type = antagonize
-            id = GRE
-            value = 500
-        }
-        
-    }
-}
+#country_event = {                                                                               ### Add priority over the region of Greece for Italians (ADDED ON AI STRATEGY PLAN)
+#	id = hellas.99
+#	title = hellas.99.t
+#	desc = hellas.99.desc
+#	#picture = GFX_report_event_gre_venizelos_speech
+#
+#	trigger = {
+ #       original_tag = ITA
+  #      is_ai = yes
+   #     is_historical_focus_on = yes
+    #    date > 1940.9.1
+     #   focus_progress = {
+      #      focus = ITA_greece_war_goal
+       #     progress > 0.05
+        #}
+    #}
+#
+#	fire_only_once = yes
+#	
+#	option = {
+#		name = hellas.99.a
+#
+#		ai_chance = {
+#			base = 100
+ #       }
+#
+#		add_ai_strategy = {
+ #           type = area_priority
+  #          id = grecoalbanian_border
+   #         value = 1000
+    #    }
+     #   
+      #  add_ai_strategy = {
+       #     type = antagonize
+        #    id = GRE
+         #   value = 500
+        #}
+        #
+    #}
+#}
 
 country_event = {                                                                               ### Bad Weather
 	id = hellas.100
@@ -4021,32 +4021,34 @@ country_event = {                                                               
 	desc = hellas.104.desc
 	picture = GFX_report_event_bul_ff_troops_yugoslavia
 
-	trigger = {
-        original_tag = GER
-        #has_annex_war_goal = YUG
-        YUG = { 
-            exists = yes 
-            NOT = { 
-                is_in_faction_with = GER
-                is_in_faction_with = ITA
-                is_in_faction_with = BUL
-            }
-        }
-        ITA = { has_war_with = GRE }
-        GRE = {
-            exists = yes 
-            has_capitulated = no
-        }
-        #OR = {
-        date > 1941.04.04
-        #    AND = {
-        #        NOT = { check_variable = { var = global.province_controllers^3896 value = ITA compare = equals } }
-        #        NOT = { check_variable = { var = global.province_controllers^9780 value = ITA compare = equals } }
-        #    }
-        #}
-	}
-
+    is_triggered_only = yes 
 	fire_only_once = yes
+
+	#trigger = {
+    #    original_tag = GER
+    #    #has_annex_war_goal = YUG
+    #    YUG = { 
+    #        exists = yes 
+    #        NOT = { 
+    #            is_in_faction_with = GER
+    #            is_in_faction_with = ITA
+    #            is_in_faction_with = BUL
+    #        }
+    #    }
+    #    ITA = { has_war_with = GRE }
+    #    GRE = {
+    #        exists = yes 
+    #        has_capitulated = no
+    #    }
+    #    #OR = {
+    #    date > 1941.03.31
+    #    #    AND = {
+    #    #        NOT = { check_variable = { var = global.province_controllers^3896 value = ITA compare = equals } }
+    #    #        NOT = { check_variable = { var = global.province_controllers^9780 value = ITA compare = equals } }
+    #    #    }
+    #    #}
+	#}
+
 	
 	option = {
 		name = hellas.104.a
