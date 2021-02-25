@@ -19,6 +19,172 @@ GRE_check = {
     add_political_power = 500
 }
 
+#########################################################
+###################[HELLENIC STATE SE]###################
+#########################################################
+GR_HS_split_ideas = {
+    if = {
+        limit = { has_idea = GRE_masters_of_shipbuilding }
+        remove_ideas = GRE_masters_of_shipbuilding
+    }
+    if = {
+        limit = { has_idea = GRE_submarine_expertise }
+        remove_ideas = GRE_submarine_expertise
+    }
+    if = {
+        limit = { has_idea = GRE_IKA }
+        remove_ideas = GRE_IKA
+    }
+    if = {
+        limit = { has_idea = GRE_new_corporatism_combined }
+        remove_ideas = GRE_new_corporatism_combined
+    }
+    else = {
+        remove_ideas = GRE_sophistry_and_science_idea
+        remove_ideas = GRE_new_corporatism
+        remove_ideas = GRE_industrializing_society
+        remove_ideas = GRE_farmer_culture
+        remove_ideas = GRE_spend_for_growth
+    }
+    if = {
+        limit = { has_idea = GRE_cooperate_with_foreign_monopolies_spirit }
+        remove_ideas = GRE_cooperate_with_foreign_monopolies_spirit
+    }
+    else = {
+        remove_ideas = GRE_foreign_monopolies
+        remove_ideas = GRE_foreign_monopolies_2
+        remove_ideas = GRE_foreign_monopolies_3
+        remove_ideas = GRE_foreign_monopolies_4
+    }
+    if = {
+        limit = { has_idea = GRE_domestic_competition_2 }
+        remove_ideas = GRE_domestic_competition_2
+    }
+    else = {
+        remove_ideas = GRE_domestic_competition_1
+        remove_ideas = GRE_domestic_competition_0
+    }
+    if = {
+        limit = { has_idea = GRE_eon_kanellopoulos_year_2 }
+        remove_ideas = GRE_eon_kanellopoulos_year_2
+    }
+    else = {
+        remove_ideas = GRE_eon_kanellopoulos_year_1
+        remove_ideas = GRE_eon
+    }
+    if = {
+        limit = { has_idea = GRE_schachtplan_incorporated }
+        remove_ideas = GRE_schachtplan_incorporated
+    }
+    else = {
+        remove_ideas = GRE_schachtplan_fascistised
+        remove_ideas = GRE_schachtplan_modified
+        remove_ideas = GRE_schachtplan
+    }
+    if = {
+        limit = { has_idea = GRE_submarine_expertise }
+        remove_ideas = GRE_submarine_expertise
+    }
+    if = {
+        limit = { has_idea = GRE_submarine_expertise }
+        remove_ideas = GRE_submarine_expertise
+    }
+    if = {
+        limit = { has_idea = GRE_submarine_expertise }
+        remove_ideas = GRE_submarine_expertise
+    }
+    remove_ideas = GRE_met_line_2
+    remove_ideas = GRE_met_line
+    remove_dynamic_modifier = { modifier = GRE_alternating_tariffs }
+    remove_dynamic_modifier = { modifier = GRE_military_budget }
+    remove_dynamic_modifier = { modifier = GRE_yfipourgeio_asfaleias }
+    remove_dynamic_modifier = { modifier = GRE_yfipourgeio_propagandas }
+    remove_dynamic_modifier = { modifier = GRE_army_reform_hellenic_staff }
+    remove_dynamic_modifier = { modifier = GRE_army_reform_hellenic_army }
+    remove_dynamic_modifier = { modifier = GRE_army_reform_hellenic_people }
+}
+
+
+
+#########################################################
+#########################################################
+#########################################################
+GER_pops_in_crete = {
+    GER = {
+        division_template = {
+            name = "Fallschirmjäger Division - Unternehmen Merkur"
+            division_names_group = GER_PAR_01
+            priority = 2
+            template_counter = 0
+            regiments = {
+                paratrooper = { x = 0 y = 0 }
+                paratrooper = { x = 0 y = 1 }
+                paratrooper = { x = 0 y = 2 }
+                paratrooper = { x = 0 y = 3 }
+                paratrooper = { x = 1 y = 0 }
+                paratrooper = { x = 1 y = 1 }
+                paratrooper = { x = 1 y = 2 }
+                paratrooper = { x = 1 y = 3 }
+                paratrooper = { x = 2 y = 0 }
+                paratrooper = { x = 2 y = 1 }
+                paratrooper = { x = 2 y = 2 }
+                paratrooper = { x = 2 y = 3 }
+                paratrooper = { x = 3 y = 0 }
+                paratrooper = { x = 3 y = 1 }
+                paratrooper = { x = 3 y = 2 }
+                paratrooper = { x = 3 y = 3 }
+            }
+            support = { 
+                artillery = { x = 0 y = 0 }
+                engineer = { x = 0 y = 1 }
+            } 
+        }
+        GER = { set_state_controller = 182 }
+        182 = {
+            create_unit = {
+                division = "division_name = { is_name_ordered = yes name_order = 1 } division_template = \"Test\" start_experience_factor = 1 start_equipment_factor = 1"
+                owner = GER
+                prioritize_location = 1164
+            }
+        }
+        182 = {
+            create_unit = {
+                division = "division_name = { is_name_ordered = yes name_order = 2 } division_template = \"Test\" start_experience_factor = 1 start_equipment_factor = 1"
+                owner = GER
+                prioritize_location = 12058
+            }
+        }
+        182 = {
+            create_unit = {
+                division = "division_name = { is_name_ordered = yes name_order = 3 } division_template = \"Test\" start_experience_factor = 1 start_equipment_factor = 1"
+                owner = GER
+                prioritize_location = 9940
+            }
+        }
+        182 = {
+            create_unit = {
+                division = "division_name = { is_name_ordered = yes name_order = 4 } division_template = \"Test\" start_experience_factor = 1 start_equipment_factor = 1"
+                owner = GER
+                prioritize_location = 4170
+            }
+        }
+        182 = {
+            create_unit = {
+                division = "division_name = { is_name_ordered = yes name_order = 5 } division_template = \"Test\" start_experience_factor = 1 start_equipment_factor = 1"
+                owner = GER
+                prioritize_location = 12058
+            }
+        }
+        182 = {
+            create_unit = {
+                division = "division_name = { is_name_ordered = yes name_order = 6 } division_template = \"Test\" start_experience_factor = 1 start_equipment_factor = 1"
+                owner = GER
+                prioritize_location = 12058
+            }
+        }
+        GRE = { set_state_controller = 182 }
+    }
+}
 
 spawn_subs = { 
     for_each_loop = {                                                          ## For here is either 1->6 or 1->12 depending on what we set before.
@@ -94,24 +260,39 @@ spawn_ships = {
 #########################################################
 GRE_update_strain_on_industry = {
 
-    set_temp_variable = { x = max_available_manpower_k }                        #[0 manpower in field, -> +40% industry bonus] [ 250.000 manpower in field -> -15% industry bonus ] [ 1.500.000 manpower in field -> -50% industry bonus ]
+    set_temp_variable = { x = max_available_manpower_k }                        #[0 manpower in field, -> +40% industry bonus] [ 250.000 manpower in field -> -30% industry bonus ] [ 1.500.000 manpower in field -> -80% industry bonus ]
     subtract_from_temp_variable = { x = manpower_k }
     add_to_temp_variable = { x = casualties_k } 
     if = {
         limit = {
             check_variable = { x < 250 }
         }
-        multiply_temp_variable = { x = -0.26 }                                 # y = 0.26x - 4
+        multiply_temp_variable = { x = -0.28 }                                 # y = 0.28x - 4
         add_to_temp_variable = { x = 40 }
     }
     else = {
-        multiply_temp_variable = { x = -0.028 }                               # y = -0.028x - 8
-        add_to_temp_variable = { x = -8 }
+        multiply_temp_variable = { x = -0.04 }                               # y = -0.04x - 20
+        add_to_temp_variable = { x = -20 }
     }
     divide_temp_variable = { x = 100 }
     set_variable = { strain_fct = x }
     set_variable = { strain_dck = x }
- 
+    if = {
+        limit = {
+            check_variable = { grecoitalian_war_counter > 150 }
+        }
+        set_temp_variable = { x = grecoitalian_war_counter }
+        divide_temp_variable = { x = -3000 }
+        set_variable = { strain_atk = x }
+        set_variable = { strain_def = x }
+        set_variable = { strain_org = x }
+        
+    }
+    else = {
+        set_variable = { strain_atk = 0 }
+        set_variable = { strain_def = 0 }
+        set_variable = { strain_org = 0 }
+    }
 }
 #########################################################
 ################[Führer Directive No. 25]################

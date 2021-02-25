@@ -635,6 +635,7 @@ on_actions = {
                     #enable_german_onslaught_on_yugoslavia = yes
                     add_ideas = GRE_german_ambition
                 }
+                GRE = { country_event = { id = hellas.114 days = 0 } }
 			}           
         }
     }
@@ -668,7 +669,8 @@ on_actions = {
                 #    set_country_flag = hitler_on_speed_2
                 #    remove_ideas = GRE_german_ambition
                 #}
-                #clr_global_flag = GRE_grecoitalian_start
+                clr_global_flag = GRE_grecoitalian_start
+                event_target:hellenic_state = { transfer_state = 47 }
             }
         }
     }
@@ -681,18 +683,21 @@ on_actions = {
                 }
                 add_to_variable = { grecoitalian_war_counter = 1 }                                          ## First and foremost, set the counter (counts days since start of war, possibly better than just checking global flag constantly)
             
-                #if = {
-                #    limit = {
-                #        date = 1941.03.20
-                #    }
-                #    GRE_set_country_willing_to_help_bulgaria = yes                                          ## Allow Germans to start manning up the Bulgarian border (= preparation for operation Marita)
-                #    clr_country_flag = unwilling_to_help_bulgaria
-                #}
                 if = {
                     limit = {
                         date = 1941.04.06                                                                   
                     }
                     GER = { country_event = { id = hellas.104 days = 0 } }                                    ## Fuhrer Directive event sent to Germans.
+                }
+                if = {
+                    limit = {
+                        GRE = { has_country_flag = tsolakoglou_initiative }
+                        #GER = { controls_state = 47 }
+                    }
+                    GRE = { 
+                        country_event = { id = hellas.1000 days = 0 } 
+                        set_country_flag = mainland_capitulated
+                    } 
                 }
             }
         }

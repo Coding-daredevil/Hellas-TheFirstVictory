@@ -24,6 +24,20 @@
 #	can be added to countries, states or unit leaders
 #	will only updated daily, unless forced by force_update_dynamic_modifier effect
 
+GRE_italian_occupation_zone = {
+    enable = { always = yes }
+    icon = GFX_modifiers_gre_fasces
+    
+    political_power_cost = 0.1
+}
+
+GRE_german_occupation_zone = {
+    enable = { always = yes }
+    icon = GFX_modifiers_gre_hakenkreuz
+    
+    political_power_cost = 0.1
+}
+
 GRE_alternating_tariffs = {
     enable = { always = yes }
     icon = GFX_idea_gre_schachtplan3
@@ -198,6 +212,7 @@ GRE_war_strain = {
             has_offensive_war = yes
             has_defensive_war_with = ITA
         }  
+        NOT = { has_country_flag = mainland_capitulated }
     }
     icon = GFX_idea_gre_war_strain
     
@@ -207,6 +222,9 @@ GRE_war_strain = {
     production_speed_infrastructure_factor = -0.25
     industrial_capacity_factory = strain_fct
     industrial_capacity_dockyard = strain_dck
+    army_attack_factor = strain_atk
+    army_defence_factor = strain_def
+    army_org_factor = strain_org
     
     custom_modifier_tooltip = GRE_war_strain_desc
 }
