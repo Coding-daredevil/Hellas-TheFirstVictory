@@ -633,7 +633,10 @@ on_actions = {
                     #GRE_set_germans_willing = yes 
                     #GER_ignore_soviet = yes
                     #enable_german_onslaught_on_yugoslavia = yes
-                    add_ideas = GRE_german_ambition
+                    add_timed_idea = {
+                        idea = GRE_german_ambition
+                        days = 120
+                    } 
                 }
                 GRE = { country_event = { id = hellas.114 days = 0 } }
 			}           
@@ -691,11 +694,28 @@ on_actions = {
                 }
                 if = {
                     limit = {
-                        GRE = { has_country_flag = tsolakoglou_initiative }
-                        #GER = { controls_state = 47 }
+                        GRE = { NOT = { controls_state = 811 } }
                     }
                     GRE = { 
-                        country_event = { id = hellas.1000 days = 0 } 
+                        country_event = { id = hellas.998 days = 0 }                                          ## Germans enter thess.
+                    } 
+                }
+                if = {
+                    limit = {
+                        GRE = { NOT = { controls_state = 811 } }
+                        GRE = { NOT = { controls_state = 808 } }
+                    }
+                    GRE = { 
+                        country_event = { id = hellas.999 days = 0 }                                          ## Koryzis suicide (way #2)
+                    } 
+                }
+                if = {
+                    limit = {
+                        GRE = { NOT = { controls_state = 47 } }
+                        GRE = { NOT = { controls_state = 811 } }
+                    }
+                    GRE = { 
+                        country_event = { id = hellas.1001 days = 0 } 
                         set_country_flag = mainland_capitulated
                     } 
                 }

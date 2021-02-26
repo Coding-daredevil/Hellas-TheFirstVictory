@@ -24,19 +24,152 @@
 #	can be added to countries, states or unit leaders
 #	will only updated daily, unless forced by force_update_dynamic_modifier effect
 
+#####################################################
+##################[Greek Resistance]#################
+#####################################################
+## Modifiers Split into 3 parts.
+### Civilian Population Resistance Effects                              (low compliance, resistance growth which leads to antartes)
+#### 3lvls - Angered - Determined - Ferocious                               (same for Italians and Germans)
+### Antartes Resistance Effects                                         (garisson requirements, damage to garissons, sabotage (factories/infustructure), operations, resource denial 
+#### 5lvls - Basic - Early - Strengthened - Dominant - Free Greece          (only last same for Italians and Germans, the first suffer more due to incompetence - historically Greek resistance was very effective vs Italians, started much less effective when Germans really went at them but gradually won over the Germans as well)
+### Hellenic State / Outside intervention related effects               (either through HS, GRE or ENG to hasten above effects and lessen the benefits Axis gets out of Greece).
+
+
+unyielding_greeks_angered = {
+    enable = { always = yes }  
+
+    compliance_growth = -0.25
+	resistance_growth = 0.02
+	resistance_target = 0.10
+	resistance_decay = -0.08
+}
+unyielding_greeks_determined = {
+    enable = { always = yes }  
+    
+    compliance_growth = -0.5
+	resistance_growth = 0.03
+	resistance_target = 0.15
+	resistance_decay = -0.12
+}
+unyielding_greeks_ferocious = {
+    enable = { always = yes }  
+
+    compliance_growth = -0.5
+	resistance_growth = 0.05
+	resistance_target = 0.25
+	resistance_decay = -0.20
+}
+
 GRE_italian_occupation_zone = {
     enable = { always = yes }
     icon = GFX_modifiers_gre_fasces
     
-    political_power_cost = 0.1
+
+	state_resources_factor = -0.1
+}
+
+early_resistance_groups_ita = {
+	enable = { always = yes }
+
+	icon = GFX_modifiers_gre_fasces
+	
+	state_resources_factor = -0.2
+}
+
+strengthened_resistance_groups_ita = {
+	enable = { always = yes }
+
+	icon = GFX_modifiers_gre_fasces
+	
+	disable_strategic_redeployment = 1
+}
+
+dominant_resistance_groups_ita = {
+	enable = { always = yes }
+
+	icon = GFX_modifiers_gre_fasces
+	
+	disable_strategic_redeployment = 1
 }
 
 GRE_german_occupation_zone = {
     enable = { always = yes }
     icon = GFX_modifiers_gre_hakenkreuz
     
-    political_power_cost = 0.1
+	state_resources_factor = -0.1
 }
+
+early_resistance_groups_ger = {
+	enable = { always = yes }
+
+	icon = GFX_modifiers_gre_hakenkreuz
+	
+	state_resources_factor = -0.2
+}
+
+strengthened_resistance_groups_ger = {
+	enable = { always = yes }
+
+	icon = GFX_modifiers_gre_hakenkreuz
+    
+	state_resources_factor = -0.4
+	disable_strategic_redeployment = 1
+}
+
+dominant_resistance_groups_ger = {
+	enable = { always = yes }
+
+	icon = GFX_modifiers_gre_hakenkreuz
+	
+	state_resources_factor = -0.6
+	disable_strategic_redeployment = 1
+}
+
+part_of_free_greece = {
+	enable = { always = yes }
+
+	icon = GFX_modifiers_gre_hakenkreuz
+	
+	state_resources_factor = -1
+	disable_strategic_redeployment = 1
+}
+
+#resistance_activity
+#local_factory_sabotage
+#local_intel_to_enemies
+#required_garrison_factor
+#resistance_damage_to_garrison
+#resistance_garrison_penetration_chance
+
+#resistance_activity
+#local_building_slots_factor = -1
+#state_production_speed_buildings_factor = -1
+#local_supplies_for_controller = -0.5
+#local_intel_to_enemies = -0.75
+#recruitable_population_factor = -0.5
+#required_garrison_factor
+#resistance_damage_to_garrison
+#army_speed_factor_for_controller
+#enemy_intel_network_gain_factor_over_occupied_tag
+#local_factory_sabotage
+#local_intel_to_enemies
+#local_non_core_manpower
+#resistance_damage_to_garrison
+#resistance_garrison_penetration_chance
+#state_repair_speed_buildings_factor
+#local_org_regain
+
+#state_repair_speed_infrastructure_factor
+#state_repair_speed_industrial_complex_factor
+#state_repair_speed_arms_factory_factor
+#state_repair_speed_dockyard_factor
+#state_repair_speed_air_base_factor
+#state_repair_speed_anti_air_building_factor
+#state_repair_speed_bunker_factor
+
+#####################################################
+##############[EOF Greek Resistance]#################
+#####################################################
 
 GRE_alternating_tariffs = {
     enable = { always = yes }

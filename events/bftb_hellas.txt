@@ -4452,12 +4452,87 @@ country_event = {                                                               
     }
 }
 
+################################################################################################################
+################################################################################################################
+################################[ GOVERNMENT IN EXILE & HELLENIC STATE EVENTS ]#################################
+################################################################################################################
+################################################################################################################
 
-country_event = {                                                                                   ## Greek Capitulation                                                                          
+country_event = {                                                                                   ### Ultimatum of the German Ambassador.                                                                         
+	id = hellas.996
+	title = hellas.996.t
+	desc = hellas.996.desc
+	picture = GFX_report_event_german_ambass
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+    
+    immediate = { hidden_effect = { country_event = { id = hellas.997 days = 1 } } }
+	
+	option = {                                                                            
+		name = hellas.996.a
+        
+    }
+}
+
+country_event = {                                                                                   ### Bombing of Piraeus                                                                         
+	id = hellas.997
+	title = hellas.997.t
+	desc = hellas.997.desc
+	picture = GFX_report_event_german_bomb_of_peireus
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+	
+	option = {                                                                            
+		name = hellas.997.a
+        
+    }
+}
+
+country_event = {                                                                                   ### Germans Enter Thessaloniki                                                                           
+	id = hellas.998
+	title = hellas.998.t
+	desc = hellas.998.desc
+	picture = GFX_report_event_germans_thess
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+    
+    immediate = { hidden_effect = { country_event = { id = hellas.999 days = 9 } } }
+	
+	option = {                                                                            
+		name = hellas.998.a
+        
+    }
+}
+
+country_event = {                                                                                   ### Suicide of Koryzis                                                                           
+	id = hellas.999
+	title = hellas.999.t
+	desc = hellas.999.desc
+	picture = GFX_report_event_koryzis_death
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+    
+    immediate = { hidden_effect = { country_event = { id = hellas.1000 days = 2 } } }
+	
+	option = {                                                                            
+		name = hellas.999.a
+    }
+}
+
+
+country_event = {                                                                                   ## Tsolakoglou's Capitulation                                                                          
 	id = hellas.1000
 	title = hellas.1000.t
 	desc = hellas.1000.desc
-	picture = GFX_report_event_germany_politician_handshake
+	picture = GFX_report_event_tsolak_capit
 
 	is_triggered_only = yes
 
@@ -4480,133 +4555,192 @@ country_event = {                                                               
                         }
                     }
                 }
-            GRE = {                                                                                     ##an extra check if u are stuck in half of albania
+            GRE = {                                                                                     ##a n extra check if u are stuck in half of albania
                 delete_unit = {
                     state = 44
                     disband = yes
                 }
             }
+            #country_event = { id = hellas.1001 days = 2 }                                               ## Create Hellenic State 
         }
     }
     
-	option = {                                                                                          ## Create Hellenic State                                                                
+	option = {                                                                                                                                                         
 		name = hellas.1000.a 
-        
-        hidden_effect = {
-            create_dynamic_country = {
-                original_tag = GRE
-                save_global_event_target_as = hellenic_state
-                #save_event_target_as = hellenic_state
-                every_state = { #transfer to HS
-                    limit = {
-                        is_owned_by = GRE
-                        NOT = { state = 182 }
-                    }
-                    event_target:hellenic_state = { transfer_state = PREV }
-                }
-                every_state = { #set up cores for HS cores
-                    limit = {
-                        is_core_of = GRE
-                    }
-                    #force_enable_resistance = event_target:hellenic_state
-                    #start_resistance = yes
-                    #add_compliance = 0.85
-                }
-                813 = { add_dynamic_modifier = { modifier = GRE_german_occupation_zone } }
-                731 = { add_dynamic_modifier = { modifier = GRE_german_occupation_zone } }
-                811 = { add_dynamic_modifier = { modifier = GRE_german_occupation_zone } }
-                810 = { add_dynamic_modifier = { modifier = GRE_german_occupation_zone } }
-                47 = { add_dynamic_modifier = { modifier = GRE_german_occupation_zone } }
-                187 = { add_dynamic_modifier = { modifier = GRE_german_occupation_zone } }
-                807 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } }
-                808 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } }
-                809 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } }
-                186 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } }
-                185 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } }              
-                184 = { BUL = { transfer_state = PREV } }
-                812 = { BUL = { transfer_state = PREV } }
-                GER = { transfer_state = 47 }                                       ## Temporarily transfer Attika to help naval invasion
-                set_rule = { 
-                    can_join_factions = no 
-                    can_create_factions = no
-                    can_not_declare_war = yes
-                    can_be_called_to_war = no
-                    can_send_volunteers = no
-                }
-                #GER = { add_to_faction = event_target:hellenic_state }             # Not a good idea because GRE will be able to see all Axis troops., so just give access (below)
-                set_capital = 47
-                set_politics = {
-                    ruling_party = fascism
-                    elections_allowed = no
-                }
-                set_popularities = {
-                    democratic = 15
-                    fascism = 50
-                    neutrality = 20
-                    communism = 15
-                }
-                set_cosmetic_tag = GRE_HELLENIC_STATE_fascism
-                create_country_leader = {
-                    name = "Geórgios Tsolákoglou"
-                    desc = "POLITICS_GEORGIOS_TSOLAKOGLOU_DESC"
-                    picture = "Portrait_Greece_Georgios_Tsolakoglou.dds"
-                    expire = "1965.1.1"
-                    ideology = fascism_ideology
-                    traits = {
-                        
-                    }
-                }
-                GRE = {                                                                     ## Germany takes 75% of stockpile from virtually SURRENDERED troops
-					transfer_units_fraction = {                                              # This is why evacuated divisions will retain equipment, while disbanded (see above) will put eq to stockpile.
-						target = GER                                                         # So basically the 25% left is what you """evacuated""" to Crete.
-						size = 0
-						stockpile_ratio = 0.75
-						army_ratio = 0
-						navy_ratio = 0.0
-						air_ratio = 0.0
-					}
-				}
-                inherit_technology = GRE
-                load_focus_tree = hellenic_state_focus
-                GRE = { GR_HS_split_ideas = yes }
-                #GER = { puppet = event_target:hellenic_state }
-                complete_national_focus = glorious_struggle_in_vain
-                complete_national_focus = hellenic_state
-                complete_national_focus = appoint_tsolakoglou
-            }
-            every_country = {
-                limit = {
-                    is_in_faction_with = GER
-                }
-                diplomatic_relation = {
-                    country = event_target:hellenic_state
-                    relation = non_aggression_pact
-                    active = yes
-                }
-                diplomatic_relation = {
-                    country = event_target:hellenic_state
-                    relation = military_access
-                    active = yes
-                }
-            }
-            GER = {
-                diplomatic_relation = {
-                    country = event_target:hellenic_state
-                    relation = guarantee
-                    active = yes
-                }
-                remove_ideas = GRE_german_ambition
-            }
-            ITA = {
-                diplomatic_relation = {
-                    country = event_target:hellenic_state
-                    relation = guarantee
-                    active = yes
-                }
-            }
-        }
     }
 }
+
+country_event = {                                                                                   ## Evzonas' Suicide                                                                        
+	id = hellas.1001
+	title = hellas.1001.t
+	desc = hellas.1001.desc
+	picture = GFX_report_event_koukidis
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+	
+    immediate = { hidden_effect = { country_event = { id = hellas.1002 days = 1 } } }
+    
+	option = {                                                                                                                                                         
+		name = hellas.1001.a 
+    }
+}
+
+country_event = {                                                                                   ## Nazi Flag over the Acropolis                                                                     
+	id = hellas.1002
+	title = hellas.1002.t
+	desc = hellas.1002.desc
+	picture = GFX_report_event_nazi_acropolis
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+	
+    immediate = { hidden_effect = { country_event = { id = hellas.1003 days = 1 } } }
+    
+	option = {                                                                                                                                                         
+		name = hellas.1002.a 
+    }
+}
+
+country_event = {                                                                                
+	id = hellas.1003
+	title = hellas.1003.t
+	desc = hellas.1003.desc
+	picture = GFX_report_event_hellenic_state
+
+	is_triggered_only = yes 
+    
+	fire_only_once = yes
+    
+    immediate = {
+        hidden_effect = {
+                set_global_flag = GRE_grecoitalian_ended
+                set_global_flag = GRE_exiled
+                clr_global_flag = GRE_grecoitalian_start
+                create_dynamic_country = {
+                    original_tag = GRE
+                    save_global_event_target_as = hellenic_state
+                    #save_event_target_as = hellenic_state
+                    every_state = { #transfer to HS
+                        limit = {
+                            is_owned_by = GRE
+                            NOT = { state = 182 }
+                        }
+                        event_target:hellenic_state = { transfer_state = PREV }
+                    }
+                    #############################[Setup Occupation Zones]############################
+                    813 = { add_dynamic_modifier = { modifier = GRE_german_occupation_zone } }
+                    731 = { add_dynamic_modifier = { modifier = GRE_german_occupation_zone } }
+                    811 = { add_dynamic_modifier = { modifier = GRE_german_occupation_zone } }
+                    810 = { add_dynamic_modifier = { modifier = GRE_german_occupation_zone } }
+                    47 = { add_dynamic_modifier = { modifier = GRE_german_occupation_zone } }
+                    187 = { add_dynamic_modifier = { modifier = GRE_german_occupation_zone } }
+                    807 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } }
+                    808 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } }
+                    809 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } }
+                    186 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } }
+                    185 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } } 
+                    #######################[Bulgarian Direct Annexations (Historical)]###############
+                    184 = { BUL = { transfer_state = PREV } }
+                    812 = { BUL = { transfer_state = PREV } }
+                    ################################[Rule Setting]###################################
+                    set_rule = { 
+                        can_join_factions = no 
+                        can_create_factions = no
+                        can_not_declare_war = yes
+                        can_be_called_to_war = no
+                        can_send_volunteers = no
+                    }
+                    #GER = { add_to_faction = event_target:hellenic_state }             # Not a good idea because GRE will be able to see all Axis troops., so just give access (below)
+                    GER = { transfer_state = 47 }                                       # TEMPORARILY TO NAVAL INVADE CRETE (doesn't work otherwise)
+                    set_capital = 47
+                    set_politics = {
+                        ruling_party = fascism
+                        elections_allowed = no
+                    }
+                    set_popularities = {
+                        democratic = 15
+                        fascism = 50
+                        neutrality = 20
+                        communism = 15
+                    }
+                    set_cosmetic_tag = GRE_HELLENIC_STATE_fascism
+                    create_country_leader = {
+                        name = "Geórgios Tsolákoglou"
+                        desc = "POLITICS_GEORGIOS_TSOLAKOGLOU_DESC"
+                        picture = "Portrait_Greece_Georgios_Tsolakoglou.dds"
+                        expire = "1965.1.1"
+                        ideology = fascism_ideology
+                        traits = {
+                            
+                        }
+                    }
+                    GRE = {                                                                     ## Germany takes 75% of stockpile from virtually SURRENDERED troops
+                        transfer_units_fraction = {                                              # This is why evacuated divisions will retain equipment, while disbanded (see above) will put eq to stockpile.
+                            target = GER                                                         # So basically the 25% left is what you """evacuated""" to Crete.
+                            size = 0
+                            stockpile_ratio = 0.75
+                            army_ratio = 0
+                            navy_ratio = 0.0
+                            air_ratio = 0.0
+                        }
+                    }
+                    inherit_technology = GRE
+                    add_ideas = HS_ind_shackles_4
+                    load_focus_tree = hellenic_state_focus
+                    GRE = { GR_HS_split_ideas = yes }
+                    #GER = { puppet = event_target:hellenic_state }
+                    complete_national_focus = glorious_struggle_in_vain
+                    complete_national_focus = hellenic_state
+                    complete_national_focus = appoint_tsolakoglou
+                }
+                every_country = {
+                    limit = {
+                        is_in_faction_with = GER
+                    }
+                    diplomatic_relation = {
+                        country = event_target:hellenic_state
+                        relation = non_aggression_pact
+                        active = yes
+                    }
+                    diplomatic_relation = {
+                        country = event_target:hellenic_state
+                        relation = military_access
+                        active = yes
+                    }
+                }
+                GER = {
+                    diplomatic_relation = {
+                        country = event_target:hellenic_state
+                        relation = guarantee
+                        active = yes
+                    }
+                    remove_ideas = GRE_german_ambition
+                }
+                ITA = {
+                    diplomatic_relation = {
+                        country = event_target:hellenic_state
+                        relation = guarantee
+                        active = yes
+                    }
+                }
+                HS_set_up_occupation_zones = yes
+            }
+    }
+	
+	option = {                                                                            
+		name = hellas.1003.a
+    }
+}
+
+
+
+
+
+
+
 
 
 country_event = {                                                                                
