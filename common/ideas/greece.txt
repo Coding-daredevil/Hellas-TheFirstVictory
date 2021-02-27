@@ -260,7 +260,7 @@ ideas = {
             }
             
             cancel = {
-                NOT = { has_global_flag = GRE_grecoitalian_start }
+                #NOT = { has_global_flag = GRE_grecoitalian_start }
                 has_war_with = SOV
             }
         
@@ -282,7 +282,64 @@ ideas = {
                 attack_bonus_against_cores = 0.25
                 breakthrough_bonus_against = 0.25
             }
+        }
         
+        GRE_german_ambition = {
+        
+            allowed = {
+                original_tag = GER 
+            }
+            
+            cancel = {
+                NOT = { 
+                    OR = {
+                        has_global_flag = GRE_grecoitalian_start 
+                        has_global_flag = GRE_crete_still_holding
+                    }
+                }
+                has_war_with = SOV
+            }
+        
+            picture = ger_ambitions
+        
+            modifier = {
+                ai_focus_aggressive_factor = 10000
+                army_speed_factor = 0.25
+                supply_consumption_factor = -0.1
+                air_mission_efficiency = 0.1
+            }
+            targeted_modifier = {
+                tag = YUG
+                attack_bonus_against_cores = 0.25
+                breakthrough_bonus_against = 0.25
+            }
+            targeted_modifier = {
+                tag = GRE
+                attack_bonus_against_cores = 0.25
+                breakthrough_bonus_against = 0.25
+            }
+        }  
+
+        GRE_german_ambition_crete = {
+        
+            allowed = {
+                original_tag = GER 
+            }
+            
+            cancel = {
+                has_global_flag = GRE_crete_still_holding
+                has_war_with = SOV
+            }
+        
+            picture = ger_ambitions
+        
+            modifier = {
+                invasion_preparation = -0.75
+                naval_invasion_prep_speed = 0.75
+                amphibious_invasion = 0.25
+                naval_invasion_capacity = 15
+                naval_invasion_penalty = -0.5
+            }
         }
         
         GRE_italian_ambition = {
@@ -1053,6 +1110,24 @@ ideas = {
                 industry_repair_factor = 0.25
 			}
 		}
+        
+        GRE_dummy_surrender = {
+        
+            allowed = {
+				original_tag = GRE
+			}
+
+			allowed_civil_war = { has_government = neutrality }	
+
+			picture = gre_george_ii
+				
+			removal_cost = -1
+				
+			modifier = {
+				surrender_limit = -3
+			}
+        
+        }
 
 		GRE_george_ii = {
 				

@@ -20,6 +20,64 @@ GRE_check = {
 }
 
 #########################################################
+######################[GREEK TRIUMPH]####################
+#########################################################
+collect_faction_member_agreeableness = {
+    every_country = { 
+        limit = {
+            is_in_faction_with = PREV                                                                      ## PREV is Greece's enemy faction leader (Germany almost always)
+        }
+        #clear_variable = nation_agreeableness_score
+        #clear_variable = nation_core_population
+        every_state = {                                                                                     # Here we calculate the core population of the country because the game really thought
+            limit = {                                                                                       # it wouldn't be a good idea to make max_manpower_k not 100% include non-core manpower in the mix.
+                is_core_of = PREV
+                is_owned_and_controlled_by = PREV
+            }
+            add_to_variable = { THIS.nation_core_population = state_population_k }
+        }
+        ###[Favor Part]###
+        if = {
+            limit = {
+                is_in_array = {                                                                             # Here we work on influenceable nations (historically: Germany/Italy/Bulgaria).
+                    array = global.favor_mechanic
+                    value = THIS.id
+                }                
+            }
+            if = {
+                limit = { check_variable = { THIS.favor@GRE > 79 } }                                          # If we have Excellent influence over.
+                add_to_variable = { nation_agreeableness_score = 2 }
+            }
+            else = {
+                limit = { check_variable = { THIS.favor@GRE > 49 } }                                        # If we have Great influence over.
+                add_to_variable = { nation_agreeableness_score = 1 }
+            }
+        }
+        ###[Manpower Part]###
+        divide_variable = { THIS.nation_core_population = casualties_k }                                     # Example Germany: Supposedly 80M population. For 3M casualties we get 26.6667. So if we have worse than 3M casualties for a 80M population we get max score for aggreabl. Levels are 2M/1M/500K (change respectively ofc)
+        if = {                                                                                          # The reason I divided in that order is due to a lack of 0.xxxxxxx digits the engine seems to have. It will ruin the results. However by changing the order of division we get proper results, we just need to squish our stupid brains to make sense of the non-sensible numbers.
+            limit = { check_variable = { x < 26 } }
+            add_to_variable = { nation_agreeableness_score = 3 }
+        }
+        else_if = {                                                                                         
+            limit = { check_variable = { x < 40 } }
+            add_to_variable = { nation_agreeableness_score = 2 }
+        }
+        else_if = {                                                                                         
+            limit = { check_variable = { x < 80 } }
+            add_to_variable = { nation_agreeableness_score = 1 }
+        }
+        else_if = {                                                                                         
+            limit = { check_variable = { x < 160 } }
+            add_to_variable = { nation_agreeableness_score = 0.5 }
+        }
+        ###[Additional Stuff TBD]###
+        add_to_array = { enemy_id = THIS.id }                                                               # We are going to use 2 arrays, 1 for country ID, one for the aggreableness score (sadly no 2D-arrays are available). Basically 2-columns.
+        add_to_array = { enemy_as = nation_agreeableness_score }
+    
+    }
+}
+#########################################################
 ###################[HELLENIC STATE SE]###################
 #########################################################
 
@@ -153,6 +211,7 @@ GR_HS_split_ideas = {
     }
     remove_ideas = GRE_met_line_2
     remove_ideas = GRE_met_line
+    #remove_ideas = GRE_dummy_surrender
     remove_dynamic_modifier = { modifier = GRE_alternating_tariffs }
     remove_dynamic_modifier = { modifier = GRE_military_budget }
     remove_dynamic_modifier = { modifier = GRE_yfipourgeio_asfaleias }

@@ -627,18 +627,15 @@ on_actions = {
 				}
                 ITA = {
                     remove_ideas = GRE_italian_ambition
-                    #GRE_allow_italians_manning_bulgarian_borders = yes
                 }
-                GER = { 
-                    #GRE_set_germans_willing = yes 
-                    #GER_ignore_soviet = yes
-                    #enable_german_onslaught_on_yugoslavia = yes
+                GER = {
+                    #add_ideas = GRE_german_ambition
                     add_timed_idea = {
                         idea = GRE_german_ambition
                         days = 120
                     } 
                 }
-                GRE = { country_event = { id = hellas.114 days = 0 } }
+                #GRE = { country_event = { id = hellas.114 days = 0 } }
 			}           
         }
     }
@@ -665,15 +662,10 @@ on_actions = {
                 limit = {
                     ROOT = { original_tag = GRE }
                 }
-                #GER = {
-                #    GER_return_attention_soviet = yes
-                #    clr_country_flag = ignore_soviets
-                #    disable_german_onslaught_on_greece = yes
-                #    set_country_flag = hitler_on_speed_2
-                #    remove_ideas = GRE_german_ambition
-                #}
                 clr_global_flag = GRE_grecoitalian_start
-                event_target:hellenic_state = { transfer_state = 47 }
+                clr_global_flag = GRE_crete_still_holding
+                set_global_flag = GRE_government_in_exile
+                event_target:hellenic_state = { country_event = { id = hellas.10000 days = 0 } }
             }
         }
     }
@@ -719,6 +711,12 @@ on_actions = {
                         set_country_flag = mainland_capitulated
                     } 
                 }
+            }
+            if = {
+                limit = {
+                    has_global_flag = GRE_exiled
+                }
+                add_to_variable = { days_of_oppression = 1 }
             }
         }
     }

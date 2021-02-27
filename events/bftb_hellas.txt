@@ -4454,6 +4454,141 @@ country_event = {                                                               
 
 ################################################################################################################
 ################################################################################################################
+################################[ GLORIOUS STRUGGLE ENDS IN TRIUMPH EVENT SERIES ]##############################
+################################################################################################################
+################################################################################################################
+
+country_event = {                                                                                                   ### Big chain of events start here, during the next winter after the war has started (historically: 1942)
+	id = hellas.800
+	title = hellas.800.t
+	desc = hellas.800.desc
+	picture = GFX_report_event_greek_triumph
+
+
+	fire_only_once = yes
+	
+	option = {                                                                                                          ## Open up negotiations
+		name = hellas.800.a
+        
+        ITA = { faction_leader = { country_event = { id = hellas.801 days = 0 } } }                                     # This is obviously going to be the Germans, BUT you never know and always write code ticking most boxes that pop in ur head as scenarios.
+    }
+    
+    option = {                                                                                                          ## Continue
+		name = hellas.800.b
+
+    }
+    
+    option = {                                                                                                          ## Speak with the British first
+		name = hellas.800.c
+
+    }
+}
+
+country_event = {                                                                                                   ### Enemy faction leader receives "yes" for negotiations
+	id = hellas.801
+	title = hellas.801.t
+	desc = hellas.801.desc
+	picture = GFX_report_event_greek_triumph
+	
+    fire_only_once = yes
+
+    immediate = {                                                                                                    ## What is going to happen next is collecting agreeableness from leader and faction members fighting Greece in the Greco-Italian war. States are 0,1,2,3 where 3 is max.
+        collect_faction_member_agreeableness = yes
+    }
+	
+	option = {
+		name = hellas.801.a
+        ai_will_do = {
+			factor = 100
+		}
+        GRE = { country_event = { id = hellas.802 days = 0 } }
+    }
+    
+    option = {                                                                                                        # We break negotiations if human faction leader player is not willing.
+		name = hellas.801.b
+        ai_will_do = {
+			factor = 0
+		}
+        #GRE = { country_event = { id = hellas.xxx days = 0 } }
+    }
+}
+
+country_event = {                                                                                                   ### Enemy faction leader receives "yes" for negotiations
+	id = hellas.802
+	title = hellas.802.t
+	desc = hellas.802.desc
+	picture = GFX_report_event_greek_triumph
+	
+    fire_only_once = no
+	
+	option = {                                                                                                       ## Greek player sees on screen the state of agreableness of the AI and decides to proceed.
+		name = hellas.802.a
+        trigger = {
+            NOT = { has_country_flag = completed_demands_with_italy }
+        }
+
+        GRE = { country_event = { id = hellas.803 days = 0 } }                                                        # We will start by making demands out of the Italians.
+    }
+    
+    option = {                                                                                                       ## Decides to keep fighting afterall.
+		name = hellas.802.b
+        ai_will_do = {
+			factor = 0
+		}
+    }
+}
+
+country_event = {                                                                                                   ### Greek demands over the Italians
+	id = hellas.803
+	title = hellas.803.t
+	desc = hellas.803.desc
+	picture = GFX_report_event_greek_triumph
+	
+    fire_only_once = yes
+    
+    immediate = { set_country_flag = completed_demands_with_italy }
+	
+	option = {                                                                                                       ## Demand Albania / Northern Epirus / Dodecanese
+		name = hellas.803.a
+        trigger = { 
+            ITA = { has_max_agreeableness = yes }
+        }
+        set_country_flag = all_three_demanded
+    }
+    
+    option = {                                                                                                       ## Northern Epirus / Dodecanese
+		name = hellas.803.b
+        trigger = { 
+            ITA = { has_high_agreeableness = yes }
+        }
+        set_country_flag = two_demanded
+    }
+    
+    option = {                                                                                                       ## Northern Epirus
+		name = hellas.803.c
+        trigger = { 
+            ITA = { has_mid_agreeableness = yes }
+        }
+        set_country_flag = ne_demanded
+    }
+    
+    option = {                                                                                                       ## Dodecanese
+		name = hellas.803.d
+        trigger = { 
+            ITA = { has_mid_agreeableness = yes }
+        }
+        set_country_flag = dod_demanded
+    }
+    
+    option = {                                                                                                       ## Dodecanese
+		name = hellas.803.e
+
+        add_political_power = 10
+    }
+}
+
+################################################################################################################
+################################################################################################################
 ################################[ GOVERNMENT IN EXILE & HELLENIC STATE EVENTS ]#################################
 ################################################################################################################
 ################################################################################################################
@@ -4520,10 +4655,60 @@ country_event = {                                                               
 
 	fire_only_once = yes
     
-    immediate = { hidden_effect = { country_event = { id = hellas.1000 days = 2 } } }
+    immediate = { hidden_effect = { country_event = { id = hellas.1000 days = 2 } country_event = { id = hellas.9995 days = 3 } } }
 	
 	option = {                                                                            
 		name = hellas.999.a
+        
+        kill_country_leader = yes
+        create_country_leader = {
+            name = "King George II"
+            desc = "POLITICS_KING_GEORGE_II_DESC"
+            picture = "Portrait_Greece_King_George_II.dds"
+            expire = "1965.1.1"
+            ideology = despotism
+            traits = {
+                
+            }
+        }
+    }
+}
+
+country_event = {                                                                                   ### Tsouderos                                                                      
+	id = hellas.9995
+	title = hellas.9995.t
+	desc = hellas.9995.desc
+	picture = GFX_report_event_gre_diplomacy
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+    
+	
+	option = {                                                                            
+		name = hellas.9995.a
+        
+        retire_country_leader = yes
+        create_country_leader = {
+            name = "Emmanouil Tsouderos"
+            desc = "POLITICS_EMMANOUIL_TSOUDEROS_DESC"
+            picture = "Portrait_Greece_Emmanouil_Tsouderos.dds"
+            expire = "1965.1.1"
+            ideology = centrism
+            traits = {
+                
+            }
+        }
+        if = { 
+            limit = {
+                NOT = { has_completed_focus = GRE_dreams_of_a_grand_coalition } 
+            }
+            set_party_name = { 
+                ideology = neutrality
+                long_name = GRE_neutrality_party
+                name = GRE_neutrality_party
+            }
+        }
     }
 }
 
@@ -4580,10 +4765,20 @@ country_event = {                                                               
 
 	fire_only_once = yes
 	
-    immediate = { hidden_effect = { country_event = { id = hellas.1002 days = 1 } } }
+    immediate = { 
+        hidden_effect = { 
+            country_event = { id = hellas.1002 days = 1 } 
+        #    if = { 
+        #        limit = { ENG = { has_war_with = GER } }
+        #        ENG = { add_to_faction = GRE }
+        #    }
+        #    add_ideas = GRE_dummy_surrender
+        }
+    }
     
 	option = {                                                                                                                                                         
 		name = hellas.1001.a 
+           
     }
 }
 
@@ -4617,7 +4812,7 @@ country_event = {
     immediate = {
         hidden_effect = {
                 set_global_flag = GRE_grecoitalian_ended
-                set_global_flag = GRE_exiled
+                set_global_flag = GRE_crete_still_holding
                 clr_global_flag = GRE_grecoitalian_start
                 create_dynamic_country = {
                     original_tag = GRE
@@ -4677,16 +4872,16 @@ country_event = {
                             
                         }
                     }
-                    GRE = {                                                                     ## Germany takes 75% of stockpile from virtually SURRENDERED troops
-                        transfer_units_fraction = {                                              # This is why evacuated divisions will retain equipment, while disbanded (see above) will put eq to stockpile.
-                            target = GER                                                         # So basically the 25% left is what you """evacuated""" to Crete.
-                            size = 0
-                            stockpile_ratio = 0.75
-                            army_ratio = 0
-                            navy_ratio = 0.0
-                            air_ratio = 0.0
-                        }
-                    }
+                    #GRE = {                                                                     ## Germany takes 75% of stockpile from virtually SURRENDERED troops
+                    #    transfer_units_fraction = {                                              # This is why evacuated divisions will retain equipment, while disbanded (see above) will put eq to stockpile.
+                    #        target = GER                                                         # So basically the 25% left is what you """evacuated""" to Crete.
+                    #        size = 0
+                    #        stockpile_ratio = 0.75
+                    #        army_ratio = 0
+                    #        navy_ratio = 0.0
+                    #        air_ratio = 0.0
+                    #    }
+                    #}
                     inherit_technology = GRE
                     add_ideas = HS_ind_shackles_4
                     load_focus_tree = hellenic_state_focus
@@ -4712,6 +4907,7 @@ country_event = {
                     }
                 }
                 GER = {
+                    add_timed_idea = { idea = GRE_german_ambition_crete days = 60 }
                     diplomatic_relation = {
                         country = event_target:hellenic_state
                         relation = guarantee
@@ -4761,5 +4957,14 @@ country_event = {
 		name = hellas.10000.a
         
         event_target:hellenic_state = { transfer_state = 47 }
+        GER = { set_province_controller = 4109 }
+        GER = { set_province_controller = 11965 }
+        #event_target:hellenic_state = { transfer_state = 182 }
+        #GER = { set_province_controller = 12058 }
+        #GER = { set_province_controller = 1164 }
+        #GER = { set_province_controller = 9940 }
+        #GER = { set_province_controller = 4170 }
+        47 = { add_resistance = 6 }
+        182 = { add_resistance = 9 }
     }
 }
