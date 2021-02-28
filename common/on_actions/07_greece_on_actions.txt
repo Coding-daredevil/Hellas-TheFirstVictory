@@ -635,7 +635,9 @@ on_actions = {
                         days = 120
                     } 
                 }
-                #GRE = { country_event = { id = hellas.114 days = 0 } }
+                GRE = { 
+                    set_country_flag = german_ambassador_6th
+                }
 			}           
         }
     }
@@ -680,9 +682,11 @@ on_actions = {
             
                 if = {
                     limit = {
-                        date = 1941.04.06                                                                   
+                        date = 1941.04.06
                     }
+                    set_variable = { date_of_directive_date = global.date }
                     GER = { country_event = { id = hellas.104 days = 0 } }                                    ## Fuhrer Directive event sent to Germans.
+                    country_event = { id = hellas.996 days = 0 } 
                 }
                 if = {
                     limit = {
@@ -711,10 +715,22 @@ on_actions = {
                         set_country_flag = mainland_capitulated
                     } 
                 }
+                if = {
+                    limit = {
+                        check_variable = { grecoitalian_war_counter > 420 }
+                    }
+                    random_list = {
+                        2.5 = {
+                            country_event = { id = hellas.800 days = 0 }
+                        }
+                    }
+                }
             }
             if = {
                 limit = {
-                    has_global_flag = GRE_exiled
+                    OR = {
+                        has_global_flag = GRE_crete_still_holding
+                        has_global_flag = GRE_government_in_exile
                 }
                 add_to_variable = { days_of_oppression = 1 }
             }

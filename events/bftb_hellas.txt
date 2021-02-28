@@ -4316,10 +4316,9 @@ country_event = {                                                               
             check_variable = { var = ITA.favor@GRE value = 80 compare = greater_than_or_equals }
             has_collaboration = { target = ITA value > 0.6}
         }
-        set_state_owner = 44
-        set_state_owner = 805
-        set_state_owner = 164
-        #add_state_core = 805
+        GRE = { transfer_state = 44 }
+        GRE = { transfer_state = 805 }   
+        GRE = { transfer_state = 164 }
     }
     
     option = {                                                                                      ## Demand Northern Epirus & Dodecanese
@@ -4328,20 +4327,18 @@ country_event = {                                                               
             check_variable = { var = GER.favor@GRE value = 80 compare = greater_than_or_equals }
             check_variable = { var = ITA.favor@GRE value = 50 compare = greater_than_or_equals }
         }
-        set_state_owner = 805
-        set_state_owner = 164
-        #add_state_core = 805        
+        GRE = { transfer_state = 805 }   
+        GRE = { transfer_state = 164 }      
     }
     
     option = {                                                                                      ## Demand Northern Epirus
 		name = hellas.111.c
-        set_state_owner = 805
-        #add_state_core = 805
+        GRE = { transfer_state = 805 } 
     }
     
     option = {                                                                                      ## Demand Dodecanese
 		name = hellas.111.d  
-        set_state_owner = 164
+        GRE = { transfer_state = 164 }
     }
 }
 
@@ -4464,7 +4461,7 @@ country_event = {                                                               
 	desc = hellas.800.desc
 	picture = GFX_report_event_greek_triumph
 
-
+    is_triggered_only = yes
 	fire_only_once = yes
 	
 	option = {                                                                                                          ## Open up negotiations
@@ -4490,10 +4487,11 @@ country_event = {                                                               
 	desc = hellas.801.desc
 	picture = GFX_report_event_greek_triumph
 	
+    is_triggered_only = yes
     fire_only_once = yes
 
     immediate = {                                                                                                    ## What is going to happen next is collecting agreeableness from leader and faction members fighting Greece in the Greco-Italian war. States are 0,1,2,3 where 3 is max.
-        collect_faction_member_agreeableness = yes
+        hidden_effect = { collect_faction_member_agreeableness = yes }
     }
 	
 	option = {
@@ -4519,6 +4517,7 @@ country_event = {                                                               
 	desc = hellas.802.desc
 	picture = GFX_report_event_greek_triumph
 	
+    is_triggered_only = yes
     fire_only_once = no
 	
 	option = {                                                                                                       ## Greek player sees on screen the state of agreableness of the AI and decides to proceed.
@@ -4528,6 +4527,35 @@ country_event = {                                                               
         }
 
         GRE = { country_event = { id = hellas.803 days = 0 } }                                                        # We will start by making demands out of the Italians.
+    }
+    
+    option = {                                                                                                       ## Greek player sees on screen the state of agreableness of the AI and decides to proceed.
+		name = hellas.802.b
+        trigger = {
+            NOT = { has_country_flag = completed_demands_with_bulgaria }
+        }
+
+        GRE = { country_event = { id = hellas.804 days = 0 } }                                                        # Bulgarian demands.
+    }
+    
+    option = {                                                                                                       ## Greek player sees on screen the state of agreableness of the AI and decides to proceed.
+		name = hellas.802.c
+        trigger = {
+            NOT = { has_country_flag = completed_demands_with_germany }
+        }
+
+        GRE = { country_event = { id = hellas.805 days = 0 } }                                                        # German demands.
+    }
+    
+    option = {                                                                                                       ## Greek player sees on screen the state of agreableness of the AI and decides to proceed.
+		name = hellas.802.d
+        trigger = {
+            has_country_flag = completed_demands_with_italy
+            has_country_flag = completed_demands_with_bulgaria
+            has_country_flag = completed_demands_with_germany
+        }
+
+        GRE = { country_event = { id = hellas.806 days = 0 } }                                                        # German demands.
     }
     
     option = {                                                                                                       ## Decides to keep fighting afterall.
@@ -4544,46 +4572,242 @@ country_event = {                                                               
 	desc = hellas.803.desc
 	picture = GFX_report_event_greek_triumph
 	
+    is_triggered_only = yes
     fire_only_once = yes
     
-    immediate = { set_country_flag = completed_demands_with_italy }
+    immediate = { 
+        hidden_effect = { 
+            set_country_flag = completed_demands_with_italy 
+            country_event = { id = hellas.802 days = 1 }
+        }
+    }
 	
 	option = {                                                                                                       ## Demand Albania / Northern Epirus / Dodecanese
 		name = hellas.803.a
         trigger = { 
-            ITA = { has_max_agreeableness = yes }
+            check_variable = { var = ITA.nation_agreeableness_score value = 3 compare = greater_than_or_equals }
         }
-        set_country_flag = all_three_demanded
+        set_country_flag = ita_all_three_demanded
     }
     
     option = {                                                                                                       ## Northern Epirus / Dodecanese
 		name = hellas.803.b
         trigger = { 
-            ITA = { has_high_agreeableness = yes }
+            check_variable = { var = ITA.nation_agreeableness_score value = 2 compare = greater_than_or_equals }
         }
-        set_country_flag = two_demanded
+        set_country_flag = ita_two_demanded
     }
     
     option = {                                                                                                       ## Northern Epirus
 		name = hellas.803.c
         trigger = { 
-            ITA = { has_mid_agreeableness = yes }
+            check_variable = { var = ITA.nation_agreeableness_score value = 1 compare = greater_than_or_equals }
         }
-        set_country_flag = ne_demanded
+        set_country_flag = ita_ne_demanded
     }
     
     option = {                                                                                                       ## Dodecanese
 		name = hellas.803.d
         trigger = { 
-            ITA = { has_mid_agreeableness = yes }
+            check_variable = { var = ITA.nation_agreeableness_score value = 1 compare = greater_than_or_equals }
         }
-        set_country_flag = dod_demanded
+        set_country_flag = ita_dod_demanded
     }
     
-    option = {                                                                                                       ## Dodecanese
+    option = {
 		name = hellas.803.e
+    }
+}
 
-        add_political_power = 10
+country_event = {                                                                                                   ### Greek demands over the Italians
+	id = hellas.804
+	title = hellas.804.t
+	desc = hellas.804.desc
+	picture = GFX_report_event_greek_triumph
+	
+    is_triggered_only = yes
+    fire_only_once = yes
+    
+    immediate = { 
+        hidden_effect = { 
+            set_country_flag = completed_demands_with_bulgaria 
+            country_event = { id = hellas.802 days = 1 }
+        }
+    }
+	
+	option = {                                                                                                       ## Take all their stockpile and disband their units
+		name = hellas.804.a
+        trigger = { 
+            check_variable = { var = BUL.nation_agreeableness_score value = 3 compare = greater_than_or_equals }
+        }
+        set_country_flag = bul_stockpile_and_units_disbanded
+    }
+    
+    option = {                                                                                                       ## Disband units + 50% of stockpile
+		name = hellas.804.b
+        trigger = { 
+            check_variable = { var = BUL.nation_agreeableness_score value = 2 compare = greater_than_or_equals }
+        }
+        set_country_flag = bul_units_disbanded
+    }
+    
+    option = {                                                                                                       ## Take all their stockpile, do not disband units
+		name = hellas.804.c
+        trigger = { 
+            check_variable = { var = BUL.nation_agreeableness_score value = 2 compare = greater_than_or_equals }
+        }
+        set_country_flag = bul_stockpile
+    }
+    
+    option = {
+		name = hellas.804.d
+    }    
+}
+
+country_event = {                                                                                                   ### Greek demands over the Italians
+	id = hellas.805
+	title = hellas.805.t
+	desc = hellas.805.desc
+	picture = GFX_report_event_greek_triumph
+	
+    is_triggered_only = yes
+    fire_only_once = yes
+    
+    immediate = { 
+        hidden_effect = { 
+            set_country_flag = completed_demands_with_germany
+            country_event = { id = hellas.802 days = 1 }
+        }
+    }
+	
+	option = {                                                                                                       ## Heavy war reparations
+		name = hellas.805.a
+        trigger = { 
+            check_variable = { var = GER.nation_agreeableness_score value = 3 compare = greater_than_or_equals }
+        }
+        set_country_flag = ger_heavy_repar
+    }
+    
+    option = {                                                                                                       ## Medium war reparations
+		name = hellas.805.b
+        trigger = { 
+            check_variable = { var = GER.nation_agreeableness_score value = 2 compare = greater_than_or_equals }
+        }
+        set_country_flag = ger_med_repar
+    }
+    
+    option = {                                                                                                       ## Light war reparations
+		name = hellas.805.c
+        trigger = { 
+            check_variable = { var = GER.nation_agreeableness_score value = 1 compare = greater_than_or_equals }
+        }
+        set_country_flag = ger_light_repar
+    }
+    
+    option = {
+		name = hellas.805.d
+    } 
+}
+
+country_event = {                                                                                                   ### PEACE ACHIEVED
+	id = hellas.806
+	title = hellas.806.t
+	desc = hellas.806.desc
+	picture = GFX_report_event_greek_triumph
+	
+    
+    is_triggered_only = yes
+    fire_only_once = no
+	
+	option = {
+		name = hellas.806.a
+         
+        every_country = {
+            limit = { is_in_faction_with = ITA }
+            white_peace = GRE
+        }
+        news_event = { id = hellenic_news.154 }
+        complete_national_focus = GRE_the_weaves_of_fate
+        complete_national_focus = GRE_glorious_struggle_in_triumph
+        set_global_flag = GRE_grecoitalian_ended
+        clr_global_flag = GRE_grecoitalian_start
+        if = { 
+            limit = { has_country_flag = ita_all_three_demanded }    
+            GRE = { transfer_state = 44 }
+            GRE = { transfer_state = 805 }   
+            GRE = { transfer_state = 164 }    
+        }
+        else_if = {
+            limit = { has_country_flag = ita_two_demanded }
+            GRE = { transfer_state = 805 }   
+            GRE = { transfer_state = 164 }  
+        }
+        else_if = {
+            limit = { has_country_flag = ita_ne_demanded }
+            GRE = { transfer_state = 805 }   
+        }
+        else_if = {
+            limit = { has_country_flag = ita_dod_demanded }  
+            GRE = { transfer_state = 164 }  
+        }
+        if = { 
+            limit = { has_country_flag = bul_stockpile_and_units_disbanded }    
+            BUL = { 
+                teleport_armies = { to_state = 48 } 
+                delete_unit = { 
+                    state = 48
+                    disband = yes
+                }
+                transfer_units_fraction= {
+                    target = GRE
+                    size = 1
+                    stockpile_ratio = 1
+                    army_ratio = 1
+                    navy_ratio = 1
+                    air_ratio = 1
+                    keep_unit_leaders_trigger = {
+                        always = yes
+                    }
+                }
+            }
+        }
+        else_if = {
+            limit = { has_country_flag = bul_stockpile }
+            BUL = {
+                transfer_units_fraction= {
+                    target = GRE
+                    size = 1
+                    stockpile_ratio = 1
+                    army_ratio = 0
+                    navy_ratio = 0
+                    air_ratio = 0
+                    keep_unit_leaders_trigger = {
+                        always = yes
+                    }
+                }
+            }
+        }
+        else_if = {
+            limit = { has_country_flag = bul_units_disbanded }
+            BUL = { 
+                teleport_armies = { to_state = 48 } 
+                delete_unit = { 
+                    state = 48
+                    disband = yes
+                }
+                transfer_units_fraction= {
+                    target = GRE
+                    size = 0
+                    stockpile_ratio = 0.5
+                    army_ratio = 0
+                    navy_ratio = 0
+                    air_ratio = 0
+                    keep_unit_leaders_trigger = {
+                        always = yes
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -4607,7 +4831,7 @@ country_event = {                                                               
 	
 	option = {                                                                            
 		name = hellas.996.a
-        
+        clear_variable = date_of_directive_date
     }
 }
 
@@ -4620,10 +4844,13 @@ country_event = {                                                               
 	is_triggered_only = yes
 
 	fire_only_once = yes
+    
+    immediate = { hidden_effect = { set_variable = { piraeus_boming_date = global.date } } }
 	
 	option = {                                                                            
 		name = hellas.997.a
         
+        clear_variable = piraeus_boming_date
     }
 }
 
@@ -4637,11 +4864,12 @@ country_event = {                                                               
 
 	fire_only_once = yes
     
-    immediate = { hidden_effect = { country_event = { id = hellas.999 days = 9 } } }
+    immediate = { hidden_effect = { country_event = { id = hellas.999 days = 9 } set_variable = { thess_capture_date = global.date } } }
 	
 	option = {                                                                            
 		name = hellas.998.a
         
+        clear_variable = thess_capture_date
     }
 }
 
@@ -4725,33 +4953,41 @@ country_event = {                                                               
 	
     immediate = {
         hidden_effect = {
-            every_state = {                                                                             ##disband armies due to capitulation
-                    limit = {
-                        OR = {
-                            is_owned_by = GRE
-                            is_controlled_by = GRE
+            set_variable = { treaty_signed_date = global.date }
+            if = {
+                limit = { has_country_flag = tsolakoglou_initiative }
+                every_state = {                                                                             ##disband armies due to capitulation
+                        limit = {
+                            OR = {
+                                is_owned_by = GRE
+                                is_controlled_by = GRE
+                            }
+                            NOT = { state = 182 }                                                            # This doesn't apply for Sterea Ellada / Attika / Peloponnese / Crete
+                            NOT = { state = 47  }
+                            NOT = { state = 186 }
+                            NOT = { state = 807 }
                         }
-                        NOT = { state = 182 }
-                    }
-                    GRE = {
-                        delete_unit = { 
-                            state = PREV
-                            disband = yes
+                        GRE = {
+                            delete_unit = { 
+                                state = PREV
+                                disband = yes
+                            }
                         }
                     }
-                }
-            GRE = {                                                                                     ##a n extra check if u are stuck in half of albania
-                delete_unit = {
-                    state = 44
-                    disband = yes
+                GRE = {                                                                                     ##a n extra check if u are stuck in half of albania
+                    delete_unit = {
+                        state = 44
+                        disband = yes
+                    }
                 }
             }
-            #country_event = { id = hellas.1001 days = 2 }                                               ## Create Hellenic State 
         }
     }
     
 	option = {                                                                                                                                                         
-		name = hellas.1000.a 
+		name = hellas.1000.a
+
+        clear_variable = treaty_signed_date
     }
 }
 
@@ -4884,6 +5120,8 @@ country_event = {
                     #}
                     inherit_technology = GRE
                     add_ideas = HS_ind_shackles_4
+                    add_ideas = HS_tripple_occupation
+                    add_ideas = HS_occupation_costs
                     load_focus_tree = hellenic_state_focus
                     GRE = { GR_HS_split_ideas = yes }
                     #GER = { puppet = event_target:hellenic_state }

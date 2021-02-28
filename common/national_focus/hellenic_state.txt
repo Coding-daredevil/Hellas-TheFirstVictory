@@ -357,7 +357,7 @@ focus_tree = {
 
 	focus = {
 		id = cyprus_threat
-		icon = GFX_goal_gre_cyprus
+		icon = GFX_goal_hs_promised_cyprus
         prerequisite = { focus = hellenic_state }
         relative_position_id = hellenic_state
         x = 3
@@ -376,7 +376,7 @@ focus_tree = {
 
 	focus = {
 		id = freed_communists
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_freed_communists
         prerequisite = { focus = hellenic_state }
         relative_position_id = hellenic_state
         x = -2
@@ -415,7 +415,7 @@ focus_tree = {
 
 	focus = {
 		id = appoint_tsolakoglou
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_tsolakoglou
         prerequisite = { focus = hellenic_state }
         relative_position_id = hellenic_state
         x = 0
@@ -434,13 +434,20 @@ focus_tree = {
 
 	focus = {
 		id = oust_chrysanthus_for_damaskinos
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_damaskinos
         prerequisite = { focus = appoint_tsolakoglou }
         relative_position_id = appoint_tsolakoglou
         x = 0
 		y = 1
 		cost = 2.9
         available = {
+            if = {
+                limit = { has_global_flag = GRE_crete_still_holding }
+                has_global_flag = {
+                    flag = GRE_crete_still_holding
+                    days > 14
+                }
+            }
             hidden_trigger = {
                 is_ai = no
             }
@@ -453,7 +460,7 @@ focus_tree = {
 
 	focus = {
 		id = accept_fake_currencies
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_fake_currency
         prerequisite = { focus = oust_chrysanthus_for_damaskinos }
         relative_position_id = oust_chrysanthus_for_damaskinos
         x = 2
@@ -472,7 +479,7 @@ focus_tree = {
 
 	focus = {
 		id = pay_occupation_costs
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_pay_occupation_costs
         prerequisite = { focus = accept_fake_currencies }
         relative_position_id = accept_fake_currencies
         x = 1
@@ -491,7 +498,7 @@ focus_tree = {
 
 	focus = {
 		id = fund_rommels_campaign
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_dak
         prerequisite = { focus = pay_occupation_costs }
         relative_position_id = pay_occupation_costs
         x = 0
@@ -530,7 +537,7 @@ focus_tree = {
     
 	focus = {
 		id = attempt_to_prevent_italian_occupation
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_prevent_italian
         prerequisite = { focus = appoint_tsolakoglou }
         prerequisite = { focus = oust_chrysanthus_for_damaskinos }
         relative_position_id = oust_chrysanthus_for_damaskinos
@@ -550,7 +557,7 @@ focus_tree = {
 
 	focus = {
 		id = demonize_metaxism
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_demonize_metaxas
         prerequisite = { focus = oust_chrysanthus_for_damaskinos }
         relative_position_id = oust_chrysanthus_for_damaskinos
         x = -1
@@ -569,7 +576,7 @@ focus_tree = {
     
 	focus = {
 		id = delirium_of_greater_greece
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_greater_greese
         prerequisite = { focus = oust_chrysanthus_for_damaskinos }
         relative_position_id = oust_chrysanthus_for_damaskinos
         x = 1
@@ -789,7 +796,7 @@ focus_tree = {
  
 	focus = {
 		id = combat_the_famine
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_combat_famine
         prerequisite = { focus = oust_chrysanthus_for_damaskinos }
         relative_position_id = oust_chrysanthus_for_damaskinos
         x = -2
