@@ -4463,6 +4463,20 @@ GRE_hellenic_academy_category = {
 
 political_actions = {
 
+                
+    KILLFLAG = {
+        allowed = {
+            original_tag = GRE
+        }
+        
+        cost = 10
+        
+        complete_effect = {
+            731 = { clr_state_flag = BUL_historical_bulgarian_claim_flag }
+            731 = { clr_state_flag = BUL_bulgarian_claim_warranted_flag }
+            731 = { remove_dynamic_modifier = { modifier = bulgarian_territorial_expansion_arranged } }
+        }
+    }        
     add_stuff = {
         allowed = {
             original_tag = GRE
@@ -4484,6 +4498,45 @@ political_actions = {
         
         complete_effect = {
             HS_increase_unyielding_greeks_by_one = yes
+        }
+    }
+    
+    add_stuff3 = {
+        allowed = {
+            original_tag = GER
+        }
+        
+        available = {
+            has_global_flag = {
+                flag = GRE_crete_still_holding
+                days > 14
+            }
+            event_target:hellenic_state = { exists = yes }
+            controls_state = 47
+            GRE = { controls_state = 182 } 
+            check_variable = { wave < 2 }
+            check_variable = { GRE.num_battalions@182 < 120 }
+            has_global_flag = {
+                flag = GRE_crete_still_holding
+                days < 90
+            }
+        }
+        
+        days_remove = 2
+        
+        visible = {
+            is_ai = yes
+        }
+        
+        ai_will_do = {
+			factor = 10000
+		}
+        
+        cost = 10
+        
+        complete_effect = {
+            add_to_variable = { wave = 1 }
+            GER_pops_in_crete = yes
         }
     }
     
@@ -6179,6 +6232,7 @@ GRE_grecoitalian_war_category = {
 		}
 
 		visible = {
+            has_global_flag = GRE_grecoitalian_start
 			has_country_flag = GRE_italian_spring_offensive_started
             ITA = {
                 OR = {
@@ -6237,6 +6291,7 @@ GRE_grecoitalian_war_category = {
 		fire_only_once = yes
 
 		visible = {
+            has_global_flag = GRE_grecoitalian_start
             has_country_flag = GRE_hidden_flag
             ITA = {
                 OR = {

@@ -667,7 +667,9 @@ on_actions = {
                 clr_global_flag = GRE_grecoitalian_start
                 clr_global_flag = GRE_crete_still_holding
                 set_global_flag = GRE_government_in_exile
-                event_target:hellenic_state = { country_event = { id = hellas.10000 days = 0 } }
+                complete_national_focus = GRE_crete_falls
+                GRE = { country_event = { id = hellas.10000 days = 0 } }
+                GER = { remove_ideas = GRE_german_ambition_crete }
             }
         }
     }
@@ -731,8 +733,21 @@ on_actions = {
                     OR = {
                         has_global_flag = GRE_crete_still_holding
                         has_global_flag = GRE_government_in_exile
+                    }
                 }
                 add_to_variable = { days_of_oppression = 1 }
+                if = {
+                    limit = {
+                        check_variable = { days_of_oppression > 35 }
+                        has_global_flag = GRE_crete_still_holding
+                        NOT = { 
+                            has_completed_focus = GRE_crete_holds 
+                            has_completed_focus = GRE_crete_falls
+                        }
+                    }
+                    complete_national_focus = GRE_crete_holds
+                    GRE = { country_event = { id = hellas.10000 days = 0 } }
+                }
             }
         }
     }
