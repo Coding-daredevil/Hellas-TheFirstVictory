@@ -290,8 +290,17 @@ GRE_economic_fluidity = {
     }
 }
 
-GRE_resistance_category = {
-	priority = 11
+
+##################################################################
+#                                                                #
+#                                                                #
+#                          HELLENIC STATE                        #
+#                                                                #
+#                                                                #
+##################################################################
+
+GRE_government_in_exile_category = {
+	priority = 10000
 	picture = GFX_grecoitalian_war_cat
 
 	allowed = {
@@ -302,12 +311,31 @@ GRE_resistance_category = {
     visible_when_empty = yes
     
     visible = {
-        has_global_flag = GRE_exiled
+        OR = {
+            has_global_flag = GRE_crete_still_holding
+            has_global_flag = GRE_government_in_exile
+        }
+    }
+}
+
+GRE_resistance_category = {
+	priority = 10000
+	picture = GFX_grecoitalian_war_cat
+
+	allowed = {
+		original_tag = GRE
+		has_dlc = "Battle for the Bosporus"
+	}
+    
+    visible_when_empty = yes
+    
+    visible = {
+        has_completed_focus = GRE_resistance
     }
 }
 
 GRE_hellenic_state_catefory = {
-	priority = 11
+	priority = 10000
 	picture = GFX_grecoitalian_war_cat
 
 	allowed = {
@@ -318,23 +346,7 @@ GRE_hellenic_state_catefory = {
     visible_when_empty = yes
     
     visible = {
-        has_global_flag = GRE_exiled
-    }
-}
-
-GRE_government_in_exile_category = {
-	priority = 11
-	picture = GFX_grecoitalian_war_cat
-
-	allowed = {
-		original_tag = GRE
-		has_dlc = "Battle for the Bosporus"
-	}
-    
-    visible_when_empty = yes
-    
-    visible = {
-        has_global_flag = GRE_exiled
+        has_global_flag = GRE_hellenic_state_formed
     }
 }
 

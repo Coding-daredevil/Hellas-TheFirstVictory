@@ -133,6 +133,33 @@ HS_increase_unyielding_greeks_by_one = {
     }
 }
 
+HS_increase_armed_resistance_by_one = {
+    for_each_scope_loop = {
+        array = greek_mainland_states_all
+        
+        if = { 
+            limit = { has_dynamic_modifier = { modifier = GRE_italian_occupation_zone } }
+            remove_dynamic_modifier = { modifier = GRE_italian_occupation_zone }
+            add_dynamic_modifier = { modifier = early_resistance_groups_ita }
+        }
+        else_if = { 
+            limit = { has_dynamic_modifier = { modifier = early_resistance_groups_ita } }
+            remove_dynamic_modifier = { modifier = early_resistance_groups_ita }
+            add_dynamic_modifier = { modifier = strengthened_resistance_groups_ita }
+        }
+        else_if = { 
+            limit = { has_dynamic_modifier = { modifier = strengthened_resistance_groups_ita } }
+            remove_dynamic_modifier = { modifier = strengthened_resistance_groups_ita }
+            add_dynamic_modifier = { modifier = dominant_resistance_groups_ita }
+        }
+        else_if = { 
+            limit = { has_dynamic_modifier = { modifier = dominant_resistance_groups_ita } }
+            remove_dynamic_modifier = { modifier = dominant_resistance_groups_ita }
+            add_dynamic_modifier = { modifier = unshakeable_resistance_groups_ita }
+        }
+    }
+}
+
 HS_set_up_occupation_zones = {                                                                              ## We gonna use an array, yay, how I hate my life.
     add_to_array = { german_occupation_zone = 11905 } ##    EVROS
     add_to_array = { german_occupation_zone = 895 }   ##    CENTRAL MACEDONIA
@@ -263,6 +290,7 @@ GR_HS_split_ideas = {
     }
     remove_ideas = GRE_met_line_2
     remove_ideas = GRE_met_line
+    remove_ideas = GRE_fifth_phalanx_crushed
     #remove_ideas = GRE_dummy_surrender
     remove_dynamic_modifier = { modifier = GRE_alternating_tariffs }
     remove_dynamic_modifier = { modifier = GRE_military_budget }
@@ -1746,9 +1774,15 @@ GRE_add_favor = {
     #############################[ Additional ]###############################
     if = {                                                                                                      ## Tourism always good                                                                                
         limit = {
-            has_idea = GRE_booming_tourism
+            GRE = { has_idea = GRE_booming_tourism }
         }
         add_to_temp_variable = { x = 1 }
+    }
+    if = {                                                                                                      ## War always bad                                                                                
+        limit = {
+            has_war_with = GRE 
+        }
+        subtract_from_temp_variable = { x = 2 }
     }
     if = {                                                                                                      ## If both nations share the same ideology, give 1 extra point. Otherwise, subtract when
         limit = {
