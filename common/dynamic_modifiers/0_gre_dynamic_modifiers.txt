@@ -159,36 +159,74 @@ GRE_german_occupation_zone = {
 early_resistance_groups_ger = {
 	enable = { always = yes }
 
-	icon = GFX_modifiers_gre_hakenkreuz
+	icon = GFX_hs_res_early
 	
-	state_resources_factor = -0.2
+    resistance_activity = 0.4
+    state_resources_factor = -0.12
+    local_factory_sabotage = 0.08
+    local_intel_to_enemies = 0.12
+    required_garrison_factor = 0.12
+    resistance_damage_to_garrison = 0.04
+    resistance_garrison_penetration_chance = 0.04
 }
 
 strengthened_resistance_groups_ger = {
 	enable = { always = yes }
 
-	icon = GFX_modifiers_gre_hakenkreuz
-    
-	state_resources_factor = -0.4
-	disable_strategic_redeployment = 1
+	icon = GFX_hs_res_strengthened
+	
+	resistance_activity = 0.08
+    local_factory_sabotage = 0.13
+    state_resources_factor = -0.25
+    local_intel_to_enemies = 0.25
+    required_garrison_factor = 0.25
+    resistance_damage_to_garrison = 0.10
+    resistance_garrison_penetration_chance = 0.10
 }
 
 dominant_resistance_groups_ger = {
 	enable = { always = yes }
 
-	icon = GFX_modifiers_gre_hakenkreuz
+	icon = GFX_hs_res_dominant
 	
-	state_resources_factor = -0.6
-	disable_strategic_redeployment = 1
+	resistance_activity = 0.15
+    state_resources_factor = -0.60
+    local_factories = -0.25
+    local_factory_sabotage = 0.20
+    local_intel_to_enemies = 0.50
+    required_garrison_factor = 0.40
+    resistance_damage_to_garrison = 0.15
+    resistance_garrison_penetration_chance = 0.15
+}
+
+unshakeable_resistance_groups_ger = {
+	enable = { always = yes }
+
+	icon = GFX_hs_res_absolute
+	
+	resistance_activity = 0.15
+    state_resources_factor = -0.75
+    local_factories = -0.5
+    local_factory_sabotage = 0.30
+    local_intel_to_enemies = 0.75
+    required_garrison_factor = 0.40
+    resistance_damage_to_garrison = 0.25
+    resistance_garrison_penetration_chance = 0.25
 }
 
 part_of_free_greece = {
 	enable = { always = yes }
 
-	icon = GFX_modifiers_gre_hakenkreuz
+	icon = GFX_hs_res_free_greece
 	
 	state_resources_factor = -1
 	disable_strategic_redeployment = 1
+    attrition_for_controller = 1
+    local_factories = -1
+    state_resources_factor = -1
+    local_supplies_for_controller = -0.85
+    army_speed_factor_for_controller = -0.75
+    local_org_regain = -0.5
 }
 
 #resistance_activity

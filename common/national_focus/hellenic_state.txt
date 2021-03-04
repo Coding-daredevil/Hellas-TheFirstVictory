@@ -91,6 +91,21 @@ focus_tree = {
         }
         
         completion_reward = {
+            hidden_effect = {
+                47 = { 
+                    if = {
+                    limit = { has_dynamic_modifier = { modifier = unyielding_greeks_angered } }
+                    remove_dynamic_modifier = { modifier = unyielding_greeks_angered }
+                    add_dynamic_modifier = { modifier = unyielding_greeks_determined }
+                    }
+                    else_if = {
+                        limit = { has_dynamic_modifier = { modifier = unyielding_greeks_determined } }
+                        remove_dynamic_modifier = { modifier = unyielding_greeks_determined }
+                        add_dynamic_modifier = { modifier = unyielding_greeks_ferocious }
+                    }
+                }
+            }
+            custom_effect_tooltip = take_down_the_hakenkreuz_tt
             #country_event = { id = hellas.xxxx days = 0 }
             hidden_effect = { GRE = { complete_national_focus = GRE_take_down_the_hakenkreuz } }
         }
@@ -112,6 +127,8 @@ focus_tree = {
         }
         
 		completion_reward = {
+            HS_increase_armed_resistance_by_one = yes
+            custom_effect_tooltip = form_up_early_resistance_groups_tt
             hidden_effect = { GRE = { complete_national_focus = GRE_form_up_early_resistance_groups } }
         }
 	}
@@ -133,6 +150,8 @@ focus_tree = {
         }
 
         completion_reward = {
+            custom_effect_tooltip = drama_uprising_tt
+            #country_event = { id = hellas.xxxx days = 4 }
             hidden_effect = { GRE = { complete_national_focus = GRE_drama_uprising } }
         }
 	}
@@ -153,6 +172,8 @@ focus_tree = {
         }
 
 		completion_reward = {
+            HS_add_angered_greeks = yes 
+            custom_effect_tooltip = unarmed_resistance_tt
             hidden_effect = { GRE = { complete_national_focus = GRE_unarmed_resistance } }
         }
 	}
@@ -168,12 +189,20 @@ focus_tree = {
 		y = 1
 		cost = 2.9
         available = {
+            if = {
+                limit = { GRE = { NOT = { has_dynamic_modifier = { modifier = GRE_grand_coalition_dynamic } } } }
+                custom_trigger_tooltip = {
+                    tooltip = GRE_fct_com_adequate_tt
+                    check_variable = { GRE.fct_com > 60 }
+                }
+            }
             hidden_trigger = {
                 is_ai = no
             }
         }
 
         completion_reward = {
+            custom_effect_tooltip = form_EAM_tt
             hidden_effect = { GRE = { complete_national_focus = GRE_form_EAM } }
         }
 	}
@@ -195,6 +224,7 @@ focus_tree = {
         }
 
 		completion_reward = {
+            custom_effect_tooltip = avoid_EAM_tt
             hidden_effect = { GRE = { complete_national_focus = GRE_avoid_EAM } }
         }
 	}
@@ -216,6 +246,7 @@ focus_tree = {
         }
 
 		completion_reward = {
+            custom_effect_tooltip = form_EDES_tt
             hidden_effect = { GRE = { complete_national_focus = GRE_form_EDES } }
         }
 	}
@@ -231,12 +262,23 @@ focus_tree = {
 		y = 1
 		cost = 2.9
         available = {
+            if = {
+                limit = { GRE = { NOT = { has_dynamic_modifier = { modifier = GRE_grand_coalition_dynamic } } } }
+                custom_trigger_tooltip = {
+                    tooltip = GRE_fct_dem_mon_not_polarized
+                    set_temp_variable = { x = GRE.fct_mon }
+                    add_to_temp_variable = { x = GRE.fct_com }
+                    divide_temp_variable = { x = 2 }
+                    check_variable = { x > 70 }
+                }
+            }
             hidden_trigger = {
                 is_ai = no
             }
         }
 
 		completion_reward = {
+            custom_effect_tooltip = avoid_EDES_tt
             hidden_effect = { GRE = { complete_national_focus = GRE_avoid_EDES } }
         }
 	}
@@ -256,6 +298,9 @@ focus_tree = {
         }
 
 		completion_reward = {
+            HS_add_angered_greeks = yes 
+            HS_increase_armed_resistance_by_one = yes
+            custom_effect_tooltip = light_up_the_fireworks_tt
             hidden_effect = { GRE = { complete_national_focus = GRE_light_up_the_fireworks } }
         }
 	}
@@ -270,12 +315,17 @@ focus_tree = {
 		y = 1
 		cost = 2.9
         available = {
+            custom_trigger_tooltip = {
+                tooltip = gorgopotamos_happened_tt
+                has_country_flag = GRE_gorgopotamos
+            }
             hidden_trigger = {
                 is_ai = no
             }
         }
 
 		completion_reward = {
+            custom_effect_tooltip = expand_cooperation_between_resistance_groups_tt
             hidden_effect = { GRE = { complete_national_focus = GRE_expand_cooperation_between_resistance_groups } }
         }
 	}
@@ -296,6 +346,7 @@ focus_tree = {
         }
 
 		completion_reward = {
+            custom_effect_tooltip = free_greece_tt
             hidden_effect = { GRE = { complete_national_focus = GRE_free_greece } }
         }
 	}
@@ -413,6 +464,7 @@ focus_tree = {
         }
 
 		completion_reward = {
+            custom_effect_tooltip = make_resistance_contacts_tt
             hidden_effect = { GRE = { complete_national_focus = GRE_make_resistance_contacts } }
         }
 	}
@@ -458,6 +510,7 @@ focus_tree = {
         }
 
 		completion_reward = {
+            #add_ideas = GRE_damaskinos
             hidden_effect = { GRE = { complete_national_focus = GRE_oust_chrysanthus_for_damaskinos } }
         }
 	}
@@ -813,6 +866,7 @@ focus_tree = {
         }
 
         completion_reward = {
+            custom_effect_tooltip = combat_the_famine_tt
             hidden_effect = { GRE = { complete_national_focus = GRE_combat_the_famine } }
         }
 	}
@@ -821,7 +875,6 @@ focus_tree = {
 	focus = {
 		id = push_for_goods_circulation
 		icon = GFX_goal_hs_push_for_goods
-        prerequisite = { focus = combat_the_famine }
         prerequisite = { focus = make_resistance_contacts }
         prerequisite = { focus = form_up_early_resistance_groups }
         relative_position_id = combat_the_famine
