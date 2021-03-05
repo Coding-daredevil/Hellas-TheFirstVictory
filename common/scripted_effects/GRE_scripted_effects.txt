@@ -89,8 +89,22 @@ HS_set_up_state_modifiers = {
     add_to_array = { italian_occupied_states = 808 }
     add_to_array = { italian_occupied_states = 186 }
     add_to_array = { italian_occupied_states = 814 }
-    add_to_array = { bulgarian_occupied_states = 184 }
-    add_to_array = { bulgarian_occupied_states = 812 }
+    if = {
+        limit = {
+            BUL = {
+                NOT = {
+                    owns_state = 184
+                    owns_state = 812
+                }
+            }
+        }
+        add_to_array = { italian_occupied_states = 184 }
+        add_to_array = { italian_occupied_states = 812 }
+    }
+    else = {
+        add_to_array = { bulgarian_occupied_states = 184 }
+        add_to_array = { bulgarian_occupied_states = 812 }
+    }
     add_to_array = { greek_mainland_states_all = 47 }
     add_to_array = { greek_mainland_states_all = 813 }
     add_to_array = { greek_mainland_states_all = 187 }
@@ -207,6 +221,23 @@ HS_set_up_occupation_zones = {                                                  
     add_to_array = { italian_occupation_zone = 4178 }
     add_to_array = { italian_occupation_zone = 4078 }
     add_to_array = { italian_occupation_zone = 7096 }
+    if = {
+        limit = {
+            BUL = {
+                NOT = {
+                    owns_state = 184
+                    owns_state = 812
+                }
+            }
+        }
+        add_to_array = { italian_occupation_zone = 11774 }
+        add_to_array = { italian_occupation_zone = 13242 }
+        add_to_array = { italian_occupation_zone = 13243 }
+        add_to_array = { italian_occupation_zone = 9797 }
+        add_to_array = { italian_occupation_zone = 9930 }
+        add_to_array = { italian_occupation_zone = 6990 }
+        add_to_array = { italian_occupation_zone = 13244 }
+    }
     for_each_loop = {         
         array = german_occupation_zone
         GER = { set_province_controller = v }
@@ -1782,7 +1813,7 @@ GRE_add_favor = {
         limit = {
             has_war_with = GRE 
         }
-        subtract_from_temp_variable = { x = 2 }
+        subtract_from_temp_variable = { x = 3 }
     }
     if = {                                                                                                      ## If both nations share the same ideology, give 1 extra point. Otherwise, subtract when
         limit = {
@@ -1825,6 +1856,25 @@ GRE_add_favor = {
             GRE = { has_government = communism }
         }
         subtract_from_temp_variable = { x = 2 }
+    }
+    ###########################[ Tariff Mechanic ]############################
+    if = {                                                                                                             ## Big favor decrease per month that tariffs are active
+        limit = {
+            THIS = { has_idea = GRtar_trade_1 }
+        }
+        subtract_from_temp_variable = { x = 6 }
+    }
+    else_if = {                                                                                                            
+        limit = {
+            THIS = { has_idea = GRtar_trade_2 }
+        }
+        subtract_from_temp_variable = { x = 8 }
+    }
+    else_if = {                                                                                                           
+        limit = {
+            THIS = { has_idea = GRtar_trade_3 }
+        }
+        subtract_from_temp_variable = { x = 10 }
     }
     ###########################[ Manufacturers ]##############################
     if = {                                                                                                                  ## Tank Manufacturers 

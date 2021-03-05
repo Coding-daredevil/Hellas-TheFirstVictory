@@ -120,7 +120,7 @@ country_event = {                                                   ### The issu
     }  
 }
 
-country_event = {                                                       ### Electing a new arch-bishop
+country_event = {                                                       ### Cretan Upr
 	id = hellas.4
 	title = hellas.4.t
 	desc = hellas.4.desc
@@ -130,7 +130,6 @@ country_event = {                                                       ### Elec
 
 	fire_only_once = yes
 	
-	#Give into Greece
 	option = {
 		name = hellas.4.a
 
@@ -139,7 +138,7 @@ country_event = {                                                       ### Elec
 			}
         add_stability = 0.03
         custom_effect_tooltip =  hellas.4.a_tt
-        set_country_flag = GRE_church_dealt
+        set_country_flag = GRE_cretan_upr_plan
     } 
 	option = {
 		name = hellas.4.b
@@ -149,11 +148,11 @@ country_event = {                                                       ### Elec
 			}
         add_stability = 0.03
         custom_effect_tooltip =  hellas.4.b_tt
-        set_country_flag = GRE_church_dealt
+        set_country_flag = GRE_cretan_upr_harsh
     }  
 }
 
-country_event = {
+country_event = {                                                       ### Archbishop
 	id = hellas.5
 	title = hellas.5.t
 	desc = hellas.5.desc
@@ -163,23 +162,25 @@ country_event = {
 
 	fire_only_once = yes
 	
-	#Give into Greece
 	option = {
 		name = hellas.5.a
 
 		ai_chance = {
 			base = 100
-			}
+        }
+        
         add_stability = 0.02
+        set_country_flag = archbishop_chrysanthos_elected
         custom_effect_tooltip =  hellas.5.a_tt
     } 
 	option = {
 		name = hellas.5.b
 
 		ai_chance = {
-			base = 100
-			}
-        add_stability = 0.02
+            base = 0
+        }
+        add_stability = -0.05
+        set_country_flag = archbishop_damaskinos_elected
         custom_effect_tooltip =  hellas.5.b_tt
     }  
 }
@@ -4260,6 +4261,11 @@ country_event = {                                                               
         
         ai_chance = {
 			base = 1
+            modifier = {
+                factor = 5
+                check_variable = { var = ITA.favor@GRE value = 50 compare = greater_than_or_equals }
+                check_variable = { var = ITA.favor@GRE value = 80 compare = less_than }
+            }
 			modifier = {
 				factor = 100
 				check_variable = { var = ITA.favor@GRE value = 80 compare = greater_than_or_equals }
@@ -4454,6 +4460,44 @@ country_event = {                                                               
 ################################[ GLORIOUS STRUGGLE ENDS IN TRIUMPH EVENT SERIES ]##############################
 ################################################################################################################
 ################################################################################################################
+
+country_event = {                                                                                                   ## Army buffs fade
+	id = hellas.798
+	title = hellas.798.t
+	desc = hellas.798.desc
+	picture = GFX_report_event_greek_alb_failing_supply
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+	
+	option = {                                                                            
+		name = hellas.798.a
+        
+        remove_dynamic_modifier = { modifier = GRE_army_reform_hellenic_army }      
+        set_variable = { GRE_var_supply_consumption = 0 }     
+        set_variable = { GRE_var_winter_attr = 0 }             
+        set_variable = { GRE_var_cold_acc = 0 }        
+    }
+}
+
+country_event = {                                                                                                   ## Army buffs gone
+	id = hellas.799
+	title = hellas.799.t
+	desc = hellas.799.desc
+	picture = GFX_report_event_greek_alb_march
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+	
+	option = {                                                                            
+		name = hellas.799.a
+        
+        remove_dynamic_modifier = { modifier = GRE_army_reform_hellenic_staff }           
+        remove_dynamic_modifier = { modifier = GRE_army_reform_hellenic_people }
+    }
+}
 
 country_event = {                                                                                                   ### Big chain of events start here, during the next winter after the war has started (historically: 1942)
 	id = hellas.800
@@ -4831,7 +4875,7 @@ country_event = {                                                               
 	
 	option = {                                                                            
 		name = hellas.996.a
-        clear_variable = date_of_directive_date
+        #clear_variable = date_of_directive_date
     }
 }
 
@@ -4850,7 +4894,7 @@ country_event = {                                                               
 	option = {                                                                            
 		name = hellas.997.a
         
-        clear_variable = piraeus_boming_date
+        #clear_variable = piraeus_boming_date
     }
 }
 
@@ -4869,7 +4913,7 @@ country_event = {                                                               
 	option = {                                                                            
 		name = hellas.998.a
         
-        clear_variable = thess_capture_date
+        #clear_variable = thess_capture_date
     }
 }
 
@@ -5004,11 +5048,6 @@ country_event = {                                                               
     immediate = { 
         hidden_effect = { 
             country_event = { id = hellas.1002 days = 1 } 
-        #    if = { 
-        #        limit = { ENG = { has_war_with = GER } }
-        #        ENG = { add_to_faction = GRE }
-        #    }
-        #    add_ideas = GRE_dummy_surrender
         }
     }
     
@@ -5076,17 +5115,32 @@ country_event = {
                 185 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } } 
                 814 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } } 
                 #######################[Bulgarian Direct Annexations (Historical)]###############
-                731 = { clr_state_flag = BUL_historical_bulgarian_claim_flag }
-                731 = { clr_state_flag = BUL_bulgarian_claim_warranted_flag }
-                731 = { remove_dynamic_modifier = { modifier = bulgarian_territorial_expansion_arranged } }
-                811 = { clr_state_flag = BUL_historical_bulgarian_claim_flag }
-                811 = { clr_state_flag = BUL_bulgarian_claim_warranted_flag }
-                811 = { remove_dynamic_modifier = { modifier = bulgarian_territorial_expansion_arranged } }   
-                813 = { clr_state_flag = BUL_historical_bulgarian_claim_flag }
-                813 = { clr_state_flag = BUL_bulgarian_claim_warranted_flag }
-                813 = { remove_dynamic_modifier = { modifier = bulgarian_territorial_expansion_arranged } }                
-                184 = { BUL = { transfer_state = PREV } }
-                812 = { BUL = { transfer_state = PREV } }
+                if = {                                                                                                              # If Bulgaria is alive, in Axis and historical stuff should happen.
+                    limit = {
+                        BUL = {
+                            exists = yes
+                            OR = {
+                                is_in_faction_with = GER
+                                is_in_faction_with = ITA
+                            }
+                        }
+                    }
+                    731 = { clr_state_flag = BUL_historical_bulgarian_claim_flag }
+                    731 = { clr_state_flag = BUL_bulgarian_claim_warranted_flag }
+                    731 = { remove_dynamic_modifier = { modifier = bulgarian_territorial_expansion_arranged } }
+                    811 = { clr_state_flag = BUL_historical_bulgarian_claim_flag }
+                    811 = { clr_state_flag = BUL_bulgarian_claim_warranted_flag }
+                    811 = { remove_dynamic_modifier = { modifier = bulgarian_territorial_expansion_arranged } }   
+                    813 = { clr_state_flag = BUL_historical_bulgarian_claim_flag }
+                    813 = { clr_state_flag = BUL_bulgarian_claim_warranted_flag }
+                    813 = { remove_dynamic_modifier = { modifier = bulgarian_territorial_expansion_arranged } }                
+                    184 = { BUL = { transfer_state = PREV } }
+                    812 = { BUL = { transfer_state = PREV } }
+                }
+                else = {
+                    184 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } }                                      # Italians take control of their portion, as this would have happened historically since the Germans only took strategic regions and Italians the mass of land.
+                    812 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } } 
+                }
                 ################################[Rule Setting]###################################
                 set_rule = { 
                     can_join_factions = no 

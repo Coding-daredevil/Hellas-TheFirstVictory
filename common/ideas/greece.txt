@@ -532,6 +532,7 @@ ideas = {
             
             on_remove = {
                 add_ideas = GRE_arms_deal_1
+                set_variable = { GRE_gold_reserves = 2 }
             }
             
 			picture = gre_arms_deal
@@ -559,6 +560,7 @@ ideas = {
             
             on_remove = {
                 add_ideas = GRE_arms_deal_2
+                set_variable = { GRE_gold_reserves = 1 }
             }
             
 			picture = gre_arms_deal
@@ -582,6 +584,10 @@ ideas = {
             
             cancel = {
                 date > 1939.12.1
+            }
+            
+            on_remove = {
+                set_variable = { GRE_gold_reserves = 0 }
             }
             
 			picture = gre_arms_deal
@@ -2039,14 +2045,32 @@ ideas = {
         traits = { director_of_good_arts }
     }
     
-	GRE_damaskinos = {
+    GRE_archbishop_chrysanthos = {
 
-		picture = generic_political_advisor_europe_5
+        picture = gre_father_dimistrios
+    
+        allowed = {
+            original_tag = GRE
+        }
+
+        available = {
+            has_country_flag = archbishop_chrysanthos_elected
+        }
+        
+        traits = { technocrat }
+    }
+    
+	GRE_archbishop_damaskinos = {
+
+		picture = gre_min_damaskinos
 		
 		allowed = {
 			original_tag = GRE
-			NOT = { has_dlc = "Battle for the Bosporus" }
 		}
+        
+        available = {
+            has_country_flag = archbishop_damaskinos_elected
+        }
 		
 		traits = { compassionate_gentleman }
 	}
@@ -2095,6 +2119,16 @@ ideas = {
 				}
 			}
 		}
+        
+        visible = {
+            NOT = { has_country_flag = GRE_metaxas_is_dead_crab_rave_flag }
+            NOT = {
+                has_country_leader = {
+                    name = "Ioannis Metaxas"
+                    ruling_only = yes
+                }
+            }
+        }
 
 		traits = { devoted_corporatist }
 	}
@@ -2323,26 +2357,6 @@ ideas = {
 		
 		traits = { guerilla_warfare_expert }
 	}
-
-	GRE_father_dimistrios = {
-
-			picture = gre_father_dimistrios
-			
-			allowed = {
-				original_tag = GRE
-				AND = {
-					has_dlc = "La Resistance"
-					has_dlc = "Battle for the Bosporus"
-				}
-			}
-
-			available = {
-				has_intelligence_agency = yes
-			}
-			
-			traits = { head_of_intelligence_god }
-			traits = { technocrat }
-		}
 
 	GRE_evripidis_bakirtris = {
 

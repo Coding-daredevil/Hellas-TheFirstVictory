@@ -384,8 +384,10 @@ on_actions = {
 					FROM = { 
                         tag = GRE
 					}
+                    NOT = { has_global_flag = first_grecoitalian }
 				}
                 ##########################################[Greek Effects]##########################################
+                set_global_flag = first_grecoitalian                                                                              # Make sure this only happens once.
                 GRE = {
                     add_dynamic_modifier = { modifier = GRE_war_strain }    ## testing for older savegames
                     set_global_flag = GRE_grecoitalian_start
@@ -627,6 +629,8 @@ on_actions = {
 				}
                 ITA = {
                     remove_ideas = GRE_italian_ambition
+                    remove_ideas = GRE_italian_ambition_defensive
+                    remove_ideas = GRE_italian_ambition_ultra_offensive                                       # If Germany declares by its own, it is possible it will happen during some italian offensives, thus keeping the national spirit after they end.
                 }
                 GER = {
                     #add_ideas = GRE_german_ambition
@@ -650,10 +654,6 @@ on_actions = {
                     ITA = { has_war_with = GRE }
                     BUL = { exists = yes is_subject = no }
                 }
-                #GER = {
-                #    disable_german_onslaught_on_yugoslavia = yes
-                #    enable_german_onslaught_on_greece = yes
-                #}
             }
         }
     }
@@ -719,13 +719,23 @@ on_actions = {
                 }
                 if = {
                     limit = {
+                        check_variable = { grecoitalian_war_counter = 150 }
+                    }
+                    country_event = { id = hellas.798 days = 0 }                                                # Greek Army reforms buffs start to fade out.
+                }
+                if = {
+                    limit = {
+                        check_variable = { grecoitalian_war_counter = 280 }
+                    }
+                    country_event = { id = hellas.799 days = 0 }                                                # Greek Army reforms gone.
+                }
+                if = {
+                    limit = {
                         check_variable = { grecoitalian_war_counter > 420 }
+                        NOT = { has_country_flag = event800_sent }
                     }
-                    random_list = {
-                        2.5 = {
-                            country_event = { id = hellas.800 days = 0 }
-                        }
-                    }
+                    set_country_flag = event800_sent
+                    country_event = { id = hellas.800 days = 0 }
                 }
             }
             if = {
