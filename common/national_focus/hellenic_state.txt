@@ -55,17 +55,16 @@ focus_tree = {
         x = -8
 		y = 1
 		cost = 2.9
-        available = {
-            hidden_trigger = {
-                is_ai = no
-            }
-        }
 
         available = {
-            hidden_trigger = {
-                is_ai = no
-            }
+            #hidden_trigger = {
+            #    is_ai = no
+            #}
         } 
+
+        ai_will_do = {
+			base = 0
+		}
 
 		completion_reward = {
             hidden_effect = { HS_set_up_state_modifiers = yes }
@@ -387,6 +386,7 @@ focus_tree = {
         }
 
 		completion_reward = {
+            custom_effect_tooltip = form_pseudo_battalions_arm_resistance_tt
             hidden_effect = { GRE = { complete_national_focus = GRE_form_pseudo_battalions_arm_resistance } }
         }
 	}
@@ -553,7 +553,7 @@ focus_tree = {
 		completion_reward = {
             swap_ideas = { 
                 remove_idea = HS_occupation_costs
-                add_idea = HS_occupation_costs
+                add_idea = HS_occupation_costs_2
             }
             hidden_effect = { GRE = { complete_national_focus = GRE_pay_occupation_costs } }
         }
@@ -574,6 +574,10 @@ focus_tree = {
         }
 
 		completion_reward = {
+            swap_ideas = { 
+                remove_idea = HS_occupation_costs_2
+                add_idea = HS_occupation_costs_3
+            }
             hidden_effect = { GRE = { complete_national_focus = GRE_fund_rommels_campaign } }
         }
 	}
@@ -594,6 +598,7 @@ focus_tree = {
         }
 
 		completion_reward = {
+            remove_ideas = HS_occupation_costs_3
             hidden_effect = { GRE = { complete_national_focus = GRE_extend_rommel_funds } }
         }
 	}
@@ -634,6 +639,7 @@ focus_tree = {
         }
 
 		completion_reward = {
+            add_timed_idea = { idea = HS_demonize_metaxism  days = 365 }
             hidden_effect = { GRE = { complete_national_focus = GRE_demonize_metaxism } }
         }
 	}
@@ -653,6 +659,7 @@ focus_tree = {
         }
 
 		completion_reward = {
+            add_political_power = -200
             hidden_effect = { GRE = { complete_national_focus = GRE_delirium_of_greater_greece } }
         }
 	}
@@ -670,12 +677,24 @@ focus_tree = {
 		y = 2
 		cost = 2.9
         available = {
+            date > 1942.11.16
             hidden_trigger = {
                 is_ai = no
             }
         }
 
 		completion_reward = {
+            retire_country_leader = yes
+            create_country_leader = {
+                name = "Konstantínos Logothetópoulos"
+                desc = "POLITICS_LOGOTHETOPOULOS_DESC"
+                picture = "Portrait_Greece_Logothetopoulos.dds"
+                expire = "1965.1.1"
+                ideology = nazism
+                traits = {
+                    #nazi_doctor
+                }
+            }
             hidden_effect = { GRE = { complete_national_focus = GRE_our_step_too_far } }
         }
 	}
@@ -689,12 +708,15 @@ focus_tree = {
 		y = 1
 		cost = 2.9
         available = {
+            date > 1943.02.06
             hidden_trigger = {
                 is_ai = no
             }
         }
 
 		completion_reward = {
+            custom_effect_tooltip = their_step_too_far_tt
+            #country_event = { id = hellas.xxxx days = 0 }
             hidden_effect = { GRE = { complete_national_focus = GRE_their_step_too_far } }
         }
 	}
@@ -714,6 +736,8 @@ focus_tree = {
         }
 
 		completion_reward = {
+            custom_effect_tooltip = archbishops_stand_tt
+            #country_event = { id = hellas.xxxx days = 0 }
             hidden_effect = { GRE = { complete_national_focus = GRE_archbishops_stand } }
         }
 	}
@@ -733,6 +757,8 @@ focus_tree = {
         }
 
 		completion_reward = {
+            custom_effect_tooltip = government_critical_failure_tt
+            #country_event = { id = hellas.xxxx days = 0 }
             hidden_effect = { GRE = { complete_national_focus = GRE_government_critical_failure } }
         }
 	}
@@ -747,12 +773,35 @@ focus_tree = {
 		y = 1
 		cost = 2.9
         available = {
+            if = {
+                limit = { event_target:hellenic_state = { has_idea = HS_occupation_costs } }
+                has_political_power > 600
+            }
+            else_if = {
+                limit = { event_target:hellenic_state = { has_idea = HS_occupation_costs_2 } }
+                has_political_power > 400
+            }
             hidden_trigger = {
                 is_ai = no
             }
         }
 
 		completion_reward = {
+            custom_effect_tooltip = sabotage_stolen_goods_tt
+            if = {
+                limit = { event_target:hellenic_state = { has_idea = HS_occupation_costs } }
+                remove_ideas = HS_occupation_costs
+                add_political_power = -600
+            }
+            else_if = {
+                limit = { event_target:hellenic_state = { has_idea = HS_occupation_costs_2 } }
+                remove_ideas = HS_occupation_costs_2
+                add_political_power = -400
+            }
+            else_if = {
+                limit = { event_target:hellenic_state = { has_idea = HS_occupation_costs_3 } }
+                remove_ideas = HS_occupation_costs_3
+            }
             hidden_effect = { GRE = { complete_national_focus = GRE_sabotage_stolen_goods } }
         }
 	}
@@ -767,12 +816,23 @@ focus_tree = {
 		y = 1
 		cost = 2.9
         available = {
+            date > 1943.04.06
             hidden_trigger = {
                 is_ai = no
             }
         }
 
 		completion_reward = {
+            retire_country_leader = yes
+            create_country_leader = {
+                name = "Ioánnis Rállis"
+                desc = "POLITICS_RALLIS_DESC"
+                picture = "Portrait_Greece_Ioannis_Rallis.dds"
+                expire = "1965.1.1"
+                ideology = nazism
+                traits = {
+                }
+            }
             hidden_effect = { GRE = { complete_national_focus = GRE_ousting_logothetopoulos_in_with_rallis } }
         }
 	}
@@ -793,6 +853,7 @@ focus_tree = {
         }
 
 		completion_reward = {
+            custom_effect_tooltip = ask_permission_to_form_security_battalions_tt
             hidden_effect = { GRE = { complete_national_focus = GRE_ask_permission_to_form_security_battalions } }
         }
 	}
@@ -812,6 +873,7 @@ focus_tree = {
         }
 
         completion_reward = {
+            custom_effect_tooltip = reorganize_special_security_tt
             hidden_effect = { GRE = { complete_national_focus = GRE_reorganize_special_security } }
         }
     }
@@ -833,6 +895,7 @@ focus_tree = {
         }
 
         completion_reward = {
+            custom_effect_tooltip = trick_german_overlords_tt
             hidden_effect = { GRE = { complete_national_focus = GRE_trick_german_overlords } }
         }
 	} 
@@ -853,6 +916,7 @@ focus_tree = {
             }
         }
         completion_reward = {
+            custom_effect_tooltip = pledge_everything_to_Axis_tt
             hidden_effect = { GRE = { complete_national_focus = GRE_pledge_everything_to_Axis } }
         }
 
@@ -982,11 +1046,14 @@ focus_tree = {
 		y = 1
 		cost = 2.9
         available = {
+            crete_is_no_loose_end = yes
             hidden_trigger = {
                 is_ai = no
             }
         }
+        
         completion_reward = {
+            GRE = { add_dynamic_modifier = { modifier = GRE_government_in_exile } }
             hidden_effect = { GRE = { complete_national_focus = GRE_greek_government_in_exile } }
         }
 	} 
@@ -1006,6 +1073,7 @@ focus_tree = {
             }
         }
         completion_reward = {
+            custom_effect_tooltip = legitimize_the_government_tt
             hidden_effect = { GRE = { complete_national_focus = GRE_legitimize_the_government } }
         }
 	} 
@@ -1069,6 +1137,7 @@ focus_tree = {
         ##VENIZELIST CHECK WIKIPEDIA AND SET FLAG SO IF REPUB=FRIENDLY NO PENALTY
 
 		completion_reward = {
+            custom_effect_tooltip = approach_greek_communities_in_egypt_tt
             hidden_effect = { GRE = { complete_national_focus = GRE_approach_greek_communities_in_egypt } }
         }
 	}
@@ -1093,6 +1162,7 @@ focus_tree = {
         
 
 		completion_reward = {
+            #GRE = { country_event = { id = hellas.xxxx days = 0 }
             hidden_effect = { GRE = { complete_national_focus = GRE_reinstate_constitutional_elements } }
         }
 	}
@@ -1117,6 +1187,7 @@ focus_tree = {
         
 
 		completion_reward = {
+            custom_effect_tooltip = abandon_any_though_for_democratic_transition_tt
             hidden_effect = { GRE = { complete_national_focus = GRE_abandon_any_though_for_democratic_transition } }
         }
 	}
@@ -1140,6 +1211,7 @@ focus_tree = {
         
 
 		completion_reward = {
+            #GRE = { country_event = { id = hellas.xxxx days = 0 }
             hidden_effect = { GRE = { complete_national_focus = GRE_the_issue_of_relocation } }
         }
 	}
@@ -1163,6 +1235,7 @@ focus_tree = {
         
 
 		completion_reward = {
+            #GRE = { country_event = { id = hellas.xxxx days = 0 } }
             hidden_effect = { GRE = { complete_national_focus = GRE_an_egypt_without_cromer } }
         }
 	}
@@ -1187,6 +1260,7 @@ focus_tree = {
         
         
 		completion_reward = {
+            #GRE = { country_event = { id = hellas.xxxx days = 0 } }
             hidden_effect = { GRE = { complete_national_focus = GRE_fix_the_snobbish_attitude } }
         }
 	}
@@ -1210,6 +1284,7 @@ focus_tree = {
 
         
         completion_reward = {
+            #GRE = { country_event = { id = hellas.xxxx days = 0 } }
             hidden_effect = { GRE = { complete_national_focus = GRE_freeze_grecoenglish_relations } }
         }
 	}

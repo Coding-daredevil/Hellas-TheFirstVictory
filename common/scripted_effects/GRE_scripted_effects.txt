@@ -330,9 +330,23 @@ GR_HS_split_ideas = {
     remove_dynamic_modifier = { modifier = GRE_army_reform_hellenic_staff }
     remove_dynamic_modifier = { modifier = GRE_army_reform_hellenic_army }
     remove_dynamic_modifier = { modifier = GRE_army_reform_hellenic_people }
+    set_variable = { true_legitimacy = 15 }
 }
 
-
+#########################################################
+##################[GOVERNMENT IN EXILE]##################
+#########################################################
+GRE_calculate_government_in_exile = {
+    if = { 
+        limit = { check_variable = { legitimacy = -1 } }
+        set_variable = { GRE_weekly_manpower_in_exile = 1250 }
+    }
+    else = {
+        set_temp_variable = { x = legitimacy }
+        multiply_temp_variable = { x = 10 }
+        set_variable = { GRE_weekly_manpower_in_exile = x }
+    }
+}
 
 #########################################################
 #########################################################
