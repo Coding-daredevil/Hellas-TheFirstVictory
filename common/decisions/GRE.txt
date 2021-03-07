@@ -4514,94 +4514,6 @@ GRE_hellenic_academy_category = {
 
 political_actions = {
     
-    
-    add_res = {
-        allowed = {
-            original_tag = GRE
-        }
-        
-        cost = 10
-        
-        visible = { 
-            is_debug = yes
-        }
-        
-        complete_effect = {
-            HS_increase_armed_resistance_by_one = yes
-        }
-    }
-    
-    add_stuff = {
-        allowed = {
-            original_tag = GRE
-        }
-        
-        cost = 10
-        
-        visible = { 
-            is_debug = yes
-        }
-        
-        complete_effect = {
-            HS_set_up_state_modifiers = yes
-        }
-    }
-    
-    add_stuff2 = {
-        allowed = {
-            original_tag = GRE
-        }
-        
-        cost = 10
-        
-        visible = { 
-            is_debug = yes
-        }
-        
-        complete_effect = {
-            HS_increase_unyielding_greeks_by_one = yes
-        }
-    }
-    
-    add_stuff3 = {
-        allowed = {
-            original_tag = GER
-        }
-        
-        available = {
-            has_global_flag = {
-                flag = GRE_crete_still_holding
-                days > 14
-            }
-            event_target:hellenic_state = { exists = yes }
-            controls_state = 47
-            GRE = { controls_state = 182 } 
-            check_variable = { wave < 2 }
-            check_variable = { GRE.num_battalions@182 < 120 }
-            has_global_flag = {
-                flag = GRE_crete_still_holding
-                days < 90
-            }
-        }
-        
-        days_remove = 2
-        
-        visible = {
-            is_ai = yes
-        }
-        
-        ai_will_do = {
-			factor = 10000
-		}
-        
-        cost = 10
-        
-        complete_effect = {
-            add_to_variable = { wave = 1 }
-            GER_pops_in_crete = yes
-        }
-    }
-    
 	GRE_recommission_the_american_battleships = {
 		
 		icon = generic_naval
@@ -15803,7 +15715,7 @@ GRE_faction_gui_decision_category = {
 ##################[ HELLENIC STATE ]####################
 ########################################################
 
-GRE_hellenic_state_catefory = {
+GRE_government_in_exile_category = {
 
     GRE_swappero = {
     
@@ -15827,5 +15739,425 @@ GRE_hellenic_state_catefory = {
         }
     
     }
+
 }
 
+GRE_hellenic_state_catefory = {
+
+    GRE_swappero_2 = {
+    
+        allowed = {
+            original_tag = GRE
+        }
+        
+        visible = {
+            GRE = { NOT = { has_completed_focus = GRE_dreams_of_a_grand_coalition } }
+        }
+    
+        complete_effect = {
+            if = {
+                limit = {
+                    event_target:hellenic_state = { is_ai = yes }
+                }
+                event_target:hellenic_state = { change_tag_from = ROOT }
+            }
+            else = {
+                limit = {
+                    GRE = { is_ai = yes }
+                }
+                GRE = { change_tag_from = ROOT }
+            }
+        }
+    
+    }
+}
+
+GRE_resistance_category = {
+
+    add_black_0 = {
+		icon = GFX_icon_black_0
+        state_target = yes
+        target_array = greek_mainland_states_all
+		available = {
+            original_tag = GRE
+		}
+		on_map_mode = map_only
+		fire_only_once = no
+		days_remove = 0
+
+		visible = {
+            FROM = { 
+                NOT = {
+                    has_dynamic_modifier = { modifier = black_market_obscure }
+                    has_dynamic_modifier = { modifier = black_market_cemented }
+                    has_dynamic_modifier = { modifier = black_market_ubshakeable }
+                }
+            }
+            NOT = { has_country_flag = hide_black_market_icons }
+		}
+		remove_effect = {
+            FROM = { HS_add_black_market_negative = yes }
+		}
+	} 
+    
+    add_black_1 = {
+		icon = GFX_icon_black_1_negative
+        state_target = yes
+        target_array = greek_mainland_states_all
+		available = {
+            original_tag = GRE
+		}
+		on_map_mode = map_only
+		fire_only_once = no
+		days_remove = 0
+
+		visible = {
+            FROM = { 
+                FROM = { has_dynamic_modifier = { modifier = black_market_obscure } }
+            }
+            NOT = { has_country_flag = hide_black_market_icons }
+		}
+		remove_effect = {
+            FROM = { HS_add_black_market_negative = yes }
+		}
+	} 
+    
+    add_black_2 = {
+		icon = GFX_icon_black_2_negative
+        state_target = yes
+        target_array = greek_mainland_states_all
+		available = {
+            original_tag = GRE
+		}
+		on_map_mode = map_only
+		fire_only_once = no
+		days_remove = 0
+
+		visible = {
+            FROM = { 
+                FROM = { has_dynamic_modifier = { modifier = black_market_cemented } }
+            }
+            NOT = { has_country_flag = hide_black_market_icons }
+		}
+		remove_effect = {
+            FROM = { HS_add_black_market_negative = yes }
+		}
+	} 
+    
+    add_black_3 = {
+		icon = GFX_icon_black_3_negative
+        state_target = yes
+        target_array = greek_mainland_states_all
+		available = {
+            original_tag = GRE
+		}
+		on_map_mode = map_only
+		fire_only_once = no
+		days_remove = 0
+
+		visible = {
+            FROM = { 
+                FROM = { has_dynamic_modifier = { modifier = black_market_ubshakeable } }
+            }
+            NOT = { has_country_flag = hide_black_market_icons }
+		}
+		remove_effect = {
+            FROM = { HS_add_black_market_negative = yes }
+		}
+	}  
+
+    add_greeks_0 = {
+		icon = GFX_icon_greeks_0
+        state_target = yes
+        target_array = greek_mainland_states_all
+		available = {
+            original_tag = GRE
+		}
+		on_map_mode = map_only
+		fire_only_once = no
+		days_remove = 0
+
+		visible = {
+            FROM = { 
+                NOT = {
+                    has_dynamic_modifier = { modifier = unyielding_greeks_angered }
+                    has_dynamic_modifier = { modifier = unyielding_greeks_determined }
+                    has_dynamic_modifier = { modifier = unyielding_greeks_ferocious }
+                }
+            }
+            NOT = { has_country_flag = hide_unyielding_greeks_icons }
+		}
+		remove_effect = {
+            FROM = { HS_increase_unyielding_greeks_by_one_decision = yes }
+		}
+	} 
+    
+    add_greeks_1 = {
+		icon = GFX_icon_greeks_1
+        state_target = yes
+        target_array = greek_mainland_states_all
+		available = {
+            original_tag = GRE
+		}
+		on_map_mode = map_only
+		fire_only_once = no
+		days_remove = 0
+
+		visible = {
+            FROM = { 
+                FROM = { has_dynamic_modifier = { modifier = unyielding_greeks_angered } }
+            }
+            NOT = { has_country_flag = hide_unyielding_greeks_icons }
+		}
+		remove_effect = {
+            FROM = { HS_increase_unyielding_greeks_by_one_decision = yes }
+		}
+	} 
+    
+    add_greeks_2 = {
+		icon = GFX_icon_greeks_2
+        state_target = yes
+        target_array = greek_mainland_states_all
+		available = {
+            original_tag = GRE
+		}
+		on_map_mode = map_only
+		fire_only_once = no
+		days_remove = 0
+
+		visible = {
+            FROM = { 
+                FROM = { has_dynamic_modifier = { modifier = unyielding_greeks_determined } }
+            }
+            NOT = { has_country_flag = hide_unyielding_greeks_icons }
+		}
+		remove_effect = {
+            FROM = { HS_increase_unyielding_greeks_by_one_decision = yes }
+		}
+	} 
+    
+    add_greeks_3 = {
+		icon = GFX_icon_greeks_3
+        state_target = yes
+        target_array = greek_mainland_states_all
+		available = {
+            original_tag = GRE
+		}
+		on_map_mode = map_only
+		fire_only_once = no
+		days_remove = 0
+
+		visible = {
+            FROM = { 
+                FROM = { has_dynamic_modifier = { modifier = unyielding_greeks_ferocious } }
+            }
+            NOT = { has_country_flag = hide_unyielding_greeks_icons }
+		}
+		remove_effect = {
+            FROM = { HS_increase_unyielding_greeks_by_one_decision = yes }
+		}
+	}
+    
+    add_armed_res_0 = {
+		icon = GFX_icon_resistance_0
+        state_target = yes
+        target_array = greek_mainland_states_all
+		available = {
+            original_tag = GRE
+		}
+		on_map_mode = map_only
+		fire_only_once = no
+		days_remove = 0
+
+		visible = {
+            FROM = { 
+                NOT = {
+                    has_dynamic_modifier = { modifier = early_resistance_groups_ita }
+                    has_dynamic_modifier = { modifier = strengthened_resistance_groups_ita }
+                    has_dynamic_modifier = { modifier = dominant_resistance_groups_ita }
+                    has_dynamic_modifier = { modifier = unshakeable_resistance_groups_ita }
+                }
+            }
+            NOT = { has_country_flag = hide_armed_resistance_icons }
+		}
+		remove_effect = {
+            FROM = { HS_increase_armed_resistance_by_one_decision = yes }
+		}
+	} 
+    
+    add_armed_res_1 = {
+		icon = GFX_icon_resistance_1
+        state_target = yes
+        target_array = greek_mainland_states_all
+		available = {
+            original_tag = GRE
+		}
+		on_map_mode = map_only
+		fire_only_once = no
+		days_remove = 0
+
+		visible = {
+            FROM = { 
+                FROM = { has_dynamic_modifier = { modifier = early_resistance_groups_ita } }
+            }
+            NOT = { has_country_flag = hide_armed_resistance_icons }
+		}
+		remove_effect = {
+            FROM = { HS_increase_armed_resistance_by_one_decision = yes }
+		}
+	} 
+    
+    add_armed_res_2 = {
+		icon = GFX_icon_resistance_2
+        state_target = yes
+        target_array = greek_mainland_states_all
+		available = {
+            original_tag = GRE
+		}
+		on_map_mode = map_only
+		fire_only_once = no
+		days_remove = 0
+
+		visible = {
+            FROM = { 
+                FROM = { has_dynamic_modifier = { modifier = strengthened_resistance_groups_ita } }
+            }
+            NOT = { has_country_flag = hide_armed_resistance_icons }
+		}
+		remove_effect = {
+            FROM = { HS_increase_armed_resistance_by_one_decision = yes }
+		}
+	} 
+    
+    add_armed_res_3 = {
+		icon = GFX_icon_resistance_3
+        state_target = yes
+        target_array = greek_mainland_states_all
+		available = {
+            original_tag = GRE
+		}
+		on_map_mode = map_only
+		fire_only_once = no
+		days_remove = 0
+
+		visible = {
+            FROM = { 
+                FROM = { has_dynamic_modifier = { modifier = dominant_resistance_groups_ita } }
+            }
+            NOT = { has_country_flag = hide_armed_resistance_icons }
+		}
+		remove_effect = {
+            FROM = { HS_increase_armed_resistance_by_one_decision = yes }
+		}
+	}
+    
+    add_armed_res_4 = {
+		icon = GFX_icon_resistance_4
+        state_target = yes
+        target_array = greek_mainland_states_all
+		available = {
+            original_tag = GRE
+		}
+		on_map_mode = map_only
+		fire_only_once = no
+		days_remove = 0
+
+		visible = {
+            FROM = { 
+                FROM = { has_dynamic_modifier = { modifier = unshakeable_resistance_groups_ita } }
+            }
+            NOT = { has_country_flag = hide_armed_resistance_icons }
+		}
+		remove_effect = {
+            FROM = { HS_increase_armed_resistance_by_one_decision = yes }
+		}
+	}
+    
+    add_res = {
+        allowed = {
+            original_tag = GRE
+        }
+        
+        cost = 10
+        
+        visible = { 
+            is_debug = yes
+        }
+        
+        complete_effect = {
+            HS_increase_armed_resistance_by_one = yes
+        }
+    }
+    
+    add_stuff = {
+        allowed = {
+            original_tag = GRE
+        }
+        
+        cost = 10
+        
+        visible = { 
+            is_debug = yes
+        }
+        
+        complete_effect = {
+            HS_set_up_state_modifiers = yes
+        }
+    }
+    
+    add_stuff2 = {
+        allowed = {
+            original_tag = GRE
+        }
+        
+        cost = 10
+        
+        visible = { 
+            is_debug = yes
+        }
+        
+        complete_effect = {
+            HS_increase_unyielding_greeks_by_one = yes
+        }
+    }
+    
+    add_stuff3 = {
+        allowed = {
+            original_tag = GER
+        }
+        
+        available = {
+            has_global_flag = {
+                flag = GRE_crete_still_holding
+                days > 14
+            }
+            event_target:hellenic_state = { exists = yes }
+            controls_state = 47
+            GRE = { controls_state = 182 } 
+            check_variable = { wave < 2 }
+            check_variable = { GRE.num_battalions@182 < 120 }
+            has_global_flag = {
+                flag = GRE_crete_still_holding
+                days < 90
+            }
+        }
+        
+        days_remove = 2
+        
+        visible = {
+            is_ai = yes
+        }
+        
+        ai_will_do = {
+			factor = 10000
+		}
+        
+        cost = 10
+        
+        complete_effect = {
+            add_to_variable = { wave = 1 }
+            GER_pops_in_crete = yes
+        }
+    }
+
+}

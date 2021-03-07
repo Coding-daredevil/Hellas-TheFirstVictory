@@ -76,6 +76,28 @@ collect_faction_member_agreeableness = {
 #########################################################
 ###################[HELLENIC STATE SE]###################
 #########################################################
+HS_add_black_market_negative = {
+    if = { 
+        limit = { has_dynamic_modifier = { modifier = black_market_obscure } }
+        remove_dynamic_modifier = { modifier = black_market_obscure }
+        add_dynamic_modifier = { modifier = black_market_cemented }
+    }
+    else_if = { 
+        limit = { has_dynamic_modifier = { modifier = black_market_cemented } } 
+        remove_dynamic_modifier = { modifier = black_market_cemented }
+        add_dynamic_modifier = { modifier = black_market_ubshakeable }
+    }
+    else_if = { 
+        limit = {
+            NOT = {
+                has_dynamic_modifier = { modifier = black_market_obscure }
+                has_dynamic_modifier = { modifier = black_market_cemented }
+                has_dynamic_modifier = { modifier = black_market_ubshakeable }
+            } 
+        } 
+        add_dynamic_modifier = { modifier = black_market_obscure }
+    }
+}
 HS_set_up_state_modifiers = {
     add_to_array = { german_occupied_states = 47 }
     add_to_array = { german_occupied_states = 813 }
@@ -144,6 +166,27 @@ HS_increase_unyielding_greeks_by_one = {
             remove_dynamic_modifier = { modifier = unyielding_greeks_determined }
             add_dynamic_modifier = { modifier = unyielding_greeks_ferocious }
         }
+        else_if = { 
+            limit = { NOT = { has_dynamic_modifier = { modifier = unyielding_greeks_ferocious } } }
+            add_dynamic_modifier = { modifier = unyielding_greeks_angered }
+        }
+    }
+}
+
+HS_increase_unyielding_greeks_by_one_decision = {       
+    if = {
+        limit = { has_dynamic_modifier = { modifier = unyielding_greeks_angered } }
+        remove_dynamic_modifier = { modifier = unyielding_greeks_angered }
+        add_dynamic_modifier = { modifier = unyielding_greeks_determined }
+    }
+    else_if = {
+        limit = { has_dynamic_modifier = { modifier = unyielding_greeks_determined } }
+        remove_dynamic_modifier = { modifier = unyielding_greeks_determined }
+        add_dynamic_modifier = { modifier = unyielding_greeks_ferocious }
+    }
+    else_if = { 
+        limit = { NOT = { has_dynamic_modifier = { modifier = unyielding_greeks_ferocious } } }
+        add_dynamic_modifier = { modifier = unyielding_greeks_angered }
     }
 }
 
@@ -171,6 +214,29 @@ HS_increase_armed_resistance_by_one = {
             remove_dynamic_modifier = { modifier = dominant_resistance_groups_ita }
             add_dynamic_modifier = { modifier = unshakeable_resistance_groups_ita }
         }
+    }
+}
+
+HS_increase_armed_resistance_by_one_decision = {      
+    if = { 
+        limit = { has_dynamic_modifier = { modifier = GRE_italian_occupation_zone } }
+        remove_dynamic_modifier = { modifier = GRE_italian_occupation_zone }
+        add_dynamic_modifier = { modifier = early_resistance_groups_ita }
+    }
+    else_if = { 
+        limit = { has_dynamic_modifier = { modifier = early_resistance_groups_ita } }
+        remove_dynamic_modifier = { modifier = early_resistance_groups_ita }
+        add_dynamic_modifier = { modifier = strengthened_resistance_groups_ita }
+    }
+    else_if = { 
+        limit = { has_dynamic_modifier = { modifier = strengthened_resistance_groups_ita } }
+        remove_dynamic_modifier = { modifier = strengthened_resistance_groups_ita }
+        add_dynamic_modifier = { modifier = dominant_resistance_groups_ita }
+    }
+    else_if = { 
+        limit = { has_dynamic_modifier = { modifier = dominant_resistance_groups_ita } }
+        remove_dynamic_modifier = { modifier = dominant_resistance_groups_ita }
+        add_dynamic_modifier = { modifier = unshakeable_resistance_groups_ita }
     }
 }
 
