@@ -74,6 +74,32 @@ collect_faction_member_agreeableness = {
     }
 }
 #########################################################
+###################[NATIONAL RESISTANCE]#################
+#########################################################
+##Variables: For GER/ITA/BUL we keep 3 variables (casualties + captured + total )
+############ For Greek side we same 3 variables, but also equipment variables to simulate resistance strength
+############ Generally, the higher equipment+strength of resistance (manpower+guns+etc) the higher the chance of a better battle result.
+############ Every battle however is set to won/lost based on historical truth. Unless I find no info about the battle so its basically a sandbox with an accurate name so its completely based on above stats.
+############ The idea is for those ~600 battles to happen in the 3-4 years of occupation on their historical dates. Manpower will be drawn directly from GER/ITA/BUL manpower pool (casualties+captured)
+############ Reprisals work likewise but 1 variable (casualties). They are taken from state manpower not your country's as they are about civilians.
+############ End goal to simulate the 7%-11% of population lost by Greece, but also weight this based upon players decisions.
+############ I figured just displaying battle names would be too superficial, however I can't make 600 events (please god), so I incorporated a WoT basically into a gameplay mechanic.
+############ Hope this makes sense ;) 
+##Weights:   Resistance weights (Resistance state modifier, STR{=manpower+equipment}), Political weights (Communist/Democrat/Monarchist/Fascist relations), Others(occasionally black market, populance agitation, etc)
+##Results:
+#RES_battle_type_loss_heavy = {}
+#RES_battle_type_loss_small = {}
+#RES_battle_type_undetermined = { }
+#RES_battle_type_won_small = {}
+#RES_battle_type_won_mediocre = {}
+#RES_battle_type_won_heavy = {}
+
+
+
+
+
+
+#########################################################
 ###################[HELLENIC STATE SE]###################
 #########################################################
 HS_add_black_market_negative = {
@@ -920,17 +946,18 @@ GRE_subsidized_check = {
                 }
                 GRE = {
                     add_to_variable = { sub_civs = 1 }
-                    add_to_variable = { sub_mils = 1 }
+                    #add_to_variable = { sub_mils = 1 }
                 }
             }
             else_if = {
                 limit = {
                     has_opinion = { target = GRE value > 79 }  
+                    check_variable = { var = favor@GRE value = 50 compare = greater_than_or_equals }
                     check_variable = { var = favor@GRE value = 80 compare = less_than }
                 }
                 GRE = {
                     add_to_variable = { sub_civs = 1 }
-                    add_to_variable = { sub_mils = 2 }
+                    add_to_variable = { sub_mils = 1 }
                 }
             }
             else_if = {
@@ -940,7 +967,7 @@ GRE_subsidized_check = {
                 }
                 GRE = {
                     add_to_variable = { sub_civs = 2 }
-                    add_to_variable = { sub_mils = 2 }
+                    add_to_variable = { sub_mils = 1 }
                 }
             }
         }
@@ -1035,7 +1062,7 @@ GRE_bedrock_check = {
                 limit = {
                     check_variable = { var = YUG.favor@GRE value = 80 compare = greater_than_or_equals }
                 }
-                add_to_variable = { bed_civs = 4 }
+                add_to_variable = { bed_civs = 3 }
             }
         }
         if = { 	
@@ -1043,8 +1070,17 @@ GRE_bedrock_check = {
                 country_exists = AUS
                 AUS = { has_opinion = { target = GRE value > 85 } } 
             }
-            add_to_variable = { bed_civs = 2 }
+            add_to_variable = { bed_civs = 1 }
         }
+        else_if = {
+                    limit = {
+                        NOT = { country_exists = AUS }
+                        GER = { has_opinion = { target = GRE value > 85 } }
+                        check_variable = { var = GER.favor@GRE value = 30 compare = greater_than_or_equals }
+                    }
+                    add_offsite_building = { type = industrial_complex level = 1 }
+                    add_to_variable = { GER.civslent@GRE = 1 }
+                }
         if = { 	
             limit = { 
                 country_exists = ROM
@@ -1067,7 +1103,7 @@ GRE_bedrock_check = {
                 limit = {
                     check_variable = { var = ROM.favor@GRE value = 80 compare = greater_than_or_equals }
                 }
-                add_to_variable = { bed_civs = 4 }
+                add_to_variable = { bed_civs = 3 }
             }
         }
         if = { 
@@ -1092,7 +1128,7 @@ GRE_bedrock_check = {
                 limit = {
                     check_variable = { var = TUR.favor@GRE value = 80 compare = greater_than_or_equals }
                 }
-                add_to_variable = { bed_civs = 4 }
+                add_to_variable = { bed_civs = 3 }
             }
         }
         if = { 	
@@ -1100,7 +1136,7 @@ GRE_bedrock_check = {
                 country_exists = CZE
                 CZE = { has_opinion = { target = GRE value > 85 } } 
             }
-            add_to_variable = { bed_civs = 2 }
+            add_to_variable = { bed_civs = 1 }
         }
     }
 }

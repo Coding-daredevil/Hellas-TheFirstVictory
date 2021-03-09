@@ -650,18 +650,6 @@ on_actions = {
         effect = {
             if = {
                 limit = {
-                    ROOT = { original_tag = YUG }
-                    ITA = { has_war_with = GRE }
-                    BUL = { exists = yes is_subject = no }
-                }
-            }
-        }
-    }
-    
-    on_capitulation = {
-        effect = {
-            if = {
-                limit = {
                     ROOT = { original_tag = GRE }
                 }
                 clr_global_flag = GRE_grecoitalian_start
@@ -676,6 +664,9 @@ on_actions = {
     
     on_daily_GRE = {
         effect = {
+            #################################################################################################################
+            ##########################################[Greco-Italian War Daily Checks]#######################################
+            #################################################################################################################
             if = {
                 limit = {
                     has_global_flag = GRE_grecoitalian_start
@@ -738,6 +729,9 @@ on_actions = {
                     country_event = { id = hellas.800 days = 0 }
                 }
             }
+            ####################################################################################################################
+            ##########################################[Occupation of Greece Daily Checks]#######################################
+            ####################################################################################################################
             if = {
                 limit = {
                     OR = {
@@ -745,9 +739,9 @@ on_actions = {
                         has_global_flag = GRE_government_in_exile
                     }
                 }
-                add_to_variable = { days_of_oppression = 1 }
-                GRE_calculate_government_in_exile = yes
-                if = {
+                add_to_variable = { days_of_oppression = 1 }                                                                                            # Counter
+                GRE_calculate_government_in_exile = yes                                                                                                 # Update Government in Exile dynamic modifier
+                if = {                                                                                                                                 ## Fate of Crete
                     limit = {
                         check_variable = { days_of_oppression > 35 }
                         has_global_flag = GRE_crete_still_holding
@@ -759,8 +753,20 @@ on_actions = {
                     complete_national_focus = GRE_crete_holds
                     GRE = { country_event = { id = hellas.10000 days = 0 } }
                 }
+                if = {                                                                                                                                  ## Hellenic State has formed AND exists (flag clears later)
+                    limit = { 
+                        date = 1941.09.25                                                                                                                
+                    }
+                    #country_event = { id = hellas.xxxx days = 0 }                                                                                        # Event to warn about famine (event takes on and procs famine later)
+                    #event_target:hellenic_state = { id = hellas.xxxx days = 0 }
+                }
             }
         }
     }
-   
+  
+
+
+
+
+  
 }

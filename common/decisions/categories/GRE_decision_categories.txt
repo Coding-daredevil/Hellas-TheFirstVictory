@@ -301,7 +301,7 @@ GRE_economic_fluidity = {
 
 GRE_government_in_exile_category = {
 	priority = 10000
-	picture = GFX_grecoitalian_war_cat
+	picture = GFX_dec_cat_gov_in_exile
 
 	allowed = {
 		original_tag = GRE
@@ -320,7 +320,7 @@ GRE_government_in_exile_category = {
 
 GRE_resistance_category = {
 	priority = 10000
-	picture = GFX_grecoitalian_war_cat
+	picture = GFX_dec_cat_resistance
 
 	allowed = {
 		original_tag = GRE
@@ -330,13 +330,17 @@ GRE_resistance_category = {
     visible_when_empty = yes
     
     visible = {
-        has_completed_focus = GRE_resistance
+        #has_completed_focus = GRE_resistance
+        OR = {
+            has_global_flag = GRE_crete_still_holding
+            has_global_flag = GRE_government_in_exile
+        }
     }
 }
 
 GRE_hellenic_state_catefory = {
 	priority = 10000
-	picture = GFX_grecoitalian_war_cat
+	picture = GFX_dec_cat_puppet_1
 
 	allowed = {
 		original_tag = GRE
