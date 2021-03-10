@@ -9,3 +9,23 @@ crete_is_no_loose_end = {
         }
     }
 }
+
+hellenic_state_has_formed_for_a_bit = {
+    custom_trigger_tooltip = {
+        tooltip = crete_14_days_tt
+        if = {
+            limit = { has_global_flag = GRE_crete_still_holding }
+            has_global_flag = {
+                flag = GRE_crete_still_holding
+                days > 14
+            }
+        }
+    }
+}
+
+has_axis_occupation = {
+    OR = {
+        has_global_flag = GRE_crete_still_holding
+        has_global_flag = GRE_government_in_exile
+    }    
+}

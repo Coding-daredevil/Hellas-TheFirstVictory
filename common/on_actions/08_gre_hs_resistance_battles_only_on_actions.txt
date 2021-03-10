@@ -1,0 +1,33 @@
+on_actions = {
+
+    on_daily_GRE = {
+        effect = {
+            ###############################################################################################################################
+            ##########################################[All Resistance Battles Triggers Daily Checks]#######################################
+            ###############################################################################################################################
+            #######[Simple Rules]########
+            ##[ Normal Missions - 7 days prior ]##
+            ##[ Historical #    - 7 + real duration ]##
+            if = {
+                limit = {
+                    OR = {
+                        has_global_flag = GRE_crete_still_holding
+                        has_global_flag = GRE_government_in_exile
+                    }
+                    check_variable = { GRE.days_of_oppression > 0 }
+                }
+                if = {                                                                         ## FIRST ELAS MISSION 
+                    limit = { date = 1942.8.30 }
+                    activate_mission = elas_kornofolia
+                    event_target:hellenic_state = { activate_mission = elas_kornofolia_max }
+                }
+            }
+        }
+    }
+  
+
+
+
+
+  
+}

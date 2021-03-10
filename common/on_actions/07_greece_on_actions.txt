@@ -507,6 +507,9 @@ on_actions = {
                 }
                 ##########################################[Yugoslavian Effects]#######################################
                 ##########################################[Turkish Effects]###########################################
+                if = { limit = { check_variable = { TUR.favor@GRE > 79 } }
+                    GRE = { complete_national_focus = GRE_turkic_guarantees_against_bulgarians }
+                }
                 ##########################################[Romanian Effects]##########################################
 			}           
         }
@@ -752,6 +755,11 @@ on_actions = {
                     }
                     complete_national_focus = GRE_crete_holds
                     GRE = { country_event = { id = hellas.10000 days = 0 } }
+                }
+                if = {                                                                         ## FIRST ELAS MISSION                                                                                                              ## Hellenic State has formed AND exists (flag clears later)
+                    limit = { date = 1942.9.3 }
+                    activate_mission = elas_kornofolia_max
+                    event_target:hellenic_state = { activate_mission = elas_kornofolia_max }
                 }
                 if = {                                                                                                                                  ## Hellenic State has formed AND exists (flag clears later)
                     limit = { 

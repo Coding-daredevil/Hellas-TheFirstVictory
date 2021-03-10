@@ -1,0 +1,1766 @@
+###########################
+# Greek Events
+###########################
+
+add_namespace = bftb_greece
+
+#Enosis events
+#Enosis - Independent Cyprus event
+country_event = {
+	id = bftb_greece.55
+	title = bftb_greece.55.t
+	desc = bftb_greece.55.desc
+	picture = GFX_report_event_gre_enosis
+	
+	is_triggered_only = yes
+
+	option = {
+		name = bftb_greece.55.a
+		GRE = { country_event = { id = bftb_greece.56 days = 1 } }
+		custom_effect_tooltip = end_of_cyprus_tt
+	}
+	option = {
+		name = bftb_greece.55.b 
+		GRE = { country_event = { id = bftb_greece.57 days = 1 } }
+	}
+}
+#Enosis - Cyprus accepts union with Greece
+country_event = {
+	id = bftb_greece.56
+	title = bftb_greece.56.t
+	desc = bftb_greece.56.desc
+	picture = GFX_report_event_gre_enosis
+	
+	is_triggered_only = yes
+
+	option = {
+		name = bftb_greece.56.a
+		183 = {
+			if = {
+				limit = { is_owned_by = CYP }
+				add_core_of = GRE
+			}
+		}
+		CYP = {
+			every_unit_leader = {
+				set_nationality = GRE
+			}
+		}
+		annex_country = { target = CYP transfer_troops = yes }
+		add_war_support = 0.1
+		add_stability = 0.05
+	}
+}
+#Enosis - Cyprus rejects union with Greece
+country_event = {
+	id = bftb_greece.57
+	title = bftb_greece.57.t
+	desc = bftb_greece.57.desc
+	picture = GFX_report_event_gre_athens
+	
+	is_triggered_only = yes
+
+	option = {
+		name = bftb_greece.57.a 
+		create_wargoal = {
+			type = annex_everything
+			target = CYP
+		}
+	}	
+	option = {
+		name = bftb_greece.57.b 
+		add_stability = 0.05
+		add_war_support = -0.05
+	}
+}
+#Enosis - British Cyprus event
+country_event = {
+	id = bftb_greece.58
+	title = bftb_greece.58.t
+	desc = bftb_greece.58.desc
+	picture = GFX_report_event_gre_enosis
+	
+	is_triggered_only = yes
+
+	option = {
+		name = bftb_greece.58.a #for an alliance
+		GRE = { country_event = { id = bftb_greece.59 days = 1 } }
+	}
+	option = {
+		name = bftb_greece.58.b #for nothing
+		GRE = { country_event = { id = bftb_greece.220 days = 1 } }
+	}
+	option = {
+		name = bftb_greece.58.c #for a compromise
+		GRE = { country_event = { id = bftb_greece.60 days = 1 } }
+	}
+	option = {
+		name = bftb_greece.58.d #no
+		GRE = { country_event = { id = bftb_greece.61 days = 1 } }
+	}
+}
+#Enosis - British accept full Enosis
+country_event = {
+	id = bftb_greece.59
+	title = bftb_greece.59.t
+	desc = bftb_greece.59.desc
+	picture = GFX_report_event_gre_enosis
+	
+	is_triggered_only = yes
+
+	option = {
+		name = bftb_greece.59.a 
+		183 = {
+			if = {
+				limit = { is_owned_by = ENG }
+				add_core_of = GRE
+			}
+		}
+		GRE = { transfer_state = 183 }
+		add_stability = 0.1
+		add_war_support = 0.05
+		if = { 
+			limit = { ENG = { is_faction_leader = yes } }
+			ENG = { 
+				add_to_faction = GRE
+			}
+		}
+	}
+	option = {
+		name = bftb_greece.59.b 
+		183 = {
+			add_core_of = GRE
+		}
+		add_stability = -0.1
+		add_war_support = 0.05
+		hidden_effect = {
+			ENG = {
+				add_opinion_modifier = {
+					target = GRE
+					modifier = GRE_aegean_troublemakers
+				}
+			}
+		}
+	}
+}
+#Enosis - British accept full Enosis unconditionally
+country_event = {
+	id = bftb_greece.220
+	title = bftb_greece.220.t
+	desc = bftb_greece.220.desc
+	picture = GFX_report_event_gre_enosis
+	
+	is_triggered_only = yes
+
+	option = {
+		name = bftb_greece.220.a 
+		183 = {
+			if = {
+				limit = { is_owned_by = ENG }
+				add_core_of = GRE
+			}
+		}
+		GRE = { transfer_state = 183 }
+		add_stability = 0.1
+		add_war_support = 0.05
+	}
+}
+#Enosis - British partial Enosis
+country_event = {
+	id = bftb_greece.60
+	title = bftb_greece.60.t
+	desc = bftb_greece.60.desc
+	picture = GFX_report_event_gre_enosis
+	
+	is_triggered_only = yes
+
+	option = {
+		name = bftb_greece.60.a 
+		CYP = { transfer_state = 183 }
+		GRE = { puppet = CYP }
+		add_stability = 0.1
+		hidden_effect = { 
+			if = { 
+				limit = { 
+					has_dlc = "Together for Victory"
+				}		
+				GRE = {
+					set_autonomy = { target = CYP autonomy_state = autonomy_dominion }
+				}
+			}
+			else = {
+				GRE = {
+					set_autonomy = { target = CYP autonomy_state = autonomy_puppet }
+				}
+			}
+			CYP = { set_cosmetic_tag = CYP_UK }
+			183 = { add_core_of = GRE }
+			if = { 
+				limit = { ENG = { is_faction_leader = yes } }
+				ENG = { 
+					add_to_faction = GRE
+				}
+			}
+		}
+	}
+}
+#Enosis - British reject Enosis prospects
+country_event = {
+	id = bftb_greece.61
+	title = bftb_greece.61.t
+	desc = bftb_greece.61.desc
+	picture = GFX_report_event_gre_cabinet_meeting
+	
+	is_triggered_only = yes
+
+	option = {
+		name = bftb_greece.61.a
+		GRE = { add_state_claim = 183 }
+		add_stability = -0.1
+	}
+}
+#Aristotle Onasis returns to Greece
+country_event = {
+	id = bftb_greece.96
+	title = bftb_greece.96.t
+	desc = bftb_greece.96.desc
+	picture = GFX_report_event_gre_athens
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+	
+	option = {
+		name = bftb_greece.96.a 
+		add_stability = -0.05
+		hidden_effect = { 
+			set_country_flag = onassis_arrived
+			if = { 
+				limit = { 
+					NOT = { 
+						has_government = fascism
+						has_idea = GRE_eee_in_government
+						has_country_flag = onassis_proposition_accepted
+					}
+				}
+				country_event = { id = bftb_greece.90 }
+			}
+		}	
+	}
+}
+#Byzantinists - An Emperor Appears
+country_event = {
+	id = bftb_greece.232
+	title = bftb_greece.232.t
+	desc = bftb_greece.232.desc
+	picture = GFX_report_event_hitler_croatia_handshake
+
+	trigger = {
+		original_tag = GRE
+		GER = { 
+			AND = {
+				has_completed_focus = GER_oppose_hitler
+				NOT = {  
+					has_country_leader = {
+						name = "Adolf Hitler"
+						ruling_only = yes
+					}
+				}
+			}
+		}
+		has_country_flag = GRE_an_invite_for_an_emperor
+		has_global_flag = form_byzantine_empire_flag
+		has_civil_war = no
+		controls_state = 797
+		controls_state = 183
+		controls_state = 805
+	}
+
+	fire_only_once = yes
+
+	mean_time_to_happen = {
+		days = 180
+	}
+	
+	option = {
+		name = bftb_greece.232.a #our Basileus!
+		create_country_leader = {
+			name = "Adolfos I"
+			desc = "POLITICS_ADOLFOS_I_DESC"
+			picture = "Portrait_GRE_adolfos_i.dds"
+			expire = "1965.1.1"
+			ideology = gen_nazism
+			traits = {
+				basileus
+			}
+		}
+	}
+	option = {
+		name = bftb_greece.232.b #he's a madman!
+		add_stability = 0.05
+	}
+}
+
+#Investment Events
+#German investment events - German politicians return from investment negotiations in Greek capital
+country_event = {
+	id = bftb_greece.166
+	title = bftb_greece.166.t
+	desc = bftb_greece.166.desc
+	picture = GFX_report_event_gre_allied_diplomacy
+
+	is_triggered_only = yes
+	
+	option = {
+		name = bftb_greece.166.a #small investment
+		ai_chance = {
+			base = 10
+		}
+		add_timed_idea = {
+			idea = GRE_small_investment
+			days = 30
+		}
+		hidden_effect = {
+			GRE = { 
+				add_to_variable = {
+					var = GRE_german_influence_over_greek_government
+					value = 5
+				}
+			}
+			GRE = {
+				country_event = { id = bftb_greece.169 days = 2 }
+			}
+		}
+	}
+	option = {
+		name = bftb_greece.166.b #no investment
+		ai_chance = {
+			base = 5
+			modifier = {
+				factor = 10
+				num_of_available_civilian_factories < 15
+			}
+		}
+		GRE = { 
+			country_event = { id = bftb_greece.170 days = 2 }
+		}
+	}
+	option = {
+		name = bftb_greece.166.c #no investments ever!
+		ai_chance = {
+			base = 0.1
+			modifier = {
+				factor = 25
+				has_opinion = {
+					target = GRE
+					value < -50
+				}
+			}
+		}
+		GRE = {
+			country_event = { id = bftb_greece.171 days = 2 }
+		}
+		hidden_effect = {
+			GRE = {
+				set_country_flag = GRE_germany_rebuffed
+			}
+		}
+	}	
+}
+#German investment events - German businessmen attend Greek national showcase to lure investors
+country_event = {
+	id = bftb_greece.167
+	title = bftb_greece.167.t
+	desc = bftb_greece.167.desc
+	picture = GFX_report_event_gre_athens
+
+	is_triggered_only = yes
+	
+	option = {
+		name = bftb_greece.167.a #moderate investment
+		ai_chance = {
+			base = 10
+		}
+		add_timed_idea = {
+			idea = GRE_moderate_investment
+			days = 45
+		}
+		hidden_effect = {
+			GRE = { 
+				add_to_variable = {
+					var = GRE_german_influence_over_greek_government
+					value = 10
+				}
+			}
+			GRE = {
+				country_event = { id = bftb_greece.169 days = 2 }
+			}
+		}
+	}
+	option = {
+		name = bftb_greece.167.b #no investment
+		ai_chance = {
+			base = 5
+			modifier = {
+				factor = 10
+				num_of_available_civilian_factories < 20
+			}
+		}
+		GRE = { 
+			country_event = { id = bftb_greece.170 days = 2 }
+		}
+	}
+	option = {
+		name = bftb_greece.167.c #no investment ever!
+		ai_chance = {
+			base = 0.1
+			modifier = {
+				factor = 25
+				has_opinion = {
+					target = GRE
+					value < -50
+				}
+			}
+		}
+		GRE = {
+			country_event = { id = bftb_greece.171 days = 2 }
+		}
+		hidden_effect = {
+			GRE = {
+				set_country_flag = GRE_germany_rebuffed
+			}
+		}
+	}	
+}
+#German investment events - The Greeks manipulate the fine print of the Schachtplan to their own advantage
+country_event = {
+	id = bftb_greece.168
+	title = bftb_greece.168.t
+	desc = bftb_greece.168.desc
+	picture = GFX_report_event_gre_diplomacy
+
+	is_triggered_only = yes
+	
+	option = {
+		name = bftb_greece.168.a #ok
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = 0.1
+				has_idea = hjalmar_schacht
+			}
+		}
+		add_timed_idea = {
+			idea = GRE_heavy_investment
+			days = 60
+		}
+		add_opinion_modifier = {
+			target = GRE
+			modifier = GRE_exploited_our_generosity
+		}
+		hidden_effect = {
+			GRE = { 
+				add_to_variable = {
+					var = GRE_german_influence_over_greek_government
+					value = 25
+				}
+				country_event = { id = bftb_greece.169 days = 2 }
+			}
+		}
+	}
+	option = {
+		name = bftb_greece.168.b #turn the tables on them Schacht!
+		trigger = { 
+			has_idea = hjalmar_schacht
+		}
+		ai_chance = {
+			base = 100
+		}
+		add_offsite_building = {
+			type = industrial_complex
+			level = 1
+		}
+		custom_effect_tooltip = gott_bless_herr_schacht_tt
+		hidden_effect = { 
+			GRE = { 
+				country_event = { id = bftb_greece.172 days = 2 }
+			}
+			GRE = { 
+				add_to_variable = {
+					var = GRE_german_influence_over_greek_government
+					value = 15
+				}
+			}
+		}
+	}
+	option = {
+		name = bftb_greece.168.c #no
+		trigger = { 
+			NOT = {
+				has_idea = hjalmar_schacht
+			}
+		}
+		ai_chance = {
+			base = 0
+		}
+		add_political_power = -120
+		add_opinion_modifier = { 
+			target = GRE
+			modifier = GRE_exploited_our_generosity
+		}
+		GRE = { 
+			country_event = { id = bftb_greece.170 days = 2 }
+		}
+	}	
+	option = {
+		name = bftb_greece.168.d #no!
+		ai_chance = {
+			base = 0.1
+			modifier = {
+				factor = 25
+				has_opinion = {
+					target = GRE
+					value < -25
+				}
+			}
+		}
+		add_political_power = -120
+		add_opinion_modifier = { 
+			target = GRE
+			modifier = GRE_exploited_our_generosity
+		}
+		GRE = {
+			country_event = { id = bftb_greece.171 days = 2 }
+		}
+		hidden_effect = {
+			GRE = {
+				set_country_flag = GRE_germany_rebuffed
+			}
+		}
+	}	
+}
+#German investment events - the Germans invest!
+country_event = {
+	id = bftb_greece.169
+	title = bftb_greece.169.t
+	desc = bftb_greece.169.desc
+	picture = GFX_report_event_gre_allied_diplomacy
+
+	is_triggered_only = yes
+	
+	option = {
+		name = bftb_greece.169.a 
+		trigger = { 
+			GER = {
+				has_idea = GRE_small_investment
+			}
+		}
+		GRE = {
+			random_owned_controlled_state = {
+				limit = {
+					ROOT = { has_full_control_of_state = PREV }
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+	}
+	option = {
+		name = bftb_greece.169.b 
+		trigger = { 
+			GER = {
+				has_idea = GRE_moderate_investment
+			}
+		}
+		GRE = {
+			random_owned_controlled_state = {
+				limit = {
+					ROOT = { has_full_control_of_state = PREV }
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	option = {
+		name = bftb_greece.169.c 
+		trigger = { 
+			GER = {
+				has_idea = GRE_heavy_investment
+			}
+		}
+		add_offsite_building = {
+			type = industrial_complex
+			level = 3
+		}
+	}	
+}
+#German investment events - the Germans don't invest this time
+country_event = {
+	id = bftb_greece.170
+	title = bftb_greece.170.t
+	desc = bftb_greece.170.desc
+	picture = GFX_report_event_gre_athens
+
+	is_triggered_only = yes
+	
+	option = {
+		name = bftb_greece.170.a
+		add_political_power = 75
+		add_stability = -0.05	
+	}
+}
+#German investment events - the Germans declare their definitive disinterest in investing!
+country_event = {
+	id = bftb_greece.171
+	title = bftb_greece.171.t
+	desc = bftb_greece.171.desc
+	picture = GFX_report_event_gre_cabinet_meeting
+
+	is_triggered_only = yes
+	
+	option = {
+		name = bftb_greece.171.a 
+		add_stability = -0.1	
+		hidden_effect = {
+			clear_variable = GRE_german_influence_over_greek_government
+		}
+	}
+}
+#German investment events - Hjalmar Schacht bamboozles us!
+country_event = {
+	id = bftb_greece.172
+	title = bftb_greece.172.t
+	desc = bftb_greece.172.desc
+	picture = GFX_report_event_gre_megali_conference_signing
+
+	is_triggered_only = yes
+	
+	option = {
+		name = bftb_greece.172.a #the wizard of finance strikes again!
+		add_stability = -0.1
+		random_owned_controlled_state = {
+			limit = {
+				ROOT = { has_full_control_of_state = PREV }
+				free_building_slots = {
+					building = industrial_complex
+					size > 0
+					include_locked = yes
+				}
+			}
+			remove_building = {
+				type = industrial_complex
+				level = 1
+			}
+		}
+	}
+}
+#British investment events - British entrepreneurs return from investment negotiations in Greek capital and seek permission from government to invest 
+country_event = {
+	id = bftb_greece.173
+	title = bftb_greece.173.t
+	desc = bftb_greece.173.desc
+	picture = GFX_report_event_gre_allied_diplomacy
+
+	is_triggered_only = yes
+	
+	option = {
+		name = bftb_greece.173.a 
+		ai_chance = {
+			base = 10
+		}
+		add_timed_idea = {
+			idea = GRE_small_investment
+			days = 30
+		}
+		hidden_effect = {
+			GRE = { 
+				add_to_variable = {
+					var = GRE_british_influence_over_greek_government
+					value = 5
+				}
+			}
+			GRE = {
+				country_event = { id = bftb_greece.176 days = 2 }
+			}
+		}
+	}
+	option = {
+		name = bftb_greece.173.b  
+		ai_chance = {
+			base = 5
+			modifier = {
+				factor = 10
+				num_of_available_civilian_factories < 15
+			}
+		}
+		GRE = { 
+			country_event = { id = bftb_greece.177 days = 2 }
+		}
+	}
+	option = {
+		name = bftb_greece.173.c 
+		ai_chance = {
+			base = 0.1
+			modifier = {
+				factor = 25
+				has_opinion = {
+					target = GRE
+					value < -50
+				}
+			}
+		}
+		GRE = {
+			country_event = { id = bftb_greece.178 days = 2 }
+		}
+		hidden_effect = {
+			GRE = {
+				set_country_flag = GRE_britain_rebuffed
+			}
+		}
+	}	
+}
+#British investment events - British officials attend Greek national showcase to lure investors
+country_event = {
+	id = bftb_greece.174
+	title = bftb_greece.174.t
+	desc = bftb_greece.174.desc
+	picture = GFX_report_event_gre_athens
+
+	is_triggered_only = yes
+	
+	option = {
+		name = bftb_greece.174.a 
+		ai_chance = {
+			base = 10
+		}
+		add_timed_idea = {
+			idea = GRE_moderate_investment
+			days = 45
+		}
+		hidden_effect = {
+			GRE = { 
+				add_to_variable = {
+					var = GRE_british_influence_over_greek_government
+					value = 10
+				}
+			}
+			GRE = {
+				country_event = { id = bftb_greece.176 days = 2 }
+			}
+		}
+	}
+	option = {
+		name = bftb_greece.174.b 
+		ai_chance = {
+			base = 5
+			modifier = {
+				factor = 10
+				num_of_available_civilian_factories < 20
+			}
+		}
+		GRE = { 
+			country_event = { id = bftb_greece.177 days = 2 }
+		}
+	}
+	option = {
+		name = bftb_greece.174.c 
+		ai_chance = {
+			base = 0.1
+			modifier = {
+				factor = 25
+				has_opinion = {
+					target = GRE
+					value < -50
+				}
+			}
+		}
+		GRE = {
+			country_event = { id = bftb_greece.178 days = 2 }
+		}
+		hidden_effect = {
+			GRE = {
+				set_country_flag = GRE_britain_rebuffed
+			}
+		}
+	}	
+}
+#British investment events - The Greeks offer manufactured ship parts for more intensive investment into their country
+country_event = {
+	id = bftb_greece.175
+	title = bftb_greece.175.t
+	desc = bftb_greece.175.desc
+	picture = GFX_report_event_gre_diplomacy
+
+	is_triggered_only = yes
+	
+	option = {
+		name = bftb_greece.175.a 
+		ai_chance = {
+			base = 10
+		}
+		navy_experience = 5
+		add_offsite_building = { type = dockyard level = 2 } 
+		add_timed_idea = {
+			idea = GRE_heavy_investment
+			days = 60
+		}
+		hidden_effect = {
+			GRE = { 
+				add_to_variable = {
+					var = GRE_british_influence_over_greek_government
+					value = 25
+				}
+			}
+			GRE = {
+				country_event = { id = bftb_greece.176 days = 2 }
+			}
+		}
+	}
+	option = {
+		name = bftb_greece.175.b 
+		ai_chance = {
+			base = 0
+		}
+		GRE = { 
+			country_event = { id = bftb_greece.177 days = 2 }
+		}
+	}	
+	option = {
+		name = bftb_greece.175.c 
+		ai_chance = {
+			base = 0
+		}
+		GRE = {
+			country_event = { id = bftb_greece.178 days = 2 }
+		}
+		hidden_effect = {
+			GRE = {
+				set_country_flag = GRE_britain_rebuffed
+			}
+		}
+	}	
+}
+#British investment events - the British invest!
+country_event = {
+	id = bftb_greece.176
+	title = bftb_greece.176.t
+	desc = bftb_greece.176.desc
+	picture = GFX_report_event_gre_allied_diplomacy
+
+	is_triggered_only = yes
+	
+	option = {
+		name = bftb_greece.176.a
+		trigger = { 
+			ENG = {
+				has_idea = GRE_small_investment
+			}
+		}
+		GRE = {
+			random_owned_controlled_state = {
+				limit = {
+					ROOT = { has_full_control_of_state = PREV }
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+	}
+	option = {
+		name = bftb_greece.176.b
+		trigger = { 
+			ENG = {
+				has_idea = GRE_moderate_investment
+			}
+		}
+		GRE = {
+			random_owned_controlled_state = {
+				limit = {
+					ROOT = { has_full_control_of_state = PREV }
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	option = {
+		name = bftb_greece.176.c 
+		trigger = { 
+			ENG = {
+				has_idea = GRE_heavy_investment
+			}
+		}
+		add_offsite_building = {
+			type = industrial_complex
+			level = 3
+		}
+	}	
+}
+#British investment events - the British don't invest this time
+country_event = {
+	id = bftb_greece.177
+	title = bftb_greece.177.t
+	desc = bftb_greece.177.desc
+	picture = GFX_report_event_gre_athens
+
+	is_triggered_only = yes
+	
+	option = {
+		name = bftb_greece.177.a 
+		add_political_power = 75
+		add_stability = -0.05	
+	}
+}
+#British investment events - the British declare their definitive disinterest in investing!
+country_event = {
+	id = bftb_greece.178
+	title = bftb_greece.178.t
+	desc = bftb_greece.178.desc
+	picture = GFX_report_event_gre_cabinet_meeting
+
+	is_triggered_only = yes
+	
+	option = {
+		name = bftb_greece.178.a
+		add_stability = -0.1	
+		hidden_effect = {
+			if = {
+				limit = {
+					check_variable = { var = GRE_debt_to_the_ifc_britain_var value = 2.5 compare = greater_than_or_equals } 
+				}
+				GRE_default_on_british_debt_effect = yes
+			}
+		}
+	}
+}
+#French investment events - Greek officials petition us in our capital for investment
+country_event = {
+	id = bftb_greece.179
+	title = bftb_greece.179.t
+	desc = bftb_greece.179.desc
+	picture = GFX_report_event_gre_allied_diplomacy
+
+	is_triggered_only = yes
+	
+	option = {
+		name = bftb_greece.179.a 
+		ai_chance = {
+			base = 10
+		}
+		add_timed_idea = {
+			idea = GRE_small_investment 
+			days = 30
+		}
+		hidden_effect = {
+			GRE = { 
+				add_to_variable = {
+					var = GRE_french_influence_over_greek_government
+					value = 5
+				}
+			}
+			GRE = {
+				country_event = { id = bftb_greece.182 days = 2 }
+			}
+		}
+	}
+	option = {
+		name = bftb_greece.179.b 
+		ai_chance = {
+			base = 5
+			modifier = {
+				factor = 10
+				num_of_available_civilian_factories < 15
+			}
+		}
+		GRE = { 
+			country_event = { id = bftb_greece.183 days = 2 }
+		}
+	}
+	option = {
+		name = bftb_greece.179.c 
+		ai_chance = {
+			base = 0.1
+			modifier = {
+				factor = 25
+				has_opinion = {
+					target = GRE
+					value < -50
+				}
+			}
+		}
+		GRE = {
+			country_event = { id = bftb_greece.184 days = 2 }
+		}
+		hidden_effect = {
+			GRE = {
+				set_country_flag = GRE_france_rebuffed
+			}
+		}
+	}	
+}
+#French investment events - French officials attend Greek national showcase to lure investors
+country_event = {
+	id = bftb_greece.180
+	title = bftb_greece.180.t
+	desc = bftb_greece.180.desc
+	picture = GFX_report_event_gre_athens
+
+	is_triggered_only = yes
+	
+	option = {
+		name = bftb_greece.180.a 
+		ai_chance = {
+			base = 10
+		}
+		add_timed_idea = {
+			idea = GRE_moderate_investment
+			days = 45
+		}
+		hidden_effect = {
+			GRE = { 
+				add_to_variable = {
+					var = GRE_french_influence_over_greek_government
+					value = 10
+				}
+			}
+			GRE = {
+				country_event = { id = bftb_greece.182 days = 2 }
+			}
+		}
+	}
+	option = {
+		name = bftb_greece.180.b 
+		ai_chance = {
+			base = 5
+			modifier = {
+				factor = 10
+				num_of_available_civilian_factories < 20
+			}
+		}
+		GRE = { 
+			country_event = { id = bftb_greece.183 days = 2 }
+		}
+	}
+	option = {
+		name = bftb_greece.180.c 
+		ai_chance = {
+			base = 0.1
+			modifier = {
+				factor = 25
+				has_opinion = {
+					target = GRE
+					value < -50
+				}
+			}
+		}
+		GRE = {
+			country_event = { id = bftb_greece.184 days = 2 }
+		}
+		hidden_effect = {
+			GRE = {
+				set_country_flag = GRE_france_rebuffed
+			}
+		}
+	}	
+}
+#French investment events - Taking payments from the Greeks, the trade unions threaten to strike unless we employ Frenchmen to build in Greece
+country_event = {
+	id = bftb_greece.181
+	title = bftb_greece.181.t
+	desc = bftb_greece.181.desc
+	picture = GFX_report_event_gre_diplomacy
+
+	is_triggered_only = yes
+	
+	option = {
+		name = bftb_greece.181.a 
+		ai_chance = {
+			base = 10
+		}
+		add_timed_idea = {
+			idea = GRE_heavy_investment
+			days = 60
+		}
+		add_opinion_modifier = {
+			target = GRE
+			modifier = GRE_underhanded_rogues
+		}
+		hidden_effect = {
+			GRE = { 
+				add_to_variable = {
+					var = GRE_french_influence_over_greek_government
+					value = 25
+				}
+			}
+			GRE = {
+				country_event = { id = bftb_greece.182 days = 2 }
+			}
+		}
+	}
+	option = {
+		name = bftb_greece.181.b 
+		ai_chance = {
+			base = 0
+		}
+		add_timed_idea = {
+			idea = strikes_2
+			days = 45
+		}
+		GRE = { 
+			country_event = { id = bftb_greece.183 days = 2 }
+		}
+		add_opinion_modifier = {
+			target = GRE
+			modifier = GRE_underhanded_rogues
+		}
+	}	
+	option = {
+		name = bftb_greece.181.c
+		ai_chance = {
+			base = 0
+		}
+		add_timed_idea = {
+			idea = strikes_1
+			days = 30
+		}
+		GRE = {
+			country_event = { id = bftb_greece.184 days = 2 }
+		}
+		add_opinion_modifier = {
+			target = GRE
+			modifier = GRE_underhanded_rogues
+		}
+		hidden_effect = {
+			GRE = {
+				set_country_flag = GRE_france_rebuffed
+			}
+		}
+	}	
+}
+#French investment events - the French invest!
+country_event = {
+	id = bftb_greece.182
+	title = bftb_greece.182.t
+	desc = bftb_greece.182.desc
+	picture = GFX_report_event_gre_allied_diplomacy
+
+	is_triggered_only = yes
+	
+	option = {
+		name = bftb_greece.182.a
+		trigger = { 
+			FRA = {
+				has_idea = GRE_small_investment
+			}
+		}
+		GRE = {
+			random_owned_controlled_state = {
+				limit = {
+					ROOT = { has_full_control_of_state = PREV }
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+	}
+	option = {
+		name = bftb_greece.182.b 
+		trigger = { 
+			FRA = {
+				has_idea = GRE_moderate_investment
+			}
+		}
+		GRE = {
+			random_owned_controlled_state = {
+				limit = {
+					is_fully_controlled_by = PREV 
+					free_building_slots = {
+						building = industrial_complex
+						size > 0
+						include_locked = yes
+					}
+				}
+				add_building_construction = {
+					type = industrial_complex
+					level = 1
+					instant_build = yes
+				}
+			}
+		}
+	}
+	option = {
+		name = bftb_greece.182.c
+		trigger = { 
+			FRA = {
+				has_idea = GRE_heavy_investment
+			}
+		}
+		add_political_power = -75
+		add_offsite_building = {
+			type = industrial_complex
+			level = 3
+		}
+	}	
+}
+#French investment events - the French don't invest this time
+country_event = {
+	id = bftb_greece.183
+	title = bftb_greece.183.t
+	desc = bftb_greece.183.desc
+	picture = GFX_report_event_gre_athens
+
+	is_triggered_only = yes
+	
+	option = {
+		name = bftb_greece.183.a 
+		add_political_power = 75
+		add_stability = -0.05	
+	}
+}
+#French investment events - the French declare their definitive disinterest in investing!
+country_event = {
+	id = bftb_greece.184
+	title = bftb_greece.184.t
+	desc = bftb_greece.184.desc
+	picture = GFX_report_event_gre_cabinet_meeting
+
+	is_triggered_only = yes
+	
+	option = {
+		name = bftb_greece.184.a 
+		add_stability = -0.1	
+		hidden_effect = {
+			if = {
+				limit = {
+					check_variable = { var = GRE_debt_to_the_ifc_france_var value = 2.5 compare = greater_than_or_equals } 
+				}
+				GRE_default_on_french_debt_effect = yes
+			}
+		}
+	}
+}
+#Italian investment events - the Greeks approach us for help with industrialising their country
+country_event = {
+	id = bftb_greece.185
+	title = bftb_greece.185.t
+	desc = bftb_greece.185.desc
+	picture = GFX_report_event_gre_athens
+
+	is_triggered_only = yes
+	
+	option = {
+		name = bftb_greece.185.a 
+		ai_chance = {
+			base = 5
+		}
+		add_timed_idea = {
+			idea = GRE_moderate_investment
+			days = 60
+		}
+		hidden_effect = {
+			GRE = { 
+				add_to_variable = {
+					var = GRE_italian_influence_over_greek_government
+					value = 4
+				}
+			}
+			GRE = {
+				country_event = { id = bftb_greece.187 days = 2 }
+			}
+		}
+	}
+	option = {
+		name = bftb_greece.185.b 
+		ai_chance = {
+			base = 5
+		}
+		GRE = { 
+			country_event = { id = bftb_greece.188 days = 2 }
+		}
+	}	
+	option = {
+		name = bftb_greece.185.c 
+		ai_chance = {
+			base = 0.1
+			modifier = {
+				factor = 25
+				has_opinion = {
+					target = GRE
+					value < -25
+				}
+			}
+		}
+		GRE = {
+			country_event = { id = bftb_greece.189 days = 2 }
+		}
+		hidden_effect = {
+			GRE = {
+				set_country_flag = GRE_italy_rebuffed
+			}
+		}
+	}	
+}
+#Italian investment events - Greek diplomats hope to soften Italian ambitions in the region
+country_event = {
+	id = bftb_greece.186
+	title = bftb_greece.186.t
+	desc = bftb_greece.186.desc
+	picture = GFX_report_event_gre_fascism
+
+	is_triggered_only = yes
+	
+	option = {
+		name = bftb_greece.186.a 
+		ai_chance = {
+			base = 10
+		}
+		add_offsite_building = { 
+			type = industrial_complex
+			level = 1
+		}
+		hidden_effect = {
+			GRE = { 
+				add_timed_idea = {
+					idea = GRE_economic_fluctuations
+					days = 100
+				}	
+			}
+			GRE = { 
+				subtract_from_variable = {
+					var = GRE_italian_influence_over_greek_government
+					value = 6
+				}
+			}
+			GRE = {
+				country_event = { id = bftb_greece.187 days = 2 }
+			}
+		}
+	}
+	option = {
+		name = bftb_greece.186.b 
+		ai_chance = {
+			base = 0
+		}
+		GRE = { 
+			country_event = { id = bftb_greece.188 days = 2 }
+		}
+	}
+	option = {
+		name = bftb_greece.186.c 
+		ai_chance = {
+			base = 0.1
+			modifier = {
+				factor = 25
+				has_opinion = {
+					target = GRE
+					value < -25
+				}
+			}
+		}
+		GRE = {
+			country_event = { id = bftb_greece.189 days = 2 }
+		}
+		hidden_effect = {
+			GRE = {
+				set_country_flag = GRE_italy_rebuffed
+			}
+		}
+	}	
+}
+#Italian investment events - the Italians accept!
+country_event = {
+	id = bftb_greece.187
+	title = bftb_greece.187.t
+	desc = bftb_greece.187.desc
+	picture = GFX_report_event_gre_allied_diplomacy
+
+	is_triggered_only = yes
+	
+	option = {
+		name = bftb_greece.187.a 
+		trigger = { 
+			ITA = {
+				has_idea = GRE_moderate_investment
+			}
+		}
+		add_offsite_building = {
+			type = arms_factory
+			level = 2
+		}
+	}
+	option = {
+		name = bftb_greece.187.b
+		trigger = { 
+			has_idea = GRE_heavy_investment
+		}
+		effect_tooltip = {
+			GRE = { 
+				add_timed_idea = {
+					idea = GRE_heavy_investment
+					days = 100
+				}	
+			}
+		}
+	}	
+}
+#Italian investment events - the Italians don't invest this time
+country_event = {
+	id = bftb_greece.188
+	title = bftb_greece.188.t
+	desc = bftb_greece.188.desc
+	picture = GFX_report_event_gre_george_ii_victorious
+
+	is_triggered_only = yes
+	
+	option = {
+		name = bftb_greece.188.a
+		add_stability = 0.05	
+	}
+}
+#Italian investment events - the Italians shun us!
+country_event = {
+	id = bftb_greece.189
+	title = bftb_greece.189.t
+	desc = bftb_greece.189.desc
+	picture = GFX_report_event_gre_cabinet_meeting
+
+	is_triggered_only = yes
+	
+	option = {
+		name = bftb_greece.189.a 
+		add_stability = -0.1
+		add_war_support = 0.05	
+		hidden_effect = {
+			clear_variable = GRE_italian_influence_over_greek_government
+			if = {
+				limit = {
+					check_variable = { var = GRE_debt_to_the_ifc_italy_var value = 2.5 compare = greater_than_or_equals } 
+				}
+				GRE_default_on_italian_debt_effect = yes
+			}
+		}
+	}
+}
+#Soviet investment events - Greek officials finish their visit to the Presidium
+country_event = {
+	id = bftb_greece.190
+	title = bftb_greece.190.t
+	desc = bftb_greece.190.desc
+	picture = GFX_report_event_gre_allied_diplomacy
+
+	is_triggered_only = yes
+	
+	option = {
+		name = bftb_greece.190.a 
+		ai_chance = {
+			base = 5
+		}
+		add_timed_idea = {
+			idea = GRE_small_investment
+			days = 30
+		}
+		hidden_effect = {
+			GRE = { 
+				add_to_variable = {
+					var = GRE_soviet_influence_over_greek_government
+					value = 10
+				}
+			}
+			GRE = {
+				country_event = { id = bftb_greece.193 days = 2 }
+			}
+		}
+	}
+	option = {
+		name = bftb_greece.190.b 
+		ai_chance = {
+			base = 5
+		}		
+		GRE = { 
+			country_event = { id = bftb_greece.194 days = 2 }
+		}
+	}
+	option = {
+		name = bftb_greece.190.c 
+		ai_chance = {
+			base = 0.1
+			modifier = {
+				factor = 25
+				has_opinion = {
+					target = GRE
+					value < -25
+				}
+			}
+		}
+		GRE = {
+			country_event = { id = bftb_greece.195 days = 2 }
+		}
+		hidden_effect = {
+			GRE = {
+				set_country_flag = GRE_soviets_rebuffed
+			}
+		}
+	}	
+}
+#Soviet investment events - Soviet bureaucrats finish their tour of Greece 
+country_event = {
+	id = bftb_greece.191
+	title = bftb_greece.191.t
+	desc = bftb_greece.191.desc
+	picture = GFX_report_event_gre_athens
+
+	is_triggered_only = yes
+	
+	option = {
+		name = bftb_greece.191.a
+		ai_chance = {
+			base = 5
+		}
+		add_timed_idea = {
+			idea = GRE_moderate_investment
+			days = 75
+		}
+		hidden_effect = {
+			GRE = { 
+				add_to_variable = {
+					var = GRE_soviet_influence_over_greek_government
+					value = 25
+				}
+			}
+			GRE = {
+				country_event = { id = bftb_greece.193 days = 2 }
+			}
+		}
+	}
+	option = {
+		name = bftb_greece.191.b
+		ai_chance = {
+			base = 5
+		}
+		GRE = { 
+			country_event = { id = bftb_greece.194 days = 2 }
+		}
+	}	
+	option = {
+		name = bftb_greece.191.c 
+		ai_chance = {
+			base = 0.1
+			modifier = {
+				factor = 25
+				has_opinion = {
+					target = GRE
+					value < -25
+				}
+			}
+		}
+		GRE = {
+			country_event = { id = bftb_greece.195 days = 2 }
+		}
+		hidden_effect = {
+			GRE = {
+				set_country_flag = GRE_soviets_rebuffed
+			}
+		}
+	}	
+}
+#Soviet investment events - Greek officials come up with blueprint to invest back into neglected Siberian regions
+country_event = {
+	id = bftb_greece.192
+	title = bftb_greece.192.t
+	desc = bftb_greece.192.desc
+	picture = GFX_report_event_gre_officers_chatting
+
+	is_triggered_only = yes
+	
+	option = {
+		name = bftb_greece.192.a 
+		ai_chance = {
+			base = 15
+		}
+		random_state = {
+			limit = { 
+				OR = { 
+					region = 147 
+					region = 151 
+					region = 149 
+					region = 148 
+				}
+				infrastructure < 10
+			}
+			add_building_construction = { 
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+		random_state = {
+			limit = { 
+				OR = { 
+					region = 147 
+					region = 151 
+					region = 149 
+					region = 148 
+				}
+				infrastructure < 10
+			}
+			add_building_construction = { 
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+		random_state = {
+			limit = {
+				OR = {
+					region = 147 
+					region = 151 
+					region = 149 
+					region = 148 
+				}
+				infrastructure < 10
+			}
+			add_building_construction = { 
+				type = infrastructure
+				level = 1
+				instant_build = yes
+			}
+		}
+		hidden_effect = {
+			GRE = { 
+				add_timed_idea = {
+					idea = GRE_economic_fluctuations
+					days = 75
+				}	
+			}
+			GRE = { 
+				subtract_from_variable = {
+					var = GRE_soviet_influence_over_greek_government
+					value = 30
+				}
+			}
+			GRE = {
+				country_event = { id = bftb_greece.193 days = 2 }
+			}
+		}
+	}
+	option = {
+		name = bftb_greece.192.c 
+		ai_chance = {
+			base = 1
+			modifier = {
+				factor = 25
+				has_opinion = {
+					target = GRE
+					value < -25
+				}
+			}
+		}
+		GRE = {
+			country_event = { id = bftb_greece.195 days = 2 }
+		}
+		hidden_effect = {
+			GRE = {
+				set_country_flag = GRE_soviets_rebuffed
+			}
+		}
+	}	
+}
+#Soviet investment events - the soviets accept!
+country_event = {
+	id = bftb_greece.193
+	title = bftb_greece.193.t
+	desc = bftb_greece.193.desc
+	picture = GFX_report_event_gre_allied_diplomacy
+
+	is_triggered_only = yes
+
+	option = {
+		name = bftb_greece.193.a 
+		trigger = { 
+			SOV = {
+				has_idea = GRE_small_investment
+			}
+		}
+		GRE = {
+			random_owned_controlled_state = {
+				limit = {
+					ROOT = { has_full_control_of_state = PREV }
+				}
+				add_extra_state_shared_building_slots = 1
+			}
+		}
+	}
+	
+	option = {
+		name = bftb_greece.193.b 
+		trigger = { 
+			SOV = {
+				has_idea = GRE_moderate_investment
+			}
+		}
+		add_offsite_building = {
+			type = arms_factory
+			level = 2
+		}
+	}
+	option = {
+		name = bftb_greece.193.c 
+		trigger = { 
+			has_idea = GRE_heavy_investment
+		}
+		effect_tooltip = {
+			GRE = { 
+				add_timed_idea = {
+					idea = GRE_heavy_investment
+					days = 75
+				}	
+			}
+		}
+	}	
+}
+#Soviet investment events - the Soviets don't invest this time
+country_event = {
+	id = bftb_greece.194
+	title = bftb_greece.194.t
+	desc = bftb_greece.194.desc
+	picture = GFX_report_event_gre_athens
+
+	is_triggered_only = yes
+	
+	option = {
+		name = bftb_greece.194.a 
+		add_stability = 0.05	
+	}
+}
+#Soviet investment events - the Soviets shun us!
+country_event = {
+	id = bftb_greece.195
+	title = bftb_greece.195.t
+	desc = bftb_greece.195.desc
+	picture = GFX_report_event_gre_cabinet_meeting
+
+	is_triggered_only = yes
+	
+	option = {
+		name = bftb_greece.195.a
+		add_stability = -0.1
+		add_war_support = 0.05
+		hidden_effect = {
+			clear_variable = GRE_soviet_influence_over_greek_government
+		}
+	}
+}
