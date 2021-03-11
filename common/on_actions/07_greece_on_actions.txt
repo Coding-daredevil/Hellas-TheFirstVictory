@@ -665,6 +665,23 @@ on_actions = {
         }
     }
     
+    on_capitulation = {
+        effect = {
+            if = {
+                limit = {
+                    ROOT = { original_tag = ITA }
+                    GRE = {
+                        NOT = { has_war_with = GER }
+                        NOT = { has_war_with = BUL }
+                    }
+                }
+                clr_global_flag = GRE_grecoitalian_start
+                set_global_flag = GRE_grecoitalian_ended
+                GRE = { country_event = { id = hellas.114 days = 0 } }
+            }
+        }
+    }
+    
     on_daily_GRE = {
         effect = {
             #################################################################################################################
@@ -755,11 +772,6 @@ on_actions = {
                     }
                     complete_national_focus = GRE_crete_holds
                     GRE = { country_event = { id = hellas.10000 days = 0 } }
-                }
-                if = {                                                                         ## FIRST ELAS MISSION                                                                                                              ## Hellenic State has formed AND exists (flag clears later)
-                    limit = { date = 1942.9.3 }
-                    activate_mission = elas_kornofolia_max
-                    event_target:hellenic_state = { activate_mission = elas_kornofolia_max }
                 }
                 if = {                                                                                                                                  ## Hellenic State has formed AND exists (flag clears later)
                     limit = { 

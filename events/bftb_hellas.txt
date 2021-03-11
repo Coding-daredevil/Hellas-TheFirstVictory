@@ -4310,6 +4310,8 @@ country_event = {                                                               
     
     immediate = {
         hidden_effect = {
+            set_country_flag = GRE_victor_in_a_war
+            set_country_flag = GRE_victor_in_a_big_war
             add_political_power = 1000
             add_stability = 0.5
             add_war_support = 0.5
@@ -4451,44 +4453,51 @@ country_event = {                                                               
 
 	fire_only_once = yes
 	
-	option = {                                                                                     
-		name = hellas.114.a
-        
-        add_political_power = 1000
-        add_stability = 0.5
-        add_war_support = 0.5
-        white_peace = ITA 
-        ITA = { white_peace = ENG }
-        news_event = { id = hellenic_news.154 }
-        complete_national_focus = GRE_the_weaves_of_fate
-        set_global_flag = GRE_grecoitalian_ended
-        clr_global_flag = GRE_grecoitalian_start
-        ITA = { 
-            remove_ideas = GRE_italian_ambition
-            remove_ideas = GRE_italian_ambition_defensive
-            remove_ideas = GRE_italian_ambition_ultra_offensive
-        }
-        ITA = { release = ETH }
-        GRE = { puppet = ITA }
-        GRE = { puppet = ETH }
-        GRE = { transfer_state = 164 }
-        GRE = { transfer_state = 805 }
-        GRE = { transfer_state = 44 }
-        GRE = { transfer_state = 115 }
-        GRE = { transfer_state = 156 }
-        GRE = { transfer_state = 117 }
-        GRE = { transfer_state = 2 }
-        GRE = { transfer_state = 157 }
-        GRE = { transfer_state = 114 }
-        every_state = {
-            limit = {
-                is_on_continent = africa
-                ITA = { owns_state = PREV }
+	immediate = {             
+        hidden_effect = {
+            set_country_flag = GRE_victor_in_a_war
+            set_country_flag = GRE_victor_in_a_big_war
+            add_political_power = 1000
+            add_stability = 0.5
+            add_war_support = 0.5
+            white_peace = ITA 
+            ITA = { white_peace = ENG }
+            news_event = { id = hellenic_news.154 }
+            complete_national_focus = GRE_the_weaves_of_fate
+            set_global_flag = GRE_grecoitalian_ended
+            clr_global_flag = GRE_grecoitalian_start
+            ITA = { 
+                remove_ideas = GRE_italian_ambition
+                remove_ideas = GRE_italian_ambition_defensive
+                remove_ideas = GRE_italian_ambition_ultra_offensive
             }
-            GRE = { transfer_state = PREV }
+            ITA = { release = ETH }
+            GRE = { puppet = ITA }
+            GRE = { puppet = ETH }
+            GRE = { transfer_state = 164 }
+            GRE = { transfer_state = 805 }
+            GRE = { transfer_state = 44 }
+            GRE = { transfer_state = 115 }
+            GRE = { transfer_state = 156 }
+            GRE = { transfer_state = 117 }
+            GRE = { transfer_state = 2 }
+            GRE = { transfer_state = 157 }
+            GRE = { transfer_state = 114 }
+            every_state = {
+                limit = {
+                    is_on_continent = africa
+                    ITA = { owns_state = PREV }
+                }
+                GRE = { transfer_state = PREV }
+            }
         }
-        
     }
+    
+    option = {                                                                                      ## Keep as it is
+		name = hellas.113.a
+    
+        ###                                                                                         
+    } 
 }
 
 ################################################################################################################

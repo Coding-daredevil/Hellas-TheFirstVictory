@@ -1,0 +1,70 @@
+scripted_gui = {
+
+	cabinet = {
+		context_type = player_context
+		
+		window_name = "cabinet_container"
+        parent_window_token = politics_tab 
+
+		
+		visible = {
+            #has_completed_focus = GRE_reform_the_cabinet
+            always = yes
+		}
+		
+		effects = {
+			cabinet_open_button_click = {
+				if = {
+					limit = { NOT = { has_country_flag = cabinet_opened } }
+					set_country_flag = cabinet_opened
+				}
+				else = {
+					clr_country_flag = cabinet_opened
+				}
+			}
+			cabinet_open_button_max_click = {
+				if = {
+					limit = { NOT = { has_country_flag = cabinet_opened } }
+					set_country_flag = cabinet_opened
+				}
+				else = {
+					clr_country_flag = cabinet_opened
+				}
+			}
+		}
+		
+		triggers = {
+			cabinet_open_button_visible = {
+				has_political_power < 149
+			}
+		}
+		
+		ai_test_interval = 300
+		ai_test_variance = 0.1
+		ai_max_weight_taken_per_test = 2
+		
+		ai_enabled = {
+            always = yes
+		}
+		ai_check = {
+			has_political_power > 149
+		}
+		
+		ai_weights = {
+			cabinet_open_button_click = {
+				weight = 1.0
+				ai_will_do = {
+					factor = 1
+				}
+			}
+			cabinet_open_button_max_click = {
+				weight = 1.0
+				ai_will_do = {
+					factor = 1
+				}
+			}
+		}
+	}
+    
+}
+
