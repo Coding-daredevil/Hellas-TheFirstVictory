@@ -4515,6 +4515,45 @@ GRE_hellenic_academy_category = {
 
 political_actions = {
     
+    add_stuff3 = {
+        allowed = {
+            original_tag = GER
+        }
+        
+        available = {
+            has_global_flag = {
+                flag = GRE_crete_still_holding
+                days > 14
+            }
+            event_target:hellenic_state = { exists = yes }
+            controls_state = 47
+            GRE = { controls_state = 182 } 
+            check_variable = { wave < 2 }
+            check_variable = { GRE.num_battalions@182 < 120 }
+            has_global_flag = {
+                flag = GRE_crete_still_holding
+                days < 90
+            }
+        }
+        
+        days_remove = 2
+        
+        visible = {
+            is_ai = yes
+        }
+        
+        ai_will_do = {
+			factor = 10000
+		}
+        
+        cost = 10
+        
+        complete_effect = {
+            add_to_variable = { wave = 1 }
+            GER_pops_in_crete = yes
+        }
+    }
+    
 	GRE_recommission_the_american_battleships = {
 		
 		icon = generic_naval
@@ -14105,8 +14144,8 @@ GRE_kathestos_exoteriki_politiki = {
                 tooltip = GRE_favor_yug_at_least_great_tt
                 check_variable = { var = YUG.favor@GRE value = 50 compare = greater_than_or_equals }
             }
-            OR = {
-                YUG = { 
+            YUG = {
+                OR = { 
                     has_idea = YUG_idea_serbian_general_staff
                     has_idea = YUG_idea_federal_defense_council
                     has_government = neutrality
@@ -14156,8 +14195,8 @@ GRE_kathestos_exoteriki_politiki = {
                 tooltip = GRE_favor_yug_at_least_great_tt
                 check_variable = { var = YUG.favor@GRE value = 50 compare = greater_than_or_equals }
             }
-            OR = {
-                YUG = { 
+            YUG = {
+                OR = { 
                     has_idea = YUG_idea_serbian_general_staff
                     has_idea = YUG_idea_federal_defense_council
                     has_government = neutrality
@@ -14207,8 +14246,8 @@ GRE_kathestos_exoteriki_politiki = {
                 tooltip = GRE_favor_yug_at_least_great_tt
                 check_variable = { var = YUG.favor@GRE value = 50 compare = greater_than_or_equals }
             }
-            OR = {
-                YUG = { 
+            YUG = {
+                OR = { 
                     has_idea = YUG_idea_serbian_general_staff
                     has_idea = YUG_idea_federal_defense_council
                     has_government = neutrality
@@ -14262,8 +14301,8 @@ GRE_kathestos_exoteriki_politiki = {
                 tooltip = GRE_favor_british_excellent_tt
                 check_variable = { var = YUG.favor@GRE value = 80 compare = greater_than_or_equals }
             }
-            OR = {
-                YUG = { 
+            YUG = {
+                OR = { 
                     has_idea = YUG_idea_serbian_general_staff
                     has_idea = YUG_idea_federal_defense_council
                     has_government = neutrality
@@ -21966,45 +22005,6 @@ GRE_resistance_category = {
         
         complete_effect = {
             HS_increase_unyielding_greeks_by_one = yes
-        }
-    }
-    
-    add_stuff3 = {
-        allowed = {
-            original_tag = GER
-        }
-        
-        available = {
-            has_global_flag = {
-                flag = GRE_crete_still_holding
-                days > 14
-            }
-            event_target:hellenic_state = { exists = yes }
-            controls_state = 47
-            GRE = { controls_state = 182 } 
-            check_variable = { wave < 2 }
-            check_variable = { GRE.num_battalions@182 < 120 }
-            has_global_flag = {
-                flag = GRE_crete_still_holding
-                days < 90
-            }
-        }
-        
-        days_remove = 2
-        
-        visible = {
-            is_ai = yes
-        }
-        
-        ai_will_do = {
-			factor = 10000
-		}
-        
-        cost = 10
-        
-        complete_effect = {
-            add_to_variable = { wave = 1 }
-            GER_pops_in_crete = yes
         }
     }
 
