@@ -221,48 +221,64 @@ HS_increase_armed_resistance_by_one = {
         array = greek_mainland_states_all
         
         if = { 
-            limit = { has_dynamic_modifier = { modifier = GRE_italian_occupation_zone } }
-            remove_dynamic_modifier = { modifier = GRE_italian_occupation_zone }
-            add_dynamic_modifier = { modifier = early_resistance_groups_ita }
+            limit = { 
+                NOT = {
+                    has_dynamic_modifier = { modifier = early_resistance_groups } 
+                    has_dynamic_modifier = { modifier = strengthened_resistance_groups }
+                    has_dynamic_modifier = { modifier = dominant_resistance_groups } 
+                    has_dynamic_modifier = { modifier = unshakeable_resistance_groups }
+                }
+            }
+            ###remove_dynamic_modifier = { modifier = GRE_italian_occupation_zone }
+            ###remove_dynamic_modifier = { modifier = GRE_german_occupation_zone }
+            add_dynamic_modifier = { modifier = early_resistance_groups }
         }
         else_if = { 
-            limit = { has_dynamic_modifier = { modifier = early_resistance_groups_ita } }
-            remove_dynamic_modifier = { modifier = early_resistance_groups_ita }
-            add_dynamic_modifier = { modifier = strengthened_resistance_groups_ita }
+            limit = { has_dynamic_modifier = { modifier = early_resistance_groups } }
+            remove_dynamic_modifier = { modifier = early_resistance_groups }
+            add_dynamic_modifier = { modifier = strengthened_resistance_groups }
         }
         else_if = { 
-            limit = { has_dynamic_modifier = { modifier = strengthened_resistance_groups_ita } }
-            remove_dynamic_modifier = { modifier = strengthened_resistance_groups_ita }
-            add_dynamic_modifier = { modifier = dominant_resistance_groups_ita }
+            limit = { has_dynamic_modifier = { modifier = strengthened_resistance_groups } }
+            remove_dynamic_modifier = { modifier = strengthened_resistance_groups }
+            add_dynamic_modifier = { modifier = dominant_resistance_groups }
         }
         else_if = { 
-            limit = { has_dynamic_modifier = { modifier = dominant_resistance_groups_ita } }
-            remove_dynamic_modifier = { modifier = dominant_resistance_groups_ita }
-            add_dynamic_modifier = { modifier = unshakeable_resistance_groups_ita }
+            limit = { has_dynamic_modifier = { modifier = dominant_resistance_groups } }
+            remove_dynamic_modifier = { modifier = dominant_resistance_groups }
+            add_dynamic_modifier = { modifier = unshakeable_resistance_groups }
         }
     }
 }
 
 HS_increase_armed_resistance_by_one_decision = {      
     if = { 
-        limit = { has_dynamic_modifier = { modifier = GRE_italian_occupation_zone } }
-        remove_dynamic_modifier = { modifier = GRE_italian_occupation_zone }
-        add_dynamic_modifier = { modifier = early_resistance_groups_ita }
+        limit = { 
+            NOT = {
+                has_dynamic_modifier = { modifier = early_resistance_groups } 
+                has_dynamic_modifier = { modifier = strengthened_resistance_groups }
+                has_dynamic_modifier = { modifier = dominant_resistance_groups } 
+                has_dynamic_modifier = { modifier = unshakeable_resistance_groups }
+            }
+        }
+        ###remove_dynamic_modifier = { modifier = GRE_italian_occupation_zone }
+        ###remove_dynamic_modifier = { modifier = GRE_german_occupation_zone }
+        add_dynamic_modifier = { modifier = early_resistance_groups }
     }
     else_if = { 
-        limit = { has_dynamic_modifier = { modifier = early_resistance_groups_ita } }
-        remove_dynamic_modifier = { modifier = early_resistance_groups_ita }
-        add_dynamic_modifier = { modifier = strengthened_resistance_groups_ita }
+        limit = { has_dynamic_modifier = { modifier = early_resistance_groups } }
+        remove_dynamic_modifier = { modifier = early_resistance_groups }
+        add_dynamic_modifier = { modifier = strengthened_resistance_groups }
     }
     else_if = { 
-        limit = { has_dynamic_modifier = { modifier = strengthened_resistance_groups_ita } }
-        remove_dynamic_modifier = { modifier = strengthened_resistance_groups_ita }
-        add_dynamic_modifier = { modifier = dominant_resistance_groups_ita }
+        limit = { has_dynamic_modifier = { modifier = strengthened_resistance_groups } }
+        remove_dynamic_modifier = { modifier = strengthened_resistance_groups }
+        add_dynamic_modifier = { modifier = dominant_resistance_groups }
     }
     else_if = { 
-        limit = { has_dynamic_modifier = { modifier = dominant_resistance_groups_ita } }
-        remove_dynamic_modifier = { modifier = dominant_resistance_groups_ita }
-        add_dynamic_modifier = { modifier = unshakeable_resistance_groups_ita }
+        limit = { has_dynamic_modifier = { modifier = dominant_resistance_groups } }
+        remove_dynamic_modifier = { modifier = dominant_resistance_groups }
+        add_dynamic_modifier = { modifier = unshakeable_resistance_groups }
     }
 }
 
