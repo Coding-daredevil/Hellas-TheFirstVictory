@@ -8,6 +8,30 @@
 # localization_key -> points to the localization key
 # that'll be used if trigger passes
 
+
+defined_text = {
+    name = GetFamineLosses
+    text = {
+        trigger = {
+            check_variable = { GRE.total_lost_to_famine > 349999 }
+        }
+        localization_key = famine_losses_absurd
+    } 
+    text = {
+        trigger = {
+            check_variable = { GRE.total_lost_to_famine > 149999 }
+            check_variable = { GRE.total_lost_to_famine < 350000 }
+        }
+        localization_key = famine_losses_high
+    } 
+    text = {
+        trigger = {
+            check_variable = { GRE.total_lost_to_famine < 150000 }
+        }
+        localization_key = famine_losses_medium
+    }     
+}
+
 #####################################################################################################
 #######################[Reveal factories granted by bedrock/subsid depending ]#######################
 #####################################################################################################
