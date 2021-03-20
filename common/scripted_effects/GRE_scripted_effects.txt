@@ -132,6 +132,13 @@ collect_faction_member_agreeableness = {
 ##      half   -> 6x 60
 ##      half   -> 6x 30
 
+HS_famine_initialize = {
+for_each_scope_loop = {
+        array = global.greek_mainland_states_all
+        
+        add_dynamic_modifier = { modifier = great_famine }                                     # Add the great_famine to state
+    }
+}
 
 HS_famine_toll_proc = {
     if = {
@@ -432,63 +439,67 @@ HS_famine_toll_proc = {
                 add_to_temp_variable = { level = 0 }
             }
         }
+        if = {
+            limit = { date < 1941.11.2 }
+            set_temp_variable = { level = 1 }                   ## IF SEP41->NOV41, then minimal losses
+        }
         #####[BELOW THIS POSITIVE CHANGES]#####
         
         ##########[FINAL CALC]##########
         if = {
             limit={check_variable={level<1}}
             THIS = { add_manpower = -5 }
-            add_to_variable = { GRE.total_lost_to_famine = -5 }
+            add_to_variable = { GRE.total_lost_to_famine = 5 }
         }
         else_if = {
             limit={check_variable={level<2}}
             THIS = { add_manpower = -10 }
-            add_to_variable = { GRE.total_lost_to_famine = -10 }
+            add_to_variable = { GRE.total_lost_to_famine = 10 }
         }
         else_if = {
             limit={check_variable={level<3}}
             THIS = { add_manpower = -20 }
-            add_to_variable = { GRE.total_lost_to_famine = -20 }
+            add_to_variable = { GRE.total_lost_to_famine = 20 }
         }
         else_if = {
             limit={check_variable={level<4}}
             THIS = { add_manpower = -40 }
-            add_to_variable = { GRE.total_lost_to_famine = -40 }
+            add_to_variable = { GRE.total_lost_to_famine = 40 }
         }
         else_if = {
             limit={check_variable={level<5}}
             THIS = { add_manpower = -60 }
-            add_to_variable = { GRE.total_lost_to_famine = -60 }
+            add_to_variable = { GRE.total_lost_to_famine = 60 }
         }
         else_if = {
             limit={check_variable={level<6}}
             THIS = { add_manpower = -80 }
-            add_to_variable = { GRE.total_lost_to_famine = -80 }
+            add_to_variable = { GRE.total_lost_to_famine = 80 }
         }
         else_if = {
             limit={check_variable={level<7}}
             THIS = { add_manpower = -100 }
-            add_to_variable = { GRE.total_lost_to_famine = -100 }
+            add_to_variable = { GRE.total_lost_to_famine = 100 }
         }
         else_if = {
             limit={check_variable={level<8}}
             THIS = { add_manpower = -125 }
-            add_to_variable = { GRE.total_lost_to_famine = -125 }
+            add_to_variable = { GRE.total_lost_to_famine = 125 }
         }
         else_if = {
             limit={check_variable={level<9}}
             THIS = { add_manpower = -150 }
-            add_to_variable = { GRE.total_lost_to_famine = -150 }
+            add_to_variable = { GRE.total_lost_to_famine = 150 }
         }
         else_if = {
             limit={check_variable={level<10}}
             THIS = { add_manpower = -175 }
-            add_to_variable = { GRE.total_lost_to_famine = -175 }
+            add_to_variable = { GRE.total_lost_to_famine = 175 }
         }
         else_if = {
             limit={check_variable={level<11}}
             THIS = { add_manpower = -200 }
-            add_to_variable = { GRE.total_lost_to_famine = -200 }
+            add_to_variable = { GRE.total_lost_to_famine = 200 }
         } 
     }
 }
@@ -517,18 +528,18 @@ HS_add_black_market_negative = {
     }
 }
 HS_set_up_state_modifiers = {
-    add_to_array = { german_occupied_states = 47 }
-    add_to_array = { german_occupied_states = 813 }
-    add_to_array = { german_occupied_states = 187 }
-    add_to_array = { german_occupied_states = 731 }
-    add_to_array = { german_occupied_states = 811 }
-    add_to_array = { german_occupied_states = 810 }
-    add_to_array = { italian_occupied_states = 185 }
-    add_to_array = { italian_occupied_states = 809 }
-    add_to_array = { italian_occupied_states = 807 }
-    add_to_array = { italian_occupied_states = 808 }
-    add_to_array = { italian_occupied_states = 186 }
-    add_to_array = { italian_occupied_states = 814 }
+    add_to_array = { global.german_occupied_states = 47 }
+    add_to_array = { global.german_occupied_states = 813 }
+    add_to_array = { global.german_occupied_states = 187 }
+    add_to_array = { global.german_occupied_states = 731 }
+    add_to_array = { global.german_occupied_states = 811 }
+    add_to_array = { global.german_occupied_states = 810 }
+    add_to_array = { global.italian_occupied_states = 185 }
+    add_to_array = { global.italian_occupied_states = 809 }
+    add_to_array = { global.italian_occupied_states = 807 }
+    add_to_array = { global.italian_occupied_states = 808 }
+    add_to_array = { global.italian_occupied_states = 186 }
+    add_to_array = { global.italian_occupied_states = 814 }
     if = {
         limit = {
             BUL = {
@@ -538,33 +549,37 @@ HS_set_up_state_modifiers = {
                 }
             }
         }
-        add_to_array = { italian_occupied_states = 184 }
-        add_to_array = { italian_occupied_states = 812 }
+        add_to_array = { global.italian_occupied_states = 184 }
+        add_to_array = { global.italian_occupied_states = 812 }
     }
     else = {
         add_to_array = { bulgarian_occupied_states = 184 }
         add_to_array = { bulgarian_occupied_states = 812 }
     }
-    add_to_array = { greek_mainland_states_all = 47 }
-    add_to_array = { greek_mainland_states_all = 813 }
-    add_to_array = { greek_mainland_states_all = 187 }
-    add_to_array = { greek_mainland_states_all = 731 }
-    add_to_array = { greek_mainland_states_all = 811 }
-    add_to_array = { greek_mainland_states_all = 810 }
-    add_to_array = { greek_mainland_states_all = 185 }
-    add_to_array = { greek_mainland_states_all = 809 }
-    add_to_array = { greek_mainland_states_all = 807 }
-    add_to_array = { greek_mainland_states_all = 808 }
-    add_to_array = { greek_mainland_states_all = 186 }
-    add_to_array = { greek_mainland_states_all = 184 }
-    add_to_array = { greek_mainland_states_all = 812 }
-    add_to_array = { greek_mainland_states_all = 814 }
+    add_to_array = { global.greek_mainland_states_all = 47 }
+    add_to_array = { global.greek_mainland_states_all = 813 }
+    add_to_array = { global.greek_mainland_states_all = 187 }
+    add_to_array = { global.greek_mainland_states_all = 731 }
+    add_to_array = { global.greek_mainland_states_all = 811 }
+    add_to_array = { global.greek_mainland_states_all = 810 }
+    add_to_array = { global.greek_mainland_states_all = 185 }
+    add_to_array = { global.greek_mainland_states_all = 809 }
+    add_to_array = { global.greek_mainland_states_all = 807 }
+    add_to_array = { global.greek_mainland_states_all = 808 }
+    add_to_array = { global.greek_mainland_states_all = 186 }
+    add_to_array = { global.greek_mainland_states_all = 184 }
+    add_to_array = { global.greek_mainland_states_all = 812 }
+    add_to_array = { global.greek_mainland_states_all = 814 }
+    if = {
+        limit = { GRE = { has_completed_focus = GRE_crete_falls } }
+        add_to_array = { global.greek_mainland_states_all = 182 }
+    }
     HS_add_angered_greeks = yes
 }
 
 HS_add_angered_greeks = {
     for_each_scope_loop = {
-        array = greek_mainland_states_all
+        array = global.greek_mainland_states_all
         
         add_dynamic_modifier = { modifier = unyielding_greeks_angered }                                     # Adds to the value (state ID) the dynamic modifier.
     }
@@ -572,7 +587,7 @@ HS_add_angered_greeks = {
 
 HS_increase_unyielding_greeks_by_one = {
     for_each_scope_loop = {
-        array = greek_mainland_states_all
+        array = global.greek_mainland_states_all
         
         if = {
             limit = { has_dynamic_modifier = { modifier = unyielding_greeks_angered } }
@@ -610,7 +625,7 @@ HS_increase_unyielding_greeks_by_one_decision = {
 
 HS_increase_armed_resistance_by_one = {
     for_each_scope_loop = {
-        array = greek_mainland_states_all
+        array = global.greek_mainland_states_all
         
         if = { 
             limit = { 

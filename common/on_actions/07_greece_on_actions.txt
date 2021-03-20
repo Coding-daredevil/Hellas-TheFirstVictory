@@ -777,8 +777,24 @@ on_actions = {
                     limit = { 
                         date = 1941.9.1                                                                                                                
                     }
-                    country_event = { id = hellas.1010 random_days = 30 }                                                                                        # Event to warn about famine (event takes on and procs famine later)
-                    event_target:hellenic_state = { id = hellas.1010 days = 0 }
+                    country_event = { id = hellas.1010 days = 14 }                                                                                        # Event to warn about famine (event takes on and procs famine later)
+                    event_target:hellenic_state = { id = hellas.1010 days = 14 }
+                }
+                if = {                                                                                                                                  ## 
+                    limit = { 
+                        date = 1941.11.1                                                                                                                
+                    }
+                    country_event = { id = hellas.1011 days = 0 }                                                                                        # Start of the Famine
+                    event_target:hellenic_state = { id = hellas.1011 days = 0 }
+                }
+                if = {
+                    limit = {
+                        has_global_flag = GRE_famine_started
+                    }
+                    for_each_scope_loop = {
+                        array = global.greek_mainland_states_all
+                        THIS = { HS_famine_toll_proc = yes }                                                                                                      # Procs Famine Deaths daily
+                    }
                 }
             }
         }
