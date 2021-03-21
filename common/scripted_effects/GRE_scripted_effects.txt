@@ -102,6 +102,398 @@ collect_faction_member_agreeableness = {
 #########################################################
 ###################[HELLENIC STATE SE]###################
 #########################################################
+HS_resistance_manpower_increase = {
+    if = { 
+        limit = {
+            date > 1942.9.1
+            date < 1943.3.1
+        }
+        set_temp_variable = { elas_manpower_add = 77.6 }
+        set_temp_variable = { elas_equipment_add = 25.9 }
+        set_temp_variable = { edes_manpower_add = 15.3 }
+        set_temp_variable = { edes_equipment_add = 5.1 }
+    }
+    else_if = { 
+        limit = {
+            date > 1943.3.1
+            date < 1944.2.1
+        }
+        set_temp_variable = { elas_manpower_add = 60 }
+        set_temp_variable = { elas_equipment_add = 20 }
+        set_temp_variable = { edes_manpower_add = 12 }
+        set_temp_variable = { edes_equipment_add = 4 }
+    }
+    else_if = { 
+        limit = {
+            date > 1944.2.1
+        }
+        set_temp_variable = { elas_manpower_add = 83.3 }
+        set_temp_variable = { elas_equipment_add = 27.8 }
+        set_temp_variable = { edes_manpower_add = 16.6 }
+        set_temp_variable = { edes_equipment_add = 5.5 }
+    }
+    
+    round_temp_variable = elas_manpower_add
+    round_temp_variable = edes_manpower_add
+    round_temp_variable = elas_equipment_add
+    round_temp_variable = edes_equipment_add
+    add_to_variable = { GRE.elas_manpower = elas_manpower_add }
+    add_to_variable = { GRE.elas_equipment = elas_equipment_add }
+    add_to_variable = { GRE.edes_manpower = edes_manpower_add }
+    add_to_variable = { GRE.edes_equipment = edes_equipment_add }
+    HS_resistance_recalculate_ratios = yes
+}
+
+HS_resistance_recalculate_ratios = {
+    set_temp_variable = { x = GRE.elas_manpower }
+    set_temp_variable = { y = GRE.elas_equipment }
+    divide_temp_variable = { y = x }    
+    set_variable = { GRE.elas_ratio = y }
+    set_temp_variable = { x = GRE.edes_manpower }
+    set_temp_variable = { y = GRE.edes_equipment }
+    divide_temp_variable = { y = x }    
+    set_variable = { GRE.edes_ratio = y }
+}
+#######BATTLES
+####MANPOWER
+###Strength (Us)
+###Strength (Them)
+###Losses (Us)
+###Losses (Them)
+###POW (Us)
+###POW (Them)      
+####EQUIPMENT
+###Lost (Us)
+###Lost (Them)
+###Captured (Us)
+###Captured (Them)
+####MODIFIERS
+###Manpower
+###Equipment 
+ELAS_resistance_battle_sandbox = {                                            ## Contains UNWEIGHTED resistance battle outcomes based on certain modifiers.
+    set_temp_variable = { magnitude = 0 }
+    if = {
+        limit = { check_variable = { GRE.elas_manpower > 150000 } }
+        add_to_temp_variable = { magnitude = 5 }
+    }
+    else_if = {
+        limit = { check_variable = { GRE.elas_manpower > 125000 } }
+        add_to_temp_variable = { magnitude = 4 }
+    }
+    else_if = {
+        limit = { check_variable = { GRE.elas_manpower > 100000 } }
+        add_to_temp_variable = { magnitude = 3 }
+    }
+    else_if = {
+        limit = { check_variable = { GRE.elas_manpower > 75000 } }
+        add_to_temp_variable = { magnitude = 2 }
+    }
+    else_if = {
+        limit = { check_variable = { GRE.elas_manpower > 50000 } }
+        add_to_temp_variable = { magnitude = 1 }
+    }
+    ################################################
+    if = {
+        limit = { check_variable = { GRE.elas_ratio > 1.99 } }
+        add_to_temp_variable = { magnitude = 10 }
+    }
+    else_if = {
+        limit = { check_variable = { GRE.elas_ratio > 1.74 } }
+        add_to_temp_variable = { magnitude = 8 }
+    }
+    else_if = {
+        limit = { check_variable = { GRE.elas_ratio > 1.49 } }
+        add_to_temp_variable = { magnitude = 6 }
+    }
+    else_if = {
+        limit = { check_variable = { GRE.elas_ratio > 1.24 } }
+        add_to_temp_variable = { magnitude = 4 }
+    }
+    else_if = {
+        limit = { check_variable = { GRE.elas_ratio > 0.99 } }
+        add_to_temp_variable = { magnitude = 2 }
+    }
+    else_if = {
+        limit = { check_variable = { GRE.elas_ratio > 0.74 } }
+        add_to_temp_variable = { magnitude = -2 }
+    }
+    else_if = {
+        limit = { check_variable = { GRE.elas_ratio > 0.49 } }
+        add_to_temp_variable = { magnitude = -4 }
+    }
+    else_if = {
+        limit = { check_variable = { GRE.elas_ratio > 0.24 } }
+        add_to_temp_variable = { magnitude = -6 }
+    }
+    else = {
+        add_to_temp_variable = { magnitude = -10 }
+    }
+    ################################################
+    clamp_temp_variable = {
+        var = magnitude
+        min = -10
+        max = 10
+    }
+    ################################################
+    random_list = {
+        25 = {
+            randomize_temp_variable = {
+                var = greek_combatant_size
+                distribution = uniform
+                min = 200
+                max = 400
+            }
+        }
+        30 = {
+            randomize_temp_variable = {
+                var = greek_combatant_size
+                distribution = uniform
+                min = 100
+                max = 200
+            }
+        }
+        25 = {
+            randomize_temp_variable = {
+                var = greek_combatant_size
+                distribution = uniform
+                min = 400
+                max = 600
+            }
+        }
+        10 = {
+            randomize_temp_variable = {
+                var = greek_combatant_size
+                distribution = uniform
+                min = 600
+                max = 1200
+            }
+        }
+        10 = {
+            randomize_temp_variable = {
+                var = greek_combatant_size
+                distribution = uniform
+                min = 1200
+                max = 2500
+            }
+        }
+    }
+    ##################################################################
+    set_temp_variable = { opponent_combatant_size = greek_combatant_size }
+    random_list = {
+        10 = {
+            randomize_temp_variable = {
+                var = x
+                distribution = uniform
+                min = 400
+                max = 600
+            }
+            add_to_temp_variable = { opponent_combatant_size = x }
+        }
+        25 = {
+            randomize_temp_variable = {
+                var = x
+                distribution = uniform
+                min = 200
+                max = 400
+            }
+            add_to_temp_variable = { opponent_combatant_size = x }
+        }
+        30 = {
+            randomize_temp_variable = {
+                var = x
+                distribution = uniform
+                min = -100
+                max = 100
+            }
+            add_to_temp_variable = { opponent_combatant_size = x }
+        }
+        25 = {
+            randomize_temp_variable = {
+                var = x
+                distribution = uniform
+                min = -400
+                max = -200
+            }
+            add_to_temp_variable = { opponent_combatant_size = x }
+        }
+        10 = {
+            randomize_temp_variable = {
+                var = x
+                distribution = uniform
+                min = -600
+                max = -400
+            }
+            add_to_temp_variable = { opponent_combatant_size = x }
+        }
+    }
+    ##################################################################
+    
+    ################################################
+    set_temp_variable = { t1 = greek_combatant_size }
+    set_temp_variable = { t2 = opponent_combatant_size }
+    set_temp_variable = { t3 = opponent_combatant_size }
+    if = { 
+        limit = { check_variable = { magnitude < -6 } }
+        randomize_temp_variable = {
+            var = temp_manpower_lost
+            distribution = uniform
+            min = 0.85
+            max = 1
+        }
+        multiply_temp_variable = { t1 = temp_manpower_lost }                            ## Greek Manpower Lost
+        randomize_temp_variable = {
+            var = temp_manpower_lost
+            distribution = uniform
+            min = 0.05
+            max = 0.15
+        }
+        multiply_temp_variable = { t1 = temp_manpower_lost }                            ## Enemy Manpower Lost
+    }
+    else_if = { 
+        limit = { check_variable = { magnitude < -4 } }
+        randomize_temp_variable = {
+            var = temp_manpower_lost
+            distribution = uniform
+            min = 0.45
+            max = 0.85
+        }
+        multiply_temp_variable = { t1 = temp_manpower_lost }                            ## Greek Manpower Lost
+        randomize_temp_variable = {
+            var = temp_manpower_lost
+            distribution = uniform
+            min = 0.05
+            max = 0.25
+        }
+        multiply_temp_variable = { t1 = temp_manpower_lost }                            ## Enemy Manpower Lost
+    }
+    else_if = { 
+        limit = { check_variable = { magnitude < 0 } }
+        randomize_temp_variable = {
+            var = temp_manpower_lost
+            distribution = uniform
+            min = 0.05
+            max = 0.45
+        }
+        multiply_temp_variable = { t1 = temp_manpower_lost }                            ## Greek Manpower Lost
+        randomize_temp_variable = {
+            var = temp_manpower_lost
+            distribution = uniform
+            min = 0.05
+            max = 0.35
+        }
+        multiply_temp_variable = { t1 = temp_manpower_lost }                            ## Enemy Manpower Lost
+    }
+    else_if = { 
+        limit = { check_variable = { magnitude < 5 } }
+        randomize_temp_variable = {
+            var = temp_manpower_lost
+            distribution = uniform
+            min = 0.05
+            max = 0.35
+        }
+        multiply_temp_variable = { t1 = temp_manpower_lost }                            ## Greek Manpower Lost
+        randomize_temp_variable = {
+            var = temp_manpower_lost
+            distribution = uniform
+            min = 0.05
+            max = 0.45
+        }
+        multiply_temp_variable = { t1 = temp_manpower_lost }                            ## Enemy Manpower Lost
+        randomize_temp_variable = {
+            var = temp_equipment_captured
+            distribution = uniform
+            min = 0.05
+            max = 0.25
+        }
+        multiply_temp_variable = { t3 = temp_equipment_captured }                       ## Equipment that we captured
+    }
+    else_if = { 
+        limit = { check_variable = { magnitude < 7 } }
+        randomize_temp_variable = {
+            var = temp_manpower_lost
+            distribution = uniform
+            min = 0.05
+            max = 0.25
+        }
+        multiply_temp_variable = { t1 = temp_manpower_lost }                            ## Greek Manpower Lost
+        randomize_temp_variable = {
+            var = temp_manpower_lost
+            distribution = uniform
+            min = 0.45
+            max = 0.85
+        }
+        multiply_temp_variable = { t1 = temp_manpower_lost }                            ## Enemy Manpower Lost
+        randomize_temp_variable = {
+            var = temp_equipment_captured
+            distribution = uniform
+            min = 0.05
+            max = 0.40
+        }
+        multiply_temp_variable = { t3 = temp_equipment_captured }                       ## Equipment that we captured
+    }
+    else_if = { 
+        limit = { check_variable = { magnitude < 9 } }
+        randomize_temp_variable = {
+            var = temp_manpower_lost
+            distribution = uniform
+            min = 0.05
+            max = 0.2
+        }
+        multiply_temp_variable = { t1 = temp_manpower_lost }                            ## Greek Manpower Lost
+        randomize_temp_variable = {
+            var = temp_manpower_lost
+            distribution = uniform
+            min = 0.55
+            max = 0.90
+        }
+        multiply_temp_variable = { t1 = temp_manpower_lost }                            ## Enemy Manpower Lost
+        randomize_temp_variable = {
+            var = temp_equipment_captured
+            distribution = uniform
+            min = 0.05
+            max = 0.60
+        }
+        multiply_temp_variable = { t3 = temp_equipment_captured }                       ## Equipment that we captured
+    }
+    else_if = { 
+        limit = { check_variable = { magnitude < 11 } }
+        randomize_temp_variable = {
+            var = temp_manpower_lost
+            distribution = uniform
+            min = 0.05
+            max = 0.10
+        }
+        multiply_temp_variable = { t1 = temp_manpower_lost }                            ## Greek Manpower Lost
+        randomize_temp_variable = {
+            var = temp_manpower_lost
+            distribution = uniform
+            min = 0.85
+            max = 1
+        }
+        multiply_temp_variable = { t1 = temp_manpower_lost }                            ## Enemy Manpower Lost
+        randomize_temp_variable = {
+            var = temp_equipment_captured
+            distribution = uniform
+            min = 0.25
+            max = 1
+        }
+        multiply_temp_variable = { t3 = temp_equipment_captured }                       ## Equipment that we captured
+    }
+    ####################################################################################################################################
+    if = { 
+        limit = { check_variable = { magnitude > 0 } }
+        set_temp_variable = { t4 = t1 }                                                  ## Lost half equipment on victories (lets say they get recovered)
+        divide_temp_variable = { t4 = 2 }
+        add_to_variable = { GRE.elas_equipment = t3 }                                     # Equipment Captured in Battle
+    }
+    subtract_from_variable = { GRE.elas_manpower = t1 }                               # Manpower Lost in Battle
+    subtract_from_variable = { GRE.elas_equipment = t4 }                              # Equipment Lost in Battle
+    add_to_variable = { THIS.losses_from_greek_resistance = t2 }                      # Occupier's losses from resistance (for display purposes)
+    multiply_temp_variable = { t2 = -1 }
+    THIS = { add_manpower = t2 }                                                      # Remove losses from manpower pool.   
+    ####################################################################################################################################    
+}
+
 #######FAMINE
 ######levels 1-10
 #####modifiers: (SEASON, YEAR, STATE, FOCUSES, DECISIONS)
@@ -133,10 +525,10 @@ collect_faction_member_agreeableness = {
 ##      half   -> 6x 30
 
 HS_famine_initialize = {
-for_each_scope_loop = {
+    for_each_scope_loop = {
         array = global.greek_mainland_states_all
         
-        add_dynamic_modifier = { modifier = great_famine }                                     # Add the great_famine to state
+        THIS = { add_dynamic_modifier = { modifier = great_famine } }                                     # Add the great_famine to state
     }
 }
 
@@ -445,61 +837,145 @@ HS_famine_toll_proc = {
         }
         #####[BELOW THIS POSITIVE CHANGES]#####
         
+        
+        #####[CLAMP LEVEL]#####
+        clamp_temp_variable = {
+            var = level
+            min = 0
+            max = 10
+        }
         ##########[FINAL CALC]##########
         if = {
             limit={check_variable={level<1}}
-            THIS = { add_manpower = -5 }
-            add_to_variable = { GRE.total_lost_to_famine = 5 }
+            randomize_temp_variable = {
+                var = x
+                distribution = uniform
+                min = -10
+                max = 0
+            }
+            THIS = { add_manpower = x }
+            multiply_temp_variable = { x = -1 }
+            add_to_variable = { GRE.total_lost_to_famine = x }
         }
         else_if = {
             limit={check_variable={level<2}}
-            THIS = { add_manpower = -10 }
-            add_to_variable = { GRE.total_lost_to_famine = 10 }
+            randomize_temp_variable = {
+                var = x
+                distribution = uniform
+                min = -20
+                max = 0
+            }
+            THIS = { add_manpower = x }
+            multiply_temp_variable = { x = -1 }
+            add_to_variable = { GRE.total_lost_to_famine = 1 }
         }
         else_if = {
             limit={check_variable={level<3}}
-            THIS = { add_manpower = -20 }
-            add_to_variable = { GRE.total_lost_to_famine = 20 }
+            randomize_temp_variable = {
+                var = x
+                distribution = uniform
+                min = -30
+                max = -10
+            }
+            THIS = { add_manpower = x }
+            multiply_temp_variable = { x = -1 }
+            add_to_variable = { GRE.total_lost_to_famine = x }
         }
         else_if = {
             limit={check_variable={level<4}}
-            THIS = { add_manpower = -40 }
-            add_to_variable = { GRE.total_lost_to_famine = 40 }
+            randomize_temp_variable = {
+                var = x
+                distribution = uniform
+                min = -60
+                max = -20
+            }
+            THIS = { add_manpower = x }
+            multiply_temp_variable = { x = -1 }
+            add_to_variable = { GRE.total_lost_to_famine = x }
         }
         else_if = {
             limit={check_variable={level<5}}
-            THIS = { add_manpower = -60 }
-            add_to_variable = { GRE.total_lost_to_famine = 60 }
+            randomize_temp_variable = {
+                var = x
+                distribution = uniform
+                min = -80
+                max = -40
+            }
+            THIS = { add_manpower = x }
+            multiply_temp_variable = { x = -1 }
+            add_to_variable = { GRE.total_lost_to_famine = x }
         }
         else_if = {
             limit={check_variable={level<6}}
-            THIS = { add_manpower = -80 }
-            add_to_variable = { GRE.total_lost_to_famine = 80 }
+            randomize_temp_variable = {
+                var = x
+                distribution = uniform
+                min = -100
+                max = -60
+            }
+            THIS = { add_manpower = x }
+            multiply_temp_variable = { x = -1 }
+            add_to_variable = { GRE.total_lost_to_famine = x }
         }
         else_if = {
             limit={check_variable={level<7}}
-            THIS = { add_manpower = -100 }
-            add_to_variable = { GRE.total_lost_to_famine = 100 }
+            randomize_temp_variable = {
+                var = x
+                distribution = uniform
+                min = -125
+                max = -75
+            }
+            THIS = { add_manpower = x }
+            multiply_temp_variable = { x = -1 }
+            add_to_variable = { GRE.total_lost_to_famine = x }
         }
         else_if = {
             limit={check_variable={level<8}}
-            THIS = { add_manpower = -125 }
-            add_to_variable = { GRE.total_lost_to_famine = 125 }
+            randomize_temp_variable = {
+                var = x
+                distribution = uniform
+                min = -200
+                max = -100
+            }
+            THIS = { add_manpower = x }
+            multiply_temp_variable = { x = -1 }
+            add_to_variable = { GRE.total_lost_to_famine = x }
         }
         else_if = {
             limit={check_variable={level<9}}
-            THIS = { add_manpower = -150 }
-            add_to_variable = { GRE.total_lost_to_famine = 150 }
+            randomize_temp_variable = {
+                var = x
+                distribution = uniform
+                min = -250
+                max = -150
+            }
+            THIS = { add_manpower = x }
+            multiply_temp_variable = { x = -1 }
+            add_to_variable = { GRE.total_lost_to_famine = x }
         }
         else_if = {
             limit={check_variable={level<10}}
-            THIS = { add_manpower = -175 }
-            add_to_variable = { GRE.total_lost_to_famine = 175 }
+            randomize_temp_variable = {
+                var = x
+                distribution = uniform
+                min = -350
+                max = -250
+            }
+            THIS = { add_manpower = x }
+            multiply_temp_variable = { x = -1 }
+            add_to_variable = { GRE.total_lost_to_famine = x }
         }
         else_if = {
             limit={check_variable={level<11}}
-            THIS = { add_manpower = -200 }
-            add_to_variable = { GRE.total_lost_to_famine = 200 }
+            randomize_temp_variable = {
+                var = x
+                distribution = uniform
+                min = -500
+                max = -300
+            }
+            THIS = { add_manpower = x }
+            multiply_temp_variable = { x = -1 }
+            add_to_variable = { GRE.total_lost_to_famine = x }
         } 
     }
 }
@@ -574,7 +1050,6 @@ HS_set_up_state_modifiers = {
         limit = { GRE = { has_completed_focus = GRE_crete_falls } }
         add_to_array = { global.greek_mainland_states_all = 182 }
     }
-    HS_add_angered_greeks = yes
 }
 
 HS_add_angered_greeks = {
@@ -761,24 +1236,34 @@ HS_set_up_occupation_zones = {                                                  
         array = italian_occupation_zone
         ITA = { set_province_controller = v }
     }
+    HS_set_up_state_modifiers = yes
 }
 
 GR_HS_split_ideas = {
     if = {
+        limit = { has_idea = GRE_masters_of_shipbuilding_2 }
+        remove_ideas = GRE_masters_of_shipbuilding_2
+        set_country_flag = had_masters_of_shipbuilding_2
+    }
+    if = {
         limit = { has_idea = GRE_masters_of_shipbuilding }
         remove_ideas = GRE_masters_of_shipbuilding
+        set_country_flag = had_masters_of_shipbuilding
     }
     if = {
         limit = { has_idea = GRE_submarine_expertise }
         remove_ideas = GRE_submarine_expertise
+        set_country_flag = had_submarine_expertise
     }
     if = {
         limit = { has_idea = GRE_IKA }
         remove_ideas = GRE_IKA
+        set_country_flag = had_IKA
     }
     if = {
         limit = { has_idea = GRE_new_corporatism_combined }
         remove_ideas = GRE_new_corporatism_combined
+        set_country_flag = had_new_corporatism_combined
     }
     else = {
         remove_ideas = GRE_sophistry_and_science_idea
@@ -790,6 +1275,7 @@ GR_HS_split_ideas = {
     if = {
         limit = { has_idea = GRE_cooperate_with_foreign_monopolies_spirit }
         remove_ideas = GRE_cooperate_with_foreign_monopolies_spirit
+        set_country_flag = had_cooperate_with_foreign_monopolies_spirit
     }
     else = {
         remove_ideas = GRE_foreign_monopolies
@@ -808,6 +1294,7 @@ GR_HS_split_ideas = {
     if = {
         limit = { has_idea = GRE_eon_kanellopoulos_year_2 }
         remove_ideas = GRE_eon_kanellopoulos_year_2
+        set_country_flag = had_eon_kanellopoulos_year_2
     }
     else = {
         remove_ideas = GRE_eon_kanellopoulos_year_1
@@ -816,23 +1303,12 @@ GR_HS_split_ideas = {
     if = {
         limit = { has_idea = GRE_schachtplan_incorporated }
         remove_ideas = GRE_schachtplan_incorporated
+        set_country_flag = had_schachtplan_incorporated
     }
     else = {
         remove_ideas = GRE_schachtplan_fascistised
         remove_ideas = GRE_schachtplan_modified
         remove_ideas = GRE_schachtplan
-    }
-    if = {
-        limit = { has_idea = GRE_submarine_expertise }
-        remove_ideas = GRE_submarine_expertise
-    }
-    if = {
-        limit = { has_idea = GRE_submarine_expertise }
-        remove_ideas = GRE_submarine_expertise
-    }
-    if = {
-        limit = { has_idea = GRE_submarine_expertise }
-        remove_ideas = GRE_submarine_expertise
     }
     remove_ideas = GRE_met_line_2
     remove_ideas = GRE_met_line

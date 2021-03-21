@@ -1568,7 +1568,19 @@ ideas = {
             allowed_civil_war = {
                 always = yes
             }
-                
+            
+            cancel = {
+                has_idea = GRE_submarine_expertise
+            }
+            
+            on_remove = {
+                if = {
+                    limit = { has_idea = GRE_submarine_expertise }
+                    remove_ideas = GRE_submarine_expertise
+                    add_ideas = GRE_masters_of_shipbuilding_2
+                }
+            }
+            
             picture = gre_shipyards_early
             
             removal_cost = -1
@@ -1609,6 +1621,39 @@ ideas = {
 			equipment_bonus = {
 				submarine = {
                     build_cost_ic = -0.12 instant = yes
+                }
+			}       
+        }
+        
+        GRE_masters_of_shipbuilding_2 = {
+        
+            allowed = {
+                original_tag = GRE
+            }
+            
+            allowed_civil_war = {
+                always = yes
+            }
+                
+            picture = gre_royal_ship
+            
+            removal_cost = -1
+            
+			equipment_bonus = {
+				capital_ship = {
+					build_cost_ic = -0.08 instant = yes
+				}
+                carrier = {
+                    build_cost_ic = -0.08 instant = yes
+                }
+                screen_ship = {
+                    build_cost_ic = -0.08 instant = yes
+                }
+                submarine = {
+                    build_cost_ic = -0.2 instant = yes
+                }
+                convoy = {
+                    build_cost_ic = -0.15 instant = yes
                 }
 			}       
         }

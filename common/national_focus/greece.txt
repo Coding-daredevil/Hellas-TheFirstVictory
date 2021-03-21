@@ -3873,6 +3873,7 @@ focus_tree = {
                 remove_idea = GRE_domestic_competition_2
                 add_idea = GRE_domestic_competition_3
             }
+            add_research_slot = 1
 		}
 	}
 
@@ -7409,8 +7410,44 @@ focus_tree = {
 		}
 
 		completion_reward = {
-            custom_effect_tooltip = GRE_seek_aid_from_diaspora_tt
+            
+            
 		}
+        
+        completion_reward = {
+            custom_effect_tooltip = GRE_seek_aid_from_diaspora_tt
+            if = { 
+                limit = { has_completed_focus = GRE_dreams_of_a_grand_coalition } 
+                set_variable = { diasp_docks = 20 }
+                add_offsite_building = { type = dockyard level = 20 }
+            }
+            else_if = { 
+                limit = { 
+                    check_variable = { fct_dem > 80 }
+                    check_variable = { fct_com > 30 }
+                } 
+                set_variable = { diasp_docks = 15 }
+                add_offsite_building = { type = dockyard level = 15 }
+            }
+            else_if = { 
+                limit = { 
+                    check_variable = { fct_dem > 50 }
+                    check_variable = { fct_com > 20 }
+                } 
+                set_variable = { diasp_docks = 10 }
+                add_offsite_building = { type = dockyard level = 10 }
+            }
+            else_if = { 
+                limit = { 
+                    check_variable = { fct_dem > 30 }
+                } 
+                set_variable = { diasp_docks = 5 }
+                add_offsite_building = { type = dockyard level = 5 }
+            }
+            hidden_effect = {
+                activate_mission = GRE_dockyards_for_some_days    
+            }            
+        }
 	}    
     
 	focus = {
