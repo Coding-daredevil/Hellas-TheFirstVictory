@@ -20,6 +20,15 @@ GRE_check = {
 }
 
 #########################################################
+####################[GAME OF SHADOWS]####################
+#########################################################
+clear_all_operation_flags = {
+    clr_country_flag = gos_default
+    clr_country_flag = gos_agency_cooperation
+    clr_country_flag = gos_allowed_divisions
+}
+
+#########################################################
 ######################[GREEK TRIUMPH]####################
 #########################################################
 collect_faction_member_agreeableness = {
@@ -1824,6 +1833,15 @@ GRE_set_country_willing_to_help_bulgaria = {
 #########################################################
 ##############[CALCULATE FACTORY DONATIONS]##############
 #########################################################
+##############[Max Divisions]
+GRE_calculate_max_divisions = {
+    set_temp_variable = { x = ITA.army_intel@GRE }
+    multiply_temp_variable = { x = -0.25 }
+    add_to_temp_variable = { x = 30 }
+    round_temp_variable = x
+    
+    set_variable = { GRE.max_divs_allowed = x }
+}
 ##############[Subsidized]
 GRE_subsidized_check = {
     clear_variable = sub_civs 

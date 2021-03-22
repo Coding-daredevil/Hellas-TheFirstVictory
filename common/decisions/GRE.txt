@@ -4557,6 +4557,29 @@ GRE_hellenic_academy_category = {
 }
 
 political_actions = {
+
+    add_res1234 = {
+        allowed = {
+            original_tag = GRE
+        }
+        
+        cost = 10
+        
+        visible = { 
+            is_debug = yes
+        }
+        
+        complete_effect = {
+            GRE = {
+                add_collaboration = {
+                    target = ITA
+                    value = 0.3
+                }
+            }
+            #GER = { ELAS_resistance_battle_sandbox = yes }
+            #HS_increase_armed_resistance_by_one = yes
+        }
+    }
     
     add_stuff3 = {
         allowed = {
@@ -5825,6 +5848,39 @@ GRE_the_eastern_prospect_category = {
 
 GRE_a_game_of_shadows_category = {
 
+    GoS_agency_cooperation = {
+		icon = generic_operation
+
+		allowed = { 
+			tag = GRE
+		}
+
+		available = {
+            always = yes
+		}
+
+		visible = {
+            NOT = { check_variable = { var = GRE_chose_partner value = 1 compare = greater_than_or_equals } }
+            has_completed_focus = GRE_a_game_of_shadows
+		}
+        
+        complete_effect = {
+            if = {
+                limit = { has_country_flag = gos_agency_cooperation }
+                clear_all_operation_flags = yes
+                set_country_flag = gos_default
+            }
+            else = {
+                clear_all_operation_flags = yes
+                set_country_flag = gos_agency_cooperation
+            }
+        }
+        
+        cost = 0
+		days_remove = 0
+        days_re_enable = 0
+	}  
+
 	establish_cooperation_between_agencies = {
 		icon = generic_operation
 
@@ -5839,6 +5895,7 @@ GRE_a_game_of_shadows_category = {
 		visible = {
             NOT = { check_variable = { var = GRE_chose_partner value = 1 compare = greater_than_or_equals } }
             has_completed_focus = GRE_a_game_of_shadows
+            has_country_flag = gos_agency_cooperation
 		}
         
 		target_trigger = {
@@ -5854,21 +5911,56 @@ GRE_a_game_of_shadows_category = {
                 tag = CHI
                 }
             }
-		}        
-
-		ai_will_do = {
-			factor = 1
 		}
 
 		fire_only_once = yes
         
         complete_effect = {
             add_to_variable = { GRE_chose_partner = 1 } 
+            upgrade_intelligence_agency = upgrade_economy_civilian
+            upgrade_intelligence_agency = upgrade_passive_defense
+            FROM = {
+                upgrade_intelligence_agency = upgrade_passive_defense
+            }
         }
+        
+        cost = 75
+		days_remove = 14
+	} 
 
-		days_remove = 90
+    GoS_allowed_divisions = {
+		icon = generic_operation
 
-	}    
+		allowed = { 
+			tag = GRE
+		}
+
+		available = {
+            always = yes
+		}
+
+		visible = {
+            has_completed_focus = GRE_a_game_of_shadows
+            NOT = { has_global_flag = GRE_grecoitalian_start }
+            NOT = { has_war_with = ITA }
+		}
+        
+        complete_effect = {
+            if = {
+                limit = { has_country_flag = gos_allowed_divisions }
+                clear_all_operation_flags = yes
+                set_country_flag = gos_default
+            }
+            else = {
+                clear_all_operation_flags = yes
+                set_country_flag = gos_allowed_divisions
+            }
+        }
+        
+        cost = 0
+		days_remove = 0
+        days_re_enable = 0
+	}  
 
 }
 
@@ -22406,7 +22498,13 @@ GRE_resistance_category = {
         }
         
         complete_effect = {
-            GER = { ELAS_resistance_battle_sandbox = yes }
+            GRE = {
+                add_collaboration = {
+                    target = ITA
+                    value = 0.3
+                }
+            }
+            #GER = { ELAS_resistance_battle_sandbox = yes }
             #HS_increase_armed_resistance_by_one = yes
         }
     }

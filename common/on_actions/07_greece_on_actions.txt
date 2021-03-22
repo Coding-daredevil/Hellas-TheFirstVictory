@@ -246,6 +246,13 @@ on_actions = {
                 }
                 GRE_mobilized_check = yes
             }
+            if = { 
+                limit = {
+                    GRE = { NOT = { has_war_with = ITA } }
+                    NOT = { has_global_flag = GRE_grecoitalian_start }
+                }
+                GRE_calculate_max_divisions = yes
+            }
         }
     }
     
@@ -758,6 +765,11 @@ on_actions = {
                         has_global_flag = GRE_crete_still_holding
                         has_global_flag = GRE_government_in_exile
                     }
+                }
+                if = {
+                    limit = { event_target:hellenic_state = { has_stability = 0 } }                                                                     # Stability hits 0%
+                    country_event = { id = hellas.1009 days = 0 }                                           
+                    event_target:hellenic_state = { id = hellas.1009 days = 0 }
                 }
                 add_to_variable = { days_of_oppression = 1 }                                                                                            # Counter
                 GRE_calculate_government_in_exile = yes                                                                                                 # Update Government in Exile dynamic modifier
