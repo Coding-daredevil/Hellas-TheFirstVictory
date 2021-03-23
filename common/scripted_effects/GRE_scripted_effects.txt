@@ -20,6 +20,31 @@ GRE_check = {
 }
 
 #########################################################
+####################[GRE/D05 XOR FUC]####################
+#########################################################
+
+gre_hs_xor = {                                                                  ## Here we basically implement an XOR function to return (-> var:event_sender) the ID of the tag (between GRE/Hellenic State) that is controlled by the human player
+    if = {                                                                       # Basically we do not want to send the event twice, while we also ensure that it goes to the player.
+        limit = {
+            GRE = { is_ai = no }
+            event_target:hellenic_state = { is_ai = yes }
+        }
+        set_variable = { event_sender = GRE.id }
+    }
+    else_if = {
+        limit = {
+            GRE = { is_ai = yes }
+            event_target:hellenic_state = { is_ai = no }
+        }
+        set_variable = { event_sender = event_target:hellenic_state } 
+    }
+    else = {
+        set_variable = { event_sender = GRE.id }
+    }
+}
+
+
+#########################################################
 ####################[GAME OF SHADOWS]####################
 #########################################################
 clear_all_operation_flags = {

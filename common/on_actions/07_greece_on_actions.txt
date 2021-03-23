@@ -766,13 +766,22 @@ on_actions = {
                         has_global_flag = GRE_government_in_exile
                     }
                 }
+                ##################################################################
+                add_to_variable = { days_of_oppression = 1 }                                                                                            # Counter
+                ##################################################################
+                GRE_calculate_government_in_exile = yes                                                                                                 # Update Government in Exile dynamic modifier
+                ##################################################################      
                 if = {
-                    limit = { event_target:hellenic_state = { has_stability = 0 } }                                                                     # Stability hits 0%
+                    limit = { 
+                        event_target:hellenic_state = { 
+                            exists = yes
+                            has_stability < 0.01                                                                                                        # Stability hits 0%
+                        } 
+                    }
                     country_event = { id = hellas.1009 days = 0 }                                           
                     event_target:hellenic_state = { id = hellas.1009 days = 0 }
                 }
-                add_to_variable = { days_of_oppression = 1 }                                                                                            # Counter
-                GRE_calculate_government_in_exile = yes                                                                                                 # Update Government in Exile dynamic modifier
+                ##################################################################
                 if = {                                                                                                                                 ## Fate of Crete
                     limit = {
                         check_variable = { days_of_oppression > 35 }
