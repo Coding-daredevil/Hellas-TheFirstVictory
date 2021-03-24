@@ -5960,7 +5960,83 @@ GRE_a_game_of_shadows_category = {
         cost = 0
 		days_remove = 0
         days_re_enable = 0
-	}  
+	}
+
+    GoS_bulgarian_dillema = {
+		icon = generic_operation
+
+		allowed = { 
+			tag = GRE
+		}
+
+		available = {
+            always = yes
+		}
+
+		visible = {
+            NOT = { check_variable = { var = GRE_chose_partner value = 1 compare = greater_than_or_equals } }
+            has_completed_focus = GRE_a_game_of_shadows
+            has_country_flag = GRE_anti_bulgarian_plans
+		}
+        
+        complete_effect = {
+            if = {
+                limit = { has_country_flag = gos_bulgarian_dillema }
+                clear_all_operation_flags = yes
+                set_country_flag = gos_default
+            }
+            else = {
+                clear_all_operation_flags = yes
+                set_country_flag = gos_bulgarian_dillema
+            }
+        }
+        
+        cost = 0
+		days_remove = 0
+        days_re_enable = 0
+	}
+    
+    reel_countries_to_cause = {
+		icon = generic_operation
+
+		allowed = { 
+			tag = GRE
+		}
+
+		available = {
+            has_intelligence_agency = yes
+		}
+
+		visible = {
+            has_completed_focus = GRE_a_game_of_shadows
+            has_country_flag = gos_bulgarian_dillema
+		}
+        
+		target_trigger = {
+			FROM =  {
+                OR = {
+                    tag = GER 
+                    tag = ITA
+                    tag = ENG 
+                    tag = FRA
+                    tag = TUR
+                    tag = YUG
+                    tag = ROM
+                }
+            }
+		}
+
+		fire_only_once = yes
+        
+        complete_effect = {
+            add_to_array = { GRE.reeled_countries = FROM.id }
+            custom_effect_tooltip = "Gains the support of [FROM.GetNameDef]"
+        }
+        
+        cost = 75
+		days_remove = 14
+	}
+    
 
 }
 
@@ -13379,9 +13455,9 @@ GRE_kathestos_exoteriki_politiki = {
         cost = 200
 
         remove_effect = {
-            set_country_flag = GRE_anti_bulgarian_plans
             subtract_from_variable = { BUL.favor@GRE = 5 }
-            custom_effect_tooltip = GRE_fdm_bulgaria_tt          
+            custom_effect_tooltip = GRE_fdm_bulgaria_tt   
+            set_country_flag = GRE_anti_bulgarian_plans       
         }
     }
 
@@ -21850,7 +21926,7 @@ GRE_resistance_category = {
         }
 		visible = { has_country_flag = GRE_hidden_flag }
 		is_good = no
-        timeout_effect = {{ gre_hs_xor = yes var:event_sender = { country_event = { id = hellas.2002 days = 0 } } }}
+        timeout_effect = { gre_hs_xor = yes var:event_sender = { country_event = { id = hellas.2002 days = 0 } } }
 	}
     repr_doxato = {                                              
 		#icon = eng_support_imperialist_coup                        #
@@ -21865,7 +21941,7 @@ GRE_resistance_category = {
         }
 		visible = { has_country_flag = GRE_hidden_flag }
 		is_good = no
-        #timeout_effect = {}
+        timeout_effect = { gre_hs_xor = yes var:event_sender = { country_event = { id = hellas.2003 days = 0 } } }
 	}
     repr_domenikon = {                                              
 		#icon = eng_support_imperialist_coup                        #
@@ -21880,7 +21956,7 @@ GRE_resistance_category = {
         }
 		visible = { has_country_flag = GRE_hidden_flag }
 		is_good = no
-        #timeout_effect = {}
+        timeout_effect = { gre_hs_xor = yes var:event_sender = { country_event = { id = hellas.2004 days = 0 } } }
 	}
     repr_feneos = {                                              
 		#icon = eng_support_imperialist_coup                        #
@@ -21895,7 +21971,7 @@ GRE_resistance_category = {
         }
 		visible = { has_country_flag = GRE_hidden_flag }
 		is_good = no
-        #timeout_effect = {}
+        timeout_effect = { gre_hs_xor = yes var:event_sender = { country_event = { id = hellas.2005 days = 0 } } }
 	}
     repr_viannos = {                                              
 		#icon = eng_support_imperialist_coup                        #
@@ -21910,7 +21986,7 @@ GRE_resistance_category = {
         }
 		visible = { has_country_flag = GRE_hidden_flag }
 		is_good = no
-        #timeout_effect = {}
+        timeout_effect = { gre_hs_xor = yes var:event_sender = { country_event = { id = hellas.2006 days = 0 } } }
 	}
     repr_acqui_div = {                                              
 		#icon = eng_support_imperialist_coup                        #
@@ -21940,7 +22016,7 @@ GRE_resistance_category = {
         }
 		visible = { has_country_flag = GRE_hidden_flag }
 		is_good = no
-        #timeout_effect = {}
+        timeout_effect = { gre_hs_xor = yes var:event_sender = { country_event = { id = hellas.2007 days = 0 } } }
 	}
     repr_paramythia = {                                              
 		#icon = eng_support_imperialist_coup                        #
@@ -21955,7 +22031,7 @@ GRE_resistance_category = {
         }
 		visible = { has_country_flag = GRE_hidden_flag }
 		is_good = no
-        #timeout_effect = {}
+        timeout_effect = { gre_hs_xor = yes var:event_sender = { country_event = { id = hellas.2008 days = 0 } } }
 	}
     repr_lyngiades = {                                              
 		#icon = eng_support_imperialist_coup                        #
@@ -21970,7 +22046,7 @@ GRE_resistance_category = {
         }
 		visible = { has_country_flag = GRE_hidden_flag }
 		is_good = no
-        #timeout_effect = {}
+        timeout_effect = { gre_hs_xor = yes var:event_sender = { country_event = { id = hellas.2009 days = 0 } } }
 	}
     repr_kallikratis = {                                              
 		#icon = eng_support_imperialist_coup                        #
@@ -21985,7 +22061,7 @@ GRE_resistance_category = {
         }
 		visible = { has_country_flag = GRE_hidden_flag }
 		is_good = no
-        #timeout_effect = {}
+        timeout_effect = { gre_hs_xor = yes var:event_sender = { country_event = { id = hellas.2010 days = 0 } } }
 	}
     repr_kalavryta = {                                              
 		#icon = eng_support_imperialist_coup                        #
@@ -22000,7 +22076,7 @@ GRE_resistance_category = {
         }
 		visible = { has_country_flag = GRE_hidden_flag }
 		is_good = no
-        #timeout_effect = {}
+        timeout_effect = { gre_hs_xor = yes var:event_sender = { country_event = { id = hellas.2011 days = 0 } } }
 	}
     repr_drakeia = {                                              
 		#icon = eng_support_imperialist_coup                        #
@@ -22015,7 +22091,7 @@ GRE_resistance_category = {
         }
 		visible = { has_country_flag = GRE_hidden_flag }
 		is_good = no
-        #timeout_effect = {}
+        timeout_effect = { gre_hs_xor = yes var:event_sender = { country_event = { id = hellas.2012 days = 0 } } }
 	}
     repr_542 = {                                              
 		#icon = eng_support_imperialist_coup                        #
@@ -22030,7 +22106,7 @@ GRE_resistance_category = {
         }
 		visible = { has_country_flag = GRE_hidden_flag }
 		is_good = no
-        #timeout_effect = {}
+        timeout_effect = { gre_hs_xor = yes var:event_sender = { country_event = { id = hellas.2013 days = 0 } } }
 	}
     repr_katranitsa = {                                              
 		#icon = eng_support_imperialist_coup                        #
@@ -22045,7 +22121,7 @@ GRE_resistance_category = {
         }
 		visible = { has_country_flag = GRE_hidden_flag }
 		is_good = no
-        #timeout_effect = {}
+        timeout_effect = { gre_hs_xor = yes var:event_sender = { country_event = { id = hellas.2014 days = 0 } } }
 	}
     repr_kaisariani = {                                              
 		#icon = eng_support_imperialist_coup                        #
@@ -22060,7 +22136,7 @@ GRE_resistance_category = {
         }
 		visible = { has_country_flag = GRE_hidden_flag }
 		is_good = no
-        #timeout_effect = {}
+        timeout_effect = { gre_hs_xor = yes var:event_sender = { country_event = { id = hellas.2015 days = 0 } } }
 	}
     repr_distomo = {                                              
 		#icon = eng_support_imperialist_coup                        #
@@ -22075,7 +22151,7 @@ GRE_resistance_category = {
         }
 		visible = { has_country_flag = GRE_hidden_flag }
 		is_good = no
-        #timeout_effect = {}
+        timeout_effect = { gre_hs_xor = yes var:event_sender = { country_event = { id = hellas.2016 days = 0 } } }
 	}
     repr_pikermi = {                                              
 		#icon = eng_support_imperialist_coup                        #
@@ -22090,7 +22166,7 @@ GRE_resistance_category = {
         }
 		visible = { has_country_flag = GRE_hidden_flag }
 		is_good = no
-        #timeout_effect = {}
+        timeout_effect = { gre_hs_xor = yes var:event_sender = { country_event = { id = hellas.2017 days = 0 } } }
 	}
     repr_mousiotitsa = {                                              
 		#icon = eng_support_imperialist_coup                        #
@@ -22105,7 +22181,7 @@ GRE_resistance_category = {
         }
 		visible = { has_country_flag = GRE_hidden_flag }
 		is_good = no
-        #timeout_effect = {}
+        timeout_effect = { gre_hs_xor = yes var:event_sender = { country_event = { id = hellas.2018 days = 0 } } }
 	}
     repr_kokkinia = {                                              
 		#icon = eng_support_imperialist_coup                        #
@@ -22120,7 +22196,7 @@ GRE_resistance_category = {
         }
 		visible = { has_country_flag = GRE_hidden_flag }
 		is_good = no
-        #timeout_effect = {}
+        timeout_effect = { gre_hs_xor = yes var:event_sender = { country_event = { id = hellas.2019 days = 0 } } }
 	}
     repr_kedros = {                                              
 		#icon = eng_support_imperialist_coup                        #
@@ -22135,7 +22211,7 @@ GRE_resistance_category = {
         }
 		visible = { has_country_flag = GRE_hidden_flag }
 		is_good = no
-        #timeout_effect = {}
+        timeout_effect = { gre_hs_xor = yes var:event_sender = { country_event = { id = hellas.2020 days = 0 } } }
 	}
     repr_malathyros = {                                              
 		#icon = eng_support_imperialist_coup                        #
@@ -22150,7 +22226,7 @@ GRE_resistance_category = {
         }
 		visible = { has_country_flag = GRE_hidden_flag }
 		is_good = no
-        #timeout_effect = {}
+        timeout_effect = { gre_hs_xor = yes var:event_sender = { country_event = { id = hellas.2021 days = 0 } } }
 	}
     repr_chortiatis = {                                              
 		#icon = eng_support_imperialist_coup                        #
@@ -22165,7 +22241,7 @@ GRE_resistance_category = {
         }
 		visible = { has_country_flag = GRE_hidden_flag }
 		is_good = no
-        #timeout_effect = {}
+        timeout_effect = { gre_hs_xor = yes var:event_sender = { country_event = { id = hellas.2022 days = 0 } } }
 	}
     repr_meligalas = {                                              
 		#icon = eng_support_imperialist_coup                        #
@@ -22180,7 +22256,7 @@ GRE_resistance_category = {
         }
 		visible = { has_country_flag = GRE_hidden_flag }
 		is_good = no
-        #timeout_effect = {}
+        timeout_effect = { gre_hs_xor = yes var:event_sender = { country_event = { id = hellas.2023 days = 0 } } }
 	}
     
     

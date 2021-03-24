@@ -51,6 +51,7 @@ clear_all_operation_flags = {
     clr_country_flag = gos_default
     clr_country_flag = gos_agency_cooperation
     clr_country_flag = gos_allowed_divisions
+    clr_country_flag = bulgarian_dillema
 }
 
 #########################################################
@@ -136,6 +137,65 @@ collect_faction_member_agreeableness = {
 #########################################################
 ###################[HELLENIC STATE SE]###################
 #########################################################
+trim_infrastructure = {
+    for_each_scope_loop = {
+        array = global.greek_mainland_states_all
+        
+        THIS = { 
+            if = {
+                limit = { infrastructure > 9 }
+                remove_building = {
+                    type = infrastructure
+                    level = 3
+                }
+            }
+            else_if = {
+                limit = { infrastructure > 8 }
+                remove_building = {
+                    type = infrastructure
+                    level = 3
+                }
+            }
+            else_if = {
+                limit = { infrastructure > 7 }
+                remove_building = {
+                    type = infrastructure
+                    level = 2
+                }
+                damage_building = {
+                    type = infrastructure
+                    damage = 1
+                }
+            }
+            else_if = {
+                limit = { infrastructure > 6 }
+                remove_building = {
+                    type = infrastructure
+                    level = 2
+                }
+            }
+            else_if = {
+                limit = { infrastructure > 5 }
+                remove_building = {
+                    type = infrastructure
+                    level = 1
+                }
+                damage_building = {
+                    type = infrastructure
+                    damage = 1
+                }
+            }
+            else_if = {
+                limit = { infrastructure > 1 }
+                damage_building = {
+                    type = infrastructure
+                    damage = 2
+                }
+            }
+        }
+    }
+}
+
 HS_resistance_manpower_increase = {
     if = { 
         limit = {
