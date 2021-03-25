@@ -5974,7 +5974,6 @@ GRE_a_game_of_shadows_category = {
 		}
 
 		visible = {
-            NOT = { check_variable = { var = GRE_chose_partner value = 1 compare = greater_than_or_equals } }
             has_completed_focus = GRE_a_game_of_shadows
             has_country_flag = GRE_anti_bulgarian_plans
 		}
@@ -6005,6 +6004,14 @@ GRE_a_game_of_shadows_category = {
 
 		available = {
             has_intelligence_agency = yes
+            custom_trigger_tooltip = {
+                tooltip = GRE_favor_at_least_great_from_tt
+                check_variable = { FROM.favor@GRE > 49 }
+            }
+            has_operation_token = {
+				tag = FROM
+				token = token_civilian
+			}
 		}
 
 		visible = {
@@ -6028,13 +6035,14 @@ GRE_a_game_of_shadows_category = {
 
 		fire_only_once = yes
         
-        complete_effect = {
+        remove_effect = {
             add_to_array = { GRE.reeled_countries = FROM.id }
+            set_variable = { GRE.reeled@FROM = 1}
             custom_effect_tooltip = "Gains the support of [FROM.GetNameDef]"
         }
         
-        cost = 75
-		days_remove = 14
+        cost = 10
+		days_remove = 7
 	}
     
 
@@ -13421,21 +13429,6 @@ GRE_kathestos_exoteriki_politiki = {
 		}
 
 		available = {
-            custom_trigger_tooltip = {
-                tooltip = GRE_favor_at_least_great_power_or_pact_tt
-                OR = {
-                check_variable = { var = ITA.favor@GRE value = 50 compare = greater_than_or_equals }
-                check_variable = { var = GER.favor@GRE value = 50 compare = greater_than_or_equals }
-                check_variable = { var = FRA.favor@GRE value = 50 compare = greater_than_or_equals }
-                check_variable = { var = ENG.favor@GRE value = 50 compare = greater_than_or_equals }
-                check_variable = { var = SOV.favor@GRE value = 50 compare = greater_than_or_equals }
-                AND = {
-                    check_variable = { var = YUG.favor@GRE value = 50 compare = greater_than_or_equals }
-                    check_variable = { var = ROM.favor@GRE value = 50 compare = greater_than_or_equals }
-                    check_variable = { var = TUR.favor@GRE value = 50 compare = greater_than_or_equals }
-                }
-                }
-            }
 		}
 
 		visible = {
@@ -13455,8 +13448,7 @@ GRE_kathestos_exoteriki_politiki = {
         cost = 200
 
         remove_effect = {
-            subtract_from_variable = { BUL.favor@GRE = 5 }
-            custom_effect_tooltip = GRE_fdm_bulgaria_tt   
+            custom_effect_tooltip = GRE_bulg_asph_tt
             set_country_flag = GRE_anti_bulgarian_plans       
         }
     }
@@ -13514,11 +13506,11 @@ GRE_kathestos_exoteriki_politiki = {
 
 		available = {
             custom_trigger_tooltip = {
-                tooltip = GRE_favor_at_least_great_pact_tt
+                tooltip = reeled_all_balkans
                 AND = {
-                    check_variable = { var = YUG.favor@GRE value = 50 compare = greater_than_or_equals }
-                    check_variable = { var = ROM.favor@GRE value = 50 compare = greater_than_or_equals }
-                    check_variable = { var = TUR.favor@GRE value = 50 compare = greater_than_or_equals }
+                    check_variable = { var = GRE.reeled@YUG  value = 1 compare = equals }
+                    check_variable = { var = GRE.reeled@TUR  value = 1 compare = equals }
+                    check_variable = { var = GRE.reeled@ROM  value = 1 compare = equals }
                 }
             }
 		}
@@ -13535,15 +13527,15 @@ GRE_kathestos_exoteriki_politiki = {
 		fire_only_once = yes
 
 		days_remove = 120
-        cost = 250
+        cost = 50
 
         remove_effect = {
             set_country_flag = GRE_balkan_pact_members_rallied_against_bulgarians
-            subtract_from_variable = { BUL.favor@GRE = 10 }
+            subtract_from_variable = { BUL.favor@GRE = 25 }
             custom_effect_tooltip = GRE_fdm_bulgaria_tt  
-            subtract_from_variable = { TUR.favor@GRE = 10 }
-            subtract_from_variable = { YUG.favor@GRE = 10 }
-            subtract_from_variable = { ROM.favor@GRE = 10 }
+            subtract_from_variable = { TUR.favor@GRE = 25 }
+            subtract_from_variable = { YUG.favor@GRE = 25 }
+            subtract_from_variable = { ROM.favor@GRE = 25 }
             custom_effect_tooltip = GRE_fdg_loss_pact_tt
         }
     }  
@@ -13579,8 +13571,8 @@ GRE_kathestos_exoteriki_politiki = {
 
 		fire_only_once = yes
 
-		days_remove = 120
-        cost = 250
+		days_remove = 30
+        cost = 50
 
         remove_effect = {
             set_country_flag = GRE_balkan_pact_bulagrian_sactions
@@ -13623,10 +13615,10 @@ GRE_kathestos_exoteriki_politiki = {
 
 		available = {
             custom_trigger_tooltip = {
-                tooltip = GRE_favor_great_allies_tt
+                tooltip = reeled_all_allies
                 AND = {
-                    check_variable = { var = ENG.favor@GRE value = 50 compare = greater_than_or_equals }
-                    check_variable = { var = FRA.favor@GRE value = 50 compare = greater_than_or_equals }
+                    check_variable = { var = GRE.reeled@ENG  value = 1 compare = equals }
+                    check_variable = { var = GRE.reeled@FRA  value = 1 compare = equals }
                 }
             }
 		}
@@ -13644,8 +13636,8 @@ GRE_kathestos_exoteriki_politiki = {
 
 		fire_only_once = yes
 
-		days_remove = 120
-        cost = 250
+		days_remove = 60
+        cost = 10
 
         remove_effect = {
             set_country_flag = GRE_allies_rallied_against_bulgarians

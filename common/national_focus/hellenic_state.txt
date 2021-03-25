@@ -81,7 +81,7 @@ focus_tree = {
         relative_position_id = resistance
         x = 0
 		y = 1
-		cost = 2.9
+		cost = 0
         available = {
             crete_is_no_loose_end = yes
             hidden_trigger = {
@@ -118,7 +118,7 @@ focus_tree = {
         relative_position_id = take_down_the_hakenkreuz
         x = 0
 		y = 1
-		cost = 2.9
+		cost = 4.29
         available = {
             hidden_trigger = {
                 is_ai = no
@@ -140,7 +140,7 @@ focus_tree = {
         relative_position_id = take_down_the_hakenkreuz
         x = -2
 		y = 0
-		cost = 2.9
+		cost = 0
         available = {
             date > 1941.09.27
             hidden_trigger = {
@@ -163,8 +163,12 @@ focus_tree = {
         relative_position_id = form_up_early_resistance_groups
         x = 0
 		y = 1
-		cost = 2.9
+		cost = 8.6
         available = {
+            custom_trigger_tooltip = {
+                tooltip = famine_has_started_tt
+                has_global_flag = GRE_famine_started
+            }
             hidden_trigger = {
                 is_ai = no
             }
@@ -186,8 +190,9 @@ focus_tree = {
         relative_position_id = unarmed_resistance
         x = -1
 		y = 1
-		cost = 2.9
+		cost = 8.6
         available = {
+            date > 1942.9.1
             if = {
                 limit = { GRE = { NOT = { has_dynamic_modifier = { modifier = GRE_grand_coalition_dynamic } } } }
                 custom_trigger_tooltip = {
@@ -215,8 +220,9 @@ focus_tree = {
         relative_position_id = unarmed_resistance
         x = 1
 		y = 1
-		cost = 2.9
+		cost = 8.6
         available = {
+            date > 1942.9.1
             hidden_trigger = {
                 is_ai = no
             }
@@ -239,6 +245,7 @@ focus_tree = {
 		y = 1
 		cost = 2.9
         available = {
+            date > 1942.9.1
             hidden_trigger = {
                 is_ai = no
             }
@@ -261,6 +268,7 @@ focus_tree = {
 		y = 1
 		cost = 2.9
         available = {
+            date > 1942.9.1
             if = {
                 limit = { GRE = { NOT = { has_dynamic_modifier = { modifier = GRE_grand_coalition_dynamic } } } }
                 custom_trigger_tooltip = {
@@ -289,8 +297,9 @@ focus_tree = {
         relative_position_id = form_EDES
         x = 1
 		y = 1
-		cost = 2.9
+		cost = 4.29
         available = {
+            date > 1943.1.1
             hidden_trigger = {
                 is_ai = no
             }
@@ -312,7 +321,7 @@ focus_tree = {
         relative_position_id = light_up_the_fireworks
         x = -2
 		y = 1
-		cost = 2.9
+		cost = 4.29
         available = {
             custom_trigger_tooltip = {
                 tooltip = gorgopotamos_happened_tt
@@ -337,8 +346,12 @@ focus_tree = {
         relative_position_id = light_up_the_fireworks
         x = 0
 		y = 2
-		cost = 2.9
+		cost = 8.6
         available = {
+            custom_trigger_tooltip = {
+                tooltip = at_least_some_states_with_high_resistance_tt
+                always = yes
+            }
             hidden_trigger = {
                 is_ai = no
             }
@@ -931,12 +944,17 @@ focus_tree = {
 		y = 1
 		cost = 4.29
         available = {
+            custom_trigger_tooltip = {
+                tooltip = famine_has_started_tt
+                has_global_flag = GRE_famine_started
+            }
             hidden_trigger = {
                 is_ai = no
             }
         }
 
         completion_reward = {
+            add_stability = 0.1
             custom_effect_tooltip = combat_the_famine_tt
             hidden_effect = { GRE = { complete_national_focus = GRE_combat_the_famine } }
         }
