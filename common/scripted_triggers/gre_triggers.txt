@@ -30,10 +30,15 @@ has_axis_occupation = {
     }    
 }
 
-greece_hellenic_xor = {                                                 ## Checks if either Greece or Hellenic State is Ai controlled
-    count_triggers = {
-        amount = 1
-        GRE = { is_ai = yes }
-        event_target:hellenic_state = { is_ai = yes }
+gre_hs_xor_trigger_only = {                                                         #Contrary to the effect, here we ONLY check if a human player is playing Greece/HS                                              
+    OR = {
+        AND = {
+            GRE = { is_ai = no }
+            event_target:hellenic_state = { is_ai = yes }
+        }
+        AND = {
+            GRE = { is_ai = yes }
+            event_target:hellenic_state = { is_ai = no }
+        }
     }
 }

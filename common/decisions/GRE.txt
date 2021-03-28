@@ -16009,7 +16009,38 @@ GRE_hellenic_state_catefory = {
                 GRE = { change_tag_from = ROOT }
             }
         }
+    }
     
+    request_german_intervention_to_italian_plans = {
+    
+        allowed = {
+            original_tag = GRE
+        }
+        
+        visible = {
+            GRE = { has_completed_focus = GRE_attempt_to_prevent_italian_occupation }
+        }
+    
+        fire_only_once = yes
+        days_remove = 14
+        
+        remove_effect = {
+            if = {
+                limit = {
+                    check_variable = { GER.favor@GRE > 79 }
+                }
+                event_target:hellenic_state = { add_political_power = 100 }
+            }
+            else_if = {
+                limit = {
+                    check_variable = { GER.favor@GRE > 49 }
+                }
+                event_target:hellenic_state = { add_political_power = 75 }
+            }
+            else = {
+                event_target:hellenic_state = { add_political_power = 50 }
+            }
+        }
     }
 }
 
@@ -22566,14 +22597,24 @@ GRE_resistance_category = {
         }
         
         complete_effect = {
-            GRE = {
-                add_collaboration = {
-                    target = ITA
-                    value = 0.3
-                }
-            }
             #GER = { ELAS_resistance_battle_sandbox = yes }
-            #HS_increase_armed_resistance_by_one = yes
+            HS_increase_armed_resistance_by_one = yes
+        }
+    }
+    
+    add_res2 = {
+        allowed = {
+            original_tag = GRE
+        }
+        
+        cost = 10
+        
+        visible = { 
+            is_debug = yes
+        }
+        
+        complete_effect = {
+            47 = { state_event = { id = hellas.1012 days = 0 } }
         }
     }
     

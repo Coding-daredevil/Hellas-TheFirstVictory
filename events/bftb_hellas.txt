@@ -5450,6 +5450,66 @@ country_event = {                                                               
     }
 }
 
+state_event = {                                                                                   ## Black Market levels up!
+	id = hellas.1012
+	title = hellas.1012.t
+	desc = hellas.1012.desc
+	picture = GFX_report_event_greek_hs_hungry_kids
+
+    trigger = {
+        state_id = {
+            limit = {
+                is_in_array = {
+                    array = global.greek_mainland_states_all
+                    value = THIS
+                }
+            }
+        }
+	}
+
+	mean_time_to_happen = { 
+        days = 120
+        modifier = {
+            factor = 0.15
+            THIS = { 
+                OR = {
+                    has_state_category = megalopolis
+                    has_state_category = metropolis
+                    has_state_category = large_city
+                }
+            }
+        }
+        modifier = {
+            factor = 0.25
+            THIS = { 
+                OR = {
+                    has_state_category = city
+                    has_state_category = large_town
+                }
+            }
+        }
+        modifier = {
+            factor = 0.75
+            THIS = { 
+                OR = {
+                    has_state_category = town
+                    has_state_category = rural
+                }
+            }
+        }
+    }
+
+	fire_only_once = no
+    hidden = yes
+    
+    immediate = {
+        hidden_effect = {
+            GRE = { add_political_power = 100 }
+            THIS = { event_based_black_market_shift = yes }
+        }
+    }
+}
+
 ################[ MISC HELLENIC STATE EVENTS ]################
 
 country_event = {                                                                                   ## Infrastructure Destruction                                                       
