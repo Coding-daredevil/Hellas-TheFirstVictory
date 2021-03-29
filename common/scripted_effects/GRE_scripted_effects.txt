@@ -1485,7 +1485,7 @@ HS_add_black_market_positive = {
     }
 }
 
-HS_add_black_market_toggle = {
+HS_black_market_toggle = {
     if = { 
         limit = { has_dynamic_modifier = { modifier = black_market_obscure_controlled } }
         remove_dynamic_modifier = { modifier = black_market_obscure_controlled }
@@ -1515,6 +1515,42 @@ HS_add_black_market_toggle = {
         limit = { has_dynamic_modifier = { modifier = black_market_ubshakeable } } 
         remove_dynamic_modifier = { modifier = black_market_ubshakeable }
         add_dynamic_modifier = { modifier = black_market_ubshakeable_controlled }
+    }
+}
+
+HS_black_market_toggle_positive = {
+    if = { 
+        limit = { has_dynamic_modifier = { modifier = black_market_obscure } }
+        remove_dynamic_modifier = { modifier = black_market_obscure }
+        add_dynamic_modifier = { modifier = black_market_obscure_controlled }
+    }
+    else_if = { 
+        limit = { has_dynamic_modifier = { modifier = black_market_cemented } } 
+        remove_dynamic_modifier = { modifier = black_market_cemented }
+        add_dynamic_modifier = { modifier = black_market_cemented_controlled }
+    }
+    else_if = { 
+        limit = { has_dynamic_modifier = { modifier = black_market_ubshakeable } } 
+        remove_dynamic_modifier = { modifier = black_market_ubshakeable }
+        add_dynamic_modifier = { modifier = black_market_ubshakeable_controlled }
+    }
+}
+
+HS_black_market_toggle_negative = {
+    if = { 
+        limit = { has_dynamic_modifier = { modifier = black_market_obscure_controlled } }
+        remove_dynamic_modifier = { modifier = black_market_obscure_controlled }
+        add_dynamic_modifier = { modifier = black_market_obscure }
+    }
+    else_if = { 
+        limit = { has_dynamic_modifier = { modifier = black_market_cemented_controlled } } 
+        remove_dynamic_modifier = { modifier = black_market_cemented_controlled }
+        add_dynamic_modifier = { modifier = black_market_cemented }
+    }
+    else_if = { 
+        limit = { has_dynamic_modifier = { modifier = black_market_ubshakeable_controlled } } 
+        remove_dynamic_modifier = { modifier = black_market_ubshakeable_controlled }
+        add_dynamic_modifier = { modifier = black_market_ubshakeable }
     }
 }
 

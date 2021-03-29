@@ -16045,6 +16045,30 @@ GRE_hellenic_state_catefory = {
 }
 
 GRE_resistance_category = {
+
+    make_black_market_contacts_in_athens = {
+    
+        allowed = {
+            original_tag = GRE
+        }
+        
+        available = {
+            47 = { has_black_market_negative = yes }
+        }
+        
+        visible = {
+            GRE = { has_completed_focus = GRE_make_resistance_contacts }
+        }
+    
+        fire_only_once = yes
+        cost = 50
+        days_remove = 30
+        
+        complete_effect = {
+            47 = { HS_black_market_toggle_positive = yes }
+        }
+    
+    }
     
     #############################################[ HISTORICAL MISSIONS ]#############################################
     ######################[ SUB_C: POSITIVE MISSIONS ]######################
@@ -22302,6 +22326,9 @@ GRE_resistance_category = {
                     has_dynamic_modifier = { modifier = black_market_obscure }
                     has_dynamic_modifier = { modifier = black_market_cemented }
                     has_dynamic_modifier = { modifier = black_market_ubshakeable }
+                    has_dynamic_modifier = { modifier = black_market_obscure_controlled }
+                    has_dynamic_modifier = { modifier = black_market_cemented_controlled }
+                    has_dynamic_modifier = { modifier = black_market_ubshakeable_controlled }
                 }
             }
             NOT = { has_country_flag = hide_black_market_icons }
@@ -22375,7 +22402,73 @@ GRE_resistance_category = {
 		remove_effect = {
             FROM = { HS_add_black_market_negative = yes }
 		}
-	}  
+	}
+
+    add_black_1_pos = {
+		icon = GFX_icon_black_1_positive
+        state_target = yes
+        target_array = global.greek_mainland_states_all
+		available = {
+            original_tag = GRE
+		}
+		on_map_mode = map_only
+		fire_only_once = no
+		days_remove = 0
+
+		visible = {
+            FROM = { 
+                FROM = { has_dynamic_modifier = { modifier = black_market_obscure_controlled } }
+            }
+            NOT = { has_country_flag = hide_black_market_icons }
+		}
+		remove_effect = {
+            FROM = { HS_add_black_market_positive = yes }
+		}
+	} 
+    
+    add_black_2_pos = {
+		icon = GFX_icon_black_2_positive
+        state_target = yes
+        target_array = global.greek_mainland_states_all
+		available = {
+            original_tag = GRE
+		}
+		on_map_mode = map_only
+		fire_only_once = no
+		days_remove = 0
+
+		visible = {
+            FROM = { 
+                FROM = { has_dynamic_modifier = { modifier = black_market_cemented_controlled } }
+            }
+            NOT = { has_country_flag = hide_black_market_icons }
+		}
+		remove_effect = {
+            FROM = { HS_add_black_market_positive = yes }
+		}
+	} 
+    
+    add_black_3_pos = {
+		icon = GFX_icon_black_3_positive
+        state_target = yes
+        target_array = global.greek_mainland_states_all
+		available = {
+            original_tag = GRE
+		}
+		on_map_mode = map_only
+		fire_only_once = no
+		days_remove = 0
+
+		visible = {
+            FROM = { 
+                FROM = { has_dynamic_modifier = { modifier = black_market_ubshakeable_controlled } }
+            }
+            NOT = { has_country_flag = hide_black_market_icons }
+		}
+		remove_effect = {
+            FROM = { HS_add_black_market_positive = yes }
+		}
+	} 
 
     add_greeks_0 = {
 		icon = GFX_icon_greeks_0

@@ -5468,33 +5468,27 @@ state_event = {                                                                 
 	}
 
 	mean_time_to_happen = { 
-        days = 120
+        days = 180
         modifier = {
-            factor = 0.15
-            THIS = { 
-                OR = {
-                    has_state_category = megalopolis
-                    has_state_category = metropolis
-                    has_state_category = large_city
-                }
+            factor = 0.25
+            OR = {
+                THIS.state = 47
+                THIS.state = 811
             }
         }
         modifier = {
-            factor = 0.25
-            THIS = { 
-                OR = {
-                    has_state_category = city
-                    has_state_category = large_town
-                }
+            factor = 0.50
+            OR = {
+                THIS.state = 808
+                THIS.state = 187
             }
         }
         modifier = {
             factor = 0.75
-            THIS = { 
-                OR = {
-                    has_state_category = town
-                    has_state_category = rural
-                }
+            OR = {
+                THIS.state = 182
+                THIS.state = 186
+                THIS.state = 807
             }
         }
     }
