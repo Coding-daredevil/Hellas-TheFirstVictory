@@ -1403,6 +1403,11 @@ HS_famine_toll_proc = {
 
 ###################[BLACK]###################
 
+clear_all_black_market_flags = {
+    clr_country_flag = black_market_option_crackdown
+    clr_country_flag = black_market_option_invest
+}
+
 event_based_black_market_shift = {                                              ## Random events will happen during famine to simulate the black market. Triggered WITH state scope
     if = {                                                                           #Note: 3 positive, 3 negative levels. Positive to Negative and vice-versa means a swap in state not a reduction/increase.
         limit = {                                                                    #Here we only add negative levels (for positive player must act through various manners)
@@ -1459,6 +1464,23 @@ HS_add_black_market_negative = {
             } 
         } 
         add_dynamic_modifier = { modifier = black_market_obscure }
+    }
+}
+
+HS_reduce_black_market = {
+    if = { 
+        limit = { has_dynamic_modifier = { modifier = black_market_obscure } }
+        remove_dynamic_modifier = { modifier = black_market_obscure }
+    }
+    else_if = { 
+        limit = { has_dynamic_modifier = { modifier = black_market_cemented } } 
+        remove_dynamic_modifier = { modifier = black_market_cemented }
+        add_dynamic_modifier = { modifier = black_market_obscure }
+    }
+    else_if = { 
+        limit = { has_dynamic_modifier = { modifier = black_market_ubshakeable } } 
+        remove_dynamic_modifier = { modifier = black_market_ubshakeable }
+        add_dynamic_modifier = { modifier = black_market_cemented }
     }
 }
 

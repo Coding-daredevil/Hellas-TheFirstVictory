@@ -6106,11 +6106,12 @@ country_event = {
             GER = { set_province_controller = 1164 }
             GER = { set_province_controller = 9940 }
             GER = { set_province_controller = 4170 }
-            182 = { add_resistance = 9 }
-            if = { 
-                limit = { GRE = { has_completed_focus = GRE_resistance } }
-                add_to_array = { global.greek_mainland_states_all = 182 }
-                182 = { add_dynamic_modifier = { modifier = unyielding_greeks_angered } }
+            add_to_array = { global.greek_mainland_states_all = 182 }
+            add_to_array = { global.german_occupied_states = 182 }
+            182 = { 
+                add_resistance = 9 
+                add_dynamic_modifier = { modifier = unyielding_greeks_angered }
+                add_dynamic_modifier = { modifier = GRE_german_occupation_zone }
             }
             country_event = { id = hellas.1007 days = 0 }
         }

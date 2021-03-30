@@ -16046,6 +16046,54 @@ GRE_hellenic_state_catefory = {
 
 GRE_resistance_category = {
 
+    crackdown_on_the_black_market = {
+    
+        allowed = {
+            original_tag = GRE
+        }
+        
+        available = {
+        }
+        
+        visible = {
+            NOT = { has_country_flag = black_market_option_crackdown }
+            GRE = { has_completed_focus = GRE_make_resistance_contacts }
+        }
+    
+        fire_only_once = no
+        days_remove = 0
+        days_re_enable = 0
+        
+        complete_effect = {
+            clear_all_black_market_flags = yes
+            set_country_flag = black_market_option_crackdown
+        }
+    }
+    
+    invest_on_the_black_market = {
+    
+        allowed = {
+            original_tag = GRE
+        }
+        
+        available = {
+        }
+        
+        visible = {
+            NOT = { has_country_flag = black_market_option_invest }
+            GRE = { has_completed_focus = GRE_make_resistance_contacts }
+        }
+    
+        fire_only_once = no
+        days_remove = 0
+        days_re_enable = 0
+        
+        complete_effect = {
+            clear_all_black_market_flags = yes
+            set_country_flag = black_market_option_invest
+        }
+    }
+
     make_black_market_contacts_in_athens = {
     
         allowed = {
@@ -22315,6 +22363,11 @@ GRE_resistance_category = {
         target_array = global.greek_mainland_states_all
 		available = {
             original_tag = GRE
+            if = { limit = { has_country_flag = black_market_option_invest } 
+                if = { limit = { FROM = { state = 47 } } has_political_power > 25 }
+                else_if = { limit = { FROM = { OR = { state = 811 state = 731 state = 186 state = 808} } } has_political_power > 15 }
+                else = { has_political_power > 10 }
+            }
 		}
 		on_map_mode = map_only
 		fire_only_once = no
@@ -22334,7 +22387,14 @@ GRE_resistance_category = {
             NOT = { has_country_flag = hide_black_market_icons }
 		}
 		remove_effect = {
-            FROM = { HS_add_black_market_negative = yes }
+            ###[State Weight]###
+            if = {
+                limit = { has_country_flag = black_market_option_invest } 
+                FROM = { HS_add_black_market_negative = yes }
+                if = { limit = { FROM = { state = 47 } } add_political_power = -25 }
+                else_if = { limit = { FROM = { OR = { state = 811 state = 731 state = 186 state = 808} } } add_political_power = -15 }
+                else = { add_political_power = -10 }
+            }
 		}
 	} 
     
@@ -22344,6 +22404,16 @@ GRE_resistance_category = {
         target_array = global.greek_mainland_states_all
 		available = {
             original_tag = GRE
+            if = { limit = { has_country_flag = black_market_option_crackdown } 
+                if = { limit = { FROM = { state = 47 } } has_political_power > 100 }
+                else_if = { limit = { FROM = { OR = { state = 811 state = 731 state = 186 state = 808} } } has_political_power > 75 }
+                else = { has_political_power > 50 }
+            }
+            else_if = { limit = { has_country_flag = black_market_option_invest } 
+                if = { limit = { FROM = { state = 47 } } has_political_power > 25 }
+                else_if = { limit = { FROM = { OR = { state = 811 state = 731 state = 186 state = 808} } } has_political_power > 15 }
+                else = { has_political_power > 10 }
+            }
 		}
 		on_map_mode = map_only
 		fire_only_once = no
@@ -22356,7 +22426,20 @@ GRE_resistance_category = {
             NOT = { has_country_flag = hide_black_market_icons }
 		}
 		remove_effect = {
-            FROM = { HS_add_black_market_negative = yes }
+            if = { 
+                limit = { has_country_flag = black_market_option_crackdown } 
+                FROM = { HS_reduce_black_market = yes }
+                if = { limit = { FROM = { state = 47 } } add_political_power = -100 }
+                else_if = { limit = { FROM = { OR = { state = 811 state = 731 state = 186 state = 808} } } add_political_power = -75 }
+                else = { add_political_power = -50 }
+            }
+            else_if = {
+                limit = { has_country_flag = black_market_option_invest } 
+                FROM = { HS_add_black_market_negative = yes }
+                if = { limit = { FROM = { state = 47 } } add_political_power = -25 }
+                else_if = { limit = { FROM = { OR = { state = 811 state = 731 state = 186 state = 808} } } add_political_power = -15 }
+                else = { add_political_power = -10 }
+            }
 		}
 	} 
     
@@ -22366,6 +22449,16 @@ GRE_resistance_category = {
         target_array = global.greek_mainland_states_all
 		available = {
             original_tag = GRE
+            if = { limit = { has_country_flag = black_market_option_crackdown } 
+                if = { limit = { FROM = { state = 47 } } has_political_power > 125 }
+                else_if = { limit = { FROM = { OR = { state = 811 state = 731 state = 186 state = 808} } } has_political_power > 100 }
+                else = { has_political_power > 75 }
+            }
+            else_if = { limit = { has_country_flag = black_market_option_invest } 
+                if = { limit = { FROM = { state = 47 } } has_political_power > 25 }
+                else_if = { limit = { FROM = { OR = { state = 811 state = 731 state = 186 state = 808} } } has_political_power > 15 }
+                else = { has_political_power > 10 }
+            }
 		}
 		on_map_mode = map_only
 		fire_only_once = no
@@ -22378,7 +22471,20 @@ GRE_resistance_category = {
             NOT = { has_country_flag = hide_black_market_icons }
 		}
 		remove_effect = {
-            FROM = { HS_add_black_market_negative = yes }
+            if = { 
+                limit = { has_country_flag = black_market_option_crackdown } 
+                FROM = { HS_reduce_black_market = yes }
+                if = { limit = { FROM = { state = 47 } } add_political_power = -125 }
+                else_if = { limit = { FROM = { OR = { state = 811 state = 731 state = 186 state = 808} } } add_political_power = -100 }
+                else = { add_political_power = -75 }
+            }
+            else_if = {
+                limit = { has_country_flag = black_market_option_invest } 
+                FROM = { HS_add_black_market_negative = yes }
+                if = { limit = { FROM = { state = 47 } } add_political_power = -25 }
+                else_if = { limit = { FROM = { OR = { state = 811 state = 731 state = 186 state = 808} } } add_political_power = -15 }
+                else = { add_political_power = -10 }
+            }
 		}
 	} 
     
@@ -22388,6 +22494,11 @@ GRE_resistance_category = {
         target_array = global.greek_mainland_states_all
 		available = {
             original_tag = GRE
+            if = { limit = { has_country_flag = black_market_option_crackdown } 
+                if = { limit = { FROM = { state = 47 } } has_political_power > 150 }
+                else_if = { limit = { FROM = { OR = { state = 811 state = 731 state = 186 state = 808} } } has_political_power > 125 }
+                else = { has_political_power > 100 }
+            }
 		}
 		on_map_mode = map_only
 		fire_only_once = no
@@ -22400,7 +22511,13 @@ GRE_resistance_category = {
             NOT = { has_country_flag = hide_black_market_icons }
 		}
 		remove_effect = {
-            FROM = { HS_add_black_market_negative = yes }
+            if = { 
+                limit = { has_country_flag = black_market_option_crackdown } 
+                FROM = { HS_reduce_black_market = yes }
+                if = { limit = { FROM = { state = 47 } } add_political_power = -150 }
+                else_if = { limit = { FROM = { OR = { state = 811 state = 731 state = 186 state = 808} } } add_political_power = -125 }
+                else = { add_political_power = -100 }
+            }
 		}
 	}
 
