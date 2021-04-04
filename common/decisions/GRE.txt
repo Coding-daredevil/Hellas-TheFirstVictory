@@ -16011,6 +16011,76 @@ GRE_hellenic_state_catefory = {
         }
     }
     
+    HS_kurtulus = {
+    
+        allowed = {
+            tag = event_target:hellenic_state
+        }
+        
+        visible = {
+            event_target:hellenic_state = { has_completed_focus = combat_the_famine }
+        }
+    
+        fire_only_once = yes
+        days_remove = 1460
+        
+        complete_effect = {
+            custom_effect_tooltip = kurtulus_tt
+            set_country_flag = hs_kurtulus
+            gre_hs_xor = yes 
+            #var:event_sender = { country_event = { id = hellas.xxxx days = 0 } }           ### Kurtulus event
+        }
+    }
+    
+    HS_more_food_from_turkey = {
+    
+        allowed = {
+            tag = event_target:hellenic_state
+        }
+        
+        visible = {
+            event_target:hellenic_state = { has_completed_focus = combat_the_famine }
+        }
+        
+        available = {
+            has_idea = GRE_archbishop_damaskinos
+        }
+    
+        fire_only_once = yes
+        days_remove = 30
+        cost = 200
+        
+        complete_effect = {
+            custom_effect_tooltip = HS_more_food_from_turkey_tt
+            set_country_flag = hs_additional_food
+        }
+    }
+    
+    HS_more_food_from_australia = {
+    
+        allowed = {
+            tag = event_target:hellenic_state
+        }
+        
+        visible = {
+            event_target:hellenic_state = { has_completed_focus = combat_the_famine }
+        }
+        
+        available = {
+            has_idea = GRE_archbishop_damaskinos
+            has_country_flag = HS_british_blockade_lifted
+        }
+    
+        fire_only_once = yes
+        days_remove = 30
+        cost = 200
+        
+        complete_effect = {
+            custom_effect_tooltip = HS_more_food_from_turkey_tt
+            set_country_flag = hs_additional_food_australia
+        }
+    }
+    
     request_german_intervention_to_italian_plans = {
     
         allowed = {
@@ -16114,6 +16184,44 @@ GRE_resistance_category = {
         
         complete_effect = {
             47 = { HS_black_market_toggle_positive = yes }
+        }
+    
+    }
+    
+    solidify_market_control = {
+    
+        allowed = {
+            original_tag = GRE
+        }
+        
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = solidify_control_tt
+                check_variable = { GRE.bm_control < 90 }
+            }
+        }
+        
+        visible = {
+            GRE = { has_completed_focus = GRE_hunt_down_the_black_marketeers }
+        }
+    
+        fire_only_once = no
+        cost = 50
+        days_remove = 0
+        
+        complete_effect = {
+            randomize_temp_variable = {
+                var = tmp_x
+                distribution = uniform
+                min = 5
+                max = 25
+            }
+            add_to_variable = { GRE.bm_control = tmp_x }
+            clamp_variable = {
+                var = GRE.bm_control
+                min = 0
+                max = 90
+            }
         }
     
     }

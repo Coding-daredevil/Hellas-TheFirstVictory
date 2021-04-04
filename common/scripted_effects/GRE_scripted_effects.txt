@@ -160,16 +160,55 @@ HS_resistance_manpower_increase = {
         set_temp_variable = { edes_manpower_add = 16.6 }
         set_temp_variable = { edes_equipment_add = 5.5 }
     }
-    
+    ### % MODIFIERS ###
+    HS_resistance_popularity_bonus = yes
+    multiply_temp_variable = { elas_manpower_add = temp_per }
+    multiply_temp_variable = { elas_equipment_add = temp_per }
+    multiply_temp_variable = { edes_manpower_add = temp_per }
+    multiply_temp_variable = { edes_equipment_add = temp_per }
+    ### ROUNDING ###
     round_temp_variable = elas_manpower_add
     round_temp_variable = edes_manpower_add
     round_temp_variable = elas_equipment_add
     round_temp_variable = edes_equipment_add
+    ### ADD TO POOL ###
     add_to_variable = { GRE.elas_manpower = elas_manpower_add }
     add_to_variable = { GRE.elas_equipment = elas_equipment_add }
     add_to_variable = { GRE.edes_manpower = edes_manpower_add }
     add_to_variable = { GRE.edes_equipment = edes_equipment_add }
     HS_resistance_recalculate_ratios = yes
+}
+
+HS_resistance_popularity_bonus = {
+    set_temp_variable = { temp_per = 1 }
+    for_each_scope_loop = {
+        array = global.greek_mainland_states_all
+        
+        THIS = { 
+            if = {
+                limit = {
+                    THIS = { has_dynamic_modifier = black_market_obscure_controlled }
+                }
+                add_to_temp_variable = { temp_per = 0.01 }
+            }
+            else_if = {
+                limit = {
+                    THIS = { has_dynamic_modifier = black_market_cemented_controlled }
+                }
+                add_to_temp_variable = { temp_per = 0.03 }
+            }
+            else_if = {
+                limit = {
+                    THIS = { has_dynamic_modifier = black_market_ubshakeable_controlled }
+                }
+                add_to_temp_variable = { temp_per = 0.05 }
+            }   
+        }                                   
+    }
+    if = { 
+        limit = { event_target:hellenic_state = { has_completed_focus = divert_population_to_the_resistance } }
+        add_to_temp_variable = { temp_per = 0.50 }
+    }
 }
 
 HS_resistance_recalculate_ratios = {
@@ -182,6 +221,8 @@ HS_resistance_recalculate_ratios = {
     divide_temp_variable = { y = x }    
     set_variable = { GRE.edes_ratio = y }
 }
+
+
 #######BATTLES
 ####MANPOWER
 ###Strength (Us)
@@ -1257,8 +1298,43 @@ HS_famine_toll_proc = {
             set_temp_variable = { level = 1 }                   ## IF SEP41->NOV41, then minimal losses
         }
         #####[BELOW THIS POSITIVE CHANGES]#####
-        
-        
+        if = {                                                                                                                      ## First we check the black market capabilities to help
+            limit = {
+                THIS = { has_dynamic_modifier = black_market_obscure_controlled }
+            }
+            subtract_from_temp_variable = { level = 1 }
+        }
+        else_if = {
+            limit = {
+                THIS = { has_dynamic_modifier = black_market_cemented_controlled }
+            }
+            subtract_from_temp_variable = { level = 2 }
+        }
+        else_if = {
+            limit = {
+                THIS = { has_dynamic_modifier = black_market_ubshakeable_controlled }
+            }
+            subtract_from_temp_variable = { level = 3 }
+        }
+        if = {                                                                                                                      ## Kurtulus
+            limit = {
+                event_target:hellenic_state = { has_country_flag = hs_kurtulus }
+                state = 47
+            }
+            subtract_from_temp_variable = { level = 1 }
+        }
+        if = {                                                                                                                      ## Turkey Additional
+            limit = {
+                event_target:hellenic_state = { has_country_flag = hs_additional_food }                                             
+            }
+            subtract_from_temp_variable = { level = 1 }
+        }
+        if = {                                                                                                                      ## Australia
+            limit = {
+                event_target:hellenic_state = { has_country_flag = hs_additional_food_australia }              
+            }
+            subtract_from_temp_variable = { level = 1 }
+        }
         #####[CLAMP LEVEL]#####
         clamp_temp_variable = {
             var = level
