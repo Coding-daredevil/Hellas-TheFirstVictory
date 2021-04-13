@@ -160,12 +160,15 @@ HS_resistance_manpower_increase = {
         set_temp_variable = { edes_manpower_add = 16.6 }
         set_temp_variable = { edes_equipment_add = 5.5 }
     }
-    ### % MODIFIERS ###
+    ### GLOBAL MODIFIERS ###
     HS_resistance_popularity_bonus = yes
-    multiply_temp_variable = { elas_manpower_add = temp_per }
-    multiply_temp_variable = { elas_equipment_add = temp_per }
-    multiply_temp_variable = { edes_manpower_add = temp_per }
-    multiply_temp_variable = { edes_equipment_add = temp_per }
+    ### FACTION MODIFIERS ###
+    HS_resistance_growth_potential = yes
+    ### MULT ###
+    multiply_temp_variable = { elas_manpower_add = elas_temp_per }
+    multiply_temp_variable = { elas_equipment_add = elas_temp_per }
+    multiply_temp_variable = { edes_manpower_add = edes_temp_per }
+    multiply_temp_variable = { edes_equipment_add = edes_temp_per }
     ### ROUNDING ###
     round_temp_variable = elas_manpower_add
     round_temp_variable = edes_manpower_add
@@ -209,6 +212,24 @@ HS_resistance_popularity_bonus = {
         limit = { event_target:hellenic_state = { has_completed_focus = divert_population_to_the_resistance } }
         add_to_temp_variable = { temp_per = 0.50 }
     }
+}
+
+HS_resistance_growth_potential = {
+    set_temp_variable = { elas_temp_per = temp_per }
+    set_temp_variable = { edes_temp_per = temp_per }
+    if = {
+        limit = {
+            check_variable = { GRE.edes_ratio > 1.99 }
+        }
+        add_to_temp_variable = { edes_temp_per = 0.25 }
+    }
+    else = {
+        limit = {
+            check_variable = { GRE.elas_ratio > 1.99 }
+        }
+        add_to_temp_variable = { elas_temp_per = 0.25 }
+    }
+
 }
 
 HS_resistance_recalculate_ratios = {
