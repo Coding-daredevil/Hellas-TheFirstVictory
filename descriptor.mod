@@ -1,0 +1,10 @@
+version="1.10.3"
+tags={
+	"Balance"
+	"Map"
+	"Military"
+	"Events"
+	"Fixes"
+}
+name="Hellas"
+supported_version="1.10.2"
