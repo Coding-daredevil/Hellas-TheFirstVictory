@@ -339,6 +339,15 @@ ideas = {
             
             cancel = {
                 NOT = { has_global_flag = GRE_grecoitalian_start }
+                GRE = {
+                    OR = {
+                        AND = {
+                            is_in_faction = yes
+                            num_faction_members > 2
+                        }
+                        has_war_with = GER
+                    }
+                }
             }
         
             picture = ita_ambitions
@@ -360,6 +369,15 @@ ideas = {
             
             cancel = {
                 NOT = { has_global_flag = GRE_grecoitalian_start }
+                GRE = {
+                    OR = {
+                        AND = {
+                            is_in_faction = yes
+                            num_faction_members > 2
+                        }
+                        has_war_with = GER
+                    }
+                }
             }
         
             picture = ita_ambitions
@@ -380,6 +398,15 @@ ideas = {
             
             cancel = {
                 NOT = { has_global_flag = GRE_grecoitalian_start }
+                GRE = {
+                    OR = {
+                        AND = {
+                            is_in_faction = yes
+                            num_faction_members > 2
+                        }
+                        has_war_with = GER
+                    }
+                }
             }
         
             picture = ita_ambitions
@@ -426,6 +453,15 @@ ideas = {
         
             cancel = {
                 NOT = { has_global_flag = GRE_grecoitalian_start }
+                GRE = {
+                    OR = {
+                        AND = {
+                            is_in_faction = yes
+                            num_faction_members > 2
+                        }
+                        has_war_with = GER
+                    }
+                }
             }
             
             picture = bul_ambitions
@@ -1835,6 +1871,7 @@ ideas = {
         
         visible = {
             NOT = { has_country_flag = GRE_kotzias_safe_removal }
+            NOT = { has_axis_occupation = yes }
         }
         
         on_remove = {
@@ -1871,6 +1908,10 @@ ideas = {
             has_country_flag = GRE_kathestos_proclaimed
         }
         
+        visible = {
+            NOT = { has_axis_occupation = yes }
+        }   
+        
         traits = { minister_of_social_wellfare }
     }
     
@@ -1885,6 +1926,10 @@ ideas = {
         available = {
             has_country_flag = GRE_kathestos_proclaimed
         }
+        
+        visible = {
+            NOT = { has_axis_occupation = yes }
+        } 
         
         cost = 200
         
@@ -1910,10 +1955,14 @@ ideas = {
                     limit = {
                         NOT = { has_completed_focus = GRE_eon_2 }
                     }
-                complete_national_focus = GRE_eon_2
+                    complete_national_focus = GRE_eon_2
                 }
             }
         }
+        
+        visible = {
+            NOT = { has_axis_occupation = yes }
+        } 
         
         cost = 75
         
@@ -1931,6 +1980,10 @@ ideas = {
         available = {
             has_government = neutrality
         }
+        
+        visible = {
+            NOT = { has_axis_occupation = yes }
+        } 
         
         cost = 75
         
@@ -1977,6 +2030,7 @@ ideas = {
         
         visible = {
             NOT = { has_idea = GRE_eon_kanellopoulos_year_2 }
+            NOT = { has_axis_occupation = yes }
         }
         
         available = {
@@ -2005,6 +2059,10 @@ ideas = {
             has_country_flag = GRE_kathestos_proclaimed
         }
         
+        visible = {
+            NOT = { has_axis_occupation = yes }
+        } 
+        
         cost = 125
         
         traits = { nationalist_editor }
@@ -2023,6 +2081,10 @@ ideas = {
             has_completed_focus = GRE_public_works
         }
         
+        visible = {
+            NOT = { has_axis_occupation = yes }
+        } 
+        
         cost = 125
         
         traits = { subminister_of_labour }
@@ -2039,6 +2101,10 @@ ideas = {
         available = {
             has_country_flag = GRE_kathestos_proclaimed
         }
+        
+        visible = {
+            NOT = { has_axis_occupation = yes }
+        } 
         
         cost = 150
         
@@ -2057,6 +2123,10 @@ ideas = {
             has_country_flag = GRE_kathestos_proclaimed
         }
         
+        visible = {
+            NOT = { has_axis_occupation = yes }
+        } 
+        
         cost = 75
         
         traits = { dubious_personality }
@@ -2073,6 +2143,10 @@ ideas = {
         available = {
             has_country_flag = GRE_kathestos_proclaimed
         }
+        
+        visible = {
+            NOT = { has_axis_occupation = yes }
+        } 
         
         cost = 100
         
@@ -2091,6 +2165,10 @@ ideas = {
             has_country_flag = GRE_kathestos_proclaimed
         }
         
+        visible = {
+            NOT = { has_axis_occupation = yes }
+        } 
+        
         cost = 75
         
         traits = { director_of_good_arts }
@@ -2108,6 +2186,10 @@ ideas = {
             has_country_flag = archbishop_chrysanthos_elected
         }
         
+        visible = {
+            NOT = { has_axis_occupation = yes }
+        } 
+        
         traits = { technocrat }
     }
     
@@ -2122,6 +2204,10 @@ ideas = {
         available = {
             has_country_flag = archbishop_damaskinos_elected
         }
+        
+        visible = {
+            NOT = { has_axis_occupation = yes }
+        } 
 		
 		traits = { appointed_bishop }
 	}
@@ -2134,20 +2220,12 @@ ideas = {
 			original_tag = GRE
 			NOT = { has_dlc = "Battle for the Bosporus" }
 		}
+        
+        visible = {
+            NOT = { has_axis_occupation = yes }
+        } 
 		
 		traits = { silent_workhorse }
-	}
-
-	GRE_evripidis_bakirtris = {
-
-		picture = generic_political_advisor_europe_3
-		
-		allowed = {
-			original_tag = GRE
-			NOT = { has_dlc = "Battle for the Bosporus" }
-		}
-		
-		traits = { war_industrialist }
 	}
 
 	GRE_ioannis_metaxas = {
@@ -2193,8 +2271,9 @@ ideas = {
 			has_dlc = "Battle for the Bosporus"
 		}
 
-		available = {
-		}
+		visible = {
+            NOT = { has_axis_occupation = yes }
+        } 
 		
 		traits = { prince_of_terror }
 		traits = { technical_especialist }
@@ -2217,6 +2296,10 @@ ideas = {
                 has_completed_focus = GRE_the_democrats
             }
 		}
+        
+        visible = {
+            NOT = { has_axis_occupation = yes }
+        } 
 
 		traits = { resolute_social_democrat }
 	}
@@ -2233,6 +2316,10 @@ ideas = {
 		available = {
             has_country_flag = GRE_kathestos_proclaimed
 		}
+        
+        visible = {
+            NOT = { has_axis_occupation = yes }
+        } 
 		
 		traits = { sharp_tongued_lawyer }
 		traits = { theoretical_scientist }
@@ -2250,6 +2337,10 @@ ideas = {
 		available = {
 			has_country_flag = GRE_kathestos_proclaimed
 		}
+        
+        visible = {
+            NOT = { has_axis_occupation = yes }
+        } 
 		
 		traits = { war_industrialist }
 		traits = { resource_industrialist }
@@ -2276,6 +2367,10 @@ ideas = {
 				}
 			}
 		}
+        
+        visible = {
+            NOT = { has_axis_occupation = yes }
+        } 
 		
 		traits = { financial_expert }
 		traits = { production_manager }
@@ -2296,6 +2391,10 @@ ideas = {
                 has_completed_focus = GRE_the_democrats
             }
 		}
+        
+        visible = {
+            NOT = { has_axis_occupation = yes }
+        } 
 		
 		traits = { backroom_backstabber }
 		traits = { silent_workhorse }
@@ -2323,9 +2422,10 @@ ideas = {
                 has_completed_focus = GRE_the_democrats
             }
 		}
-
+        
 		visible = {
 			has_country_flag = onassis_proposition_accepted
+            NOT = { has_axis_occupation = yes }
 		}
 		
 		traits = { gifted_shipping_magnate }
@@ -2346,6 +2446,10 @@ ideas = {
 				has_completed_focus = GRE_recruit_the_fascists_2
 			}
 		}
+        
+        visible = {
+            NOT = { has_axis_occupation = yes }
+        } 
 		
 		traits = { national_socialist_paramilitarist }
 		traits = { iron_fisted_brute }
@@ -2366,6 +2470,10 @@ ideas = {
                 has_completed_focus = GRE_the_other_democrats
             }
 		}
+        
+        visible = {
+            NOT = { has_axis_occupation = yes }
+        } 
 		
 		traits = { marxist_academic }
 	}					
@@ -2386,6 +2494,10 @@ ideas = {
                 has_completed_focus = GRE_the_other_democrats
             }
 		}
+        
+        visible = {
+            NOT = { has_axis_occupation = yes }
+        } 
 		
 		traits = { marxist_priest }
 	}
@@ -2405,25 +2517,33 @@ ideas = {
                 has_completed_focus = GRE_the_other_democrats
             }
 		}
+        
+        visible = {
+            NOT = { has_axis_occupation = yes }
+        } 
 		
 		traits = { guerilla_warfare_expert }
 	}
 
 	GRE_evripidis_bakirtris = {
 
-			picture = generic_political_advisor_europe_3
-		
-			allowed = {
-				original_tag = GRE
-				AND = {
-					has_dlc = "La Resistance"
-					has_dlc = "Battle for the Bosporus"
-				}
-			}
-		
-			traits = { quartermaster_general }
-			traits = { fortification_engineer }
+        picture = generic_political_advisor_europe_3
+    
+        allowed = {
+            original_tag = GRE
+            AND = {
+                has_dlc = "La Resistance"
+                has_dlc = "Battle for the Bosporus"
+            }
         }
+        
+        visible = {
+            NOT = { has_axis_occupation = yes }
+        } 
+    
+        traits = { quartermaster_general }
+        traits = { fortification_engineer }
+    }
 }	
 
 
@@ -3093,6 +3213,10 @@ theorist = {
 				NOT = { has_war_with = ENG }
 			}
             
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
+            
             on_add = {
                 custom_effect_tooltip = manufacturer_reduced_cost_tt
                 if = { 
@@ -3131,6 +3255,10 @@ theorist = {
 			allowed = {
 				original_tag = GRE
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 			
             cost = 75
             
@@ -3148,6 +3276,10 @@ theorist = {
 				original_tag = GRE
 			}
             
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
+            
             cost = 75
 
 			research_bonus = {
@@ -3163,6 +3295,10 @@ theorist = {
 			allowed = {
 				original_tag = GRE
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 				
 			research_bonus = {
 				armor = 0.05
@@ -3179,6 +3315,12 @@ theorist = {
 			allowed = {
 				original_tag = GRE
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
+            
+            
 			research_bonus = {
 				armor = 0.05
 			}
@@ -3221,6 +3363,10 @@ theorist = {
 			available = {
 				NOT = { has_war_with = GER }
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 
 			cost = 75
 			
@@ -3243,6 +3389,10 @@ theorist = {
 				has_completed_focus = GRE_rapprochement_with_the_italians
 				NOT = { has_war_with = ITA }
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
             
             on_add = {
                 custom_effect_tooltip = manufacturer_reduced_cost_tt
@@ -3287,6 +3437,10 @@ theorist = {
 				has_completed_focus = GRE_crack_down_on_foreign_monopolies
 			}
             
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
+            
 			research_bonus = {
 				armor = 0.25
 			}
@@ -3318,6 +3472,10 @@ theorist = {
 			allowed = {
 				original_tag = GRE
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 			
 			research_bonus = {
 				air_equipment = 0.05
@@ -3334,6 +3492,10 @@ theorist = {
 			allowed = {
 				original_tag = GRE
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 			
 			research_bonus = {
 				air_equipment = 0.05
@@ -3350,6 +3512,10 @@ theorist = {
 			allowed = {
 				original_tag = GRE
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 			
 			research_bonus = {
 				air_equipment = 0.05
@@ -3366,6 +3532,10 @@ theorist = {
 			allowed = {
 				original_tag = GRE
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
             
             on_add = {
                 custom_effect_tooltip = manufacturer_reduced_cost_tt
@@ -3405,6 +3575,10 @@ theorist = {
 				original_tag = GRE
 			}
             
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
+            
             on_add = {
                 custom_effect_tooltip = manufacturer_reduced_cost_tt
                 if = { 
@@ -3442,6 +3616,10 @@ theorist = {
 			allowed = {
 				original_tag = GRE
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 			
 			research_bonus = {
 				air_equipment = 0.05
@@ -3465,6 +3643,10 @@ theorist = {
 			research_bonus = {
 				air_equipment = 0.15
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 			
 			traits = { light_aircraft_manufacturer }
 			traits = { CAS_manufacturer }
@@ -3487,6 +3669,10 @@ theorist = {
 				original_tag = GRE
 				has_dlc = "Battle for the Bosporus"
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 			
 			research_bonus = {
 				air_equipment = 0.15
@@ -3507,6 +3693,10 @@ theorist = {
 				original_tag = GRE
 				has_dlc = "Battle for the Bosporus"
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 			
 			research_bonus = {
 				air_equipment = 0.15
@@ -3533,6 +3723,10 @@ theorist = {
 			allowed = {
 				original_tag = GRE
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
             
             on_add = {
                 custom_effect_tooltip = manufacturer_reduced_cost_tt
@@ -3571,6 +3765,10 @@ theorist = {
 			allowed = {
 				original_tag = GRE
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 			
 			research_bonus = {
 				naval_equipment = 0.15
@@ -3588,7 +3786,11 @@ theorist = {
 			allowed = {
 				original_tag = GRE
 			}
-						
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
+
 			research_bonus = {
 				naval_equipment = 0.15
 			}
@@ -3602,6 +3804,10 @@ theorist = {
 			allowed = {
 				original_tag = GRE
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 			
 			research_bonus = {
 				naval_equipment = 0.15
@@ -3619,6 +3825,10 @@ theorist = {
 				original_tag = GRE
 				NOT = { has_dlc = "Battle for the Bosporus" }
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 			
 			research_bonus = {
 				naval_equipment = 0.15
@@ -3635,6 +3845,10 @@ theorist = {
 				original_tag = GRE
 				has_dlc = "Battle for the Bosporus"
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 
 			available = {
 				has_country_flag = GRE_kathestos_proclaimed
@@ -3655,6 +3869,10 @@ theorist = {
 				original_tag = GRE
 				has_dlc = "Battle for the Bosporus"
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 			
 			research_bonus = {
 				naval_equipment = 0.15
@@ -3671,6 +3889,10 @@ theorist = {
 				original_tag = GRE
 				has_dlc = "Battle for the Bosporus"
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 
 			available = {
 				OR = {
@@ -3703,6 +3925,10 @@ theorist = {
 			allowed = {
 				original_tag = GRE
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 			
 			research_bonus = {
 				industry = 0.05
@@ -3719,6 +3945,10 @@ theorist = {
 			allowed = {
 				original_tag = GRE
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 			
 			research_bonus = {
 				electronics = 0.05
@@ -3738,6 +3968,10 @@ theorist = {
 			allowed = {
 				original_tag = GRE
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 			
 			research_bonus = {
 				industry = 0.05	
@@ -3754,6 +3988,10 @@ theorist = {
 				original_tag = GRE
 				has_dlc = "Battle for the Bosporus"
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 
 			available = { 
 				has_completed_focus = GRE_lignite_liquefaction
@@ -3777,7 +4015,11 @@ theorist = {
 			allowed = {
 				original_tag = GRE
 				has_dlc = "Battle for the Bosporus"
-			}			
+			}
+
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 
 			available = { 
 				has_completed_focus = GRE_cooperate_with_foreign_monopolies
@@ -3835,6 +4077,10 @@ theorist = {
 				has_completed_focus = GRE_cooperate_with_foreign_monopolies
 				NOT = { has_war_with = GER }
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 
 			cost = 120
 			
@@ -3862,6 +4108,10 @@ theorist = {
 			available = { 
 				has_completed_focus = GRE_crack_down_on_foreign_monopolies
 			}	
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 			
 			research_bonus = {
 				electronics = 0.05
@@ -3886,6 +4136,10 @@ theorist = {
 			available = { 
 				has_completed_focus = GRE_crack_down_on_foreign_monopolies
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 			
 			research_bonus = {
 				electronics = 0.1
@@ -3906,6 +4160,10 @@ theorist = {
 				original_tag = GRE
 				has_dlc = "Battle for the Bosporus"
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 
 			available = { 
 				has_completed_focus = GRE_crack_down_on_foreign_monopolies
@@ -3937,6 +4195,10 @@ theorist = {
 			allowed = {
 				original_tag = GRE
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 			
 			research_bonus = {
 				infantry_weapons = 0.05
@@ -3954,6 +4216,10 @@ theorist = {
 			allowed = {
 				original_tag = GRE
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 			
 			research_bonus = {
 				infantry_weapons = 0.05
@@ -3970,6 +4236,10 @@ theorist = {
 			allowed = {
 				original_tag = GRE
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 
 			research_bonus = {
 				motorized_equipment = 0.05
@@ -3986,6 +4256,10 @@ theorist = {
 			allowed = {
 				original_tag = GRE
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
             
             on_add = {
                 custom_effect_tooltip = manufacturer_reduced_cost_tt
@@ -4025,6 +4299,10 @@ theorist = {
 				original_tag = GRE
 			}
             
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
+            
             on_add = {
                 custom_effect_tooltip = manufacturer_reduced_cost_tt
                 if = { 
@@ -4062,6 +4340,10 @@ theorist = {
 			allowed = {
 				original_tag = GRE
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 			
 			research_bonus = {
 				infantry_weapons = 0.05
@@ -4077,6 +4359,10 @@ theorist = {
 				original_tag = GRE
 				has_dlc = "Battle for the Bosporus"
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 
 			available = {
 				has_completed_focus = GRE_crack_down_on_foreign_monopolies
@@ -4102,6 +4388,10 @@ theorist = {
 				original_tag = GRE
 				has_dlc = "Battle for the Bosporus"
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 
 			available = {
 				has_completed_focus = GRE_crack_down_on_foreign_monopolies
@@ -4129,6 +4419,10 @@ theorist = {
 				original_tag = GRE
 				has_dlc = "Battle for the Bosporus"
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 
 			available = {
 				NOT = { has_war_with = ENG }
@@ -4174,6 +4468,10 @@ theorist = {
 				original_tag = GRE
 				has_dlc = "Battle for the Bosporus"
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 
 			available = {
 				NOT = { has_war_with = GER }
@@ -4197,6 +4495,10 @@ theorist = {
 				original_tag = GRE
 				has_dlc = "Battle for the Bosporus"
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 
 			available = {
 				NOT = { has_war_with = USA }
@@ -4220,6 +4522,10 @@ theorist = {
 				original_tag = GRE
 				has_dlc = "Battle for the Bosporus"
 			}
+            
+            visible = {
+                NOT = { has_axis_occupation = yes }
+            } 
 
 			available = {
 				NOT = { has_war_with = SOV }

@@ -4589,7 +4589,7 @@ country_event = {                                                               
 	
 	option = {
 		name = hellas.801.a
-        ai_will_do = {
+        ai_chance = {
 			factor = 100
 		}
         GRE = { country_event = { id = hellas.802 days = 0 } }
@@ -4597,7 +4597,7 @@ country_event = {                                                               
     
     option = {                                                                                                        # We break negotiations if human faction leader player is not willing.
 		name = hellas.801.b
-        ai_will_do = {
+        ai_chance = {
 			factor = 0
 		}
         #GRE = { country_event = { id = hellas.xxx days = 0 } }
@@ -4653,7 +4653,7 @@ country_event = {                                                               
     
     option = {                                                                                                       ## Decides to keep fighting afterall.
 		name = hellas.802.b
-        ai_will_do = {
+        ai_chance = {
 			factor = 0
 		}
     }
@@ -4843,11 +4843,11 @@ country_event = {                                                               
             limit = { has_country_flag = ita_dod_demanded }  
             GRE = { transfer_state = 164 }  
         }
-        if = { 
+        if = {
             limit = { has_country_flag = bul_stockpile_and_units_disbanded }    
             BUL = { 
-                teleport_armies = { to_state = 48 } 
-                delete_unit = { 
+                #teleport_armies = { to_state = 48 } 
+                delete_unit = {
                     state = 48
                     disband = yes
                 }
@@ -4883,7 +4883,7 @@ country_event = {                                                               
         else_if = {
             limit = { has_country_flag = bul_units_disbanded }
             BUL = { 
-                teleport_armies = { to_state = 48 } 
+                #teleport_armies = { to_state = 48 } 
                 delete_unit = { 
                     state = 48
                     disband = yes
@@ -5055,10 +5055,12 @@ country_event = {                                                               
                                 is_owned_by = GRE
                                 is_controlled_by = GRE
                             }
-                            NOT = { state = 182 }                                                            # This doesn't apply for Sterea Ellada / Attika / Peloponnese / Crete
+                            NOT = { state = 182 }                                                            # This doesn't apply for Sterea Ellada / Attika / Peloponnese / Crete / Nisia Aegeou
                             NOT = { state = 47  }
                             NOT = { state = 186 }
                             NOT = { state = 807 }
+                            NOT = { state = 187 }
+                            NOT = { state = 814 }
                         }
                         GRE = {
                             delete_unit = { 
@@ -5135,6 +5137,7 @@ country_event = {
     
     immediate = {
         hidden_effect = {
+            set_global_flag = monthly_favor_mechanic_frozen
             set_global_flag = GRE_hellenic_state_formed
             set_global_flag = GRE_grecoitalian_ended
             set_global_flag = GRE_crete_still_holding
@@ -5200,6 +5203,7 @@ country_event = {
                 }
                 #GER = { add_to_faction = event_target:hellenic_state }             # Not a good idea because GRE will be able to see all Axis troops., so just give access (below)
                 GER = { transfer_state = 47 }                                       # TEMPORARILY TO NAVAL INVADE CRETE (doesn't work otherwise)
+                GER = { transfer_state = 811 }    
                 set_capital = 47
                 set_politics = {
                     ruling_party = fascism
@@ -5222,10 +5226,22 @@ country_event = {
                         
                     }
                 }
-                GRE = {                                                                     ## Germany takes 75% of stockpile from virtually SURRENDERED troops
-                    transfer_units_fraction = {                                              # This is why evacuated divisions will retain equipment, while disbanded (see above) will put eq to stockpile.
-                        target = GER                                                         # So basically the 25% left is what you """evacuated""" to Crete.
-                        size = 0
+                GRE = {                                                                     ## Disband Units in Aegean Islands and mainland Greece
+                    delete_unit = {state = 807 disband = yes}
+                    delete_unit = {state = 47 disband = yes}
+                    delete_unit = {state = 186 disband = yes}
+                    delete_unit = {state = 187 disband = yes}
+                    delete_unit = {state = 814 disband = yes}
+                    set_temp_variable = { convoy_num = GRE.convoys_secured }
+                    multiply_temp_variable = { convoy_num = -1 }
+                    add_equipment_to_stockpile = {
+                        type = convoy_1
+                        amount = convoy_num
+                        producer = GRE
+                    }
+                    transfer_units_fraction = {                                             ## Germany takes 75% of stockpile from virtually SURRENDERED troops
+                        target = GER                                                         # This is why evacuated divisions will retain equipment, while disbanded (see above) will put eq to stockpile.
+                        size = 0                                                             # So basically the 25% left is what you """evacuated""" to Crete.
                         stockpile_ratio = 0.75
                         army_ratio = 0
                         navy_ratio = 0.0
@@ -5236,6 +5252,7 @@ country_event = {
                     }
                 }
                 inherit_technology = GRE
+                set_research_slots = 0
                 add_ideas = HS_ind_shackles_4
                 add_ideas = HS_tripple_occupation
                 add_ideas = HS_occupation_costs
@@ -5280,6 +5297,7 @@ country_event = {
                 }
             }
             HS_set_up_occupation_zones = yes
+            HS_calculate_factories_in_occupation_zones = yes
             GRE = { country_event = { id = hellas.1004 days = 10 } }
         }
     }
@@ -5445,7 +5463,7 @@ country_event = {                                                               
     }
     
 	option = {                                                                                                                                                         
-		name = hellas.1010.a 
+		name = hellas.1011.a 
         custom_effect_tooltip = "The Great Famine has appeared on all occupied states!"
     }
 }
@@ -5458,7 +5476,7 @@ state_event = {                                                                 
 
     trigger = {
         GRE = { has_global_flag = GRE_famine_started }
-        state_id = {
+        any_state = {
             limit = {
                 is_in_array = {
                     array = global.greek_mainland_states_all
@@ -5473,23 +5491,23 @@ state_event = {                                                                 
         modifier = {
             factor = 0.25
             OR = {
-                THIS.state = 47
-                THIS.state = 811
+                state = 47
+                state = 811
             }
         }
         modifier = {
             factor = 0.50
             OR = {
-                THIS.state = 808
-                THIS.state = 187
+                state = 808
+                state = 187
             }
         }
         modifier = {
             factor = 0.75
             OR = {
-                THIS.state = 182
-                THIS.state = 186
-                THIS.state = 807
+                state = 182
+                state = 186
+                state = 807
             }
         }
     }
@@ -5502,6 +5520,168 @@ state_event = {                                                                 
             GRE = { add_political_power = 100 }
             THIS = { event_based_black_market_shift = yes }
         }
+    }
+}
+
+country_event = {                                                                                   ## Government Returns (Fast)                                                   
+	id = hellas.1013
+	title = hellas.1013.t
+	desc = hellas.1013.desc
+	picture = GFX_report_event_GRE_Parliament
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+    
+    immediate = {
+        hidden_effect = {
+            set_global_flag = GRE_greek_island_federation
+        }
+    }
+    
+	option = {                                                                                                                                                         
+		name = hellas.1013.a
+        trigger = { 
+            GRE = { 
+                has_country_flag = convinced_british_over_enosis 
+                NOT = { has_country_flag = failed_to_convince_british_over_enosis }
+            }
+        }
+        if = {
+            limit = {
+                GRE = {
+                    any_allied_country = {
+                        controls_state = 183
+                    }
+                }
+            }
+            GRE = { transfer_state = 183 }
+        }
+        if = {
+            limit = {
+                GRE = {
+                    any_allied_country = {
+                        controls_state = 164
+                    }
+                }
+            }
+            GRE = { transfer_state = 164 }
+        }
+        custom_effect_tooltip = hellas.1013.a_tt
+    }
+    
+    option = {                                                                                                                                                         
+		name = hellas.1013.b
+        trigger = { 
+            GRE = { 
+                has_country_flag = failed_to_convince_british_over_enosis 
+                NOT = { has_country_flag = convinced_british_over_enosis }
+            }
+        }
+        if = {
+            limit = {
+                GRE = {
+                    any_allied_country = {
+                        controls_state = 164
+                    }
+                }
+            }
+            GRE = { transfer_state = 164 }
+        }
+        custom_effect_tooltip = hellas.1013.b_tt
+    }
+}
+
+country_event = {                                                                                   ## Government Relocated                                                 
+	id = hellas.1014
+	title = hellas.1014.t
+	desc = hellas.1014.desc
+	picture = GFX_report_event_gre_allied_diplomacy
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+    
+	option = {                                                                                                                                                         
+		name = hellas.1014.a
+        trigger = { 
+            GRE = { 
+                has_country_flag = convinced_british_over_enosis 
+                NOT = { has_country_flag = failed_to_convince_british_over_enosis }
+            }
+            any_allied_country = {
+                controls_state = 183
+            }
+        }
+        set_global_flag = GRE_greek_island_federation
+        if = {
+            limit = {
+                GRE = {
+                    any_allied_country = {
+                        controls_state = 183
+                    }
+                }
+            }
+            GRE = { transfer_state = 183 }
+            hidden_effect = { ENG = { transfer_state = 270 } }
+        }
+        if = {
+            limit = {
+                GRE = {
+                    any_allied_country = {
+                        controls_state = 164
+                    }
+                }
+            }
+            GRE = { transfer_state = 164 }
+        }
+        custom_effect_tooltip = hellas.1014.a_tt
+    }
+    
+    option = {                                                                                                                                                         
+		name = hellas.1014.b
+        trigger = { 
+            GRE = { 
+                has_country_flag = failed_to_convince_british_over_enosis 
+                NOT = { has_country_flag = convinced_british_over_enosis }
+            }
+        }
+        if = {
+            limit = {
+                GRE = {
+                    any_allied_country = {
+                        controls_state = 164
+                    }
+                }
+            }
+            GRE = { transfer_state = 164 }
+        }
+        custom_effect_tooltip = hellas.1014.b_tt
+    }
+    
+    option = {                                                                                                                                                         
+		name = hellas.1014.c
+        trigger = { 
+            any_allied_country = { 
+                controls_state = 447
+                controls_state = 446
+                controls_state = 453
+                controls_state = 452
+            }
+        }
+        GRE = { set_country_flag = remained_at_Egypt }
+        custom_effect_tooltip = hellas.1014.c_tt
+    }
+    
+    option = {                                                                                                                                                         
+		name = hellas.1014.d
+        trigger = { 
+            any_allied_country = { 
+                controls_state = 126
+            }
+        }
+        GRE = { set_country_flag = relocated_to_London }
+        custom_effect_tooltip = hellas.1014.d_tt
     }
 }
 
@@ -5526,6 +5706,32 @@ country_event = {                                                               
 	option = {                                                                                                                                                         
 		name = hellas.1500.a 
         custom_effect_tooltip = ravaged_infr_tt
+    }
+}
+
+country_event = {                                                                                   ## Kostis Palamas Funeral                                                     
+	id = hellas.1501
+	title = hellas.1501.t
+	desc = {                                                                                        ## Prepared
+        text = hellas.1501a.desc
+        trigger = {
+            has_global_flag = funeral_protest_prepared
+        }
+    }
+    desc = {                                                                                        ## Not Prepared
+        text = hellas.1501b.desc
+        trigger = {
+            NOT = { has_global_flag = funeral_protest_prepared }
+        }
+    }
+	picture = GFX_report_event_kostis_palamas
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+    
+	option = {                                                                                                                                                         
+		name = hellas.1501.a
     }
 }
 
@@ -6096,6 +6302,8 @@ country_event = {
 		name = hellas.10000.a
         
         event_target:hellenic_state = { transfer_state = 47 }
+        event_target:hellenic_state = { transfer_state = 811 }
+        GER = { set_province_controller = 11818 }
         GER = { set_province_controller = 4109 }
         GER = { set_province_controller = 11965 }
         47 = { add_resistance = 6 }
@@ -6114,6 +6322,7 @@ country_event = {
                 add_dynamic_modifier = { modifier = unyielding_greeks_angered }
                 add_dynamic_modifier = { modifier = GRE_german_occupation_zone }
             }
+            HS_calculate_factories_in_occupation_zones = yes
             country_event = { id = hellas.1007 days = 0 }
         }
         else = {

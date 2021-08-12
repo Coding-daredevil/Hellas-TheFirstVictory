@@ -9,6 +9,129 @@
 # that'll be used if trigger passes
 
 defined_text = {
+    name = GetPopupText
+    text = {
+        trigger = {
+            NOT = { has_global_flag = allow_info_popups }
+        }
+        localization_key = allow_info_popups_on_states_1
+    } 
+    text = {
+        trigger = {
+            has_global_flag = allow_info_popups
+        }
+        localization_key = allow_info_popups_on_states_2
+    } 
+}
+
+defined_text = {
+    name = GetELASequipment
+    text = {
+        trigger = {
+            check_variable = { GRE.elas_manpower < 500 }
+        }
+        localization_key = GRE_inconsequencial_numbers
+    } 
+}
+
+defined_text = {
+    name = GetEDESequipment
+    text = {
+        trigger = {
+            check_variable = { GRE.edes_manpower < 500 }
+        }
+        localization_key = GRE_inconsequencial_numbers
+    } 
+}
+
+defined_text = {
+    name = GetELASmanpower
+    text = {
+        trigger = {
+            check_variable = { GRE.elas_manpower > 499 }
+        }
+        localization_key = GRE_elas_number
+    } 
+    text = {
+        trigger = {
+            check_variable = { GRE.elas_manpower < 500 }
+        }
+        localization_key = GRE_inconsequencial_numbers
+    } 
+}
+
+defined_text = {
+    name = GetEDESmanpower
+    text = {
+        trigger = {
+            check_variable = { GRE.edes_manpower > 499 }
+        }
+        localization_key = GRE_edes_number
+    } 
+    text = {
+        trigger = {
+            check_variable = { GRE.edes_manpower < 500 }
+        }
+        localization_key = GRE_inconsequencial_numbers
+    } 
+}
+
+defined_text = {
+    name = GetExiledStrengthStatus
+    text = {
+        trigger = {
+            check_variable = { GRE.exiled_government_strength > 89 }
+            GRE = { has_completed_focus = GRE_legitimize_the_government }
+        }
+        localization_key = GRE_egs_vhigh
+    } 
+    text = {
+        trigger = {
+            check_variable = { GRE.exiled_government_strength > 74 }
+            GRE = { has_completed_focus = GRE_legitimize_the_government }
+        }
+        localization_key = GRE_egs_high
+    } 
+    text = {
+        trigger = {
+            check_variable = { GRE.exiled_government_strength > 49 }
+            GRE = { has_completed_focus = GRE_legitimize_the_government }
+        }
+        localization_key = GRE_egs_medium
+    } 
+    text = {
+        trigger = {
+            check_variable = { GRE.exiled_government_strength > 24 }
+            GRE = { has_completed_focus = GRE_legitimize_the_government }
+        }
+        localization_key = GRE_egs_limited
+    } 
+    text = {
+        trigger = {
+            check_variable = { GRE.exiled_government_strength < 25 }
+            GRE = { has_completed_focus = GRE_legitimize_the_government }
+        }
+        localization_key = GRE_egs_ne
+    } 
+    text = {
+        trigger = {
+            GRE = { NOT = { has_completed_focus = GRE_legitimize_the_government } }
+        }
+        localization_key = GRE_egs_xxx
+    } 
+}
+
+defined_text = {
+    name = GetHSResearchStatus
+    text = {
+        trigger = {
+            event_target:hellenic_state = { has_idea = HS_occupation_costs }
+        }
+        localization_key = HS_research_disabled_tt
+    }
+}
+
+defined_text = {
     name = GetGOStitle
     text = {
         trigger = {
@@ -118,6 +241,67 @@ defined_text = {
         }
         localization_key = GoS_bulgarian_dillema_outcome
     }
+}
+
+defined_text = {
+    name = GetFamineStatusInCategory
+    text = {
+        trigger = {
+            has_global_flag = GRE_famine_started
+        }
+        localization_key = GRE_hellenic_state_category_additional
+    }
+}
+
+defined_text = {
+    name = GetStateFamineLevel
+    text = {
+        trigger = {
+            state = 182
+            GRE = { has_completed_focus = GRE_crete_holds }
+        }
+        localization_key = state_danger_crete
+    } 
+    text = {
+        trigger = {
+            check_variable = { THIS.famine_level > 8 }
+        }
+        localization_key = state_danger_level_supreme_tt
+    }
+    text = {
+        trigger = {
+            check_variable = { THIS.famine_level > 6 }
+            check_variable = { THIS.famine_level < 9 }
+        }
+        localization_key = state_danger_level_severe_tt
+    } 
+    text = {
+        trigger = {
+            check_variable = { THIS.famine_level > 4 }
+            check_variable = { THIS.famine_level < 7 }
+        }
+        localization_key = state_danger_level_serious_tt
+    } 
+    text = {
+        trigger = {
+            check_variable = { THIS.famine_level > 2 }
+            check_variable = { THIS.famine_level < 5 }
+        }
+        localization_key = state_danger_level_growing_tt
+    } 
+    text = {
+        trigger = {
+            check_variable = { THIS.famine_level > 0 }
+            check_variable = { THIS.famine_level < 2 }
+        }
+        localization_key = state_danger_level_low_tt
+    } 
+    text = {
+        trigger = {
+            check_variable = { THIS.famine_level < 0 }
+        }
+        localization_key = state_danger_level_not_surfaced_tt
+    } 
 }
 
 defined_text = {

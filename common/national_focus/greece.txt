@@ -5445,14 +5445,19 @@ focus_tree = {
 		cost = 2.9
 		ai_will_do = {
 			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_glorious_struggle_in_vain_tt
-        hidden_effect = {
-            set_country_flag = GRE_grecoitalian_lost
-        }
+            custom_effect_tooltip = GRE_glorious_struggle_in_vain_tt
+            hidden_effect = {
+                set_country_flag = GRE_grecoitalian_lost
+            }
+            hidden_effect = { event_target:hellenic_state = { unlock_national_focus = glorious_struggle_in_vain } }
 		}
 	} 
 
@@ -5464,174 +5469,284 @@ focus_tree = {
         x = -8
 		y = 1
 		cost = 2.9
-		ai_will_do = {
+
+        ai_will_do = {
 			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
         
         available_if_capitulated = yes
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_resistance_tt
+            hidden_effect = { HS_add_angered_greeks = yes }
+            custom_effect_tooltip = GRE_resistance_tt
+            hidden_effect = { event_target:hellenic_state = { unlock_national_focus = resistance } }
 		}
 	}
 
 	focus = {
 		id = GRE_take_down_the_hakenkreuz
-		icon = GFX_goal_gre_resistance
+		icon = GFX_goal_hs_take_down_the_hakenkreuz
         prerequisite = { focus = GRE_resistance }
         relative_position_id = GRE_resistance
         x = 0
 		y = 1
-		cost = 2.9
-		
-        
+		cost = 0
+        available = {
+            crete_is_no_loose_end = yes
+        }        
+        ai_will_do = {
+			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
+		}
         available_if_capitulated = yes
-
-
 		completion_reward = {
-        
+            hidden_effect = {
+                47 = {
+                    if = {
+                    limit = { has_dynamic_modifier = { modifier = unyielding_greeks_angered } }
+                    remove_dynamic_modifier = { modifier = unyielding_greeks_angered }
+                    add_dynamic_modifier = { modifier = unyielding_greeks_determined }
+                    }
+                    else_if = {
+                        limit = { has_dynamic_modifier = { modifier = unyielding_greeks_determined } }
+                        remove_dynamic_modifier = { modifier = unyielding_greeks_determined }
+                        add_dynamic_modifier = { modifier = unyielding_greeks_ferocious }
+                    }
+                }
+            }
+            custom_effect_tooltip = take_down_the_hakenkreuz_tt
+            hidden_effect = { event_target:hellenic_state = { unlock_national_focus = take_down_the_hakenkreuz } }
+            #hidden_effect = { gre_hs_xor = yes var:event_sender = { country_event = { id = hellas.xxxx days = 0 } } }
 		}
 	}
 
 	focus = {
 		id = GRE_form_up_early_resistance_groups
-		icon = GFX_goal_gre_resistance
+		icon = GFX_goal_hs_form_early_res
         prerequisite = { focus = GRE_take_down_the_hakenkreuz }
         relative_position_id = GRE_take_down_the_hakenkreuz
         x = 0
 		y = 1
-		cost = 2.9
-		
+		cost = 4.29
         
-        available_if_capitulated = yes
-
-
-		completion_reward = {
-        
+        ai_will_do = {
+			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
+        available_if_capitulated = yes
+        
+		completion_reward = {
+            HS_increase_armed_resistance_by_one = yes
+            custom_effect_tooltip = form_up_early_resistance_groups_tt
+            hidden_effect = { event_target:hellenic_state = { unlock_national_focus = form_up_early_resistance_groups } }
+        }
 	}
 
 	focus = {
 		id = GRE_drama_uprising
-		icon = GFX_goal_gre_resistance
+		icon = GFX_goal_hs_drama_uprising
         prerequisite = { focus = GRE_resistance }
         relative_position_id = GRE_take_down_the_hakenkreuz
         x = -2
 		y = 0
-		cost = 2.9
-		ai_will_do = {
+		cost = 0
+        
+        available = {
+            date > 1941.09.27
+        }
+        
+        ai_will_do = {
 			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
-
         available_if_capitulated = yes
-        
-		completion_reward = {
-        
-		}
+
+        completion_reward = {
+            custom_effect_tooltip = drama_uprising_tt
+            #hidden_effect = { gre_hs_xor = yes var:event_sender = { country_event = { id = hellas.xxxx days = 0 } } }
+            hidden_effect = { event_target:hellenic_state = { unlock_national_focus = drama_uprising } }
+        }
 	}
 
 	focus = {
 		id = GRE_unarmed_resistance
-		icon = GFX_goal_gre_resistance
+		icon = GFX_goal_hs_early_res
         prerequisite = { focus = GRE_form_up_early_resistance_groups }
         relative_position_id = GRE_form_up_early_resistance_groups
         x = 0
 		y = 1
-		cost = 2.9
-		ai_will_do = {
+		cost = 8.6
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = famine_has_started_tt
+                has_global_flag = GRE_famine_started
+            }
+        }
+        
+        ai_will_do = {
 			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
-        
         available_if_capitulated = yes
-        
+
 		completion_reward = {
-        
-		}
+            HS_increase_unyielding_greeks_by_one = yes 
+            custom_effect_tooltip = unarmed_resistance_tt
+            hidden_effect = { event_target:hellenic_state = { unlock_national_focus = unarmed_resistance } }
+        }
 	}
 
 	focus = {
 		id = GRE_form_EAM
-		icon = GFX_goal_gre_resistance
+		icon = GFX_goal_hs_EAM_yes
         mutually_exclusive = { focus = GRE_avoid_EAM }
         prerequisite = { focus = GRE_unarmed_resistance }
         relative_position_id = GRE_unarmed_resistance
         x = -1
 		y = 1
-		cost = 2.9
-		ai_will_do = {
+		cost = 8.6
+        available = {
+            date > 1942.9.1
+            if = {
+                limit = { GRE = { NOT = { has_dynamic_modifier = { modifier = GRE_grand_coalition_dynamic } } } }
+                custom_trigger_tooltip = {
+                    tooltip = GRE_fct_com_adequate_tt
+                    check_variable = { GRE.fct_com > 60 }
+                }
+            }
+        }
+        
+        ai_will_do = {
 			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
-
         available_if_capitulated = yes
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_form_EAM_tt
-		}
+            custom_effect_tooltip = form_EAM_tt
+            hidden_effect = { event_target:hellenic_state = { unlock_national_focus = form_EAM } }
+        }
 	}
 
 	focus = {
 		id = GRE_avoid_EAM
-		icon = GFX_goal_gre_resistance
+		icon = GFX_goal_hs_EAM_no
         mutually_exclusive = { focus = GRE_form_EAM }
         prerequisite = { focus = GRE_unarmed_resistance }
         relative_position_id = GRE_unarmed_resistance
         x = 1
 		y = 1
-		cost = 2.9
-		ai_will_do = {
+		cost = 8.6
+        available = {
+            date > 1942.9.1
+        }
+        
+        ai_will_do = {
 			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
 
         available_if_capitulated = yes
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_avoid_EAM_tt
+            custom_effect_tooltip = avoid_EAM_tt
+            hidden_effect = { event_target:hellenic_state = { unlock_national_focus = avoid_EAM } }
 		}
 	}
 
 	focus = {
 		id = GRE_form_EDES
-		icon = GFX_goal_gre_resistance
+		icon = GFX_goal_hs_EDES_yes
         mutually_exclusive = { focus = GRE_avoid_EDES }
         prerequisite = { focus = GRE_form_EAM focus = GRE_avoid_EAM }
         relative_position_id = GRE_form_EAM
         x = 0
 		y = 1
 		cost = 2.9
-		ai_will_do = {
+        available = {
+            date > 1942.9.1
+        }
+        
+        ai_will_do = {
 			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
 
         available_if_capitulated = yes
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_form_EDES_tt
+            custom_effect_tooltip = form_EDES_tt
+            hidden_effect = { event_target:hellenic_state = { unlock_national_focus = form_EDES } }
 		}
 	}
 
 	focus = {
 		id = GRE_avoid_EDES
-		icon = GFX_goal_gre_resistance
+		icon = GFX_goal_hs_EDES_no
         mutually_exclusive = { focus = GRE_form_EDES }
         prerequisite = { focus = GRE_form_EAM focus = GRE_avoid_EAM }
         relative_position_id = GRE_form_EAM
         x = 2
 		y = 1
 		cost = 2.9
-		ai_will_do = {
+        available = {
+            date > 1942.9.1
+            if = {
+                limit = { GRE = { NOT = { has_dynamic_modifier = { modifier = GRE_grand_coalition_dynamic } } } }
+                custom_trigger_tooltip = {
+                    tooltip = GRE_fct_dem_mon_not_polarized
+                    set_temp_variable = { x = GRE.fct_mon }
+                    add_to_temp_variable = { x = GRE.fct_com }
+                    divide_temp_variable = { x = 2 }
+                    check_variable = { x > 70 }
+                }
+            }
+        }
+        
+        ai_will_do = {
 			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
-
+        
         available_if_capitulated = yes
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_avoid_EDES_tt
+            custom_effect_tooltip = avoid_EDES_tt
+            hidden_effect = { event_target:hellenic_state = { unlock_national_focus = avoid_EDES } }
 		}
 	}
 
 	focus = {
 		id = GRE_light_up_the_fireworks
-		icon = GFX_goal_gre_resistance
+		icon = GFX_goal_hs_light_up
         prerequisite = { focus = GRE_avoid_EDES focus = GRE_form_EDES }
         available = {
             has_completed_focus = GRE_an_egypt_without_cromer
@@ -5639,53 +5754,88 @@ focus_tree = {
         relative_position_id = GRE_form_EDES
         x = 1
 		y = 1
-		cost = 2.9
-		ai_will_do = {
+		cost = 4.29
+        available = {
+            date > 1943.1.1
+        }
+        
+        ai_will_do = {
 			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
 
         available_if_capitulated = yes
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_light_up_the_fireworks_tt
+            HS_increase_unyielding_greeks_by_one = yes 
+            HS_increase_armed_resistance_by_one = yes
+            custom_effect_tooltip = light_up_the_fireworks_tt
+            hidden_effect = { event_target:hellenic_state = { unlock_national_focus = light_up_the_fireworks } }
 		}
 	}
 
 	focus = {
 		id = GRE_expand_cooperation_between_resistance_groups
-		icon = GFX_goal_gre_resistance
+		icon = GFX_goal_hs_together
         prerequisite = { focus = GRE_light_up_the_fireworks }
         relative_position_id = GRE_light_up_the_fireworks
         x = -2
 		y = 1
-		cost = 2.9
-		ai_will_do = {
+		cost = 4.29
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = gorgopotamos_happened_tt
+                has_country_flag = GRE_gorgopotamos
+            }
+        }
+        
+        ai_will_do = {
 			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
 
         available_if_capitulated = yes
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_expand_cooperation_between_resistance_groups_tt
+            custom_effect_tooltip = expand_cooperation_between_resistance_groups_tt
+            hidden_effect = { event_target:hellenic_state = { unlock_national_focus = expand_cooperation_between_resistance_groups } }
 		}
 	}
 
 	focus = {
 		id = GRE_free_greece
-		icon = GFX_goal_gre_resistance
+		icon = GFX_goal_hs_free_greece
         prerequisite = { focus = GRE_light_up_the_fireworks }
         relative_position_id = GRE_light_up_the_fireworks
         x = 0
 		y = 2
-		cost = 2.9
-		ai_will_do = {
+		cost = 8.6
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = at_least_some_states_with_high_resistance_tt
+                always = yes
+            }
+        }
+        
+        ai_will_do = {
 			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
 
         available_if_capitulated = yes
 
 		completion_reward = {
-        
+            custom_effect_tooltip = free_greece_tt
+            hidden_effect = { event_target:hellenic_state = { unlock_national_focus = free_greece } }
 		}
 	}
 
@@ -5704,27 +5854,34 @@ focus_tree = {
         available_if_capitulated = yes
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_the_struggle_of_the_free_spirited_tt
+            custom_effect_tooltip = GRE_the_struggle_of_the_free_spirited_tt
+            hidden_effect = { event_target:hellenic_state = { unlock_national_focus = the_struggle_of_the_free_spirited } }
 		}
 	}
 
 	focus = {
 		id = GRE_form_pseudo_battalions_arm_resistance
-		icon = GFX_goal_gre_resistance
+		icon = GFX_goal_hs_arm_pseudo
         prerequisite = { focus = GRE_light_up_the_fireworks }
         mutually_exclusive = { focus = GRE_ask_permission_to_form_security_battalions }
         relative_position_id = GRE_light_up_the_fireworks
         x = 3
 		y = 3
 		cost = 2.9
-		ai_will_do = {
+        
+        ai_will_do = {
 			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
 
         available_if_capitulated = yes
 
 		completion_reward = {
-        
+            custom_effect_tooltip = form_pseudo_battalions_arm_resistance_tt
+            hidden_effect = { event_target:hellenic_state = { unlock_national_focus = GRE_form_pseudo_battalions_arm_resistance } }
 		}
 	}
 
@@ -5736,252 +5893,408 @@ focus_tree = {
 
         x = 0
 		y = 1
-		cost = 2.9
-		ai_will_do = {
+		cost = 4.29
+        available = {
+            GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+        }
+        
+        ai_will_do = {
 			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
 
         available_if_capitulated = yes
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_hellenic_state_tt
+            custom_effect_tooltip = GRE_hellenic_state_tt
+            hidden_effect = { event_target:hellenic_state = { complete_national_focus = hellenic_state } }
 		}
 	}
 
 	focus = {
 		id = GRE_cyprus_threat
-		icon = GFX_goal_gre_cyprus
+		icon = GFX_goal_hs_promised_cyprus
         prerequisite = { focus = GRE_hellenic_state }
         relative_position_id = GRE_hellenic_state
         x = 3
 		y = 1
-		cost = 2.9
-		ai_will_do = {
+        available = {
+            GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+        }
+		cost = 4.29
+        
+        ai_will_do = {
 			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
 
         available_if_capitulated = yes
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_hellenic_state_tt
+            custom_effect_tooltip = cyprus_threat_tt
+            hidden_effect = { event_target:hellenic_state = { complete_national_focus = cyprus_threat } }
 		}
 	}
 
 	focus = {
 		id = GRE_freed_communists
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_freed_communists
         prerequisite = { focus = GRE_hellenic_state }
         relative_position_id = GRE_hellenic_state
         x = -2
 		y = 1
-		cost = 2.9
-		ai_will_do = {
+        available = {
+            GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+        }
+		cost = 4.29
+        
+        ai_will_do = {
 			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
 
         available_if_capitulated = yes
 
 		completion_reward = {
-        
+            custom_effect_tooltip = freed_communists_tt
+            hidden_effect = { event_target:hellenic_state = { complete_national_focus = freed_communists } }
 		}
 	}
 
 	focus = {
 		id = GRE_make_resistance_contacts
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_make_res_contacts
         prerequisite = { focus = GRE_freed_communists }
         prerequisite = { focus = GRE_take_down_the_hakenkreuz }
         relative_position_id = GRE_freed_communists
         x = -2
 		y = 1
-		cost = 2.9
-		ai_will_do = {
+        available = {
+            GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+        }
+		cost = 4.29
+        
+        ai_will_do = {
 			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
 
         available_if_capitulated = yes
 
 		completion_reward = {
-        
+            custom_effect_tooltip = make_resistance_contacts_tt
+            hidden_effect = { event_target:hellenic_state = { complete_national_focus = make_resistance_contacts } }
 		}
 	}
 
 	focus = {
 		id = GRE_appoint_tsolakoglou
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_tsolakoglou
         prerequisite = { focus = GRE_hellenic_state }
         relative_position_id = GRE_hellenic_state
         x = 0
 		y = 1
-		cost = 2.9
-		ai_will_do = {
+        available = {
+            GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+        }
+		cost = 4.29
+
+        ai_will_do = {
 			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
 
         available_if_capitulated = yes
 
 		completion_reward = {
-        
+            hidden_effect = { event_target:hellenic_state = { complete_national_focus = appoint_tsolakoglou } }
 		}
 	}
 
 	focus = {
 		id = GRE_oust_chrysanthus_for_damaskinos
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_damaskinos
         prerequisite = { focus = GRE_appoint_tsolakoglou }
         relative_position_id = GRE_appoint_tsolakoglou
         x = 0
 		y = 1
-		cost = 2.9
-		ai_will_do = {
+        available = {
+            GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+            hellenic_state_has_formed_for_a_bit = yes
+        }
+		cost = 4.29        
+        ai_will_do = {
 			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
 
         available_if_capitulated = yes
 
 		completion_reward = {
-        
+            effect_tooltip  = { 
+                event_target:hellenic_state = { 
+                    add_stability = 0.05
+                    add_ideas = GRE_archbishop_damaskinos  
+                }
+            }
+            hidden_effect = { event_target:hellenic_state = { complete_national_focus = oust_chrysanthus_for_damaskinos } }
 		}
 	}
 
 	focus = {
 		id = GRE_accept_fake_currencies
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_fake_currency
         prerequisite = { focus = GRE_oust_chrysanthus_for_damaskinos }
         relative_position_id = GRE_oust_chrysanthus_for_damaskinos
         x = 2
 		y = 1
-		cost = 2.9
-		ai_will_do = {
+        available = {
+            GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+        }
+		cost = 4.29
+        
+        ai_will_do = {
 			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
 
         available_if_capitulated = yes
 
 		completion_reward = {
-        
+            effect_tooltip  = { 
+                event_target:hellenic_state = { 
+                    add_stability = 0.25
+                    add_ideas = HS_fake_currencies
+                }
+            }
+            hidden_effect = { event_target:hellenic_state = { complete_national_focus = accept_fake_currencies } }
 		}
 	}
 
 	focus = {
 		id = GRE_pay_occupation_costs
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_pay_occupation_costs
         prerequisite = { focus = GRE_accept_fake_currencies }
         relative_position_id = GRE_accept_fake_currencies
         x = 1
 		y = 1
-		cost = 2.9
-		ai_will_do = {
+        available = {
+            GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+        }
+		cost = 4.29
+
+        ai_will_do = {
 			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
 
         available_if_capitulated = yes
 
 		completion_reward = {
-        
+            effect_tooltip  = { 
+                event_target:hellenic_state = { 
+                    swap_ideas = { 
+                        remove_idea = HS_occupation_costs
+                        add_idea = HS_occupation_costs_2
+                    }
+                }
+            }
+            custom_effect_tooltip = HS_occupation_states_lessen
+            hidden_effect = { event_target:hellenic_state = { complete_national_focus = pay_occupation_costs } }
 		}
 	}
 
 	focus = {
 		id = GRE_fund_rommels_campaign
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_dak
         prerequisite = { focus = GRE_pay_occupation_costs }
         relative_position_id = GRE_pay_occupation_costs
         x = 0
 		y = 1
-		cost = 2.9
-		ai_will_do = {
+        available = {
+            GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+        }
+		cost = 4.29
+        
+        ai_will_do = {
 			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
 
         available_if_capitulated = yes
 
 		completion_reward = {
-        
+            effect_tooltip  = { 
+                event_target:hellenic_state = { 
+                    swap_ideas = { 
+                        remove_idea = HS_occupation_costs
+                        add_idea = HS_occupation_costs_2
+                    }
+                }
+            }
+            custom_effect_tooltip = HS_occupation_states_lessen
+            hidden_effect = { event_target:hellenic_state = { complete_national_focus = fund_rommels_campaign } }
 		}
 	}
 
 	focus = {
 		id = GRE_extend_rommel_funds
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_fund_rommel_2
         prerequisite = { focus = GRE_fund_rommels_campaign }
         mutually_exclusive = { focus = GRE_sabotage_stolen_goods } 
         relative_position_id = GRE_fund_rommels_campaign
         x = 1
 		y = 2
-		cost = 2.9
-		ai_will_do = {
+        available = {
+            GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+        }
+		cost = 4.29
+        
+        ai_will_do = {
 			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
 
         available_if_capitulated = yes
 
 		completion_reward = {
-        
+            effect_tooltip  = { 
+                event_target:hellenic_state = { 
+                    remove_ideas = HS_occupation_costs_3
+                }
+            }
+            hidden_effect = { event_target:hellenic_state = { complete_national_focus = extend_rommel_funds } }
+            custom_effect_tooltip = HS_occupation_states_lessen
 		}
 	}
     
 	focus = {
 		id = GRE_attempt_to_prevent_italian_occupation
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_prevent_italian
         prerequisite = { focus = GRE_appoint_tsolakoglou }
         prerequisite = { focus = GRE_oust_chrysanthus_for_damaskinos }
         relative_position_id = GRE_oust_chrysanthus_for_damaskinos
         x = 0
 		y = 1
-		cost = 2.9
-		ai_will_do = {
+        available = {
+            GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+        }
+		cost = 4.29
+        
+        ai_will_do = {
 			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
 
         available_if_capitulated = yes
 
 		completion_reward = {
-        
+            custom_effect_tooltip = attempt_to_prevent_italian_occupation_tt
+            hidden_effect = { event_target:hellenic_state = { complete_national_focus = attempt_to_prevent_italian_occupation } }
 		}
 	}
 
 	focus = {
 		id = GRE_demonize_metaxism
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_demonize_metaxas
         prerequisite = { focus = GRE_oust_chrysanthus_for_damaskinos }
         relative_position_id = GRE_oust_chrysanthus_for_damaskinos
         x = -1
 		y = 2
-		cost = 2.9
-		ai_will_do = {
+        available = {
+            GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+        }
+		cost = 4.29
+        
+        ai_will_do = {
 			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
 
         available_if_capitulated = yes
 
 		completion_reward = {
-        
+            effect_tooltip  = { 
+                event_target:hellenic_state = { 
+                    add_timed_idea = { idea = HS_demonize_metaxism  days = 365 }
+                }
+            }
+            hidden_effect = { event_target:hellenic_state = { complete_national_focus = demonize_metaxism } }
 		}
 	}
     
 	focus = {
 		id = GRE_delirium_of_greater_greece
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_greater_greese
         prerequisite = { focus = GRE_oust_chrysanthus_for_damaskinos }
         relative_position_id = GRE_oust_chrysanthus_for_damaskinos
         x = 1
 		y = 2
-		cost = 2.9
-		ai_will_do = {
+        available = {
+            GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+        }
+		cost = 4.29
+        
+        ai_will_do = {
 			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
 
         available_if_capitulated = yes
 
 		completion_reward = {
-        
+            effect_tooltip  = { 
+                event_target:hellenic_state = { 
+                    add_political_power = -200
+                    add_timed_idea = { idea = HS_delirium  days = 365 }
+                }
+            }
+            hidden_effect = { event_target:hellenic_state = { complete_national_focus = delirium_of_greater_greece } }
 		}
 	}
 
 	focus = {
 		id = GRE_our_step_too_far
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_logothetopoulos
         prerequisite = { focus = GRE_demonize_metaxism }
         prerequisite = { focus = GRE_delirium_of_greater_greece }
         prerequisite = { focus = GRE_attempt_to_prevent_italian_occupation }
@@ -5990,268 +6303,506 @@ focus_tree = {
         relative_position_id = GRE_attempt_to_prevent_italian_occupation
         x = 0
 		y = 2
-		cost = 2.9
-		ai_will_do = {
+        available = {
+            GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+            date > 1942.11.16
+        }
+		cost = 0
+        
+        ai_will_do = {
 			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
 
         available_if_capitulated = yes
 
 		completion_reward = {
-        
+            effect_tooltip  = { 
+                event_target:hellenic_state = { 
+                    retire_country_leader = yes
+                    create_country_leader = {
+                        name = "Konstantínos Logothetópoulos"
+                        desc = "POLITICS_LOGOTHETOPOULOS_DESC"
+                        picture = "Portrait_Greece_Logothetopoulos.dds"
+                        expire = "1965.1.1"
+                        ideology = nazism
+                        traits = {
+                            #nazi_doctor
+                        }
+                    }
+                }
+            }
+            hidden_effect = { event_target:hellenic_state = { complete_national_focus = our_step_too_far } }
 		}
 	}
 
 	focus = {
 		id = GRE_their_step_too_far
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_their_step_too_far
         prerequisite = { focus = GRE_our_step_too_far }
         relative_position_id = GRE_our_step_too_far
         x = 0
 		y = 1
-		cost = 2.9
-		ai_will_do = {
+        available = {
+            GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+            date > 1943.02.01
+        }
+		cost = 1
+        
+        ai_will_do = {
 			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
 
         available_if_capitulated = yes
 
 		completion_reward = {
-        
+            custom_effect_tooltip = their_step_too_far_tt
+            hidden_effect = { event_target:hellenic_state = { complete_national_focus = their_step_too_far } }hidden_effect = { event_target:hellenic_state = { complete_national_focus = hellenic_state } }
 		}
 	}
   
 	focus = {
 		id = GRE_archbishops_stand
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_bishops_stand
         prerequisite = { focus = GRE_their_step_too_far }
         relative_position_id = GRE_their_step_too_far
         x = -2
 		y = 1
+        available = {
+            GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+        }
 		cost = 2.9
-		ai_will_do = {
+        
+        ai_will_do = {
 			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
 
         available_if_capitulated = yes
 
 		completion_reward = {
-        
+            custom_effect_tooltip = archbishops_stand_tt
+            hidden_effect = { event_target:hellenic_state = { complete_national_focus = archbishops_stand } }
 		}
 	}
 
 	focus = {
 		id = GRE_government_critical_failure
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_government_breakdown
         prerequisite = { focus = GRE_their_step_too_far }
         relative_position_id = GRE_their_step_too_far
         x = 0
 		y = 1
+        available = {
+            GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+        }
 		cost = 2.9
-		ai_will_do = {
+        
+        ai_will_do = {
 			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
 
         available_if_capitulated = yes
 
 		completion_reward = {
-        
+            effect_tooltip  = { 
+                GER = { add_timed_idea = { idea = HS_government_critical_failure  days = 90 } }
+                event_target:hellenic_state = { 
+                    add_timed_idea = { idea = HS_government_critical_failure  days = 90 }
+                }
+            }
+            hidden_effect = { event_target:hellenic_state = { complete_national_focus = government_critical_failure } }
 		}
 	}
 
 	focus = {
 		id = GRE_sabotage_stolen_goods
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_sabotage_goods
         prerequisite = { focus = GRE_their_step_too_far }
         mutually_exclusive = { focus = GRE_extend_rommel_funds } 
         relative_position_id = GRE_their_step_too_far
         x = 2
 		y = 1
+        available = {
+            GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+            if = {
+                limit = { event_target:hellenic_state = { has_idea = HS_occupation_costs } }
+                has_political_power > 600
+            }
+            else_if = {
+                limit = { event_target:hellenic_state = { has_idea = HS_occupation_costs_2 } }
+                has_political_power > 400
+            }
+        }
 		cost = 2.9
-		ai_will_do = {
+        
+        ai_will_do = {
 			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
 
         available_if_capitulated = yes
 
 		completion_reward = {
-        
+            effect_tooltip  = { 
+                event_target:hellenic_state = { 
+                    if = {
+                        limit = { event_target:hellenic_state = { has_idea = HS_occupation_costs } }
+                        remove_ideas = HS_occupation_costs
+                        add_political_power = -600
+                    }
+                    else_if = {
+                        limit = { event_target:hellenic_state = { has_idea = HS_occupation_costs_2 } }
+                        remove_ideas = HS_occupation_costs_2
+                        add_political_power = -400
+                    }
+                    else_if = {
+                        limit = { event_target:hellenic_state = { has_idea = HS_occupation_costs_3 } }
+                        remove_ideas = HS_occupation_costs_3
+                    }
+                }
+            }
+            custom_effect_tooltip = sabotage_stolen_goods_tt
+            hidden_effect = { event_target:hellenic_state = { complete_national_focus = sabotage_stolen_goods } }
 		}
 	}
 
 	focus = {
 		id = GRE_ousting_logothetopoulos_in_with_rallis
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_rallis
         prerequisite = { focus = GRE_archbishops_stand }
         prerequisite = { focus = GRE_government_critical_failure }
         relative_position_id = GRE_government_critical_failure
         x = 0
 		y = 1
-		cost = 2.9
+        available = {
+            GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+            date > 1943.04.06
+        }
+		cost = 0
 		ai_will_do = {
 			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
+
 
         available_if_capitulated = yes
 
 		completion_reward = {
-        
+            effect_tooltip  = { 
+                event_target:hellenic_state = { 
+                    retire_country_leader = yes
+                    create_country_leader = {
+                        name = "Ioánnis Rállis"
+                        desc = "POLITICS_RALLIS_DESC"
+                        picture = "Portrait_Greece_Ioannis_Rallis.dds"
+                        expire = "1965.1.1"
+                        ideology = nazism
+                        traits = {
+                        }
+                    }
+                    add_stability = 0.05
+                }
+            }
+            hidden_effect = { event_target:hellenic_state = { complete_national_focus = ousting_logothetopoulos_in_with_rallis } }
 		}
 	}
 
 	focus = {
 		id = GRE_ask_permission_to_form_security_battalions
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_tagmata_asfaleias
         prerequisite = { focus = GRE_ousting_logothetopoulos_in_with_rallis }
         mutually_exclusive = { focus = GRE_form_pseudo_battalions_arm_resistance } 
         relative_position_id = GRE_ousting_logothetopoulos_in_with_rallis
         x = -3
 		y = 1
-		cost = 2.9
-		ai_will_do = {
+        available = {
+            GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+        }
+		cost = 8.6
+
+        ai_will_do = {
 			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
 
         available_if_capitulated = yes
 
 		completion_reward = {
-        
+            custom_effect_tooltip = ask_permission_to_form_security_battalions_tt
+            hidden_effect = { event_target:hellenic_state = { complete_national_focus = ask_permission_to_form_security_battalions } }
 		}
 	}
 
 	focus = {
 		id = GRE_reorganize_special_security
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_eidiki_asfaleia
         prerequisite = { focus = GRE_ousting_logothetopoulos_in_with_rallis }
         relative_position_id = GRE_ousting_logothetopoulos_in_with_rallis
         x = -1
 		y = 1
-		cost = 2.9
+        available = {
+            GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+        }
+		cost = 8.6
+
+        ai_will_do = {
+			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
+		}
 
         available_if_capitulated = yes
+        
+        completion_reward = {
+            custom_effect_tooltip = reorganize_special_security_tt
+            hidden_effect = { event_target:hellenic_state = { complete_national_focus = reorganize_special_security } }
+        }
     }
     
 	focus = {
 		id = GRE_trick_german_overlords
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_trick_the_germans
         prerequisite = { focus = GRE_ousting_logothetopoulos_in_with_rallis }
         prerequisite = { focus = GRE_sabotage_stolen_goods }
         mutually_exclusive = { focus = GRE_pledge_everything_to_Axis } 
         relative_position_id = GRE_ousting_logothetopoulos_in_with_rallis
         x = 1
 		y = 1
-		cost = 2.9
+        available = {
+            GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+        }
+		cost = 8.6
+        
+        ai_will_do = {
+			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
+		}
 
         available_if_capitulated = yes
 
 		completion_reward = {
-        
+            custom_effect_tooltip = trick_german_overlords_tt
+            hidden_effect = { event_target:hellenic_state = { complete_national_focus = trick_german_overlords } }
 		}
 	} 
 
 	focus = {
 		id = GRE_pledge_everything_to_Axis
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_pledge_all
         prerequisite = { focus = GRE_ousting_logothetopoulos_in_with_rallis }
         prerequisite = { focus = GRE_extend_rommel_funds }
         mutually_exclusive = { focus = GRE_trick_german_overlords } 
         relative_position_id = GRE_ousting_logothetopoulos_in_with_rallis
         x = 3
 		y = 1
-		cost = 2.9
+        available = {
+            GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+        }
+		cost = 8.6
+        
+        ai_will_do = {
+			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
+		}
 
         available_if_capitulated = yes
         
 		completion_reward = {
-        
+            custom_effect_tooltip = pledge_everything_to_Axis_tt
+            hidden_effect = { event_target:hellenic_state = { complete_national_focus = pledge_everything_to_Axis } }
 		}
 	}  
  
 	focus = {
 		id = GRE_combat_the_famine
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_combat_famine
         prerequisite = { focus = GRE_oust_chrysanthus_for_damaskinos }
         relative_position_id = GRE_oust_chrysanthus_for_damaskinos
         x = -2
 		y = 1
-		cost = 2.9
+        available = {
+            GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+            custom_trigger_tooltip = {
+                tooltip = famine_has_started_tt
+                has_global_flag = GRE_famine_started
+            }
+        }
+		cost = 4.29
+        
+        ai_will_do = {
+			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
+		}
 
         available_if_capitulated = yes
 
 		completion_reward = {
-        
+            effect_tooltip  = { 
+                event_target:hellenic_state = { 
+                    add_stability = 0.1
+                }
+            }
+            custom_effect_tooltip = combat_the_famine_tt
+            hidden_effect = { event_target:hellenic_state = { complete_national_focus = combat_the_famine } }
 		}
 	}
 
 
 	focus = {
 		id = GRE_push_for_goods_circulation
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_push_for_goods
         prerequisite = { focus = GRE_combat_the_famine }
         prerequisite = { focus = GRE_make_resistance_contacts }
         prerequisite = { focus = GRE_form_up_early_resistance_groups }
         relative_position_id = GRE_combat_the_famine
         x = -2
 		y = 0 
-		cost = 2.9
+        available = {
+            GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+            custom_trigger_tooltip = {
+                tooltip = famine_has_started_tt
+                has_global_flag = GRE_famine_started
+            }
+        }
+		cost = 4.29
+        
+        ai_will_do = {
+			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
+		}
 
         available_if_capitulated = yes
 
 
 		completion_reward = {
-        
+            custom_effect_tooltip = push_for_goods_circulation_tt
+            hidden_effect = { event_target:hellenic_state = { complete_national_focus = push_for_goods_circulation } }
 		}
 	}
 
 	focus = {
 		id = GRE_exhaust_capabilities_to_subdue_madness
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_exhaust
         prerequisite = { focus = GRE_combat_the_famine }
         prerequisite = { focus = GRE_push_for_goods_circulation }
         relative_position_id = GRE_combat_the_famine
         x = -2
 		y = 1 
-		cost = 2.9
+        available = {
+            GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+        }
+		cost = 4.29
+        
+        ai_will_do = {
+			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
+		}
 
         available_if_capitulated = yes
 
 
 		completion_reward = {
-        
+            custom_effect_tooltip = exhaust_capabilities_to_subdue_madness_tt
+            hidden_effect = { event_target:hellenic_state = { complete_national_focus = exhaust_capabilities_to_subdue_madness } }
 		}
 	}
 
 	focus = {
 		id = GRE_hunt_down_the_black_marketeers
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_black_market
         prerequisite = { focus = GRE_exhaust_capabilities_to_subdue_madness }
         relative_position_id = GRE_combat_the_famine
         x = -2
 		y = 2
-		cost = 2.9
+        available = {
+            GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+        }
+		cost = 8.6
+        
+        ai_will_do = {
+			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
+		}
 
         available_if_capitulated = yes
 
 
 		completion_reward = {
-        
+            custom_effect_tooltip = hunt_down_the_black_marketeers_tt
+            hidden_effect = { event_target:hellenic_state = { complete_national_focus = hunt_down_the_black_marketeers } }
 		}
 	}
 
 	focus = {
 		id = GRE_divert_population_to_the_resistance
-		icon = GFX_goal_gre_hellenic_state
+		icon = GFX_goal_hs_divert_popul
         prerequisite = { focus = GRE_hunt_down_the_black_marketeers }
         relative_position_id = GRE_combat_the_famine
         x = -2
 		y = 3
-		cost = 2.9
+        available = {
+            GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+        }
+		cost = 8.6
+        
+        ai_will_do = {
+			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
+		}
 
         available_if_capitulated = yes
 
 
 		completion_reward = {
-        
+            custom_effect_tooltip = divert_population_to_the_resistance_tt
+            hidden_effect = { event_target:hellenic_state = { complete_national_focus = hellenic_state } }
 		}
 	}
     
@@ -6262,12 +6813,23 @@ focus_tree = {
         relative_position_id = GRE_ousting_logothetopoulos_in_with_rallis
         x = 0
 		y = 3
+        available = {
+            GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+        }
 		cost = 2.9
+        
+        ai_will_do = {
+			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
+		}
 
         available_if_capitulated = yes
 
 		completion_reward = {
-        
+            hidden_effect = { event_target:hellenic_state = { complete_national_focus = the_struggle_of_the_oppressed } }
 		}
 	}
 
@@ -6279,40 +6841,60 @@ focus_tree = {
         x = 8
 		y = 1
 		cost = 2.9
+        available = {
+            crete_is_no_loose_end = yes
+        }
+        ai_will_do = {
+			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
+		}
 
         available_if_capitulated = yes
 
 
 		completion_reward = {
-        custom_effect_tooltip = GRE_greek_government_in_exile_tt
+            custom_effect_tooltip = GRE_greek_government_in_exile_tt
+            GRE = { add_dynamic_modifier = { modifier = GRE_government_in_exile } }
+            hidden_effect = { event_target:hellenic_state = { unlock_national_focus = greek_government_in_exile } }
 		}
 	} 
 
 	focus = {
 		id = GRE_legitimize_the_government
-		icon = GFX_goal_gre_government_in_exile
+		icon = GFX_goal_hs_legitimize_government
         prerequisite = { focus = GRE_greek_government_in_exile }
         relative_position_id = GRE_greek_government_in_exile
         x = 0
 		y = 1
-		cost = 2.9
+		cost = 4.29
 
         available_if_capitulated = yes
 
-
-		completion_reward = {
-        
+        ai_will_do = {
+			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
 		}
+
+        completion_reward = {
+            custom_effect_tooltip = legitimize_the_government_tt
+            hidden_effect = { event_target:hellenic_state = { unlock_national_focus = legitimize_the_government } GRE_government_in_exile_setup = yes }            
+        }
 	} 
 
 	focus = {
 		id = GRE_push_for_relocation_in_cyprus
-		icon = GFX_goal_gre_government_in_exile
+		icon = GFX_goal_hs_push_for_cyprus
         prerequisite = { focus = GRE_greek_government_in_exile }
         relative_position_id = GRE_legitimize_the_government
         x = -3
 		y = 0
-		cost = 2.9
+		cost = 4.29
 
         available_if_capitulated = yes
 
@@ -6324,7 +6906,7 @@ focus_tree = {
 
 	focus = {
 		id = GRE_trick_british_into_enosis
-		icon = GFX_goal_gre_government_in_exile
+		icon = GFX_goal_hs_enosis
         prerequisite = { focus = GRE_push_for_relocation_in_cyprus }
         prerequisite = { focus = GRE_cyprus_threat }
         relative_position_id = GRE_cyprus_threat
@@ -6342,118 +6924,225 @@ focus_tree = {
 
 	focus = {
 		id = GRE_approach_greek_communities_in_egypt
-		icon = GFX_goal_gre_government_in_exile
+		icon = GFX_goal_hs_egypt_comm
         prerequisite = { focus = GRE_legitimize_the_government }
         relative_position_id = GRE_legitimize_the_government
         x = 0
 		y = 1
-		cost = 2.9
+		cost = 4.29
 
         available_if_capitulated = yes
-        ##VENIZELIST CHECK WIKIPEDIA AND SET FLAG SO IF REPUB=FRIENDLY NO PENALTY
+        ai_will_do = {
+			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
+		}
 
 		completion_reward = {
-        
+            custom_effect_tooltip = approach_greek_communities_in_egypt_tt
+            if = {
+                limit = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+                add_to_variable = { GRE.exiled_government_strength = 20 } 
+            }
+            else = {
+                set_temp_variable = { x = fct_dem }
+                divide_temp_variable = { x = 5 }
+                subtract_from_variable = { x = 5 }
+                add_to_variable = { GRE.exiled_government_strength = x } 
+            }
+            hidden_effect = { event_target:hellenic_state = { unlock_national_focus = approach_greek_communities_in_egypt } }
 		}
 	}
 
 	focus = {
 		id = GRE_reinstate_constitutional_elements
-		icon = GFX_goal_gre_government_in_exile
+		icon = GFX_goal_hs_constitutional
         prerequisite = { focus = GRE_approach_greek_communities_in_egypt }
         mutually_exclusive = { focus = GRE_abandon_any_though_for_democratic_transition }
         relative_position_id = GRE_approach_greek_communities_in_egypt
         x = -1
 		y = 1
-		cost = 2.9
+		cost = 4.29
+        available = {
+            date > 1942.1.1
+        }
+        
+        ai_will_do = {
+			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
+		}
 
         available_if_capitulated = yes
 
 		completion_reward = {
-        
+            custom_effect_tooltip = reinstate_constitutional_elements_tt
+            hidden_effect = { event_target:hellenic_state = { unlock_national_focus = reinstate_constitutional_elements } }
 		}
 	}
 
 	focus = {
 		id = GRE_abandon_any_though_for_democratic_transition
-		icon = GFX_goal_gre_government_in_exile
+		icon = GFX_goal_hs_abandon_const
         prerequisite = { focus = GRE_approach_greek_communities_in_egypt }
         mutually_exclusive = { focus = GRE_reinstate_constitutional_elements }
         relative_position_id = GRE_approach_greek_communities_in_egypt
         x = 1
 		y = 1
-		cost = 2.9
+		cost = 4.29
 
         available_if_capitulated = yes
+        available = {
+            date > 1942.1.1
+            NOT = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+        }
 
 		completion_reward = {
-        
-		}
+            custom_effect_tooltip = abandon_any_though_for_democratic_transition_tt
+            hidden_effect = { event_target:hellenic_state = { unlock_national_focus = abandon_any_though_for_democratic_transition } }
+            set_variable = { fct_com = 0 }
+            set_variable = { fct_dem = 0 }
+            subtract_from_variable = { ENG.favor@GRE = 30 }
+            subtract_from_variable = { USA.favor@GRE = 25 }
+            subtract_from_variable = { FRA.favor@GRE = 25 }
+            set_country_flag = GRE_monarchists_cling_onto_power
+        }
 	}
 
 	focus = {
 		id = GRE_the_issue_of_relocation
-		icon = GFX_goal_gre_government_in_exile
+		icon = GFX_goal_hs_issue_of_reloc
         prerequisite = { focus = GRE_reinstate_constitutional_elements focus = GRE_abandon_any_though_for_democratic_transition }
         relative_position_id = GRE_abandon_any_though_for_democratic_transition
         x = -1
 		y = 1
-		cost = 2.9
+		cost = 4.29
+        available = {
+            date > 1943.3.1
+        }
+        
+        ai_will_do = {
+			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
+		}
 
         available_if_capitulated = yes
 
 		completion_reward = {
-        
-		}
+            custom_effect_tooltip = the_issue_of_relocation_tt
+            hidden_effect = { event_target:hellenic_state = { unlock_national_focus = the_issue_of_relocation } }
+            GRE_issue_of_relocation = yes
+        }
 	}
 
 	focus = {
 		id = GRE_an_egypt_without_cromer
-		icon = GFX_goal_gre_government_in_exile
+		icon = GFX_goal_hs_egypt_without_cromer
         prerequisite = { focus = GRE_the_issue_of_relocation }
         relative_position_id = GRE_the_issue_of_relocation
         x = 0
 		y = 1
-		cost = 2.9
+		cost = 4.29
+        
+        ai_will_do = {
+			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
+		}
+        
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = exiled_at_least_medium_stregnth_tt
+                check_variable = { GRE.exiled_government_strength > 49 }
+            }
+        }
 
         available_if_capitulated = yes
 
 		completion_reward = {
-        
+            custom_effect_tooltip = GRE_fbm_british_tt
+            add_to_variable = { ENG.favor@GRE = 10 }
+            GRE = { add_political_power = 100 }
+            hidden_effect = { event_target:hellenic_state = { unlock_national_focus = an_egypt_without_cromer } }
 		}
 	}
 
 	focus = {
 		id = GRE_fix_the_snobbish_attitude
-		icon = GFX_goal_gre_government_in_exile
+		icon = GFX_goal_hs_fix_attitude
         prerequisite = { focus = GRE_an_egypt_without_cromer }
         mutually_exclusive = { focus = GRE_freeze_grecoenglish_relations }
         relative_position_id = GRE_an_egypt_without_cromer
         x = -1
 		y = 1
-		cost = 2.9
-
+		cost = 4.29
+        
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = exiled_at_least_high_stregnth_tt
+                check_variable = { GRE.exiled_government_strength > 49 }
+            }
+        }
+        
+        ai_will_do = {
+			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
+		}
         available_if_capitulated = yes
         
 		completion_reward = {
-        
+            custom_effect_tooltip = GRE_fssg_british_tt
+            custom_effect_tooltip = fix_the_snobbish_attitude_tt
+            add_to_variable = { ENG.favor@GRE = 50 }
+            hidden_effect = { event_target:hellenic_state = { unlock_national_focus = fix_the_snobbish_attitude } }
 		}
 	}
 
 	focus = {
 		id = GRE_freeze_grecoenglish_relations
-		icon = GFX_goal_gre_government_in_exile
+		icon = GFX_goal_hs_cut_ties
         prerequisite = { focus = GRE_an_egypt_without_cromer }
         mutually_exclusive = { focus = GRE_fix_the_snobbish_attitude }
         relative_position_id = GRE_an_egypt_without_cromer
         x = 1
 		y = 1
-		cost = 2.9
+		cost = 4.29
+        
+        available = {
+            GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+            custom_trigger_tooltip = {
+                tooltip = exiled_at_least_high_stregnth_tt
+                check_variable = { GRE.exiled_government_strength > 49 }
+            }
+        }
+        
+        ai_will_do = {
+			base = 1
+            modifier = {
+                gre_hs_xor_trigger_only = yes
+                add = -1
+            }
+		}
 
         available_if_capitulated = yes
         
 		completion_reward = {
-        
+            custom_effect_tooltip = GRE_fdg_british_tt
+            custom_effect_tooltip = freeze_grecoenglish_relations_tt
+            subtract_from_variable = { ENG.favor@GRE = 50 }
+            hidden_effect = { event_target:hellenic_state = { unlock_national_focus = freeze_grecoenglish_relations } }
 		}
 	}
 
@@ -6469,6 +7158,7 @@ focus_tree = {
         available_if_capitulated = yes
         
 		completion_reward = {
+            hidden_effect = { event_target:hellenic_state = { unlock_national_focus = the_struggle_of_the_exiled } }
         
 		}
 	}

@@ -4373,6 +4373,43 @@ GRE_hellenic_academy_category = {
             }
 		}    
     }
+    
+    GRE_secure_the_merchant_fleet = {
+		icon = generic_naval
+
+		allowed = { 
+			tag = GRE
+		}
+
+		available = {
+            has_completed_focus = GRE_the_navy
+            set_temp_variable = { x = GRE.convoys_secured }
+            add_to_temp_variable = { x = 249 }
+            has_equipment = {
+                convoy_1 > x
+            }
+        }
+        
+        visible = {
+            has_completed_focus = GRE_solidify_the_budget
+        }
+
+		ai_will_do = {
+			factor = 1
+		}
+        
+
+		fire_only_once = no
+        
+        cost = 125
+        days_remove = 30
+        days_re_enable = 15
+            
+		remove_effect = {
+            custom_effect_tooltip = GRE_secure_the_merchant_fleet_tt
+            add_to_variable = { GRE.convoys_secured = 250 }
+		}
+    }
 
     GRE_factories_for_some_days = {
     
@@ -4557,6 +4594,31 @@ GRE_hellenic_academy_category = {
 }
 
 political_actions = {
+
+    test_edes_increase = {
+        allowed = {
+            original_tag = GRE
+        }
+        
+        cost = 10
+        
+        visible = { 
+            is_debug = yes
+        }
+        
+        complete_effect = {
+            set_temp_variable = { edes_manpower_add = 15.3 }
+            set_temp_variable = { edes_equipment_add = 5.1 }
+            HS_resistance_popularity_bonus = yes
+            HS_resistance_growth_potential = yes 
+            multiply_temp_variable = { edes_manpower_add = edes_temp_per }
+            multiply_temp_variable = { edes_equipment_add = edes_temp_per }
+            round_temp_variable = edes_manpower_add
+            round_temp_variable = edes_equipment_add
+            add_to_variable = { GRE.edes_manpower = edes_manpower_add }
+            add_to_variable = { GRE.edes_equipment = edes_equipment_add }
+        }
+    }
 
     test_300_edes = {
         allowed = {
@@ -16005,6 +16067,40 @@ GRE_government_in_exile_category = {
         }
     
     }
+    
+    GRE_retrieve_the_secured_fleet = {
+    
+        icon = generic_naval
+        
+        allowed = {
+            original_tag = GRE
+        }
+        
+        visible = {
+            GRE = { NOT = { has_country_flag = retrieved_secured_fleet } }
+            if = { 
+                limit = { tag = event_target:hellenic_state }
+                GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+            }
+        }
+        
+        available = {
+            GRE = { has_completed_focus = GRE_legitimize_the_government }
+        }
+        
+        fire_only_once = yes 
+        days_remove = 45
+        
+        remove_effect = {
+            GRE = {
+                add_equipment_to_stockpile = {
+                    type = convoy_1
+                    amount = var:GRE.convoys_secured
+                    producer = GRE
+                }
+            }
+        }
+    }
 
 }
 
@@ -16035,6 +16131,7 @@ GRE_hellenic_state_catefory = {
             }
         }
     }
+    
     
     HS_kurtulus = {
     
@@ -16120,6 +16217,7 @@ GRE_hellenic_state_catefory = {
         days_remove = 14
         
         remove_effect = {
+            event_target:hellenic_state = { set_country_flag = requested_german_intervention }
             if = {
                 limit = {
                     check_variable = { GER.favor@GRE > 79 }
@@ -16137,9 +16235,461 @@ GRE_hellenic_state_catefory = {
             }
         }
     }
+    
+    undermine_the_italian_control = {
+    
+        allowed = {
+            original_tag = GRE
+        }
+        
+        visible = {
+            GRE = { has_completed_focus = GRE_attempt_to_prevent_italian_occupation }
+            event_target:hellenic_state = { has_country_flag = requested_german_intervention }
+        }
+    
+        fire_only_once = yes
+        days_remove = 14
+        
+        remove_effect = {
+            event_target:hellenic_state = { set_country_flag = undermined_the_italians }
+            if = {
+                limit = {
+                    check_variable = { GER.favor@GRE > 79 }
+                }
+                event_target:hellenic_state = { add_political_power = 200 }
+                GER = { add_political_power = 150 }
+                ITA = { add_political_power = -100 }
+            }
+            else_if = {
+                limit = {
+                    check_variable = { GER.favor@GRE > 49 }
+                }
+                event_target:hellenic_state = { add_political_power = 75 }
+                GER = { add_political_power = 50 }
+                ITA = { add_political_power = -25 }
+            }
+            else = {
+                event_target:hellenic_state = { add_political_power = 50 }
+                GER = { add_political_power = 25 }
+                ITA = { add_political_power = -10 }
+            }
+        }
+    }
+    
+    Pressure_on_the_occupiers  = {
+
+		icon = generic_nationalism
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            date < 1943.03.05 
+		}
+
+		#days_mission_timeout = 12
+		fire_only_once = yes
+        selectable_mission = yes
+
+		activation = {
+			GRE = { has_completed_focus = GRE_their_step_too_far }
+		}
+
+		visible = {
+            if = {
+                limit = {
+                    tag = GRE
+                }
+                GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+            }
+            NOT = { has_global_flag = state_pressures_occupiers }
+            NOT = { has_global_flag = state_aids_occupiers }
+            GRE = { has_completed_focus = GRE_their_step_too_far }
+		}
+
+		cancel_if_not_visible = no
+		is_good = yes
+
+		complete_effect = {
+			set_global_flag = state_pressures_occupiers
+		}
+	}
+    
+    Help_occupiers_on_the_workforce_issue  = {
+
+		icon = ger_reichskommissariats
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            date < 1943.03.05 
+		}
+
+		#days_mission_timeout = 12
+		fire_only_once = yes
+        selectable_mission = yes
+
+		activation = {
+			GRE = { has_completed_focus = GRE_their_step_too_far }
+		}
+
+		visible = {
+            if = {
+                limit = {
+                    tag = GRE
+                }
+                GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+            }
+            NOT = { has_global_flag = state_pressures_occupiers }
+            NOT = { has_global_flag = state_aids_occupiers }
+            GRE = { has_completed_focus = GRE_their_step_too_far }
+		}
+
+		cancel_if_not_visible = no
+		is_good = yes
+
+		complete_effect = {
+			set_global_flag = state_aids_occupiers
+		}
+	}
+    
+    Damaskinos_acts  = {
+
+		icon = generic_nationalism
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            date < 1943.03.05 
+		}
+
+		days_mission_timeout = 45
+		fire_only_once = yes
+        selectable_mission = yes
+
+		activation = {
+			date > 1943.2.1
+		}
+
+		visible = {
+            if = {
+                limit = {
+                    tag = GRE
+                }
+                GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+            }
+            NOT = { has_global_flag = damaskinos_acts }
+            NOT = { has_global_flag = damaskinos_stopped }
+            GRE = { has_completed_focus = GRE_archbishops_stand }
+		}
+
+		cancel_if_not_visible = no
+		is_good = yes
+
+		complete_effect = {
+			set_global_flag = damaskinos_acts
+            add_political_power = 50
+		}
+        timeout_effect = {
+            set_global_flag = damaskinos_acts
+        }
+	}
+    
+    Damaskinos_is_stopped  = {
+
+		icon = ger_reichskommissariats
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            date < 1943.03.05 
+		}
+
+		#days_mission_timeout = 12
+		fire_only_once = yes
+        selectable_mission = yes
+
+		activation = {
+			GRE = { has_completed_focus = GRE_archbishops_stand }
+		}
+
+		visible = {
+            if = {
+                limit = {
+                    tag = GRE
+                }
+                GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+            }
+            NOT = { has_global_flag = damaskinos_acts }
+            NOT = { has_global_flag = damaskinos_stopped }
+            GRE = { has_completed_focus = GRE_archbishops_stand }
+		}
+
+		cancel_if_not_visible = no
+		is_good = yes
+
+		complete_effect = {
+			set_global_flag = damaskinos_stopped
+		}
+	}
+    
+    strengthen_asfaleia = {
+    
+        icon = ger_reichskommissariats
+    
+        allowed = {
+            original_tag = GRE
+        }
+        
+        visible = {
+            if = {
+                limit = {
+                    tag = GRE
+                }
+                GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+            }
+            event_target:hellenic_state = { has_completed_focus = reorganize_special_security }
+            check_variable = { global.hs_eidiki_strength < 100 }
+            NOT = { has_global_flag = asfaleia_being_strengthened }
+        }
+    
+        fire_only_once = no
+        days_remove = 7
+        
+        modifier = {
+            political_power_gain = -0.1
+        }
+        
+        complete_effect = {
+            set_global_flag = asfaleia_being_strengthened
+        }
+        
+        remove_effect = {
+            add_to_variable = { global.hs_eidiki_strength = 10 }
+            clr_global_flag = asfaleia_being_strengthened
+        }
+    }
+    
+    prioritize_communism = {
+    
+        icon = ger_reichskommissariats
+    
+        allowed = {
+            original_tag = GRE
+        }
+        
+        available = { 
+            custom_trigger_tooltip = {
+                tooltip = asfaleia_above_40
+                check_variable = { global.hs_eidiki_strength > 39 }
+            
+            }
+            check_variable = { global.hs_asfaleia_scale_c < 100 }
+        }
+        
+        visible = {
+            if = {
+                limit = {
+                    tag = GRE
+                }
+                GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+            }
+            event_target:hellenic_state = { has_completed_focus = reorganize_special_security }
+            NOT = { has_global_flag = asfaleia_priorities_shifted }
+        }
+    
+        fire_only_once = no
+        days_remove = 1
+        
+        complete_effect = {
+            set_global_flag = asfaleia_priorities_shifted
+        }
+        
+        remove_effect = {
+            add_to_variable = { global.hs_asfaleia_scale_c = 10 }
+            subtract_from_variable = { global.hs_asfaleia_scale_r = 10 }
+            clr_global_flag = asfaleia_priorities_shifted
+        }
+    }
+    
+    prioritize_rest = {
+    
+        icon = ger_reichskommissariats
+    
+        allowed = {
+            original_tag = GRE
+        }
+        
+        available = { 
+            custom_trigger_tooltip = {
+                tooltip = asfaleia_above_40
+                check_variable = { global.hs_eidiki_strength > 39 }
+            
+            }
+            check_variable = { global.hs_asfaleia_scale_r < 100 }
+        }
+        
+        visible = {
+            if = {
+                limit = {
+                    tag = GRE
+                }
+                GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+            }
+            event_target:hellenic_state = { has_completed_focus = reorganize_special_security }
+            NOT = { has_global_flag = asfaleia_priorities_shifted }
+        }
+    
+        fire_only_once = no
+        days_remove = 1
+        
+        complete_effect = {
+            set_global_flag = asfaleia_priorities_shifted
+        }
+        
+        remove_effect = {
+            add_to_variable = { global.hs_asfaleia_scale_r = 10 }
+            subtract_from_variable = { global.hs_asfaleia_scale_c = 10 }
+            clr_global_flag = asfaleia_priorities_shifted
+        }
+    } 
+    
+    leak_info_to_resistance = {
+    
+        icon = generic_nationalism
+    
+        allowed = {
+            original_tag = GRE
+        }
+        
+        visible = {
+            if = {
+                limit = {
+                    tag = GRE
+                }
+                GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+            }
+            event_target:hellenic_state = { has_completed_focus = trick_german_overlords }
+        }
+    
+        fire_only_once = yes
+        days_remove = 1
+        
+        remove_effect = {
+        }
+    }
+    
+    secretly_free_non_communist_prisoners = {
+    
+        icon = generic_nationalism
+    
+        allowed = {
+            original_tag = GRE
+        }
+        
+        visible = {
+            if = {
+                limit = {
+                    tag = GRE
+                }
+                GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+            }
+            event_target:hellenic_state = { has_completed_focus = trick_german_overlords }
+        }
+    
+        fire_only_once = yes
+        days_remove = 1
+        
+        remove_effect = {
+        }
+    }
+    
+    establish_talks_with_the_allies = {
+    
+        icon = generic_nationalism
+    
+        allowed = {
+            original_tag = GRE
+        }
+        
+        visible = {
+            if = {
+                limit = {
+                    tag = GRE
+                }
+                GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+            }
+            event_target:hellenic_state = { has_completed_focus = trick_german_overlords }
+        }
+    
+        fire_only_once = yes
+        days_remove = 1
+        
+        remove_effect = {
+        }
+    }
+    
+    discuss_the_exit_of_the_Axis = {
+    
+        icon = generic_nationalism
+    
+        allowed = {
+            original_tag = GRE
+        }
+        
+        visible = {
+            if = {
+                limit = {
+                    tag = GRE
+                }
+                GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+            }
+            event_target:hellenic_state = { has_completed_focus = trick_german_overlords }
+        }
+    
+        fire_only_once = yes
+        days_remove = 1
+        
+        remove_effect = {
+        }
+    }
+    
+    
 }
 
 GRE_resistance_category = {
+
+    allow_info_popups_on_states = {
+    
+        allowed = {
+            original_tag = GRE
+        }
+        
+        visible = {
+        }
+    
+        fire_only_once = no
+        days_remove = 0
+        days_re_enable = 0
+        
+        complete_effect = {
+            if = {
+                limit = { has_global_flag = allow_info_popups }
+                clr_global_flag = allow_info_popups
+            }
+            else = {
+                set_global_flag = allow_info_popups
+            }
+        }
+    
+    }
 
     crackdown_on_the_black_market = {
     
@@ -16188,6 +16738,36 @@ GRE_resistance_category = {
             set_country_flag = black_market_option_invest
         }
     }
+    
+    win_over_the_black_market = {
+    
+        allowed = {
+            original_tag = GRE
+        }
+        
+        available = {
+            GRE = { 
+                has_completed_focus = GRE_combat_the_famine 
+                has_completed_focus = GRE_push_for_goods_circulation
+                has_completed_focus = GRE_unarmed_resistance
+            }
+            
+        }
+        
+        visible = {
+            NOT = { has_country_flag = black_market_option_win_over }
+            GRE = { has_completed_focus = GRE_make_resistance_contacts }
+        }
+    
+        fire_only_once = no
+        days_remove = 0
+        days_re_enable = 0
+        
+        complete_effect = {
+            clear_all_black_market_flags = yes
+            set_country_flag = black_market_option_win_over
+        }
+    }
 
     make_black_market_contacts_in_athens = {
     
@@ -16201,6 +16781,35 @@ GRE_resistance_category = {
         
         visible = {
             GRE = { has_completed_focus = GRE_make_resistance_contacts }
+        }
+    
+        fire_only_once = yes
+        cost = 50
+        days_remove = 30
+        
+        complete_effect = {
+            47 = { HS_black_market_toggle_positive = yes }
+        }
+    
+    }
+    
+    pursue_coopeation_between_resistance_groups = {
+    
+        allowed = {
+            original_tag = GRE
+        }
+        
+        available = {
+            GRE = { 
+                OR = {
+                    has_completed_focus = GRE_dreams_of_a_grand_coalition
+                    has_friendly_relationship_with_resistance_factions = yes
+                }
+            }
+        }
+        
+        visible = {
+            GRE = { has_completed_focus = GRE_exhaust_capabilities_to_subdue_madness }
         }
     
         fire_only_once = yes
@@ -16248,8 +16857,85 @@ GRE_resistance_category = {
                 max = 90
             }
         }
-    
     }
+    
+    Palamas_funeral  = {
+
+		icon = generic_nationalism
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            date < 1943.02.28 
+		}
+
+		#days_mission_timeout = 12
+		fire_only_once = yes
+        selectable_mission = yes
+
+		activation = {
+			GRE = { has_completed_focus = GRE_their_step_too_far }
+		}
+
+		visible = {
+            if = {
+                limit = {
+                    tag = event_target:hellenic_state
+                }
+                GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+            }
+            NOT = { has_global_flag = funeral_protest_prepared }
+            GRE = { has_completed_focus = GRE_their_step_too_far }
+		}
+
+		cancel_if_not_visible = no
+		is_good = yes
+
+		complete_effect = {
+			set_global_flag = funeral_protest_prepared
+		}
+	}
+    
+    Worker_strikes  = {
+
+		icon = generic_nationalism
+
+		allowed = { 
+			original_tag = GRE
+		}
+
+		available = {
+            date < 1943.02.24 
+		}
+
+		#days_mission_timeout = 12
+		fire_only_once = yes
+        selectable_mission = yes
+
+		activation = {
+			GRE = { has_completed_focus = GRE_their_step_too_far }
+		}
+
+		visible = {
+            if = {
+                limit = {
+                    tag = event_target:hellenic_state
+                }
+                GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+            }
+            NOT = { has_global_flag = worker_strikes_organized }
+            GRE = { has_completed_focus = GRE_their_step_too_far }
+		}
+
+		cancel_if_not_visible = no
+		is_good = yes
+
+		complete_effect = {
+			set_global_flag = worker_strikes_organized
+		}
+	}
     
     #############################################[ HISTORICAL MISSIONS ]#############################################
     ######################[ SUB_C: POSITIVE MISSIONS ]######################
@@ -22518,6 +23204,7 @@ GRE_resistance_category = {
                 }
             }
             NOT = { has_country_flag = hide_black_market_icons }
+            has_country_flag = black_market_option_invest
 		}
 		remove_effect = {
             ###[State Weight]###
@@ -22557,6 +23244,10 @@ GRE_resistance_category = {
                 FROM = { has_dynamic_modifier = { modifier = black_market_obscure } }
             }
             NOT = { has_country_flag = hide_black_market_icons }
+            OR = {
+                has_country_flag = black_market_option_invest
+                has_country_flag = black_market_option_crackdown 
+            }
 		}
 		remove_effect = {
             if = { 
@@ -22602,6 +23293,10 @@ GRE_resistance_category = {
                 FROM = { has_dynamic_modifier = { modifier = black_market_cemented } }
             }
             NOT = { has_country_flag = hide_black_market_icons }
+            OR = {
+                has_country_flag = black_market_option_invest
+                has_country_flag = black_market_option_crackdown 
+            }
 		}
 		remove_effect = {
             if = { 
@@ -22642,6 +23337,10 @@ GRE_resistance_category = {
                 FROM = { has_dynamic_modifier = { modifier = black_market_ubshakeable } }
             }
             NOT = { has_country_flag = hide_black_market_icons }
+            OR = {
+                has_country_flag = black_market_option_invest
+                has_country_flag = black_market_option_crackdown 
+            }
 		}
 		remove_effect = {
             if = { 
@@ -22660,6 +23359,9 @@ GRE_resistance_category = {
         target_array = global.greek_mainland_states_all
 		available = {
             original_tag = GRE
+            if = { limit = { FROM = { state = 47 } } has_political_power > 200 }
+            else_if = { limit = { FROM = { OR = { state = 811 state = 731 state = 186 state = 808} } } has_political_power > 175 }
+            else = { has_political_power > 150 }
 		}
 		on_map_mode = map_only
 		fire_only_once = no
@@ -22670,9 +23372,13 @@ GRE_resistance_category = {
                 FROM = { has_dynamic_modifier = { modifier = black_market_obscure_controlled } }
             }
             NOT = { has_country_flag = hide_black_market_icons }
+            has_country_flag = black_market_option_invest
 		}
 		remove_effect = {
             FROM = { HS_add_black_market_positive = yes }
+            if = { limit = { FROM = { state = 47 } } add_political_power = -200 }
+            else_if = { limit = { FROM = { OR = { state = 811 state = 731 state = 186 state = 808} } } add_political_power = -175 }
+            else = { add_political_power = -150 }
 		}
 	} 
     
@@ -22682,6 +23388,9 @@ GRE_resistance_category = {
         target_array = global.greek_mainland_states_all
 		available = {
             original_tag = GRE
+            if = { limit = { FROM = { state = 47 } } has_political_power > 250 }
+            else_if = { limit = { FROM = { OR = { state = 811 state = 731 state = 186 state = 808} } } has_political_power > 225 }
+            else = { has_political_power > 200 }
 		}
 		on_map_mode = map_only
 		fire_only_once = no
@@ -22692,9 +23401,13 @@ GRE_resistance_category = {
                 FROM = { has_dynamic_modifier = { modifier = black_market_cemented_controlled } }
             }
             NOT = { has_country_flag = hide_black_market_icons }
+            has_country_flag = black_market_option_invest
 		}
 		remove_effect = {
             FROM = { HS_add_black_market_positive = yes }
+            if = { limit = { FROM = { state = 47 } } add_political_power = -250 }
+            else_if = { limit = { FROM = { OR = { state = 811 state = 731 state = 186 state = 808} } } add_political_power = -225 }
+            else = { add_political_power = -200 }
 		}
 	} 
     
@@ -22704,6 +23417,9 @@ GRE_resistance_category = {
         target_array = global.greek_mainland_states_all
 		available = {
             original_tag = GRE
+            if = { limit = { FROM = { state = 47 } } has_political_power > 300 }
+            else_if = { limit = { FROM = { OR = { state = 811 state = 731 state = 186 state = 808} } } has_political_power > 275 }
+            else = { has_political_power > 250 }
 		}
 		on_map_mode = map_only
 		fire_only_once = no
@@ -22714,11 +23430,118 @@ GRE_resistance_category = {
                 FROM = { has_dynamic_modifier = { modifier = black_market_ubshakeable_controlled } }
             }
             NOT = { has_country_flag = hide_black_market_icons }
+            has_country_flag = black_market_option_invest
 		}
 		remove_effect = {
             FROM = { HS_add_black_market_positive = yes }
+            if = { limit = { FROM = { state = 47 } } add_political_power = -300 }
+            else_if = { limit = { FROM = { OR = { state = 811 state = 731 state = 186 state = 808} } } add_political_power = -275 }
+            else = { add_political_power = -250 }
 		}
 	} 
+    
+    toggle_black_1 = {
+		icon = GFX_icon_black_1_negative
+        state_target = yes
+        target_array = global.greek_mainland_states_all
+		available = {
+            original_tag = GRE
+            if = { limit = { has_country_flag = black_market_option_win_over }
+                if = { limit = { FROM = { state = 47 } } has_political_power > 300 }
+                else_if = { limit = { FROM = { OR = { state = 811 state = 731 state = 186 state = 808} } } has_political_power > 225 }
+                else = { has_political_power > 150 }
+            }
+		}
+		on_map_mode = map_only
+		fire_only_once = no
+		days_remove = 0
+
+		visible = {
+            FROM = { 
+                FROM = { has_dynamic_modifier = { modifier = black_market_obscure } }
+            }
+            NOT = { has_country_flag = hide_black_market_icons }
+            has_country_flag = black_market_option_win_over
+		}
+		remove_effect = {
+            if = { 
+                limit = { has_country_flag = black_market_option_win_over } 
+                FROM = { HS_black_market_toggle_positive = yes }
+                if = { limit = { FROM = { state = 47 } } add_political_power = -300 }
+                else_if = { limit = { FROM = { OR = { state = 811 state = 731 state = 186 state = 808} } } add_political_power = -225 }
+                else = { add_political_power = -150 }
+            }
+		}
+	} 
+    
+    toggle_black_2 = {
+		icon = GFX_icon_black_2_negative
+        state_target = yes
+        target_array = global.greek_mainland_states_all
+		available = {
+            original_tag = GRE
+            if = { limit = { has_country_flag = black_market_option_win_over } 
+                if = { limit = { FROM = { state = 47 } } has_political_power > 375 }
+                else_if = { limit = { FROM = { OR = { state = 811 state = 731 state = 186 state = 808} } } has_political_power > 300 }
+                else = { has_political_power > 225 }
+            }
+		}
+		on_map_mode = map_only
+		fire_only_once = no
+		days_remove = 0
+
+		visible = {
+            FROM = { 
+                FROM = { has_dynamic_modifier = { modifier = black_market_cemented } }
+            }
+            NOT = { has_country_flag = hide_black_market_icons }
+            has_country_flag = black_market_option_win_over
+		}
+		remove_effect = {
+            if = { 
+                limit = { has_country_flag = black_market_option_win_over } 
+                FROM = { HS_black_market_toggle_positive = yes }
+                if = { limit = { FROM = { state = 47 } } add_political_power = -375 }
+                else_if = { limit = { FROM = { OR = { state = 811 state = 731 state = 186 state = 808} } } add_political_power = -300 }
+                else = { add_political_power = -225 }
+            }
+		}
+	} 
+    
+    toggle_black_3 = {
+		icon = GFX_icon_black_3_negative
+        state_target = yes
+        target_array = global.greek_mainland_states_all
+		available = {
+            original_tag = GRE
+            if = { limit = { has_country_flag = black_market_option_win_over } 
+                if = { limit = { FROM = { state = 47 } } has_political_power > 450 }
+                else_if = { limit = { FROM = { OR = { state = 811 state = 731 state = 186 state = 808} } } has_political_power > 375 }
+                else = { has_political_power > 300 }
+            }
+		}
+		on_map_mode = map_only
+		fire_only_once = no
+		days_remove = 0
+
+		visible = {
+            FROM = { 
+                FROM = { has_dynamic_modifier = { modifier = black_market_ubshakeable } }
+            }
+            NOT = { has_country_flag = hide_black_market_icons }
+            has_country_flag = black_market_option_win_over
+		}
+		remove_effect = {
+            if = { 
+                limit = { has_country_flag = black_market_option_win_over } 
+                FROM = { HS_black_market_toggle_positive = yes }
+                if = { limit = { FROM = { state = 47 } } add_political_power = -450 }
+                else_if = { limit = { FROM = { OR = { state = 811 state = 731 state = 186 state = 808} } } add_political_power = -375 }
+                else = { add_political_power = -300 }
+            }
+		}
+	}
+    
 
     add_greeks_0 = {
 		icon = GFX_icon_greeks_0
@@ -22973,7 +23796,8 @@ GRE_resistance_category = {
         }
         
         complete_effect = {
-            HS_set_up_state_modifiers = yes
+            47 = { HS_add_black_market_negative = yes }
+            #HS_set_up_state_modifiers = yes
         }
     }
     

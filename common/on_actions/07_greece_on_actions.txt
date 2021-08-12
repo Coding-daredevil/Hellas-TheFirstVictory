@@ -1,4 +1,7 @@
 on_actions = {
+    ###################################################################################################################################################################################################################################
+    ########################################################################################################[ Part A: StartUp ]########################################################################################################
+    ###################################################################################################################################################################################################################################
 	on_startup = {
 		effect = {
             GRE = {  
@@ -144,21 +147,44 @@ on_actions = {
         }
     }
     
-    ###THIS CHECKS FOR FORTIFICATIONS ON ALBANIA BORDER###
+    ###################################################################################################################################################################################################################################
+    ################################################################################################[ Part B: On Daily/Weekly/Monthly ]################################################################################################
+    ##########################################################################################################[ Non Event ]############################################################################################################
     
-    on_monthly_GRE = { 
+    
+    on_monthly_GRE = {                                                                                      ### Monthly Favor & Monthly Faction Flunctuations.
+        effect = {
+            every_country = {
+                limit = {
+                    is_in_array = {
+                        array = global.favor_mechanic
+                        value = THIS.id
+                    }
+                    NOT = { has_global_flag = monthly_favor_mechanic_frozen }
+                }
+                GRE_add_favor = yes
+            }
+            if = {
+                limit = { GRE = { NOT = { has_completed_focus = GRE_dreams_of_a_grand_coalition } } }
+                GRE_add_faction_favor = yes 
+            }
+            #GRE_calc_total_favor = yes
+        }
+    }
+    
+    on_monthly_GRE = {                                                                                      ### Monthly checks for fortifications in the Albanian border
         effect = {
             if = {
                 limit = {
                     ITA = { 
-                        has_country_leader = {                                              ### Make sure the Italians have Mussolini as leader (not ahistorical).
+                        has_country_leader = {                                                               ## Make sure the Italians have Mussolini as leader (not ahistorical).
                             name = "Benito Mussolini" 
                             ruling_only = yes
                         }
-                        is_puppet = no                                                      ### Make sure they are not a puppet.
+                        is_puppet = no                                                                       ## Make sure they are not a puppet.
                     }
-                    NOT = { has_country_flag = GRE_stop_checking_fortifications }           ### This flag is set only when THIS event is triggered (so it doesn't repeat).
-                    NOT = { has_country_flag = GRE_safe_from_italian_immediate_action }     ### This flag is set through various manners. E.g. exoteriki politiki decisions.
+                    NOT = { has_country_flag = GRE_stop_checking_fortifications }                            ## This flag is set only when THIS event is triggered (so it doesn't repeat).
+                    NOT = { has_country_flag = GRE_safe_from_italian_immediate_action }                      ## This flag is set through various manners. E.g. exoteriki politiki decisions.
                     OR = {
                         184 = {
                             any_province_building_level = {
@@ -186,18 +212,18 @@ on_actions = {
                 if = {
                     limit = { ITA = { is_in_faction = no } }
                     ITA = { 
-                        create_faction = "Novus Imperium Romanum"                           ### Force Italy into a faction and make Albania their puppet.
+                        create_faction = "Novus Imperium Romanum"                                            ## Force Italy into a faction and make Albania their puppet.
                         add_to_faction = ALB
                         ITA = { puppet = ALB }
                     }
                 }
                 else = {
-                    ITA = {                                                                 ### If Italy is in a faction, add Albania to it and make them their puppet.
+                    ITA = {                                                                                  ## If Italy is in a faction, add Albania to it and make them their puppet.
                         add_to_faction = ALB
                         ITA = { puppet = ALB }
                     }                
                 }
-				ITA = {                                                                     ### Give Italy wargoal for 30 days.
+				ITA = {                                                                                      ## Give Italy wargoal for 30 days.
 					create_wargoal = {
 						type = puppet_wargoal_focus 
 						target = GRE
@@ -208,38 +234,23 @@ on_actions = {
         }
     }
     
-    ###This updates war strain when in war####
-    
-    on_daily_GRE = {
+    on_weekly_GRE = {                                                                                       ### Checks for amount of factories certain focuses will grant
         effect = {
-            if = {
-                limit = {
-                    has_dynamic_modifier = { modifier = GRE_war_strain }
-                }
-            GRE_update_strain_on_industry = yes
-            }
-        }
-    }
-    
-    ###This checks for amount of factories certain focuses will grant####
-
-    on_weekly_GRE = {
-        effect = {
-            if = {                                                                                          ### Here we check how many factories the "Bedrock of..." focus grants 
+            if = {                                                                                           ## "Bedrock of..."
                 limit = { 
                     NOT = { has_completed_focus = GRE_bedrock_of_balkan_financial_stability }
                     has_completed_focus = GRE_a_game_of_shadows
                 }
                 GRE_bedrock_check = yes
             }
-            if = {                                                                                          ### Here we check how many factories the "Open Foreign..." focus grants
+            if = {                                                                                           ## "Open Foreign..."
                 limit = { 
                     NOT = { has_completed_focus = GRE_open_foreign_subsidized_factories }                   
                     has_completed_focus = GRE_a_game_of_shadows
                 }
                 GRE_subsidized_check = yes
             }
-            if = {                                                                                          ### Here we check how many factories the "Mobilise Economy..." focus grants
+            if = {                                                                                           ## "Mobilise Economy..."
                 limit = { 
                     NOT = { has_completed_focus = GRE_mobilise_our_economy }                                
                     has_completed_focus = GRE_a_game_of_shadows
@@ -256,27 +267,20 @@ on_actions = {
         }
     }
     
-    ######################################################
-    
-    on_monthly_GRE = {
+    on_daily_GRE = {                                                                                        ### This updates war strain when at war
         effect = {
-            every_country = {                                                                               ### Here we add or subtract favor points depending on the country's opinion of GRE 
-                limit = {
-                    is_in_array = {
-                        array = global.favor_mechanic
-                        value = THIS.id
-                    }
-                }
-                GRE_add_favor = yes
+            if = {
+                limit = { has_dynamic_modifier = { modifier = GRE_war_strain } }
+                GRE_update_strain_on_industry = yes
             }
-            GRE_add_faction_favor = yes 
-            GRE_calc_total_favor = yes
         }
     }
     
-    ###########################################################################################################
+    ###################################################################################################################################################################################################################################
+    #######################################################################################################[ Part C: On Action ]#######################################################################################################
+    ###########################################################################################################[ Non Event ]###########################################################################################################
 
-	on_war_relation_added = {                                                                               ### This is when Bulgaria declares war on Greece and vice versa (to make the metaxas line appear)
+	on_war_relation_added = {                                                                               ### Metaxas line pop when Bulgaria declares on Greece (or vice-versa)
 		effect = {
 			if = {
 				limit = {
@@ -296,9 +300,7 @@ on_actions = {
         }
     }
     
-    ############################################################################################################
-    
-    on_annex = {
+    on_annex = {                                                                                            ### Lent Factories upon Annexation
         effect = {
             if = {
                 limit = {
@@ -307,7 +309,7 @@ on_actions = {
                 if = {
                     limit = {
                         check_variable = { ROOT.favor@GRE < 0 }                                                 ## and Greece has abysmal influence over the one who annexed it. 
-                        #GRE = { NOT = { has_country_flag = GRE_assets_solidified } }                            ## (and hasn't solidified the assets)
+                        #GRE = { NOT = { has_country_flag = GRE_assets_solidified } }                            # and hasn't solidified her assets
                     }
                     set_temp_variable = { x = FROM.civslent@GRE }
                     multiply_temp_variable = { x = -1 }
@@ -315,7 +317,7 @@ on_actions = {
                     GRE = { add_offsite_building = { type = industrial_complex level = x } }                    ## then you get ditched
                 }
                 else = {
-                    set_variable = { ROOT.civslent@GRE = FROM.civslent@GRE }                                    ## else, swapperoo
+                    set_variable = { ROOT.civslent@GRE = FROM.civslent@GRE }                                    ## else, swapperoo 
                 }
             }
             clear_variable = FROM.civslent@GRE                                                                  ## In anycase, clear the variable for the annexed nation. Do the same for mils.
@@ -345,7 +347,7 @@ on_actions = {
 		effect = {
             if = { 
                 limit = {
-                    GRE = { NOT = { has_country_flag = GRE_assets_solidified } }                            ### If Greece hasn't solidified her assets, then upon war lose factories lent to you.
+                    GRE = { NOT = { has_country_flag = GRE_assets_solidified } }                             ## If Greece hasn't solidified her assets, then upon war she loses factories lent to her.
                 }
                 if = {                                                                                           ## If Greece is the attacker
                     limit = { 
@@ -377,11 +379,11 @@ on_actions = {
         }
     }
     
-    #################################################################################################################################################################################################################
-    #################################################################[                                                                                         ]#####################################################
-    #################################################################[                            GRECO ITALIAN WAR SCRIPTED EFFECTS                           ]#####################################################
-    #################################################################[                                                                                         ]#####################################################
-    #################################################################################################################################################################################################################
+    ###################################################################################################################################################################################################################################               
+    ##########################################################################[                                                                                         ]##############################################################
+    ##########################################################################[                            GRECO ITALIAN WAR SCRIPTED EFFECTS                           ]##############################################################
+    ##########################################################################[                                                                                         ]##############################################################
+    ###################################################################################################################################################################################################################################
     
 	on_war_relation_added = {                                                                                                   ### This is when Italy declares war on Greece (in the historical manner)
 		effect = {
@@ -400,13 +402,13 @@ on_actions = {
                     set_global_flag = GRE_grecoitalian_start
                     set_country_flag = GRE_stop_checking_fortifications                                                          ## Stops checking for fortifications on the Italian border w/ Albania.
                     set_variable = { grecoitalian_war_counter = 0 }
-                    if = {                                                                                                      ### Basically make sure the mission of holding the line only activates if the Italians enact a war while bordering Greece (other case is Greece provoked them so they won't have claimed an easy victory as they did historically)
+                    if = {                                                                                                       ## Basically make sure the mission of holding the line only activates if the Italians enact a war while bordering Greece (other case is Greece provoked them so they won't have claimed an easy victory as they did historically)
                         limit = {
                             ITA = { is_neighbor_of = GRE }
                         }
                         activate_mission = GRE_stabilize_the_line
                     }
-                    if = {
+                    if = {                                                                                                       ## Start calculating what was done to give the proper bonuses (or nerfs).
                         limit = {
                             NOT = { has_completed_focus = GRE_rearmament }
                         }
@@ -471,18 +473,18 @@ on_actions = {
                         }
                     }                    
                     ITA = {
-                        add_ideas = GRE_italian_ambition                                                                        ### Basically stops the Italians from calling any allies to the war (historical). To make the player also wanna do the same, if Italy doesn't call anyone and wins the war, then the entirety of Greece will fall under her control.
-                        #stop_italians_manning_bulgarian_borders = yes
+                        add_ideas = GRE_italian_ambition                                                                         ## Basically stops the Italians from calling any allies to the war (historical). To make the player also wanna do the same, if Italy doesn't call anyone and wins the war, then the entirety of Greece will fall under her control.
+                        #stop_italians_manning_bulgarian_borders = yes                                                            # Obsolete AI tweaks (incorporated into AI behavior file).
                     }
-                    GER = { 
+                    #GER = { 
                         #GRE_set_germans_unwilling = yes 
-                    }
+                    #}
                 }
                 ##########################################[Bulgarian Effects]##########################################
                 if = {
                     limit = {
                         check_variable = { var = TUR.favor@GRE value = 50 compare = less_than }                                 ### Historically, Mussolini invited the Bulgarians to attack with him, offering some of their claimed land back, however, they could not do so as a)they were not ready yet, b) Turkey threatened Bulgaria to intervene if they intervened so they had to wait out the Germans. 
-                        NOT = { has_country_flag = GRE_balkan_pact_members_rallied_against_bulgarians }                         ### Here Bulgarians are stopped by the Turks if the Greece has sufficient influence over them and went through the exoteriki politiki path.
+                        NOT = { has_country_flag = GRE_balkan_pact_members_rallied_against_bulgarians }                         ### Here Bulgarians are stopped by the Turks if Greece has sufficient influence/favor over them and went through the exoteriki politiki path.
                         NOT = { has_country_flag = GRE_requested_axis_support_over_the_bulgarian_matter }                       ### Here we have an alternative choice where the player chose to court the Axis over limiting the Bulgarians
                         BUL = { 
                             exists = yes 
@@ -502,19 +504,19 @@ on_actions = {
                 }
                 ##########################################[Allies Effects]############################################
                 ##########################################[German Effects]############################################
-                if = {
-                    limit = {
-                        check_variable = { var = GER.favor@GRE value = 50 compare = greater_than_or_equals }
-                        #has_country_flag = GRE_grecogerman_tradedeal_accepted
-                        NOT = { is_in_faction_with = ENG }
-                    }
-                    GER = { 
-                        #set_country_unwilling_to_help_bulgaria = yes 
-                    }
-                }
+                #if = {                                                                                                         ### Obsolete AI tweaks for the Germans. Incorporated in the AI behavior file.
+                #    limit = {
+                #        check_variable = { var = GER.favor@GRE value = 50 compare = greater_than_or_equals }
+                #        #has_country_flag = GRE_grecogerman_tradedeal_accepted
+                #        NOT = { is_in_faction_with = ENG }
+                #    }
+                #    GER = { 
+                #        #set_country_unwilling_to_help_bulgaria = yes 
+                #    }
+                #}
                 ##########################################[Yugoslavian Effects]#######################################
                 ##########################################[Turkish Effects]###########################################
-                if = { limit = { check_variable = { TUR.favor@GRE > 79 } }
+                if = { limit = { check_variable = { TUR.favor@GRE > 79 } }                                                      ### If favor with the Turks is high enough, give the Turkish guarantees.
                     GRE = { complete_national_focus = GRE_turkic_guarantees_against_bulgarians }
                 }
                 ##########################################[Romanian Effects]##########################################
@@ -522,67 +524,8 @@ on_actions = {
         }
     } 
 
-    on_offer_join_faction = {                                                                                     ### If Greece joins the Allies, then the Germans (and the rest of the Axis) will be able to join the war.
-        effect = {
-            if = {
-                limit = {
-                    #original_tag = GRE
-                    has_global_flag = GRE_grecoitalian_start
-                    FROM = {
-                        original_tag = GRE
-                    }
-                }
-                ITA = {
-                    remove_ideas = GRE_italian_ambition
-                    #GRE_allow_italians_manning_bulgarian_borders = yes
-                }
-                if = {
-                    limit = {
-                        BUL = { has_idea = GRE_bulgarian_ambition }
-                    }
-                    BUL = { 
-                        remove_ideas = GRE_bulgarian_ambition 
-                    }
-                }
-                GER = { 
-                    #GRE_set_germans_willing = yes 
-                    #GRE_set_country_willing_to_help_bulgaria = yes
-                }
-            }
-        }   
-    }
     
-    on_join_faction = {                                                                                     ### If Greece joins the Allies, then the Germans (and the rest of the Axis) will be able to join the war.
-        effect = {
-            if = {
-				limit = {
-                    original_tag = GRE
-                    has_global_flag = GRE_grecoitalian_start
-                    FROM = {
-                        original_tag = ENG
-                    }
-				}
-                ITA = {
-                    remove_ideas = GRE_italian_ambition
-                    #GRE_allow_italians_manning_bulgarian_borders = yes
-                }
-                if = {
-                    limit = {
-                        BUL = { has_idea = GRE_bulgarian_ambition }
-                    }
-                    BUL = { 
-                        remove_ideas = GRE_bulgarian_ambition 
-                    }
-                }
-                GER = { 
-                    #GRE_set_germans_willing = yes 
-                    #GRE_set_country_willing_to_help_bulgaria = yes
-                }
-            }
-        }   
-    }
-    
-    on_declare_war = {                                                                               ### This is when Greece declares war on Bulgaria as part of the GrecoItalian war mission.
+    on_declare_war = {                                                                                                          ### A dash for Sofia mission
 		effect = {
 			if = {
 				limit = {
@@ -699,14 +642,14 @@ on_actions = {
                 limit = {
                     has_global_flag = GRE_grecoitalian_start
                 }
-                add_to_variable = { grecoitalian_war_counter = 1 }                                          ## First and foremost, set the counter (counts days since start of war, possibly better than just checking global flag constantly)
+                add_to_variable = { grecoitalian_war_counter = 1 }                                           ## First and foremost, set the counter (counts days since start of war, possibly better than just checking global flag constantly)
             
                 if = {
                     limit = {
                         date = 1941.04.06
                     }
                     set_variable = { date_of_directive_date = global.date }
-                    GER = { country_event = { id = hellas.104 days = 0 } }                                    ## Fuhrer Directive event sent to Germans.
+                    GER = { country_event = { id = hellas.104 days = 0 } }                                   ## Fuhrer Directive event sent to Germans.
                     country_event = { id = hellas.996 days = 0 } 
                 }
                 if = {
@@ -714,7 +657,7 @@ on_actions = {
                         GRE = { NOT = { controls_state = 811 } }
                     }
                     GRE = { 
-                        country_event = { id = hellas.998 days = 0 }                                          ## Germans enter thess.
+                        country_event = { id = hellas.998 days = 0 }                                         ## Germans enter thess.
                     } 
                 }
                 if = {
@@ -723,7 +666,7 @@ on_actions = {
                         GRE = { NOT = { controls_state = 808 } }
                     }
                     GRE = { 
-                        country_event = { id = hellas.999 days = 0 }                                          ## Koryzis suicide (way #2)
+                        country_event = { id = hellas.999 days = 0 }                                         ## Koryzis suicide (way #2)
                     } 
                 }
                 if = {
@@ -740,13 +683,13 @@ on_actions = {
                     limit = {
                         check_variable = { grecoitalian_war_counter = 150 }
                     }
-                    country_event = { id = hellas.798 days = 0 }                                                # Greek Army reforms buffs start to fade out.
+                    country_event = { id = hellas.798 days = 0 }                                              # Greek Army reforms buffs start to fade out.
                 }
                 if = {
                     limit = {
                         check_variable = { grecoitalian_war_counter = 280 }
                     }
-                    country_event = { id = hellas.799 days = 0 }                                                # Greek Army reforms gone.
+                    country_event = { id = hellas.799 days = 0 }                                              # Greek Army reforms gone.
                 }
                 if = {
                     limit = {
@@ -796,18 +739,18 @@ on_actions = {
                     GRE = { country_event = { id = hellas.1500 days = 0 } }
                     GRE = { country_event = { id = hellas.10000 days = 0 } }
                 }
-                if = {                                                                                                                                  ## Hellenic State has formed AND exists (flag clears later)
+                if = {                                                                                                                                 ## Hellenic State has formed AND exists (flag clears later)
                     limit = { 
                         date = 1941.9.1                                                                                                                
                     }
-                    country_event = { id = hellas.1010 days = 14 }                                                                                        # Event to warn about famine (event takes on and procs famine later)
+                    country_event = { id = hellas.1010 days = 14 }                                                                                      # Event to warn about famine (event takes on and procs famine later)
                     event_target:hellenic_state = { country_event = { id = hellas.1010 days = 14 } }
                 }
-                if = {                                                                                                                                  ## 
+                if = {                                                                                                                                 ## Start of the Famine 
                     limit = { 
                         date = 1941.11.1                                                                                                                
                     }
-                    country_event = { id = hellas.1011 days = 0 }                                                                                        # Start of the Famine
+                    country_event = { id = hellas.1011 days = 0 }                                                                                           
                     event_target:hellenic_state = { country_event = { id = hellas.1011 days = 0 } }
                 }
                 if = {
@@ -816,20 +759,104 @@ on_actions = {
                     }
                     for_each_scope_loop = {
                         array = global.greek_mainland_states_all
-                        THIS = { HS_famine_toll_proc = yes }                                                                                                      # Procs Famine Deaths daily
+                        THIS = { HS_famine_toll_proc = yes }                                                                                            # Procs Famine Deaths daily
                     }
                 }
-                if = {
+                if = {                                                                                                                                  # Starts increasing resistance numbers
                     limit = {
                         date > 1942.9.1
                     }
                     HS_resistance_manpower_increase = yes
                 }
+                if = {                                                                                                                                  # Kostis Palamas Funeral
+                    limit = {
+                        date > 1943.2.27
+                    }
+                    country_event = { id = hellas.1501 days = 0 }
+                    event_target:hellenic_state = { country_event = { id = hellas.1501 days = 0 } }
+                }
             }
         }
     }
   
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
+###Obsolete to be deleted###
+
+    #on_offer_join_faction = {                                                                                                   ### If Greece joins the Allies, then the Germans (and the rest of the Axis) will be able to join the war.
+    #    effect = {                                                                                                               ## Obsolete, AI changes incorporated to the AI behavior file, ideas cancel by themselves.
+    #        if = {
+    #            limit = {
+    #                #original_tag = GRE
+    #                has_global_flag = GRE_grecoitalian_start
+    #                FROM = {
+    #                    original_tag = GRE
+    #                }
+    #            }
+    #            ITA = {
+    #                remove_ideas = GRE_italian_ambition
+    #                #GRE_allow_italians_manning_bulgarian_borders = yes
+    #            }
+    #            if = {
+    #                limit = {
+    #                    BUL = { has_idea = GRE_bulgarian_ambition }
+    #                }
+    #                BUL = { 
+    #                    remove_ideas = GRE_bulgarian_ambition 
+    #                }
+    #            }
+    #            GER = { 
+    #                #GRE_set_germans_willing = yes 
+    #                #GRE_set_country_willing_to_help_bulgaria = yes
+    #            }
+    #        }
+    #   }   
+    #}
+    
+    #on_join_faction = {                                                                                                           ### If Greece joins the Allies, then the Germans (and the rest of the Axis) will be able to join the war.
+    #    effect = {                                                                                                                 ## Obsolete, AI changes incorporated to the AI behavior file, ideas cancel by themselves.
+    #        if = {
+	#			limit = {
+    #                original_tag = GRE
+    #                has_global_flag = GRE_grecoitalian_start
+    #                FROM = {
+    #                    original_tag = ENG
+    #                }
+	#			}
+    #            ITA = {
+    #                remove_ideas = GRE_italian_ambition
+    #                #GRE_allow_italians_manning_bulgarian_borders = yes
+    #            }
+    #            if = {
+    #                limit = {
+    #                    BUL = { has_idea = GRE_bulgarian_ambition }
+    #                }
+    #                BUL = { 
+    #                    remove_ideas = GRE_bulgarian_ambition 
+    #                }
+    #            }
+    #            GER = { 
+    #                #GRE_set_germans_willing = yes 
+    #                #GRE_set_country_willing_to_help_bulgaria = yes
+    #            }
+    #        }
+    #    }   
+    #}
 
 
 
