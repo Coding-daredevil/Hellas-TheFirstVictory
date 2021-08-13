@@ -1,0 +1,469 @@
+# leader_traits contain a list of UnitLeaderTrait with the following structure:
+# trait_key = {
+# 	type = all # or either of field_marshal, corps_commander, navy
+#	trait_type = basic_trait # or either of status_trait, personality_trait, assignable_trait, basic_terrain_trait, assignable_terrain_trait, exile
+#	attack_skill = 0 # integer
+#	defense_skill = 0 # integer
+#	logistics_skill = 0 # integer
+#	planning_skill = 0 # integer
+#	maneuvering_skill = 0 # integer
+#	coordination_skill = 0 # integer
+#	attack_skill_factor = 0.0 # decimal
+#	defense_skill_factor = 0.0 # decimal
+#	logistics_skill_factor = 0.0 # decimal
+#	planning_skill_factor = 0.0 # decimal
+#	maneuvering_skill_factor = 0.0 # decimal
+#	coordination_skill_factor = 0.0 # decimal
+#	show_in_combat = yes # boolean
+#	override_effect_tooltip = "" # loc key
+#	custom_effect_tooltip = "" # loc key
+#	custom_prerequisite_tooltip = "" # loc key
+#	custom_gain_xp_trigger_tooltip = "" # loc key
+#	mutually_exclusive = other_trait # trait key
+#	parent = other_trait # trait key
+#	num_parents_needed = -1 # integer, -1 means "all"
+#	gui_row = -1 # integer, starts at 0, -1 means auto
+#	gui_column = -1 # integer, starts at 0, -1 means auto
+#	allowed = trigger # scope is a unit leader
+#	prerequisites = trigger # scope is an unit leader
+#	gain_xp = trigger # scope is a combatant
+#	gain_xp_leader = trigger # scope is a unit leader. ROOT is country you are from and FROM is any target nationality for agents
+#	gain_xp_on_spotting = 0 # integer
+#	modifier = { } # list of modifiers
+#	non_shared_modifier = {} #
+#	corps_commander_modifier = {} #
+#	field_marshal_modifier = {} #
+#	sub_unit_modifiers = { # list of sub unit def
+#		# e.g.
+#		submarine {
+#			units = {} # list of adjusters
+#			# list of modifiers e.g.
+#			naval_visibility = -0.1
+#		}
+#	}
+#	trait_xp_factor = {} # list of trait_key/decimal
+#	on_add = effect # scope is an unit leader
+#	on_remove = effect # scope is an unit leader
+#	daily_effect = effect # scope is an unit leader
+#	cost = 1000 # integer
+#	ai_will_do = {} # weight
+#	new_commander_weight = {} # weight
+#	enable_ability = ability_key
+#}
+leader_traits = {
+
+##################################
+# Political Belief Traits
+##################################
+    
+    trait_GRE_conventional_leanings = {
+
+		type = all
+		trait_type = personality_trait
+        gui_row = 1
+
+		allowed = {
+			FROM = { original_tag = GRE }
+		}
+
+		new_commander_weight = {
+			factor = 0
+		}
+	}
+    
+    trait_GRE_revolutionary_leanings = {
+
+		type = all
+		trait_type = personality_trait
+        gui_row = 1
+
+		allowed = {
+			FROM = { original_tag = GRE }
+		}
+
+		new_commander_weight = {
+			factor = 0
+		}
+	}
+    
+    trait_GRE_monarchofascism_leanings = {
+
+		type = all
+		trait_type = personality_trait
+        gui_row = 1
+
+		allowed = {
+			FROM = { original_tag = GRE }
+		}
+
+		new_commander_weight = {
+			factor = 0
+		}
+	}
+    
+    trait_GRE_socialdemocratic_leanings = {
+
+		type = all
+		trait_type = personality_trait
+        gui_row = 1
+
+		allowed = {
+			FROM = { original_tag = GRE }
+		}
+
+		new_commander_weight = {
+			factor = 0
+		}
+	}
+
+    trait_GRE_stauch_monarchist_persona = {
+
+		type = all
+		trait_type = personality_trait
+        gui_row = 1
+
+		allowed = {
+			FROM = { original_tag = GRE }
+		}
+
+		new_commander_weight = {
+			factor = 0
+		}
+	}
+
+	trait_GRE_stauch_republican_persona = {
+
+		type = all
+		trait_type = personality_trait
+        gui_row = 1
+
+		allowed = {
+			FROM = { original_tag = GRE }
+		}
+
+		new_commander_weight = {
+			factor = 0
+		}
+	}
+
+	trait_GRE_stauch_communist_persona = {
+
+		type = all
+		trait_type = personality_trait
+        gui_row = 1
+
+		allowed = {
+			FROM = { original_tag = GRE }
+		}
+
+		new_commander_weight = {
+			factor = 0
+		}
+	}
+
+	trait_GRE_stauch_fascist_persona = {
+
+		type = all
+		trait_type = personality_trait
+        gui_row = 1
+
+		allowed = {
+			FROM = { original_tag = GRE }
+		}
+
+		new_commander_weight = {
+			factor = 0
+		}
+	}
+ 
+##################################
+# Personality Traits
+##################################
+ 
+    gre_artillery_officer = {
+    
+        type = land 
+        trait_type = personality_trait
+        
+        allowed = {
+			FROM = { original_tag = GRE }
+		}
+        
+        modifier = {
+            army_artillery_attack_factor = 0.05
+            army_artillery_defence_factor = 0.02
+        }
+        
+        attack_skill_factor = 1
+        planning_skill_factor = 1
+    }
+    
+    gre_unprepared_general_3 = {
+    
+        type = land
+        trait_type = personality_trait
+        gui_row = 0
+        
+        allowed = {
+			FROM = { original_tag = GRE }
+		}
+        
+        custom_effect_tooltip = gre_unprepared_general_3_tt
+    
+    }
+    
+    gre_unprepared_general_2 = {
+    
+        type = land
+        trait_type = personality_trait
+        gui_row = 0
+        
+        allowed = {
+			FROM = { original_tag = GRE }
+		}
+        
+        custom_effect_tooltip = gre_unprepared_general_2_tt
+    
+    }
+    
+    gre_unprepared_general_1 = {
+    
+        type = land
+        trait_type = personality_trait
+        gui_row = 0
+        
+        allowed = {
+			FROM = { original_tag = GRE }
+		}
+        
+        custom_effect_tooltip = gre_unprepared_general_1_tt
+    
+    }
+    
+    gre_unprepared_general_0 = {
+        
+        type = land
+        trait_type = personality_trait
+        gui_row = 0
+        
+        allowed = {
+			FROM = { original_tag = GRE }
+		}
+        
+        custom_effect_tooltip = gre_unprepared_general_0_tt
+    
+    }
+    
+    
+##################################
+# Past Campaigns Traits
+##################################
+# A' Balkan War
+# B' Balkan War
+# Greco-Turkish War
+	
+    gre_three_war_veteran = { 
+		type = land
+		trait_type = personality_trait
+        
+        allowed = {
+			FROM = { original_tag = GRE }
+		}
+		
+		attack_skill = 1
+        defense_skill = 2
+		planning_skill = 2
+        logistics_skill = 1
+		
+		defense_skill_factor = 2
+		planning_skill_factor = 2
+        
+        non_shared_modifier = {
+			experience_gain_factor = -0.25
+		}
+	}
+    
+    gre_two_war_veteran = { 
+		type = land
+		trait_type = personality_trait
+        
+        allowed = {
+			FROM = { original_tag = GRE }
+		}
+		
+		attack_skill = 1
+        defense_skill = 2
+		planning_skill = 1
+		
+		defense_skill_factor = 1
+		planning_skill_factor = 2
+        
+        non_shared_modifier = {
+			experience_gain_factor = -0.15
+		}
+	}
+    
+    gre_war_veteran = { 
+		type = land
+		trait_type = personality_trait
+        
+        allowed = {
+			FROM = { original_tag = GRE }
+		}
+		
+        defense_skill = 1
+		planning_skill = 1
+		
+		defense_skill_factor = 1
+		planning_skill_factor = 1
+        
+        non_shared_modifier = {
+			experience_gain_factor = -0.05
+		}
+	}
+    
+    gre_three_war_veteran_navy = { 
+		type = navy
+		trait_type = personality_trait
+        
+        allowed = {
+			FROM = { original_tag = GRE }
+		}
+        
+        attack_skill = 2
+        defense_skill = 2
+		maneuvering_skill = 2
+        coordination_skill = 2
+        
+        modifier = {
+			experience_gain_factor = -0.10
+		}
+	}
+    
+    gre_two_war_veteran_navy = { 
+		type = navy
+		trait_type = personality_trait
+        
+        allowed = {
+			FROM = { original_tag = GRE }
+		}
+		
+		attack_skill = 1
+        defense_skill = 2
+		maneuvering_skill = 1
+        coordination_skill = 1
+		
+        modifier = {
+			experience_gain_factor = -0.05
+		}
+	}
+    
+    gre_war_veteran_navy = { 
+		type = navy
+		trait_type = personality_trait
+        
+        allowed = {
+			FROM = { original_tag = GRE }
+		}
+		
+        defense_skill = 1
+		maneuvering_skill = 1
+        coordination_skill = 1
+		
+		defense_skill_factor = 1
+		planning_skill_factor = 1
+	}
+
+##################################
+# Status Traits
+##################################    
+    
+	#substance_addict = { 
+	#	type = all
+	#	trait_type = status_trait
+	#	allowed = {
+	#		has_trait = substance_abuser
+	#	}
+	#	attack_skill = -2
+	#	defense_skill = -2
+	#	logistics_skill = -2
+	#	planning_skill = -2
+	#}
+
+##################################
+# Exiled Traits
+##################################  
+
+	#exiled_leader = {
+	#	type = land
+	#	trait_type = exile
+	#	gain_xp = {
+	#		always = no # not gainable
+	#	}
+	#	
+	#	modifier = {
+	#		exiled_divisions_attack_factor = 0.1
+	#		own_exiled_divisions_attack_factor = 0.05 
+	#		exiled_divisions_defense_factor = 0.1
+	#		own_exiled_divisions_defense_factor = 0.05			
+	#	}
+	#	
+	#	ai_will_do = {
+	#		factor = 1
+	#	}
+	#	new_commander_weight = {
+	#		factor = 0
+	#	}
+	#}
+
+##################################
+# Operative Traits
+##################################
+	
+
+##################################
+# operative traits
+##################################
+
+	#operative_commando = {
+	#	type = operative
+	#	trait_type = basic_trait
+    #
+	#	new_commander_weight = {
+	#		base = 1
+	#		modifier = {
+	#			set_temp_variable = {
+	#				trait_chance = FROM.modifier@commando_trait_chance_factor
+	#			}
+	#			add_to_temp_variable = {
+	#				var = trait_chance
+	#				value = 1
+	#			}
+	#			factor = trait_chance
+	#		}
+    #
+	#		modifier = {
+	#			factor = 0.2
+	#			FROM = {
+	#				NOT = { has_done_agency_upgrade = upgrade_commando_training }
+	#			}
+	#		}
+	#	}
+    #
+	#	cost = 600
+	#	gain_xp_leader = {
+	#		ROOT = {
+	#			has_done_agency_upgrade = upgrade_commando_training
+	#		}
+	#	}
+    #
+	#	modifier = {
+	#		own_operative_detection_chance_factor = -0.1
+	#		target_sabotage_factor = 0.25
+	#		target_sabotage_risk = -0.25
+	#		operation_capture_cipher_outcome = 0.25
+	#		operation_capture_cipher_risk = -0.25
+	#	}
+	#}
+
+}

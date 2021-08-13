@@ -1,0 +1,488 @@
+ideas = {
+
+
+    tank_manufacturer = { 
+		
+		designer = yes
+        
+        GRE_exiled_armor_manufacturer = {
+		
+			picture = gre_exiled_armor_manufacturer
+
+			allowed = {
+				original_tag = GRE
+				has_dlc = "Battle for the Bosporus"
+			}
+            
+            visible = {
+                tag = GRE
+                has_axis_occupation = yes
+            }
+            
+            removal_cost = 75
+            
+            on_add = {
+                add_to_variable = { GRE.current_manufacturers = 1 }
+                hidden_effect = {
+                    if = {
+                        limit = { check_variable = { var = GRE.current_manufacturers value = GRE.max_manufacturers compare = greater_than_or_equals  } }
+                        if = { 
+                            limit = { NOT = { has_idea = GRE_exiled_naval_manufacturer } }
+                            add_ideas = GRE_exiled_naval_timeout
+                        }
+                        if = {
+                            limit = { NOT = { has_idea = GRE_exiled_air_manufacturer } }
+                            add_ideas = GRE_exiled_air_timeout
+                        }
+                        if = {
+                            limit = { NOT = { has_idea = GRE_exiled_materiel_manufacturer } }
+                            add_ideas = GRE_exiled_materiel_timeout
+                        }
+                        if = { 
+                            limit = { NOT = { has_idea = GRE_exiled_industrial_manufacturer } }
+                            add_ideas = GRE_exiled_industrial_timeout
+                        }
+                    }
+                }
+            }
+            
+            on_remove = {
+                subtract_from_variable = { GRE.current_manufacturers = 1 }
+                if = {
+                    limit = { check_variable = { var = GRE.current_manufacturers value = GRE.max_manufacturers compare = less_than  } }
+                    if = { 
+                        limit = { has_idea = GRE_exiled_air_timeout }
+                        remove_ideas = GRE_exiled_air_timeout
+                    }
+                    if = {
+                        limit = { has_idea = GRE_exiled_armor_timeout }
+                        remove_ideas = GRE_exiled_armor_timeout
+                    }
+                    if = {
+                        limit = { has_idea = GRE_exiled_naval_timeout }
+                        remove_ideas = GRE_exiled_naval_timeout
+                    }
+                    if = { 
+                        limit = { has_idea = GRE_exiled_industrial_timeout }
+                        remove_ideas = GRE_exiled_industrial_timeout
+                    }
+                    if = { 
+                        limit = { has_idea = GRE_exiled_materiel_timeout }
+                        remove_ideas = GRE_exiled_materiel_timeout
+                    }
+                }
+            }
+
+			cost = 75
+		}
+        
+        GRE_exiled_armor_timeout = {
+		
+			picture = gre_exiled_timeout_manufacturer
+            
+            cancel = {
+                check_variable = { GRE.current_manufacturers < GRE.max_manufacturers }
+            }
+
+			allowed = {
+				original_tag = GRE
+				has_dlc = "Battle for the Bosporus"
+			}
+            
+            removal_cost = -1
+            
+            visible = {
+                has_idea = GRE_exiled_armor_timeout 
+            }
+		}
+    }
+    
+    aircraft_manufacturer = {
+    
+        designer = yes
+        
+        GRE_exiled_air_manufacturer = {
+		
+			picture = gre_exiled_air_manufacturer
+
+			allowed = {
+				original_tag = GRE
+				has_dlc = "Battle for the Bosporus"
+			}
+            
+            visible = {
+                tag = GRE
+                has_axis_occupation = yes
+            }
+            
+            removal_cost = 75
+            
+            on_add = {
+                add_to_variable = { GRE.current_manufacturers = 1 }
+                hidden_effect = {
+                    if = {
+                        limit = { check_variable = { var = GRE.current_manufacturers value = GRE.max_manufacturers compare = greater_than_or_equals  } }
+                        if = { 
+                            limit = { NOT = { has_idea = GRE_exiled_naval_manufacturer } }
+                            add_ideas = GRE_exiled_naval_timeout
+                        }
+                        if = {
+                            limit = { NOT = { has_idea = GRE_exiled_armor_manufacturer } }
+                            add_ideas = GRE_exiled_armor_timeout
+                        }
+                        if = {
+                            limit = { NOT = { has_idea = GRE_exiled_materiel_manufacturer } }
+                            add_ideas = GRE_exiled_materiel_timeout
+                        }
+                        if = { 
+                            limit = { NOT = { has_idea = GRE_exiled_industrial_manufacturer } }
+                            add_ideas = GRE_exiled_industrial_timeout
+                        }
+                    }
+                }
+            }
+            
+            on_remove = {
+                subtract_from_variable = { GRE.current_manufacturers = 1 }
+                if = {
+                    limit = { check_variable = { var = GRE.current_manufacturers value = GRE.max_manufacturers compare = less_than  } }
+                    if = { 
+                        limit = { has_idea = GRE_exiled_air_timeout }
+                        remove_ideas = GRE_exiled_air_timeout
+                    }
+                    if = {
+                        limit = { has_idea = GRE_exiled_armor_timeout }
+                        remove_ideas = GRE_exiled_armor_timeout
+                    }
+                    if = {
+                        limit = { has_idea = GRE_exiled_naval_timeout }
+                        remove_ideas = GRE_exiled_naval_timeout
+                    }
+                    if = { 
+                        limit = { has_idea = GRE_exiled_industrial_timeout }
+                        remove_ideas = GRE_exiled_industrial_timeout
+                    }
+                    if = { 
+                        limit = { has_idea = GRE_exiled_materiel_timeout }
+                        remove_ideas = GRE_exiled_materiel_timeout
+                    }
+                }
+            }
+
+			cost = 75
+		}
+        
+        GRE_exiled_air_timeout = {
+		
+			picture = gre_exiled_timeout_manufacturer
+            
+            cancel = {
+                check_variable = { GRE.current_manufacturers < GRE.max_manufacturers }
+            }
+
+			allowed = {
+				original_tag = GRE
+				has_dlc = "Battle for the Bosporus"
+			}
+            
+            removal_cost = -1
+            
+            visible = {
+                has_idea = GRE_exiled_air_timeout
+            }
+		}
+    }
+    
+    
+	naval_manufacturer = {
+    
+        designer = yes
+        
+        GRE_exiled_naval_manufacturer = {
+		
+			picture = gre_exiled_shipyard_manufacturer
+
+			allowed = {
+				original_tag = GRE
+				has_dlc = "Battle for the Bosporus"
+			}
+            
+            visible = {
+                tag = GRE
+                has_axis_occupation = yes
+            }
+            
+            removal_cost = 75
+            
+            on_add = {
+                add_to_variable = { GRE.current_manufacturers = 1 }
+                hidden_effect = {
+                    if = {
+                        limit = { check_variable = { var = GRE.current_manufacturers value = GRE.max_manufacturers compare = greater_than_or_equals  } }
+                        if = { 
+                            limit = { NOT = { has_idea = GRE_exiled_air_manufacturer } }
+                            add_ideas = GRE_exiled_air_timeout
+                        }
+                        if = {
+                            limit = { NOT = { has_idea = GRE_exiled_armor_manufacturer } }
+                            add_ideas = GRE_exiled_armor_timeout
+                        }
+                        if = {
+                            limit = { NOT = { has_idea = GRE_exiled_materiel_manufacturer } }
+                            add_ideas = GRE_exiled_materiel_timeout
+                        }
+                        if = { 
+                            limit = { NOT = { has_idea = GRE_exiled_industrial_manufacturer } }
+                            add_ideas = GRE_exiled_industrial_timeout
+                        }
+                    }
+                }
+            }
+            
+            on_remove = {
+                subtract_from_variable = { GRE.current_manufacturers = 1 }
+                if = {
+                    limit = { check_variable = { var = GRE.current_manufacturers value = GRE.max_manufacturers compare = less_than  } }
+                    if = { 
+                        limit = { has_idea = GRE_exiled_air_timeout }
+                        remove_ideas = GRE_exiled_air_timeout
+                    }
+                    if = {
+                        limit = { has_idea = GRE_exiled_armor_timeout }
+                        remove_ideas = GRE_exiled_armor_timeout
+                    }
+                    if = {
+                        limit = { has_idea = GRE_exiled_naval_timeout }
+                        remove_ideas = GRE_exiled_naval_timeout
+                    }
+                    if = { 
+                        limit = { has_idea = GRE_exiled_industrial_timeout }
+                        remove_ideas = GRE_exiled_industrial_timeout
+                    }
+                    if = { 
+                        limit = { has_idea = GRE_exiled_materiel_timeout }
+                        remove_ideas = GRE_exiled_materiel_timeout
+                    }
+                }
+            }
+
+			cost = 75
+		}
+        
+        GRE_exiled_naval_timeout = {
+		
+			picture = gre_exiled_timeout_manufacturer
+            
+            cancel = {
+                check_variable = { GRE.current_manufacturers < GRE.max_manufacturers }
+            }
+
+			allowed = {
+				original_tag = GRE
+				has_dlc = "Battle for the Bosporus"
+			}
+            
+            removal_cost = -1
+            
+            visible = {
+                has_idea = GRE_exiled_naval_timeout
+            }
+		}
+    
+    }
+    
+    
+	industrial_concern = {
+    
+        designer = yes
+        
+        GRE_exiled_industrial_manufacturer = {
+		
+			picture = gre_exiled_constr_manufacturer
+
+			allowed = {
+				original_tag = GRE
+				has_dlc = "Battle for the Bosporus"
+			}
+            
+            visible = {
+                tag = GRE
+                has_axis_occupation = yes
+            }
+            
+            removal_cost = 75
+            
+            on_add = {
+                add_to_variable = { GRE.current_manufacturers = 1 }
+                hidden_effect = {
+                    if = {
+                        limit = { check_variable = { var = GRE.current_manufacturers value = GRE.max_manufacturers compare = greater_than_or_equals  } }
+                        if = { 
+                            limit = { NOT = { has_idea = GRE_exiled_air_manufacturer } }
+                            add_ideas = GRE_exiled_air_timeout
+                        }
+                        if = {
+                            limit = { NOT = { has_idea = GRE_exiled_armor_manufacturer } }
+                            add_ideas = GRE_exiled_armor_timeout
+                        }
+                        if = {
+                            limit = { NOT = { has_idea = GRE_exiled_materiel_manufacturer } }
+                            add_ideas = GRE_exiled_materiel_timeout
+                        }
+                        if = { 
+                            limit = { NOT = { has_idea = GRE_exiled_naval_manufacturer } }
+                            add_ideas = GRE_exiled_naval_timeout
+                        }
+                    }
+                }
+            }
+            
+            on_remove = {
+                subtract_from_variable = { GRE.current_manufacturers = 1 }
+                if = {
+                    limit = { check_variable = { var = GRE.current_manufacturers value = GRE.max_manufacturers compare = less_than  } }
+                    if = { 
+                        limit = { has_idea = GRE_exiled_air_timeout }
+                        remove_ideas = GRE_exiled_air_timeout
+                    }
+                    if = {
+                        limit = { has_idea = GRE_exiled_armor_timeout }
+                        remove_ideas = GRE_exiled_armor_timeout
+                    }
+                    if = {
+                        limit = { has_idea = GRE_exiled_naval_timeout }
+                        remove_ideas = GRE_exiled_naval_timeout
+                    }
+                    if = { 
+                        limit = { has_idea = GRE_exiled_industrial_timeout }
+                        remove_ideas = GRE_exiled_industrial_timeout
+                    }
+                    if = { 
+                        limit = { has_idea = GRE_exiled_materiel_timeout }
+                        remove_ideas = GRE_exiled_materiel_timeout
+                    }
+                }
+            }
+
+			cost = 75
+		}
+        
+        GRE_exiled_industrial_timeout = {
+		
+			picture = gre_exiled_timeout_manufacturer
+            
+            cancel = {
+                check_variable = { GRE.current_manufacturers < GRE.max_manufacturers }
+            }
+
+			allowed = {
+				original_tag = GRE
+				has_dlc = "Battle for the Bosporus"
+			}
+            
+            removal_cost = -1
+            
+            visible = {
+                has_idea = GRE_exiled_industrial_timeout
+            }
+		}
+    
+    }
+    
+    
+	materiel_manufacturer = {
+    
+        designer = yes
+        
+        GRE_exiled_materiel_manufacturer = {
+		
+			picture = gre_exiled_armament_manufacturer
+
+			allowed = {
+				original_tag = GRE
+				has_dlc = "Battle for the Bosporus"
+			}
+            
+            visible = {
+                tag = GRE
+                has_axis_occupation = yes
+            }
+            
+            removal_cost = 75
+            
+            on_add = {
+                add_to_variable = { GRE.current_manufacturers = 1 }
+                hidden_effect = {
+                    if = {
+                        limit = { check_variable = { var = GRE.current_manufacturers value = GRE.max_manufacturers compare = greater_than_or_equals  } }
+                        if = { 
+                            limit = { NOT = { has_idea = GRE_exiled_air_manufacturer } }
+                            add_ideas = GRE_exiled_air_timeout
+                        }
+                        if = {
+                            limit = { NOT = { has_idea = GRE_exiled_armor_manufacturer } }
+                            add_ideas = GRE_exiled_armor_timeout
+                        }
+                        if = {
+                            limit = { NOT = { has_idea = GRE_exiled_naval_manufacturer } }
+                            add_ideas = GRE_exiled_naval_timeout
+                        }
+                        if = { 
+                            limit = { NOT = { has_idea = GRE_exiled_industrial_manufacturer } }
+                            add_ideas = GRE_exiled_industrial_timeout
+                        }
+                    }
+                }
+            }
+            
+            on_remove = {
+                subtract_from_variable = { GRE.current_manufacturers = 1 }
+                if = {
+                    limit = { check_variable = { var = GRE.current_manufacturers value = GRE.max_manufacturers compare = less_than  } }
+                    if = { 
+                        limit = { has_idea = GRE_exiled_air_timeout }
+                        remove_ideas = GRE_exiled_air_timeout
+                    }
+                    if = {
+                        limit = { has_idea = GRE_exiled_armor_timeout }
+                        remove_ideas = GRE_exiled_armor_timeout
+                    }
+                    if = {
+                        limit = { has_idea = GRE_exiled_naval_timeout }
+                        remove_ideas = GRE_exiled_naval_timeout
+                    }
+                    if = { 
+                        limit = { has_idea = GRE_exiled_industrial_timeout }
+                        remove_ideas = GRE_exiled_industrial_timeout
+                    }
+                    if = { 
+                        limit = { has_idea = GRE_exiled_materiel_timeout }
+                        remove_ideas = GRE_exiled_materiel_timeout
+                    }
+                }
+            }
+
+			cost = 75
+		}
+        
+        GRE_exiled_materiel_timeout = {
+		
+			picture = gre_exiled_timeout_manufacturer
+            
+            cancel = {
+                check_variable = { GRE.current_manufacturers < GRE.max_manufacturers }
+            }
+
+			allowed = {
+				original_tag = GRE
+				has_dlc = "Battle for the Bosporus"
+			}
+            
+            removal_cost = -1
+            
+            visible = {
+                has_idea = GRE_exiled_materiel_timeout
+            }
+		}
+    
+    }

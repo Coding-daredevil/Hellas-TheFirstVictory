@@ -2017,6 +2017,7 @@ HS_famine_toll_proc = {
             THIS = { add_manpower = x }
             multiply_temp_variable = { x = -1 }
             add_to_variable = { GRE.total_lost_to_famine = x }
+            add_to_variable = { THIS.lost_to_famine = x }
         }
         else_if = {
             limit={check_variable={level<2}}
@@ -2029,6 +2030,7 @@ HS_famine_toll_proc = {
             THIS = { add_manpower = x }
             multiply_temp_variable = { x = -1 }
             add_to_variable = { GRE.total_lost_to_famine = 1 }
+            add_to_variable = { THIS.lost_to_famine = x }
         }
         else_if = {
             limit={check_variable={level<3}}
@@ -2041,6 +2043,7 @@ HS_famine_toll_proc = {
             THIS = { add_manpower = x }
             multiply_temp_variable = { x = -1 }
             add_to_variable = { GRE.total_lost_to_famine = x }
+            add_to_variable = { THIS.lost_to_famine = x }
         }
         else_if = {
             limit={check_variable={level<4}}
@@ -2053,6 +2056,7 @@ HS_famine_toll_proc = {
             THIS = { add_manpower = x }
             multiply_temp_variable = { x = -1 }
             add_to_variable = { GRE.total_lost_to_famine = x }
+            add_to_variable = { THIS.lost_to_famine = x }
         }
         else_if = {
             limit={check_variable={level<5}}
@@ -2065,6 +2069,7 @@ HS_famine_toll_proc = {
             THIS = { add_manpower = x }
             multiply_temp_variable = { x = -1 }
             add_to_variable = { GRE.total_lost_to_famine = x }
+            add_to_variable = { THIS.lost_to_famine = x }
         }
         else_if = {
             limit={check_variable={level<6}}
@@ -2077,6 +2082,7 @@ HS_famine_toll_proc = {
             THIS = { add_manpower = x }
             multiply_temp_variable = { x = -1 }
             add_to_variable = { GRE.total_lost_to_famine = x }
+            add_to_variable = { THIS.lost_to_famine = x }
         }
         else_if = {
             limit={check_variable={level<7}}
@@ -2089,6 +2095,7 @@ HS_famine_toll_proc = {
             THIS = { add_manpower = x }
             multiply_temp_variable = { x = -1 }
             add_to_variable = { GRE.total_lost_to_famine = x }
+            add_to_variable = { THIS.lost_to_famine = x }
         }
         else_if = {
             limit={check_variable={level<8}}
@@ -2101,6 +2108,7 @@ HS_famine_toll_proc = {
             THIS = { add_manpower = x }
             multiply_temp_variable = { x = -1 }
             add_to_variable = { GRE.total_lost_to_famine = x }
+            add_to_variable = { THIS.lost_to_famine = x }
         }
         else_if = {
             limit={check_variable={level<9}}
@@ -2113,6 +2121,7 @@ HS_famine_toll_proc = {
             THIS = { add_manpower = x }
             multiply_temp_variable = { x = -1 }
             add_to_variable = { GRE.total_lost_to_famine = x }
+            add_to_variable = { THIS.lost_to_famine = x }
         }
         else_if = {
             limit={check_variable={level<10}}
@@ -2125,6 +2134,7 @@ HS_famine_toll_proc = {
             THIS = { add_manpower = x }
             multiply_temp_variable = { x = -1 }
             add_to_variable = { GRE.total_lost_to_famine = x }
+            add_to_variable = { THIS.lost_to_famine = x }
         }
         else_if = {
             limit={check_variable={level<11}}
@@ -2137,6 +2147,7 @@ HS_famine_toll_proc = {
             THIS = { add_manpower = x }
             multiply_temp_variable = { x = -1 }
             add_to_variable = { GRE.total_lost_to_famine = x }
+            add_to_variable = { THIS.lost_to_famine = x }
         }
         set_variable = { THIS.famine_level = level }
     }
@@ -2696,7 +2707,24 @@ GR_HS_split_ideas = {
     remove_dynamic_modifier = { modifier = GRE_army_reform_hellenic_staff }
     remove_dynamic_modifier = { modifier = GRE_army_reform_hellenic_army }
     remove_dynamic_modifier = { modifier = GRE_army_reform_hellenic_people }
+    remove_dynamic_modifier = { modifier = GRE_grand_coalition_dynamic }
+    if = {
+        limit = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+        add_dynamic_modifier = { modifier = GRE_grand_coalition_exiled_dynamic }
+        add_dynamic_modifier = { modifier = GRE_government_in_exile_lack_of_brains }
+        add_dynamic_modifier = { modifier = GRE_government_in_exile_lack_of_production }
+        set_variable = { GRE.bonus_stability@event_target:hellenic_state = 0.005 }
+        set_variable = { GRE_grand_exiled_pp_fct = 0.25 }
+        set_variable = { GRE_grand_exiled_atk_fct = 0.1 }
+        set_variable = { GRE_grand_exiled_def_fct = 0.1 }
+    }
+    set_variable = { GRE_research_bonus_lost_in_exile = -1 }
+    set_variable = { GRE_factory_capacity_lost_in_exile = -2 }
+    set_variable = { GRE_dockyard_capacity_lost_in_exile = -2 }
     set_variable = { true_legitimacy = 15 }
+    add_ideas = recruit_siphoning_basic
+    add_ideas = ministry_of_rolling_with_the_punches
+    add_ideas = economy_under_construction
 }
 
 #########################################################
