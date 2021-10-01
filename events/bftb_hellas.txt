@@ -4,6 +4,14 @@ add_namespace = hellas
 ########	MY MOD      	########
 ####################################
 
+
+########################################
+####                                ####
+####         ΜΕΤΑΧΑΣ RELATED        ####
+####             EVENTS             ####
+########################################
+
+
 ###Election News
 country_event = {
 	id = hellas.1
@@ -30,6 +38,7 @@ country_event = {
             subtract_from_variable = { fct_com = 7.5}
             subtract_from_variable = { fct_dem = 5}
             add_to_variable = { fct_fas = 5}
+            set_variable = { decision_taken = 0 }
             faction_gui_call = yes              
 		}
     }
@@ -47,6 +56,7 @@ country_event = {
             subtract_from_variable = { fct_com = 1.5}
             subtract_from_variable = { fct_dem = 1.0}
             add_to_variable = { fct_fas = 2.5}
+            set_variable = { decision_taken = 1 }
             faction_gui_call = yes              
 		}
     }
@@ -64,6 +74,7 @@ country_event = {
             add_to_variable = { fct_com = 5}
             add_to_variable = { fct_dem = 2.5}
             subtract_from_variable = { fct_fas = 2.5}
+            set_variable = { decision_taken = 2 }
             faction_gui_call = yes              
 		}
     }    
@@ -89,6 +100,57 @@ country_event = {
         complete_national_focus = GRE_the_4th_of_august_regime
         set_country_flag = GRE_kathestos_proclaimed
         set_variable = { GRE_ark = 0 }
+        if = { 
+            limit = { check_variable = { decision_taken = 0 } } 
+            set_temp_variable = { tmp_mon = 5}
+            set_temp_variable = { tmp_com = -7.5}
+            set_temp_variable = { tmp_dem = -7.5}
+            set_temp_variable = { tmp_fas = 5}
+            add_to_variable = { fct_mon = 5}   
+            subtract_from_variable = { fct_com = 7.5}
+            subtract_from_variable = { fct_dem = 7.5}
+            add_to_variable = { fct_fas = 2.5 }
+            custom_effect_tooltip = GRE_papagos_selection_tt
+            custom_effect_tooltip = dem_fct_imp_tt 
+            custom_effect_tooltip = com_fct_imp_tt 
+            custom_effect_tooltip = fas_fct_imp_tt
+            custom_effect_tooltip = mon_fct_imp_tt 
+        }
+        else_if = {
+            limit = { check_variable = { decision_taken = 1 } }
+            add_to_variable = { fct_mon = 5}   
+            subtract_from_variable = { fct_com = 7,5}
+            subtract_from_variable = { fct_dem = 0}
+            add_to_variable = { fct_fas = 1 }
+            custom_effect_tooltip = GRE_drakos_selection_tt
+            custom_effect_tooltip = fact_inf_tt 
+            custom_effect_tooltip = com_fct_imp_tt 
+            custom_effect_tooltip = mon_fct_imp_tt 
+        }
+        else_if = {
+            limit = { check_variable = { decision_taken = 2 } }
+            add_to_variable = { fct_mon = 2.5}   
+            subtract_from_variable = { fct_com = 2.5}
+            subtract_from_variable = { fct_dem = 2.5}
+            add_to_variable = { fct_fas = 1 }
+            custom_effect_tooltip = GRE_stanotas_selection_tt
+            custom_effect_tooltip = dem_fct_imp_tt 
+            custom_effect_tooltip = com_fct_imp_tt 
+            custom_effect_tooltip = mon_fct_imp_tt 
+        }
+        else_if = {
+            limit = { check_variable = { decision_taken = 3 } }
+            subtract_from_variable = { fct_mon = 2.5}   
+            add_to_variable = { fct_dem = 2.5}
+            custom_effect_tooltip = GRE_zervas_selection_tt
+            custom_effect_tooltip = dem_fct_imp_tt 
+            custom_effect_tooltip = mon_fct_imp_tt 
+        }
+        faction_gui_call = yes    
+        hidden_effect = { 
+            add_ideas = GRE_kotzias
+            add_ideas = GRE_diakos
+        }
     }    
 }
 
@@ -194,9 +256,13 @@ country_event = {
 	fire_only_once = yes
 	
 	trigger = {
-        date > 1936.06.30
+        date > 1936.08.01
 		tag = GRE
-		check_variable = { var = fct_com value = 10 compare = less_than_or_equals }
+        OR = {
+    		check_variable = { var = fct_com value = 30 compare = less_than_or_equals }
+            check_variable = { var = fct_dem value = 30 compare = less_than_or_equals }
+        }
+        has_country_flag = GRE_kathestos_proclaimed
 	}
 
 	mean_time_to_happen = {
@@ -212,8 +278,15 @@ country_event = {
 			base = 100
 			}
         add_stability = -0.05
-        set_country_flag = GRE_comm_upr_1
-    }   
+        if = { 
+            limit = { check_variable = { var = fct_com value = 30 compare = less_than_or_equals } }
+            set_country_flag = GRE_comm_upr_1
+        }
+        if = { 
+            limit = { check_variable = { var = fct_dem value = 30 compare = less_than_or_equals } }
+            set_country_flag = GRE_repub_upr_1
+        }
+    }
 }
 
 country_event = {                   ###METAX LINE SMALL
@@ -232,7 +305,7 @@ country_event = {                   ###METAX LINE SMALL
 
 		ai_chance = {
 			base = 100
-			}
+        }
         hidden_effect = {
             731 = {
                 if = {
@@ -430,6 +503,74 @@ country_event = {               #IMRO GETS THE BOOT BY HAVING THE SLAVS CRUSHED 
     }    
 }
 
+
+unit_leader_event = {               # 1 / 8 / 1936 -> Papagos becomes FeldMarshall.
+	id = hellas.11
+	title = hellas.11.t
+	desc = { 
+        text = hellas.11.desc
+        trigger = { check_variable = { decision_taken < 1 } }
+    }
+    desc = {
+        text = hellas.11.desc2
+        trigger = { check_variable = { decision_taken > 0 } }
+    }
+    
+    is_triggered_only = yes 
+    option = {
+        ai_chance = {
+            base = 100
+        }
+        name = hellas.11.a
+        promote_leader = yes 
+        reduce_unpreparedness = yes
+        custom_effect_tooltip = GRE_papagos_selection_event_tt
+        GRE = { set_country_flag = papagos_1 add_ideas = GRE_alexandros_papagos_1 }
+    }
+    option = {
+        name = hellas.11.b
+        trigger = {
+            check_variable = { GRE.decision_taken > 0 }
+        }
+        random_army_leader = {
+            limit = { has_id = 302 }
+            promote_leader = yes 
+            reduce_unpreparedness = yes
+        }
+        set_variable = { GRE.decision_taken = 1 }
+        custom_effect_tooltip = GRE_drakos_selection_event_tt
+        GRE = { set_country_flag = drakos_1 add_ideas = GRE_markos_drakos_1 }
+    }
+    option = {
+        name = hellas.11.c
+        trigger = {
+            check_variable = { GRE.decision_taken > 0 }
+        }
+        random_army_leader = {
+            limit = { has_id = 313 }
+            promote_leader = yes 
+            reduce_unpreparedness = yes
+        }
+        set_variable = { GRE.decision_taken = 2 }
+        custom_effect_tooltip = GRE_stanotas_selection_event_tt
+        GRE = { set_country_flag = stanotas_1 add_ideas = GRE_georgios_stanotas_1 }
+    }
+    option = {
+        name = hellas.11.d
+        trigger = {
+            check_variable = { GRE.decision_taken > 1 }
+        }
+        random_army_leader = {
+            limit = { has_id = 307 }
+            promote_leader = yes 
+            reduce_unpreparedness = yes
+        }
+        set_variable = { GRE.decision_taken = 3 }
+        custom_effect_tooltip = GRE_zervas_selection_event_tt
+        GRE = { set_country_flag = zervas_1 add_ideas = GRE_napoleon_zervas_1 }
+    }
+}
+
 ########################################
 ####                                ####
 ####        GENERAL EVENTS          ####
@@ -466,7 +607,7 @@ country_event = {               #ITALIANS GET WARGOAL FROM NEGLECTED ARMY IDEA L
     }      
 }
 
-country_event = {               #WARNING EVENT FOR TROOP DEPLOYMENT IN ALBANIAN BORDER
+country_event = {                                                       #WARNING EVENT FOR TROOP DEPLOYMENT IN ALBANIAN BORDER
 	id = hellas.201
 	title = hellas.201.t
 	desc = hellas.201.desc
@@ -485,7 +626,7 @@ country_event = {               #WARNING EVENT FOR TROOP DEPLOYMENT IN ALBANIAN 
                 has_war_with = GRE
                 focus_progress = {
                     focus = ITA_greece_war_goal
-                    progress > 0.05
+                    progress > 0.01
                 }
             }
             has_government = fascism
@@ -542,18 +683,23 @@ country_event = {               #WARNING EVENT FOR TOO MANY DIVISIONS DEPLOYED (
 
 	trigger = {
 		tag = GRE
+        has_war = no
         date < 1942.1.1
         NOT = { has_global_flag = GRE_grecoitalian_ended }
-        ITA = { 
+        ITA = {
             exists = yes 
             is_puppet = no
             is_subject = no
-            focus_progress = {
-                focus = ITA_greece_war_goal
-                progress > 0.05
-            }            
-            NOT = { is_justifying_wargoal_against = GRE }
-            NOT = { has_war_with = GRE }
+            NOT = {
+                has_completed_focus = ITA_greece_war_goal
+                has_completed_focus = ITA_greece_friend
+                focus_progress = {
+                    focus = ITA_greece_war_goal
+                    progress > 0.01
+                }
+                is_justifying_wargoal_against = GRE
+                has_war_with = GRE
+            }
             has_government = fascism
             has_country_leader = {
                 name = "Benito Mussolini"
@@ -593,6 +739,690 @@ country_event = {               #WARNING EVENT FOR TOO MANY DIVISIONS DEPLOYED (
 		name = hellas.202.a
         activate_mission = GRE_activated_mission_2
     }      
+}
+
+country_event = {                                                                       #Army Equipment Increases, Officer Preparation/Training increases too
+	id = hellas.203
+	title = hellas.203.t
+	desc = hellas.203.desc
+    picture = GFX_report_event_generic_weapon_cache
+
+	trigger = {
+        original_tag = GRE 
+        check_variable = { preparedness_level < 1 }
+        set_temp_variable = { x = num_equipment@infantry_equipment }
+        add_to_temp_variable = { x = num_equipment_in_armies@infantry_equipment }
+        check_variable = { x > eq_thr?10000 }
+	}
+
+	mean_time_to_happen = {
+		days = 0
+	}
+    
+	fire_only_once = no
+	
+    immediate = {
+        hidden_effect = {
+            add_to_variable = { evnt_cnt_203 = 1 }
+            add_to_variable = { eq_thr?10000 = 5000 }
+        }
+    }
+    
+	option = {
+		name = hellas.203.a
+        if = {
+            limit = { check_variable = { evnt_cnt_203 = 1 } }
+            custom_effect_tooltip = train_25_percent_of_lvl3_generals_tt
+        }
+        else = {
+            custom_effect_tooltip = train_percent_in_order_generals_tt
+        }
+        hidden_effect = { activate_decision = hidden_proc_for_equip_event }
+    }      
+}
+
+country_event = {                                                                       #Army Doctrine Increases, Officer Preparation/Training increases too
+	id = hellas.204
+	title = hellas.204.t
+	desc = hellas.204.desc
+    picture = GFX_report_event_doctrine_up
+
+	trigger = {
+        original_tag = GRE 
+        check_variable = { land_doctrine_level > greekDocLevel?1}
+	}
+
+	mean_time_to_happen = {
+		days = 0
+	}
+    
+	fire_only_once = no
+	
+    immediate = {
+        hidden_effect = {
+            add_to_variable = { greekDocLevel = 1 }
+        }
+    }
+    
+	option = {
+		name = hellas.204.a
+        set_temp_variable = { indX = GRE.army_leaders }
+        set_temp_variable = { indY = 0.25 }
+        multiply_temp_variable = { indX = indY }
+        multiply_temp_variable = { tmpX = indX }
+        round_temp_variable = tmpX
+        set_temp_variable = { tmpY = 0 }
+        set_temp_variable = { tmpZ = 0.60 }
+        custom_effect_tooltip = train_random_percentage_tt
+        hidden_effect = { activate_decision = hidden_proc_for_doctr_event }
+    }
+}
+
+country_event = {                                                                       #Armor GWTANK
+	id = hellas.205
+	title = hellas.205.t
+	desc = hellas.205.desc
+    picture = GFX_report_event_tanks_up
+	trigger = { original_tag = GRE check_variable = { GRE.preparedness_level < 1 } has_tech = gwtank }
+	mean_time_to_happen = { days = 5 }
+    fire_only_once = yes
+	option = {
+		name = hellas.205.a
+        set_temp_variable = { indX = GRE.army_leaders } set_temp_variable = { indY = 0.1 } multiply_temp_variable = { indX = indY } 
+        custom_effect_tooltip = train_random_percentage_tt
+        hidden_effect = { activate_decision = hidden_proc_for_armor_event }
+    }
+}
+
+country_event = {                                                                       #Armor LIGHT_I
+	id = hellas.206
+	title = hellas.205.t
+	desc = hellas.205.desc
+    picture = GFX_report_event_tanks_up
+	trigger = { original_tag = GRE check_variable = { GRE.preparedness_level < 1 } has_tech = basic_light_tank }
+	mean_time_to_happen = { days = 5 }
+    fire_only_once = yes
+	option = {
+		name = hellas.205.a
+        set_temp_variable = { indX = GRE.army_leaders } set_temp_variable = { indY = 0.1 } multiply_temp_variable = { indX = indY } 
+        custom_effect_tooltip = train_random_percentage_tt
+        hidden_effect = { activate_decision = hidden_proc_for_armor_event }
+    }
+}
+
+country_event = {                                                                       #Armor LIGHT_II
+	id = hellas.207
+	title = hellas.205.t
+	desc = hellas.205.desc
+    picture = GFX_report_event_tanks_up
+	trigger = { original_tag = GRE check_variable = { GRE.preparedness_level < 1 } has_tech = improved_light_tank }
+	mean_time_to_happen = { days = 5 }
+    fire_only_once = yes
+	option = {
+		name = hellas.205.a
+        set_temp_variable = { indX = GRE.army_leaders } set_temp_variable = { indY = 0.1 } multiply_temp_variable = { indX = indY } 
+        custom_effect_tooltip = train_random_percentage_tt
+        hidden_effect = { activate_decision = hidden_proc_for_armor_event }
+    }
+}
+
+country_event = {                                                                       #Armor M_I
+	id = hellas.208
+	title = hellas.205.t
+	desc = hellas.205.desc
+    picture = GFX_report_event_tanks_up
+	trigger = { original_tag = GRE check_variable = { GRE.preparedness_level < 1 } has_tech = basic_medium_tank }
+	mean_time_to_happen = { days = 5 }
+    fire_only_once = yes
+	option = {
+		name = hellas.205.a
+        set_temp_variable = { indX = GRE.army_leaders } set_temp_variable = { indY = 0.1 } multiply_temp_variable = { indX = indY } 
+        custom_effect_tooltip = train_random_percentage_tt
+        hidden_effect = { activate_decision = hidden_proc_for_armor_event }
+    }
+}
+
+country_event = {                                                                       #Armor M_II
+	id = hellas.209
+	title = hellas.205.t
+	desc = hellas.205.desc
+    picture = GFX_report_event_tanks_up
+	trigger = { original_tag = GRE check_variable = { GRE.preparedness_level < 1 } has_tech = improved_medium_tank }
+	mean_time_to_happen = { days = 5 }
+    fire_only_once = yes
+	option = {
+		name = hellas.205.a
+        set_temp_variable = { indX = GRE.army_leaders } set_temp_variable = { indY = 0.1 } multiply_temp_variable = { indX = indY } 
+        custom_effect_tooltip = train_random_percentage_tt
+        hidden_effect = { activate_decision = hidden_proc_for_armor_event }
+    }
+}
+
+country_event = {                                                                       #Armor H_I
+	id = hellas.210
+	title = hellas.205.t
+	desc = hellas.205.desc
+    picture = GFX_report_event_tanks_up
+	trigger = { original_tag = GRE check_variable = { GRE.preparedness_level < 1 } has_tech = basic_heavy_tank }
+	mean_time_to_happen = { days = 5 }
+    fire_only_once = yes
+	option = {
+		name = hellas.205.a
+        set_temp_variable = { indX = GRE.army_leaders } set_temp_variable = { indY = 0.1 } multiply_temp_variable = { indX = indY } 
+        custom_effect_tooltip = train_random_percentage_tt
+        hidden_effect = { activate_decision = hidden_proc_for_armor_event }
+    }
+}
+
+country_event = {                                                                       #Armor H_II
+	id = hellas.211
+	title = hellas.205.t
+	desc = hellas.205.desc
+    picture = GFX_report_event_tanks_up
+	trigger = { original_tag = GRE check_variable = { GRE.preparedness_level < 1 } has_tech = improved_heavy_tank }
+	mean_time_to_happen = { days = 5 }
+    fire_only_once = yes
+	option = {
+		name = hellas.205.a
+        set_temp_variable = { indX = GRE.army_leaders } set_temp_variable = { indY = 0.1 } multiply_temp_variable = { indX = indY } 
+        custom_effect_tooltip = train_random_percentage_tt
+        hidden_effect = { activate_decision = hidden_proc_for_armor_event }
+    }
+}
+
+country_event = {                                                                       #Armor H_II
+	id = hellas.222
+	title = hellas.205.t
+	desc = hellas.205.desc
+    picture = GFX_report_event_tanks_up
+	trigger = { original_tag = GRE check_variable = { GRE.preparedness_level < 1 } has_tech = improved_heavy_tank }
+	mean_time_to_happen = { days = 5 }
+    fire_only_once = yes
+	option = {
+		name = hellas.205.a
+        set_temp_variable = { indX = GRE.army_leaders } set_temp_variable = { indY = 0.1 } multiply_temp_variable = { indX = indY } 
+        custom_effect_tooltip = train_random_percentage_tt
+        hidden_effect = { activate_decision = hidden_proc_for_armor_event }
+    }
+}
+
+country_event = {                                                                       #Artillery 
+	id = hellas.212
+	title = hellas.212.t
+	desc = hellas.212.desc
+    picture = GFX_report_event_artillery_up
+	trigger = { original_tag = GRE check_variable = { GRE.preparedness_level < 1 } has_tech = artillery1 }
+	mean_time_to_happen = { days = 5 }
+    fire_only_once = yes
+	option = {
+		name = hellas.212.a
+        set_temp_variable = { indX = GRE.army_leaders } set_temp_variable = { indY = 0.15 } multiply_temp_variable = { indX = indY } 
+        custom_effect_tooltip = train_random_percentage_tt
+        hidden_effect = { activate_decision = hidden_proc_for_artillery_event }
+    }
+}
+
+country_event = {                                                                       #Artillery
+	id = hellas.213
+	title = hellas.212.t
+	desc = hellas.212.desc
+    picture = GFX_report_event_artillery_up
+	trigger = { original_tag = GRE check_variable = { GRE.preparedness_level < 1 } has_tech = artillery4 }
+	mean_time_to_happen = { days = 5 }
+    fire_only_once = yes
+	option = {
+		name = hellas.212.a
+        set_temp_variable = { indX = GRE.army_leaders } set_temp_variable = { indY = 0.15 } multiply_temp_variable = { indX = indY } 
+        custom_effect_tooltip = train_random_percentage_tt
+        hidden_effect = { activate_decision = hidden_proc_for_artillery_event }
+    }
+}
+
+country_event = {                                                                       #AntiAir I
+	id = hellas.214
+	title = hellas.212.t
+	desc = hellas.212.desc
+    picture = GFX_report_event_artillery_up
+	trigger = { original_tag = GRE check_variable = { GRE.preparedness_level < 1 } has_tech = interwar_antiair }
+	mean_time_to_happen = { days = 5 }
+    fire_only_once = yes
+	option = {
+		name = hellas.212.a
+        set_temp_variable = { indX = GRE.army_leaders } set_temp_variable = { indY = 0.15 } multiply_temp_variable = { indX = indY } 
+        custom_effect_tooltip = train_random_percentage_tt
+        hidden_effect = { activate_decision = hidden_proc_for_artillery_event }
+    }
+}
+
+country_event = {                                                                       #AntiAir II
+	id = hellas.215
+	title = hellas.212.t
+	desc = hellas.212.desc
+    picture = GFX_report_event_artillery_up
+	trigger = { original_tag = GRE check_variable = { GRE.preparedness_level < 1 } has_tech = antiair2 }
+	mean_time_to_happen = { days = 5 }
+    fire_only_once = yes
+	option = {
+		name = hellas.212.a
+        set_temp_variable = { indX = GRE.army_leaders } set_temp_variable = { indY = 0.15 } multiply_temp_variable = { indX = indY } 
+        custom_effect_tooltip = train_random_percentage_tt
+        hidden_effect = { activate_decision = hidden_proc_for_artillery_event }
+    }
+}
+
+country_event = {                                                                       #AntiTank I
+	id = hellas.216
+	title = hellas.212.t
+	desc = hellas.212.desc
+    picture = GFX_report_event_artillery_up
+	trigger = { original_tag = GRE check_variable = { GRE.preparedness_level < 1 } has_tech = interwar_antitank }
+	mean_time_to_happen = { days = 5 }
+    fire_only_once = yes
+	option = {
+		name = hellas.212.a
+        set_temp_variable = { indX = GRE.army_leaders } set_temp_variable = { indY = 0.15 } multiply_temp_variable = { indX = indY } 
+        custom_effect_tooltip = train_random_percentage_tt
+        hidden_effect = { activate_decision = hidden_proc_for_artillery_event }
+    }
+}
+
+country_event = {                                                                       #AntiTank II
+	id = hellas.217
+	title = hellas.212.t
+	desc = hellas.212.desc
+    picture = GFX_report_event_artillery_up
+	trigger = { original_tag = GRE check_variable = { GRE.preparedness_level < 1 } has_tech = antitank2 }
+	mean_time_to_happen = { days = 5 }
+    fire_only_once = yes
+	option = {
+		name = hellas.212.a
+        set_temp_variable = { indX = GRE.army_leaders } set_temp_variable = { indY = 0.15 } multiply_temp_variable = { indX = indY } 
+        custom_effect_tooltip = train_random_percentage_tt
+        hidden_effect = { activate_decision = hidden_proc_for_artillery_event }
+    }
+}
+
+country_event = {                                                                       #Infantry Mannlicher M95/24
+	id = hellas.218
+	title = hellas.218.t
+	desc = hellas.218.desc
+    picture = GFX_report_event_equipment_upgrade
+	trigger = { original_tag = GRE check_variable = { GRE.preparedness_level < 1 } has_tech = infantry_weapons1 }
+	mean_time_to_happen = { days = 5 }
+    fire_only_once = yes
+	option = {
+		name = hellas.218.a
+        set_temp_variable = { indX = GRE.army_leaders } set_temp_variable = { indY = 0.20 } multiply_temp_variable = { indX = indY } 
+        custom_effect_tooltip = train_random_percentage_tt
+        hidden_effect = { activate_decision = hidden_proc_for_equipment_event }
+    }
+}
+
+country_event = {                                                                       #Infantry Hotchkiss
+	id = hellas.219
+	title = hellas.218.t
+	desc = hellas.218.desc
+    picture = GFX_report_event_equipment_upgrade
+	trigger = { original_tag = GRE check_variable = { GRE.preparedness_level < 1 } has_tech = improved_infantry_weapons }
+	mean_time_to_happen = { days = 5 }
+    fire_only_once = yes
+	option = {
+		name = hellas.218.a
+        set_temp_variable = { indX = GRE.army_leaders } set_temp_variable = { indY = 0.20 } multiply_temp_variable = { indX = indY } 
+        custom_effect_tooltip = train_random_percentage_tt
+        hidden_effect = { activate_decision = hidden_proc_for_equipment_event }
+    }
+}
+
+country_event = {                                                                       #Motorized
+	id = hellas.220
+	title = hellas.218.t
+	desc = hellas.218.desc
+    picture = GFX_report_event_equipment_upgrade
+	trigger = { original_tag = GRE check_variable = { GRE.preparedness_level < 1 } has_tech = motorised_infantry } 
+	mean_time_to_happen = { days = 5 }
+    fire_only_once = yes
+	option = {
+		name = hellas.218.a
+        set_temp_variable = { indX = GRE.army_leaders } set_temp_variable = { indY = 0.20 } multiply_temp_variable = { indX = indY } 
+        custom_effect_tooltip = train_random_percentage_tt
+        hidden_effect = { activate_decision = hidden_proc_for_equipment_event }
+    }
+} 
+
+country_event = {                                                                       #Mechanized
+	id = hellas.221
+	title = hellas.218.t
+	desc = hellas.218.desc
+    picture = GFX_report_event_equipment_upgrade
+	trigger = { original_tag = GRE check_variable = { GRE.preparedness_level < 1 } has_tech = mechanised_infantry } 
+	mean_time_to_happen = { days = 5 }
+    fire_only_once = yes
+	option = {
+		name = hellas.218.a
+        set_temp_variable = { indX = GRE.army_leaders } set_temp_variable = { indY = 0.20 } multiply_temp_variable = { indX = indY } 
+        custom_effect_tooltip = train_random_percentage_tt
+        hidden_effect = { activate_decision = hidden_proc_for_equipment_event }
+    }
+} 
+
+country_event = {                                                                       #support_weapons
+	id = hellas.223
+	title = hellas.223.t
+	desc = hellas.223.desc
+    picture = GFX_report_event_support_up
+	trigger = { original_tag = GRE check_variable = { GRE.preparedness_level < 1 } has_tech = support_weapons } 
+	mean_time_to_happen = { days = 5 }
+    fire_only_once = yes
+	option = {
+		name = hellas.223.a
+        set_temp_variable = { indX = GRE.army_leaders } set_temp_variable = { indY = 0.20 } multiply_temp_variable = { indX = indY } 
+        custom_effect_tooltip = train_random_percentage_tt
+        hidden_effect = { activate_decision = hidden_proc_for_support_event }
+    }
+} 
+
+country_event = {                                                                       #support_weapons
+	id = hellas.224
+	title = hellas.223.t
+	desc = hellas.223.desc
+    picture = GFX_report_event_support_up
+	trigger = { original_tag = GRE check_variable = { GRE.preparedness_level < 1 } has_tech = support_weapons2 } 
+	mean_time_to_happen = { days = 5 }
+    fire_only_once = yes
+	option = {
+		name = hellas.223.a
+        set_temp_variable = { indX = GRE.army_leaders } set_temp_variable = { indY = 0.20 } multiply_temp_variable = { indX = indY } 
+        custom_effect_tooltip = train_random_percentage_tt
+        hidden_effect = { activate_decision = hidden_proc_for_support_event }
+    }
+} 
+
+country_event = {                                                                       #support_weapons
+	id = hellas.225
+	title = hellas.223.t
+	desc = hellas.223.desc
+    picture = GFX_report_event_support_up
+	trigger = { original_tag = GRE check_variable = { GRE.preparedness_level < 1 } has_tech = tech_engineers2 } 
+	mean_time_to_happen = { days = 5 }
+    fire_only_once = yes
+	option = {
+		name = hellas.223.a
+        set_temp_variable = { indX = GRE.army_leaders } set_temp_variable = { indY = 0.20 } multiply_temp_variable = { indX = indY } 
+        custom_effect_tooltip = train_random_percentage_tt
+        hidden_effect = { activate_decision = hidden_proc_for_support_event }
+    }
+}
+
+country_event = {                                                                       #support_weapons
+	id = hellas.226
+	title = hellas.223.t
+	desc = hellas.223.desc
+    picture = GFX_report_event_support_up
+	trigger = { original_tag = GRE check_variable = { GRE.preparedness_level < 1 } has_tech = tech_recon2 } 
+	mean_time_to_happen = { days = 5 }
+    fire_only_once = yes
+	option = {
+		name = hellas.223.a
+        set_temp_variable = { indX = GRE.army_leaders } set_temp_variable = { indY = 0.20 } multiply_temp_variable = { indX = indY } 
+        custom_effect_tooltip = train_random_percentage_tt
+        hidden_effect = { activate_decision = hidden_proc_for_support_event }
+    }
+}
+
+country_event = {                                                                       #support_weapons
+	id = hellas.227
+	title = hellas.223.t
+	desc = hellas.223.desc
+    picture = GFX_report_event_support_up
+	trigger = { original_tag = GRE check_variable = { GRE.preparedness_level < 1 } has_tech = tech_recon3 } 
+	mean_time_to_happen = { days = 5 }
+    fire_only_once = yes
+	option = {
+		name = hellas.223.a
+        set_temp_variable = { indX = GRE.army_leaders } set_temp_variable = { indY = 0.20 } multiply_temp_variable = { indX = indY } 
+        custom_effect_tooltip = train_random_percentage_tt
+        hidden_effect = { activate_decision = hidden_proc_for_support_event }
+    }
+}
+
+country_event = {                                                                       #support_weapons
+	id = hellas.228
+	title = hellas.223.t
+	desc = hellas.223.desc
+    picture = GFX_report_event_support_up
+	trigger = { original_tag = GRE check_variable = { GRE.preparedness_level < 1 } has_tech = tech_maintenance_company } 
+	mean_time_to_happen = { days = 5 }
+    fire_only_once = yes
+	option = {
+		name = hellas.223.a
+        set_temp_variable = { indX = GRE.army_leaders } set_temp_variable = { indY = 0.20 } multiply_temp_variable = { indX = indY } 
+        custom_effect_tooltip = train_random_percentage_tt
+        hidden_effect = { activate_decision = hidden_proc_for_support_event }
+    }
+}
+
+country_event = {                                                                       #support_weapons
+	id = hellas.229
+	title = hellas.223.t
+	desc = hellas.223.desc
+    picture = GFX_report_event_support_up
+	trigger = { original_tag = GRE check_variable = { GRE.preparedness_level < 1 } has_tech = tech_maintenance_company2 } 
+	mean_time_to_happen = { days = 5 }
+    fire_only_once = yes
+	option = {
+		name = hellas.223.a
+        set_temp_variable = { indX = GRE.army_leaders } set_temp_variable = { indY = 0.20 } multiply_temp_variable = { indX = indY } 
+        custom_effect_tooltip = train_random_percentage_tt
+        hidden_effect = { activate_decision = hidden_proc_for_support_event }
+    }
+}
+
+country_event = {                                                                       #support_weapons
+	id = hellas.230
+	title = hellas.223.t
+	desc = hellas.223.desc
+    picture = GFX_report_event_support_up
+	trigger = { original_tag = GRE check_variable = { GRE.preparedness_level < 1 } has_tech = tech_field_hospital } 
+	mean_time_to_happen = { days = 5 }
+    fire_only_once = yes
+	option = {
+		name = hellas.223.a
+        set_temp_variable = { indX = GRE.army_leaders } set_temp_variable = { indY = 0.20 } multiply_temp_variable = { indX = indY } 
+        custom_effect_tooltip = train_random_percentage_tt
+        hidden_effect = { activate_decision = hidden_proc_for_support_event }
+    }
+}
+
+country_event = {                                                                       #support_weapons
+	id = hellas.231
+	title = hellas.223.t
+	desc = hellas.223.desc
+    picture = GFX_report_event_support_up
+	trigger = { original_tag = GRE check_variable = { GRE.preparedness_level < 1 } has_tech = tech_field_hospital2 } 
+	mean_time_to_happen = { days = 5 }
+    fire_only_once = yes
+	option = {
+		name = hellas.223.a
+        set_temp_variable = { indX = GRE.army_leaders } set_temp_variable = { indY = 0.20 } multiply_temp_variable = { indX = indY } 
+        custom_effect_tooltip = train_random_percentage_tt
+        hidden_effect = { activate_decision = hidden_proc_for_support_event }
+    }
+}
+
+country_event = {                                                                       #support_weapons
+	id = hellas.232
+	title = hellas.223.t
+	desc = hellas.223.desc
+    picture = GFX_report_event_support_up
+	trigger = { original_tag = GRE check_variable = { GRE.preparedness_level < 1 } has_tech = tech_logistics_company } 
+	mean_time_to_happen = { days = 5 }
+    fire_only_once = yes
+	option = {
+		name = hellas.223.a
+        set_temp_variable = { indX = GRE.army_leaders } set_temp_variable = { indY = 0.20 } multiply_temp_variable = { indX = indY } 
+        custom_effect_tooltip = train_random_percentage_tt
+        hidden_effect = { activate_decision = hidden_proc_for_support_event }
+    }
+}
+
+country_event = {                                                                       #support_weapons
+	id = hellas.233
+	title = hellas.223.t
+	desc = hellas.223.desc
+    picture = GFX_report_event_support_up
+	trigger = { original_tag = GRE check_variable = { GRE.preparedness_level < 1 } has_tech = tech_logistics_company2 } 
+	mean_time_to_happen = { days = 5 }
+    fire_only_once = yes
+	option = {
+		name = hellas.223.a
+        set_temp_variable = { indX = GRE.army_leaders } set_temp_variable = { indY = 0.20 } multiply_temp_variable = { indX = indY } 
+        custom_effect_tooltip = train_random_percentage_tt
+        hidden_effect = { activate_decision = hidden_proc_for_support_event }
+    }
+}
+
+country_event = {                                                                       #support_weapons
+	id = hellas.234
+	title = hellas.223.t
+	desc = hellas.223.desc
+    picture = GFX_report_event_support_up
+	trigger = { original_tag = GRE check_variable = { GRE.preparedness_level < 1 } has_tech = tech_signal_company } 
+	mean_time_to_happen = { days = 5 }
+    fire_only_once = yes
+	option = {
+		name = hellas.223.a
+        set_temp_variable = { indX = GRE.army_leaders } set_temp_variable = { indY = 0.20 } multiply_temp_variable = { indX = indY } 
+        custom_effect_tooltip = train_random_percentage_tt
+        hidden_effect = { activate_decision = hidden_proc_for_support_event }
+    }
+}
+
+country_event = {                                                                       #support_weapons
+	id = hellas.235
+	title = hellas.223.t
+	desc = hellas.223.desc
+    picture = GFX_report_event_support_up
+	trigger = { original_tag = GRE check_variable = { GRE.preparedness_level < 1 } has_tech = tech_signal_company2 } 
+	mean_time_to_happen = { days = 5 }
+    fire_only_once = yes
+	option = {
+		name = hellas.223.a
+        set_temp_variable = { indX = GRE.army_leaders } set_temp_variable = { indY = 0.20 } multiply_temp_variable = { indX = indY } 
+        custom_effect_tooltip = train_random_percentage_tt
+        hidden_effect = { activate_decision = hidden_proc_for_support_event }
+    }
+}
+
+unit_leader_event = {                                                                   #Untrained Officer Dies 
+	id = hellas.236
+	title = hellas.236.t
+	desc = hellas.236.desc
+    is_triggered_only = yes 
+
+    immediate = {
+        hidden_effect = {
+            remove_unit_leader = yes
+            add_to_variable = { GRE.officers_died = 1 }
+        }
+    }
+    option = {
+        name = hellas.236.a
+    }
+}
+
+unit_leader_event = {                                                                   #Untrained Officer Critically Wounded 
+	id = hellas.237
+	title = hellas.237.t
+	desc = hellas.237.desc
+    is_triggered_only = yes 
+
+    immediate = {
+        hidden_effect = {
+            add_timed_unit_leader_trait = {
+                trait = gre_critically_wounded
+                days = 45
+            }
+        }
+    }
+    option = {
+        name = hellas.237.a
+    }
+}
+
+unit_leader_event = {                                                                   #Officer Defects
+	id = hellas.238
+	title = hellas.238.t
+	desc = hellas.238.desc
+    is_triggered_only = yes 
+
+    immediate = {
+        hidden_effect = {
+            remove_unit_leader = yes
+            add_to_variable = { GRE.officers_defected = 1 }
+        }
+    }
+    option = {
+        name = hellas.238.a
+        trigger = {
+            is_general_undesired = no
+        }
+    }
+    option = {
+        name = hellas.238.b
+        trigger = {
+            is_general_undesired = yes
+            has_trait = trait_GRE_stauch_communist_persona
+        }
+    }
+    option = {
+        name = hellas.238.c
+        trigger = {
+            is_general_undesired = yes
+            has_trait = trait_GRE_stauch_republican_persona
+        }
+    }
+    option = {
+        name = hellas.238.d
+        trigger = {
+            is_general_undesired = yes
+            has_trait = trait_GRE_stauch_fascist_persona
+        }
+    }
+    option = {
+        name = hellas.238.3
+        trigger = {
+            is_general_undesired = yes
+            has_trait = trait_gre_stauch_monarchist_persona
+        }
+    }
+}
+
+unit_leader_event = {                                                                   #Officer Defects
+	id = hellas.239
+	title = hellas.239.t
+	desc = hellas.239.desc
+    is_triggered_only = yes 
+
+    option = {
+        name = hellas.239.a
+        effect_tooltip  = {
+            add_temporary_buff_to_units = {
+                combat_offense = -0.1
+                combat_defense = -0.1
+                combat_breakthrough = -0.1
+                org_damage_multiplier = 0.5
+                str_damage_multiplier = 0.25
+                cannot_retreat_while_attacking = 1.0
+                cannot_retreat_while_defending = 1.0
+                days = 7
+            }
+            add_timed_unit_leader_trait = {
+                trait = gre_combat_adversities
+                days = 7
+            }
+        }
+    }
 }
 
 ########################################
@@ -1068,6 +1898,11 @@ country_event = {               #THE PRO-AXIS PLOT
             has_country_flag = GRE_kotzias_safe_removal
         }
         add_political_power = 400
+        set_temp_variable = { tmp_mon_effect_increase = 0.25 }
+        set_temp_variable = { tmp_mon_effect = fct_mon_effect_multiplier }
+        add_to_temp_variable = { tmp_mon_effect = tmp_mon_effect_increase }
+        set_variable = { fct_mon_effect_multiplier = tmp_mon_effect }
+        custom_effect_tooltip = GRE_fct_effect_multiplier_change_up_mon
     }  
 
     option = {                                      ## Went in partially unprepared
@@ -1098,6 +1933,11 @@ country_event = {               #THE PRO-AXIS PLOT
         add_political_power = -400
         add_stability = -0.4
         add_war_support = -0.2
+        set_temp_variable = { tmp_mon_effect_increase = -0.25 }
+        set_temp_variable = { tmp_mon_effect = fct_mon_effect_multiplier }
+        subtract_from_temp_variable = { tmp_mon_effect = tmp_mon_effect_increase }
+        set_variable = { fct_mon_effect_multiplier = tmp_mon_effect }
+        custom_effect_tooltip = GRE_fct_effect_multiplier_change_up_mon
     } 
 }
 
@@ -1223,6 +2063,347 @@ country_event = {                               #Not protected ENG telecom
         custom_effect_tooltip = GRE_fdg_british_tt
     }     
 }
+
+#####[ BULGARIAN PATH ]#####
+country_event = {                                                                                           ### Bulgarians Agree Entry into Balkan Pact
+	id = hellas.3201
+	title = hellas.3201.t
+	desc = hellas.3201.desc
+    picture = GFX_report_event_gre_metaxas
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+    option = {
+        name = hellas.3201.a
+        effect_tooltip = {
+            BUL = {
+                set_country_flag = balkan_pact_reinforced 
+                add_opinion_modifier = { 
+                    target = GRE
+                    modifier = GRE_common_balkan_strategy
+                }
+            }
+            custom_effect_tooltip = remove_all_pre_arranged_tt
+            every_state = {
+                limit = {
+                    has_dynamic_modifier = { modifier = bulgarian_territorial_expansion_arranged }
+                }
+                remove_dynamic_modifier = { modifier = bulgarian_territorial_expansion_arranged }
+            }
+        }
+    }
+}
+
+country_event = {                                                                                           ### Bulgarians Refuse Entry into Balkan Pact
+	id = hellas.3202
+	title = hellas.3202.t
+	desc = hellas.3202.desc
+    picture = GFX_report_event_balkan_pact
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+    option = {
+        name = hellas.3202.a
+        create_faction = "Balkan Pact"
+        add_to_faction = TUR
+        add_to_faction = YUG
+        add_to_faction = ROM
+        set_variable = { GRE.preemptive_war@BUL = 1}
+        declare_war_on = {
+            target = BUL
+            type = topple_government
+        }
+        TUR = {
+            add_to_war = { 
+                targeted_alliance = PREV 
+                enemy = BUL 
+                hostility_reason = asked_to_join
+            }
+        }
+        YUG = {
+            add_to_war = { 
+                targeted_alliance = PREV 
+                enemy = BUL 
+                hostility_reason = asked_to_join
+            }
+        }
+        ROM = {
+            add_to_war = { 
+                targeted_alliance = PREV 
+                enemy = BUL 
+                hostility_reason = asked_to_join
+            }
+        }
+    }
+    option = {
+        name = hellas.3202.b
+
+        add_political_power = -50
+        add_stability = -0.1
+        add_war_support = -0.1
+    }
+}
+
+country_event = {                                                                                           ### Germans on Intervention
+	id = hellas.3203
+	title = {
+        text = hellas.3203.a.t 
+        trigger = { 
+            OR = {
+                check_variable = { GER.favor@GRE > 89 }
+                has_country_flag = GRE_axis_rallied_against_bulgarians
+                has_country_flag = GRE_requested_axis_support_over_the_bulgarian_matter
+            }
+        }
+    }
+    title = {
+        text = hellas.3203.b.t 
+        trigger = { 
+            NOT = {
+                check_variable = { GER.favor@GRE > 89 }
+                has_country_flag = GRE_axis_rallied_against_bulgarians
+                has_country_flag = GRE_requested_axis_support_over_the_bulgarian_matter
+            }
+        }
+    }
+	desc = hellas.3203.desc
+    picture = GFX_report_event_hitler_diplomacy
+
+	trigger = {
+        original_tag = GRE
+        has_decision = push_for_bulgarian_entry_in_the_balkan_pact
+    }
+
+	fire_only_once = yes
+
+    immediate = {
+        hidden_effect = {
+            if = {
+                limit = {
+                    OR = {
+                        check_variable = { GER.favor@GRE > 89 }
+                        has_country_flag = GRE_axis_rallied_against_bulgarians
+                        has_country_flag = GRE_requested_axis_support_over_the_bulgarian_matter
+                        set_temp_variable = { manpower_sum = GRE.num_battalions }
+                        add_to_temp_variable = { manpower_sum = YUG.num_battalions }
+                        add_to_temp_variable = { manpower_sum = ROM.num_battalions }
+                        add_to_temp_variable = { manpower_sum = TUR.num_battalions }
+                        divide_temp_variable = { manpower_sum = BUL.num_battalions }
+                        check_variable = { manpower_sum > 8 }
+                    }
+                }
+                if = {
+                    limit = { BUL = { is_in_faction_with = GER } }
+                    BUL = { 
+                        leave_faction = yes 
+                        set_rule = { can_join_factions = no }
+                    }
+                }
+                every_country = {
+                    limit = { NOT = { original_tag = ITA } has_guaranteed = BUL }
+                    diplomatic_relation = {
+                        country = BUL
+                        relation = guarantee
+                        active = no
+                    }
+                }
+                GRE = { country_event = { id = hellas.3204 days = 2 } }
+            }
+        }
+    }
+
+    option = {
+        name = hellas.3203.a
+    }
+}
+
+country_event = {                                                                                           ### Italians on Intervention
+	id = hellas.3204
+	title = {
+        text = hellas.3204.a.t 
+        trigger = { 
+            OR = {
+                check_variable = { ITA.favor@GRE > 89 }
+                has_country_flag = GRE_axis_rallied_against_bulgarians
+                has_country_flag = GRE_requested_axis_support_over_the_bulgarian_matter
+                set_temp_variable = { manpower_sum = GRE.num_battalions }
+                add_to_temp_variable = { manpower_sum = YUG.num_battalions }
+                add_to_temp_variable = { manpower_sum = ROM.num_battalions }
+                add_to_temp_variable = { manpower_sum = TUR.num_battalions }
+                set_temp_variable = { enemy_manpower_sum = BUL.num_battalions }
+                add_to_temp_variable = { enemy_manpower_sum = ITA.num_battalions }
+                divide_temp_variable = { manpower_sum = enemy_manpower_sum }
+                check_variable = { manpower_sum > 1.5 }
+            }
+        }
+    }
+    title = {
+        text = hellas.3204.b.t 
+        trigger = { 
+            NOT = {
+                check_variable = { ITA.favor@GRE > 89 }
+                has_country_flag = GRE_axis_rallied_against_bulgarians
+                has_country_flag = GRE_requested_axis_support_over_the_bulgarian_matter
+                set_temp_variable = { manpower_sum = GRE.num_battalions }
+                add_to_temp_variable = { manpower_sum = YUG.num_battalions }
+                add_to_temp_variable = { manpower_sum = ROM.num_battalions }
+                add_to_temp_variable = { manpower_sum = TUR.num_battalions }
+                set_temp_variable = { enemy_manpower_sum = BUL.num_battalions }
+                add_to_temp_variable = { enemy_manpower_sum = ITA.num_battalions }
+                divide_temp_variable = { manpower_sum = enemy_manpower_sum }
+                check_variable = { manpower_sum > 1.5 }
+            }
+        }
+    }
+	desc = {
+        text = hellas.3204.a.desc
+        trigger = { 
+            OR = {
+                check_variable = { ITA.favor@GRE > 89 }
+                has_country_flag = GRE_axis_rallied_against_bulgarians
+                has_country_flag = GRE_requested_axis_support_over_the_bulgarian_matter
+                set_temp_variable = { manpower_sum = GRE.num_battalions }
+                add_to_temp_variable = { manpower_sum = YUG.num_battalions }
+                add_to_temp_variable = { manpower_sum = ROM.num_battalions }
+                add_to_temp_variable = { manpower_sum = TUR.num_battalions }
+                set_temp_variable = { enemy_manpower_sum = BUL.num_battalions }
+                add_to_temp_variable = { enemy_manpower_sum = ITA.num_battalions }
+                divide_temp_variable = { manpower_sum = enemy_manpower_sum }
+                check_variable = { manpower_sum > 1.5 }
+            }
+        }
+    }
+    desc = {
+        text = hellas.3204.b.desc
+        trigger = { 
+            NOT = {
+                check_variable = { ITA.favor@GRE > 89 }
+                has_country_flag = GRE_axis_rallied_against_bulgarians
+                has_country_flag = GRE_requested_axis_support_over_the_bulgarian_matter
+                set_temp_variable = { manpower_sum = GRE.num_battalions }
+                add_to_temp_variable = { manpower_sum = YUG.num_battalions }
+                add_to_temp_variable = { manpower_sum = ROM.num_battalions }
+                add_to_temp_variable = { manpower_sum = TUR.num_battalions }
+                set_temp_variable = { enemy_manpower_sum = BUL.num_battalions }
+                add_to_temp_variable = { enemy_manpower_sum = ITA.num_battalions }
+                divide_temp_variable = { manpower_sum = enemy_manpower_sum }
+                check_variable = { manpower_sum > 1.5 }
+            }
+        }
+    }
+        
+    picture = GFX_report_event_mussolini_diplomacy
+
+	is_triggered_only = yes
+	fire_only_once = yes
+
+    immediate = {
+        hidden_effect = {
+            if = {
+                limit = {
+                    OR = {
+                        check_variable = { ITA.favor@GRE > 89 }
+                        has_country_flag = GRE_axis_rallied_against_bulgarians
+                        has_country_flag = GRE_requested_axis_support_over_the_bulgarian_matter
+                        set_temp_variable = { manpower_sum = GRE.num_battalions }
+                        add_to_temp_variable = { manpower_sum = YUG.num_battalions }
+                        add_to_temp_variable = { manpower_sum = ROM.num_battalions }
+                        add_to_temp_variable = { manpower_sum = TUR.num_battalions }
+                        set_temp_variable = { enemy_manpower_sum = BUL.num_battalions }
+                        add_to_temp_variable = { enemy_manpower_sum = ITA.num_battalions }
+                        divide_temp_variable = { manpower_sum = enemy_manpower_sum }
+                        check_variable = { manpower_sum > 1.5 }
+                    }
+                }
+                ITA = {
+                    diplomatic_relation = {
+                        country = BUL
+                        relation = guarantee
+                        active = no
+                    }
+                }
+            }
+        }
+    }
+
+    option = {
+        name = hellas.3204.a
+    }
+}
+
+country_event = {                                                                                  ### Bulgaria Capitulates
+	id = hellas.3205
+	title = hellas.3205.t
+	desc = hellas.3205.desc
+	#picture = GFX_report_event_bul_prince_simeon
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+	
+	immediate = {
+        if = {
+            limit = { original_tag = GRE }
+            hidden_effect = {
+                set_country_flag = GRE_victor_in_a_war
+                white_peace = BUL 
+                #YUG = { white_peace = BUL }
+                #TUR = { white_peace = BUL }
+                #ROM = { white_peace = BUL }
+                ROM = { transfer_state = 77 }
+                GRE = { add_to_faction = BUL }
+                every_state = {
+                    limit = {
+                        has_dynamic_modifier = { modifier = bulgarian_territorial_expansion_arranged }
+                    }
+                    remove_dynamic_modifier = { modifier = bulgarian_territorial_expansion_arranged }
+                }
+                set_global_flag = bulgarian_year_occupation 
+                BUL = {
+                    add_timed_idea = { idea = GRE_shackled_bulgarian_industry days = 365 }
+                    set_rule = {
+                        can_join_factions = no 
+                        can_create_factions = no
+                        can_not_declare_war = yes
+                        can_be_called_to_war = no
+                        can_send_volunteers = no
+                    }
+                    create_country_leader = {
+                        name = "Regency Council"
+                        desc = "POLITICS_BULGARIAN_REGENCY_COUNCIL_DESC"
+                        picture = GFX_portrait_bul_regency_council
+                        expire = "1965.1.1"
+                        ideology = despotism
+                    }
+                    #hidden_effect = {
+                    #	retire_ideology_leader = fascism
+                    #}
+                    set_country_flag = shackled_to_the_balkan_pact
+                }
+            }
+        }
+    }
+    
+    option = {
+		name = hellas.3205.a    
+        add_political_power = 150
+        add_stability = 0.1
+        add_war_support = 0.1
+        effect_tooltip = {
+            custom_effect_tooltip = remove_all_pre_arranged_tt
+            every_state = {
+                limit = {
+                    has_dynamic_modifier = { modifier = bulgarian_territorial_expansion_arranged }
+                }
+                remove_dynamic_modifier = { modifier = bulgarian_territorial_expansion_arranged }
+            }
+        }
+    } 
+}
+
+
 
 #####[ EVENTS SENT TO OTHER NATIONS ]#####
 
@@ -1658,6 +2839,415 @@ country_event = {               #GRECOSOVIET TRADE DEAL (METAXAS)
         add_to_variable = { SOV.favor@GRE = 10 }
     }
 }
+
+country_event = {                                                                                           ### Balkan Pact Ultimatum to Bulgarians (tag = BUL)
+	id = hellas.3200
+	title = hellas.3200.t
+	desc = hellas.3200.desc
+    picture = GFX_report_event_metaxas_inonu_balkan_leaders
+
+	is_triggered_only = yes
+
+	fire_only_once = yes
+	
+	option = {                                                                                              ### Bulgaria accepts
+		name = hellas.3200.a    
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 3
+				check_variable = { var = BUL.favor@GRE value = 95 compare = greater_than_or_equals }
+			}
+            modifier = {
+				factor = 1.5
+                check_variable = { var = BUL.favor@GRE value = 95 compare = less_than }
+				check_variable = { var = BUL.favor@GRE value = 90 compare = greater_than_or_equals }
+			}
+            modifier = {
+				factor = 1.25
+                check_variable = { var = BUL.favor@GRE value = 90 compare = less_than }
+				check_variable = { var = BUL.favor@GRE value = 80 compare = greater_than_or_equals }
+			}
+		}
+        BUL = {
+            clr_country_flag = channels_established
+            set_country_flag = common_strategy_with_greece_defined 
+            add_opinion_modifier = { 
+                target = GRE
+                modifier = GRE_common_balkan_strategy
+            }
+            set_country_flag = common_strategy_with_greece_defined
+        }
+        GRE = {
+            add_opinion_modifier = { 
+                target = BUL
+                modifier = GRE_common_balkan_strategy
+            }
+            country_event = { id = hellas.3201 days = 1 }
+        }
+        every_state = {
+            limit = {
+                has_dynamic_modifier = { modifier = bulgarian_territorial_expansion_arranged }
+            }
+            remove_dynamic_modifier = { modifier = bulgarian_territorial_expansion_arranged }
+        }
+    }  
+	option = {                                                                                               ### Bulgaria Declines
+		name = hellas.3200.b    
+		ai_chance = {
+			base = 50
+			modifier = {
+				factor = 2
+				strength_ratio = {
+					tag = GRE
+					ratio > 1.25
+				}
+                strength_ratio = {
+					tag = YUG
+					ratio > 1.25
+				}
+                strength_ratio = {
+					tag = ROM
+					ratio > 1.25
+				}
+			}
+            modifier = {
+                factor = 2
+                set_temp_variable = { manpower_sum = GRE.num_battalions }
+                add_to_temp_variable = { manpower_sum = YUG.num_battalions }
+                add_to_temp_variable = { manpower_sum = ROM.num_battalions }
+                add_to_temp_variable = { manpower_sum = TUR.num_battalions }
+                divide_temp_variable = { manpower_sum = BUL.num_battalions }
+                check_variable = { manpower_sum < 2.5 }
+            }
+            modifier = {
+                factor = 3
+                check_variable = { BUL.favor@GRE < -30 }
+            }
+		}
+        GRE = { country_event = { id = hellas.3202 days = 1 } }
+    }
+}
+
+########################################
+####            METAXAS             ####
+####   YFIPOURGEIO ASFALEIAS EV.    ####
+####                                ####
+########################################
+
+country_event = {
+	id = hellas.350
+	title = hellas.350.t
+	desc = hellas.350.desc
+    picture = GFX_report_event_maniadakis_rounding_up
+
+	trigger = {
+        has_active_mission = GRE_comm_upr
+        NOT = { has_country_flag = com_civilwar_started }
+        check_variable = { days_mission_timeout@GRE_comm_upr < 120 }
+    }
+
+    mean_time_to_happen = {
+        days = 160
+        modifier = {
+            set_temp_variable = { cnt = amount_of_work_in_asfaleia }
+            set_temp_variable = { final = 1 }
+            set_temp_variable = { weight = 0.05 }
+            multiply_temp_variable = { weight = cnt }
+            subtract_from_temp_variable = { final = weight }
+            factor = final
+            check_variable = { days_mission_timeout@GRE_comm_upr < 181 }
+        }
+        modifier = {
+            factor = 1.25
+            check_variable = { days_mission_timeout@GRE_comm_upr > 180 }
+        }
+	}
+
+	fire_only_once = no
+	
+	option = {
+		name = hellas.350.a
+
+		ai_chance = {
+			base = 100
+        }
+        add_days_mission_timeout = {
+            mission = GRE_comm_upr
+            days = 30
+        }
+    }  
+}
+
+country_event = {
+	id = hellas.351
+	title = hellas.350.t
+	desc = hellas.350.desc
+    picture = GFX_report_event_maniadakis_rounding_up
+
+	trigger = {
+        has_active_mission = GRE_repub_upr
+        NOT = { has_country_flag = dem_civilwar_started }
+        check_variable = { days_mission_timeout@GRE_repub_upr < 120 }
+    }
+
+    mean_time_to_happen = {
+        days = 160
+        modifier = {
+            set_temp_variable = { cnt = amount_of_work_in_asfaleia }
+            set_temp_variable = { final = 1 }
+            set_temp_variable = { weight = 0.05 }
+            multiply_temp_variable = { weight = cnt }
+            subtract_from_temp_variable = { final = weight }
+            factor = final
+            check_variable = { days_mission_timeout@GRE_repub_upr < 181 }
+        }
+        modifier = {
+            factor = 1.25
+            check_variable = { days_mission_timeout@GRE_repub_upr > 180 }
+        }
+	}
+
+	fire_only_once = no
+	
+	option = {
+		name = hellas.350.a
+
+		ai_chance = {
+			base = 100
+        }
+        add_days_mission_timeout = {
+            mission = GRE_repub_upr
+            days = 30
+        }
+    }
+}
+
+country_event = {
+	id = hellas.352
+	title = hellas.352.t
+	desc = hellas.352.desc
+    picture = GFX_report_event_republicans_rebellious
+
+	trigger = {
+        original_tag = GRE
+        has_active_mission = GRE_repub_upr
+        check_variable = { fct_dem < 21 }
+        NOT = { has_country_flag = republican_uprising_utterly_crushed }
+        NOT = { has_country_flag = dem_civilwar_started }
+    }
+
+    mean_time_to_happen = {
+        days = 1
+        modifier = {
+            set_temp_variable = { x = 3.75 }
+            multiply_temp_variable = { x = fct_dem }
+            add_to_temp_variable = { x = 10 }
+            factor = x
+            always = yes
+        }
+	}
+
+	fire_only_once = no
+	
+	option = {
+		name = hellas.352.a
+
+		ai_chance = {base = 100}
+        set_temp_variable = { tmp_dem_effect_increase = 0.10 }
+        set_temp_variable = { tmp_dem_effect = fct_dem_effect_multiplier }
+        add_to_temp_variable = { tmp_dem_effect = tmp_dem_effect_increase }
+        set_variable = { fct_dem_effect_multiplier = tmp_dem_effect }
+        custom_effect_tooltip = GRE_fct_effect_multiplier_change_up_dem
+        custom_effect_tooltip = GRE_fct_effect_multiplier_over_200_danger_tt
+        GRE_faction_refresh = yes
+    }
+}
+
+country_event = {
+	id = hellas.353
+	title = hellas.353.t
+	desc = hellas.353.desc
+    picture = GFX_report_event_communists_rebellious
+
+	trigger = {
+        original_tag = GRE
+        NOT = { has_country_flag = communist_uprising_utterly_crushed }
+        has_active_mission = GRE_comm_upr
+        NOT = { has_country_flag = com_civilwar_started }
+        check_variable = { fct_com < 21 }
+    }
+
+    mean_time_to_happen = {
+        days = 1
+        modifier = {
+            set_temp_variable = { x = 3.75 }
+            multiply_temp_variable = { x = fct_com }
+            add_to_temp_variable = { x = 10 }
+            factor = x
+            always = yes
+        }
+	}
+
+	fire_only_once = no
+	
+	option = {
+		name = hellas.353.a
+
+		ai_chance = {base = 100}
+        set_temp_variable = { tmp_com_effect_increase = 0.10 }
+        set_temp_variable = { tmp_com_effect = fct_com_effect_multiplier }
+        add_to_temp_variable = { tmp_com_effect = tmp_com_effect_increase }
+        set_variable = { fct_com_effect_multiplier = tmp_com_effect }
+        custom_effect_tooltip = GRE_fct_effect_multiplier_change_up_com
+        custom_effect_tooltip = GRE_fct_effect_multiplier_over_200_danger_tt
+        GRE_faction_refresh = yes
+    }
+}
+
+country_event = {
+	id = hellas.354
+	title = hellas.354.t
+	desc = hellas.354.desc
+    picture = GFX_report_event_civil_war_greek
+
+	trigger = {
+        original_tag = GRE
+        OR = {
+            AND = {
+                NOT = { has_government = neutrality }
+                NOT = { has_country_flag = mon_civilwar_started }
+                check_variable = { fct_mon_effect_multiplier > 1.99 }
+                check_variable = { fct_mon < 20 }
+            }
+            AND = {
+                has_active_mission = GRE_repub_upr
+                NOT = { has_government = democratic }
+                NOT = { has_country_flag = republican_uprising_utterly_crushed }
+                NOT = { has_country_flag = dem_civilwar_started }
+                check_variable = { fct_dem_effect_multiplier > 1.99 }
+                check_variable = { fct_dem < 20 }
+            }
+            AND = {
+                has_active_mission = GRE_comm_upr
+                NOT = { has_government = communism }
+                NOT = { has_country_flag = communist_uprising_utterly_crushed }
+                NOT = { has_country_flag = com_civilwar_started }
+                check_variable = { fct_com_effect_multiplier > 1.99 }
+                check_variable = { fct_com < 20 }
+            }
+            AND = {
+                NOT = { has_government = fascism }
+                NOT = { has_country_flag = fas_civilwar_started }
+                check_variable = { fct_fas_effect_multiplier > 1.99 }
+                check_variable = { fct_fas < 20 }
+            }
+        }
+    }
+
+    mean_time_to_happen = { days = 30 }
+	fire_only_once = no
+	
+	option = {
+		name = hellas.354.a
+
+		if = {
+            limit = {
+                NOT = { has_government = neutrality }
+                NOT = { has_country_flag = mon_civilwar_started }
+                check_variable = { fct_mon_effect_multiplier > 1.99 }
+                check_variable = { fct_mon < 20 }
+            }
+            set_temp_variable = { x = party_popularity@neutrality }
+            start_civil_war = {
+                ruling_party = ROOT
+                ideology = neutrality
+                size = x
+                capital = 47
+                states = { 
+                    807 186 187
+                }
+                keep_unit_leaders_trigger = {
+                    has_trait = trait_GRE_stauch_monarchist_persona
+                }
+                keep_political_leader = yes
+            }
+            set_country_flag = mon_civilwar_started
+        }
+        if = {
+            limit = {
+                NOT = { has_government = democratic }
+                NOT = { has_country_flag = republican_uprising_utterly_crushed }
+                NOT = { has_country_flag = dem_civilwar_started }
+                check_variable = { fct_dem_effect_multiplier > 1.99 }
+                check_variable = { fct_dem < 20 }
+            }
+            set_temp_variable = { x = party_popularity@democratic }
+            start_civil_war = {
+                ruling_party = ROOT
+                ideology = democratic
+                size = x
+                capital = 47
+                states = {
+                    811 731 810 812
+                }
+                keep_unit_leaders_trigger = {
+                    has_trait = trait_GRE_stauch_republican_persona
+                }
+                keep_political_leader = yes
+            }
+            set_country_flag = dem_civilwar_started
+        }
+        if = {
+            limit = {
+                NOT = { has_government = communism }
+                NOT = { has_country_flag = communist_uprising_utterly_crushed }
+                NOT = { has_country_flag = com_civilwar_started }
+                check_variable = { fct_com_effect_multiplier > 1.99 }
+                check_variable = { fct_com < 20 }
+            }
+            set_temp_variable = { x = party_popularity@communism }
+            start_civil_war = {
+                ruling_party = ROOT
+                ideology = communism
+                size = x
+                capital = 47
+                states = {
+                    185 809 810
+                }
+                keep_unit_leaders_trigger = {
+                    has_trait = trait_GRE_stauch_communist_persona
+                }
+                keep_political_leader = yes
+            }
+            set_country_flag = com_civilwar_started
+        }
+        if = {
+            limit = {
+                NOT = { has_government = fascism }
+                NOT = { has_country_flag = fas_civilwar_started }
+                check_variable = { fct_fas_effect_multiplier > 1.99 }
+                check_variable = { fct_fas < 20 }
+            }
+            set_temp_variable = { x = party_popularity@fascism }
+            start_civil_war = {
+                ruling_party = ROOT
+                ideology = fascism
+                size = x
+                capital = 47
+                states = {
+                    811 731
+                }
+                keep_unit_leaders_trigger = {
+                    has_trait = trait_GRE_stauch_fascist_persona
+                }
+                keep_political_leader = yes
+            }
+            set_country_flag = fas_civilwar_started
+        }
+    }
+}
+
 
 ########################################
 ####                                ####
@@ -3812,47 +5402,6 @@ country_event = {                                                               
 ####                                ####
 ########################################
 
-#country_event = {                                                                               ### Add priority over the region of Greece for Italians (ADDED ON AI STRATEGY PLAN)
-#	id = hellas.99
-#	title = hellas.99.t
-#	desc = hellas.99.desc
-#	#picture = GFX_report_event_gre_venizelos_speech
-#
-#	trigger = {
- #       original_tag = ITA
-  #      is_ai = yes
-   #     is_historical_focus_on = yes
-    #    date > 1940.9.1
-     #   focus_progress = {
-      #      focus = ITA_greece_war_goal
-       #     progress > 0.05
-        #}
-    #}
-#
-#	fire_only_once = yes
-#	
-#	option = {
-#		name = hellas.99.a
-#
-#		ai_chance = {
-#			base = 100
- #       }
-#
-#		add_ai_strategy = {
- #           type = area_priority
-  #          id = grecoalbanian_border
-   #         value = 1000
-    #    }
-     #   
-      #  add_ai_strategy = {
-       #     type = antagonize
-        #    id = GRE
-         #   value = 500
-        #}
-        #
-    #}
-#}
-
 country_event = {                                                                               ### Bad Weather
 	id = hellas.100
 	title = hellas.100.t
@@ -3871,9 +5420,9 @@ country_event = {                                                               
 			base = 100
 			}
 
-		GRE = {
-            add_timed_idea = { idea = GRE_bad_weather  days = 120 }
-		}
+		#GRE = {
+        #    add_timed_idea = { idea = GRE_bad_weather  days = 120 }
+		#}
     }
 }
 
@@ -3966,7 +5515,6 @@ country_event = {                                                               
                     is_puppet_of = ITA 
                     is_subject_of = ITA
                 }
-            
             }
         }
 	}
@@ -4149,7 +5697,7 @@ country_event = {                                                               
 	id = hellas.107
 	title = hellas.107.t
 	desc = hellas.107.desc
-	#picture = GFX_report_event_italian_rise
+	picture = GFX_report_event_albanian_liberation
 
 	trigger = {
         tag = GRE
@@ -4166,16 +5714,13 @@ country_event = {                                                               
 
 	fire_only_once = yes
     immediate = { hidden_effect = {set_country_flag = italian_smackdown }}
-	
-	option = {                                                                                      ## Continue the war 
-		name = hellas.107.a
-        
-        country_event = { id = hellas.108 days = 0 } 
-    }
     
-    option = {                                                                                      ## Put an end to the war
+    option = {                                                                                      ## Continue the war 
+		name = hellas.107.a
+    }
+	option = {                                                                                      ## Put an end to the war
 		name = hellas.107.b
-
+        country_event = { id = hellas.108 days = 0 } 
     }
 }
 
@@ -4191,12 +5736,10 @@ country_event = {                                                               
 	
 	option = {                                                                                      ## Approach the Germans to mediate
 		name = hellas.108.a
-        
         hidden_effect = {
             GER = { country_event = { id = hellas.109 days = 0 }  }
         }
     }
-    
     option = {                                                                                      ## Nevermind (/continue war)
 		name = hellas.108.b
         
@@ -4282,6 +5825,14 @@ country_event = {                                                               
                 factor = 1000
                 GRE = { has_collaboration = { target = ITA value > 0.5} }
             }
+            modifier = {
+                factor = 20
+                check_variable = { GRE.bulgarian_smackdown > 0 }
+            }
+            modifier = {
+                factor = 5
+                date < 1941.1.1
+            }
 		}
         
         hidden_effect = {
@@ -4291,12 +5842,9 @@ country_event = {                                                               
     
     option = {                                                                                      ## Italians Decline (/continue war)
 		name = hellas.110.b
-        
         ai_chance = {
 			base = 10
-
 		}
-        
         GRE = { country_event = { id = hellas.112 days = 0 }  } 
     }
 }
@@ -4304,57 +5852,686 @@ country_event = {                                                               
 country_event = {                                                                                  ### Greek demands for war reparation
 	id = hellas.111
 	title = hellas.111.t
-	desc = hellas.111.desc
-	#picture = GFX_report_event_germany_politician_handshake
+	desc = {
+        text = hellas.111.desc
+        trigger = {
+            check_variable = { tc_description = 0 }
+        }
+    }
+    desc = {
+        text = hellas.111_1.desc
+        trigger = {
+            check_variable = { tc_description = 1 }
+        }
+    }
 
+    desc = {
+        text = hellas.111_2.desc
+        trigger = {
+            check_variable = { tc_description = 2 }
+        }
+    }
+    desc = {
+        text = hellas.111_25.desc
+        trigger = {
+            check_variable = { tc_description = 2.5 }
+        }
+    }
+    desc = {
+        text = hellas.111_3.desc
+        trigger = {
+            check_variable = { tc_description = 3 }
+        }
+    }
+    desc = {
+        text = hellas.111_4.desc
+        trigger = {
+            check_variable = { tc_description = 4 }
+        }
+    }
+    desc = {
+        text = hellas.111_45.desc
+        trigger = {
+            check_variable = { tc_description = 4.5 }
+        }
+    }
+	picture = GFX_report_event_tirana
 	is_triggered_only = yes
-
-	fire_only_once = yes
+	fire_only_once = no
     
     immediate = {
         hidden_effect = {
-            set_country_flag = GRE_victor_in_a_war
-            set_country_flag = GRE_victor_in_a_big_war
-            add_political_power = 1000
-            add_stability = 0.5
-            add_war_support = 0.5
-            white_peace = ITA 
-            news_event = { id = hellenic_news.154 }
-            complete_national_focus = GRE_the_weaves_of_fate
-            set_global_flag = GRE_grecoitalian_ended
-            clr_global_flag = GRE_grecoitalian_start
-        } 
+            if = {
+                limit = { check_variable = { tc_first_time_opening = 0 } }
+                calculate_tirana_treaty_threshold = yes
+                set_variable = { tc_first_time_opening = 1 }
+            }
+        }
     }
-	
-	option = {                                                                                      ## Demand Albania & Dodecanese                                                                             
+	option = {                                                                                      ## Land
 		name = hellas.111.a
-        trigger = { 
-            check_variable = { var = ITA.favor@GRE value = 80 compare = greater_than_or_equals }
-            has_collaboration = { target = ITA value > 0.6}
-        }
-        GRE = { transfer_state = 44 }
-        GRE = { transfer_state = 805 }   
-        GRE = { transfer_state = 164 }
+        trigger = { check_variable = { tc_land_locked = 0 } NOT = { check_variable = { tc_description = 4.5 } } }
+        set_variable = { tc_description = 1 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1111 days = 0 }  } }   
     }
-    
-    option = {                                                                                      ## Demand Northern Epirus & Dodecanese
+    option = {                                                                                      ## Economic
 		name = hellas.111.b
-        trigger = { 
-            check_variable = { var = GER.favor@GRE value = 80 compare = greater_than_or_equals }
-            check_variable = { var = ITA.favor@GRE value = 50 compare = greater_than_or_equals }
-        }
-        GRE = { transfer_state = 805 }   
-        GRE = { transfer_state = 164 }      
+        trigger = { check_variable = { tc_economic_locked = 0 } NOT = { check_variable = { tc_description = 4.5 } } }
+        set_variable = { tc_description = 1 }  
+        hidden_effect = { GRE = { country_event = { id = hellas.1112 days = 0 }  } }
     }
-    
-    option = {                                                                                      ## Demand Northern Epirus
+    option = {                                                                                      ## Future Stability
 		name = hellas.111.c
-        GRE = { transfer_state = 805 } 
+        trigger = { check_variable = { tc_future_locked = 0 } NOT = { check_variable = { tc_description = 4.5 } } }
+        set_variable = { tc_description = 1 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1113 days = 0 }  } }
     }
-    
-    option = {                                                                                      ## Demand Dodecanese
-		name = hellas.111.d  
-        GRE = { transfer_state = 164 }
+    option = {                                                                                      ## Waiter?
+		name = hellas.111.d
+        trigger = { NOT = { check_variable = { tc_description = 4.5 } } NOT = { check_variable = { tc_brought_pasta = 1 } } NOT = { check_variable = { tc_first_time_proposal = -1 } } }
+        set_variable = { tc_description = 1 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1114 days = 0 }  } }
+    }
+    option = {                                                                                      ## Pasta
+		name = hellas.111.de
+        trigger = { check_variable = { tc_brought_pasta = 1 } check_variable = { tc_description = 4.5 } }
+        set_variable = { tc_description = 1 }
+        hidden_effect = { GRE = { country_event = { id = hellas.11141 days = 0 }  } }
+    }
+    option = {                                                                                      ## Finalize
+		name = hellas.111.e  
+        trigger = { check_variable = { GRE.tc_tirana_conference_choices > 0 } NOT = { check_variable = { tc_description = 4.5 } } }
+        hidden_effect = { GRE = { country_event = { id = hellas.114 days = 0 }  } }
+    }
+}
+
+country_event = {                                                                                  ### Land MAIN
+	id = hellas.1111
+	title = hellas.1111.t
+	desc = hellas.1111.desc
+	picture = GFX_report_event_tirana
+
+	is_triggered_only = yes
+	fire_only_once = no
+	
+	option = {                                                                                      ## Dodecanese 
+		name = hellas.1111.a
+        trigger = { ITA = { owns_state = 164 } }
+        hidden_effect = { GRE = { country_event = { id = hellas.11111 days = 0 }  } }                                                                                       
+    }
+    option = {                                                                                      ## Northern Epirus 
+		name = hellas.1111.b
+        trigger = { check_variable = { tc_requested_albania = 0 } }
+        hidden_effect = { GRE = { country_event = { id = hellas.11112 days = 0 }  } }                                                                                       
+    }
+    option = {                                                                                      ## Albania 
+        trigger = { check_variable = { tc_requested_north_ep = 1 } }
+		name = hellas.1111.c
+        hidden_effect = { GRE = { country_event = { id = hellas.11113 days = 0 }  } }                                                                                       
+    }
+    option = {                                                                                      ## Conclude Land 
+		name = hellas.1111.d
+        set_variable = { tc_land_locked = 1 }
+        add_to_variable = { tc_tirana_conference_choices = 1 }
+        hidden_effect = { GRE = { country_event = { id = hellas.111 days = 0 }  } }                                                                                       
+    }
+    option = {                                                                                      ## Go Back 
+		name = hellas.1111.e
+        hidden_effect = { GRE = { country_event = { id = hellas.111 days = 0 }  } }                                                                                       
+    }
+}
+
+country_event = {                                                                                  ### Dodecanese 
+	id = hellas.11111
+	title = hellas.11111.t
+	desc = {
+        text = hellas.11111a.desc
+        trigger = { ITA = { controls_state = 164 } }
+    }
+    desc = {
+        text = hellas.11111b.desc
+        trigger = { ENG = { controls_state = 164 } }
+    }
+	picture = GFX_report_event_tirana
+	is_triggered_only = yes
+	fire_only_once = no
+	
+	option = {
+		name = hellas.11111.a
+        trigger = { check_variable = { tc_requested_dodecan = 0 } }
+        set_variable = { tc_requested_dodecan = 1}
+        subtract_from_variable = { GRE.italian_willingless = 1.5 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1111 days = 0 }  } }                                                                                       
+    }
+    option = {
+		name = hellas.11111.b
+        trigger = { check_variable = { tc_requested_dodecan = 1 } }
+        set_variable = { tc_requested_dodecan = 0 }
+        add_to_variable = { GRE.italian_willingless = 1.5 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1111 days = 0 }  } }                                                                                       
+    }
+    option = {
+		name = hellas.11111.c
+        hidden_effect = { GRE = { country_event = { id = hellas.1111 days = 0 }  } }                                                                                       
+    }
+}
+
+country_event = {                                                                                  ### Northern Epirus 
+	id = hellas.11112
+	title = hellas.11112.t
+	desc = hellas.11112.desc
+	picture = GFX_report_event_tirana
+	is_triggered_only = yes
+	fire_only_once = no
+	
+	option = {
+		name = hellas.11112.a
+        trigger = { check_variable = { tc_requested_north_ep = 0 } }
+        set_variable = { tc_requested_north_ep = 1}
+        subtract_from_variable = { GRE.italian_willingless = 2 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1111 days = 0 }  } }                                                                                       
+    }
+    option = {
+		name = hellas.11112.b
+        trigger = { check_variable = { tc_requested_north_ep = 1 } }
+        set_variable = { tc_requested_north_ep = 0 }
+        add_to_variable = { GRE.italian_willingless = 2 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1111 days = 0 }  } }                                                                                       
+    }
+    option = {
+		name = hellas.11112.c
+        hidden_effect = { GRE = { country_event = { id = hellas.1111 days = 0 }  } }                                                                                       
+    }
+}
+
+country_event = {                                                                                  ### Albania
+	id = hellas.11113
+	title = hellas.11113.t
+	desc = hellas.11113.desc
+	picture = GFX_report_event_tirana
+	is_triggered_only = yes
+	fire_only_once = no
+	
+	option = {
+		name = hellas.11113.a
+        trigger = { check_variable = { tc_requested_albania = 0 } }
+        set_variable = { tc_requested_albania = 1}
+        subtract_from_variable = { GRE.italian_willingless = 5 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1111 days = 0 }  } }                                                                                       
+    }
+    option = {
+		name = hellas.11113.b
+        trigger = { check_variable = { tc_requested_albania = 0 } }
+        set_variable = { tc_requested_albania = 2}
+        subtract_from_variable = { GRE.italian_willingless = 3 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1111 days = 0 }  } }                                                                                       
+    }
+    option = {
+		name = hellas.11113.c
+        trigger = { check_variable = { tc_requested_albania = 0 } }
+        set_variable = { tc_requested_albania = 3}
+        subtract_from_variable = { GRE.italian_willingless = 1.5 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1111 days = 0 }  } }                                                                                       
+    }
+    option = {
+		name = hellas.11113.d
+        trigger = { check_variable = { tc_requested_albania > 0 } }
+        if = {
+            limit = { check_variable = { tc_requested_albania = 1 } }
+            add_to_variable = { GRE.italian_willingless = 5 }
+        }
+        else_if = {
+            limit = { check_variable = { tc_requested_albania = 2 } }
+            add_to_variable = { GRE.italian_willingless = 3 }
+        }
+        else_if = {
+            limit = { check_variable = { tc_requested_albania = 3 } }
+            add_to_variable = { GRE.italian_willingless = 1.5 }
+        }
+        set_variable = { tc_requested_albania = 0 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1111 days = 0 }  } }                                                                                       
+    }
+    option = {
+		name = hellas.11113.e
+        hidden_effect = { GRE = { country_event = { id = hellas.1111 days = 0 }  } }                                                                                       
+    }
+}
+
+country_event = {                                                                                  ### Economic MAIN
+	id = hellas.1112
+	title = hellas.1112.t
+	desc = hellas.1112.desc
+	picture = GFX_report_event_tirana
+
+	is_triggered_only = yes
+	fire_only_once = no
+	
+	option = {                                                                                      ## Industrial 
+		name = hellas.1112.a
+        hidden_effect = { GRE = { country_event = { id = hellas.11121 days = 0 }  } }                                                                                       
+    }
+    option = {                                                                                      ## Military 
+		name = hellas.1112.b
+        hidden_effect = { GRE = { country_event = { id = hellas.11122 days = 0 }  } }                                                                                       
+    }
+    option = {                                                                                      ## Ethical 
+		name = hellas.1112.c
+        hidden_effect = { GRE = { country_event = { id = hellas.11123 days = 0 }  } }                                                                                       
+    }
+    option = {                                                                                      ## Conclude 
+		name = hellas.1112.d
+        set_variable = { tc_economic_locked = 1 }
+        add_to_variable = { tc_tirana_conference_choices = 1 }
+        hidden_effect = { GRE = { country_event = { id = hellas.111 days = 0 }  } }                                                                                       
+    }
+    option = {                                                                                      ## Go Back 
+		name = hellas.1112.e
+        hidden_effect = { GRE = { country_event = { id = hellas.111 days = 0 }  } }                                                                                       
+    }
+}
+
+country_event = {                                                                                  ### Industrial Reparation 
+	id = hellas.11121
+	title = hellas.11121.t
+	desc = hellas.11121.desc
+	picture = GFX_report_event_tirana
+	is_triggered_only = yes
+	fire_only_once = no
+	
+	option = {
+		name = hellas.11121.a
+        trigger = { check_variable = { tc_requested_industrial = 0 } }
+        set_variable = { tc_requested_industrial = 1}
+        subtract_from_variable = { GRE.italian_willingless = 1 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1112 days = 0 } } } 
+    }
+    option = {
+		name = hellas.11121.b
+        trigger = { check_variable = { tc_requested_industrial = 0 } }
+        set_variable = { tc_requested_industrial = 2}
+        subtract_from_variable = { GRE.italian_willingless = 3 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1112 days = 0 } } } 
+    }
+    option = {
+		name = hellas.11121.c
+        trigger = { check_variable = { tc_requested_industrial = 0 } }
+        set_variable = { tc_requested_industrial = 3}
+        subtract_from_variable = { GRE.italian_willingless = 6 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1112 days = 0 } } } 
+    }
+    option = {
+		name = hellas.11121.d
+        trigger = { check_variable = { tc_requested_industrial > 0 } }
+        if = {
+            limit = { check_variable = { tc_requested_industrial = 1 } }
+            add_to_variable = { GRE.italian_willingless = 1 }
+        }
+        else_if = {
+            limit = { check_variable = { tc_requested_industrial = 2 } }
+            add_to_variable = { GRE.italian_willingless = 3 }
+        }
+        else_if = {
+            limit = { check_variable = { tc_requested_industrial = 3 } }
+            add_to_variable = { GRE.italian_willingless = 6 }
+        }
+        set_variable = { tc_requested_industrial = 0 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1112 days = 0 }  } }                                                                                       
+    }
+    option = {
+		name = hellas.11121.e
+        hidden_effect = { GRE = { country_event = { id = hellas.1112 days = 0 }  } }                                                                                       
+    }
+}
+
+country_event = {                                                                                  ### Military Reparation 
+	id = hellas.11122
+	title = hellas.11122.t
+	desc = hellas.11122.desc
+	picture = GFX_report_event_tirana
+	is_triggered_only = yes
+	fire_only_once = no
+	
+	option = {
+		name = hellas.11122.a
+        trigger = { check_variable = { tc_requested_equipment = 0 } }
+        set_variable = { tc_requested_equipment = 1}
+        subtract_from_variable = { GRE.italian_willingless = 1 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1112 days = 0 } } } 
+    }
+    option = {
+		name = hellas.11122.b
+        trigger = { check_variable = { tc_requested_equipment = 0 } }
+        set_variable = { tc_requested_equipment = 2}
+        subtract_from_variable = { GRE.italian_willingless = 3 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1112 days = 0 } } } 
+    }
+    option = {
+		name = hellas.11122.c
+        trigger = { check_variable = { tc_requested_equipment = 0 } }
+        set_variable = { tc_requested_equipment = 3}
+        subtract_from_variable = { GRE.italian_willingless = 6 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1112 days = 0 } } } 
+    }
+    option = {
+		name = hellas.11122.d
+        trigger = { check_variable = { tc_requested_equipment > 0 } }
+        if = {
+            limit = { check_variable = { tc_requested_equipment = 1 } }
+            add_to_variable = { GRE.italian_willingless = 1 }
+        }
+        else_if = {
+            limit = { check_variable = { tc_requested_equipment = 2 } }
+            add_to_variable = { GRE.italian_willingless = 3 }
+        }
+        else_if = {
+            limit = { check_variable = { tc_requested_equipment = 3 } }
+            add_to_variable = { GRE.italian_willingless = 6 }
+        }
+        set_variable = { tc_requested_equipment = 0 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1112 days = 0 }  } }                                                                                       
+    }
+    option = {
+		name = hellas.11122.e
+        hidden_effect = { GRE = { country_event = { id = hellas.1112 days = 0 }  } }                                                                                       
+    }
+}
+
+country_event = {                                                                                  ### Ethical Reparation 
+	id = hellas.11123
+	title = hellas.11123.t
+	desc = hellas.11123.desc
+	picture = GFX_report_event_tirana
+	is_triggered_only = yes
+	fire_only_once = no
+	
+	option = {
+		name = hellas.11123.a
+        trigger = { check_variable = { tc_requested_apology = 0 } }
+        set_variable = { tc_requested_apology = 1}
+        subtract_from_variable = { GRE.italian_willingless = 0.75 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1112 days = 0 } } } 
+    }
+    option = {
+		name = hellas.11123.b
+        trigger = { check_variable = { tc_requested_apology = 1 } }
+        set_variable = { tc_requested_apology = 0}
+        add_to_variable = { GRE.italian_willingless = 0.75 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1112 days = 0 } } } 
+    }
+    option = {
+		name = hellas.11123.c
+        trigger = { check_variable = { tc_requested_campaign = 0 } }
+        set_variable = { tc_requested_campaign = 1}
+        subtract_from_variable = { GRE.italian_willingless = 1.25 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1112 days = 0 } } } 
+    }
+    option = {
+		name = hellas.11123.d
+        trigger = { check_variable = { tc_requested_campaign = 1 } }
+        set_variable = { tc_requested_campaign = 0}
+        add_to_variable = { GRE.italian_willingless = 1.25 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1112 days = 0 } } } 
+    }
+    option = {
+		name = hellas.11123.e
+        trigger = { check_variable = { tc_requested_eli = 0 } }
+        set_variable = { tc_requested_eli = 1}
+        subtract_from_variable = { GRE.italian_willingless = 2.5 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1112 days = 0 } } } 
+    }
+    option = {
+		name = hellas.11123.f
+        trigger = { check_variable = { tc_requested_eli = 1 } }
+        set_variable = { tc_requested_eli = 0}
+        add_to_variable = { GRE.italian_willingless = 2.5 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1112 days = 0 } } } 
+    }
+    option = {
+		name = hellas.11123.g
+        hidden_effect = { GRE = { country_event = { id = hellas.1112 days = 0 }  } }                                                                                       
+    }
+}
+
+country_event = {                                                                                  ### Future MAIN
+	id = hellas.1113
+	title = hellas.1113.t
+	desc = hellas.1113.desc
+	picture = GFX_report_event_tirana
+
+	is_triggered_only = yes
+	fire_only_once = no
+	
+	option = {                                                                                      ## Guarantees 
+		name = hellas.1113.a
+        hidden_effect = { GRE = { country_event = { id = hellas.11131 days = 0 }  } }
+    }
+    option = {                                                                                      ## Non-Aggression Pacts
+		name = hellas.1113.b
+        hidden_effect = { GRE = { country_event = { id = hellas.11132 days = 0 }  } }
+    }
+    option = {                                                                                      ## Greek Self-Imposed-Limitations
+		name = hellas.1113.c
+        hidden_effect = { GRE = { country_event = { id = hellas.11133 days = 0 }  } }
+    }
+    option = {                                                                                      ## Balkan Neutrality Zone [TBC when Balkan Part is Ready]
+		name = hellas.1113.d
+        trigger = {
+            check_variable = { GRE.bulgarian_smackdown > 0 }
+        }
+        hidden_effect = { GRE = { country_event = { id = hellas.11133 days = 0 }  } }
+    }
+    option = {                                                                                      ## Conclude 
+		name = hellas.1113.e
+        set_variable = { tc_future_locked = 1 }
+        add_to_variable = { tc_tirana_conference_choices = 1 }
+        hidden_effect = { GRE = { country_event = { id = hellas.111 days = 0 }  } }                                                                                       
+    }
+    option = {                                                                                      ## Go Back 
+		name = hellas.1113.f
+        hidden_effect = { GRE = { country_event = { id = hellas.111 days = 0 }  } }                                                                                       
+    }
+}
+
+country_event = {                                                                                  ### Guaratees
+	id = hellas.11131
+	title = hellas.11131.t
+	desc = hellas.11131.desc
+	picture = GFX_report_event_tirana
+	is_triggered_only = yes
+	fire_only_once = no
+	
+	option = {
+		name = hellas.11131.a
+        trigger = { check_variable = { tc_requested_guarantees = 0 } }
+        set_variable = { tc_requested_guarantees = 1}
+        subtract_from_variable = { GRE.italian_willingless = 0.25 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1113 days = 0 } } } 
+    }
+    option = {
+		name = hellas.11131.b
+        trigger = { check_variable = { tc_requested_guarantees = 1 } }
+        set_variable = { tc_requested_guarantees = 0}
+        add_to_variable = { GRE.italian_willingless = 0.25 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1113 days = 0 } } } 
+    }
+    option = {
+		name = hellas.11131.c
+        hidden_effect = { GRE = { country_event = { id = hellas.1113 days = 0 }  } }                                                                                       
+    }
+}
+
+country_event = {                                                                                  ### Non-Aggression Pact
+	id = hellas.11132
+	title = hellas.11132.t
+	desc = hellas.11132.desc
+	picture = GFX_report_event_tirana
+	is_triggered_only = yes
+	fire_only_once = no
+	
+	option = {
+		name = hellas.11132.a
+        trigger = { check_variable = { tc_requested_non_agg = 0 } }
+        set_variable = { tc_requested_non_agg = 1}
+        subtract_from_variable = { GRE.italian_willingless = 1 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1113 days = 0 } } } 
+    }
+    option = {
+		name = hellas.11132.b
+        trigger = { check_variable = { tc_requested_non_agg = 0 } }
+        set_variable = { tc_requested_non_agg = 2}
+        subtract_from_variable = { GRE.italian_willingless = 2 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1113 days = 0 } } } 
+    }
+    option = {
+		name = hellas.11132.c
+        trigger = { check_variable = { tc_requested_non_agg = 0 } }
+        set_variable = { tc_requested_non_agg = 3}
+        subtract_from_variable = { GRE.italian_willingless = 3 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1113 days = 0 } } } 
+    }
+    option = {
+		name = hellas.11132.d
+        trigger = { check_variable = { tc_requested_non_agg > 0 } }
+        if = {
+            limit = { check_variable = { tc_requested_non_agg = 1 } }
+            add_to_variable = { GRE.italian_willingless = 1 }
+        }
+        else_if = {
+            limit = { check_variable = { tc_requested_non_agg = 2 } }
+            add_to_variable = { GRE.italian_willingless = 2 }
+        }
+        else_if = {
+            limit = { check_variable = { tc_requested_non_agg = 3 } }
+            add_to_variable = { GRE.italian_willingless = 3 }
+        }
+        set_variable = { tc_requested_non_agg = 0 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1113 days = 0 }  } }                                                                                       
+    }
+    option = {
+		name = hellas.11132.e
+        hidden_effect = { GRE = { country_event = { id = hellas.1113 days = 0 }  } }                                                                                       
+    }
+}
+
+country_event = {                                                                                  ### Self-Imposed-Guarantees
+	id = hellas.11133
+	title = hellas.11133.t
+	desc = hellas.11133.desc
+	picture = GFX_report_event_tirana
+	is_triggered_only = yes
+	fire_only_once = no
+	
+	option = {
+		name = hellas.11133.a
+        trigger = { check_variable = { tc_offered_max_25 = 0 } }
+        set_variable = { tc_offered_max_25 = 1}
+        add_to_variable = { GRE.italian_willingless = 1.25 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1113 days = 0 } } } 
+    }
+    option = {
+		name = hellas.11133.b
+        trigger = { check_variable = { tc_offered_max_25 = 1 } }
+        set_variable = { tc_offered_max_25 = 0}
+        subtract_from_variable = { GRE.italian_willingless = 1.25 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1113 days = 0 } } } 
+    }
+    option = {
+		name = hellas.11133.c
+        trigger = { check_variable = { tc_offered_not_to_join_factions = 0 } }
+        set_variable = { tc_offered_not_to_join_factions = 1}
+        add_to_variable = { GRE.italian_willingless = 1.25 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1113 days = 0 } } } 
+    }
+    option = {
+		name = hellas.11133.d
+        trigger = { check_variable = { tc_offered_not_to_join_factions = 1 } }
+        set_variable = { tc_offered_not_to_join_factions = 0}
+        subtract_from_variable = { GRE.italian_willingless = 1.25 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1113 days = 0 } } } 
+    }
+    option = {
+		name = hellas.11133.e
+        trigger = { check_variable = { tc_offered_not_war_declaration = 0 } }
+        set_variable = { tc_offered_not_war_declaration = 1}
+        add_to_variable = { GRE.italian_willingless = 1.25 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1113 days = 0 } } } 
+    }
+    option = {
+		name = hellas.11133.f
+        trigger = { check_variable = { tc_offered_not_war_declaration = 1 } }
+        set_variable = { tc_offered_not_war_declaration = 0}
+        subtract_from_variable = { GRE.italian_willingless = 1.25 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1113 days = 0 } } } 
+    }
+    option = {
+		name = hellas.11133.g
+        trigger = { check_variable = { tc_offered_not_volunteers = 0 } }
+        set_variable = { tc_offered_not_volunteers = 1}
+        add_to_variable = { GRE.italian_willingless = 2 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1113 days = 0 } } } 
+    }
+    option = {
+		name = hellas.11133.h
+        trigger = { check_variable = { tc_offered_not_volunteers = 1 } }
+        set_variable = { tc_offered_not_volunteers = 0}
+        subtract_from_variable = { GRE.italian_willingless = 2 }
+        hidden_effect = { GRE = { country_event = { id = hellas.1113 days = 0 } } } 
+    }
+    option = {
+		name = hellas.11133.i
+        hidden_effect = { GRE = { country_event = { id = hellas.1113 days = 0 }  } }                                                                                       
+    }
+}
+
+country_event = {                                                                                  ### Waiter approaches
+	id = hellas.1114
+	title = hellas.1114.t
+	desc = hellas.1114.desc
+	picture = GFX_report_event_tirana
+
+	is_triggered_only = yes
+	fire_only_once = no
+	
+	option = {                                                                                      ## Give me info lad 
+		name = hellas.1114.a
+        set_variable = { tc_description = 4 }
+        hidden_effect = { GRE = { country_event = { id = hellas.111 days = 0 }  } }                                                                                       
+    }
+    option = {                                                                                      ## Ask him to bring it
+		name = hellas.1114.b
+        trigger = { check_variable = { tc_tirana_conference_choices > 1 } check_variable = { tc_brought_pasta = 0 } }
+        set_variable = { tc_description = 4.5 }
+        set_variable = { tc_brought_pasta = 1 }
+        hidden_effect = { GRE = { country_event = { id = hellas.111 days = 0 } } }
+    }
+}
+
+country_event = {                                                                                  ### Waiter approaches
+	id = hellas.11141
+	title = hellas.11141.t
+	desc = hellas.11141.desc
+	picture = GFX_report_event_tirana
+	is_triggered_only = yes
+	fire_only_once = no
+	
+	option = {                                                                                      ## 
+		name = hellas.11141.a
+        trigger = { NOT = { has_country_flag = triggered_italians_before } }
+        set_variable = { tc_description = 2 }
+        set_variable = { tc_humiliated_mussolini = 1 }
+        hidden_effect = { GRE = { country_event = { id = hellas.111 days = 0 } } }                                                                                       
+    }
+    option = {                                                                                      ## 
+		name = hellas.11141.a
+        trigger = { has_country_flag = triggered_italians_before }
+        set_variable = { tc_description = 2.5 }
+        set_variable = { tc_humiliated_mussolini = 2 }
+        hidden_effect = { GRE = { country_event = { id = hellas.111 days = 0 } } }                                                                                       
+    }
+    option = {                                                                                      ##
+		name = hellas.11141.b
+        set_variable = { tc_description = 3 }
+        hidden_effect = { GRE = { country_event = { id = hellas.111 days = 0 } } }
     }
 }
 
@@ -4377,7 +6554,6 @@ country_event = {                                                               
 	
 	option = {                                                                                      ## Continue the war 
 		name = hellas.112.a
-    
         ###                                                                                         
     }
 }
@@ -4386,21 +6562,19 @@ country_event = {                                                               
 	id = hellas.113
 	title = hellas.113.t
 	desc = hellas.113.desc
-	#picture = GFX_report_event_germany_politician_handshake
+	picture = GFX_report_event_bulgarslayer
 
 	is_triggered_only = yes
-    immediate = { hidden_effect = { set_country_flag = bulgarian_smackdown } }
 
 	fire_only_once = yes
 	
 	option = {                                                                                      ## Annex if collaborative  
 		name = hellas.113.a
-        
         trigger = {
             check_variable = { var = BUL.favor@GRE value = 50 compare = greater_than_or_equals }
             has_collaboration = { target = BUL value > 0.45}
         }
-        
+        set_variable = { GRE.bulgarian_smackdown = 3 }
         if = {
             limit = {
                 has_collaboration = { target = BUL value > 0.75}
@@ -4423,14 +6597,13 @@ country_event = {                                                               
     
     option = {                                                                                      ## Make it integrated puppet
 		name = hellas.113.b
-    
         trigger = {
             OR = {
                 check_variable = { var = BUL.favor@GRE value = 50 compare = greater_than_or_equals }
                 has_collaboration = { target = BUL value > 0}
             }
         }
-    
+        set_variable = { GRE.bulgarian_smackdown = 2 }
         hidden_effect = {
             puppet = BUL
             set_autonomy = {
@@ -4442,15 +6615,107 @@ country_event = {                                                               
     
     option = {                                                                                      ## Keep as it is
 		name = hellas.113.c
-    
-        ###                                                                                         
+        set_variable = { GRE.bulgarian_smackdown = 1 }
+    }
+}
+
+country_event = {                                                                                  ### Treaty of Tirana FINAL EVENT
+	id = hellas.114
+	title = {
+        text = hellas.114_accepted.t
+        trigger = { check_variable = { GRE.italian_willingless > 0 } }
+    }
+    title = {
+        text = hellas.114_rejected.t
+        trigger = { check_variable = { var = GRE.italian_willingless value = 0 compare = less_than_or_equals } }
+    }
+	desc = {                                                                                        
+        text = hellas.114_accepted.desc
+        trigger = { check_variable = { GRE.italian_willingless > 0 } }
+    }
+    desc = {                                                                                        
+        text = hellas.114_rejected.desc
+        trigger = { check_variable = { var = GRE.italian_willingless value = 0 compare = less_than_or_equals } }                                           
+    }
+	picture = GFX_report_event_tirana
+	is_triggered_only = yes
+	fire_only_once = no
+	
+    immediate = {
+        if = {
+            limit = { check_variable = { GRE.italian_willingless > 0 } }
+            hidden_effect = {
+                ##################[Land Acquisition]##################
+                if = { limit = { check_variable = { tc_requested_dodecan = 1 } } if = { limit = { ENG = { controls_state = 164 } } check_variable = { ENG.favor@GRE > 59 } transfer_state = 164 } else = { transfer_state = 164 }
+                if = { limit = { check_variable = { tc_requested_albania = 1 } } transfer_state = 44 }
+                else_if = { limit = { check_variable = { tc_requested_albania = 2 } } release_puppet_on_controlled = ALB }
+                else_if = { limit = { check_variable = { tc_requested_albania = 3 } } release_on_controlled = ALB }
+                if = { limit = { check_variable = { tc_requested_north_ep = 1 } } transfer_state = 805 }
+                #####################[Reparations]####################
+                if = { limit = { check_variable = { tc_requested_industrial = 1 } } ITA = { add_timed_idea = { idea = GRE_shackled_italian_industry_low days = 180 } } }
+                else_if = { limit = { check_variable = { tc_requested_industrial = 2 } } ITA = { add_timed_idea = { idea = GRE_shackled_italian_industry_medium days = 180 } } }
+                else_if = { limit = { check_variable = { tc_requested_industrial = 3 } } ITA = { add_timed_idea = { idea = GRE_shackled_italian_industry_high days = 180 } } }
+                if = { limit = { check_variable = { tc_requested_equipment = 1 } } ITA = { transfer_units_fraction = { target = GRE stockpile_ratio = 0.1 } } }
+                else_if = { limit = { check_variable = { tc_requested_equipment = 2 } } ITA = { transfer_units_fraction = { target = GRE stockpile_ratio = 0.25 } } }
+                else_if = { limit = { check_variable = { tc_requested_equipment = 3 } } ITA = { transfer_units_fraction = { target = GRE stockpile_ratio = 0.50 } } }
+                if = { limit = { check_variable = { tc_requested_apology = 1 } } add_political_power = 500 }
+                if = { limit = { check_variable = { tc_requested_campaign = 1 } } ITA = { set_country_flag = domestic_pacification_campaign } }
+                if = { limit = { check_variable = { tc_requested_apology = 1 } } ITA = { add_political_power = -150 add_stability = -0.2 add_war_support = -0.2 } }
+                #####################[Future Stability]####################
+                if = { limit = { check_variable = { tc_requested_guarantees = 1 } } every_country = { limit = { is_in_faction_with = ITA } give_guarantee = GRE } set_global_flag = german_insurances_over_greece }
+                if = { limit = { check_variable = { tc_requested_non_agg = 1 } } ITA = { diplomatic_relation = { country = GRE relation = non_aggression_pact active = yes } set_global_flag = grecoitalian_non_aggression set_variable = { grecoitalian_na_renewal = 6 } } }
+                else_if = { limit = { check_variable = { tc_requested_non_agg = 2 } } ITA = { diplomatic_relation = { country = GRE relation = non_aggression_pact active = yes } set_global_flag = grecoitalian_non_aggression set_variable = { grecoitalian_na_renewal = 9 } } }
+                else_if = { limit = { check_variable = { tc_requested_non_agg = 3 } } ITA = { diplomatic_relation = { country = GRE relation = non_aggression_pact active = yes } set_global_flag = grecoitalian_non_aggression set_variable = { grecoitalian_na_renewal = 12 } } }
+                #####################[Self Limitations]####################
+                if = { limit = { check_variable = { tc_offered_max_25 = 1 } } set_country_flag = tc_self_limitation_units set_variable = { self_limitation_units = 25 } }
+                if = { limit = { check_variable = { tc_offered_not_to_join_factions = 1 } } set_rule = { can_join_factions = no } }
+                if = { limit = { check_variable = { tc_offered_not_war_declaration = 1 } } set_rule = { can_not_declare_war = yes } }
+                if = { limit = { check_variable = { tc_offered_not_volunteers = 1 } } set_rule = { can_send_volunteers = no } }
+                ###################[Basic Stuff]######################
+                set_country_flag = GRE_victor_in_a_war
+                set_country_flag = GRE_victor_in_a_big_war
+                add_political_power = 500
+                add_stability = 0.5
+                add_war_support = 0.5
+                white_peace = ITA 
+                news_event = { id = hellenic_news.154 }
+                complete_national_focus = GRE_the_weaves_of_fate
+                set_global_flag = GRE_grecoitalian_ended
+                clr_global_flag = GRE_grecoitalian_start
+            }
+        }
+    }
+
+	option = {
+		name = hellas.114.a
+        trigger = { check_variable = { GRE.italian_willingless > 0 } }
+        effect_tooltip = {
+            add_political_power = 500
+            add_stability = 0.5
+            add_war_support = 0.5
+        }
+    }
+    option = {
+		name = hellas.114.b
+        trigger = { check_variable = { var = GRE.italian_willingless value = 0 compare = less_than_or_equals } check_variable = { tc_first_time_proposal = 0 } check_variable = { tc_humiliated_mussolini = 0 } }
+        set_variable = { tc_first_time_proposal = -1 }
+        set_variable = { tc_description = 0 }
+        set_variable = { tc_land_locked = 0 }
+        set_variable = { tc_economic_locked = 0 }
+        set_variable = { tc_future_locked = 0 }
+        set_variable = { GRE.tc_tirana_conference_choices = 0 }
+        hidden_effect = { GRE = { country_event = { id = hellas.111 days = 0 }  } }
+    }
+    option = {
+		name = hellas.114.c
+        trigger = { check_variable = { var = GRE.italian_willingless value = 0 compare = less_than_or_equals } }
     }
 }
 
 country_event = {                                                                                  ### Greece keeps going and takes ITALY down
-	id = hellas.114
-	title = hellas.114.t
-	desc = hellas.114.desc
+	id = hellas.115
+	title = hellas.115.t
+	desc = hellas.115.desc
 	#picture = GFX_report_event_italian_rise
 
 	is_triggered_only = yes
@@ -4498,7 +6763,7 @@ country_event = {                                                               
     }
     
     option = {                                                                                      ## Keep as it is
-		name = hellas.113.a
+		name = hellas.115.a
     
         ###                                                                                         
     } 
@@ -4520,13 +6785,18 @@ country_event = {                                                               
 
 	fire_only_once = yes
 	
-	option = {                                                                            
+	option = {
 		name = hellas.798.a
-        
-        remove_dynamic_modifier = { modifier = GRE_army_reform_hellenic_army }      
-        set_variable = { GRE_var_supply_consumption = 0 }     
-        set_variable = { GRE_var_winter_attr = 0 }             
-        set_variable = { GRE_var_cold_acc = 0 }        
+        remove_dynamic_modifier = { modifier = GRE_army_reform_hellenic_army }
+        set_variable = { GRE_var_supply_consumption = 0 }
+        set_variable = { GRE_var_winter_attr = 0 }      
+        set_variable = { GRE_var_cold_acc = 0 }
+        if = {
+            limit = { check_variable = { GRE.leader_potency_drop_level = 0 } }
+            custom_effect_tooltip = GRE_officer_potency_drops_tt
+            unit_leader_preparation_stats_fade = yes
+            set_variable = { GRE.leader_potency_drop_level = 1 }
+        }
     }
 }
 
@@ -4545,6 +6815,12 @@ country_event = {                                                               
         
         remove_dynamic_modifier = { modifier = GRE_army_reform_hellenic_staff }           
         remove_dynamic_modifier = { modifier = GRE_army_reform_hellenic_people }
+        if = {
+            limit = { check_variable = { GRE.leader_potency_drop_level = 1 } }
+            custom_effect_tooltip = GRE_officer_potency_drops_tt
+            unit_leader_preparation_stats_fade = yes
+            set_variable = { GRE.leader_potency_drop_level = 2 }
+        }
     }
 }
 
@@ -5481,11 +7757,9 @@ state_event = {                                                                 
     trigger = {
         GRE = { has_global_flag = GRE_famine_started }
         any_state = {
-            limit = {
-                is_in_array = {
-                    array = global.greek_mainland_states_all
-                    value = THIS
-                }
+            is_in_array = {
+                array = global.greek_mainland_states_all
+                value = THIS
             }
         }
 	}

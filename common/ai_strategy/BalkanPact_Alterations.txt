@@ -1,0 +1,202 @@
+pursuing_the_balkan_pact = {                                        ## Greece pursues the Balkan pact by completing the focus.
+    allowed = {
+        OR = {
+            original_tag = YUG
+            original_tag = ROM
+            original_tag = TUR
+            original_tag = BUL
+            original_tag = ALB
+        }
+    }
+    enable = {
+        GRE = { has_completed_focus = GRE_the_balkan_pact }
+        if = { limit = { tag = BUL } BUL = { has_country_flag = joined_the_balkan_pact } }
+        if = { limit = { tag = ALB } ALB = { has_country_flag = joined_the_balkan_pact } }
+    }
+    abort_when_not_enabled = yes
+    
+    ai_strategy = {
+        type = befriend
+        id = GRE
+        value = 5
+    }
+}
+
+establishing_additional_communications = {
+    allowed = {
+        OR = {
+            original_tag = YUG
+            original_tag = ROM
+            original_tag = TUR
+        }
+    }
+    enable = {
+        has_country_flag = channels_established
+    }
+    abort_when_not_enabled = yes
+    
+    ai_strategy = {
+        type = befriend
+        id = GRE
+        value = 5
+    }
+}
+
+establishing_common_strategy = { 
+    allowed = {
+        OR = {
+            original_tag = YUG
+            original_tag = ROM
+            original_tag = TUR
+        }
+    }
+    enable = {
+        has_country_flag = common_strategy_with_greece_defined
+    }
+    abort_when_not_enabled = yes
+    
+    ai_strategy = {
+        type = befriend
+        id = GRE
+        value = 10
+    }
+}
+
+balkan_pact_reinforced = {
+    allowed = {
+        OR = {
+            original_tag = YUG
+            original_tag = ROM
+            original_tag = TUR
+            original_tag = BUL
+        }
+    }
+    enable = {
+        has_country_flag = balkan_pact_reinforced
+    }
+    abort_when_not_enabled = yes
+    
+    ai_strategy = {
+        type = befriend
+        id = GRE
+        value = 25
+    }
+    ai_strategy = {
+        type = befriend
+        id = ROM
+        value = 25
+    }
+    ai_strategy = {
+        type = befriend
+        id = TUR
+        value = 25
+    }
+    ai_strategy = {
+        type = befriend
+        id = YUG
+        value = 25
+    }
+}
+
+move_units_to_bulgarian_border_if_greece_prepares_ultimatum = {
+    allowed = {
+        OR = {
+            original_tag = YUG
+            original_tag = ROM
+            original_tag = TUR
+        }
+    }
+    enable = {
+        has_country_flag = balkan_pact_reinforced
+        GRE = { has_decision = push_for_bulgarian_entry_in_the_balkan_pact }
+    }
+    abort_when_not_enabled = yes
+
+    ai_strategy = {
+        type = befriend
+        id = GRE
+        value = 25
+    }
+    
+    ai_strategy = {
+        type = prepare_for_war
+        id = BUL
+        value = 10000
+    }
+
+    ai_strategy = {
+        type = antagonize
+        id = BUL
+        value = 10000
+    }
+
+    ai_strategy = {
+        type = front_control
+        #you can define a target in following ways. you can define more than one
+        tag = BUL
+        state = 48 
+        state = 212 
+        state = 211 
+        state = 77 
+        state = 801 
+    	value = 100
+        priority = 10000
+        ordertype = front # front or invasion. if set this strategy will only apply to that specific order type
+        execution_type = balanced # one of careful balanced rush rush_weak. if set will override the execution type of front (only for front orders)
+        execute_order = yes # yes or no. if set will override execute or not decision of front
+        manual_attack = yes # default yes. if no ai will not do manual pokes at enemy (only for front orders)
+    }
+
+    ai_strategy = {
+ 	    type = front_unit_request
+    	tag = BUL
+        state = 48 
+        state = 212 
+        state = 211 
+        state = 77 
+        state = 801 
+    	value = 10000
+    }
+}
+
+balkan_pact_reinforced_bulgaria = {
+    allowed = {
+        OR = {
+            original_tag = YUG
+            original_tag = ROM
+            original_tag = TUR
+            original_tag = GRE
+        }
+    }
+    enable = {
+        has_country_flag = balkan_pact_reinforced
+    }
+    abort_when_not_enabled = yes
+    
+    ai_strategy = {
+        type = befriend
+        id = BUL
+        value = 25
+    }
+}
+
+balkan_pact_reinforced_bulgaria = {
+    allowed = {
+        OR = {
+            original_tag = BUL
+        }
+    }
+    enable = {
+        has_country_flag = shackled_to_the_balkan_pact
+    }
+    abort_when_not_enabled = yes
+    
+    ai_strategy = { type = befriend id = GRE value = 25 }
+    ai_strategy = { type = alliance id = GRE value = 10 }
+    ai_strategy = { type = befriend id = TUR value = 25 }
+    ai_strategy = { type = alliance id = TUR value = 10 }
+    ai_strategy = { type = befriend id = ROM value = 25 }
+    ai_strategy = { type = alliance id = ROM value = 10 }
+    ai_strategy = { type = befriend id = YUG value = 25 }
+    ai_strategy = { type = alliance id = YUG value = 10 }
+}

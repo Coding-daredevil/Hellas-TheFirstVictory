@@ -97,17 +97,17 @@ focus_tree = {
 			47 = { 
 				add_resource = { 
 					type = aluminium
-					amount = 20
+					amount = 15  ## was 20
 				}
 			}
 			185 = { 
 				add_resource = { 
 					type = tungsten
-					amount = 15
+					amount = 11.250 ## was 15
 				}
 				add_resource = { 
 					type = steel
-					amount = 15
+					amount = 11.250 ## was 15
 				}
 			}
 		}
@@ -130,15 +130,15 @@ focus_tree = {
 			186 = { 
 				add_resource = { 
 					type = aluminium
-					amount = 20
+					amount = 15			## was 20
 				}
 				add_resource = { 
 					type = steel
-					amount = 25
+					amount = 18.750			## was 25
 				}
 				add_resource = { 
 					type = tungsten
-					amount = 7
+					amount = 5.25			## was 7
 				}
 			}
             187 = {
@@ -181,7 +181,6 @@ focus_tree = {
 					idea = GRE_rural_exodus 
 					days = 280
 				}
-				add_stability = -0.05
             }
             if = {
                 limit = {
@@ -223,7 +222,6 @@ focus_tree = {
 					remove_idea = GRE_no_industrilization
 					add_idea = GRE_industrializing_society
 				}
-				add_stability = -0.15
 			}
             else_if = { 
 				limit = { 
@@ -233,7 +231,6 @@ focus_tree = {
 					idea = GRE_rural_exodus 
 					days = 280
 				}
-				add_stability = -0.10
 			}
             if = {
                 limit = {
@@ -422,8 +419,6 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			custom_effect_tooltip = GRE_open_foreign_subsidized_factories_tt 
-            custom_effect_tooltip = "[GetSubsidizedIntel]"
 			hidden_effect = {
                 every_country = {
                     limit = {
@@ -432,81 +427,54 @@ focus_tree = {
                             value = THIS.id
                         }
                         is_major = yes
+						has_opinion = { target = GRE value > 79 }
+						check_variable = { var = THIS.favor@GRE value = 30 compare = greater_than_or_equals }
                     }
-                    if = {
-                        limit = { 
-                            has_opinion = { target = GRE value > 79 } 
-                            check_variable = { var = THIS.favor@GRE value = 30 compare = greater_than_or_equals }
-                        }
-                        GRE = {
-                            #random_owned_controlled_state = {
-                            #    limit = {
-                            #        OR = {
-                            #            has_state_category = town
-                            #            has_state_category = large_town
-                            #            has_state_category = city
-                            #            has_state_category = large_city
-                            #            has_state_category = metropolis
-                            #            has_state_category = megalopolis
-                            #        }
-                            #        free_building_slots = {
-                            #            building = arms_factory
-                            #            size > 0
-                            #            include_locked = yes
-                            #        }
-                            #    }
-                            #    add_extra_state_shared_building_slots = 1
-                            #    add_building_construction = {
-                            #        type = arms_factory
-                            #        level = 1
-                            #        instant_build = yes
-                            #    }
-                            #}
-                            random_owned_controlled_state = {
-                                limit = {
-                                    OR = {
-                                        has_state_category = town
-                                        has_state_category = large_town
-                                        has_state_category = city
-                                        has_state_category = large_city
-                                        has_state_category = metropolis
-                                        has_state_category = megalopolis
-                                    }
-                                    free_building_slots = {
-                                        building = industrial_complex
-                                        size > 0
-                                        include_locked = yes
-                                    }
-                                }
-                                add_extra_state_shared_building_slots = 1
-                                add_building_construction = {
-                                    type = industrial_complex
-                                    level = 1
-                                    instant_build = yes
-                                }
-                            }
-                        }
-                        subtract_from_variable = { THIS.favor@GRE = 10 }                                                    ### Base favor lost to get 1civ-1mil (t: 5)
-                        if = {
-                            limit = {
-                                check_variable = { var = THIS.favor@GRE value = 50 compare = greater_than_or_equals }
-                                check_variable = { var = THIS.favor@GRE value = 80 compare = less_than }                    ## If favor is between 50-80 (great)
-                            }
-                            GRE = { add_offsite_building = { type = arms_factory level = 1 } }
-                            add_to_variable = { THIS.milslent@GRE = 1 }
-                            subtract_from_variable = { THIS.favor@GRE = 5 }                                                 ## Additional favor lost (t: 10) 
-                        }
-                        else_if = {
-                            limit = {
-                                check_variable = { var = THIS.favor@GRE value = 80 compare = greater_than_or_equals }       ## If favor is between 80+ (excellent)
-                            }
-                            GRE = { add_offsite_building = { type = arms_factory level = 1 } }
-                            GRE = { add_offsite_building = { type = industrial_complex level = 1 } }
-                            add_to_variable = { THIS.milslent@GRE = 1 }
-                            add_to_variable = { THIS.civslent@GRE = 1 }
-                            subtract_from_variable = { THIS.favor@GRE = 10 }                                                ## Additional favor lost (t: 15)
-                        }
-                    }
+					random_owned_controlled_state = {
+						limit = {
+							OR = {
+								has_state_category = town
+								has_state_category = large_town
+								has_state_category = city
+								has_state_category = large_city
+								has_state_category = metropolis
+								has_state_category = megalopolis
+							}
+							free_building_slots = {
+								building = industrial_complex
+								size > 0
+								include_locked = yes
+							}
+						}
+						add_extra_state_shared_building_slots = 1
+						add_building_construction = {
+							type = industrial_complex
+							level = 1
+							instant_build = yes
+						}
+					}
+					if = {
+						limit = {
+							check_variable = { var = THIS.favor@GRE value = 50 compare = greater_than_or_equals }
+							check_variable = { var = THIS.favor@GRE value = 80 compare = less_than }
+						}
+						GRE = { add_offsite_building = { type = arms_factory level = 1 } }
+						add_to_variable = { THIS.milslent@GRE = 1 }
+						subtract_from_variable = { THIS.favor@GRE = 20 }
+					}
+					else_if = {
+						limit = {
+							check_variable = { var = THIS.favor@GRE value = 80 compare = greater_than_or_equals }
+						}
+						GRE = { add_offsite_building = { type = arms_factory level = 1 } }
+						GRE = { add_offsite_building = { type = industrial_complex level = 1 } }
+						add_to_variable = { THIS.milslent@GRE = 1 }
+						add_to_variable = { THIS.civslent@GRE = 1 }
+						subtract_from_variable = { THIS.favor@GRE = 30 }
+					}
+					else = {
+						subtract_from_variable = { THIS.favor@GRE = 10 }
+					}
                 }
                 every_country = {
                     limit = {
@@ -527,8 +495,10 @@ focus_tree = {
                     }  
                 }            
             }
+			custom_effect_tooltip = GRE_open_foreign_subsidized_factories_tt 
+            custom_effect_tooltip = "[GetSubsidizedIntel]"
 		}
-	}		
+	}
 
 	focus = {
 		id = GRE_paying_back_our_debts_in_bulk
@@ -618,7 +588,7 @@ focus_tree = {
 			custom_effect_tooltip = GRE_the_bedrock_of_balkan_financial_stability_tt
             custom_effect_tooltip = "[GetBedrockIntel]"
 			hidden_effect = {
-				if = { 
+				if = {
 					limit = {
 						country_exists = ALB
 						ALB = { has_opinion = { target = GRE value > 85 } } 
@@ -630,7 +600,7 @@ focus_tree = {
                         }
                         add_offsite_building = { type = industrial_complex level = 1 }
                         add_to_variable = { ALB.civslent@GRE = 1 }
-                        subtract_from_variable = { ALB.favor@GRE = 5 }
+                        subtract_from_variable = { ALB.favor@GRE = 10 }
                     }
                     else_if = {
                         limit = {
@@ -638,11 +608,11 @@ focus_tree = {
                         }
                         add_offsite_building = { type = industrial_complex level = 2 }
                         add_to_variable = { ALB.civslent@GRE = 2 }
-                        subtract_from_variable = { ALB.favor@GRE = 10 }  
-                    }  
-				}	
-				if = { 	
-					limit = { 
+                        subtract_from_variable = { ALB.favor@GRE = 20 }
+                    }
+				}
+				if = {
+					limit = {
 						country_exists = BUL
 						BUL = { has_opinion = { target = GRE value > 85 } } 
 					}
@@ -653,7 +623,7 @@ focus_tree = {
                         }
                         add_offsite_building = { type = industrial_complex level = 1 }
                         add_to_variable = { BUL.civslent@GRE = 1 }
-                        subtract_from_variable = { BUL.favor@GRE = 5 }
+                        subtract_from_variable = { BUL.favor@GRE = 10 }
                     }
                     else_if = {
                         limit = {
@@ -661,18 +631,18 @@ focus_tree = {
                         }
                         add_offsite_building = { type = industrial_complex level = 2 }
                         add_to_variable = { BUL.civslent@GRE = 2 }
-                        subtract_from_variable = { BUL.favor@GRE = 10 }  
+                        subtract_from_variable = { BUL.favor@GRE = 20 }  
                     } 
 				}	
-				if = { 	
+				if = {
 					limit = { 
 						country_exists = HUN
 						HUN = { has_opinion = { target = GRE value > 85 } } 
 					}
 					add_offsite_building = { type = industrial_complex level = 1 }
 				}	
-				if = { 
-					limit = { 
+				if = {
+					limit = {
 						country_exists = YUG
 						YUG = { has_opinion = { target = GRE value > 85 } } 
 					}
@@ -683,7 +653,7 @@ focus_tree = {
                         }
                         add_offsite_building = { type = industrial_complex level = 1 }
                         add_to_variable = { YUG.civslent@GRE = 1 }
-                        subtract_from_variable = { YUG.favor@GRE = 5 }
+                        subtract_from_variable = { YUG.favor@GRE = 10 }
                     }
                     else_if = {
                         limit = {
@@ -691,19 +661,19 @@ focus_tree = {
                         }
                         add_offsite_building = { type = industrial_complex level = 2 }
                         add_to_variable = { YUG.civslent@GRE = 2 }
-                        subtract_from_variable = { YUG.favor@GRE = 10 }  
+                        subtract_from_variable = { YUG.favor@GRE = 20 }
                     }
                     else_if = {
                         limit = {
                             check_variable = { var = YUG.favor@GRE value = 80 compare = greater_than_or_equals }
                         }
-                        add_offsite_building = { type = industrial_complex level = 4 }
+                        add_offsite_building = { type = industrial_complex level = 3 }
                         add_to_variable = { YUG.civslent@GRE = 3 }
-                        subtract_from_variable = { YUG.favor@GRE = 15 }  
+                        subtract_from_variable = { YUG.favor@GRE = 30 }
                     }
 				}
 				if = { 	
-					limit = { 
+					limit = {
 						country_exists = AUS
 						AUS = { has_opinion = { target = GRE value > 85 } } 
 					}
@@ -717,8 +687,9 @@ focus_tree = {
                     }
                     add_offsite_building = { type = industrial_complex level = 1 }
                     add_to_variable = { GER.civslent@GRE = 1 }
+					subtract_from_variable = { GER.favor@GRE = 10 }
                 }
-				if = { 	
+				if = {
 					limit = { 
 						country_exists = ROM
 						ROM = { has_opinion = { target = GRE value > 85 } } 
@@ -730,7 +701,7 @@ focus_tree = {
                         }
                         add_offsite_building = { type = industrial_complex level = 1 }
                         add_to_variable = { ROM.civslent@GRE = 1 }
-                        subtract_from_variable = { ROM.favor@GRE = 5 }
+                        subtract_from_variable = { ROM.favor@GRE = 10 }
                     }
                     else_if = {
                         limit = {
@@ -738,19 +709,19 @@ focus_tree = {
                         }
                         add_offsite_building = { type = industrial_complex level = 2 }
                         add_to_variable = { ROM.civslent@GRE = 2 }
-                        subtract_from_variable = { ROM.favor@GRE = 10 }  
+                        subtract_from_variable = { ROM.favor@GRE = 20 }  
                     }
                     else_if = {
                         limit = {
                             check_variable = { var = ROM.favor@GRE value = 80 compare = greater_than_or_equals }
                         }
-                        add_offsite_building = { type = industrial_complex level = 4 }
+                        add_offsite_building = { type = industrial_complex level = 3 }
                         add_to_variable = { ROM.civslent@GRE = 3 }
-                        subtract_from_variable = { ROM.favor@GRE = 15 }  
+                        subtract_from_variable = { ROM.favor@GRE = 30 }
                     }
 				}
-				if = { 
-					limit = { 
+				if = {
+					limit = {
 						country_exists = TUR
 						TUR = { has_opinion = { target = GRE value > 85 } } 
 					}
@@ -761,7 +732,7 @@ focus_tree = {
                         }
                         add_offsite_building = { type = industrial_complex level = 1 }
                         add_to_variable = { TUR.civslent@GRE = 1 }
-                        subtract_from_variable = { TUR.favor@GRE = 5 }
+                        subtract_from_variable = { TUR.favor@GRE = 10 }
                     }
                     else_if = {
                         limit = {
@@ -769,21 +740,21 @@ focus_tree = {
                         }
                         add_offsite_building = { type = industrial_complex level = 2 }
                         add_to_variable = { TUR.civslent@GRE = 2 }
-                        subtract_from_variable = { TUR.favor@GRE = 10 }  
+                        subtract_from_variable = { TUR.favor@GRE = 20 }  
                     }
                     else_if = {
                         limit = {
                             check_variable = { var = TUR.favor@GRE value = 80 compare = greater_than_or_equals }
                         }
-                        add_offsite_building = { type = industrial_complex level = 4 }
+                        add_offsite_building = { type = industrial_complex level = 3 }
                         add_to_variable = { TUR.civslent@GRE = 3 }
-                        subtract_from_variable = { TUR.favor@GRE = 15 }  
+                        subtract_from_variable = { TUR.favor@GRE = 30 }  
                     }
 				}
 				if = { 	
 					limit = { 
 						country_exists = CZE
-						CZE = { has_opinion = { target = GRE value > 85 } } 
+						CZE = { has_opinion = { target = GRE value > 85 } }
 					}
 					add_offsite_building = { type = industrial_complex level = 1 }
 				}
@@ -894,9 +865,8 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_STABILITY }
 		completion_reward = {
             add_political_power = 25
-			add_stability = -0.05
-            add_war_support = 0.04
-			add_ideas = limited_exports
+			add_stability = 0.02
+            add_war_support = 0.06
 		}
 	}		
 
@@ -1167,7 +1137,7 @@ focus_tree = {
                             check_variable = { var = THIS.favor@GRE value = 30 compare = greater_than_or_equals }
                             check_variable = { var = THIS.favor@GRE value = 50 compare = less_than }
                         }
-                        GRE = { add_offsite_building = { type = arms_factory level = 2 } }
+                        GRE = { add_offsite_building = { type = arms_factory level = 1 } }
                         subtract_from_variable = { THIS.favor@GRE = 10 }
                     }
                     else_if = {
@@ -1175,16 +1145,16 @@ focus_tree = {
                             has_opinion = { target = GRE value > 79 }  
                             check_variable = { var = THIS.favor@GRE value = 80 compare = less_than }
                         }
-                        GRE = { add_offsite_building = { type = arms_factory level = 3 } }
-                        subtract_from_variable = { THIS.favor@GRE = 15 }
+                        GRE = { add_offsite_building = { type = arms_factory level = 2 } }
+                        subtract_from_variable = { THIS.favor@GRE = 20 }
                     }
                     else_if = {
                         limit = {
                             has_opinion = { target = GRE value > 79 }  
                             check_variable = { var = THIS.favor@GRE value = 80 compare = greater_than_or_equals }
                         }
-                        GRE = { add_offsite_building = { type = arms_factory level = 4 } }
-                        subtract_from_variable = { THIS.favor@GRE = 20 }
+                        GRE = { add_offsite_building = { type = arms_factory level = 3 } }
+                        subtract_from_variable = { THIS.favor@GRE = 30 }
                     }
                 }
                 every_country = {
@@ -1199,7 +1169,7 @@ focus_tree = {
                         limit = {
                             has_opinion = { target = GRE value > 79 }  
                             check_variable = { var = THIS.favor@GRE value = 30 compare = greater_than_or_equals }
-                            check_variable = { var = THIS.favor@GRE value = 50 compare = less_than }
+                            check_variable = { var = THIS.favor@GRE value = 80 compare = less_than }
                         }
                         GRE = { add_offsite_building = { type = arms_factory level = 1 } }
                         subtract_from_variable = { THIS.favor@GRE = 10 }
@@ -1207,23 +1177,15 @@ focus_tree = {
                     else_if = {
                         limit = {
                             has_opinion = { target = GRE value > 79 }  
-                            check_variable = { var = THIS.favor@GRE value = 80 compare = less_than }
-                        }
-                        GRE = { add_offsite_building = { type = arms_factory level = 2 } }
-                        subtract_from_variable = { THIS.favor@GRE = 12.5 }
-                    }
-                    else_if = {
-                        limit = {
-                            has_opinion = { target = GRE value > 79 }  
                             check_variable = { var = THIS.favor@GRE value = 80 compare = greater_than_or_equals }
                         }
-                        GRE = { add_offsite_building = { type = arms_factory level = 3 } }
-                        subtract_from_variable = { THIS.favor@GRE = 15 }
+                        GRE = { add_offsite_building = { type = arms_factory level = 2 } }
+                        subtract_from_variable = { THIS.favor@GRE = 20 }
                     }
-                }    
-            }            
+                }
+            }
         }
-    }		
+    }
 
 	focus = {
 		id = GRE_rejuvenating_athens
@@ -1527,8 +1489,8 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY }
 		completion_reward = {
-			add_stability = 0.04
-            add_war_support = 0.04
+			add_stability = 0.02
+            add_war_support = 0.02
             swap_ideas = {
                 remove_idea = GRE_domestic_competition_1
                 add_idea = GRE_domestic_competition_2
@@ -1955,7 +1917,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-        
+            custom_effect_tooltip = GRE_elections_fun_tt
 		}
 	}
 
@@ -2047,15 +2009,6 @@ focus_tree = {
 
 		completion_reward = {
             unlock_decision_category_tooltip = GRE_kathestos_4hs
-            add_to_variable = { fct_mon = 5}   
-            subtract_from_variable = { fct_com = 7.5}
-            subtract_from_variable = { fct_dem = 7.5}
-            add_to_variable = { fct_fas = 2.5}
-            faction_gui_call = yes    
-            hidden_effect = { 
-                add_ideas = GRE_kotzias
-                add_ideas = GRE_diakos
-            }
 		}
 	}    
 
@@ -2119,6 +2072,14 @@ focus_tree = {
             hidden_effect = {
                 set_politics = { ruling_party = neutrality elections_allowed = yes }
                 clr_country_flag = GRE_faction_gui_flag
+				if = {
+					limit = {
+						NOT = { has_country_flag = GRE_first_arrest_wave }
+					}
+					add_to_variable = { GRE_var_int_ag_def = 0.025 }  
+            		add_to_variable = { GRE_var_enc_asf = 0.025 }   
+					add_to_variable = { amount_of_work_in_asfaleia = 1 } 
+				}
             }
             ####GRAND COALITION MODIFIER####
             add_dynamic_modifier = { modifier = GRE_grand_coalition_dynamic }
@@ -2180,52 +2141,6 @@ focus_tree = {
 
 		completion_reward = {
 			add_war_support = 0.02
-            hidden_effect = {
-				create_corps_commander = {
-					name = "Nikolaos Plastiras"
-					gfx = "GFX_portrait_gre_nikolaos_plastiras"
-					traits = { trait_GRE_venezelist_loyalist war_hero brilliant_strategist cavalry_officer cavalry_leader trickster } #V
-					skill = 4 #13
-					id = 301
-					attack_skill = 4
-					defense_skill = 4
-					planning_skill = 2
-					logistics_skill = 3
-				}
-				create_corps_commander = {
-					name = "Theodoros Pangalos"
-					gfx = "GFX_portrait_gre_theodoros_pangalos"
-					traits = { trait_GRE_venezelist_loyalist trait_GRE_fascist_sympathizer media_personality harsh_leader commando } #F+V
-					skill = 3 #10 
-					id = 302
-					attack_skill = 4
-					defense_skill = 2
-					planning_skill = 1
-					logistics_skill = 3
-				} 
-				create_corps_commander = {
-					name = "Dimitrios Psarros"
-					gfx = "GFX_portrait_gre_dimitrios_psarros"
-					traits = { trait_GRE_venezelist_loyalist war_hero trait_reckless trickster commando } #V
-					skill = 2 #7
-					id = 307
-					attack_skill = 2
-					defense_skill = 1
-					planning_skill = 2
-					logistics_skill = 2
-				}
-				create_corps_commander = {
-					name = "Napoleon Zervas"
-					gfx = "GFX_portrait_gre_napoleon_zervas" #V+F
-					traits = { trait_GRE_venezelist_loyalist trait_GRE_fascist_sympathizer harsh_leader trait_reckless commando }
-					skill = 3 #10
-					id = 309
-					attack_skill = 3
-					defense_skill = 3
-					planning_skill = 2
-					logistics_skill = 2
-				}            
-            }
 		}
 	}
 
@@ -2249,30 +2164,6 @@ focus_tree = {
 
 		completion_reward = {
 			add_war_support = 0.02
-            hidden_effect = {
-				create_corps_commander = {
-					name = "Markos Vafeiadis"
-					picture = "Portrait_Greece_Markos_Vafiadis.dds"
-					traits = { trait_GRE_marxist_acolyte politically_connected trait_reckless media_personality commando urban_assault_specialist } #C
-					skill = 3 #10
-					id = 305
-					attack_skill = 2
-					defense_skill = 2
-					planning_skill = 3
-					logistics_skill = 3
-				}
-				create_corps_commander = {
-					name = "Aris Velouchiotis"
-					gfx = "GFX_portrait_gre_aris_velouchiotis" #C
-					traits = { trait_GRE_marxist_acolyte harsh_leader brilliant_strategist trickster commando }
-					skill = 3 #10
-					id = 308
-					attack_skill = 4
-					defense_skill = 2
-					planning_skill = 2
-					logistics_skill = 2
-				}   
-            }
 		}
 	}
 
@@ -2474,7 +2365,8 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_stability = 0.04
+			add_stability = 0.02
+			add_war_support = 0.02
             add_dynamic_modifier = { modifier = GRE_yfipourgeio_asfaleias }
             unlock_decision_category_tooltip = GRE_kathestos_asfaleia
             custom_effect_tooltip = GRE_metaxas_plan_tt 
@@ -2505,11 +2397,13 @@ focus_tree = {
                 tooltip = GRE_fascistized_tt
                 NOT = { has_country_flag = GRE_fascistized } 
             }
+			NOT = { has_active_mission = GRE_comm_upr }
+			NOT = { has_active_mission = GRE_repub_upr }
 		}
 		x = -3
 		y = 1
 		relative_position_id = GRE_metaxas_military_affairs
-		cost = 2.9
+		cost = 4.30
 		ai_will_do = {
 			base = 1
 		}
@@ -2529,6 +2423,13 @@ focus_tree = {
             subtract_from_variable = { GRE_var_fact_ten = 0.25 }
             subtract_from_variable = { GRE_var_ll_ten = 0.5 }
             subtract_from_variable = { GRE_var_volun_ten = 0.5 }
+			if = {
+				limit = { has_idea = GRE_spartan_law }
+				swap_ideas = {
+					remove_idea = GRE_spartan_law
+					add_idea = GRE_spartan_law_2
+				}
+			}
 		}			
 	}
 
@@ -2550,7 +2451,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = GRE_an_orthodox_state
-		cost = 2.9
+		cost = 4.30
 		ai_will_do = {
 			base = 1
 		}
@@ -2577,6 +2478,13 @@ focus_tree = {
             #subtract_from_variable = { GRE_var_guar_ten = 1 }
             #subtract_from_variable = { GRE_var_badass_fct = -0.01 }
             #subtract_from_variable = { GRE_var_get_ally_fact = -100 }  
+			if = {
+				limit = { has_idea = GRE_spartan_law_2 }
+				swap_ideas = {
+					remove_idea = GRE_spartan_law_2
+					add_idea = GRE_spartan_law_3
+				}
+			}
 		}
 	}
 
@@ -2598,7 +2506,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = GRE_third_hellenic_civilization
-		cost = 2.9
+		cost = 4.30
 		ai_will_do = {
 			base = 1
 		}
@@ -2625,6 +2533,21 @@ focus_tree = {
             #subtract_from_variable = { GRE_var_guar_ten = 1 }
             #subtract_from_variable = { GRE_var_badass_fct = -0.01 }
             #subtract_from_variable = { GRE_var_get_ally_fact = -100 }  
+			if = {
+				limit = { has_idea = GRE_spartan_law_3 }
+				swap_ideas = {
+					remove_idea = GRE_spartan_law_3
+					add_idea = GRE_spartan_law_4
+				}
+			}
+			if = {
+				limit = { has_idea = GRE_republicans_utterly_crushed }
+				remove_ideas = GRE_republicans_utterly_crushed
+			}
+			if = {
+				limit = { has_idea = GRE_communists_utterly_crushed }
+				remove_ideas = GRE_communists_utterly_crushed
+			}
 		}
 	}
 
@@ -2646,7 +2569,7 @@ focus_tree = {
 		x = 0
 		y = 1
 		relative_position_id = GRE_defending_our_kingdom
-		cost = 2.9
+		cost = 4.30
 		ai_will_do = {
 			base = 1
 		}
@@ -2672,6 +2595,10 @@ focus_tree = {
             subtract_from_variable = { GRE_var_badass_fct = 0.01 }
             add_to_variable = { GRE_var_get_ally_fact = 100 } 
             set_country_flag = GRE_metaxism_completed
+			if = {
+				limit = { has_idea = GRE_spartan_law_4 }
+				remove_ideas = GRE_spartan_law_4
+			}
 		}
 	} 
 
@@ -2935,7 +2862,7 @@ focus_tree = {
 
 		completion_reward = {
             custom_effect_tooltip = GRE_domestic_policy_tt
-			add_stability = 0.05
+			add_stability = 0.02
             if = {
                 limit = {
                     check_variable = { var = GRE_ark value = 0 compare = equals }
@@ -3063,6 +2990,10 @@ focus_tree = {
 		completion_reward = {
             add_ideas = GRE_IKA
             ###FACTION MECHANICS###
+            set_temp_variable = { tmp_dem = 3.5 }
+            set_temp_variable = { tmp_com = 3.5 }
+			set_temp_variable = { tmp_fas = 3.5 }
+			set_temp_variable = { tmp_mon = 3.5 }
             randomize_temp_variable = {
                 var = tmp_dem
                 distribution = uniform
@@ -3086,7 +3017,7 @@ focus_tree = {
                 distribution = uniform
                 min = 2
                 max = 5
-            }               
+            }
             add_to_variable = { fct_dem = tmp_dem}
             add_to_variable = { fct_com = tmp_com}
             add_to_variable = { fct_fas = tmp_fas}  
@@ -3094,10 +3025,10 @@ focus_tree = {
             faction_gui_call = yes
             custom_effect_tooltip = "            "
             custom_effect_tooltip = fact_inf_tt 
-            custom_effect_tooltip = dem_great_tt 
-            custom_effect_tooltip = com_great_tt 
-            custom_effect_tooltip = fas_great_tt
-            custom_effect_tooltip = mon_great_tt 
+            custom_effect_tooltip = dem_fct_imp_tt 
+            custom_effect_tooltip = com_fct_imp_tt 
+            custom_effect_tooltip = fas_fct_imp_tt
+            custom_effect_tooltip = mon_fct_imp_tt 
             ######            
 		}
 	}
@@ -3147,7 +3078,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_stability = 0.05
+			add_stability = 0.04
             add_ideas = GRE_new_corporatism
 		}
 	}    
@@ -3218,11 +3149,8 @@ focus_tree = {
 			base = 1
 		}
 
-		select_effect = {
-		}
-
 		completion_reward = {
-        custom_effect_tooltip = GRE_courting_the_superpowers_tt   
+        	custom_effect_tooltip = GRE_courting_the_superpowers_tt   
 		}
 	} 
 
@@ -3241,11 +3169,11 @@ focus_tree = {
 			base = 1
 		}
 
-		select_effect = {
-		}
-
 		completion_reward = {
-			add_stability = 0.01
+			custom_effect_tooltip = GRE_allied_courting_tt
+			add_to_variable = { ENG.favor@GRE = 5 }
+			add_to_variable = { FRA.favor@GRE = 5 }
+			add_to_variable = { USA.favor@GRE = 5 }
 		}
 	}
 
@@ -3264,11 +3192,9 @@ focus_tree = {
 			base = 1
 		}
 
-		select_effect = {
-		}
-
 		completion_reward = {
-			add_stability = 0.01
+			custom_effect_tooltip = GRE_german_courting_tt
+			add_to_variable = { GER.favor@GRE = 5 }
 		}
 	}
 
@@ -3287,11 +3213,9 @@ focus_tree = {
 			base = 1
 		}
 
-		select_effect = {
-		}
-
 		completion_reward = {
-			add_stability = 0.01
+			custom_effect_tooltip = GRE_soviet_courting_tt
+			add_to_variable = { SOV.favor@GRE = 5 }
 		}
 	}    
 	focus = {
@@ -3314,6 +3238,9 @@ focus_tree = {
 
 		completion_reward = {
 			custom_effect_tooltip = GRE_the_balkan_pact_tt
+			add_to_variable = { TUR.favor@GRE = 5 }
+			add_to_variable = { ROM.favor@GRE = 5 }
+			add_to_variable = { YUG.favor@GRE = 5 }
 		}
 	}    
     
@@ -3439,7 +3366,6 @@ focus_tree = {
         }
 
 		completion_reward = {
-			add_stability = 0.1
 		}
 	}
     
@@ -4679,15 +4605,15 @@ focus_tree = {
             set_temp_variable = { bb = 0}
             set_temp_variable = { bc = 0}
             set_temp_variable = { bd = 0}
-            set_temp_variable = { be = 0.05}
-            set_temp_variable = { bf = 0.05}
-            set_temp_variable = { bg = -0.02}
-            set_temp_variable = { bh = 0.2}
+            set_temp_variable = { be = 0.02}
+            set_temp_variable = { bf = 0.02}
+            set_temp_variable = { bg = -0.01}
+            set_temp_variable = { bh = 0.1}
             set_temp_variable = { bi = 0}
             set_temp_variable = { bj = 12}
             set_temp_variable = { bk = -0.1}
-            set_temp_variable = { bl = -0.1}
-            set_temp_variable = { bm = -0.1}
+            set_temp_variable = { bl = -0.04}
+            set_temp_variable = { bm = -0.02}
             set_temp_variable = { bn = 0}
             set_temp_variable = { bo = 0.1}            
             if = {
@@ -4756,7 +4682,8 @@ focus_tree = {
             add_to_variable = { GRE_var_recfact = bo }
             ###################[ FOCUS BASED BONUSES ]##########################
             add_timed_idea = { idea = GRE_ochi_timed  days = 21 }
-            add_to_variable = { GRE_var_skill_bon = 0.05 }
+            add_to_variable = { GRE_var_skill_bon = 0.02 }
+			add_to_variable = { GRE_var_night_attack = 0.02}
             hidden_effect = { country_event = { id = hellas.101 days = 0 } }
             unlock_decision_category_tooltip = GRE_grecoitalian_war_category
 		}
@@ -4808,10 +4735,10 @@ focus_tree = {
 		completion_reward = {
             
 			add_to_variable = { GRE_var_no_supply_grace = 4 }
-            add_to_variable = { GRE_var_winter_attr = -0.05 }
-            add_to_variable = { GRE_var_cold_acc = 0.05 }
+            add_to_variable = { GRE_var_winter_attr = -0.015 }
+            add_to_variable = { GRE_var_cold_acc = 0.02 }
 		}
-	} 
+	}
 
 	focus = {
 		id = GRE_entrenching
@@ -4837,8 +4764,8 @@ focus_tree = {
             add_to_variable = { GRE_var_dig_in = 0.15 }
             add_to_variable = { GRE_var_max_dig_in = 0.05 }
 			add_to_variable = { GRE_var_no_supply_grace = 4 }
-            add_to_variable = { GRE_var_winter_attr = -0.05 }
-            add_to_variable = { GRE_var_cold_acc = 0.05 }
+            add_to_variable = { GRE_var_winter_attr = -0.015 }
+            add_to_variable = { GRE_var_cold_acc = 0.02 }
             add_to_variable = { GRE_var_recon = 0.05 }
 		}
 	}   
@@ -4865,8 +4792,7 @@ focus_tree = {
         }
 
 		completion_reward = {
-            
-            add_ideas = GRE_tur_guar
+			add_timed_idea = { idea = GRE_tur_guar  days = 180 }
 		}
 	} 
 
@@ -4922,11 +4848,11 @@ focus_tree = {
             custom_effect_tooltip = GRE_army_organized_tt
             add_to_variable = { GRE_var_max_cp = 20 }
             add_to_variable = { GRE_var_cp_gain = 0.1 }
-            add_to_variable = { GRE_var_max_plan = 0.1 }
-            add_to_variable = { GRE_var_org_loss = -0.04 }
+            add_to_variable = { GRE_var_max_plan = 0.05 }
+            add_to_variable = { GRE_var_org_loss = -0.02 }
             add_to_variable = { GRE_var_dig_in = 0.15 }
             add_to_variable = { GRE_var_no_supply_grace = 4 }
-            add_to_variable = { GRE_var_supply_consumption = -0.1 }
+            add_to_variable = { GRE_var_supply_consumption = -0.03 }
 		}
 	} 
 
@@ -7679,7 +7605,24 @@ focus_tree = {
                     interwar_antitank = 1
                 }                
             }
-            country_event = { id = hellas.401 days = 0}        
+            country_event = { id = hellas.401 days = 0}
+            hidden_effect = {
+                if = {
+                    limit = { any_army_leader = { has_trait = gre_artillery_officer assigned_has_unpreparedness_level = yes } }
+                    random_army_leader = {
+                        limit = { has_trait = gre_artillery_officer assigned_has_unpreparedness_level = yes }
+                        reduce_unpreparedness = yes
+                    }
+                }
+                else = {
+                    random_army_leader = {
+                        limit = { has_trait = gre_artillery_officer has_unpreparedness_level = yes }
+                        reduce_unpreparedness = yes
+                    }
+                }
+            }
+            custom_effect_tooltip = train_one_assigned_artillery_officer_tt
+            custom_effect_tooltip = train_assigned_generals_disclaimer_tt
 		}
 	}
 
@@ -7702,7 +7645,27 @@ focus_tree = {
                 set_technology = { 
                     interwar_antitank = 1
                 }                
-            }          
+            }
+            hidden_effect = {
+                if = {
+                    limit = { any_army_leader = { has_trait = infantry_officer assigned_has_unpreparedness_level = yes } }
+                    random_army_leader = {
+                        limit = { assigned_has_unpreparedness_level = yes }
+                        reduce_unpreparedness = yes
+                        add_attack = 1
+                    }
+                }
+                else = {
+                    random_army_leader = {
+                        limit = { has_trait = infantry_officer has_unpreparedness_level = yes }
+                        reduce_unpreparedness = yes
+                        add_attack = 1
+                    }
+                }
+            }
+            custom_effect_tooltip = train_one_assigned_infantry_officer_tt
+            custom_effect_tooltip = train_one_bonus_attack
+            custom_effect_tooltip = train_assigned_generals_disclaimer_tt                
 		}
 	}
 
@@ -7725,7 +7688,27 @@ focus_tree = {
                 set_technology = { 
                     interwar_antitank = 1
                 }                
-            }          
+            }
+            hidden_effect = {
+                if = {
+                    limit = { any_army_leader = { assigned_has_unpreparedness_level = yes } }
+                    random_army_leader = {
+                        limit = { assigned_has_unpreparedness_level = yes }
+                        reduce_unpreparedness = yes
+                        add_logistics = 1
+                    }
+                }
+                else = {
+                    random_army_leader = {
+                        limit = { has_unpreparedness_level = yes }
+                        reduce_unpreparedness = yes
+                        add_logistics = 1
+                    }
+                }
+            }
+            custom_effect_tooltip = train_one_assigned_general_tt
+            custom_effect_tooltip = train_one_bonus_logistics
+            custom_effect_tooltip = train_assigned_generals_disclaimer_tt            
 		}
 	}
 
@@ -7769,6 +7752,22 @@ focus_tree = {
 
 		completion_reward = {
             remove_ideas = GRE_army_leadership_0
+            hidden_effect = {
+                every_army_leader = {
+                    limit = { has_unpreparedness_level = yes is_junior_general = yes }
+                    random_list = {
+                        50 = {
+                            reduce_unpreparedness = yes
+                            if = {
+                                limit = { skill < 1 }
+                                add_skill_level = 1
+                            }
+                        }
+                        50 = { }
+                    }
+                }
+            }
+            custom_effect_tooltip = GRE_the_army_tt
 		}
 	}
 
@@ -7780,6 +7779,10 @@ focus_tree = {
             custom_trigger_tooltip = {
                 tooltip = GRE_budget_left_tt
                 check_variable = { var = GRE_budget_choices value = 0 compare = greater_than } 
+            }
+            custom_trigger_tooltip = {
+                tooltip = prepared_at_least_15_tt
+                check_variable = { var = preparedness_level value = 0.15 compare = greater_than_or_equals }
             }
         }
         relative_position_id = GRE_the_army
@@ -7808,6 +7811,10 @@ focus_tree = {
             custom_trigger_tooltip = {
                 tooltip = GRE_budget_left_tt
                 check_variable = { var = GRE_budget_choices value = 0 compare = greater_than } 
+            }
+            custom_trigger_tooltip = {
+                tooltip = prepared_at_least_75_tt
+                check_variable = { var = preparedness_level value = 0.75 compare = greater_than_or_equals }
             }
             custom_trigger_tooltip = {
                 tooltip = GRE_favor_at_least_great_tt
@@ -7842,6 +7849,10 @@ focus_tree = {
             custom_trigger_tooltip = {
                 tooltip = GRE_budget_left_tt
                 check_variable = { var = GRE_budget_choices value = 0 compare = greater_than } 
+            }
+            custom_trigger_tooltip = {
+                tooltip = prepared_at_least_100_tt
+                check_variable = { var = preparedness_level value = 1 compare = greater_than_or_equals }
             }
         }
         relative_position_id = GRE_modernize_the_army
@@ -7891,6 +7902,10 @@ focus_tree = {
                 tooltip = GRE_budget_left_tt
                 check_variable = { var = GRE_budget_choices value = 0 compare = greater_than } 
             }
+            custom_trigger_tooltip = {
+                tooltip = prepared_at_least_50_tt
+                check_variable = { var = preparedness_level value = 0.50 compare = greater_than_or_equals }
+            }
         }
         relative_position_id = GRE_heavy_equipment
 		x = 1
@@ -7917,6 +7932,10 @@ focus_tree = {
             custom_trigger_tooltip = {
                 tooltip = GRE_budget_left_tt
                 check_variable = { var = GRE_budget_choices value = 0 compare = greater_than } 
+            }
+            custom_trigger_tooltip = {
+                tooltip = prepared_at_least_80_tt
+                check_variable = { var = preparedness_level value = 0.80 compare = greater_than_or_equals }
             }
         }
         relative_position_id = GRE_entrenchment
@@ -8327,6 +8346,10 @@ focus_tree = {
         relative_position_id = GRE_seek_additional_deals
         available = {
             date > 1939.1.1
+            custom_trigger_tooltip = {
+                tooltip = prepared_at_least_75_tt
+                check_variable = { var = preparedness_level value = 0.75 compare = greater_than_or_equals }
+            }
         }
 		x = 0
 		y = 3

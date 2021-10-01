@@ -1,0 +1,1685 @@
+# Allows you to create your own dynamic keys
+# to be called in localization.
+# defined_text -> this is it, we're defining the text
+# text -> a discrete entry that can be picked to display in loc.
+# trigger -> determines if a text entry will be picked or not.
+# (The triggers need to be valid for the scope the key is called in
+# (eg Root or From.From).)
+# localization_key -> points to the localization key
+# that'll be used if trigger passes
+
+
+########################################################################################################################################################################################################
+################################################################[																	   ]################################################################
+################################################################[				              HELLENIC STATE 						   ]################################################################
+################################################################[                              SCRIPTED LOC.                           ]################################################################
+################################################################[																	   ]################################################################
+################################################################[																	   ]################################################################
+########################################################################################################################################################################################################
+
+defined_text = {
+    name = GetPopupText
+    text = {
+        trigger = {
+            NOT = { has_global_flag = allow_info_popups }
+        }
+        localization_key = allow_info_popups_on_states_1
+    } 
+    text = {
+        trigger = {
+            has_global_flag = allow_info_popups
+        }
+        localization_key = allow_info_popups_on_states_2
+    } 
+}
+
+defined_text = {
+    name = GetELASequipment
+    text = {
+        trigger = {
+            check_variable = { GRE.elas_manpower < 500 }
+        }
+        localization_key = GRE_inconsequencial_numbers
+    } 
+}
+
+defined_text = {
+    name = GetEDESequipment
+    text = {
+        trigger = {
+            check_variable = { GRE.edes_manpower < 500 }
+        }
+        localization_key = GRE_inconsequencial_numbers
+    } 
+}
+
+defined_text = {
+    name = GetELASmanpower
+    text = {
+        trigger = {
+            check_variable = { GRE.elas_manpower > 499 }
+        }
+        localization_key = GRE_elas_number
+    } 
+    text = {
+        trigger = {
+            check_variable = { GRE.elas_manpower < 500 }
+        }
+        localization_key = GRE_inconsequencial_numbers
+    } 
+}
+
+defined_text = {
+    name = GetEDESmanpower
+    text = {
+        trigger = {
+            check_variable = { GRE.edes_manpower > 499 }
+        }
+        localization_key = GRE_edes_number
+    } 
+    text = {
+        trigger = {
+            check_variable = { GRE.edes_manpower < 500 }
+        }
+        localization_key = GRE_inconsequencial_numbers
+    } 
+}
+
+defined_text = {
+    name = GetExiledStrengthStatus
+    text = {
+        trigger = {
+            check_variable = { GRE.exiled_government_strength > 89 }
+            GRE = { has_completed_focus = GRE_legitimize_the_government }
+        }
+        localization_key = GRE_egs_vhigh
+    } 
+    text = {
+        trigger = {
+            check_variable = { GRE.exiled_government_strength > 74 }
+            GRE = { has_completed_focus = GRE_legitimize_the_government }
+        }
+        localization_key = GRE_egs_high
+    } 
+    text = {
+        trigger = {
+            check_variable = { GRE.exiled_government_strength > 49 }
+            GRE = { has_completed_focus = GRE_legitimize_the_government }
+        }
+        localization_key = GRE_egs_medium
+    } 
+    text = {
+        trigger = {
+            check_variable = { GRE.exiled_government_strength > 24 }
+            GRE = { has_completed_focus = GRE_legitimize_the_government }
+        }
+        localization_key = GRE_egs_limited
+    } 
+    text = {
+        trigger = {
+            check_variable = { GRE.exiled_government_strength < 25 }
+            GRE = { has_completed_focus = GRE_legitimize_the_government }
+        }
+        localization_key = GRE_egs_ne
+    } 
+    text = {
+        trigger = {
+            GRE = { NOT = { has_completed_focus = GRE_legitimize_the_government } }
+        }
+        localization_key = GRE_egs_xxx
+    } 
+}
+
+defined_text = {
+    name = GetHSResearchStatus
+    text = {
+        trigger = {
+            event_target:hellenic_state = { has_idea = HS_occupation_costs }
+        }
+        localization_key = HS_research_disabled_tt
+    }
+}
+
+defined_text = {
+    name = GetStateFamineLevel
+    text = {
+        trigger = {
+            state = 182
+            GRE = { has_completed_focus = GRE_crete_holds }
+        }
+        localization_key = state_danger_crete
+    } 
+    text = {
+        trigger = {
+            check_variable = { THIS.famine_level > 8 }
+        }
+        localization_key = state_danger_level_supreme_tt
+    }
+    text = {
+        trigger = {
+            check_variable = { THIS.famine_level > 6 }
+            check_variable = { THIS.famine_level < 9 }
+        }
+        localization_key = state_danger_level_severe_tt
+    } 
+    text = {
+        trigger = {
+            check_variable = { THIS.famine_level > 4 }
+            check_variable = { THIS.famine_level < 7 }
+        }
+        localization_key = state_danger_level_serious_tt
+    } 
+    text = {
+        trigger = {
+            check_variable = { THIS.famine_level > 2 }
+            check_variable = { THIS.famine_level < 5 }
+        }
+        localization_key = state_danger_level_growing_tt
+    } 
+    text = {
+        trigger = {
+            check_variable = { THIS.famine_level > 0 }
+            check_variable = { THIS.famine_level < 2 }
+        }
+        localization_key = state_danger_level_low_tt
+    } 
+    text = {
+        trigger = {
+            check_variable = { THIS.famine_level < 0 }
+        }
+        localization_key = state_danger_level_not_surfaced_tt
+    } 
+}
+
+defined_text = {
+    name = GetFamineLosses
+    text = {
+        trigger = {
+            check_variable = { GRE.total_lost_to_famine > 349999 }
+        }
+        localization_key = famine_losses_absurd
+    } 
+    text = {
+        trigger = {
+            check_variable = { GRE.total_lost_to_famine > 149999 }
+            check_variable = { GRE.total_lost_to_famine < 350000 }
+        }
+        localization_key = famine_losses_high
+    } 
+    text = {
+        trigger = {
+            check_variable = { GRE.total_lost_to_famine < 150000 }
+        }
+        localization_key = famine_losses_medium
+    }     
+}
+
+########################################################################################################################################################################################################
+################################################################[																	   ]################################################################
+################################################################[				              GAME OF SHADOWS 						   ]################################################################
+################################################################[                              SCRIPTED LOC.                           ]################################################################
+################################################################[																	   ]################################################################
+################################################################[																	   ]################################################################
+########################################################################################################################################################################################################
+
+defined_text = {
+    name = GetGOStitle
+    text = {
+        trigger = {
+            has_country_flag = gos_default
+        }
+        localization_key = GoS_default_title
+    } 
+    text = {
+        trigger = {
+            has_country_flag = gos_allowed_divisions
+        }
+        localization_key = GoS_allowed_divisions_title
+    }  
+    text = {
+        trigger = {
+            has_country_flag = gos_agency_cooperation
+        }
+        localization_key = GoS_agency_cooperation_title
+    }
+    text = {
+        trigger = {
+            has_country_flag = gos_bulgarian_dillema
+        }
+        localization_key = GoS_bulgarian_dillema_title
+    }
+}
+
+defined_text = {
+    name = GetGOSinfo
+    text = {
+        trigger = {
+            has_country_flag = gos_default
+        }
+        localization_key = GoS_default_info
+    } 
+    text = {
+        trigger = {
+            has_country_flag = gos_allowed_divisions
+        }
+        localization_key = GoS_allowed_divisions_info
+    }
+    text = {
+        trigger = {
+            has_country_flag = gos_agency_cooperation
+        }
+        localization_key = GoS_agency_cooperation_info
+    }
+    text = {
+        trigger = {
+            has_country_flag = gos_bulgarian_dillema
+        }
+        localization_key = GoS_bulgarian_dillema_info
+    }
+}
+
+defined_text = {
+    name = GetGOSrequirements
+    text = {
+        trigger = {
+            has_country_flag = gos_default
+        }
+        localization_key = GoS_default_requirements
+    } 
+    text = {
+        trigger = {
+            has_country_flag = gos_allowed_divisions
+        }
+        localization_key = GoS_allowed_divisions_requirements
+    }
+    text = {
+        trigger = {
+            has_country_flag = gos_agency_cooperation
+        }
+        localization_key = GoS_agency_cooperation_requirements
+    }
+    text = {
+        trigger = {
+            has_country_flag = gos_bulgarian_dillema
+        }
+        localization_key = GoS_bulgarian_dillema_requirements
+    }
+}
+
+defined_text = {
+    name = GetGOSoutcome
+    text = {
+        trigger = {
+            has_country_flag = gos_default
+        }
+        localization_key = GoS_default_outcome
+    } 
+    text = {
+        trigger = {
+            has_country_flag = gos_allowed_divisions
+        }
+        localization_key = [GetMaxDivisions]
+    }
+    text = {
+        trigger = {
+            has_country_flag = gos_agency_cooperation
+        }
+        localization_key = GoS_agency_cooperation_outcome
+    }
+    text = {
+        trigger = {
+            has_country_flag = gos_bulgarian_dillema
+        }
+        localization_key = GoS_bulgarian_dillema_outcome
+    }
+}
+
+defined_text = {
+    name = GetFamineStatusInCategory
+    text = {
+        trigger = {
+            has_global_flag = GRE_famine_started
+        }
+        localization_key = GRE_hellenic_state_category_additional
+    }
+}
+
+########################################################################################################################################################################################################
+################################################################[																	   ]################################################################
+################################################################[				                  GENERAL    						   ]################################################################
+################################################################[                              SCRIPTED LOC.                           ]################################################################
+################################################################[																	   ]################################################################
+################################################################[																	   ]################################################################
+########################################################################################################################################################################################################
+
+
+
+#####################################################################################################
+#######################[Reveal factories granted by bedrock/subsid depending ]#######################
+#####################################################################################################
+
+defined_text = {
+    name = GetSubsidizedIntel
+    text = {
+        trigger = {
+            has_completed_focus = GRE_a_game_of_shadows
+        }
+        localization_key = GRE_subsidized_factories_tt
+    } 
+    text = {
+        trigger = {
+            NOT = { has_completed_focus = GRE_a_game_of_shadows }
+        }
+        localization_key = GRE_no_intel_tt
+    }     
+}
+
+defined_text = {
+    name = GetBedrockIntel
+    text = {
+        trigger = {
+            has_completed_focus = GRE_a_game_of_shadows
+        }
+        localization_key = GRE_bedrock_factories_tt
+    } 
+    text = {
+        trigger = {
+            NOT = { has_completed_focus = GRE_a_game_of_shadows }
+        }
+        localization_key = GRE_no_intel_tt
+    }     
+}
+
+defined_text = {
+    name = GetMobilizeIntel
+    text = {
+        trigger = {
+            has_completed_focus = GRE_a_game_of_shadows
+        }
+        localization_key = GRE_mob_factories_tt
+    } 
+    text = {
+        trigger = {
+            NOT = { has_completed_focus = GRE_a_game_of_shadows }
+        }
+        localization_key = GRE_no_intel_tt
+    }     
+}
+
+#####################################################################################################
+#####################################################################################################
+#####################################################################################################
+
+defined_text = { 
+    name = GetMaxDivisions
+    text = {
+        trigger = {
+        check_variable = { var = GRE.network_national_coverage@ITA value = 35 compare = greater_than_or_equals }
+        }
+        localization_key = GoS_allowed_divisions_outcome
+    } 
+    text = {
+        trigger = {
+        check_variable = { var = GRE.network_national_coverage@ITA value = 35 compare = less_than }
+        }
+        localization_key = "    Insufficient Intel Acquired..."
+    }     
+}
+
+
+
+defined_text = { 
+    name = GetAdditionalArmyEffects
+    text = {
+        trigger = {
+            has_idea = GRE_obsolescent_dogma
+            has_idea = GRE_complete_lack_of_heavy_equipment
+        }
+        localization_key = GRE_both_effects_addon
+    }
+    text = {
+        trigger = {
+            has_idea = GRE_obsolescent_dogma
+            NOT = { has_completed_focus = GRE_entrenchment }
+        }
+        localization_key = GRE_dogma_effect_addon
+    }    
+    text = {
+        trigger = {
+            has_idea = GRE_complete_lack_of_heavy_equipment
+        }
+        localization_key = GRE_heavy_equipment_effect_addon
+    }
+    text = {
+        trigger = {
+            has_idea = GRE_obsolescent_dogma
+            has_completed_focus = GRE_entrenchment
+            NOT = { has_tech = GRE_infantry_tactics }
+        }
+        localization_key = GRE_taktiki_dogma_effect_addon
+    }
+    text = {
+        trigger = {
+            has_idea = GRE_obsolescent_dogma
+            has_completed_focus = GRE_entrenchment
+            has_tech = GRE_infantry_tactics
+        }
+        localization_key = GRE_taktikes_dogma_effect_addon
+    }
+    text = {
+        trigger = {
+            NOT = { has_idea = GRE_obsolescent_dogma }
+            has_completed_focus = GRE_entrenchment
+            NOT = { has_tech = GRE_infantry_tactics }
+        }
+        localization_key = GRE_taktiki_effect_addon
+    }
+    text = {
+        trigger = {
+            NOT = { has_idea = GRE_obsolescent_dogma }
+            has_completed_focus = GRE_entrenchment
+            has_tech = GRE_infantry_tactics
+        }
+        localization_key = GRE_taktikes_effect_addon
+    }
+    text = {
+        trigger = {
+        NOT = { has_idea = GRE_obsolescent_dogma }
+        NOT = { has_idea = GRE_complete_lack_of_heavy_equipment }
+        NOT = { has_completed_focus = GRE_entrenchment }
+        NOT = { has_tech = GRE_infantry_tactics }
+        }
+        localization_key = ""
+    }     
+}
+
+defined_text = { 
+    name = GetArmyPreparednessLevel
+    text = {
+        trigger = {
+        	check_variable = { GRE.preparedness_level < 1 }
+        }
+        localization_key = GRE_current_army_preparedness_level
+    }
+    text = {
+        trigger = {
+        	check_variable = { GRE.preparedness_level > 0.999 }
+        }
+        localization_key = GRE_max_army_preparedness_level
+    }    
+}
+
+defined_text = { 
+    name = GetArmyLeadershipStatus
+    text = {
+        trigger = {
+        has_idea = GRE_army_leadership_0	
+        }
+        localization_key = GRE_army_leadership_0_addon
+    }
+    text = {
+        trigger = {
+        NOT = { has_idea = GRE_army_leadership_0 }
+        }
+        localization_key = ""
+    }    
+}
+
+defined_text = { 
+    name = GetAirforceLeadershipStatus
+    text = {
+        trigger = {
+        has_idea = GRE_airforce_leadership_0	
+        }
+        localization_key = GRE_airforce_leadership_0_addon
+    }
+    text = {
+        trigger = {
+        NOT = { has_idea = GRE_airforce_leadership_0 }
+        }
+        localization_key = ""
+    }    
+}
+
+defined_text = { 
+    name = GetNavyLeadershipStatus
+    text = {
+        trigger = {
+        has_idea = GRE_navy_leadership_0	
+        }
+        localization_key = ""#GRE_navy_leadership_0_addon
+    }
+    text = {
+        trigger = {
+        NOT = { has_idea = GRE_navy_leadership_0 }
+        }
+        localization_key = ""
+    }    
+}
+
+defined_text = { 
+    name = GetArmyStatus
+    text = {
+        trigger = {
+        has_idea = GRE_army_status_0	
+        }
+        localization_key = GRE_army_status_0_addon
+    }
+    text = {
+        trigger = {
+        has_idea = GRE_army_status_1	
+        }
+        localization_key = GRE_army_status_1_addon
+    }
+    text = {
+        trigger = {
+        has_idea = GRE_army_status_2	
+        }
+        localization_key = GRE_army_status_2_addon
+    }
+    text = {
+        trigger = {
+        has_idea = GRE_army_status_3	
+        }
+        localization_key = GRE_army_status_3_addon
+    }
+    text = {
+        trigger = {
+        has_idea = GRE_army_status_4	
+        }
+        localization_key = GRE_army_status_4_addon
+    }   
+}    
+
+defined_text = { 
+    name = GetAirforceStatus
+    text = {
+        trigger = {
+        has_idea = GRE_airforce_status_0	
+        }
+        localization_key = GRE_airforce_status_0_addon
+    }
+    text = {
+        trigger = {
+        has_idea = GRE_airforce_status_1	
+        }
+        localization_key = GRE_airforce_status_1_addon
+    }
+    text = {
+        trigger = {
+        has_idea = GRE_airforce_status_2	
+        }
+        localization_key = GRE_airforce_status_2_addon
+    }
+    text = {
+        trigger = {
+        has_idea = GRE_airforce_status_3	
+        }
+        localization_key = GRE_airforce_status_3_addon
+    }
+    text = {
+        trigger = {
+        has_idea = GRE_airforce_status_4	
+        }
+        localization_key = GRE_airforce_status_4_addon
+    }
+
+}    
+
+defined_text = { 
+    name = GetNavyStatus
+    text = {
+        trigger = {
+        has_idea = GRE_navy_status_0	
+        }
+        localization_key = GRE_navy_status_0_addon
+    }
+    text = {
+        trigger = {
+        has_idea = GRE_navy_status_1	
+        }
+        localization_key = GRE_navy_status_1_addon
+    }
+    text = {
+        trigger = {
+        has_idea = GRE_navy_status_2	
+        }
+        localization_key = GRE_navy_status_2_addon
+    }
+}   
+
+
+
+########################################################################################################################################################################################################
+################################################################[																	   ]################################################################
+################################################################[				            INFLUENCE & FACTION 					   ]################################################################
+################################################################[                              SCRIPTED LOC.                           ]################################################################
+################################################################[                    							                       ]################################################################
+################################################################[																	   ]################################################################
+########################################################################################################################################################################################################
+defined_text = {
+    name = GetFavorHit
+	text = {
+        trigger = {
+        	check_variable = { var = findY value = 10 compare = greater_than_or_equals }
+        }
+        localization_key = boost_superb
+    }
+	text = {
+        trigger = {
+			check_variable = { var = findY value = 10 compare = less_than }
+        	check_variable = { var = findY value = 8 compare = greater_than_or_equals }
+        }
+        localization_key = boost_great
+    }
+	text = {
+        trigger = {
+			check_variable = { var = findY value = 8 compare = less_than }
+        	check_variable = { var = findY value = 6 compare = greater_than_or_equals }
+        }
+        localization_key = boost_good
+    }
+	text = {
+        trigger = {
+			check_variable = { var = findY value = 6 compare = less_than }
+        	check_variable = { var = findY value = 4 compare = greater_than_or_equals }
+        }
+        localization_key = boost_considerable
+    }
+	text = {
+        trigger = {
+			check_variable = { var = findY value = 4 compare = less_than }
+        	check_variable = { var = findY value = 2 compare = greater_than_or_equals }
+        }
+        localization_key = boost_adequate
+    }
+	text = {
+        trigger = {
+			check_variable = { var = findY value = 2 compare = less_than }
+        	check_variable = { var = findY value = 0 compare = greater_than }
+        }
+        localization_key = boost_slight
+    }
+	text = {
+        trigger = {
+        	check_variable = { var = findY value = 0 compare = equals }
+        }
+        localization_key = boost_insignificant
+    }
+	text = {
+        trigger = {
+			check_variable = { var = findY value = 0 compare = less_than }
+        	check_variable = { var = findY value = -2 compare = greater_than }
+        }
+        localization_key = hit_slight
+    }
+	text = {
+        trigger = {
+			check_variable = { var = findY value = -2 compare = less_than_or_equals }
+        	check_variable = { var = findY value = -4 compare = greater_than }
+        }
+        localization_key = hit_detrimental
+    }
+	text = {
+        trigger = {
+			check_variable = { var = findY value = -4 compare = less_than_or_equals }
+        	check_variable = { var = findY value = -6 compare = greater_than }
+        }
+        localization_key = hit_considerable
+    }
+	text = {
+        trigger = {
+			check_variable = { var = findY value = -6 compare = less_than_or_equals }
+        	check_variable = { var = findY value = -8 compare = greater_than }
+        }
+        localization_key = hit_shattering
+    }
+	text = {
+        trigger = {
+			check_variable = { var = findY value = -8 compare = less_than_or_equals }
+        	check_variable = { var = findY value = -10 compare = greater_than }
+        }
+        localization_key = hit_catastrophic
+    }
+}
+
+defined_text = {
+    name = GetFavorTMPZ
+	text = {
+        trigger = {
+        	check_variable = { var = ftmpZ value = 95 compare = greater_than_or_equals }
+        }
+        localization_key = GRE_favor_supreme
+    }
+	text = {
+        trigger = {
+			check_variable = { var = ftmpZ value = 95 compare = less_than }
+        	check_variable = { var = ftmpZ value = 90 compare = greater_than_or_equals }
+        }
+        localization_key = GRE_favor_unequivocal
+    }
+	text = {
+        trigger = {
+        	check_variable = { var = ftmpZ value = 90 compare = less_than }
+			check_variable = { var = ftmpZ value = 80 compare = greater_than_or_equals }
+        }
+        localization_key = GRE_favor_excellent
+    }
+	text = {
+        trigger = {
+        	check_variable = { var = ftmpZ value = 80 compare = less_than }
+			check_variable = { var = ftmpZ value = 70 compare = greater_than_or_equals }
+        }
+        localization_key = GRE_favor_sturdy
+    }
+	text = {
+        trigger = {
+        	check_variable = { var = ftmpZ value = 70 compare = less_than }
+			check_variable = { var = ftmpZ value = 60 compare = greater_than_or_equals }
+        }
+        localization_key = GRE_favor_considerable
+    }
+	text = {
+        trigger = {
+        	check_variable = { var = ftmpZ value = 60 compare = less_than }
+			check_variable = { var = ftmpZ value = 50 compare = greater_than_or_equals }
+        }
+        localization_key = GRE_favor_rising
+    }
+	text = {
+		trigger = {
+			check_variable = { var = ftmpZ value = 50 compare = less_than }
+            check_variable = { var = ftmpZ value = 40 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_favor_mediocre
+	}
+	text = {
+		trigger = {
+			check_variable = { var = ftmpZ value = 40 compare = less_than }
+            check_variable = { var = ftmpZ value = 30 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_favor_feeble
+	}
+	text = {
+		trigger = {
+			check_variable = { var = ftmpZ value = 30 compare = less_than }
+            check_variable = { var = ftmpZ value = 0 compare = greater_than_or_equals } 
+		}
+		localization_key = GRE_favor_insignificant
+	}
+	text = {
+		trigger = {
+			check_variable = { var = ftmpZ value = 0 compare = less_than }
+			check_variable = { var = ftmpZ value = -30 compare = greater_than } 
+		}
+		localization_key = GRE_favor_detrimental
+	}
+	text = {
+		trigger = {
+			check_variable = { var = ftmpZ value = -30 compare = less_than }
+			check_variable = { var = ftmpZ value = -60 compare = greater_than } 
+		}
+		localization_key = GRE_favor_deleterious
+	}
+	text = {
+		trigger = {
+			check_variable = { var = ftmpZ value = -60 compare = less_than }
+		}
+		localization_key = GRE_favor_abysmal
+	}
+}
+
+
+
+defined_text = {
+    name = GetFavorPercentage
+	text = {
+        trigger = {
+        	check_variable = { var = THIS.favor@GRE value = 95 compare = greater_than_or_equals }
+        }
+        localization_key = GRE_favor_supreme
+    }
+	text = {
+        trigger = {
+			check_variable = { var = THIS.favor@GRE value = 95 compare = less_than }
+        	check_variable = { var = THIS.favor@GRE value = 90 compare = greater_than_or_equals }
+        }
+        localization_key = GRE_favor_unequivocal
+    }
+	text = {
+        trigger = {
+        	check_variable = { var = THIS.favor@GRE value = 90 compare = less_than }
+			check_variable = { var = THIS.favor@GRE value = 80 compare = greater_than_or_equals }
+        }
+        localization_key = GRE_favor_excellent
+    }
+	text = {
+        trigger = {
+        	check_variable = { var = THIS.favor@GRE value = 80 compare = less_than }
+			check_variable = { var = THIS.favor@GRE value = 70 compare = greater_than_or_equals }
+        }
+        localization_key = GRE_favor_sturdy
+    }
+	text = {
+        trigger = {
+        	check_variable = { var = THIS.favor@GRE value = 70 compare = less_than }
+			check_variable = { var = THIS.favor@GRE value = 60 compare = greater_than_or_equals }
+        }
+        localization_key = GRE_favor_considerable
+    }
+	text = {
+        trigger = {
+        	check_variable = { var = THIS.favor@GRE value = 60 compare = less_than }
+			check_variable = { var = THIS.favor@GRE value = 50 compare = greater_than_or_equals }
+        }
+        localization_key = GRE_favor_rising
+    }
+	text = {
+		trigger = {
+			check_variable = { var = THIS.favor@GRE value = 50 compare = less_than }
+            check_variable = { var = THIS.favor@GRE value = 40 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_favor_mediocre
+	}
+	text = {
+		trigger = {
+			check_variable = { var = THIS.favor@GRE value = 40 compare = less_than }
+            check_variable = { var = THIS.favor@GRE value = 30 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_favor_feeble
+	}
+	text = {
+		trigger = {
+			check_variable = { var = THIS.favor@GRE value = 30 compare = less_than }
+            check_variable = { var = THIS.favor@GRE value = 0 compare = greater_than_or_equals } 
+		}
+		localization_key = GRE_favor_insignificant
+	}
+	text = {
+		trigger = {
+			check_variable = { var = THIS.favor@GRE value = 0 compare = less_than }
+			check_variable = { var = THIS.favor@GRE value = -30 compare = greater_than } 
+		}
+		localization_key = GRE_favor_detrimental
+	}
+	text = {
+		trigger = {
+			check_variable = { var = THIS.favor@GRE value = -30 compare = less_than }
+			check_variable = { var = THIS.favor@GRE value = -60 compare = greater_than } 
+		}
+		localization_key = GRE_favor_deleterious
+	}
+	text = {
+		trigger = {
+			check_variable = { var = THIS.favor@GRE value = -60 compare = less_than }
+		}
+		localization_key = GRE_favor_abysmal
+	}
+}
+
+defined_text = {
+	name = GetFavorPercentageTOTAL
+	text = {
+        trigger = {
+        check_variable = { var = GRE.TotalFavor value = 80 compare = greater_than_or_equals }
+        }
+        localization_key = GRE_favor_excellent
+    }
+	text = {
+		trigger = {
+			check_variable = { var = GRE.TotalFavor value = 80 compare = less_than }
+            check_variable = { var = GRE.TotalFavor value = 50 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_favor_good
+	}
+	text = {
+		trigger = {
+			check_variable = { var = GRE.TotalFavor value = 50 compare = less_than }
+            check_variable = { var = GRE.TotalFavor value = 30 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_favor_mediocre
+	}
+	text = {
+		trigger = {
+			check_variable = { var = GRE.TotalFavor value = 30 compare = less_than }
+            check_variable = { var = GRE.TotalFavor value = 0 compare = greater_than_or_equals } 
+		}
+		localization_key = GRE_favor_insignificant
+	}
+	text = {
+		trigger = {
+			check_variable = { var = GRE.TotalFavor value = 0 compare = less_than }
+		}
+		localization_key = GRE_favor_abysmal
+	}     
+}
+
+defined_text = {
+	name = GetStatusForDisclaimer
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmpZ value = 0.8 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_loyal
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmpZ value = 0.8 compare = less_than }
+            check_variable = { var = tmpZ value = 0.7 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_friendly
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmpZ value = 0.7 compare = less_than }
+            check_variable = { var = tmpZ value = 0.6 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_growing
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmpZ value = 0.6 compare = less_than }
+            check_variable = { var = tmpZ value = 0.5 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_adequate
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmpZ value = 0.5 compare = less_than }
+            check_variable = { var = tmpZ value = 0.4 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_inconsequential
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmpZ value = 0.4 compare = less_than }
+            check_variable = { var = tmpZ value = 0.3 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_unfavorable
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmpZ value = 0.3 compare = less_than }
+            check_variable = { var = tmpZ value = 0.2 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_worsening
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmpZ value = 0.19 compare = less_than }
+            check_variable = { var = tmpZ value = 0.09 compare = greater_than }
+		}
+		localization_key = GRE_fct_horrible
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+            check_variable = { var = tmpZ value = 0.09 compare = less_than_or_equals }
+		}
+		localization_key = GRE_fct_rebellious
+	} 
+}
+
+
+
+
+###
+defined_text = {
+	name = GetFactionalImpactFromTempMON
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_mon value = 5 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_impact_immense
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_mon value = 5 compare = less_than }
+			check_variable = { var = tmp_mon value = 3 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_impact_favourable
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_mon value = 3 compare = less_than }
+			check_variable = { var = tmp_mon value = 2 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_impact_beneficial
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_mon value = 2 compare = less_than }
+			check_variable = { var = tmp_mon value = 1 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_impact_slightly_beneficial
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_mon value = 1 compare = less_than }
+			check_variable = { var = tmp_mon value = 0 compare = greater_than }
+		}
+		localization_key = GRE_fct_impact_insignificant_positive
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_mon value = 0 compare = equals }
+		}
+		localization_key = GRE_fct_impact_insignificant
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_mon value = 0 compare = less_than }
+			check_variable = { var = tmp_mon value = -1 compare = greater_than }
+		}
+		localization_key = GRE_fct_impact_insignificant_negative
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_mon value = -1 compare = less_than_or_equals }
+			check_variable = { var = tmp_mon value = -2 compare = greater_than }
+		}
+		localization_key = GRE_fct_impact_slightly_detrimental
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_mon value = -2 compare = less_than_or_equals }
+			check_variable = { var = tmp_mon value = -3 compare = greater_than }
+		}
+		localization_key = GRE_fct_impact_detrimental
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_mon value = -3 compare = less_than_or_equals }
+			check_variable = { var = tmp_mon value = -5 compare = greater_than }
+		}
+		localization_key = GRE_fct_impact_adverse
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_mon value = -5 compare = less_than_or_equals }
+		}
+		localization_key = GRE_fct_impact_catastrophic
+	}
+}
+
+defined_text = {
+	name = GetFactionalImpactFromTempCOM
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_com value = 5 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_impact_immense
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_com value = 5 compare = less_than }
+			check_variable = { var = tmp_com value = 3 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_impact_favourable
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_com value = 3 compare = less_than }
+			check_variable = { var = tmp_com value = 2 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_impact_beneficial
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_com value = 2 compare = less_than }
+			check_variable = { var = tmp_com value = 1 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_impact_slightly_beneficial
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_com value = 1 compare = less_than }
+			check_variable = { var = tmp_com value = 0 compare = greater_than }
+		}
+		localization_key = GRE_fct_impact_insignificant_positive
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_com value = 0 compare = equals }
+		}
+		localization_key = GRE_fct_impact_insignificant
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_com value = 0 compare = less_than }
+			check_variable = { var = tmp_com value = -1 compare = greater_than }
+		}
+		localization_key = GRE_fct_impact_insignificant_negative
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_com value = -1 compare = less_than_or_equals }
+			check_variable = { var = tmp_com value = -2 compare = greater_than }
+		}
+		localization_key = GRE_fct_impact_slightly_detrimental
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_com value = -2 compare = less_than_or_equals }
+			check_variable = { var = tmp_com value = -3 compare = greater_than }
+		}
+		localization_key = GRE_fct_impact_detrimental
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_com value = -3 compare = less_than_or_equals }
+			check_variable = { var = tmp_com value = -5 compare = greater_than }
+		}
+		localization_key = GRE_fct_impact_adverse
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_com value = -5 compare = less_than_or_equals }
+		}
+		localization_key = GRE_fct_impact_catastrophic
+	}
+}
+
+defined_text = {
+	name = GetFactionalImpactFromTempFAS
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_fas value = 5 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_impact_immense
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_fas value = 5 compare = less_than }
+			check_variable = { var = tmp_fas value = 3 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_impact_favourable
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_fas value = 3 compare = less_than }
+			check_variable = { var = tmp_fas value = 2 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_impact_beneficial
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_fas value = 2 compare = less_than }
+			check_variable = { var = tmp_fas value = 1 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_impact_slightly_beneficial
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_fas value = 1 compare = less_than }
+			check_variable = { var = tmp_fas value = 0 compare = greater_than }
+		}
+		localization_key = GRE_fct_impact_insignificant_positive
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_fas value = 0 compare = equals }
+		}
+		localization_key = GRE_fct_impact_insignificant
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_fas value = 0 compare = less_than }
+			check_variable = { var = tmp_fas value = -1 compare = greater_than }
+		}
+		localization_key = GRE_fct_impact_insignificant_negative
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_fas value = -1 compare = less_than_or_equals }
+			check_variable = { var = tmp_fas value = -2 compare = greater_than }
+		}
+		localization_key = GRE_fct_impact_slightly_detrimental
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_fas value = -2 compare = less_than_or_equals }
+			check_variable = { var = tmp_fas value = -3 compare = greater_than }
+		}
+		localization_key = GRE_fct_impact_detrimental
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_fas value = -3 compare = less_than_or_equals }
+			check_variable = { var = tmp_fas value = -5 compare = greater_than }
+		}
+		localization_key = GRE_fct_impact_adverse
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_fas value = -5 compare = less_than_or_equals }
+		}
+		localization_key = GRE_fct_impact_catastrophic
+	}
+}
+
+defined_text = {
+	name = GetFactionalImpactFromTempDEM
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_dem value = 5 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_impact_immense
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_dem value = 5 compare = less_than }
+			check_variable = { var = tmp_dem value = 3 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_impact_favourable
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_dem value = 3 compare = less_than }
+			check_variable = { var = tmp_dem value = 2 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_impact_beneficial
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_dem value = 2 compare = less_than }
+			check_variable = { var = tmp_dem value = 1 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_impact_slightly_beneficial
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_dem value = 1 compare = less_than }
+			check_variable = { var = tmp_dem value = 0 compare = greater_than }
+		}
+		localization_key = GRE_fct_impact_insignificant_positive
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_dem value = 0 compare = equals }
+		}
+		localization_key = GRE_fct_impact_insignificant
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_dem value = 0 compare = less_than }
+			check_variable = { var = tmp_dem value = -1 compare = greater_than }
+		}
+		localization_key = GRE_fct_impact_insignificant_negative
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_dem value = -1 compare = less_than_or_equals }
+			check_variable = { var = tmp_dem value = -2 compare = greater_than }
+		}
+		localization_key = GRE_fct_impact_slightly_detrimental
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_dem value = -2 compare = less_than_or_equals }
+			check_variable = { var = tmp_dem value = -3 compare = greater_than }
+		}
+		localization_key = GRE_fct_impact_detrimental
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_dem value = -3 compare = less_than_or_equals }
+			check_variable = { var = tmp_dem value = -5 compare = greater_than }
+		}
+		localization_key = GRE_fct_impact_adverse
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = tmp_dem value = -5 compare = less_than_or_equals }
+		}
+		localization_key = GRE_fct_impact_catastrophic
+	}
+}
+
+defined_text = {
+	name = GetMonL
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = fct_mon value = 80 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_loyal
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = fct_mon value = 80 compare = less_than }
+            check_variable = { var = fct_mon value = 70 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_friendly
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = fct_mon value = 70 compare = less_than }
+            check_variable = { var = fct_mon value = 60 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_growing
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = fct_mon value = 60 compare = less_than }
+            check_variable = { var = fct_mon value = 50 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_adequate
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = fct_mon value = 50 compare = less_than }
+            check_variable = { var = fct_mon value = 40 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_inconsequential
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = fct_mon value = 40 compare = less_than }
+            check_variable = { var = fct_mon value = 30 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_unfavorable
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = fct_mon value = 30 compare = less_than }
+            check_variable = { var = fct_mon value = 20 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_worsening
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = fct_mon value = 19 compare = less_than }
+            check_variable = { var = fct_mon value = 9 compare = greater_than }
+		}
+		localization_key = GRE_fct_horrible
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+            check_variable = { var = fct_mon value = 9 compare = less_than_or_equals }
+		}
+		localization_key = GRE_fct_rebellious
+	}    
+}
+
+defined_text = {
+	name = GetFasL
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = fct_fas value = 80 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_loyal
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = fct_fas value = 80 compare = less_than }
+            check_variable = { var = fct_fas value = 70 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_friendly
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = fct_fas value = 70 compare = less_than }
+            check_variable = { var = fct_fas value = 60 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_growing
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = fct_fas value = 60 compare = less_than }
+            check_variable = { var = fct_fas value = 50 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_adequate
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = fct_fas value = 50 compare = less_than }
+            check_variable = { var = fct_fas value = 40 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_inconsequential
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = fct_fas value = 40 compare = less_than }
+            check_variable = { var = fct_fas value = 30 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_unfavorable
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = fct_fas value = 30 compare = less_than }
+            check_variable = { var = fct_fas value = 20 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_worsening
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = fct_fas value = 19 compare = less_than }
+            check_variable = { var = fct_fas value = 9 compare = greater_than }
+		}
+		localization_key = GRE_fct_horrible
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+            check_variable = { var = fct_fas value = 9 compare = less_than_or_equals }
+		}
+		localization_key = GRE_fct_rebellious
+	} 
+}
+
+defined_text = {
+	name = GetDemL
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = fct_dem value = 80 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_loyal
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = fct_dem value = 80 compare = less_than }
+            check_variable = { var = fct_dem value = 70 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_friendly
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = fct_dem value = 70 compare = less_than }
+            check_variable = { var = fct_dem value = 60 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_growing
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = fct_dem value = 60 compare = less_than }
+            check_variable = { var = fct_dem value = 50 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_adequate
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = fct_dem value = 50 compare = less_than }
+            check_variable = { var = fct_dem value = 40 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_inconsequential
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = fct_dem value = 40 compare = less_than }
+            check_variable = { var = fct_dem value = 30 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_unfavorable
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = fct_dem value = 30 compare = less_than }
+            check_variable = { var = fct_dem value = 20 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_worsening
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = fct_dem value = 19 compare = less_than }
+            check_variable = { var = fct_dem value = 9 compare = greater_than }
+		}
+		localization_key = GRE_fct_horrible
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+            check_variable = { var = fct_dem value = 9 compare = less_than_or_equals }
+		}
+		localization_key = GRE_fct_rebellious
+	} 
+}
+
+defined_text = {
+	name = GetComL
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = fct_com value = 80 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_loyal
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = fct_com value = 80 compare = less_than }
+            check_variable = { var = fct_com value = 70 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_friendly
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = fct_com value = 70 compare = less_than }
+            check_variable = { var = fct_com value = 60 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_growing
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = fct_com value = 60 compare = less_than }
+            check_variable = { var = fct_com value = 50 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_adequate
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = fct_com value = 50 compare = less_than }
+            check_variable = { var = fct_com value = 40 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_inconsequential
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = fct_com value = 40 compare = less_than }
+            check_variable = { var = fct_com value = 30 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_unfavorable
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = fct_com value = 30 compare = less_than }
+            check_variable = { var = fct_com value = 20 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_worsening
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = fct_com value = 19 compare = less_than }
+            check_variable = { var = fct_com value = 9 compare = greater_than }
+		}
+		localization_key = GRE_fct_horrible
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+            check_variable = { var = fct_com value = 9 compare = less_than_or_equals }
+		}
+		localization_key = GRE
+    }
+}

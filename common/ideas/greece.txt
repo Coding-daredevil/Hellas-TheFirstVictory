@@ -7,7 +7,169 @@ ideas = {
         #############################################   
         #############[  METAXAS IDEAS  ]#############
         #############################################
+		
+		GRE_communists_utterly_crushed = {
+        
+            allowed = {
+                original_tag = GRE
+            }
 
+			cancel = {
+				has_country_flag = {
+					flag = communist_uprising_utterly_crushed
+					days > 120
+				}
+				has_country_flag = {
+					flag = republican_uprising_utterly_crushed
+					days > 120
+				}
+            }
+            
+            picture = gre_communists_crushed
+            
+            removal_cost = -1
+            
+            modifier = {
+				custom_modifier_tooltip = GRE_communists_crushed_tt
+				political_power_factor = -0.15
+				stability_weekly = -0.0075
+				war_support_weekly = -0.003
+            }
+        }
+
+		GRE_republicans_utterly_crushed = {
+        
+            allowed = {
+                original_tag = GRE
+            }
+            
+            picture = gre_republicans_crushed
+
+			cancel = {
+				has_country_flag = {
+					flag = communist_uprising_utterly_crushed
+					days > 120
+				}
+				has_country_flag = {
+					flag = republican_uprising_utterly_crushed
+					days > 120
+				}
+            }
+            
+            on_remove = {
+				if = {
+					limit = {
+						has_country_flag = {
+							flag = communist_uprising_utterly_crushed
+							days > 120
+						}
+						has_country_flag = {
+							flag = republican_uprising_utterly_crushed
+							days > 120
+						}
+						NOT = { has_completed_focus = GRE_defending_our_kingdom }
+					} 
+					if = {
+						limit = { has_completed_focus = GRE_third_hellenic_civilization }
+                		add_ideas = GRE_spartan_law_3
+					}
+					else_if = {
+						limit = { has_completed_focus = GRE_an_orthodox_state }
+                		add_ideas = GRE_spartan_law_2
+					}
+					else = {
+						add_ideas = GRE_spartan_law
+					}
+				}
+            }
+            
+            removal_cost = -1
+            
+            modifier = {
+                custom_modifier_tooltip = GRE_republicans_crushed_tt
+				political_power_factor = -0.15
+				stability_weekly = -0.0075
+				war_support_weekly = -0.003
+            }
+        }
+
+		GRE_spartan_law = {
+        
+            allowed = {
+                original_tag = GRE
+            }
+            
+            picture = gre_crushed_opponents
+
+            removal_cost = -1
+            
+            modifier = {
+                custom_modifier_tooltip = GRE_spartan_law_tt
+				political_power_factor = -0.25
+				stability_weekly = -0.012
+				war_support_weekly = -0.006
+            }
+        }
+
+		GRE_spartan_law_2 = {
+        
+            allowed = {
+                original_tag = GRE
+            }
+            
+            picture = gre_crushed_opponents
+            
+            removal_cost = -1
+            
+            modifier = {
+                custom_modifier_tooltip = GRE_spartan_law_tt
+				political_power_factor = -0.2
+				stability_weekly = -0.009
+				war_support_weekly = -0.004
+            }
+        }
+
+		GRE_spartan_law_3 = {
+        
+            allowed = {
+                original_tag = GRE
+            }
+            
+            picture = gre_crushed_opponents
+            
+            removal_cost = -1
+            
+            modifier = {
+                custom_modifier_tooltip = GRE_spartan_law_tt
+				political_power_factor = -0.15
+				stability_weekly = -0.006
+				war_support_weekly = -0.002
+            }
+        }
+
+		GRE_spartan_law_4 = {
+        
+            allowed = {
+                original_tag = GRE
+            }
+
+			cancel = {
+				has_completed_focus = GRE_reviving_the_spartan_warrior_spirit
+			}
+            
+            picture = gre_crushed_opponents
+            
+            removal_cost = -1
+            
+            modifier = {
+                custom_modifier_tooltip = GRE_spartan_law_tt
+				political_power_factor = -0.10
+				stability_weekly = -0.003
+				war_support_weekly = -0.001
+            }
+        }
+
+		#####
         GRE_IKA = {
         
             allowed = {
@@ -1075,7 +1237,7 @@ ideas = {
 			removal_cost = -1
 			
 			modifier = {
-				political_power_factor	= 0.1
+				political_power_factor	= 0.05
 				research_speed_factor = 0.05
 			}
 		}
@@ -1542,7 +1704,7 @@ ideas = {
                 stability_factor = -0.05
                 state_resources_factor = -0.10
 				trade_opinion_factor = 0.25
-                research_speed_factor = 0.05
+                research_speed_factor = 0.02
 			}
 		}
 
@@ -1561,10 +1723,10 @@ ideas = {
 			removal_cost = -1
 				
 			modifier = {
-				economy_cost_factor	= -0.25
-				trade_laws_cost_factor = -0.25
-				research_speed_factor = 0.1
-				trade_opinion_factor = 1
+				economy_cost_factor	= -0.15
+				trade_laws_cost_factor = -0.15
+				research_speed_factor = 0.05
+				trade_opinion_factor = 0.5
 			}
 		}
 
@@ -1588,8 +1750,8 @@ ideas = {
 				
 			modifier = {
 				stability_factor = 0.05	
-                stability_weekly = 0.003
-				political_power_factor	= 0.15
+                stability_weekly = 0.002
+				political_power_factor	= 0.05
 				consumer_goods_factor = 0.05
                 custom_modifier_tooltip = GRE_booming_tourism_tt
 			}
@@ -1843,6 +2005,114 @@ ideas = {
 				resistance_decay_on_our_occupied_states = -0.25
 				compliance_growth = 2
 			}
+		}
+
+		###[Other nation ideas]###
+		
+		GRE_shackled_bulgarian_industry = {
+				
+			allowed = {
+				original_tag = BUL
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			picture = gre_bulgarian_industry_shackled
+				
+			removal_cost = -1
+				
+			targeted_modifier = {
+                tag = GRE
+                trade_cost_for_target_factor = 0.25
+                cic_to_target_factor = 0.125
+				mic_to_target_factor = 0.2
+            }
+			targeted_modifier = {
+                tag = TUR
+                trade_cost_for_target_factor = 0.25
+                cic_to_target_factor = 0.125
+				mic_to_target_factor = 0.2
+            }
+			targeted_modifier = {
+                tag = YUG
+                trade_cost_for_target_factor = 0.25
+                cic_to_target_factor = 0.125
+				mic_to_target_factor = 0.2
+            }
+			targeted_modifier = {
+                tag = ROM
+                trade_cost_for_target_factor = 0.25
+                cic_to_target_factor = 0.125
+				mic_to_target_factor = 0.2
+            }
+		}
+
+		GRE_shackled_italian_industry_low = {
+
+			allowed = {
+				original_tag = ITA
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			picture = gre_bulgarian_industry_shackled
+				
+			removal_cost = -1
+				
+			targeted_modifier = {
+                tag = GRE
+                trade_cost_for_target_factor = -0.10
+                cic_to_target_factor = 0.15
+				mic_to_target_factor = 0.15
+            }
+		}
+
+		GRE_shackled_italian_industry_medium = {
+
+			allowed = {
+				original_tag = ITA
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			picture = gre_bulgarian_industry_shackled
+				
+			removal_cost = -1
+				
+			targeted_modifier = {
+                tag = GRE
+                trade_cost_for_target_factor = -0.2
+                cic_to_target_factor = 0.3
+				mic_to_target_factor = 0.3
+            }
+		}
+
+		GRE_shackled_italian_industry_high = {
+
+			allowed = {
+				original_tag = ITA
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			picture = gre_bulgarian_industry_shackled
+				
+			removal_cost = -1
+				
+			targeted_modifier = {
+                tag = GRE
+                trade_cost_for_target_factor = -0.3
+                cic_to_target_factor = 0.45
+				mic_to_target_factor = 0.45
+            }
 		}
         
 	}	
@@ -2268,15 +2538,20 @@ ideas = {
 		
 		allowed = {
 			original_tag = GRE
-			has_dlc = "Battle for the Bosporus"
 		}
 
 		visible = {
             NOT = { has_axis_occupation = yes }
         } 
+        
+        available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_maniadakis_working_in_asfalia_tt
+                NOT = { has_completed_focus = GRE_establish_asfaleia }
+            }
+        }
 		
 		traits = { prince_of_terror }
-		traits = { technical_especialist }
 	}
 
 	GRE_georgios_papandreou_bftb = {
@@ -2323,27 +2598,6 @@ ideas = {
 		
 		traits = { sharp_tongued_lawyer }
 		traits = { theoretical_scientist }
-	}
-
-	GRE_aristeidis_dimitratos = {
-
-		picture = generic_political_advisor_south_america_1
-		
-		allowed = {
-			original_tag = GRE
-			has_dlc = "Battle for the Bosporus"
-		}
-
-		available = {
-			has_country_flag = GRE_kathestos_proclaimed
-		}
-        
-        visible = {
-            NOT = { has_axis_occupation = yes }
-        } 
-		
-		traits = { war_industrialist }
-		traits = { resource_industrialist }
 	}
 
 	GRE_emmanouil_tsouderos = {
@@ -2524,26 +2778,6 @@ ideas = {
 		
 		traits = { guerilla_warfare_expert }
 	}
-
-	GRE_evripidis_bakirtris = {
-
-        picture = generic_political_advisor_europe_3
-    
-        allowed = {
-            original_tag = GRE
-            AND = {
-                has_dlc = "La Resistance"
-                has_dlc = "Battle for the Bosporus"
-            }
-        }
-        
-        visible = {
-            NOT = { has_axis_occupation = yes }
-        } 
-    
-        traits = { quartermaster_general }
-        traits = { fortification_engineer }
-    }
 }	
 
 
@@ -2687,111 +2921,310 @@ theorist = {
 }
 	# MILITARY
 	army_chief = {
+		#### Papagos
+		#### Drakos
+		#### Stanotas
+		#### Zervas
+		#### Davakis (hidden)
 
-		GRE_konstantinos_ventiris = {
+		GRE_alexandros_papagos_1 = {
 			
-			picture = generic_army_europe_5
-			
-			allowed = {
-				original_tag = GRE
-				NOT = { has_dlc = "Battle for the Bosporus" }
-			}		
-		
-			traits = { army_chief_defensive_3 }
+			picture = gre_chief_papagos
+
+			visible = {
+				any_army_leader = {
+					has_id = 300
+					is_field_marshal = yes
+				}
+				has_country_flag = papagos_1
+			}
+
+			traits = { greek_chief_of_staff_papagos_1 }
 			
 			ai_will_do = {
 				factor = 1
 			}
 		}
 
-		GRE_alexandros_papagos = {
+		GRE_alexandros_papagos_2 = {
 			
-			picture = gre_alexandros_papagos
-			
-			allowed = {
-				original_tag = GRE
-				has_dlc = "Battle for the Bosporus"
-			}
-			
-			available = {
-				has_country_flag = GRE_kathestos_proclaimed
+			picture = gre_chief_papagos
+
+			visible = {
+				any_army_leader = {
+					has_id = 300
+					is_field_marshal = yes
+				}
+				has_country_flag = papagos_2
 			}
 
-			traits = { army_chief_defensive_3 }
-			
-			ai_will_do = {
-				factor = 1
-			}
-		}
-			
-		GRE_georgios_tsolakoglou = {
-			
-			picture = gre_georgios_tsolakoglou
-			
-			allowed = {
-				original_tag = GRE
-				has_dlc = "Battle for the Bosporus"
-			}
-			
-			available = {
-				OR = { 
-                    has_government = fascism
-                    has_completed_focus = GRE_recruit_the_fascists_2
-                }
-			}
-			
-			traits = { army_chief_offensive_3 }
+			traits = { greek_chief_of_staff_papagos_2 }
 			
 			ai_will_do = {
 				factor = 1
 			}
 		}
 
-		 GRE_nikolaos_plastiras_bftb = {
-			ledger = army
+		GRE_alexandros_papagos_3 = {
+			
+			picture = gre_chief_papagos
 
-			name = GRE_nikolaos_plastiras
-			
-			picture = gre_nikolaos_plastiras
-			
-			allowed = {
-				original_tag = GRE
-				has_dlc = "Battle for the Bosporus"
-			}
-			
-			available = {
-				OR = {
-                    has_government = democratic
-                    has_completed_focus = GRE_the_democrats
-                }	
+			visible = {
+				any_army_leader = {
+					has_id = 300
+					is_field_marshal = yes
+				}
+				has_country_flag = papagos_3
 			}
 
-			traits = { army_chief_maneuver_3 }
+			traits = { greek_chief_of_staff_papagos_3 }
 			
 			ai_will_do = {
 				factor = 1
 			}
 		}
 
-		GRE_aris_velouchiotis_bftb = {
+		GRE_alexandros_papagos_4 = {
+			
+			picture = gre_chief_papagos
 
-			name = GRE_aris_velouchiotis
-			
-			picture = gre_aris_velouchiotis
-			
-			allowed = {
-				original_tag = GRE
-				has_dlc = "Battle for the Bosporus"
+			visible = {
+				any_army_leader = {
+					has_id = 300
+					is_field_marshal = yes
+				}
+				has_country_flag = papagos_4
 			}
 
-			available = {
-				OR = {
-                    has_government = communism
-                    has_completed_focus = GRE_the_other_democrats
-                }
-			}
+			traits = { greek_chief_of_staff_papagos_4 }
 			
-			traits = { army_chief_defensive_3 }
+			ai_will_do = {
+				factor = 1
+			}
+		}
+
+		GRE_markos_drakos_1 = {
+			
+			picture = gre_chief_drakos
+
+			visible = {
+				any_army_leader = {
+					has_id = 302
+					is_field_marshal = yes
+				}
+				has_country_flag = drakos_1
+			}
+
+			traits = { greek_chief_of_staff_drakos_1 }
+			
+			ai_will_do = {
+				factor = 1
+			}
+		}
+
+		GRE_markos_drakos_2 = {
+			
+			picture = gre_chief_drakos
+
+			visible = {
+				any_army_leader = {
+					has_id = 302
+					is_field_marshal = yes
+				}
+				has_country_flag = drakos_2
+			}
+
+			traits = { greek_chief_of_staff_drakos_2 }
+			
+			ai_will_do = {
+				factor = 1
+			}
+		}
+
+		GRE_markos_drakos_3 = {
+			
+			picture = gre_chief_drakos
+
+			visible = {
+				any_army_leader = {
+					has_id = 302
+					is_field_marshal = yes
+				}
+				has_country_flag = drakos_3
+			}
+
+			traits = { greek_chief_of_staff_drakos_3 }
+			
+			ai_will_do = {
+				factor = 1
+			}
+		}
+
+		GRE_markos_drakos_4 = {
+			
+			picture = gre_chief_drakos
+
+			visible = {
+				any_army_leader = {
+					has_id = 302
+					is_field_marshal = yes
+				}
+				has_country_flag = drakos_4
+			}
+
+			traits = { greek_chief_of_staff_drakos_4 }
+			
+			ai_will_do = {
+				factor = 1
+			}
+		}
+
+		GRE_georgios_stanotas_1 = {
+			
+			picture = gre_chief_stanotas
+
+			visible = {
+				any_army_leader = {
+					has_id = 313
+					is_field_marshal = yes
+				}
+				has_country_flag = stanotas_1
+			}
+
+			traits = { greek_chief_of_staff_stanotas_1 }
+			
+			ai_will_do = {
+				factor = 1
+			}
+		}
+
+		GRE_georgios_stanotas_2 = {
+			
+			picture = gre_chief_stanotas
+
+			visible = {
+				any_army_leader = {
+					has_id = 313
+					is_field_marshal = yes
+				}
+				has_country_flag = stanotas_2
+			}
+
+			traits = { greek_chief_of_staff_stanotas_2 }
+			
+			ai_will_do = {
+				factor = 1
+			}
+		}
+
+		GRE_georgios_stanotas_3 = {
+			
+			picture = gre_chief_stanotas
+
+			visible = {
+				any_army_leader = {
+					has_id = 313
+					is_field_marshal = yes
+				}
+				has_country_flag = stanotas_3
+			}
+
+			traits = { greek_chief_of_staff_stanotas_3 }
+			
+			ai_will_do = {
+				factor = 1
+			}
+		}
+
+		GRE_georgios_stanotas_4 = {
+			
+			picture = gre_chief_stanotas
+
+			visible = {
+				any_army_leader = {
+					has_id = 313
+					is_field_marshal = yes
+				}
+				has_country_flag = stanotas_4
+			}
+
+			traits = { greek_chief_of_staff_stanotas_4 }
+			
+			ai_will_do = {
+				factor = 1
+			}
+		}
+
+		GRE_napoleon_zervas_1 = {
+			
+			picture = gre_chief_zervas
+
+			visible = {
+				any_army_leader = {
+					has_id = 307
+					is_field_marshal = yes
+				}
+				has_country_flag = zervas_1
+			}
+
+			traits = { greek_chief_of_staff_zervas_1 }
+			
+			ai_will_do = {
+				factor = 1
+			}
+		}
+
+		GRE_napoleon_zervas_2 = {
+			
+			picture = gre_chief_zervas
+
+			visible = {
+				any_army_leader = {
+					has_id = 307
+					is_field_marshal = yes
+				}
+				has_country_flag = zervas_2
+			}
+
+			traits = { greek_chief_of_staff_zervas_2 }
+			
+			ai_will_do = {
+				factor = 1
+			}
+		}
+
+		GRE_napoleon_zervas_3 = {
+			
+			picture = gre_chief_zervas
+
+			visible = {
+				any_army_leader = {
+					has_id = 307
+					is_field_marshal = yes
+				}
+				has_country_flag = zervas_3
+			}
+
+			traits = { greek_chief_of_staff_zervas_3 }
+			
+			ai_will_do = {
+				factor = 1
+			}
+		}
+
+		GRE_napoleon_zervas_4 = {
+			
+			picture = gre_chief_zervas
+
+			visible = {
+				any_army_leader = {
+					has_id = 307
+					is_field_marshal = yes
+				}
+				has_country_flag = zervas_4
+			}
+
+			traits = { greek_chief_of_staff_zervas_4 }
 			
 			ai_will_do = {
 				factor = 1
@@ -2975,6 +3408,16 @@ theorist = {
 	}
 
 	high_command = {
+		#### papagos (ippiko - mmonarchismos)
+		#### plastiras (mavros kavalaris - ippiko - yolo - democratic)
+		#### stanotas (ippiko - all)
+		#### katsimitros (oragnwsi amunas hpeirou - monarchismos)
+		#### drakos (general inspector - conventional) 
+		#### kosmas (peziko - all)
+		#### aggelis (purovolarchia - monarchismos)
+		#### davakis (combinedArms - conventional)
+		#### alexakis (froura athinwn - conventional)
+		#### papparodou (specOps - conventional)
 
 		GRE_aris_velouchiotis = {
 			ledger = army
@@ -4656,6 +5099,10 @@ theorist = {
                 cat_superior_firepower = -3
                 cat_mass_assault = -3
             }
+
+			modifier = {
+				promote_cost_factor = 5
+			}
         }
         
         GRE_complete_lack_of_heavy_equipment = {

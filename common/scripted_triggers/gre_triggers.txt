@@ -1,3 +1,211 @@
+dem_generals_exist = {
+    custom_trigger_tooltip = {
+        tooltip = dem_generals_exist_tt
+        any_army_leader = {
+            has_trait = trait_GRE_stauch_republican_persona
+        }
+    }
+}
+
+com_generals_exist = {
+    custom_trigger_tooltip = {
+        tooltip = com_army_members_exist_tt
+        any_army_leader = {
+            has_trait = trait_GRE_stauch_communist_persona
+        }
+    }
+}
+
+undesired_generals_exist = {
+    custom_trigger_tooltip = {
+        tooltip = undesied_army_members_exist_tt
+        any_army_leader = {
+            is_general_undesired = yes
+        }
+    }
+}
+
+is_general_undesired = {
+    OR = {
+        if = {
+            limit = { has_trait = trait_gre_stauch_monarchist_persona }
+            NOT = { GRE = { has_government = neutrality } }
+            check_variable = { var = GRE.fct_mon value = 70 compare = less_than }
+        }
+        else_if = {
+            limit = { has_trait = trait_GRE_stauch_republican_persona }
+            NOT = { GRE = { has_government = democratic } }
+            check_variable = { var = GRE.fct_dem value = 70 compare = less_than }
+        }
+        else_if = {
+            limit = { has_trait = trait_GRE_stauch_communist_persona }
+            NOT = { GRE = { has_government = communism  } }
+            check_variable = { var = GRE.fct_com value = 70 compare = less_than }
+        }
+        else_if = {
+            limit = { has_trait = trait_GRE_stauch_fascist_persona }
+            NOT = { GRE = { has_government = fascism } }
+            check_variable = { var = GRE.fct_fas value = 70 compare = less_than }
+        }
+        else_if = {
+            limit = { has_trait = trait_GRE_conventional_leanings }
+            NOT = { GRE = { has_government = neutrality } }
+            NOT = { GRE = { has_government = democratic } }
+            check_variable = { var = GRE.fct_dem value = 70 compare = less_than }
+            check_variable = { var = GRE.fct_mon value = 70 compare = less_than }
+        }
+        else_if = {
+            limit = { has_trait = trait_GRE_revolutionary_leanings }
+            NOT = { GRE = { has_government = fascism } }
+            NOT = { GRE = { has_government = communism } }
+            check_variable = { var = GRE.fct_fas value = 70 compare = less_than }
+            check_variable = { var = GRE.fct_com value = 70 compare = less_than }
+        }
+        else_if = {
+            limit = { has_trait = trait_GRE_monarchofascism_leanings }
+            NOT = { GRE = { has_government = fascism } }
+            NOT = { GRE = { has_government = neutrality } }
+            check_variable = { var = GRE.fct_fas value = 70 compare = less_than }
+            check_variable = { var = GRE.fct_mon value = 70 compare = less_than }
+        }
+        else_if = {
+            limit = { has_trait = trait_GRE_socialdemocratic_leanings }
+            NOT = { GRE = { has_government = democratic } }
+            NOT = { GRE = { has_government = communism } }
+            check_variable = { var = GRE.fct_dem value = 70 compare = less_than }
+            check_variable = { var = GRE.fct_com value = 70 compare = less_than }
+        }
+    }
+}
+
+is_assigned_with_at_least_60_bats = {
+    is_assigned = yes
+    check_variable = { num_battalions > 59 }
+}
+
+is_ideologically_close_tmpZ = {
+    OR = {
+        GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+        if = {
+            limit = { has_trait = trait_gre_stauch_monarchist }
+            OR = {
+                GRE = { has_government = neutrality }
+                check_variable = { var = GRE.fct_mon value = tmpZ compare = greater_than_or_equals }
+            }
+        }
+        else_if = {
+            limit = { has_trait = trait_GRE_stauch_republican_persona }
+            OR = {
+                GRE = { has_government = democratic }
+                check_variable = { var = GRE.fct_dem value = tmpZ compare = greater_than_or_equals }
+            }
+        }
+        else_if = {
+            limit = { has_trait = trait_GRE_stauch_communist_persona }
+            OR = {
+                GRE = { has_government = communism  }
+                check_variable = { var = GRE.fct_com value = tmpZ compare = greater_than_or_equals }
+            }
+        }
+        else_if = {
+            limit = { has_trait = trait_GRE_stauch_fascist_persona }
+            OR = {
+                GRE = { has_government = fascism }
+                check_variable = { var = GRE.fct_fas value = tmpZ compare = greater_than_or_equals }
+            }
+        }
+        else_if = {
+            limit = { has_trait = trait_GRE_conventional_leanings }
+            OR = {
+                GRE = { has_government = neutrality }
+                GRE = { has_government = democratic }
+                check_variable = { var = GRE.fct_dem value = tmpZ compare = greater_than_or_equals }
+                check_variable = { var = GRE.fct_mon value = tmpZ compare = greater_than_or_equals }
+            }
+        }
+        else_if = {
+            limit = { has_trait = trait_GRE_revolutionary_leanings }
+            OR = {
+                GRE = { has_government = fascism }
+                GRE = { has_government = communism }
+                check_variable = { var = GRE.fct_fas value = tmpZ compare = greater_than_or_equals }
+                check_variable = { var = GRE.fct_com value = tmpZ compare = greater_than_or_equals }
+            }
+        }
+        else_if = {
+            limit = { has_trait = trait_GRE_monarchofascism_leanings }
+            OR = {
+                GRE = { has_government = fascism }
+                GRE = { has_government = neutrality }
+                check_variable = { var = GRE.fct_fas value = tmpZ compare = greater_than_or_equals }
+                check_variable = { var = GRE.fct_mon value = tmpZ compare = greater_than_or_equals }
+            }
+        }
+        else_if = {
+            limit = { has_trait = trait_GRE_socialdemocratic_leanings }
+            OR = {
+                GRE = { has_government = democratic }
+                GRE = { has_government = communism }
+                check_variable = { var = GRE.fct_dem value = tmpZ compare = greater_than_or_equals }
+                check_variable = { var = GRE.fct_com value = tmpZ compare = greater_than_or_equals }
+            }
+        }
+    }
+}
+
+is_junior_general = {
+    NOT = { has_trait = gre_three_war_veteran }
+    NOT = { has_trait = gre_two_war_veteran }
+    NOT = { has_trait = gre_war_veteran }
+}
+
+general_has_veterancy = {
+    OR = {
+        has_trait = gre_three_war_veteran
+        has_trait = gre_two_war_veteran
+        has_trait = gre_war_veteran
+    }
+}
+
+not_recently_trained = {
+    NOT = { has_trait = gre_recently_trained_general }
+}
+
+has_very_low_unpreparedness_level = {
+    OR = {
+        has_trait = gre_unprepared_general_3
+        has_trait = gre_unprepared_general_2
+    }
+}
+
+assigned_has_unpreparedness_level = {
+    is_assigned = yes
+    OR = {
+        has_trait = gre_unprepared_general_3
+        has_trait = gre_unprepared_general_2
+        has_trait = gre_unprepared_general_1
+        has_trait = gre_unprepared_general_0
+    }
+}
+
+has_unpreparedness_level = {
+    OR = {
+        has_trait = gre_unprepared_general_3
+        has_trait = gre_unprepared_general_2
+        has_trait = gre_unprepared_general_1
+        has_trait = gre_unprepared_general_0
+    }
+}
+
+is_fully_reintegrated = {
+    NOT = {
+        has_trait = gre_unprepared_general_3
+        has_trait = gre_unprepared_general_2
+        has_trait = gre_unprepared_general_1
+        has_trait = gre_unprepared_general_0
+    }
+}
+
 crete_is_no_loose_end = {
     custom_trigger_tooltip = {
         tooltip = crete_is_no_loose_end_tt
@@ -63,7 +271,41 @@ has_friendly_relationship_with_resistance_factions = {
     }
 }   
     
-    
+com_is_below_tmpZ = {
+    custom_trigger_tooltip = {
+        tooltip = fct_below_com_tt
+        set_temp_variable = { y = tmpZ }
+        multiply_temp_variable = { y = 100 }
+        check_variable = { fct_com < y }
+    }
+}
+
+com_is_at_least_tmpZ = {
+    custom_trigger_tooltip = {
+        tooltip = fct_at_least_com_tt
+        set_temp_variable = { y = tmpZ }
+        multiply_temp_variable = { y = 100 }
+        check_variable = { var = fct_com value = y compare = greater_than_or_equals }
+    }
+}
+
+dem_is_at_least_tmpZ = {
+    custom_trigger_tooltip = {
+        tooltip = fct_at_least_dem_tt
+        set_temp_variable = { y = tmpZ }
+        multiply_temp_variable = { y = 100 }
+        check_variable = { var = fct_dem value = y compare = greater_than_or_equals }
+    }
+}
+
+dem_is_below_tmpZ = {
+    custom_trigger_tooltip = {
+        tooltip = fct_below_dem_tt
+        set_temp_variable = { y = tmpZ }
+        multiply_temp_variable = { y = 100 }
+        check_variable = { fct_dem < y }
+    }
+}
     
     
     

@@ -237,22 +237,21 @@ news_event = {                                                                  
     
 	option = {
 		name = hellenic_news.150.a 
-        if = {
-            limit = {
-                original_tag = GRE 
-            }
-            add_stability = -0.2
-            add_war_support = -0.2
-            add_political_power = -400
-        }
-        else_if = {
-            limit = {
-                original_tag = ITA
-            }
-            add_stability = 0.1
-            add_war_support = 0.1
-            add_political_power = 150
-        }
+		trigger = {
+			original_tag = ITA
+		}
+		add_stability = 0.1
+		add_war_support = 0.1
+		add_political_power = 150
+	}
+	option = {
+		name = hellenic_news.150.b 
+		trigger = {
+			original_tag = GRE
+		}
+		add_stability = -0.2
+		add_war_support = -0.2
+		add_political_power = -400
 	}
 }
 
@@ -261,31 +260,27 @@ news_event = {                                                                  
 	title = hellenic_news.151.t
 	desc = hellenic_news.151.desc
 	#picture = GFX_report_event_albanian_king_zog
-	
 	major = no
-	
 	is_triggered_only = yes
-
     fire_only_once = yes
-    
+
 	option = {
 		name = hellenic_news.151.a 
-        if = {
-            limit = {
-                original_tag = GRE 
-            }
-            add_stability = 0.1
-            add_war_support = 0.1
-            add_political_power = 150
-        }
-        else_if = {
-            limit = {
-                original_tag = ITA
-            }
-            add_stability = -0.1
-            add_war_support = -0.1
-            add_political_power = -50
-        }
+		trigger = {
+			original_tag = GRE
+		}
+		add_stability = 0.1
+		add_war_support = 0.1
+		add_political_power = 150
+	}
+	option = {
+		name = hellenic_news.151.b 
+		trigger = {
+			original_tag = ITA
+		}
+		add_stability = -0.1
+		add_war_support = -0.1
+		add_political_power = -50
 	}
 }
 
@@ -361,5 +356,51 @@ news_event = {                                                                  
 	option = {
 		name = hellenic_news.155.a 
         
+	}
+}
+
+news_event = {                                                                      ### Greeks Push into Albania
+	id = hellenic_news.156
+	title = hellenic_news.156.t
+	desc = hellenic_news.156.desc
+	#picture = GFX_news_event_yugowar
+	is_triggered_only = yes
+    fire_only_once = yes
+    
+	option = {
+		name = hellenic_news.156.a  
+		trigger = {
+			original_tag = GRE
+		}
+		add_political_power = 25
+	}
+	option = {
+		name = hellenic_news.156.b  
+		trigger = {
+			original_tag = ITA
+		}
+		add_political_power = -25
+	}
+}
+
+news_event = {                                                                      ### Stalemate in Albania
+	id = hellenic_news.157
+	title = hellenic_news.157.t
+	desc = hellenic_news.157.desc
+	#picture = GFX_news_event_yugowar
+    is_triggered_only = yes
+	fire_only_once = yes
+    
+	option = {
+		name = hellenic_news.157.a  
+		trigger = {
+			original_tag = GRE
+		}
+	}
+	option = {
+		name = hellenic_news.157.b  
+		trigger = {
+			original_tag = ITA
+		}
 	}
 }
