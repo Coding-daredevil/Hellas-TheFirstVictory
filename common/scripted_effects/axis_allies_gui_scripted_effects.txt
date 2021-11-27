@@ -1,0 +1,73 @@
+# The following scripted effect sets-up the faction at game start.
+axal_gui_initial = {
+	# Put simply an array stores a list of things, used here to store the list of parties and list of seats.
+	set_variable = { alax = tmpALL }
+	set_variable = { axal = tmpAXI }
+	# faction_seat_array stores the list of seat numbers for each party
+    add_to_array = { faction_axal_p_array = tmpALL }   
+    add_to_array = { faction_axal_p_array = tmpAXI }  
+
+	# faction_member_array stores the list of parties
+	# This basically assigns an id for each party, so Party A = 1, Party B = 2, etc. (must start from 1 and is in order)
+	#add_to_array = { faction_member_array = 1 } # Party Allies
+	#add_to_array = { faction_member_array = 2 } # Party Axis
+	add_to_array = { faction_axal_m_array = 1 } 
+	add_to_array = { faction_axal_m_array = 2 }    
+	# Modify what shows up in the gui
+	reload_axal_gui = yes
+}
+
+axal_gui_call = {
+    ####VARIABLE CLAMPING TO NOT EXCEED LIMIT [0,100]####
+    clamp_variable = {
+        var = axal
+        min = 0
+        max = 100
+    }
+    #####################################################################################
+    #####################################################################################
+    clear_array = faction_axal_p_array
+    ####AXAL####
+    set_temp_variable = { a = 100 }
+    subtract_from_temp_variable = { a = var:axal }
+	set_variable = { alax = a }
+    add_to_array = { faction_axal_p_array = var:alax }
+    add_to_array = { faction_axal_p_array = var:axal }    
+    reload_axal_gui = yes
+}
+
+# The following scripted effect does the main job of generating the gui, by adding the seats for each party in a grid.
+# This should be called every time you need to update the gui, when you add/subtract seats for example.
+# Read the comments if you're interested in how it works
+reload_axal_gui = {
+    clear_array = axis_allies_array
+    
+	for_each_loop = {
+		array = faction_axal_p_array
+
+		add_to_array = { tmp = faction_axal_p_array^i }
+	} 
+
+	set_temp_variable = { temp_cindex_1 = 0 }
+	set_temp_variable = { temp_cindex_2 = 1 }
+	set_temp_variable = { temp_csize = tmp^num }
+	subtract_from_temp_variable = { temp_csize = 1 }    
+
+	while_loop_effect = {
+		limit = {
+			check_variable = { temp_cindex_1 < temp_csize }
+		}
+		add_to_variable = { tmp^temp_cindex_2 = tmp^temp_cindex_1 }
+		add_to_temp_variable = { temp_cindex_1 = 1 }
+		add_to_temp_variable = { temp_cindex_2 = 1 }
+	}
+    
+    for_loop_effect = {
+        start = 0
+        end = tmp^num
+        
+        resize_array = { array = axis_allies_array value = faction_axal_m_array^v size = tmp^v }       
+    }
+
+	clear_array = tmp    
+}

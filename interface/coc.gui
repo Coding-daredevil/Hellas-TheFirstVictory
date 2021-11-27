@@ -1,0 +1,2769 @@
+
+guiTypes = {
+	containerWindowType = {
+		name = "coc_container"
+		position = { x = 480 y = 660 }
+		
+		buttonType ={
+			name ="coc_open_button"
+			spriteType = "GFX_coc_open_button"
+			position = { x=0 y=0 }
+			clicksound = click_close
+			oversound = ui_menu_over
+			pdx_tooltip = "COC_NAME_TOOLTIP"
+		}
+	}
+	
+	### Main Window ###
+	containerWindowType = {
+		name = "coc_main_window_container"
+		position = {x=540 y=80}
+		size = { width=1250 height=900 }
+
+		fade_time = 300
+		fade_type = linear
+		moveable = no
+		
+		background = {
+			name = "Background"
+			spriteType = "GFX_tiled_plain_bg2"
+		}
+		
+		instantTextboxType = {
+			name = "coc_main_window_title"
+			position = { x = 45 y = 8 }
+			textureFile = ""
+			font = "hoi_36header"
+			borderSize = {x = 0 y = 0}
+			text = "COC_MAIN_NAME"
+			maxWidth = 1000
+			maxHeight = 20
+			format = left	
+		}
+		
+		buttonType = {
+			name = "coc_main_close"
+			quadTextureSprite = "GFX_closebutton"
+			position = { x= 1212 y = 7 }
+			clicksound = click_close
+			pdx_tooltip = "COC_CLOSE_TOOLTIP"
+		}
+		
+		containerWindowType = {
+			name = "coc_primary_container"
+			position = { x=0 y=47 }
+			size = { width = 100%% height = 100%% }
+			margin = { top = 13 left = 13 bottom = 24 right = 25}
+			drag_scroll = { left middle }
+			verticalScrollbar = "right_vertical_slider"
+			horizontalScrollbar = "bottom_horizontal_slider"
+
+			background = {
+                name = "main_background"
+                quadTextureSprite = "GFX_tiled_window_thin_border2"
+            }
+
+		 ##################[Basic Stuff]##################
+
+			iconType = {
+				name ="background_military"
+				spriteType = "GFX_military_background"
+				position = { x = 0  y = 0 }
+				alwaystransparent = yes
+			} 
+
+			iconType = {
+				name ="background_military2"
+				spriteType = "GFX_wooden_background"
+				position = { x = 0  y = 1100 }
+				alwaystransparent = yes
+			} 
+			
+			iconType = {
+				name ="armed_forced_badge"
+				spriteType = "GFX_hellenic_armed_forces"
+				position = { x = 574  y = 278 }
+				alwaystransparent = yes
+			} 
+
+			iconType = {
+				name ="high_command_portraits_all"
+				spriteType = "GFX_high_command_portraits_all"
+				position = { x = 0  y = 0 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_portraits_bottom"
+				spriteType = "GFX_high_command_portraits_bottom"
+				position = { x = 96  y = 1200 }
+				alwaystransparent = yes
+			}
+
+		 ##################[Army Chief]##################
+
+			iconType = {
+				name ="army_chief_picture_blanc"
+				spriteType = "GFX_portrait_gre_leader_normal"
+				position = { x = 560  y = 25 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="army_chief_picture_papagos"
+				spriteType = "GFX_portrait_gre_alexandros_papagos"
+				position = { x = 560  y = 25 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="army_chief_picture_drakos"
+				spriteType = "GFX_portrait_gre_markos_drakos"
+				position = { x = 560  y = 25 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="army_chief_picture_stanotas"
+				spriteType = "GFX_portrait_GRE_georgios_stanotas"
+				position = { x = 560  y = 25 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="army_chief_picture_zervas"
+				spriteType = "GFX_portrait_gre_napoleon_zervas"
+				position = { x = 560  y = 25 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="army_chief_picture_davakis"
+				spriteType = "GFX_portrait_GRE_Konstantinos_Davakis"
+				position = { x = 560  y = 25 }
+				alwaystransparent = yes
+			}
+
+		  ##################[Army Chief Ledger]##################
+
+		  	instantTextboxType = {
+				name = "army_chief_papagos_ledger"
+				position = {x=726 y=29}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_chief_of_army_papagos_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+
+			instantTextboxType = {
+				name = "army_chief_drakos_ledger"
+				position = {x=726 y=29}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_chief_of_army_drakos_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+
+			instantTextboxType = {
+				name = "army_chief_stanotas_ledger"
+				position = {x=726 y=29}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_chief_of_army_stanotas_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+
+			instantTextboxType = {
+				name = "army_chief_zervas_ledger"
+				position = {x=726 y=29}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_chief_of_army_zervas_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+
+		 ##################[Navy Chief]##################
+
+			iconType = {
+				name ="navy_chief_picture_blanc"
+				spriteType = "GFX_portrait_gre_leader_normal"
+				position = { x = 146  y = 180 }
+				alwaystransparent = yes
+			}
+		
+		 ##################[Air Chief]##################
+
+			iconType = {
+				name ="air_chief_picture_blanc"
+				spriteType = "GFX_portrait_gre_leader_normal"
+				position = { x = 962  y = 180 }
+				alwaystransparent = yes
+			}
+
+		 ##################[High Command I]##################
+		  #################[Portrait Picture]################
+
+		 
+			iconType = {
+				name ="high_command_1_picture_blanc"
+				spriteType = "GFX_portrait_gre_leader_normal"
+				position = { x = 152  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_1_picture_aggelis"
+				spriteType = "GFX_portrait_gre_aggelis"
+				position = { x = 152  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_1_picture_bakirtzis"
+				spriteType = "GFX_gre_evripidis_bakirtzis"
+				position = { x = 152  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_1_picture_davakis"
+				spriteType = "GFX_portrait_GRE_Konstantinos_Davakis"
+				position = { x = 152  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_1_picture_alexakis"
+				spriteType = "GFX_portrait_gre_alexakis"
+				position = { x = 152  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_1_picture_drakos"
+				spriteType = "GFX_portrait_gre_markos_drakos"
+				position = { x = 152  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_1_picture_katsimitros"
+				spriteType = "GFX_portrait_gre_charalambos_katsimitros"
+				position = { x = 152  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_1_picture_kosmas"
+				spriteType = "GFX_portrait_GRE_Georgios_Kosmas"
+				position = { x = 152  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_1_picture_papagos"
+				spriteType = "GFX_portrait_gre_alexandros_papagos"
+				position = { x = 152  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_1_picture_plastiras"
+				spriteType = "GFX_portrait_gre_nikolaos_plastiras"
+				position = { x = 152  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_1_picture_rossios"
+				spriteType = "GFX_portrait_gre_rossios"
+				position = { x = 152  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_1_picture_stanotas"
+				spriteType = "GFX_portrait_GRE_georgios_stanotas"
+				position = { x = 152  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_1_picture_velouchiotis"
+				spriteType = "GFX_portrait_gre_aris_velouchiotis"
+				position = { x = 152  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_1_picture_zervas"
+				spriteType = "GFX_portrait_gre_napoleon_zervas"
+				position = { x = 152  y = 586 }
+				alwaystransparent = yes
+			}
+
+		  #################[Rank Status]################
+
+		  	iconType = {
+				name ="high_command_1_rank_army_0"
+				spriteType = "GFX_high_command_army_0"
+				position = { x = 412  y = 673 }
+				alwaystransparent = yes
+			}
+			
+			iconType = {
+				name ="high_command_1_rank_army_1"
+				spriteType = "GFX_high_command_army_1"
+				position = { x = 412  y = 673 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_1_rank_army_2"
+				spriteType = "GFX_high_command_army_2"
+				position = { x = 412  y = 673 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_1_rank_army_3"									# + 260, + 87
+				spriteType = "GFX_high_command_army_3"
+				position = { x = 412  y = 673 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_1_rank_navy_0"
+				spriteType = "GFX_high_command_navy_0"
+				position = { x = 412  y = 686 }
+				alwaystransparent = yes
+			}
+			
+			iconType = {
+				name ="high_command_1_rank_navy_1"
+				spriteType = "GFX_high_command_navy_1"
+				position = { x = 412  y = 686 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_1_rank_navy_2"
+				spriteType = "GFX_high_command_navy_2"
+				position = { x = 412  y = 686 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_1_rank_navy_3"									# + 260, + 100
+				spriteType = "GFX_high_command_navy_3"
+				position = { x = 412  y = 686 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_1_rank_air_0"
+				spriteType = "GFX_high_command_air_0"
+				position = { x = 407  y = 700 }
+				alwaystransparent = yes
+			}
+			
+			iconType = {
+				name ="high_command_1_rank_air_1"
+				spriteType = "GFX_high_command_air_1"
+				position = { x = 407  y = 700 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_1_rank_air_2"
+				spriteType = "GFX_high_command_air_2"
+				position = { x = 407  y = 700 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_1_rank_air_3"									# + 255, + 114
+				spriteType = "GFX_high_command_air_3"
+				position = { x = 407  y = 700 }
+				alwaystransparent = yes
+			}
+
+		  #################[Info Ledger]################
+
+			instantTextboxType = {
+				name = "high_command_1_ledger_papagos"
+				position = {x=317 y=586}							   #+165
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_papagos_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_1_ledger_drakos"
+				position = {x=317 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_drakos_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_1_ledger_stanotas"
+				position = {x=317 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_stanotas_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_1_ledger_zervas"
+				position = {x=317 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_zervas_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_1_ledger_plastiras"
+				position = {x=317 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_plastiras_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_1_ledger_katsimitros"
+				position = {x=317 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_katsimitros_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_1_ledger_kosmas"
+				position = {x=317 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_kosmas_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_1_ledger_aggelis"
+				position = {x=317 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_aggelis_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_1_ledger_davakis"
+				position = {x=317 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_davakis_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_1_ledger_alexakis"
+				position = {x=317 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_alexakis_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_1_ledger_velouchiotis"
+				position = {x=317 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_velouchiotis_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_1_ledger_bakirtzis"
+				position = {x=317 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_bakirtzis_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_1_ledger_rossios"
+				position = {x=317 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_rossios_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+
+		 ##################[High Command II]##################
+		  #################[Portrait Picture]################
+
+			iconType = {
+				name ="high_command_2_picture_blanc"
+				spriteType = "GFX_portrait_gre_leader_normal"
+				position = { x = 560  y = 586 }
+				alwaystransparent = yes
+			}
+			
+			iconType = {
+				name ="high_command_2_picture_aggelis"
+				spriteType = "GFX_portrait_gre_aggelis"
+				position = { x = 560  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_2_picture_bakirtzis"
+				spriteType = "GFX_gre_evripidis_bakirtzis"
+				position = { x = 560  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_2_picture_davakis"
+				spriteType = "GFX_portrait_GRE_Konstantinos_Davakis"
+				position = { x = 560  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_2_picture_alexakis"
+				spriteType = "GFX_portrait_gre_alexakis"
+				position = { x = 560  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_2_picture_drakos"
+				spriteType = "GFX_portrait_gre_markos_drakos"
+				position = { x = 560  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_2_picture_katsimitros"
+				spriteType = "GFX_portrait_gre_charalambos_katsimitros"
+				position = { x = 560  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_2_picture_kosmas"
+				spriteType = "GFX_portrait_GRE_Georgios_Kosmas"
+				position = { x = 560  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_2_picture_papagos"
+				spriteType = "GFX_portrait_gre_alexandros_papagos"
+				position = { x = 560  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_2_picture_plastiras"
+				spriteType = "GFX_portrait_gre_nikolaos_plastiras"
+				position = { x = 560  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_2_picture_rossios"
+				spriteType = "GFX_portrait_gre_rossios"
+				position = { x = 560  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_2_picture_stanotas"
+				spriteType = "GFX_portrait_GRE_georgios_stanotas"
+				position = { x = 560  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_2_picture_velouchiotis"
+				spriteType = "GFX_portrait_gre_aris_velouchiotis"
+				position = { x = 560  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_2_picture_zervas"
+				spriteType = "GFX_portrait_gre_napoleon_zervas"
+				position = { x = 560  y = 586 }
+				alwaystransparent = yes
+			}
+
+		  #################[Rank Status]################
+
+		  	iconType = {
+				name ="high_command_2_rank_army_0"
+				spriteType = "GFX_high_command_army_0"
+				position = { x = 820  y = 673 }
+				alwaystransparent = yes
+			}
+			
+			iconType = {
+				name ="high_command_2_rank_army_1"
+				spriteType = "GFX_high_command_army_1"
+				position = { x = 820  y = 673 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_2_rank_army_2"
+				spriteType = "GFX_high_command_army_2"
+				position = { x = 820  y = 673 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_2_rank_army_3"									# + 260, + 87
+				spriteType = "GFX_high_command_army_3"
+				position = { x = 820  y = 673 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_2_rank_navy_0"
+				spriteType = "GFX_high_command_navy_0"
+				position = { x = 820  y = 686 }
+				alwaystransparent = yes
+			}
+			
+			iconType = {
+				name ="high_command_2_rank_navy_1"
+				spriteType = "GFX_high_command_navy_1"
+				position = { x = 820  y = 686 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_2_rank_navy_2"
+				spriteType = "GFX_high_command_navy_2"
+				position = { x = 820  y = 686 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_2_rank_navy_3"									# + 260, + 100
+				spriteType = "GFX_high_command_navy_3"
+				position = { x = 820  y = 686 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_2_rank_air_0"
+				spriteType = "GFX_high_command_air_0"
+				position = { x = 815  y = 700 }
+				alwaystransparent = yes
+			}
+			
+			iconType = {
+				name ="high_command_2_rank_air_1"
+				spriteType = "GFX_high_command_air_1"
+				position = { x = 815  y = 700 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_2_rank_air_2"
+				spriteType = "GFX_high_command_air_2"
+				position = { x = 815  y = 700 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_2_rank_air_3"									# + 255, + 114
+				spriteType = "GFX_high_command_air_3"
+				position = { x = 815  y = 700 }
+				alwaystransparent = yes
+			}
+
+		  #################[Info Ledger]################
+
+			instantTextboxType = {
+				name = "high_command_2_ledger_papagos"
+				position = {x=725 y=586}							   #+165
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_papagos_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_2_ledger_drakos"
+				position = {x=725 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_drakos_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_2_ledger_stanotas"
+				position = {x=725 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_stanotas_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_2_ledger_zervas"
+				position = {x=725 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_zervas_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_2_ledger_plastiras"
+				position = {x=725 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_plastiras_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_2_ledger_katsimitros"
+				position = {x=725 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_katsimitros_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_2_ledger_kosmas"
+				position = {x=725 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_kosmas_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_2_ledger_aggelis"
+				position = {x=725 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_aggelis_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_2_ledger_davakis"
+				position = {x=725 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_davakis_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_2_ledger_alexakis"
+				position = {x=725 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_alexakis_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_2_ledger_velouchiotis"
+				position = {x=725 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_velouchiotis_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_2_ledger_bakirtzis"
+				position = {x=725 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_bakirtzis_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_2_ledger_rossios"
+				position = {x=725 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_rossios_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+
+		 ##################[High Command III]##################
+
+			iconType = {
+				name ="high_command_3_picture_blanc"
+				spriteType = "GFX_portrait_gre_leader_normal"
+				position = { x = 968  y = 586 }
+				alwaystransparent = yes
+			}
+			
+			iconType = {
+				name ="high_command_3_picture_aggelis"
+				spriteType = "GFX_portrait_gre_aggelis"
+				position = { x = 968  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_3_picture_bakirtzis"
+				spriteType = "GFX_gre_evripidis_bakirtzis"
+				position = { x = 968  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_3_picture_davakis"
+				spriteType = "GFX_portrait_GRE_Konstantinos_Davakis"
+				position = { x = 968  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_3_picture_alexakis"
+				spriteType = "GFX_portrait_gre_alexakis"
+				position = { x = 968  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_3_picture_drakos"
+				spriteType = "GFX_portrait_gre_markos_drakos"
+				position = { x = 968  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_3_picture_katsimitros"
+				spriteType = "GFX_portrait_gre_charalambos_katsimitros"
+				position = { x = 968  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_3_picture_kosmas"
+				spriteType = "GFX_portrait_GRE_Georgios_Kosmas"
+				position = { x = 968  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_3_picture_papagos"
+				spriteType = "GFX_portrait_gre_alexandros_papagos"
+				position = { x = 968  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_3_picture_plastiras"
+				spriteType = "GFX_portrait_gre_nikolaos_plastiras"
+				position = { x = 968  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_3_picture_rossios"
+				spriteType = "GFX_portrait_gre_rossios"
+				position = { x = 968  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_3_picture_stanotas"
+				spriteType = "GFX_portrait_GRE_georgios_stanotas"
+				position = { x = 968  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_3_picture_velouchiotis"
+				spriteType = "GFX_portrait_gre_aris_velouchiotis"
+				position = { x = 968  y = 586 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_3_picture_zervas"
+				spriteType = "GFX_portrait_gre_napoleon_zervas"
+				position = { x = 968  y = 586 }
+				alwaystransparent = yes
+			}
+
+		  #################[Rank Status]################
+
+		  	iconType = {
+				name ="high_command_3_rank_army_0"
+				spriteType = "GFX_high_command_army_0"
+				position = { x = 1228  y = 673 }
+				alwaystransparent = yes
+			}
+			
+			iconType = {
+				name ="high_command_3_rank_army_1"
+				spriteType = "GFX_high_command_army_1"
+				position = { x = 1228  y = 673 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_3_rank_army_2"
+				spriteType = "GFX_high_command_army_2"
+				position = { x = 1228  y = 673 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_3_rank_army_3"									# + 260, + 87
+				spriteType = "GFX_high_command_army_3"
+				position = { x = 1228  y = 673 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_3_rank_navy_0"
+				spriteType = "GFX_high_command_navy_0"
+				position = { x = 1228  y = 686 }
+				alwaystransparent = yes
+			}
+			
+			iconType = {
+				name ="high_command_3_rank_navy_1"
+				spriteType = "GFX_high_command_navy_1"
+				position = { x = 1228  y = 686 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_3_rank_navy_2"
+				spriteType = "GFX_high_command_navy_2"
+				position = { x = 1228  y = 686 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_3_rank_navy_3"									# + 260, + 100
+				spriteType = "GFX_high_command_navy_3"
+				position = { x = 1228  y = 686 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_3_rank_air_0"
+				spriteType = "GFX_high_command_air_0"
+				position = { x = 1223  y = 700 }
+				alwaystransparent = yes
+			}
+			
+			iconType = {
+				name ="high_command_3_rank_air_1"
+				spriteType = "GFX_high_command_air_1"
+				position = { x = 1223  y = 700 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_3_rank_air_2"
+				spriteType = "GFX_high_command_air_2"
+				position = { x = 1223  y = 700 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_3_rank_air_3"									# + 255, + 114
+				spriteType = "GFX_high_command_air_3"
+				position = { x = 1223  y = 700 }
+				alwaystransparent = yes
+			}
+
+		  #################[Info Ledger]################
+
+			instantTextboxType = {
+				name = "high_command_3_ledger_papagos"
+				position = {x=1133 y=586}							   #+165
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_papagos_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_3_ledger_drakos"
+				position = {x=1133 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_drakos_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_3_ledger_stanotas"
+				position = {x=1133 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_stanotas_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_3_ledger_zervas"
+				position = {x=1133 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_zervas_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_3_ledger_plastiras"
+				position = {x=1133 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_plastiras_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_3_ledger_katsimitros"
+				position = {x=1133 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_katsimitros_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_3_ledger_kosmas"
+				position = {x=1133 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_kosmas_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_3_ledger_aggelis"
+				position = {x=1133 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_aggelis_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_3_ledger_davakis"
+				position = {x=1133 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_davakis_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_3_ledger_alexakis"
+				position = {x=1133 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_alexakis_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_3_ledger_velouchiotis"
+				position = {x=1133 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_velouchiotis_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_3_ledger_bakirtzis"
+				position = {x=1133 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_bakirtzis_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_3_ledger_rossios"
+				position = {x=1133 y=586}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_rossios_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+
+		 ##################[High Command IV]##################
+
+			iconType = {
+				name ="high_command_4_picture_blanc"
+				spriteType = "GFX_portrait_gre_leader_normal"
+				position = { x = 356  y = 841 }
+				alwaystransparent = yes
+			}
+			
+			iconType = {
+				name ="high_command_4_picture_aggelis"
+				spriteType = "GFX_portrait_gre_aggelis"
+				position = { x = 356  y = 841 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_4_picture_bakirtzis"
+				spriteType = "GFX_gre_evripidis_bakirtzis"
+				position = { x = 356  y = 841 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_4_picture_davakis"
+				spriteType = "GFX_portrait_GRE_Konstantinos_Davakis"
+				position = { x = 356  y = 841 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_4_picture_alexakis"
+				spriteType = "GFX_portrait_gre_alexakis"
+				position = { x = 356  y = 841 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_4_picture_drakos"
+				spriteType = "GFX_portrait_gre_markos_drakos"
+				position = { x = 356  y = 841 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_4_picture_katsimitros"
+				spriteType = "GFX_portrait_gre_charalambos_katsimitros"
+				position = { x = 356  y = 841 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_4_picture_kosmas"
+				spriteType = "GFX_portrait_GRE_Georgios_Kosmas"
+				position = { x = 356  y = 841 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_4_picture_papagos"
+				spriteType = "GFX_portrait_gre_alexandros_papagos"
+				position = { x = 356  y = 841 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_4_picture_plastiras"
+				spriteType = "GFX_portrait_gre_nikolaos_plastiras"
+				position = { x = 356  y = 841 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_4_picture_rossios"
+				spriteType = "GFX_portrait_gre_rossios"
+				position = { x = 356  y = 841 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_4_picture_stanotas"
+				spriteType = "GFX_portrait_GRE_georgios_stanotas"
+				position = { x = 356  y = 841 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_4_picture_velouchiotis"
+				spriteType = "GFX_portrait_gre_aris_velouchiotis"
+				position = { x = 356  y = 841 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_4_picture_zervas"
+				spriteType = "GFX_portrait_gre_napoleon_zervas"
+				position = { x = 356  y = 841 }
+				alwaystransparent = yes
+			}
+
+		  #################[Rank Status]################
+
+		  	iconType = {
+				name ="high_command_4_rank_army_0"
+				spriteType = "GFX_high_command_army_0"
+				position = { x = 616  y = 928 }
+				alwaystransparent = yes
+			}
+			
+			iconType = {
+				name ="high_command_4_rank_army_1"
+				spriteType = "GFX_high_command_army_1"
+				position = { x = 616  y = 928 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_4_rank_army_2"
+				spriteType = "GFX_high_command_army_2"
+				position = { x = 616  y = 928 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_4_rank_army_3"									# + 260, + 87
+				spriteType = "GFX_high_command_army_3"
+				position = { x = 616  y = 928 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_4_rank_navy_0"
+				spriteType = "GFX_high_command_navy_0"
+				position = { x = 616  y = 941 }
+				alwaystransparent = yes
+			}
+			
+			iconType = {
+				name ="high_command_4_rank_navy_1"
+				spriteType = "GFX_high_command_navy_1"
+				position = { x = 616  y = 941 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_4_rank_navy_2"
+				spriteType = "GFX_high_command_navy_2"
+				position = { x = 616  y = 941 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_4_rank_navy_3"									# + 260, + 100
+				spriteType = "GFX_high_command_navy_3"
+				position = { x = 616  y = 941 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_4_rank_air_0"
+				spriteType = "GFX_high_command_air_0"
+				position = { x = 611  y = 955 }
+				alwaystransparent = yes
+			}
+			
+			iconType = {
+				name ="high_command_4_rank_air_1"
+				spriteType = "GFX_high_command_air_1"
+				position = { x = 611  y = 955 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_4_rank_air_2"
+				spriteType = "GFX_high_command_air_2"
+				position = { x = 611  y = 955 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_4_rank_air_3"									# + 255, + 114
+				spriteType = "GFX_high_command_air_3"
+				position = { x = 611  y = 955 }
+				alwaystransparent = yes
+			}
+
+		  #################[Info Ledger]################
+
+			instantTextboxType = {
+				name = "high_command_4_ledger_papagos"
+				position = {x=521 y=841}							   #+165
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_papagos_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_4_ledger_drakos"
+				position = {x=521 y=841}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_drakos_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_4_ledger_stanotas"
+				position = {x=521 y=841}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_stanotas_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_4_ledger_zervas"
+				position = {x=521 y=841}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_zervas_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_4_ledger_plastiras"
+				position = {x=521 y=841}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_plastiras_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_4_ledger_katsimitros"
+				position = {x=521 y=841}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_katsimitros_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_4_ledger_kosmas"
+				position = {x=521 y=841}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_kosmas_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_4_ledger_aggelis"
+				position = {x=521 y=841}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_aggelis_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_4_ledger_davakis"
+				position = {x=521 y=841}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_davakis_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_4_ledger_alexakis"
+				position = {x=521 y=841}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_alexakis_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_4_ledger_velouchiotis"
+				position = {x=521 y=841}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_velouchiotis_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_4_ledger_bakirtzis"
+				position = {x=521 y=841}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_bakirtzis_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_4_ledger_rossios"
+				position = {x=521 y=841}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_rossios_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+
+		 ##################[High Command V]##################
+		  #################[Portrait Picture]################
+
+			iconType = {
+				name ="high_command_5_picture_blanc"
+				spriteType = "GFX_portrait_gre_leader_normal"
+				position = { x = 764  y = 841 }
+				alwaystransparent = yes
+			}
+			
+			iconType = {
+				name ="high_command_5_picture_aggelis"
+				spriteType = "GFX_portrait_gre_aggelis"
+				position = { x = 764  y = 841 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_5_picture_bakirtzis"
+				spriteType = "GFX_gre_evripidis_bakirtzis"
+				position = { x = 764  y = 841 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_5_picture_davakis"
+				spriteType = "GFX_portrait_GRE_Konstantinos_Davakis"
+				position = { x = 764  y = 841 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_5_picture_alexakis"
+				spriteType = "GFX_portrait_gre_alexakis"
+				position = { x = 764  y = 841 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_5_picture_drakos"
+				spriteType = "GFX_portrait_gre_markos_drakos"
+				position = { x = 764  y = 841 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_5_picture_katsimitros"
+				spriteType = "GFX_portrait_gre_charalambos_katsimitros"
+				position = { x = 764  y = 841 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_5_picture_kosmas"
+				spriteType = "GFX_portrait_GRE_Georgios_Kosmas"
+				position = { x = 764  y = 841 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_5_picture_papagos"
+				spriteType = "GFX_portrait_gre_alexandros_papagos"
+				position = { x = 764  y = 841 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_5_picture_plastiras"
+				spriteType = "GFX_portrait_gre_nikolaos_plastiras"
+				position = { x = 764  y = 841 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_5_picture_rossios"
+				spriteType = "GFX_portrait_gre_rossios"
+				position = { x = 764  y = 841 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_5_picture_stanotas"
+				spriteType = "GFX_portrait_GRE_georgios_stanotas"
+				position = { x = 764  y = 841 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_5_picture_velouchiotis"
+				spriteType = "GFX_portrait_gre_aris_velouchiotis"
+				position = { x = 764  y = 841 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_5_picture_zervas"
+				spriteType = "GFX_portrait_gre_napoleon_zervas"
+				position = { x = 764  y = 841 }
+				alwaystransparent = yes
+			}
+
+		  #################[Rank Status]################
+
+		  	iconType = {
+				name ="high_command_5_rank_army_0"
+				spriteType = "GFX_high_command_army_0"
+				position = { x = 1024  y = 928 }
+				alwaystransparent = yes
+			}
+			
+			iconType = {
+				name ="high_command_5_rank_army_1"
+				spriteType = "GFX_high_command_army_1"
+				position = { x = 1024  y = 928 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_5_rank_army_2"
+				spriteType = "GFX_high_command_army_2"
+				position = { x = 1024  y = 928 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_5_rank_army_3"									# + 260, + 87
+				spriteType = "GFX_high_command_army_3"
+				position = { x = 1024  y = 928 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_5_rank_navy_0"
+				spriteType = "GFX_high_command_navy_0"
+				position = { x = 1024  y = 941 }
+				alwaystransparent = yes
+			}
+			
+			iconType = {
+				name ="high_command_5_rank_navy_1"
+				spriteType = "GFX_high_command_navy_1"
+				position = { x = 1024  y = 941 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_5_rank_navy_2"
+				spriteType = "GFX_high_command_navy_2"
+				position = { x = 1024  y = 941 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_5_rank_navy_3"									# + 260, + 100
+				spriteType = "GFX_high_command_navy_3"
+				position = { x = 1024  y = 941 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_5_rank_air_0"
+				spriteType = "GFX_high_command_air_0"
+				position = { x = 1019  y = 955 }
+				alwaystransparent = yes
+			}
+			
+			iconType = {
+				name ="high_command_5_rank_air_1"
+				spriteType = "GFX_high_command_air_1"
+				position = { x = 1019  y = 955 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_5_rank_air_2"
+				spriteType = "GFX_high_command_air_2"
+				position = { x = 1019  y = 955 }
+				alwaystransparent = yes
+			}
+
+			iconType = {
+				name ="high_command_5_rank_air_3"									# + 255, + 114
+				spriteType = "GFX_high_command_air_3"
+				position = { x = 1019  y = 955 }
+				alwaystransparent = yes
+			}
+			
+			#iconType = {
+			#	name ="coc_papagos"
+			#	spriteType = "GFX_portrait_gre_paparrodou"
+			#	position = { x= 0 y = 0 }
+			#}
+
+		  #################[Info Ledger]################
+
+			instantTextboxType = {
+				name = "high_command_5_ledger_papagos"
+				position = {x=929 y=841}							   #+165
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_papagos_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_5_ledger_drakos"
+				position = {x=929 y=841}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_drakos_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_5_ledger_stanotas"
+				position = {x=929 y=841}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_stanotas_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_5_ledger_zervas"
+				position = {x=929 y=841}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_zervas_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_5_ledger_plastiras"
+				position = {x=929 y=841}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_plastiras_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_5_ledger_katsimitros"
+				position = {x=929 y=841}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_katsimitros_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_5_ledger_kosmas"
+				position = {x=929 y=841}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_kosmas_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_5_ledger_aggelis"
+				position = {x=929 y=841}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_aggelis_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_5_ledger_davakis"
+				position = {x=929 y=841}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_davakis_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_5_ledger_alexakis"
+				position = {x=929 y=841}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_alexakis_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_5_ledger_velouchiotis"
+				position = {x=929 y=841}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_velouchiotis_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_5_ledger_bakirtzis"
+				position = {x=929 y=841}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_bakirtzis_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "high_command_5_ledger_rossios"
+				position = {x=929 y=841}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_rossios_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+
+		 ##################[Wooden Board]###################
+		  ###[Papagos]###
+			iconType = {
+				name ="high_command_wb_picture_papagos_bw"
+				spriteType = "GFX_portrait_gre_papagos_black_white"
+				position = { x = 104  y = 1208 }
+				alwaystransparent = yes
+			}
+		 	iconType = {
+				name ="high_command_wb_picture_papagos"
+				spriteType = "GFX_portrait_gre_alexandros_papagos"
+				position = { x = 104  y = 1208 }
+				alwaystransparent = yes
+			}
+			iconType = {
+				name ="high_command_wb_picture_papagos_dead"
+				spriteType = "GFX_dead_general"
+				position = { x = 104  y = 1238 }					  # +0,30
+				alwaystransparent = no
+				pdx_tooltip = "high_command_died"
+			}
+			iconType = {
+				name ="high_command_wb_picture_papagos_purged"
+				spriteType = "GFX_purged_general"
+				position = { x = 132  y = 1238 }					  # +28,30
+				alwaystransparent = no
+				pdx_tooltip = "high_command_purged"
+			}
+			iconType = {
+				name ="high_command_wb_picture_papagos_surrendered"
+				spriteType = "GFX_surrendered_general"				  # -4,30
+				position = { x = 100  y = 1238 }
+				alwaystransparent = no
+				pdx_tooltip = "high_command_surrendered"
+			}
+			buttonType = {
+				name ="high_command_wb_rank_papagos_army_0"
+				spriteType = "GFX_high_command_army_0"
+				position = { x = 84  y = 1326 }						  # -20, 118
+				alwaystransparent = no
+				pdx_tooltip = "not_purged_surrendered_dead"
+				scale = 0.75
+			}
+			buttonType = {
+				name ="high_command_wb_rank_papagos_army_1"
+				spriteType = "GFX_high_command_army_1"
+				position = { x = 84  y = 1326 }
+				alwaystransparent = no
+				scale = 0.75
+			}
+			buttonType = {
+				name ="high_command_wb_rank_papagos_army_2"
+				spriteType = "GFX_high_command_army_2"
+				position = { x = 84  y = 1326 }
+				alwaystransparent = no
+				scale = 0.75
+			}
+			iconType = {
+				name ="high_command_wb_rank_papagos_army_3"									# + 260, + 87
+				spriteType = "GFX_high_command_army_3"
+				position = { x = 84  y = 1326 }
+				alwaystransparent = yes
+				scale = 0.75
+			}
+		  ###[Drakos]###
+			iconType = {
+				name ="high_command_wb_picture_drakos_bw"
+				spriteType = "GFX_portrait_gre_drakos_black_white"
+				position = { x = 408  y = 1208 }						#+~308 for left
+				alwaystransparent = yes
+			}
+		  	iconType = {
+				name ="high_command_wb_picture_drakos"
+				spriteType = "GFX_portrait_gre_markos_drakos"
+				position = { x = 408  y = 1208 }						#+~308 for left
+				alwaystransparent = yes
+			}
+			iconType = {
+				name ="high_command_wb_picture_drakos_dead"
+				spriteType = "GFX_dead_general"
+				position = { x = 408  y = 1224 }
+				alwaystransparent = no
+				pdx_tooltip = "high_command_died"
+			}
+			iconType = {
+				name ="high_command_wb_picture_drakos_purged"
+				spriteType = "GFX_purged_general"
+				position = { x = 436  y = 1238 }
+				alwaystransparent = no
+				pdx_tooltip = "high_command_purged"
+			}
+			iconType = {
+				name ="high_command_wb_picture_drakos_surrendered"
+				spriteType = "GFX_surrendered_general"
+				position = { x = 404  y = 1238 }
+				alwaystransparent = no
+				pdx_tooltip = "high_command_surrendered"
+			}
+			buttonType = {
+				name ="high_command_wb_rank_drakos_army_0"
+				spriteType = "GFX_high_command_army_0"
+				position = { x = 388  y = 1326 }											 # -20, 118
+				alwaystransparent = no
+				pdx_tooltip = "not_purged_surrendered_dead"
+				scale = 0.75
+			}
+			buttonType = {
+				name ="high_command_wb_rank_drakos_army_1"
+				spriteType = "GFX_high_command_army_1"
+				position = { x = 388  y = 1326 }
+				alwaystransparent = no
+				scale = 0.75
+			}
+			buttonType = {
+				name ="high_command_wb_rank_drakos_army_2"
+				spriteType = "GFX_high_command_army_2"
+				position = { x = 388  y = 1326 }
+				alwaystransparent = no
+				scale = 0.75
+			}
+			iconType = {
+				name ="high_command_wb_rank_drakos_army_3"									# + 260, + 87
+				spriteType = "GFX_high_command_army_3"
+				position = { x = 388  y = 1326 }
+				alwaystransparent = yes
+				scale = 0.75
+			}
+		  ###[Stanotas]###
+			iconType = {
+				name ="high_command_wb_picture_stanotas_bw"
+				spriteType = "GFX_portrait_GRE_georgios_stanotas_black_white"
+				position = { x = 712  y = 1208 }
+				alwaystransparent = yes
+			}
+		  	iconType = {
+				name ="high_command_wb_picture_stanotas"
+				spriteType = "GFX_portrait_GRE_georgios_stanotas"
+				position = { x = 712  y = 1208 }
+				alwaystransparent = yes
+			}
+			iconType = {
+				name ="high_command_wb_picture_stanotas_dead"
+				spriteType = "GFX_dead_general"
+				position = { x = 712  y = 1224 }					  # +0
+				alwaystransparent = no
+				pdx_tooltip = "high_command_died"
+			}
+			iconType = {
+				name ="high_command_wb_picture_stanotas_purged"
+				spriteType = "GFX_purged_general"
+				position = { x = 736  y = 1238 }					  # +28
+				alwaystransparent = no
+				pdx_tooltip = "high_command_purged"
+			}
+			iconType = {
+				name ="high_command_wb_picture_stanotas_surrendered"
+				spriteType = "GFX_surrendered_general"				  # -4
+				position = { x = 708  y = 1238 }
+				alwaystransparent = no
+				pdx_tooltip = "high_command_surrendered"
+			}
+			buttonType = {
+				name ="high_command_wb_rank_stanotas_army_0"
+				spriteType = "GFX_high_command_army_0"
+				position = { x = 692  y = 1326 }											 # -20, 118
+				alwaystransparent = no
+				pdx_tooltip = "not_purged_surrendered_dead"
+				scale = 0.75
+			}
+			buttonType = {
+				name ="high_command_wb_rank_stanotas_army_1"
+				spriteType = "GFX_high_command_army_1"
+				position = { x = 692  y = 1326 }
+				alwaystransparent = no
+				scale = 0.75
+			}
+			buttonType = {
+				name ="high_command_wb_rank_stanotas_army_2"
+				spriteType = "GFX_high_command_army_2"
+				position = { x = 692  y = 1326 }
+				alwaystransparent = no
+				scale = 0.75
+			}
+			iconType = {
+				name ="high_command_wb_rank_stanotas_army_3"									# + 260, + 87
+				spriteType = "GFX_high_command_army_3"
+				position = { x = 692  y = 1326 }
+				alwaystransparent = yes
+				scale = 0.75
+			}
+		  ###[Zervas]###
+			iconType = {
+				name ="high_command_wb_picture_zervas_bw"
+				spriteType = "GFX_portrait_gre_zervas_black_white"
+				position = { x = 1016  y = 1208 }
+				alwaystransparent = yes
+			}
+		  	iconType = {
+				name ="high_command_wb_picture_zervas"
+				spriteType = "GFX_portrait_gre_napoleon_zervas"
+				position = { x = 1016  y = 1208 }
+				alwaystransparent = yes
+			}
+			iconType = {
+				name ="high_command_wb_picture_zervas_dead"
+				spriteType = "GFX_dead_general"
+				position = { x = 984  y = 1218 }					  # +0
+				alwaystransparent = no
+				pdx_tooltip = "high_command_died"
+			}
+			iconType = {
+				name ="high_command_wb_picture_zervas_purged"
+				spriteType = "GFX_purged_general"
+				position = { x = 1021  y = 1238 }					  # +28
+				alwaystransparent = no
+				pdx_tooltip = "high_command_purged"
+			}
+			iconType = {
+				name ="high_command_wb_picture_zervas_surrendered"
+				spriteType = "GFX_surrendered_general"				  # -4
+				position = { x = 1012  y = 1238 }
+				alwaystransparent = no
+				pdx_tooltip = "high_command_surrendered"
+			}
+			buttonType = {
+				name ="high_command_wb_rank_zervas_army_0"
+				spriteType = "GFX_high_command_army_0"
+				position = { x = 996  y = 1326 }											 # -20, 118
+				alwaystransparent = no
+				pdx_tooltip = "not_purged_surrendered_dead"
+				scale = 0.75
+			}
+			buttonType = {
+				name ="high_command_wb_rank_zervas_army_1"
+				spriteType = "GFX_high_command_army_1"
+				position = { x = 996  y = 1326 }
+				alwaystransparent = no
+				scale = 0.75
+			}
+			buttonType = {
+				name ="high_command_wb_rank_zervas_army_2"
+				spriteType = "GFX_high_command_army_2"
+				position = { x = 996  y = 1326 }
+				alwaystransparent = no
+				scale = 0.75
+			}
+			iconType = {
+				name ="high_command_wb_rank_zervas_army_3"									# + 260, + 87
+				spriteType = "GFX_high_command_army_3"
+				position = { x = 996  y = 1326 }
+				alwaystransparent = yes
+				scale = 0.75
+			}
+		  ###[Plastiras]###
+			iconType = {
+				name ="high_command_wb_picture_plastiras_bw"
+				spriteType = "GFX_portrait_gre_plastiras_black_white"
+				position = { x = 104  y = 1474 }						#+~266 for down
+				alwaystransparent = yes
+			}
+		  	iconType = {
+				name ="high_command_wb_picture_plastiras"
+				spriteType = "GFX_portrait_gre_nikolaos_plastiras"
+				position = { x = 104  y = 1474 }						#+~266 for down
+				alwaystransparent = yes
+			}
+			iconType = {
+				name ="high_command_wb_picture_plastiras_dead"
+				spriteType = "GFX_dead_general"
+				position = { x = 79  y = 1485 }
+				alwaystransparent = no
+				pdx_tooltip = "high_command_died"
+			}
+			iconType = {
+				name ="high_command_wb_picture_plastiras_purged"
+				spriteType = "GFX_purged_general"
+				position = { x = 101  y = 1504 }
+				alwaystransparent = no
+				pdx_tooltip = "high_command_purged"
+			}
+			iconType = {
+				name ="high_command_wb_picture_plastiras_surrendered"
+				spriteType = "GFX_surrendered_general"
+				position = { x = 100  y = 1504 }
+				alwaystransparent = no
+				pdx_tooltip = "high_command_surrendered"
+			}
+			buttonType = {
+				name ="high_command_wb_rank_plastiras_army_0"
+				spriteType = "GFX_high_command_army_0"
+				position = { x = 84  y = 1592 }						  # -20, 118
+				alwaystransparent = no
+				pdx_tooltip = "not_purged_surrendered_dead"
+				scale = 0.75
+			}
+			buttonType = {
+				name ="high_command_wb_rank_plastiras_army_1"
+				spriteType = "GFX_high_command_army_1"
+				position = { x = 84  y = 1592 }
+				alwaystransparent = no
+				scale = 0.75
+			}
+			buttonType = {
+				name ="high_command_wb_rank_plastiras_army_2"
+				spriteType = "GFX_high_command_army_2"
+				position = { x = 84  y = 1592 }
+				alwaystransparent = no
+				scale = 0.75
+			}
+			iconType = {
+				name ="high_command_wb_rank_plastiras_army_3"									# + 260, + 87
+				spriteType = "GFX_high_command_army_3"
+				position = { x = 84  y = 1592 }
+				alwaystransparent = yes
+				scale = 0.75
+			}
+		  ###[Katsimitros]###
+			iconType = {
+				name ="high_command_wb_picture_katsimitros_bw"
+				spriteType = "GFX_portrait_gre_katsimitros_black_white"
+				position = { x = 408  y = 1474 }
+				alwaystransparent = yes
+			}
+		  	iconType = {
+				name ="high_command_wb_picture_katsimitros"
+				spriteType = "GFX_portrait_gre_charalambos_katsimitros"
+				position = { x = 408  y = 1474 }
+				alwaystransparent = yes
+			}
+			iconType = {
+				name ="high_command_wb_picture_katsimitros_dead"
+				spriteType = "GFX_dead_general"
+				position = { x = 374  y = 1491 }
+				alwaystransparent = no
+				pdx_tooltip = "high_command_died"
+			}
+			iconType = {
+				name ="high_command_wb_picture_katsimitros_purged"
+				spriteType = "GFX_purged_general"
+				position = { x = 396  y = 1504 }
+				alwaystransparent = no
+				pdx_tooltip = "high_command_purged"
+			}
+			iconType = {
+				name ="high_command_wb_picture_katsimitros_surrendered"
+				spriteType = "GFX_surrendered_general"
+				position = { x = 404  y = 1504 }
+				alwaystransparent = no
+				pdx_tooltip = "high_command_surrendered"
+			}
+			buttonType = {
+				name ="high_command_wb_rank_katsimitros_army_0"
+				spriteType = "GFX_high_command_army_0"
+				position = { x = 388  y = 1592 }						  # -20, 118
+				alwaystransparent = no
+				pdx_tooltip = "not_purged_surrendered_dead"
+				scale = 0.75
+			}
+			buttonType = {
+				name ="high_command_wb_rank_katsimitros_army_1"
+				spriteType = "GFX_high_command_army_1"
+				position = { x = 388  y = 1592 }
+				alwaystransparent = no
+				scale = 0.75
+			}
+			buttonType = {
+				name ="high_command_wb_rank_katsimitros_army_2"
+				spriteType = "GFX_high_command_army_2"
+				position = { x = 388  y = 1592 }
+				alwaystransparent = no
+				scale = 0.75
+			}
+			iconType = {
+				name ="high_command_wb_rank_katsimitros_army_3"									# + 260, + 87
+				spriteType = "GFX_high_command_army_3"
+				position = { x = 388  y = 1592 }
+				alwaystransparent = yes
+				scale = 0.75
+			}
+		  ###[Kosmas]###
+			iconType = {
+				name ="high_command_wb_picture_kosmas_bw"
+				spriteType = "GFX_portrait_GRE_Georgios_Kosmas_black_white"
+				position = { x = 712  y = 1474 }
+				alwaystransparent = yes
+			}
+		  	iconType = {
+				name ="high_command_wb_picture_kosmas"
+				spriteType = "GFX_portrait_GRE_Georgios_Kosmas"
+				position = { x = 712  y = 1474 }
+				alwaystransparent = yes
+			}
+			iconType = {
+				name ="high_command_wb_picture_kosmas_dead"
+				spriteType = "GFX_dead_general"
+				position = { x = 664  y = 1491 }
+				alwaystransparent = no
+				pdx_tooltip = "high_command_died"
+			}
+			iconType = {
+				name ="high_command_wb_picture_kosmas_purged"
+				spriteType = "GFX_purged_general"
+				position = { x = 710  y = 1504 }
+				alwaystransparent = no
+				pdx_tooltip = "high_command_purged"
+			}
+			iconType = {
+				name ="high_command_wb_picture_kosmas_surrendered"
+				spriteType = "GFX_surrendered_general"
+				position = { x = 708  y = 1504 }
+				alwaystransparent = no
+				pdx_tooltip = "high_command_surrendered"
+			}
+			buttonType = {
+				name ="high_command_wb_rank_kosmas_army_0"
+				spriteType = "GFX_high_command_army_0"
+				position = { x = 692  y = 1592 }						  # -20, 118
+				alwaystransparent = no
+				pdx_tooltip = "not_purged_surrendered_dead"
+				scale = 0.75
+			}
+			buttonType = {
+				name ="high_command_wb_rank_kosmas_army_1"
+				spriteType = "GFX_high_command_army_1"
+				position = { x = 692  y = 1592 }
+				alwaystransparent = no
+				scale = 0.75
+			}
+			buttonType = {
+				name ="high_command_wb_rank_kosmas_army_2"
+				spriteType = "GFX_high_command_army_2"
+				position = { x = 692  y = 1592 }
+				alwaystransparent = no
+				scale = 0.75
+			}
+			iconType = {
+				name ="high_command_wb_rank_kosmas_army_3"									# + 260, + 87
+				spriteType = "GFX_high_command_army_3"
+				position = { x = 692  y = 1592 }
+				alwaystransparent = yes
+				scale = 0.75
+			}
+		  ###[Aggelis]###
+			iconType = {
+				name ="high_command_wb_picture_aggelis_bw"
+				spriteType = "GFX_portrait_gre_aggelis_black_white"
+				position = { x = 1016  y = 1474 }
+				alwaystransparent = yes
+			}
+		  	iconType = {
+				name ="high_command_wb_picture_aggelis"
+				spriteType = "GFX_portrait_gre_aggelis"
+				position = { x = 1016  y = 1474 }
+				alwaystransparent = yes
+			}
+			iconType = {
+				name ="high_command_wb_picture_aggelis_dead"
+				spriteType = "GFX_dead_general"
+				position = { x = 1000  y = 1472 }
+				alwaystransparent = no
+				pdx_tooltip = "high_command_died"
+			}
+			iconType = {
+				name ="high_command_wb_picture_aggelis_purged"
+				spriteType = "GFX_purged_general"
+				position = { x = 1016  y = 1472 }
+				alwaystransparent = no
+				pdx_tooltip = "high_command_purged"
+			}
+			iconType = {
+				name ="high_command_wb_picture_aggelis_surrendered"
+				spriteType = "GFX_surrendered_general"
+				position = { x = 1016  y = 1504 }
+				alwaystransparent = no
+				pdx_tooltip = "high_command_surrendered"
+			}
+			buttonType = {
+				name ="high_command_wb_rank_aggelis_army_0"
+				spriteType = "GFX_high_command_army_0"
+				position = { x = 996  y = 1592 }						  # -20, 118
+				alwaystransparent = no
+				pdx_tooltip = "not_purged_surrendered_dead"
+				scale = 0.75
+			}
+			buttonType = {
+				name ="high_command_wb_rank_aggelis_army_1"
+				spriteType = "GFX_high_command_army_1"
+				position = { x = 996  y = 1592 }
+				alwaystransparent = no
+				scale = 0.75
+			}
+			buttonType = {
+				name ="high_command_wb_rank_aggelis_army_2"
+				spriteType = "GFX_high_command_army_2"
+				position = { x = 996  y = 1592 }
+				alwaystransparent = no
+				scale = 0.75
+			}
+			iconType = {
+				name ="high_command_wb_rank_aggelis_army_3"									# + 260, + 87
+				spriteType = "GFX_high_command_army_3"
+				position = { x = 996  y = 1592 }
+				alwaystransparent = yes
+				scale = 0.75
+			}
+		  ###[Davakis]###
+			iconType = {
+				name ="army_chief_wb_picture_davakis_bw"
+				spriteType = "GFX_portrait_GRE_Konstantinos_Davakis_black_white"
+				position = { x = 104  y = 1740 }
+				alwaystransparent = yes
+			}
+		  	iconType = {
+				name ="army_chief_wb_picture_davakis"
+				spriteType = "GFX_portrait_GRE_Konstantinos_Davakis"
+				position = { x = 104  y = 1740 }
+				alwaystransparent = yes
+			}
+			iconType = {
+				name ="high_command_wb_picture_davakis_dead"
+				spriteType = "GFX_dead_general"
+				position = { x = 65  y = 1747 }					  # +0,30
+				alwaystransparent = no
+				pdx_tooltip = "high_command_died"
+			}
+			iconType = {
+				name ="high_command_wb_picture_davakis_purged"
+				spriteType = "GFX_purged_general"
+				position = { x = 86  y = 1770 }					  # +28,30
+				alwaystransparent = no
+				pdx_tooltip = "high_command_purged"
+			}
+			iconType = {
+				name ="high_command_wb_picture_davakis_surrendered"
+				spriteType = "GFX_surrendered_general"				  # -4,30
+				position = { x = 100  y = 1770 }
+				alwaystransparent = no
+				pdx_tooltip = "high_command_surrendered"
+			}
+			buttonType = {
+				name ="high_command_wb_rank_davakis_army_0"
+				spriteType = "GFX_high_command_army_0"
+				position = { x = 84  y = 1858 }						  # -20, 118
+				alwaystransparent = no
+				pdx_tooltip = "not_purged_surrendered_dead"
+				scale = 0.75
+			}
+			buttonType = {
+				name ="high_command_wb_rank_davakis_army_1"
+				spriteType = "GFX_high_command_army_1"
+				position = { x = 84  y = 1858 }	
+				alwaystransparent = no
+				scale = 0.75
+			}
+			buttonType = {
+				name ="high_command_wb_rank_davakis_army_2"
+				spriteType = "GFX_high_command_army_2"
+				position = { x = 84  y = 1858 }	
+				alwaystransparent = no
+				scale = 0.75
+			}
+			iconType = {
+				name ="high_command_wb_rank_davakis_army_3"									# + 260, + 87
+				spriteType = "GFX_high_command_army_3"
+				position = { x = 84  y = 1858 }	
+				alwaystransparent = yes
+				scale = 0.75
+			}
+		  ###[Alexakis]###
+			iconType = {
+				name ="high_command_wb_picture_alexakis_bw"
+				spriteType = "GFX_portrait_gre_alexakis_black_white"
+				position = { x = 408  y = 1740 }
+				alwaystransparent = yes
+			}
+		  	iconType = {
+				name ="high_command_wb_picture_alexakis"
+				spriteType = "GFX_portrait_gre_alexakis"
+				position = { x = 408  y = 1740 }
+				alwaystransparent = yes
+			}
+			iconType = {
+				name ="high_command_wb_picture_alexakis_dead"
+				spriteType = "GFX_dead_general"
+				position = { x = 388  y = 1727 }					  # +0,30
+				alwaystransparent = no
+				pdx_tooltip = "high_command_died"
+			}
+			iconType = {
+				name ="high_command_wb_picture_alexakis_purged"
+				spriteType = "GFX_purged_general"
+				position = { x = 409  y = 1737 }					  # +28,30
+				alwaystransparent = no
+				pdx_tooltip = "high_command_purged"
+			}
+			iconType = {
+				name ="high_command_wb_picture_alexakis_surrendered"
+				spriteType = "GFX_surrendered_general"				  # -4,30
+				position = { x = 404  y = 1770 }
+				alwaystransparent = no
+				pdx_tooltip = "high_command_surrendered"
+			}
+			buttonType = {
+				name ="high_command_wb_rank_alexakis_army_0"
+				spriteType = "GFX_high_command_army_0"
+				position = { x = 388  y = 1858 }						  # -20, 118
+				alwaystransparent = no
+				pdx_tooltip = "not_purged_surrendered_dead"
+				scale = 0.75
+			}
+			buttonType = {
+				name ="high_command_wb_rank_alexakis_army_1"
+				spriteType = "GFX_high_command_army_1"
+				position = { x = 388  y = 1858 }
+				alwaystransparent = no
+				scale = 0.75
+			}
+			buttonType = {
+				name ="high_command_wb_rank_alexakis_army_2"
+				spriteType = "GFX_high_command_army_2"
+				position = { x = 388  y = 1858 }
+				alwaystransparent = no
+				scale = 0.75
+			}
+			iconType = {
+				name ="high_command_wb_rank_alexakis_army_3"									# + 260, + 87
+				spriteType = "GFX_high_command_army_3"
+				position = { x = 388  y = 1858 }
+				alwaystransparent = yes
+				scale = 0.75
+			}
+		  ###[Velouchiotis]###
+			iconType = {
+				name ="high_command_wb_picture_velouchiotis_bw"
+				spriteType = "GFX_portrait_gre_velouchiotis_black_white"
+				position = { x = 712  y = 1740 }
+				alwaystransparent = yes
+			}
+		  	iconType = {
+				name ="high_command_wb_picture_velouchiotis"
+				spriteType = "GFX_portrait_gre_aris_velouchiotis"
+				position = { x = 712  y = 1740 }
+				alwaystransparent = yes
+			}
+			iconType = {
+				name ="high_command_wb_picture_velouchiotis_dead"
+				spriteType = "GFX_dead_general"
+				position = { x = 691  y = 1740 }					  # +0,30
+				alwaystransparent = no
+				pdx_tooltip = "high_command_died"
+			}
+			iconType = {
+				name ="high_command_wb_picture_velouchiotis_purged"
+				spriteType = "GFX_purged_general"
+				position = { x = 713  y = 1750 }					  # +28,30
+				alwaystransparent = no
+				pdx_tooltip = "high_command_purged"
+			}
+			iconType = {
+				name ="high_command_wb_picture_velouchiotis_surrendered"
+				spriteType = "GFX_surrendered_general"				  # -4,30
+				position = { x = 708  y = 1770 }
+				alwaystransparent = no
+				pdx_tooltip = "high_command_surrendered"
+			}
+			buttonType = {
+				name ="high_command_wb_rank_velouchiotis_army_0"
+				spriteType = "GFX_high_command_army_0"
+				position = { x = 692  y = 1858 }						  # -20, 118
+				alwaystransparent = no
+				pdx_tooltip = "not_purged_surrendered_dead"
+				scale = 0.75
+			}
+			buttonType = {
+				name ="high_command_wb_rank_velouchiotis_army_1"
+				spriteType = "GFX_high_command_army_1"
+				position = { x = 692  y = 1858 }
+				alwaystransparent = no
+				scale = 0.75
+			}
+			buttonType = {
+				name ="high_command_wb_rank_velouchiotis_army_2"
+				spriteType = "GFX_high_command_army_2"
+				position = { x = 692  y = 1858 }
+				alwaystransparent = no
+				scale = 0.75
+			}
+			iconType = {
+				name ="high_command_wb_rank_velouchiotis_army_3"									# + 260, + 87
+				spriteType = "GFX_high_command_army_3"
+				position = { x = 692  y = 1858 }
+				alwaystransparent = yes
+				scale = 0.75
+			}
+		  ###[Bakirtzis]###
+			iconType = {
+				name ="high_command_wb_picture_bakirtzis_bw"
+				spriteType = "GFX_portrait_gre_evripidis_bakirtzis_black_white"
+				position = { x = 1016  y = 1740 }
+				alwaystransparent = yes
+			}
+		  	iconType = {
+				name ="high_command_wb_picture_bakirtzis"
+				spriteType = "GFX_gre_evripidis_bakirtzis"
+				position = { x = 1016  y = 1740 }
+				alwaystransparent = yes
+			}
+			iconType = {
+				name ="high_command_wb_picture_bakirtzis_dead"
+				spriteType = "GFX_dead_general"
+				position = { x = 987  y = 1747 }					  # +0,30
+				alwaystransparent = no
+				pdx_tooltip = "high_command_died"
+			}
+			iconType = {
+				name ="high_command_wb_picture_bakirtzis_purged"
+				spriteType = "GFX_purged_general"
+				position = { x = 1016  y = 1765 }					  # +28,30
+				alwaystransparent = no
+				pdx_tooltip = "high_command_purged"
+			}
+			iconType = {
+				name ="high_command_wb_picture_bakirtzis_surrendered"
+				spriteType = "GFX_surrendered_general"				  # -4,30
+				position = { x = 1012  y = 1770 }
+				alwaystransparent = no
+				pdx_tooltip = "high_command_surrendered"
+			}
+			buttonType = {
+				name ="high_command_wb_rank_bakirtzis_army_0"
+				spriteType = "GFX_high_command_army_0"
+				position = { x = 996  y = 1858 }						  # -20, 118
+				alwaystransparent = no
+				pdx_tooltip = "not_purged_surrendered_dead"
+				scale = 0.75
+			}
+			buttonType = {
+				name ="high_command_wb_rank_bakirtzis_army_1"
+				spriteType = "GFX_high_command_army_1"
+				position = { x = 996  y = 1858 }
+				alwaystransparent = no
+				scale = 0.75
+			}
+			buttonType = {
+				name ="high_command_wb_rank_bakirtzis_army_2"
+				spriteType = "GFX_high_command_army_2"
+				position = { x = 996  y = 1858 }
+				alwaystransparent = no
+				scale = 0.75
+			}
+			iconType = {
+				name ="high_command_wb_rank_bakirtzis_army_3"									# + 260, + 87
+				spriteType = "GFX_high_command_army_3"
+				position = { x = 996  y = 1858 }
+				alwaystransparent = yes
+				scale = 0.75
+			}
+		  ###[Rossios]###
+			iconType = {
+				name ="high_command_wb_picture_rossios_bw"
+				spriteType = "GFX_portrait_gre_rossios_black_white"
+				position = { x = 104  y = 1995 }
+				alwaystransparent = yes
+			}
+		  	iconType = {
+				name ="high_command_wb_picture_rossios"
+				spriteType = "GFX_portrait_gre_rossios"
+				position = { x = 104  y = 2003 }
+				alwaystransparent = yes
+			}
+			iconType = {
+				name ="high_command_wb_picture_rossios_dead"
+				spriteType = "GFX_dead_general"
+				position = { x = 68  y = 2000 }					  # +0,30
+				alwaystransparent = no
+				pdx_tooltip = "high_command_died"
+			}
+			iconType = {
+				name ="high_command_wb_picture_rossios_purged"
+				spriteType = "GFX_purged_general"
+				position = { x = 105  y = 2005 }					  # +28,30
+				alwaystransparent = no
+				pdx_tooltip = "high_command_purged"
+			}
+			iconType = {
+				name ="high_command_wb_picture_rossios_surrendered"
+				spriteType = "GFX_surrendered_general"				  # -4,30
+				position = { x = 100  y = 2033 }
+				alwaystransparent = no
+				pdx_tooltip = "high_command_surrendered"
+			}
+			buttonType = {
+				name ="high_command_wb_rank_rossios_army_0"
+				spriteType = "GFX_high_command_army_0"
+				position = { x = 84  y = 2124 }							  # -20, 118
+				alwaystransparent = no
+				pdx_tooltip = "not_purged_surrendered_dead"
+				scale = 0.75
+			}
+			buttonType = {
+				name ="high_command_wb_rank_rossios_army_1"
+				spriteType = "GFX_high_command_army_1"
+				position = { x = 84  y = 2124 }	
+				alwaystransparent = no
+				scale = 0.75
+			}
+			buttonType = {
+				name ="high_command_wb_rank_rossios_army_2"
+				spriteType = "GFX_high_command_army_2"
+				position = { x = 84  y = 2124 }	
+				alwaystransparent = no
+				scale = 0.75
+			}
+			iconType = {
+				name ="high_command_wb_rank_rossios_army_3"									# + 260, + 87
+				spriteType = "GFX_high_command_army_3"
+				position = { x = 84  y = 2124 }	
+				alwaystransparent = yes
+				scale = 0.75
+			}
+		  #####[Wooden Board Ledgers]#####
+			instantTextboxType = {
+				name = "army_high_command_papagos_ledger"
+				position = {x=269 y=1210}							   #+165
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_papagos_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "army_high_command_drakos_ledger"
+				position = {x=573 y=1210}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_drakos_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "army_high_command_stanotas_ledger"
+				position = {x=877 y=1210}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_stanotas_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "army_high_command_zervas_ledger"
+				position = {x=1181 y=1210}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_zervas_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "army_high_command_plastiras_ledger"
+				position = {x=269 y=1476}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_plastiras_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "army_high_command_katsimitros_ledger"
+				position = {x=573 y=1476}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_katsimitros_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "army_high_command_kosmas_ledger"
+				position = {x=877 y=1476}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_kosmas_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "army_high_command_aggelis_ledger"
+				position = {x=1181 y=1476}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_aggelis_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "army_high_command_davakis_ledger"
+				position = {x=269 y=1742}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_davakis_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "army_high_command_alexakis_ledger"
+				position = {x=573 y=1742}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_alexakis_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "army_high_command_velouchiotis_ledger"
+				position = {x=877 y=1742}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_velouchiotis_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "army_high_command_bakirtzis_ledger"
+				position = {x=1181 y=1742}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_bakirtzis_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+			instantTextboxType = {
+				name = "army_high_command_rossios_ledger"
+				position = {x=269 y=2008}
+				font = "vic_18s"
+				#font = "hoi_18mbs"
+				text = greek_high_command_rossios_ledger
+				maxWidth = 500
+				maxHeight = 20
+				format = left
+			}
+        }
+    }
+}

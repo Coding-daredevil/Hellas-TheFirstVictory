@@ -86,16 +86,14 @@ faction_gui_call = {
     subtract_from_temp_variable = { a = var:fct_mon }    
     add_to_array = { faction_mon_p_array = a }   
     add_to_array = { faction_mon_p_array = var:fct_mon } 
-
     reload_faction_gui = yes
-
 }
 
 # The following scripted effect does the main job of generating the gui, by adding the seats for each party in a grid.
 # This should be called every time you need to update the gui, when you add/subtract seats for example.
 # Read the comments if you're interested in how it works
 reload_faction_gui = {
-#### COMMUNISM ####
+	#### COMMUNISM ####
     
     clear_array = faction_com_array
     
@@ -128,7 +126,7 @@ reload_faction_gui = {
 
 	clear_array = temp_com
     
-#### DEMOCRATS ####
+	#### DEMOCRATS ####
     
     clear_array = faction_dem_array
     
@@ -161,7 +159,7 @@ reload_faction_gui = {
 
 	clear_array = temp_dem    
     
-#### FASCISTS ####
+	#### FASCISTS ####
     
     clear_array = faction_fas_array
     
@@ -194,7 +192,7 @@ reload_faction_gui = {
 
 	clear_array = temp_fas   
 
-#### MONARCHISTS ####
+	#### MONARCHISTS ####
     
     clear_array = faction_mon_array
     
@@ -226,4 +224,167 @@ reload_faction_gui = {
     }
 
 	clear_array = temp_mon       
+}
+
+
+
+
+
+
+#######################################################################################################################
+#####################################[Seperated Runs for Better Performance]###########################################
+#######################################################################################################################
+faction_gui_dem_call = {
+    clamp_variable = {
+        var = fct_dem
+        min = 0
+        max = 100
+    }
+    GRE_faction_dem_refresh = yes 
+    clear_array = faction_dem_p_array
+    set_temp_variable = { a = 100 }
+    subtract_from_temp_variable = { a = var:fct_dem }
+    add_to_array = { faction_dem_p_array = a }    
+    add_to_array = { faction_dem_p_array = var:fct_dem }
+	clear_array = faction_dem_array
+	for_each_loop = {
+		array = faction_dem_p_array
+		add_to_array = { temp_dem = faction_dem_p_array^i }
+	} 
+	set_temp_variable = { temp_cindex_1 = 0 }
+	set_temp_variable = { temp_cindex_2 = 1 }
+	set_temp_variable = { temp_csize = temp_dem^num }
+	subtract_from_temp_variable = { temp_csize = 1 }    
+	while_loop_effect = {
+		limit = {
+			check_variable = { temp_cindex_1 < temp_csize }
+		}
+		add_to_variable = { temp_dem^temp_cindex_2 = temp_dem^temp_cindex_1 }
+		add_to_temp_variable = { temp_cindex_1 = 1 }
+		add_to_temp_variable = { temp_cindex_2 = 1 }
+	}
+   
+    for_loop_effect = {
+        start = 0
+        end = temp_dem^num
+        resize_array = { array = faction_dem_array value = faction_dem_m_array^v size = temp_dem^v }       
+    }
+	clear_array = temp_dem    
+}
+
+faction_gui_com_call = {
+    ####VARIABLE CLAMPING TO NOT EXCEED LIMIT [0,100]####
+    clamp_variable = {
+        var = fct_com
+        min = 0
+        max = 100
+    }
+    GRE_faction_com_refresh = yes
+    #####################################################################################
+    #####################################################################################
+    clear_array = faction_com_p_array
+    set_temp_variable = { a = 100 }
+    subtract_from_temp_variable = { a = var:fct_com }    
+    add_to_array = { faction_com_p_array = a } 
+    add_to_array = { faction_com_p_array = var:fct_com }
+    clear_array = faction_com_array  
+	for_each_loop = {
+		array = faction_com_p_array
+
+		add_to_array = { temp_com = faction_com_p_array^i }
+	} 
+	set_temp_variable = { temp_cindex_1 = 0 }
+	set_temp_variable = { temp_cindex_2 = 1 }
+	set_temp_variable = { temp_csize = temp_com^num }
+	subtract_from_temp_variable = { temp_csize = 1 }    
+	while_loop_effect = {
+		limit = {
+			check_variable = { temp_cindex_1 < temp_csize }
+		}
+		add_to_variable = { temp_com^temp_cindex_2 = temp_com^temp_cindex_1 }
+		add_to_temp_variable = { temp_cindex_1 = 1 }
+		add_to_temp_variable = { temp_cindex_2 = 1 }
+	}
+    for_loop_effect = {
+        start = 0
+        end = temp_com^num
+        resize_array = { array = faction_com_array value = faction_com_m_array^v size = temp_com^v }       
+    }
+	clear_array = temp_com
+}
+
+faction_gui_fas_call = {
+    clamp_variable = {
+        var = fct_fas
+        min = 0
+        max = 100
+    }
+    GRE_faction_fas_refresh = yes 
+    clear_array = faction_fas_p_array
+    set_temp_variable = { a = 100 }
+    subtract_from_temp_variable = { a = var:fct_fas }    
+    add_to_array = { faction_fas_p_array = a } 
+    add_to_array = { faction_fas_p_array = var:fct_fas }
+    clear_array = faction_fas_array
+    for_each_loop = {
+		array = faction_fas_p_array
+
+		add_to_array = { temp_fas = faction_fas_p_array^i }
+	} 
+	set_temp_variable = { temp_cindex_1 = 0 }
+	set_temp_variable = { temp_cindex_2 = 1 }
+	set_temp_variable = { temp_csize = temp_fas^num }
+	subtract_from_temp_variable = { temp_csize = 1 }    
+	while_loop_effect = {
+		limit = {
+			check_variable = { temp_cindex_1 < temp_csize }
+		}
+		add_to_variable = { temp_fas^temp_cindex_2 = temp_fas^temp_cindex_1 }
+		add_to_temp_variable = { temp_cindex_1 = 1 }
+		add_to_temp_variable = { temp_cindex_2 = 1 }
+	}
+    for_loop_effect = {
+        start = 0
+        end = temp_fas^num
+        resize_array = { array = faction_fas_array value = faction_fas_m_array^v size = temp_fas^v }       
+    }
+	clear_array = temp_fas   
+}
+
+faction_gui_mon_call = {
+    clamp_variable = {
+        var = fct_mon
+        min = 0
+        max = 100
+    }
+    GRE_faction_mon_refresh = yes
+    clear_array = faction_mon_p_array
+    set_temp_variable = { a = 100 }
+    subtract_from_temp_variable = { a = var:fct_mon }    
+    add_to_array = { faction_mon_p_array = a }   
+    add_to_array = { faction_mon_p_array = var:fct_mon } 
+    clear_array = faction_mon_array
+	for_each_loop = {
+		array = faction_mon_p_array
+
+		add_to_array = { temp_mon = faction_mon_p_array^i }
+	} 
+	set_temp_variable = { temp_cindex_1 = 0 }
+	set_temp_variable = { temp_cindex_2 = 1 }
+	set_temp_variable = { temp_csize = temp_mon^num }
+	subtract_from_temp_variable = { temp_csize = 1 }    
+	while_loop_effect = {
+		limit = {
+			check_variable = { temp_cindex_1 < temp_csize }
+		}
+		add_to_variable = { temp_mon^temp_cindex_2 = temp_mon^temp_cindex_1 }
+		add_to_temp_variable = { temp_cindex_1 = 1 }
+		add_to_temp_variable = { temp_cindex_2 = 1 }
+	}
+    for_loop_effect = {
+        start = 0
+        end = temp_mon^num
+        resize_array = { array = faction_mon_array value = faction_mon_m_array^v size = temp_mon^v }       
+    }
+	clear_array = temp_mon   
 }

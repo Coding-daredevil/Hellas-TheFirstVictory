@@ -1,0 +1,38 @@
+scripted_gui = {
+	axis_allies_gui = {
+		context_type = decision_category
+		window_name = "axis_allies_gui_container"
+
+		dynamic_lists = {
+			axis_allies_grid = {
+				array = axis_allies_array
+				index = axis_allies_main_index
+				change_scope = no
+				entry_container = axis_allies_entry
+			}
+
+			axis_allies_member_grid = {
+				array = faction_member_array
+				index = faction_member_index
+				change_scope = no
+				entry_container = faction_member_entry
+			}
+		}
+
+		properties = {
+			faction_main_icon = {
+				frame = v
+			}
+			faction_semicircle_main_icon = {
+				frame = v
+				x = faction_x_array^axis_allies_main_index
+				y = faction_y_array^axis_allies_main_index
+			}
+			faction_member_icon = {
+				frame = v
+			}
+		}
+        
+        effects = {}
+	}
+}

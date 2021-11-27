@@ -1,3 +1,357 @@
+####################################
+#####[Metaxas Ribbentrop Pact]######
+####################################
+
+MR_deadline_trigger_30_days_prior = {
+    if = {
+        limit = { check_variable = { GRE.mr_exp_date = 1 } }
+        date > 1941.1.1
+    }
+    else_if = {
+        limit = { check_variable = { GRE.mr_exp_date = 2 } }
+        date > 1941.2.1
+    }
+    else_if = {
+        limit = { check_variable = { GRE.mr_exp_date = 3 } }
+        date > 1941.3.5
+    }
+    else_if = {
+        limit = { check_variable = { GRE.mr_exp_date = 4 } }
+        date > 1941.4.1
+    }
+}
+
+MR_deadline_trigger = {
+    if = {
+        limit = { check_variable = { GRE.mr_exp_date = 1 } }
+        date > 1941.2.1
+    }
+    else_if = {
+        limit = { check_variable = { GRE.mr_exp_date = 2 } }
+        date > 1941.3.1
+    }
+    else_if = {
+        limit = { check_variable = { GRE.mr_exp_date = 3 } }
+        date > 1941.4.5
+    }
+    else_if = {
+        limit = { check_variable = { GRE.mr_exp_date = 4 } }
+        date > 1941.5.1
+    }
+}
+
+####################################
+####[Contingency Plans Triggers]####
+####################################
+
+contingency_threshold_reached = {
+    if = {
+        limit = { check_variable = { GRE.contingency_focus_completed@THIS = 1 } }
+        always = no
+    }
+    else = {
+        set_temp_variable = { influence_effect = THIS.favor@GRE }
+        set_temp_variable = { collaboration_effect = GRE.has_collaboration@THIS }
+        multiply_temp_variable = { collaboration_effect = 1.25 }
+        add_to_temp_variable = { final_sum = influence_effect }
+        add_to_temp_variable = { final_sum = collaboration_effect }
+        check_variable = { final_sum > 94.99}
+    }
+}
+
+has_no_guarantees_from_majors = {
+    custom_trigger_tooltip = {
+        tooltip = has_no_guarantees_from_majors_tt
+        NOT = {
+            any_other_country = {
+                is_major = yes
+                NOT = {
+                    original_tag = ITA
+                    PREV = { original_tag = ALB }
+                }
+                has_guaranteed = PREV
+            }
+        }
+    }
+}
+
+
+####################################
+####[Greco Italian War Triggers]####
+####################################
+
+trigger_italian_war_event = {
+    ITA = { has_completed_focus = ITA_greece_war_goal }
+    #has_non_aggression_pact_with = ITA
+}
+
+yugoslavian_stance_in_greco_italian_war_alliance = {
+    check_variable = { YUG.favor@GRE > 79 }
+}
+
+yugoslavian_stance_in_greco_italian_war_positive = {
+    check_variable = { YUG.favor@GRE > 49 }
+}
+
+yugoslavian_stance_in_greco_italian_war_neutral = {
+    check_variable = { YUG.favor@GRE > 0 }
+}
+
+yugoslavian_stance_in_greco_italian_war_betrayal = {
+    check_variable = { YUG.favor@GRE < 0.001 }
+}
+
+###
+
+turkish_stance_in_greco_italian_war_alliance = {
+    check_variable = { TUR.favor@GRE > 79 }
+}
+
+turkish_stance_in_greco_italian_war_positive = {
+    check_variable = { TUR.favor@GRE > 49 }
+}
+
+turkish_stance_in_greco_italian_war_neutral = {
+    check_variable = { TUR.favor@GRE < 50 }
+}
+
+###
+
+bulgarian_stance_in_greco_italian_war_early_entry = {
+    set_temp_variable = { x = GER.favor@GRE }
+    divide_temp_variable = { x = 50 }                      # [0,2]
+    add_to_temp_variable = { final = x }
+    set_temp_variable = { x = GRE.axal }
+    subtract_from_temp_variable = { x = 40 }
+    if = { limit = { check_variable = { GRE.alax > 79.99 } } set_temp_variable = { final = 0 } }
+    else_if = { limit = { check_variable = { GRE.alax < 20 } } add_to_temp_variable = { final = 2 } }
+    else_if = { limit = { check_variable = { GRE.alax < 5 } } add_to_temp_variable = { final = 5 } }            ### Min 0, max 7
+    check_variable = { final < 1.60 }
+    check_variable = { TUR.favor@GRE < 50 }
+    check_variable = { BUL.favor@GRE < 0 }
+    BUL = { is_in_faction_with = GER }
+}
+
+bulgarian_stance_in_greco_italian_war_lurking = {
+    set_temp_variable = { x = GER.favor@GRE }
+    divide_temp_variable = { x = 50 }                      # [0,2]
+    add_to_temp_variable = { final = x }
+    set_temp_variable = { x = GRE.axal }
+    subtract_from_temp_variable = { x = 40 }
+    if = { limit = { check_variable = { GRE.alax > 79.99 } } set_temp_variable = { final = 0 } }
+    else_if = { limit = { check_variable = { GRE.alax < 20 } } add_to_temp_variable = { final = 2 } }
+    else_if = { limit = { check_variable = { GRE.alax < 5 } } add_to_temp_variable = { final = 5 } }            ### Min 0, max 7
+    check_variable = { final < 1.60 }
+    OR = {
+        check_variable = { TUR.favor@GRE > 49 }
+        check_variable = { BUL.favor@GRE > 0 }
+        NOT = { BUL = { is_in_faction_with = GER } }
+    }
+}
+
+bulgarian_stance_in_greco_italian_war_denied_by_germans = {
+    set_temp_variable = { x = GER.favor@GRE }
+    divide_temp_variable = { x = 50 }                      # [0,2]
+    add_to_temp_variable = { final = x }
+    set_temp_variable = { x = GRE.axal }
+    subtract_from_temp_variable = { x = 40 }
+    if = { limit = { check_variable = { GRE.alax > 79.99 } } set_temp_variable = { final = 0 } }
+    else_if = { limit = { check_variable = { GRE.alax < 20 } } add_to_temp_variable = { final = 2 } }
+    else_if = { limit = { check_variable = { GRE.alax < 5 } } add_to_temp_variable = { final = 5 } }            ### Min 0, max 7
+    check_variable = { final > 1.59 }
+}
+
+german_stance_in_greco_italian_war_positive = {
+    set_temp_variable = { x = GER.favor@GRE }
+    divide_temp_variable = { x = 50 }                      # [0,2]
+    add_to_temp_variable = { final = x }
+    set_temp_variable = { x = GRE.axal }
+    subtract_from_temp_variable = { x = 40 }
+    if = { limit = { check_variable = { GRE.alax > 79.99 } } set_temp_variable = { final = 0 } }
+    else_if = { limit = { check_variable = { GRE.alax < 20 } } add_to_temp_variable = { final = 2 } }
+    else_if = { limit = { check_variable = { GRE.alax < 5 } } add_to_temp_variable = { final = 5 } }            ### Min 0, max 7
+    check_variable = { final > 6 }
+}
+
+german_stance_in_greco_italian_war_neutral = {
+    set_temp_variable = { x = GER.favor@GRE }
+    divide_temp_variable = { x = 50 }                      # [0,2]
+    add_to_temp_variable = { final = x }
+    set_temp_variable = { x = GRE.axal }
+    subtract_from_temp_variable = { x = 40 }
+    if = { limit = { check_variable = { GRE.alax > 79.99 } } set_temp_variable = { final = 0 } }
+    else_if = { limit = { check_variable = { GRE.alax < 20 } } add_to_temp_variable = { final = 2 } }
+    else_if = { limit = { check_variable = { GRE.alax < 5 } } add_to_temp_variable = { final = 5 } }            ### Min 0, max 7
+    check_variable = { final > 1.59 }
+}
+
+german_stance_in_greco_italian_war_devious = {
+    set_temp_variable = { x = GER.favor@GRE }
+    divide_temp_variable = { x = 50 }                      # [0,2]
+    add_to_temp_variable = { final = x }
+    set_temp_variable = { x = GRE.axal }
+    subtract_from_temp_variable = { x = 40 }
+    if = { limit = { check_variable = { GRE.alax > 79.99 } } set_temp_variable = { final = 0 } }
+    else_if = { limit = { check_variable = { GRE.alax < 20 } } add_to_temp_variable = { final = 2 } }
+    else_if = { limit = { check_variable = { GRE.alax < 5 } } add_to_temp_variable = { final = 5 } }            ### Min 0, max 7
+    check_variable = { final < 1.60 } 
+    check_variable = { final > 0 }
+}
+
+german_stance_in_greco_italian_war_negative = {
+    set_temp_variable = { x = GER.favor@GRE }
+    divide_temp_variable = { x = 50 }                      # [0,2]
+    add_to_temp_variable = { final = x }
+    set_temp_variable = { x = GRE.axal }
+    subtract_from_temp_variable = { x = 40 }
+    if = { limit = { check_variable = { GRE.alax > 79.99 } } set_temp_variable = { final = 0 } }
+    else_if = { limit = { check_variable = { GRE.alax < 20 } } add_to_temp_variable = { final = 2 } }
+    else_if = { limit = { check_variable = { GRE.alax < 5 } } add_to_temp_variable = { final = 5 } }            ### Min 0, max 7
+    check_variable = { final = 0 }
+}
+
+###
+havent_frozen_debt_with_from = {
+    check_variable = { GRE.true_debt@THIS = 0 }
+}
+
+##########################################################################
+current_ruling_monarchists = {
+    custom_trigger_tooltip ={
+        tooltip = current_ruling_mon_tt
+        has_government = neutrality
+    }
+}
+current_ruling_communists = {
+    custom_trigger_tooltip ={
+        tooltip = current_ruling_com_tt
+        has_government = communism
+    }
+}
+current_ruling_democrats = {
+    custom_trigger_tooltip ={
+        tooltip = current_ruling_dem_tt
+        has_government = democratic
+    }
+}
+current_ruling_fascists = {
+    custom_trigger_tooltip ={
+        tooltip = current_ruling_fas_tt
+        has_government = fascism
+    }
+}
+
+##########################################################################
+not_purged_surrendered_dead_papagos = { custom_trigger_tooltip = { tooltip = not_purged_surrendered_dead check_variable = { hc_papagos_purged = 0 } check_variable = { hc_papagos_surrendered = 0 } check_variable = { hc_papagos_dead = 0 }}}
+not_purged_surrendered_dead_drakos = { custom_trigger_tooltip = { tooltip = not_purged_surrendered_dead check_variable = { hc_drakos_purged = 0 } check_variable = { hc_drakos_surrendered = 0 } check_variable = { hc_drakos_dead = 0 }}}
+not_purged_surrendered_dead_stanotas = { custom_trigger_tooltip = { tooltip = not_purged_surrendered_dead check_variable = { hc_stanotas_purged = 0 } check_variable = { hc_stanotas_surrendered = 0 } check_variable = { hc_stanotas_dead = 0 }}}
+not_purged_surrendered_dead_zervas = { custom_trigger_tooltip = { tooltip = not_purged_surrendered_dead check_variable = { hc_zervas_purged = 0 } check_variable = { hc_zervas_surrendered = 0 } check_variable = { hc_zervas_dead = 0 }}}
+not_purged_surrendered_dead_plastiras = { custom_trigger_tooltip = { tooltip = not_purged_surrendered_dead check_variable = { hc_plastiras_purged = 0 } check_variable = { hc_plastiras_surrendered = 0 } check_variable = { hc_plastiras_dead = 0 }}}
+not_purged_surrendered_dead_katsimitros = { custom_trigger_tooltip = { tooltip = not_purged_surrendered_dead check_variable = { hc_katsimitros_purged = 0 } check_variable = { hc_katsimitros_surrendered = 0 } check_variable = { hc_katsimitros_dead = 0 }}}
+not_purged_surrendered_dead_kosmas = { custom_trigger_tooltip = { tooltip = not_purged_surrendered_dead check_variable = { hc_kosmas_purged = 0 } check_variable = { hc_kosmas_surrendered = 0 } check_variable = { hc_kosmas_dead = 0 }}}
+not_purged_surrendered_dead_aggelis = { custom_trigger_tooltip = { tooltip = not_purged_surrendered_dead check_variable = { hc_aggelis_purged = 0 } check_variable = { hc_aggelis_surrendered = 0 } check_variable = { hc_aggelis_dead = 0 }}}
+not_purged_surrendered_dead_davakis = { custom_trigger_tooltip = { tooltip = not_purged_surrendered_dead check_variable = { hc_davakis_purged = 0 } check_variable = { hc_davakis_surrendered = 0 } check_variable = { hc_davakis_dead = 0 }}}
+not_purged_surrendered_dead_alexakis = { custom_trigger_tooltip = { tooltip = not_purged_surrendered_dead check_variable = { hc_alexakis_purged = 0 } check_variable = { hc_alexakis_surrendered = 0 } check_variable = { hc_alexakis_dead = 0 }}}
+not_purged_surrendered_dead_velouchiotis = { custom_trigger_tooltip = { tooltip = not_purged_surrendered_dead check_variable = { hc_velouchiotis_purged = 0 } check_variable = { hc_velouchiotis_surrendered = 0 } check_variable = { hc_velouchiotis_dead = 0 }}}
+not_purged_surrendered_dead_bakirtzis = { custom_trigger_tooltip = { tooltip = not_purged_surrendered_dead check_variable = { hc_bakirtzis_purged = 0 } check_variable = { hc_bakirtzis_surrendered = 0 } check_variable = { hc_bakirtzis_dead = 0 }}}
+not_purged_surrendered_dead_rossios = { custom_trigger_tooltip = { tooltip = not_purged_surrendered_dead check_variable = { hc_rossios_purged = 0 } check_variable = { hc_rossios_surrendered = 0 } check_variable = { hc_rossios_dead = 0 }}}
+
+has_papagos_as_field_marshall = {
+    custom_trigger_tooltip = {
+        tooltip = has_papagos_as_field_marshall_tt
+        OR = {
+            has_idea = GRE_alexandros_papagos_1
+            has_idea = GRE_alexandros_papagos_2
+            has_idea = GRE_alexandros_papagos_3
+            has_idea = GRE_alexandros_papagos_4
+        } 
+    }
+}
+
+has_not_papagos_as_field_marshall = {
+    custom_trigger_tooltip = {
+        tooltip = has_not_papagos_as_field_marshall_tt
+        NOT = {
+            has_idea = GRE_alexandros_papagos_1
+            has_idea = GRE_alexandros_papagos_2
+            has_idea = GRE_alexandros_papagos_3
+            has_idea = GRE_alexandros_papagos_4
+        } 
+    }
+}
+
+has_drakos_as_field_marshall = {
+    custom_trigger_tooltip = {
+        tooltip = has_drakos_as_field_marshall_tt
+        OR = {
+            has_idea = GRE_markos_drakos_1
+            has_idea = GRE_markos_drakos_2
+            has_idea = GRE_markos_drakos_3
+            has_idea = GRE_markos_drakos_4
+        } 
+    }
+}
+
+has_not_drakos_as_field_marshall = {
+    custom_trigger_tooltip = {
+        tooltip = has_not_drakos_as_field_marshall_tt
+        NOT = {
+            has_idea = GRE_markos_drakos_1
+            has_idea = GRE_markos_drakos_2
+            has_idea = GRE_markos_drakos_3
+            has_idea = GRE_markos_drakos_4
+        } 
+    }
+}
+
+has_stanotas_as_field_marshall = {
+    custom_trigger_tooltip = {
+        tooltip = has_stanotas_as_field_marshall_tt
+        OR = {
+            has_idea = GRE_georgios_stanotas_1
+            has_idea = GRE_georgios_stanotas_2
+            has_idea = GRE_georgios_stanotas_3
+            has_idea = GRE_georgios_stanotas_4
+        }
+    }
+}
+
+has_not_stanotas_as_field_marshall = {
+    custom_trigger_tooltip = {
+        tooltip = has_not_stanotas_as_field_marshall_tt
+        NOT = {
+            has_idea = GRE_georgios_stanotas_1
+            has_idea = GRE_georgios_stanotas_2
+            has_idea = GRE_georgios_stanotas_3
+            has_idea = GRE_georgios_stanotas_4
+        }
+    }
+}
+
+has_zervas_as_field_marshall = {
+    custom_trigger_tooltip = {
+        tooltip = has_zervas_as_field_marshall_tt
+        OR = {
+            has_idea = GRE_napoleon_zervas_1
+            has_idea = GRE_napoleon_zervas_2
+            has_idea = GRE_napoleon_zervas_3
+            has_idea = GRE_napoleon_zervas_4
+        }
+    }
+}
+
+has_not_zervas_as_field_marshall = {
+    custom_trigger_tooltip = {
+        tooltip = has_not_zervas_as_field_marshall_tt
+        NOT = {
+            has_idea = GRE_napoleon_zervas_1
+            has_idea = GRE_napoleon_zervas_2
+            has_idea = GRE_napoleon_zervas_3
+            has_idea = GRE_napoleon_zervas_4
+        }
+    }
+}
+
 dem_generals_exist = {
     custom_trigger_tooltip = {
         tooltip = dem_generals_exist_tt
@@ -178,6 +532,10 @@ has_very_low_unpreparedness_level = {
     }
 }
 
+army_officers_fully_prepared = {
+    check_variable = { var = preparedness_level value = 1 compare = greater_than_or_equals}
+}
+
 assigned_has_unpreparedness_level = {
     is_assigned = yes
     OR = {
@@ -206,6 +564,34 @@ is_fully_reintegrated = {
     }
 }
 
+has_at_least_tmpQ_combat_traits = {
+    set_temp_variable = { y = num_traits }
+    set_temp_variable = { x = num_personality_traits }
+    subtract_from_temp_variable = { y = x }
+    check_variable = { y > tmpQ }
+}
+
+has_at_least_2_of_retrain_bonus_traits = {
+    count_triggers = {
+        amount = 2
+        has_trait = organizer
+        has_trait = commando
+        has_trait = trickster
+        has_trait = guerilla_fighter
+    }
+}
+
+has_neither_inf_leader_eng_trickster = {
+    NOT = {
+        has_trait = infantry_leader
+        has_trait = trait_engineer
+        has_trait = trickster
+    }
+}
+
+
+#####################################################
+
 crete_is_no_loose_end = {
     custom_trigger_tooltip = {
         tooltip = crete_is_no_loose_end_tt
@@ -232,10 +618,13 @@ hellenic_state_has_formed_for_a_bit = {
 }
 
 has_axis_occupation = {
-    OR = {
-        has_global_flag = GRE_crete_still_holding
-        has_global_flag = GRE_government_in_exile
-    }    
+    custom_trigger_tooltip = {
+        tooltip = has_axis_occupation_tt
+        OR = {
+            has_global_flag = GRE_crete_still_holding
+            has_global_flag = GRE_government_in_exile
+        }    
+    }
 }
 
 gre_hs_xor_trigger_only = {                                                         #Contrary to the effect, here we ONLY check if a human player is playing Greece/HS                                              
@@ -258,6 +647,28 @@ has_black_market_negative = {
             has_dynamic_modifier = { modifier = black_market_obscure }
             has_dynamic_modifier = { modifier = black_market_cemented }
             has_dynamic_modifier = { modifier = black_market_ubshakeable }
+        }
+    }
+}
+
+belongs_in_the_allied_sphere = {
+    any_country = {
+        OR = {
+            check_variable = { PREV.id = ENG.id }
+            check_variable = { PREV.id = USA.id }
+            check_variable = { PREV.id = FRA.id }
+            is_in_faction_with = ENG
+        }
+    }
+}
+
+belongs_in_the_axis_sphere = {
+    any_country = { 
+        OR = {
+            check_variable = { PREV.id = GER.id }
+            check_variable = { PREV.id = ITA.id }
+            check_variable = { PREV.id = JAP.id }
+            is_in_faction_with = GER
         }
     }
 }
@@ -304,6 +715,13 @@ dem_is_below_tmpZ = {
         set_temp_variable = { y = tmpZ }
         multiply_temp_variable = { y = 100 }
         check_variable = { fct_dem < y }
+    }
+}
+
+is_influencable = {
+    is_in_array = {
+        array = global.favor_mechanic
+        value = THIS.id
     }
 }
     

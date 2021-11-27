@@ -31,9 +31,75 @@ scripted_gui = {
 		}
         
         triggers = {
+            greek_resistance_open_0_visible = {
+				has_dynamic_modifier = { modifier = early_resistance_groups}
+            }
+            greek_resistance_open_1_visible = {
+				has_dynamic_modifier = { modifier = strengthened_resistance_groups}
+            }
+			greek_resistance_open_2_visible = {
+				has_dynamic_modifier = { modifier = dominant_resistance_groups}
+            }
+			greek_resistance_open_3_visible = {
+				has_dynamic_modifier = { modifier = unshakeable_resistance_groups}
+            }
+			state_plains_provinces_click_enabled = {
+				check_variable = { THIS.fields > 0 }
+			}
+			state_forest_provinces_click_enabled = {
+				check_variable = { THIS.forest > 0 }
+			}
+			state_urban_provinces_click_enabled = {
+				check_variable = { THIS.urban > 0 }
+			}
+			state_hills_provinces_click_enabled = {
+				check_variable = { THIS.hills > 0 }
+			}
+			state_mountain_provinces_click_enabled = {
+				check_variable = { THIS.mountains > 0 }
+			}
+			state_island_provinces_click_enabled = {
+				check_variable = { THIS.island > 0 }
+			}
 		}
 		
 		effects = {
+			greek_resistance_open_0_click = {
+				if = {
+					limit = { NOT = { has_state_flag = state_info_res_opened } }
+					set_state_flag = state_info_res_opened
+				}
+				else = {
+					clr_state_flag = state_info_res_opened
+				}
+			}
+			greek_resistance_open_1_click = {
+				if = {
+					limit = { NOT = { has_state_flag = state_info_res_opened } }
+					set_state_flag = state_info_res_opened
+				}
+				else = {
+					clr_state_flag = state_info_res_opened
+				}
+			}
+			greek_resistance_open_2_click = {
+				if = {
+					limit = { NOT = { has_state_flag = state_info_res_opened } }
+					set_state_flag = state_info_res_opened
+				}
+				else = {
+					clr_state_flag = state_info_res_opened
+				}
+			}
+			greek_resistance_open_3_click = {
+				if = {
+					limit = { NOT = { has_state_flag = state_info_res_opened } }
+					set_state_flag = state_info_res_opened
+				}
+				else = {
+					clr_state_flag = state_info_res_opened
+				}
+			}
 		}
 		
 		ai_test_interval = 100
@@ -45,6 +111,16 @@ scripted_gui = {
 		}
 		ai_check = {
 		}
+	}
+
+    state_info_resistance = {
+		context_type = selected_state_context 
+		
+		window_name = "state_info_resistance_window_container"
+		
+		visible = {
+            has_state_flag = state_info_res_opened
+        }
 	}
 
 }

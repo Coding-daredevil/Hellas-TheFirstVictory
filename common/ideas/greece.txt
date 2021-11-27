@@ -30,10 +30,11 @@ ideas = {
             removal_cost = -1
             
             modifier = {
-				custom_modifier_tooltip = GRE_communists_crushed_tt
+				#custom_modifier_tooltip = GRE_communists_crushed_tt
 				political_power_factor = -0.15
 				stability_weekly = -0.0075
 				war_support_weekly = -0.003
+				fct_com_modifier_token = -2.25
             }
         }
 
@@ -86,10 +87,11 @@ ideas = {
             removal_cost = -1
             
             modifier = {
-                custom_modifier_tooltip = GRE_republicans_crushed_tt
+                #custom_modifier_tooltip = GRE_republicans_crushed_tt
 				political_power_factor = -0.15
 				stability_weekly = -0.0075
 				war_support_weekly = -0.003
+				fct_dem_modifier_token = -2.25
             }
         }
 
@@ -104,10 +106,11 @@ ideas = {
             removal_cost = -1
             
             modifier = {
-                custom_modifier_tooltip = GRE_spartan_law_tt
 				political_power_factor = -0.25
 				stability_weekly = -0.012
 				war_support_weekly = -0.006
+				fct_dem_modifier_token = -2
+				fct_com_modifier_token = -2
             }
         }
 
@@ -122,10 +125,11 @@ ideas = {
             removal_cost = -1
             
             modifier = {
-                custom_modifier_tooltip = GRE_spartan_law_tt
 				political_power_factor = -0.2
 				stability_weekly = -0.009
 				war_support_weekly = -0.004
+				fct_dem_modifier_token = -1.5
+				fct_com_modifier_token = -1.5
             }
         }
 
@@ -140,10 +144,11 @@ ideas = {
             removal_cost = -1
             
             modifier = {
-                custom_modifier_tooltip = GRE_spartan_law_tt
 				political_power_factor = -0.15
 				stability_weekly = -0.006
 				war_support_weekly = -0.002
+				fct_dem_modifier_token = -1
+				fct_com_modifier_token = -1
             }
         }
 
@@ -162,10 +167,11 @@ ideas = {
             removal_cost = -1
             
             modifier = {
-                custom_modifier_tooltip = GRE_spartan_law_tt
 				political_power_factor = -0.10
 				stability_weekly = -0.003
 				war_support_weekly = -0.001
+				fct_dem_modifier_token = -0.5
+				fct_com_modifier_token = -0.5
             }
         }
 
@@ -430,8 +436,11 @@ ideas = {
 			removal_cost = -1
 
             modifier = {
-                army_attack_factor = -0.1
-                breakthrough_factor = -0.1
+                army_attack_factor = -0.15
+                breakthrough_factor = -0.15
+				army_speed_factor = -0.15
+				planning_speed = 0.10
+				max_planning_factor = 0.05
             } 
         }
         
@@ -604,7 +613,6 @@ ideas = {
                     add_idea = GRE_italian_ambition
                 }    
             }
-        
         }
         
         GRE_bulgarian_ambition = {
@@ -649,7 +657,6 @@ ideas = {
             modifier = {
                 enemy_justify_war_goal_time = 0.25 
             }
-        
         }        
 
         GRE_bad_weather = {
@@ -1341,7 +1348,8 @@ ideas = {
 				
 			modifier = {
 				stability_factor = -0.05
-				neutrality_drift = 0.01	
+				neutrality_drift = 0.01
+				root_out_resistance_effectiveness_factor = 0.5
 			}
 		}
 
@@ -1492,7 +1500,7 @@ ideas = {
                 political_power_gain = -0.15
                 production_speed_buildings_factor = -0.25
                 production_speed_infrastructure_factor = -0.15
-                research_speed_factor = -0.25
+                research_speed_factor = -0.30
                 equipment_upgrade_xp_cost = 0.5
                 #non_core_manpower = -0.1
                 #encryption_factor = 0
@@ -1578,8 +1586,7 @@ ideas = {
         
 		GRE_domestic_competition_3 = {
 				
-			allowed = {
-				original_tag = GRE
+			allowed = {	original_tag = GRE
 			}
 
 			allowed_civil_war = {
@@ -1605,7 +1612,7 @@ ideas = {
                 mobilization_laws_cost_factor = -0.15               
                 custom_modifier_tooltip = GRE_domestic_competition_tt
             }
-		}        
+		} 
 
 		GRE_foreign_monopolies = {
 				
@@ -2007,6 +2014,103 @@ ideas = {
 			}
 		}
 
+		GRE_work_force_in_Germany_low_GRE = {
+
+			allowed = {
+				original_tag = GRE
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			picture = gre_workers_in_germany
+				
+			removal_cost = -1
+				
+			modifier = {
+				consumer_goods_factor = 0.08
+			}
+		}
+
+		GRE_work_force_in_Germany_med_GRE = {
+
+			allowed = {
+				original_tag = GRE
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			picture = gre_workers_in_germany
+				
+			removal_cost = -1
+				
+			modifier = {
+				consumer_goods_factor = 0.16
+			}
+		}
+
+		GRE_work_force_in_Germany_high_GRE = {
+
+			allowed = {
+				original_tag = GRE
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			picture = gre_workers_in_germany
+				
+			removal_cost = -1
+				
+			modifier = {
+				consumer_goods_factor = 0.24
+			}
+		}
+
+		GRE_more_trade_to_GER = {
+
+			allowed = {
+				original_tag = GRE
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			picture = can_wartime_prices_and_trade_board
+				
+			removal_cost = -1
+				
+			targeted_modifier = {
+				tag = GER
+				extra_trade_to_target_factor = 0.3
+			}
+		}
+
+		GRE_cheaper_trade_to_GER = {
+
+			allowed = {
+				original_tag = GRE
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			picture = can_wartime_prices_and_trade_board
+				
+			removal_cost = -1
+				
+			targeted_modifier = {
+				tag = GER
+				trade_cost_for_target_factor = -0.15
+			}
+		}
+
 		###[Other nation ideas]###
 		
 		GRE_shackled_bulgarian_industry = {
@@ -2114,6 +2218,83 @@ ideas = {
 				mic_to_target_factor = 0.45
             }
 		}
+
+		GRE_work_force_in_Germany_low_GER = {
+
+			allowed = {
+				original_tag = GER
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			picture = gre_workers_in_germany
+				
+			removal_cost = -1
+				
+			modifier = {
+				consumer_goods_factor = -0.04
+			}
+		}
+
+		GRE_work_force_in_Germany_med_GER = {
+
+			allowed = {
+				original_tag = GER
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			picture = gre_workers_in_germany
+				
+			removal_cost = -1
+				
+			modifier = {
+				consumer_goods_factor = -0.08
+			}
+		}
+
+		GRE_work_force_in_Germany_high_GER = {
+
+			allowed = {
+				original_tag = GER
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			picture = gre_workers_in_germany
+				
+			removal_cost = -1
+				
+			modifier = {
+				consumer_goods_factor = -0.12
+			}
+		}
+
+		GER_cheaper_trade_to_GRE = {
+
+			allowed = {
+				original_tag = GRE
+			}
+
+			allowed_civil_war = {
+				always = yes
+			}
+
+			picture = can_wartime_prices_and_trade_board
+				
+			removal_cost = -1
+				
+			targeted_modifier = {
+				tag = GRE
+				trade_cost_for_target_factor = -0.15
+			}
+		}
         
 	}	
 
@@ -2143,6 +2324,10 @@ ideas = {
             NOT = { has_country_flag = GRE_kotzias_safe_removal }
             NOT = { has_axis_occupation = yes }
         }
+
+		modifier = {
+			fct_fas_modifier_token = 0.35
+		}
         
         on_remove = {
             if = {
@@ -2177,6 +2362,13 @@ ideas = {
             has_completed_focus = GRE_laying_out_the_social_wellfare_plan
             has_country_flag = GRE_kathestos_proclaimed
         }
+
+		modifier = {
+			fct_dem_modifier_token = 0.2
+			fct_com_modifier_token = 0.2
+			fct_fas_modifier_token = 0.2
+			fct_mon_modifier_token = 0.2
+		}
         
         visible = {
             NOT = { has_axis_occupation = yes }
@@ -2248,7 +2440,7 @@ ideas = {
         }
         
         available = {
-            has_government = neutrality
+			has_country_flag = GRE_kathestos_proclaimed
         }
         
         visible = {
@@ -2350,6 +2542,13 @@ ideas = {
             has_country_flag = GRE_kathestos_proclaimed
             has_completed_focus = GRE_public_works
         }
+
+		modifier = {
+			fct_dem_modifier_token = 0.25
+			fct_com_modifier_token = 0.25
+			fct_fas_modifier_token = 0.125
+			fct_mon_modifier_token = 0.125
+		}
         
         visible = {
             NOT = { has_axis_occupation = yes }
@@ -2472,12 +2671,16 @@ ideas = {
 		}
         
         available = {
-            has_country_flag = archbishop_damaskinos_elected
+			GRE = {
+				OR = {
+					AND = {
+						has_axis_occupation = yes
+						has_completed_focus = GRE_oust_chrysanthus_for_damaskinos
+					}
+					has_country_flag = archbishop_damaskinos_elected
+				}
+			}
         }
-        
-        visible = {
-            NOT = { has_axis_occupation = yes }
-        } 
 		
 		traits = { appointed_bishop }
 	}
@@ -2597,7 +2800,6 @@ ideas = {
         } 
 		
 		traits = { sharp_tongued_lawyer }
-		traits = { theoretical_scientist }
 	}
 
 	GRE_emmanouil_tsouderos = {
@@ -2627,7 +2829,6 @@ ideas = {
         } 
 		
 		traits = { financial_expert }
-		traits = { production_manager }
 	}
 
 	GRE_sophoklis_venizelos = {
@@ -2706,7 +2907,6 @@ ideas = {
         } 
 		
 		traits = { national_socialist_paramilitarist }
-		traits = { iron_fisted_brute }
 	}
 
 	GRE_dimitris_glinos = {
@@ -2936,7 +3136,7 @@ theorist = {
 					has_id = 300
 					is_field_marshal = yes
 				}
-				has_country_flag = papagos_1
+				check_variable = { hc_papagos_rank = 0 }
 			}
 
 			traits = { greek_chief_of_staff_papagos_1 }
@@ -2955,7 +3155,7 @@ theorist = {
 					has_id = 300
 					is_field_marshal = yes
 				}
-				has_country_flag = papagos_2
+				check_variable = { hc_papagos_rank = 1 }
 			}
 
 			traits = { greek_chief_of_staff_papagos_2 }
@@ -2974,7 +3174,7 @@ theorist = {
 					has_id = 300
 					is_field_marshal = yes
 				}
-				has_country_flag = papagos_3
+				check_variable = { hc_papagos_rank = 2 }
 			}
 
 			traits = { greek_chief_of_staff_papagos_3 }
@@ -2993,7 +3193,7 @@ theorist = {
 					has_id = 300
 					is_field_marshal = yes
 				}
-				has_country_flag = papagos_4
+				check_variable = { hc_papagos_rank = 3 }
 			}
 
 			traits = { greek_chief_of_staff_papagos_4 }
@@ -3012,7 +3212,7 @@ theorist = {
 					has_id = 302
 					is_field_marshal = yes
 				}
-				has_country_flag = drakos_1
+				check_variable = { hc_drakos_rank = 0 }
 			}
 
 			traits = { greek_chief_of_staff_drakos_1 }
@@ -3031,7 +3231,7 @@ theorist = {
 					has_id = 302
 					is_field_marshal = yes
 				}
-				has_country_flag = drakos_2
+				check_variable = { hc_drakos_rank = 1 }
 			}
 
 			traits = { greek_chief_of_staff_drakos_2 }
@@ -3050,7 +3250,7 @@ theorist = {
 					has_id = 302
 					is_field_marshal = yes
 				}
-				has_country_flag = drakos_3
+				check_variable = { hc_drakos_rank = 2 }
 			}
 
 			traits = { greek_chief_of_staff_drakos_3 }
@@ -3069,7 +3269,7 @@ theorist = {
 					has_id = 302
 					is_field_marshal = yes
 				}
-				has_country_flag = drakos_4
+				check_variable = { hc_drakos_rank = 3 }
 			}
 
 			traits = { greek_chief_of_staff_drakos_4 }
@@ -3088,7 +3288,7 @@ theorist = {
 					has_id = 313
 					is_field_marshal = yes
 				}
-				has_country_flag = stanotas_1
+				check_variable = { hc_stanotas_rank = 0 }
 			}
 
 			traits = { greek_chief_of_staff_stanotas_1 }
@@ -3107,7 +3307,7 @@ theorist = {
 					has_id = 313
 					is_field_marshal = yes
 				}
-				has_country_flag = stanotas_2
+				check_variable = { hc_stanotas_rank = 1 }
 			}
 
 			traits = { greek_chief_of_staff_stanotas_2 }
@@ -3126,7 +3326,7 @@ theorist = {
 					has_id = 313
 					is_field_marshal = yes
 				}
-				has_country_flag = stanotas_3
+				check_variable = { hc_stanotas_rank = 2 }
 			}
 
 			traits = { greek_chief_of_staff_stanotas_3 }
@@ -3145,7 +3345,7 @@ theorist = {
 					has_id = 313
 					is_field_marshal = yes
 				}
-				has_country_flag = stanotas_4
+				check_variable = { hc_stanotas_rank = 3 }
 			}
 
 			traits = { greek_chief_of_staff_stanotas_4 }
@@ -3164,7 +3364,7 @@ theorist = {
 					has_id = 307
 					is_field_marshal = yes
 				}
-				has_country_flag = zervas_1
+				check_variable = { hc_zervas_rank = 0 }
 			}
 
 			traits = { greek_chief_of_staff_zervas_1 }
@@ -3183,7 +3383,7 @@ theorist = {
 					has_id = 307
 					is_field_marshal = yes
 				}
-				has_country_flag = zervas_2
+				check_variable = { hc_zervas_rank = 1 }
 			}
 
 			traits = { greek_chief_of_staff_zervas_2 }
@@ -3202,7 +3402,7 @@ theorist = {
 					has_id = 307
 					is_field_marshal = yes
 				}
-				has_country_flag = zervas_3
+				check_variable = { hc_zervas_rank = 2 }
 			}
 
 			traits = { greek_chief_of_staff_zervas_3 }
@@ -3221,7 +3421,7 @@ theorist = {
 					has_id = 307
 					is_field_marshal = yes
 				}
-				has_country_flag = zervas_4
+				check_variable = { hc_zervas_rank = 3 }
 			}
 
 			traits = { greek_chief_of_staff_zervas_4 }
@@ -3414,192 +3614,576 @@ theorist = {
 		#### katsimitros (oragnwsi amunas hpeirou - monarchismos)
 		#### drakos (general inspector - conventional) 
 		#### kosmas (peziko - all)
+		#### zervas (mobile - democratic)
 		#### aggelis (purovolarchia - monarchismos)
 		#### davakis (combinedArms - conventional)
 		#### alexakis (froura athinwn - conventional)
 		#### papparodou (specOps - conventional)
 
-		GRE_aris_velouchiotis = {
+		GRE_high_command_papagos = {
+			picture = gre_high_command_papagos
 			ledger = army
-			
-			allowed = {
-				original_tag = GRE
-				NOT = { has_dlc = "Battle for the Bosporus" }
+			allowed = { original_tag = GRE }
+			on_add = {
+				####[Finding Seat]####
+				if = { limit = { check_variable = {GRE.hc_num_chosen = 0 } } set_variable = { GRE.hc_papagos_seat = 1 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 1 } }  set_variable = { GRE.hc_papagos_seat = 2 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 2 } NOT = { has_country_flag = hc_reached_stack } } set_variable = { GRE.hc_papagos_seat = 3 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 2 } has_country_flag = hc_reached_stack } set_variable = { GRE.hc_papagos_seat = GRE.hc_seat_replaced } }
+				####[Finding Rank]####
+				if = { limit = { check_variable = {GRE.hc_papagos_rank = 0 } } set_variable = { hc_rank@var:hc_papagos_seat = 1 } }
+				else_if = { limit = { check_variable = {GRE.hc_papagos_rank = 1 } } set_variable = { hc_rank@var:hc_papagos_seat = 2 } }
+				else_if = { limit = { check_variable = {GRE.hc_papagos_rank = 2 } } set_variable = { hc_rank@var:hc_papagos_seat = 3 } }
+				else_if = { limit = { check_variable = {GRE.hc_papagos_rank = 3 } } set_variable = { hc_rank@var:hc_papagos_seat = 4 } }
+				add_to_variable = { GRE.hc_num_chosen = 1 }
+				clr_country_flag = hc_reached_stack
 			}
-			
-			picture = generic_army_europe_1
-			
-			traits = { army_artillery_2 }
-			
-			ai_will_do = {
-				factor = 1
+			on_remove = {
+				custom_effect_tooltip = upon_remove_available_for_other_positions
+				if = { limit = { check_variable = { GRE.hc_num_chosen = 3 } } set_country_flag = hc_reached_stack }
+				subtract_from_variable = { GRE.hc_num_chosen = 1}
+				set_variable = { GRE.hc_rank@var:hc_papagos_seat = 0 }
+				set_variable = { GRE.hc_seat_replaced = GRE.hc_papagos_seat }
+				clear_variable = GRE.hc_papagos_seat
 			}
-		}
-	
-		GRE_napoleon_zervas = {
-			ledger = army
-			
-			
-			allowed = {
-				original_tag = GRE
-				NOT = { has_dlc = "Battle for the Bosporus" }
-			}
-			
-			picture = generic_army_europe_2
-			
-			traits = { army_infantry_2 }
-			
-			ai_will_do = {
-				factor = 1
-			}
-		}
-
-		GRE_nikos_beloyannis = {
-			ledger = navy
-			
-			
-			allowed = {
-				original_tag = GRE
-				NOT = { has_dlc = "Battle for the Bosporus" }
-			}
-			
-			picture = generic_air_europe_2
-			
-			traits = { air_naval_strike_2 }
-			
-			ai_will_do = {
-				factor = 1
-			}
-		}
-
-		GRE_aristeidis_moraitinis = {
-			ledger = air
-			
-			
-			allowed = {
-				original_tag = GRE
-				NOT = { has_dlc = "Battle for the Bosporus" }
-			}
-			
-			picture = generic_air_europe_2
-			
-			traits = { air_bomber_interception_3 }
-			
-			ai_will_do = {
-				factor = 1
-			}
-		}
-
-		GRE_napoleon_zervas_bftb = {
-			ledger = army
-
-			name = GRE_napoleon_zervas	
-			
-			allowed = {
-				original_tag = GRE
-				has_dlc = "Battle for the Bosporus"
-			}
-			
 			available = {
-                OR = {
-                    has_government = democratic
-                    has_completed_focus = GRE_the_democrats
-                    has_government = fascism
-                    has_completed_focus = GRE_recruit_the_fascists_2
-                }
-			}
-			
-			picture = gre_napoleon_zervas
-			
-			traits = { army_infantry_3 }
-			
-			ai_will_do = {
-				factor = 1
-			}
-		}
-	
-		GRE_nikos_beloyannis_bftb = {
-			ledger = army
-
-			name = GRE_nikos_beloyannis
-			
-			allowed = {
-				original_tag = GRE
-				has_dlc = "Battle for the Bosporus"
-			}
-			
-			available = {
+				not_purged_surrendered_dead_papagos = yes
+				has_not_papagos_as_field_marshall = yes
 				OR = {
-                    has_government = communism
-                    has_completed_focus = GRE_the_other_democrats
-                }		
+					current_ruling_monarchists = yes
+					set_temp_variable = { tmpZ = 0.7 }
+					custom_trigger_tooltip = {
+						tooltip = fct_at_least_mon_tt
+						check_variable = { fct_mon > 69 }
+					}
+				}
 			}
-			
-			picture = gre_nikos_beloyannis
-			
-			traits = { army_regrouping_3 }
-			
-			ai_will_do = {
-				factor = 1
-			}
+			traits = { greek_high_command_papagos_trait }
+			ai_will_do = { factor = 1 }
 		}
 
-		GRE_georgios_kosmas = {
-			ledger = navy
-			
-			
-			allowed = {
-				original_tag = GRE
-				has_dlc = "Battle for the Bosporus"
+		GRE_high_command_drakos = {
+			picture = gre_high_command_drakos
+			ledger = army
+			allowed = { original_tag = GRE }
+			on_add = {
+				if = { limit = { check_variable = {GRE.hc_num_chosen = 0 } } set_variable = { GRE.hc_drakos_seat = 1 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 1 } }  set_variable = { GRE.hc_drakos_seat = 2 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 2 } NOT = { has_country_flag = hc_reached_stack } } add_political_power = 250 set_variable = { GRE.hc_drakos_seat = 3 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 2 } has_country_flag = hc_reached_stack } set_variable = { GRE.hc_drakos_seat = GRE.hc_seat_replaced } }
+				if = { limit = { check_variable = {GRE.hc_drakos_rank = 0 } } set_variable = { hc_rank@var:hc_drakos_seat = 1 } }
+				else_if = { limit = { check_variable = {GRE.hc_drakos_rank = 1 } } set_variable = { hc_rank@var:hc_drakos_seat = 2 } }
+				else_if = { limit = { check_variable = {GRE.hc_drakos_rank = 2 } } set_variable = { hc_rank@var:hc_drakos_seat = 3 } }
+				else_if = { limit = { check_variable = {GRE.hc_drakos_rank = 3 } } set_variable = { hc_rank@var:hc_drakos_seat = 4 } }
+				add_to_variable = { GRE.hc_num_chosen = 1 }
+				clr_country_flag = hc_reached_stack
 			}
-			
-			picture = gre_giorgios_kosmas
-			
-			traits = { army_artillery_3 }
-			
-			ai_will_do = {
-				factor = 1
+			on_remove = {
+				custom_effect_tooltip = upon_remove_available_for_other_positions
+				if = { limit = { check_variable = { GRE.hc_num_chosen = 3 } } set_country_flag = hc_reached_stack }
+				subtract_from_variable = { GRE.hc_num_chosen = 1}
+				set_variable = { GRE.hc_rank@var:hc_drakos_seat = 0 }
+				set_variable = { GRE.hc_seat_replaced = GRE.hc_drakos_seat }
+				clear_variable = GRE.hc_drakos_seat
 			}
-		}
-
-		GRE_epameinondas_kavvadias = {
-			ledger = air
-			
-			picture = gre_epameinondas_kavvadias
-			
-			allowed = {
-				original_tag = GRE
-				has_dlc = "Battle for the Bosporus"
-			}
-			
-			traits = { navy_screen_3 }
-			
-			ai_will_do = {
-				factor = 1
-			}
-		}
-			
-		GRE_dimitrios_oikonomou = {
-			
-			picture = gre_dimitrios_oikonomou
-
-			ledger = navy
-			
-			allowed = {
-				original_tag = GRE
-				has_dlc = "Battle for the Bosporus"
-			}
-
 			available = {
-				has_country_flag = GRE_kathestos_proclaimed
+				not_purged_surrendered_dead_drakos = yes
+				has_not_drakos_as_field_marshall = yes
+				set_temp_variable = { tmpZ = 0.7 }
+				OR = {
+					current_ruling_monarchists = yes
+					current_ruling_democrats = yes
+					custom_trigger_tooltip = {
+						tooltip = fct_at_least_mon_tt
+						check_variable = { fct_mon > 69 }
+					}
+					custom_trigger_tooltip = {
+						tooltip = fct_at_least_dem_tt
+						check_variable = { fct_dem > 69 }
+					}
+				}
 			}
-			
-			traits = { air_naval_strike_3 }
-			
-			ai_will_do = {
-				factor = 1
-			}
+			traits = { greek_high_command_drakos_trait }
+			ai_will_do = { factor = 1 }
 		}
+
+		GRE_high_command_stanotas = {
+			picture = gre_high_command_stanotas
+			ledger = army
+			allowed = { original_tag = GRE }
+			on_add = {
+				if = { limit = { check_variable = {GRE.hc_num_chosen = 0 } } set_variable = { GRE.hc_stanotas_seat = 1 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 1 } }  set_variable = { GRE.hc_stanotas_seat = 2 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 2 } NOT = { has_country_flag = hc_reached_stack } } set_variable = { GRE.hc_stanotas_seat = 3 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 2 } has_country_flag = hc_reached_stack } set_variable = { GRE.hc_stanotas_seat = GRE.hc_seat_replaced } }
+				if = { limit = { check_variable = {GRE.hc_stanotas_rank = 0 } } set_variable = { hc_rank@var:hc_stanotas_seat = 1 } }
+				else_if = { limit = { check_variable = {GRE.hc_stanotas_rank = 1 } } set_variable = { hc_rank@var:hc_stanotas_seat = 2 } }
+				else_if = { limit = { check_variable = {GRE.hc_stanotas_rank = 2 } } set_variable = { hc_rank@var:hc_stanotas_seat = 3 } }
+				else_if = { limit = { check_variable = {GRE.hc_stanotas_rank = 3 } } set_variable = { hc_rank@var:hc_stanotas_seat = 4 } }
+				add_to_variable = { GRE.hc_num_chosen = 1 }
+				clr_country_flag = hc_reached_stack
+			}
+			on_remove = {
+				custom_effect_tooltip = upon_remove_available_for_other_positions
+				if = { limit = { check_variable = { GRE.hc_num_chosen = 3 } } set_country_flag = hc_reached_stack }
+				subtract_from_variable = { GRE.hc_num_chosen = 1}
+				set_variable = { GRE.hc_rank@var:hc_stanotas_seat = 0 }
+				set_variable = { GRE.hc_seat_replaced = GRE.hc_stanotas_seat }
+				clear_variable = GRE.hc_stanotas_seat
+			}
+			available = {
+				not_purged_surrendered_dead_stanotas = yes
+				has_not_stanotas_as_field_marshall = yes
+				set_temp_variable = { tmpZ = 0.7 }
+				OR = {
+					current_ruling_monarchists = yes
+					current_ruling_democrats = yes
+					custom_trigger_tooltip = {
+						tooltip = fct_at_least_mon_tt
+						check_variable = { fct_mon > 69 }
+					}
+					custom_trigger_tooltip = {
+						tooltip = fct_at_least_dem_tt
+						check_variable = { fct_dem > 69 }
+					}
+				}
+			}
+			traits = { greek_high_command_stanotas_trait }
+			ai_will_do = { factor = 1 }
+		}
+
+		GRE_high_command_zervas = {
+			picture = gre_high_command_zervas
+			ledger = army
+			allowed = { original_tag = GRE }
+			on_add = {
+				if = { limit = { check_variable = {GRE.hc_num_chosen = 0 } } set_variable = { GRE.hc_zervas_seat = 1 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 1 } }  set_variable = { GRE.hc_zervas_seat = 2 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 2 } NOT = { has_country_flag = hc_reached_stack } } set_variable = { GRE.hc_zervas_seat = 3 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 2 } has_country_flag = hc_reached_stack } set_variable = { GRE.hc_zervas_seat = GRE.hc_seat_replaced } }
+				if = { limit = { check_variable = {GRE.hc_zervas_rank = 0 } } set_variable = { hc_rank@var:hc_zervas_seat = 1 } }
+				else_if = { limit = { check_variable = {GRE.hc_zervas_rank = 1 } } set_variable = { hc_rank@var:hc_zervas_seat = 2 } }
+				else_if = { limit = { check_variable = {GRE.hc_zervas_rank = 2 } } set_variable = { hc_rank@var:hc_zervas_seat = 3 } }
+				else_if = { limit = { check_variable = {GRE.hc_zervas_rank = 3 } } set_variable = { hc_rank@var:hc_zervas_seat = 4 } }
+				add_to_variable = { GRE.hc_num_chosen = 1 }
+				clr_country_flag = hc_reached_stack
+			}
+			on_remove = {
+				custom_effect_tooltip = upon_remove_available_for_other_positions
+				if = { limit = { check_variable = { GRE.hc_num_chosen = 3 } } set_country_flag = hc_reached_stack }
+				subtract_from_variable = { GRE.hc_num_chosen = 1}
+				set_variable = { GRE.hc_rank@var:hc_zervas_seat = 0 }
+				set_variable = { GRE.hc_seat_replaced = GRE.hc_zervas_seat }
+				clear_variable = GRE.hc_zervas_seat
+			}
+			available = {
+				not_purged_surrendered_dead_zervas = yes
+				has_not_zervas_as_field_marshall = yes
+				set_temp_variable = { tmpZ = 0.7 }
+				OR = {
+					custom_trigger_tooltip = {
+						tooltip = zervas_selected_for_promotion_tt
+						OR = {
+							has_country_flag = zervas_1
+							has_country_flag = zervas_2
+							has_country_flag = zervas_3
+							has_country_flag = zervas_4
+						}
+					}
+					current_ruling_democrats = yes
+					custom_trigger_tooltip = {
+						tooltip = fct_at_least_dem_tt
+						check_variable = { fct_dem > 69 }
+					}
+				}
+			}
+			traits = { greek_high_command_zervas_trait }
+			ai_will_do = { factor = 1 }
+		}
+
+		GRE_high_command_plastiras = {
+			picture = gre_high_command_plastiras
+			ledger = army
+			allowed = { original_tag = GRE }
+			on_add = {
+				if = { limit = { check_variable = {GRE.hc_num_chosen = 0 } } set_variable = { GRE.hc_plastiras_seat = 1 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 1 } }  set_variable = { GRE.hc_plastiras_seat = 2 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 2 } NOT = { has_country_flag = hc_reached_stack } } set_variable = { GRE.hc_plastiras_seat = 3 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 2 } has_country_flag = hc_reached_stack } set_variable = { GRE.hc_plastiras_seat = GRE.hc_seat_replaced } }
+				if = { limit = { check_variable = {GRE.hc_plastiras_rank = 0 } } set_variable = { hc_rank@var:hc_plastiras_seat = 1 } }
+				else_if = { limit = { check_variable = {GRE.hc_plastiras_rank = 1 } } set_variable = { hc_rank@var:hc_plastiras_seat = 2 } }
+				else_if = { limit = { check_variable = {GRE.hc_plastiras_rank = 2 } } set_variable = { hc_rank@var:hc_plastiras_seat = 3 } }
+				else_if = { limit = { check_variable = {GRE.hc_plastiras_rank = 3 } } set_variable = { hc_rank@var:hc_plastiras_seat = 4 } }
+				add_to_variable = { GRE.hc_num_chosen = 1 }
+				clr_country_flag = hc_reached_stack
+			}
+			on_remove = {
+				custom_effect_tooltip = upon_remove_available_for_other_positions
+				if = { limit = { check_variable = { GRE.hc_num_chosen = 3 } } set_country_flag = hc_reached_stack }
+				subtract_from_variable = { GRE.hc_num_chosen = 1}
+				set_variable = { GRE.hc_rank@var:hc_plastiras_seat = 0 }
+				set_variable = { GRE.hc_seat_replaced = GRE.hc_plastiras_seat }
+				clear_variable = GRE.hc_plastiras_seat
+			}
+			available = {
+				not_purged_surrendered_dead_plastiras = yes
+				set_temp_variable = { tmpZ = 0.7 }
+				OR = {
+					current_ruling_democrats = yes
+					custom_trigger_tooltip = {
+						tooltip = fct_at_least_dem_tt
+						check_variable = { fct_dem > 69 }
+					}
+				}
+			}
+			traits = { greek_high_command_plastiras_trait }
+			ai_will_do = { factor = 1 }
+		}
+
+		GRE_high_command_katsimitros = {
+			picture = gre_high_command_katsimitros
+			ledger = army
+			allowed = { original_tag = GRE }
+			on_add = {
+				if = { limit = { check_variable = {GRE.hc_num_chosen = 0 } } set_variable = { GRE.hc_katsimitros_seat = 1 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 1 } }  set_variable = { GRE.hc_katsimitros_seat = 2 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 2 } NOT = { has_country_flag = hc_reached_stack } } set_variable = { GRE.hc_katsimitros_seat = 3 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 2 } has_country_flag = hc_reached_stack } set_variable = { GRE.hc_katsimitros_seat = GRE.hc_seat_replaced } }
+				if = { limit = { check_variable = {GRE.hc_katsimitros_rank = 0 } } set_variable = { hc_rank@var:hc_katsimitros_seat = 1 } }
+				else_if = { limit = { check_variable = {GRE.hc_katsimitros_rank = 1 } } set_variable = { hc_rank@var:hc_katsimitros_seat = 2 } }
+				else_if = { limit = { check_variable = {GRE.hc_katsimitros_rank = 2 } } set_variable = { hc_rank@var:hc_katsimitros_seat = 3 } }
+				else_if = { limit = { check_variable = {GRE.hc_katsimitros_rank = 3 } } set_variable = { hc_rank@var:hc_katsimitros_seat = 4 } }
+				add_to_variable = { GRE.hc_num_chosen = 1 }
+				clr_country_flag = hc_reached_stack
+			}
+			on_remove = {
+				custom_effect_tooltip = upon_remove_available_for_other_positions
+				if = { limit = { check_variable = { GRE.hc_num_chosen = 3 } } set_country_flag = hc_reached_stack }
+				subtract_from_variable = { GRE.hc_num_chosen = 1}
+				set_variable = { GRE.hc_rank@var:hc_katsimitros_seat = 0 }
+				set_variable = { GRE.hc_seat_replaced = GRE.hc_katsimitros_seat }
+				clear_variable = GRE.hc_katsimitros_seat
+			}
+			available = {
+				not_purged_surrendered_dead_katsimitros = yes
+				set_temp_variable = { tmpZ = 0.7 }
+				OR = {
+					current_ruling_monarchists = yes
+					custom_trigger_tooltip = {
+						tooltip = fct_at_least_mon_tt
+						check_variable = { fct_mon > 69 }
+					}
+				}
+			}
+			traits = { greek_high_command_katsimitros_trait }
+			ai_will_do = { factor = 1 }
+		}
+
+		GRE_high_command_kosmas = {
+			picture = gre_high_command_kosmas
+			ledger = army
+			allowed = { original_tag = GRE }
+			on_add = {
+				if = { limit = { check_variable = {GRE.hc_num_chosen = 0 } } set_variable = { GRE.hc_kosmas_seat = 1 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 1 } }  set_variable = { GRE.hc_kosmas_seat = 2 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 2 } NOT = { has_country_flag = hc_reached_stack } } set_variable = { GRE.hc_kosmas_seat = 3 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 2 } has_country_flag = hc_reached_stack } set_variable = { GRE.hc_kosmas_seat = GRE.hc_seat_replaced } }
+				if = { limit = { check_variable = {GRE.hc_kosmas_rank = 0 } } set_variable = { hc_rank@var:hc_kosmas_seat = 1 } }
+				else_if = { limit = { check_variable = {GRE.hc_kosmas_rank = 1 } } set_variable = { hc_rank@var:hc_kosmas_seat = 2 } }
+				else_if = { limit = { check_variable = {GRE.hc_kosmas_rank = 2 } } set_variable = { hc_rank@var:hc_kosmas_seat = 3 } }
+				else_if = { limit = { check_variable = {GRE.hc_kosmas_rank = 3 } } set_variable = { hc_rank@var:hc_kosmas_seat = 4 } }
+				add_to_variable = { GRE.hc_num_chosen = 1 }
+				clr_country_flag = hc_reached_stack
+			}
+			on_remove = {
+				custom_effect_tooltip = upon_remove_available_for_other_positions
+				if = { limit = { check_variable = { GRE.hc_num_chosen = 3 } } set_country_flag = hc_reached_stack }
+				subtract_from_variable = { GRE.hc_num_chosen = 1}
+				set_variable = { GRE.hc_rank@var:hc_kosmas_seat = 0 }
+				set_variable = { GRE.hc_seat_replaced = GRE.hc_kosmas_seat }
+				clear_variable = GRE.hc_kosmas_seat
+			}
+			available = {
+				not_purged_surrendered_dead_kosmas = yes
+				set_temp_variable = { tmpZ = 0.7 }
+				OR = {
+					current_ruling_monarchists = yes
+					custom_trigger_tooltip = {
+						tooltip = fct_at_least_mon_tt
+						check_variable = { fct_mon > 69 }
+					}
+				}
+			}
+			traits = { greek_high_command_kosmas_trait }
+			ai_will_do = { factor = 1 }
+		}
+
+		GRE_high_command_aggelis = {
+			picture = gre_high_command_aggelis
+			ledger = army
+			allowed = { original_tag = GRE }
+			on_add = {
+				if = { limit = { check_variable = {GRE.hc_num_chosen = 0 } } set_variable = { GRE.hc_aggelis_seat = 1 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 1 } }  set_variable = { GRE.hc_aggelis_seat = 2 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 2 } NOT = { has_country_flag = hc_reached_stack } } set_variable = { GRE.hc_aggelis_seat = 3 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 2 } has_country_flag = hc_reached_stack } set_variable = { GRE.hc_aggelis_seat = GRE.hc_seat_replaced } }
+				if = { limit = { check_variable = {GRE.hc_aggelis_rank = 0 } } set_variable = { hc_rank@var:hc_aggelis_seat = 1 } }
+				else_if = { limit = { check_variable = {GRE.hc_aggelis_rank = 1 } } set_variable = { hc_rank@var:hc_aggelis_seat = 2 } }
+				else_if = { limit = { check_variable = {GRE.hc_aggelis_rank = 2 } } set_variable = { hc_rank@var:hc_aggelis_seat = 3 } }
+				else_if = { limit = { check_variable = {GRE.hc_aggelis_rank = 3 } } set_variable = { hc_rank@var:hc_aggelis_seat = 4 } }
+				add_to_variable = { GRE.hc_num_chosen = 1 }
+				clr_country_flag = hc_reached_stack
+			}
+			on_remove = {
+				custom_effect_tooltip = upon_remove_available_for_other_positions
+				if = { limit = { check_variable = { GRE.hc_num_chosen = 3 } } set_country_flag = hc_reached_stack }
+				subtract_from_variable = { GRE.hc_num_chosen = 1}
+				set_variable = { GRE.hc_rank@var:hc_aggelis_seat = 0 }
+				set_variable = { GRE.hc_seat_replaced = GRE.hc_aggelis_seat }
+				clear_variable = GRE.hc_aggelis_seat
+			}
+			available = {
+				not_purged_surrendered_dead_aggelis = yes
+				set_temp_variable = { tmpZ = 0.7 }
+				OR = {
+					current_ruling_monarchists = yes
+					custom_trigger_tooltip = {
+						tooltip = fct_at_least_mon_tt
+						check_variable = { fct_mon > 69 }
+					}
+				}
+			}
+			traits = { greek_high_command_aggelis_trait }
+			ai_will_do = { factor = 1 }
+		}
+
+		GRE_high_command_davakis = {
+			picture = gre_high_command_davakis
+			ledger = army
+			allowed = { original_tag = GRE }
+			on_add = {
+				if = { limit = { check_variable = {GRE.hc_num_chosen = 0 } } set_variable = { GRE.hc_davakis_seat = 1 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 1 } }  set_variable = { GRE.hc_davakis_seat = 2 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 2 } NOT = { has_country_flag = hc_reached_stack } } set_variable = { GRE.hc_davakis_seat = 3 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 2 } has_country_flag = hc_reached_stack } set_variable = { GRE.hc_davakis_seat = GRE.hc_seat_replaced } }
+				if = { limit = { check_variable = {GRE.hc_davakis_rank = 0 } } set_variable = { hc_rank@var:hc_davakis_seat = 1 } }
+				else_if = { limit = { check_variable = {GRE.hc_davakis_rank = 1 } } set_variable = { hc_rank@var:hc_davakis_seat = 2 } }
+				else_if = { limit = { check_variable = {GRE.hc_davakis_rank = 2 } } set_variable = { hc_rank@var:hc_davakis_seat = 3 } }
+				else_if = { limit = { check_variable = {GRE.hc_davakis_rank = 3 } } set_variable = { hc_rank@var:hc_davakis_seat = 4 } }
+				add_to_variable = { GRE.hc_num_chosen = 1 }
+				clr_country_flag = hc_reached_stack
+			}
+			on_remove = {
+				custom_effect_tooltip = upon_remove_available_for_other_positions
+				if = { limit = { check_variable = { GRE.hc_num_chosen = 3 } } set_country_flag = hc_reached_stack }
+				subtract_from_variable = { GRE.hc_num_chosen = 1}
+				set_variable = { GRE.hc_rank@var:hc_davakis_seat = 0 }
+				set_variable = { GRE.hc_seat_replaced = GRE.hc_davakis_seat }
+				clear_variable = GRE.hc_davakis_seat
+			}
+			available = {
+				not_purged_surrendered_dead_davakis = yes
+				set_temp_variable = { tmpZ = 0.7 }
+				OR = {
+					current_ruling_monarchists = yes
+					current_ruling_democrats = yes
+					custom_trigger_tooltip = {
+						tooltip = fct_at_least_mon_tt
+						check_variable = { fct_mon > 69 }
+					}
+					custom_trigger_tooltip = {
+						tooltip = fct_at_least_dem_tt
+						check_variable = { fct_dem > 69 }
+					}
+				}
+			}
+			traits = { greek_high_command_davakis_trait }
+			ai_will_do = { factor = 1 }
+		}
+
+		GRE_high_command_alexakis = {
+			picture = gre_high_command_alexakis
+			ledger = army
+			allowed = { original_tag = GRE }
+			on_add = {
+				if = { limit = { check_variable = {GRE.hc_num_chosen = 0 } } set_variable = { GRE.hc_alexakis_seat = 1 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 1 } }  set_variable = { GRE.hc_alexakis_seat = 2 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 2 } NOT = { has_country_flag = hc_reached_stack } } set_variable = { GRE.hc_alexakis_seat = 3 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 2 } has_country_flag = hc_reached_stack } set_variable = { GRE.hc_alexakis_seat = GRE.hc_seat_replaced } }
+				if = { limit = { check_variable = {GRE.hc_alexakis_rank = 0 } } set_variable = { hc_rank@var:hc_alexakis_seat = 1 } }
+				else_if = { limit = { check_variable = {GRE.hc_alexakis_rank = 1 } } set_variable = { hc_rank@var:hc_alexakis_seat = 2 } }
+				else_if = { limit = { check_variable = {GRE.hc_alexakis_rank = 2 } } set_variable = { hc_rank@var:hc_alexakis_seat = 3 } }
+				else_if = { limit = { check_variable = {GRE.hc_alexakis_rank = 3 } } set_variable = { hc_rank@var:hc_alexakis_seat = 4 } }
+				add_to_variable = { GRE.hc_num_chosen = 1 }
+				clr_country_flag = hc_reached_stack
+			}
+			on_remove = {
+				custom_effect_tooltip = upon_remove_available_for_other_positions
+				if = { limit = { check_variable = { GRE.hc_num_chosen = 3 } } set_country_flag = hc_reached_stack }
+				subtract_from_variable = { GRE.hc_num_chosen = 1}
+				set_variable = { GRE.hc_rank@var:hc_alexakis_seat = 0 }
+				set_variable = { GRE.hc_seat_replaced = GRE.hc_alexakis_seat }
+				clear_variable = GRE.hc_alexakis_seat
+			}
+			available = {
+				not_purged_surrendered_dead_alexakis = yes
+				set_temp_variable = { tmpZ = 0.7 }
+				OR = {
+					current_ruling_democrats = yes
+					custom_trigger_tooltip = {
+						tooltip = fct_at_least_dem_tt
+						check_variable = { fct_dem > 69 }
+					}
+				}
+			}
+			traits = { greek_high_command_alexakis_trait }
+			ai_will_do = { factor = 1 }
+		}
+
+		#GRE_high_command_papparodou = {
+		#	picture = gre_high_command_papparodou
+		#	ledger = army
+		#	allowed = { original_tag = GRE }
+		#	available = {
+		#		set_temp_variable = { tmpZ = 0.7 }
+		#		OR = {
+		#			current_ruling_monarchists = yes
+		#			current_ruling_democrats = yes
+		#			custom_trigger_tooltip = {
+		#				tooltip = fct_at_least_mon_tt
+		#				check_variable = { fct_mon > 69 }
+		#			}
+		#			custom_trigger_tooltip = {
+		#				tooltip = fct_at_least_dem_tt
+		#				check_variable = { fct_dem > 69 }
+		#			}
+		#		}
+		#	}
+		#	traits = { air_naval_strike_3 }
+		#	ai_will_do = { factor = 1 }
+		#}
+
+		GRE_high_command_velouchiotis = {
+			picture = gre_high_command_velouchiotis
+			ledger = army
+			allowed = { original_tag = GRE }
+			on_add = {
+				if = { limit = { check_variable = {GRE.hc_num_chosen = 0 } } set_variable = { GRE.hc_velouchiotis_seat = 1 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 1 } }  set_variable = { GRE.hc_velouchiotis_seat = 2 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 2 } NOT = { has_country_flag = hc_reached_stack } } set_variable = { GRE.hc_velouchiotis_seat = 3 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 2 } has_country_flag = hc_reached_stack } set_variable = { GRE.hc_velouchiotis_seat = GRE.hc_seat_replaced } }
+				if = { limit = { check_variable = {GRE.hc_velouchiotis_rank = 0 } } set_variable = { hc_rank@var:hc_velouchiotis_seat = 1 } }
+				else_if = { limit = { check_variable = {GRE.hc_velouchiotis_rank = 1 } } set_variable = { hc_rank@var:hc_velouchiotis_seat = 2 } }
+				else_if = { limit = { check_variable = {GRE.hc_velouchiotis_rank = 2 } } set_variable = { hc_rank@var:hc_velouchiotis_seat = 3 } }
+				else_if = { limit = { check_variable = {GRE.hc_velouchiotis_rank = 3 } } set_variable = { hc_rank@var:hc_velouchiotis_seat = 4 } }
+				add_to_variable = { GRE.hc_num_chosen = 1 }
+				clr_country_flag = hc_reached_stack
+			}
+			on_remove = {
+				custom_effect_tooltip = upon_remove_available_for_other_positions
+				if = { limit = { check_variable = { GRE.hc_num_chosen = 3 } } set_country_flag = hc_reached_stack }
+				subtract_from_variable = { GRE.hc_num_chosen = 1}
+				set_variable = { GRE.hc_rank@var:hc_velouchiotis_seat = 0 }
+				set_variable = { GRE.hc_seat_replaced = GRE.hc_velouchiotis_seat }
+				clear_variable = GRE.hc_velouchiotis_seat
+			}
+			available = {
+				not_purged_surrendered_dead_velouchiotis = yes
+				set_temp_variable = { tmpZ = 0.7 }
+				OR = {
+					current_ruling_communists = yes
+					custom_trigger_tooltip = {
+						tooltip = fct_at_least_com_tt
+						check_variable = { fct_com > 69 }
+					}
+				}
+			}
+			traits = { greek_high_command_velouchiotis_trait }
+			ai_will_do = { factor = 1 }
+		}
+
+		GRE_high_command_bakirtzis = {
+			picture = gre_high_command_bakirtzis
+			ledger = army
+			allowed = { original_tag = GRE }
+			on_add = {
+				if = { limit = { check_variable = {GRE.hc_num_chosen = 0 } } set_variable = { GRE.hc_bakirtzis_seat = 1 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 1 } }  set_variable = { GRE.hc_bakirtzis_seat = 2 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 2 } NOT = { has_country_flag = hc_reached_stack } } set_variable = { GRE.hc_bakirtzis_seat = 3 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 2 } has_country_flag = hc_reached_stack } set_variable = { GRE.hc_bakirtzis_seat = GRE.hc_seat_replaced } }
+				if = { limit = { check_variable = {GRE.hc_bakirtzis_rank = 0 } } set_variable = { hc_rank@var:hc_bakirtzis_seat = 1 } }
+				else_if = { limit = { check_variable = {GRE.hc_bakirtzis_rank = 1 } } set_variable = { hc_rank@var:hc_bakirtzis_seat = 2 } }
+				else_if = { limit = { check_variable = {GRE.hc_bakirtzis_rank = 2 } } set_variable = { hc_rank@var:hc_bakirtzis_seat = 3 } }
+				else_if = { limit = { check_variable = {GRE.hc_bakirtzis_rank = 3 } } set_variable = { hc_rank@var:hc_bakirtzis_seat = 4 } }
+				add_to_variable = { GRE.hc_num_chosen = 1 }
+				clr_country_flag = hc_reached_stack
+			}
+			on_remove = {
+				custom_effect_tooltip = upon_remove_available_for_other_positions
+				if = { limit = { check_variable = { GRE.hc_num_chosen = 3 } } set_country_flag = hc_reached_stack }
+				subtract_from_variable = { GRE.hc_num_chosen = 1}
+				set_variable = { GRE.hc_rank@var:hc_bakirtzis_seat = 0 }
+				set_variable = { GRE.hc_seat_replaced = GRE.hc_bakirtzis_seat }
+				clear_variable = GRE.hc_bakirtzis_seat
+			}
+			available = {
+				not_purged_surrendered_dead_bakirtzis = yes
+				set_temp_variable = { tmpZ = 0.7 }
+				OR = {
+					current_ruling_communists = yes
+					custom_trigger_tooltip = {
+						tooltip = fct_at_least_com_tt
+						check_variable = { fct_com > 69 }
+					}
+				}
+			}
+			traits = { greek_high_command_bakirtzis_trait }
+			ai_will_do = { factor = 1 }
+		}
+
+		GRE_high_command_rossios = {
+			picture = gre_high_command_rossios
+			ledger = army
+			allowed = { original_tag = GRE }
+			on_add = {
+				if = { limit = { check_variable = {GRE.hc_num_chosen = 0 } } set_variable = { GRE.hc_rossios_seat = 1 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 1 } }  set_variable = { GRE.hc_rossios_seat = 2 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 2 } NOT = { has_country_flag = hc_reached_stack } } set_variable = { GRE.hc_rossios_seat = 3 } }
+				else_if = { limit = { check_variable = {GRE.hc_num_chosen = 2 } has_country_flag = hc_reached_stack } set_variable = { GRE.hc_rossios_seat = GRE.hc_seat_replaced } }
+				if = { limit = { check_variable = {GRE.hc_rossios_rank = 0 } } set_variable = { hc_rank@var:hc_rossios_seat = 1 } }
+				else_if = { limit = { check_variable = {GRE.hc_rossios_rank = 1 } } set_variable = { hc_rank@var:hc_rossios_seat = 2 } }
+				else_if = { limit = { check_variable = {GRE.hc_rossios_rank = 2 } } set_variable = { hc_rank@var:hc_rossios_seat = 3 } }
+				else_if = { limit = { check_variable = {GRE.hc_rossios_rank = 3 } } set_variable = { hc_rank@var:hc_rossios_seat = 4 } }
+				add_to_variable = { GRE.hc_num_chosen = 1 }
+				clr_country_flag = hc_reached_stack
+			}
+			on_remove = {
+				custom_effect_tooltip = upon_remove_available_for_other_positions
+				if = { limit = { check_variable = { GRE.hc_num_chosen = 3 } } set_country_flag = hc_reached_stack }
+				subtract_from_variable = { GRE.hc_num_chosen = 1}
+				set_variable = { GRE.hc_rank@var:hc_rossios_seat = 0 }
+				set_variable = { GRE.hc_seat_replaced = GRE.hc_rossios_seat }
+				clear_variable = GRE.hc_rossios_seat
+			}
+			available = {
+				not_purged_surrendered_dead_rossios = yes
+				set_temp_variable = { tmpZ = 0.7 }
+				OR = {
+					current_ruling_communists = yes
+					custom_trigger_tooltip = {
+						tooltip = fct_at_least_com_tt
+						check_variable = { fct_com > 69 }
+					}
+				}
+			}
+			traits = { greek_high_command_rossios_trait }
+			ai_will_do = { factor = 1 }
+		}
+
+		#### Later On 
+		#### velouchiotis (unconventional warfare - communist)
+		#### bakirtzis (artillery - communist)
+		#### rossios (infantry - communist)
 	}
 
 #DESIGNERS
@@ -3642,7 +4226,8 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
-            } 
+				NOT = { has_completed_focus = GRE_crack_down_on_foreign_monopolies }
+            }
             
             on_add = {
                 custom_effect_tooltip = manufacturer_reduced_cost_tt
@@ -3667,6 +4252,10 @@ theorist = {
             }
 
 			cost = 75
+
+			modifier = {
+				alax_modifier_token = 0.01
+			}
             
 			research_bonus = {
 				armor = 0.05
@@ -3685,6 +4274,7 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				NOT = { has_completed_focus = GRE_crack_down_on_foreign_monopolies }
             } 
 			
             cost = 75
@@ -3705,9 +4295,14 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				NOT = { has_completed_focus = GRE_crack_down_on_foreign_monopolies }
             } 
             
             cost = 75
+
+			modifier = {
+				alax_modifier_token = 0.01
+			}
 
 			research_bonus = {
 				armor = 0.05
@@ -3725,7 +4320,12 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				NOT = { has_completed_focus = GRE_crack_down_on_foreign_monopolies }
             } 
+
+			modifier = {
+				axal_modifier_token = 0.01
+			}
 				
 			research_bonus = {
 				armor = 0.05
@@ -3745,8 +4345,12 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				NOT = { has_completed_focus = GRE_crack_down_on_foreign_monopolies }
             } 
-            
+
+			modifier = {
+				alax_modifier_token = 0.01
+			}
             
 			research_bonus = {
 				armor = 0.05
@@ -3793,9 +4397,14 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				NOT = { has_completed_focus = GRE_crack_down_on_foreign_monopolies }
             } 
 
 			cost = 75
+
+			modifier = {
+				axal_modifier_token = 0.01
+			}
 			
 			research_bonus = {
 				armor = 0.1
@@ -3819,7 +4428,12 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				NOT = { has_completed_focus = GRE_crack_down_on_foreign_monopolies }
             } 
+
+			modifier = {
+				axal_modifier_token = 0.01
+			}
             
             on_add = {
                 custom_effect_tooltip = manufacturer_reduced_cost_tt
@@ -3866,6 +4480,7 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				has_completed_focus = GRE_crack_down_on_foreign_monopolies
             } 
             
 			research_bonus = {
@@ -3902,6 +4517,7 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				NOT = { has_completed_focus = GRE_crack_down_on_foreign_monopolies }
             } 
 			
 			research_bonus = {
@@ -3922,7 +4538,12 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				NOT = { has_completed_focus = GRE_crack_down_on_foreign_monopolies }
             } 
+
+			modifier = {
+				alax_modifier_token = 0.01
+			}
 			
 			research_bonus = {
 				air_equipment = 0.05
@@ -3942,7 +4563,12 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				NOT = { has_completed_focus = GRE_crack_down_on_foreign_monopolies }
             } 
+
+			modifier = {
+				axal_modifier_token = 0.01
+			}
 			
 			research_bonus = {
 				air_equipment = 0.05
@@ -3962,6 +4588,7 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				NOT = { has_completed_focus = GRE_crack_down_on_foreign_monopolies }
             } 
             
             on_add = {
@@ -3985,6 +4612,10 @@ theorist = {
                     add_political_power = 10
                 }
             }
+
+			modifier = {
+				alax_modifier_token = 0.01
+			}
 			
 			research_bonus = {
 				air_equipment = 0.05
@@ -4004,6 +4635,7 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				NOT = { has_completed_focus = GRE_crack_down_on_foreign_monopolies }
             } 
             
             on_add = {
@@ -4027,6 +4659,10 @@ theorist = {
                     add_political_power = 10
                 }
             }
+
+			modifier = {
+				alax_modifier_token = 0.01
+			}
 			
 			research_bonus = {
 				air_equipment = 0.05
@@ -4046,10 +4682,15 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				NOT = { has_completed_focus = GRE_crack_down_on_foreign_monopolies }
             } 
 			
 			research_bonus = {
 				air_equipment = 0.05
+			}
+
+			modifier = {
+				axal_modifier_token = 0.01
 			}
 			
 			ai_will_do = {
@@ -4073,6 +4714,7 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				has_completed_focus = GRE_crack_down_on_foreign_monopolies
             } 
 			
 			traits = { light_aircraft_manufacturer }
@@ -4099,6 +4741,7 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				has_completed_focus = GRE_crack_down_on_foreign_monopolies
             } 
 			
 			research_bonus = {
@@ -4123,6 +4766,7 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				has_completed_focus = GRE_crack_down_on_foreign_monopolies
             } 
 			
 			research_bonus = {
@@ -4153,6 +4797,7 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				NOT = { has_completed_focus = GRE_crack_down_on_foreign_monopolies }
             } 
             
             on_add = {
@@ -4176,6 +4821,10 @@ theorist = {
                     add_political_power = 10
                 }
             }
+
+			modifier = {
+				alax_modifier_token = 0.01
+			}
 			
 			research_bonus = {
 				naval_equipment = 0.15
@@ -4195,7 +4844,12 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				NOT = { has_completed_focus = GRE_crack_down_on_foreign_monopolies }
             } 
+
+			modifier = {
+				alax_modifier_token = 0.01
+			}
 			
 			research_bonus = {
 				naval_equipment = 0.15
@@ -4216,7 +4870,12 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				NOT = { has_completed_focus = GRE_crack_down_on_foreign_monopolies }
             } 
+
+			modifier = {
+				axal_modifier_token = 0.01
+			}
 
 			research_bonus = {
 				naval_equipment = 0.15
@@ -4234,7 +4893,12 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				NOT = { has_completed_focus = GRE_crack_down_on_foreign_monopolies }
             } 
+
+			modifier = {
+				axal_modifier_token = 0.01
+			}
 			
 			research_bonus = {
 				naval_equipment = 0.15
@@ -4242,26 +4906,6 @@ theorist = {
             
             traits = { foreign_manufacturer }
 			
-		}
-		
-		royal_hellenic_naval_shipyard = {
-			
-			picture = generic_naval_manufacturer_1
-			
-			allowed = {
-				original_tag = GRE
-				NOT = { has_dlc = "Battle for the Bosporus" }
-			}
-            
-            visible = {
-                NOT = { has_axis_occupation = yes }
-            } 
-			
-			research_bonus = {
-				naval_equipment = 0.15
-			}
-			
-			traits = { naval_manufacturer }
 		}
 
 		GRE_royal_hellenic_naval_shipyard = {
@@ -4279,6 +4923,8 @@ theorist = {
 
 			available = {
 				has_country_flag = GRE_kathestos_proclaimed
+				has_completed_focus = GRE_buy_destroyers_and_torpedo_boats
+				has_completed_focus = GRE_buy_subs
 			}
 			
 			research_bonus = {
@@ -4300,6 +4946,12 @@ theorist = {
             visible = {
                 NOT = { has_axis_occupation = yes }
             } 
+
+			available = {
+				has_country_flag = GRE_kathestos_proclaimed
+				has_completed_focus = GRE_the_battleships
+				has_completed_focus = GRE_buy_subs_2
+			}
 			
 			research_bonus = {
 				naval_equipment = 0.15
@@ -4319,6 +4971,13 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				OR = {
+					has_country_leader = {
+						name = "Aristotle Onassis"
+						ruling_only = yes
+					}
+					has_idea = GRE_aristotle_onassis
+				}
             } 
 
 			available = {
@@ -4329,6 +4988,8 @@ theorist = {
 					}
 					has_idea = GRE_aristotle_onassis
 				}
+				has_completed_focus = GRE_buy_destroyers_and_torpedo_boats
+				has_completed_focus = GRE_buy_subs
 			}
 
 			cost = 75
@@ -4355,6 +5016,7 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				NOT = { has_completed_focus = GRE_crack_down_on_foreign_monopolies }
             } 
 			
 			research_bonus = {
@@ -4375,7 +5037,12 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				NOT = { has_completed_focus = GRE_crack_down_on_foreign_monopolies }
             } 
+
+			modifier = {
+				alax_modifier_token = 0.01
+			}
 			
 			research_bonus = {
 				electronics = 0.05
@@ -4398,7 +5065,12 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				NOT = { has_completed_focus = GRE_crack_down_on_foreign_monopolies }
             } 
+
+			modifier = {
+				axal_modifier_token = 0.01
+			}
 			
 			research_bonus = {
 				industry = 0.05	
@@ -4418,6 +5090,7 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				NOT = { has_completed_focus = GRE_crack_down_on_foreign_monopolies }
             } 
 
 			available = { 
@@ -4446,15 +5119,23 @@ theorist = {
 
             visible = {
                 NOT = { has_axis_occupation = yes }
+				NOT = { has_completed_focus = GRE_crack_down_on_foreign_monopolies }
             } 
 
-			available = { 
-				has_completed_focus = GRE_cooperate_with_foreign_monopolies
+			available = {
 				NOT = { has_war_with = ENG }
+				if = {
+					limit = { has_country_flag = GRE_kathestos_proclaimed }
+					has_country_flag = GRE_protected_eng_telecom
+				}
+			}
+
+			modifier = {
+				alax_modifier_token = 0.01
 			}
             
             cancel = {
-                date > 1938.2.1
+                #date > 1938.2.1
                 NOT = { has_country_flag = GRE_protected_eng_telecom }
             }
             
@@ -4500,16 +5181,20 @@ theorist = {
 				has_dlc = "Battle for the Bosporus"
 			}
 
-			available = { 
-				has_completed_focus = GRE_cooperate_with_foreign_monopolies
+			available = {
 				NOT = { has_war_with = GER }
 			}
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				NOT = { has_completed_focus = GRE_crack_down_on_foreign_monopolies }
             } 
 
 			cost = 120
+
+			modifier = {
+				axal_modifier_token = 0.01
+			}
 			
 			research_bonus = {
 				electronics = 0.05
@@ -4538,6 +5223,7 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				has_completed_focus = GRE_crack_down_on_foreign_monopolies
             } 
 			
 			research_bonus = {
@@ -4566,6 +5252,7 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				has_completed_focus = GRE_crack_down_on_foreign_monopolies
             } 
 			
 			research_bonus = {
@@ -4590,6 +5277,7 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				has_completed_focus = GRE_crack_down_on_foreign_monopolies
             } 
 
 			available = { 
@@ -4625,6 +5313,7 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				NOT = { has_completed_focus = GRE_crack_down_on_foreign_monopolies }
             } 
 			
 			research_bonus = {
@@ -4646,7 +5335,12 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				NOT = { has_completed_focus = GRE_crack_down_on_foreign_monopolies }
             } 
+			
+			modifier = {
+				alax_modifier_token = 0.01
+			}
 			
 			research_bonus = {
 				infantry_weapons = 0.05
@@ -4666,7 +5360,12 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				NOT = { has_completed_focus = GRE_crack_down_on_foreign_monopolies }
             } 
+
+			modifier = {
+				axal_modifier_token = 0.01
+			}
 
 			research_bonus = {
 				motorized_equipment = 0.05
@@ -4686,7 +5385,12 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				NOT = { has_completed_focus = GRE_crack_down_on_foreign_monopolies }
             } 
+
+			modifier = {
+				axal_modifier_token = 0.01
+			}
             
             on_add = {
                 custom_effect_tooltip = manufacturer_reduced_cost_tt
@@ -4728,6 +5432,7 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				NOT = { has_completed_focus = GRE_crack_down_on_foreign_monopolies }
             } 
             
             on_add = {
@@ -4751,6 +5456,10 @@ theorist = {
                     add_political_power = 10
                 }
             }
+
+			modifier = {
+				alax_modifier_token = 0.01
+			}
             
 			research_bonus = {
 				infantry_weapons = 0.05
@@ -4770,7 +5479,12 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				NOT = { has_completed_focus = GRE_crack_down_on_foreign_monopolies }
             } 
+
+			modifier = {
+				axal_modifier_token = 0.01
+			}
 			
 			research_bonus = {
 				infantry_weapons = 0.05
@@ -4789,6 +5503,7 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				has_completed_focus = GRE_crack_down_on_foreign_monopolies
             } 
 
 			available = {
@@ -4818,6 +5533,7 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				has_completed_focus = GRE_crack_down_on_foreign_monopolies
             } 
 
 			available = {
@@ -4849,10 +5565,15 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				NOT = { has_completed_focus = GRE_crack_down_on_foreign_monopolies }
             } 
 
 			available = {
 				NOT = { has_war_with = ENG }
+			}
+			
+			modifier = {
+				alax_modifier_token = 0.01
 			}
             
             on_add = {
@@ -4898,7 +5619,12 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				NOT = { has_completed_focus = GRE_crack_down_on_foreign_monopolies }
             } 
+
+			modifier = {
+				axal_modifier_token = 0.01
+			}
 
 			available = {
 				NOT = { has_war_with = GER }
@@ -4925,7 +5651,12 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				NOT = { has_completed_focus = GRE_crack_down_on_foreign_monopolies }
             } 
+
+			modifier = {
+				alax_modifier_token = 0.01
+			}
 
 			available = {
 				NOT = { has_war_with = USA }
@@ -4952,6 +5683,7 @@ theorist = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
+				NOT = { has_completed_focus = GRE_crack_down_on_foreign_monopolies }
             } 
 
 			available = {

@@ -9,6 +9,108 @@
 # that'll be used if trigger passes
 
 
+
+defined_text = {
+    name = GetChiefPapagosLedger
+    text = {
+        trigger = { check_variable = { GRE.hc_papagos_rank = 0 } }
+        localization_key = greek_chief_of_army_papagos_1_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_papagos_rank = 1 } }
+        localization_key = greek_chief_of_army_papagos_2_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_papagos_rank = 2 } }
+        localization_key = greek_chief_of_army_papagos_3_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_papagos_rank = 3 } }
+        localization_key = greek_chief_of_army_papagos_4_stats
+    }
+}
+
+defined_text = {
+    name = GetChiefDrakosLedger
+    text = {
+        trigger = { check_variable = { GRE.hc_drakos_rank = 0 } }
+        localization_key = greek_chief_of_army_drakos_1_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_drakos_rank = 1 } }
+        localization_key = greek_chief_of_army_drakos_2_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_drakos_rank = 2 } }
+        localization_key = greek_chief_of_army_drakos_3_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_drakos_rank = 3 } }
+        localization_key = greek_chief_of_army_drakos_4_stats
+    }
+}
+
+defined_text = {
+    name = GetChiefStanotasLedger
+    text = {
+        trigger = { check_variable = { GRE.hc_stanotas_rank = 0 } }
+        localization_key = greek_chief_of_army_stanotas_1_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_stanotas_rank = 1 } }
+        localization_key = greek_chief_of_army_stanotas_2_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_stanotas_rank = 2 } }
+        localization_key = greek_chief_of_army_stanotas_3_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_stanotas_rank = 3 } }
+        localization_key = greek_chief_of_army_stanotas_4_stats
+    }
+}
+
+defined_text = {
+    name = GetChiefZervasLedger
+    text = {
+        trigger = { check_variable = { GRE.hc_zervas_rank = 0 } }
+        localization_key = greek_chief_of_army_zervas_1_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_zervas_rank = 1 } }
+        localization_key = greek_chief_of_army_zervas_2_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_zervas_rank = 2 } }
+        localization_key = greek_chief_of_army_zervas_3_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_zervas_rank = 3 } }
+        localization_key = greek_chief_of_army_zervas_4_stats
+    }
+}
+
+defined_text = {
+    name = GetChiefDavakisLedger
+    text = {
+        trigger = { check_variable = { GRE.hc_davakis_rank = 0 } }
+        localization_key = greek_chief_of_army_davakis_1_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_davakis_rank = 1 } }
+        localization_key = greek_chief_of_army_davakis_2_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_davakis_rank = 2 } }
+        localization_key = greek_chief_of_army_davakis_3_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_davakis_rank = 3 } }
+        localization_key = greek_chief_of_army_davakis_4_stats
+    }
+}
+
+
 ########################################################################################################################################################################################################
 ################################################################[																	   ]################################################################
 ################################################################[				              HELLENIC STATE 						   ]################################################################
@@ -16,6 +118,148 @@
 ################################################################[																	   ]################################################################
 ################################################################[																	   ]################################################################
 ########################################################################################################################################################################################################
+
+###### Table of Equipment ]######
+#	+4:  ratio 0.00 -> 0.15		#
+#	+3:  ratio 0.15 -> 0.30		#
+#	+2:  ratio 0.30 -> 0.60		#
+#	+1:  ratio 0.60 -> 0.90		#
+#	n0:  ratio 0.90 -> 1.10		#
+#   -4:  ratio 1.10 -> 1.40		#
+#	-3:  ratio 1.40 -> 1.70		#
+#	-2:  ratio 1.70 -> 1.85		#
+#	-1:  ratio 1.85 -> 2.00+	#
+#################################
+
+defined_text = {
+    name = GetTotalGARequipStatusTHIS
+    text = {
+        trigger = { 
+			check_variable = { var = THIS.GAR_EQUIP_TOTAL value = 0.15 compare = less_than }
+		}
+        localization_key = HS_GAR_p4_eq_cap
+    }
+	text = {
+        trigger = { 
+			check_variable = { var = THIS.GAR_EQUIP_TOTAL value = 0.15 compare = greater_than_or_equals }
+			check_variable = { var = THIS.GAR_EQUIP_TOTAL value = 0.30 compare = less_than }
+		}
+        localization_key = HS_GAR_p3_eq_cap
+    }
+	text = {
+        trigger = {
+			check_variable = { var = THIS.GAR_EQUIP_TOTAL value = 0.30 compare = greater_than_or_equals }
+			check_variable = { var = THIS.GAR_EQUIP_TOTAL value = 0.60 compare = less_than }
+		}
+        localization_key = HS_GAR_p2_eq_cap
+    }
+	text = {
+        trigger = { 
+			check_variable = { var = THIS.GAR_EQUIP_TOTAL value = 0.60 compare = greater_than_or_equals }
+			check_variable = { var = THIS.GAR_EQUIP_TOTAL value = 0.90 compare = less_than }
+		}
+        localization_key = HS_GAR_p1_eq_cap
+    }
+	text = {
+        trigger = { 
+			check_variable = { var = THIS.GAR_EQUIP_TOTAL value = 0.90 compare = greater_than_or_equals }
+			check_variable = { var = THIS.GAR_EQUIP_TOTAL value = 1.10 compare = less_than_or_equals }
+		}
+        localization_key = HS_GAR_L0_eq_cap
+    }
+	text = {
+        trigger = { 
+			check_variable = { var = THIS.GAR_EQUIP_TOTAL value = 1.10 compare = greater_than }
+			check_variable = { var = THIS.GAR_EQUIP_TOTAL value = 1.40 compare = less_than }
+		}
+        localization_key = HS_GAR_n1_eq_cap
+    }
+	text = {
+        trigger = { 
+			check_variable = { var = THIS.GAR_EQUIP_TOTAL value = 1.40 compare = greater_than_or_equals }
+			check_variable = { var = THIS.GAR_EQUIP_TOTAL value = 1.70 compare = less_than }
+		}
+        localization_key = HS_GAR_n2_eq_cap
+    }
+	text = {
+        trigger = { 
+			check_variable = { var = THIS.GAR_EQUIP_TOTAL value = 1.70 compare = greater_than_or_equals }
+			check_variable = { var = THIS.GAR_EQUIP_TOTAL value = 1.85 compare = less_than }
+		}
+        localization_key = HS_GAR_n3_eq_cap
+    }
+	text = {
+        trigger = { 
+			check_variable = { var = THIS.GAR_EQUIP_TOTAL value = 1.85 compare = greater_than_or_equals }
+		}
+        localization_key = HS_GAR_n4_eq_cap
+    }
+}
+
+defined_text = {
+    name = GetTotalGARequipStatusPREV
+    text = {
+        trigger = { 
+			check_variable = { var = PREV.GAR_EQUIP_TOTAL value = 0.15 compare = less_than }
+		}
+        localization_key = HS_GAR_p4_eq_cap
+    }
+	text = {
+        trigger = { 
+			check_variable = { var = PREV.GAR_EQUIP_TOTAL value = 0.15 compare = greater_than_or_equals }
+			check_variable = { var = PREV.GAR_EQUIP_TOTAL value = 0.30 compare = less_than }
+		}
+        localization_key = HS_GAR_p3_eq_cap
+    }
+	text = {
+        trigger = {
+			check_variable = { var = PREV.GAR_EQUIP_TOTAL value = 0.30 compare = greater_than_or_equals }
+			check_variable = { var = PREV.GAR_EQUIP_TOTAL value = 0.60 compare = less_than }
+		}
+        localization_key = HS_GAR_p2_eq_cap
+    }
+	text = {
+        trigger = { 
+			check_variable = { var = PREV.GAR_EQUIP_TOTAL value = 0.60 compare = greater_than_or_equals }
+			check_variable = { var = PREV.GAR_EQUIP_TOTAL value = 0.90 compare = less_than }
+		}
+        localization_key = HS_GAR_p1_eq_cap
+    }
+	text = {
+        trigger = { 
+			check_variable = { var = PREV.GAR_EQUIP_TOTAL value = 0.90 compare = greater_than_or_equals }
+			check_variable = { var = PREV.GAR_EQUIP_TOTAL value = 1.10 compare = less_than_or_equals }
+		}
+        localization_key = HS_GAR_L0_eq_cap
+    }
+	text = {
+        trigger = { 
+			check_variable = { var = PREV.GAR_EQUIP_TOTAL value = 1.10 compare = greater_than }
+			check_variable = { var = PREV.GAR_EQUIP_TOTAL value = 1.40 compare = less_than }
+		}
+        localization_key = HS_GAR_n1_eq_cap
+    }
+	text = {
+        trigger = { 
+			check_variable = { var = PREV.GAR_EQUIP_TOTAL value = 1.40 compare = greater_than_or_equals }
+			check_variable = { var = PREV.GAR_EQUIP_TOTAL value = 1.70 compare = less_than }
+		}
+        localization_key = HS_GAR_n2_eq_cap
+    }
+	text = {
+        trigger = { 
+			check_variable = { var = PREV.GAR_EQUIP_TOTAL value = 1.70 compare = greater_than_or_equals }
+			check_variable = { var = PREV.GAR_EQUIP_TOTAL value = 1.85 compare = less_than }
+		}
+        localization_key = HS_GAR_n3_eq_cap
+    }
+	text = {
+        trigger = { 
+			check_variable = { var = PREV.GAR_EQUIP_TOTAL value = 1.85 compare = greater_than_or_equals }
+		}
+        localization_key = HS_GAR_n4_eq_cap
+    }
+}
 
 defined_text = {
     name = GetPopupText
@@ -216,6 +460,14 @@ defined_text = {
 
 ########################################################################################################################################################################################################
 ################################################################[																	   ]################################################################
+################################################################[				                UNIT LEADER    						   ]################################################################
+################################################################[                              SCRIPTED LOC.                           ]################################################################
+################################################################[																	   ]################################################################
+################################################################[																	   ]################################################################
+########################################################################################################################################################################################################
+
+########################################################################################################################################################################################################
+################################################################[																	   ]################################################################
 ################################################################[				              GAME OF SHADOWS 						   ]################################################################
 ################################################################[                              SCRIPTED LOC.                           ]################################################################
 ################################################################[																	   ]################################################################
@@ -352,6 +604,283 @@ defined_text = {
 ################################################################[																	   ]################################################################
 ########################################################################################################################################################################################################
 
+#####################################################################################################
+###############################[ Scripted Deals Scripted Localization ]##############################
+#####################################################################################################
+
+defined_text = {
+	name = GetMRStateText
+	text = {
+		trigger = { check_variable = { var = GRE.mr_total_ratings value = GRE.mr_localization_threshold_none compare = less_than } }
+		localization_key = deal_none
+	}
+	text = {
+		trigger = { check_variable = { var = GRE.mr_total_ratings value = GRE.mr_localization_threshold_low compare = less_than } }
+		localization_key = deal_low
+	}
+	text = {
+		trigger = { check_variable = { var = GRE.mr_total_ratings value = GRE.mr_localization_threshold_medium compare = less_than } }
+		localization_key = deal_mediocre
+	}
+	text = {
+		trigger = { check_variable = { var = GRE.mr_total_ratings value = GRE.mr_localization_threshold_high compare = less_than } }
+		localization_key = deal_high
+	}
+	text = {
+		trigger = { check_variable = { var = GRE.mr_total_ratings value = GRE.mr_localization_threshold_high compare = greater_than_or_equals } }
+		localization_key = deal_certain
+	}
+}
+	
+
+#####################################################################################################
+############################[ The Eastern Prospect Scripted Localization ]###########################
+#####################################################################################################
+defined_text = {
+	name = GetEasternProspectInformation
+	text = {
+		trigger = {
+			NOT = {
+				has_completed_focus = GRE_extend_arms_sales_to_the_chinese
+				has_completed_focus = GRE_arm_the_communists
+				has_completed_focus = GRE_arm_the_japanese
+			}
+		}
+		localization_key = GRE_eastern_prospect_complete_more_focuses_tt
+	}
+	text = {
+		trigger = {
+			has_completed_focus = GRE_extend_arms_sales_to_the_chinese
+			has_completed_focus = GRE_arm_the_communists
+			has_completed_focus = GRE_arm_the_japanese
+		}
+		localization_key = GRE_eastern_prospect_information_tt
+	}
+}
+
+defined_text = {
+	name = GetEasternProspectAlignment
+	text = {
+		trigger = {
+			check_variable = { GRE.ep_leading = JAP.id }
+			check_variable = { GRE.ep_perc@JAP > 100 }
+		}
+		localization_key = GRE_japanese_5_tt
+	}
+	text = {
+		trigger = {
+			check_variable = { GRE.ep_leading = JAP.id }
+			check_variable = { GRE.ep_perc@JAP > 89 }
+		}
+		localization_key = GRE_japanese_4_tt
+	}
+	text = {
+		trigger = {
+			check_variable = { GRE.ep_leading = JAP.id }
+			check_variable = { GRE.ep_perc@JAP > 79 }
+		}
+		localization_key = GRE_japanese_3_tt
+	}
+	text = {
+		trigger = {
+			check_variable = { GRE.ep_leading = JAP.id }
+			check_variable = { GRE.ep_perc@JAP > 49 }
+		}
+		localization_key = GRE_japanese_2_tt
+	}
+	text = {
+		trigger = {
+			check_variable = { GRE.ep_leading = JAP.id }
+			check_variable = { GRE.ep_perc@JAP > 0 }
+		}
+		localization_key = GRE_japanese_1_tt
+	}
+	text = {
+		trigger = {
+			check_variable = { GRE.ep_leading = CHI.id }
+			check_variable = { GRE.ep_perc@PRC > 100 }
+		}
+		localization_key = GRE_nationalists_5_tt
+	}
+	text = {
+		trigger = {
+			check_variable = { GRE.ep_leading = CHI.id }
+			check_variable = { GRE.ep_perc@PRC > 89 }
+		}
+		localization_key = GRE_nationalists_4_tt
+	}
+	text = {
+		trigger = {
+			check_variable = { GRE.ep_leading = CHI.id }
+			check_variable = { GRE.ep_perc@PRC > 79 }
+		}
+		localization_key = GRE_nationalists_3_tt
+	}
+	text = {
+		trigger = {
+			check_variable = { GRE.ep_leading = CHI.id }
+			check_variable = { GRE.ep_perc@PRC > 49 }
+		}
+		localization_key = GRE_nationalists_2_tt
+	}
+	text = {
+		trigger = {
+			check_variable = { GRE.ep_leading = CHI.id }
+			check_variable = { GRE.ep_perc@PRC > 0 }
+		}
+		localization_key = GRE_nationalists_1_tt
+	}
+	text = {
+		trigger = {
+			check_variable = { GRE.ep_leading = PRC.id }
+			check_variable = { GRE.ep_perc@CHI > 100 }
+		}
+		localization_key = GRE_communists_5_tt
+	}
+	text = {
+		trigger = {
+			check_variable = { GRE.ep_leading = PRC.id }
+			check_variable = { GRE.ep_perc@CHI > 89 }
+		}
+		localization_key = GRE_communists_4_tt
+	}
+	text = {
+		trigger = {
+			check_variable = { GRE.ep_leading = PRC.id }
+			check_variable = { GRE.ep_perc@CHI > 79 }
+		}
+		localization_key = GRE_communists_3_tt
+	}
+	text = {
+		trigger = {
+			check_variable = { GRE.ep_leading = PRC.id }
+			check_variable = { GRE.ep_perc@CHI > 49 }
+		}
+		localization_key = GRE_communists_2_tt
+	}
+	text = {
+		trigger = {
+			check_variable = { GRE.ep_leading = PRC.id }
+			check_variable = { GRE.ep_perc@CHI > 0 }
+		}
+		localization_key = GRE_communists_1_tt
+	}
+	text = {
+		trigger = {
+			check_variable = { GRE.ep_leading = 0 }
+		}
+		localization_key = GRE_undetermined_tt
+	}
+}
+
+defined_text = {
+	name = GetEasternProspectAlignmentStatus_FROM_TMPQ
+	text = {
+		trigger = {
+			FROM = { original_tag = JAP }
+			check_variable = { tmpQ > 100 }
+		}
+		localization_key = GRE_japanese_5_tt
+	}
+	text = {
+		trigger = {
+			FROM = { original_tag = JAP }
+			check_variable = { tmpQ > 89 }
+		}
+		localization_key = GRE_japanese_4_tt
+	}
+	text = {
+		trigger = {
+			FROM = { original_tag = JAP }
+			check_variable = { tmpQ > 79 }
+		}
+		localization_key = GRE_japanese_3_tt
+	}
+	text = {
+		trigger = {
+			FROM = { original_tag = JAP }
+			check_variable = { tmpQ > 49 }
+		}
+		localization_key = GRE_japanese_2_tt
+	}
+	text = {
+		trigger = {
+			FROM = { original_tag = JAP }
+			check_variable = { tmpQ > 0 }
+		}
+		localization_key = GRE_japanese_1_tt
+	}
+	text = {
+		trigger = {
+			FROM = { original_tag = CHI}
+			check_variable = { tmpQ > 100 }
+		}
+		localization_key = GRE_nationalists_5_tt
+	}
+	text = {
+		trigger = {
+			FROM = { original_tag = CHI}
+			check_variable = { tmpQ > 89 }
+		}
+		localization_key = GRE_nationalists_4_tt
+	}
+	text = {
+		trigger = {
+			FROM = { original_tag = CHI}
+			check_variable = { tmpQ > 79 }
+		}
+		localization_key = GRE_nationalists_3_tt
+	}
+	text = {
+		trigger = {
+			FROM = { original_tag = CHI}
+			check_variable = { tmpQ > 49 }
+		}
+		localization_key = GRE_nationalists_2_tt
+	}
+	text = {
+		trigger = {
+			FROM = { original_tag = CHI }
+			check_variable = { tmpQ > 0 }
+		}
+		localization_key = GRE_nationalists_1_tt
+	}
+	text = {
+		trigger = {
+			FROM = { original_tag = PRC }
+			check_variable = { tmpQ > 100 }
+		}
+		localization_key = GRE_communists_5_tt
+	}
+	text = {
+		trigger = {
+			FROM = { original_tag = PRC }
+			check_variable = { tmpQ > 89 }
+		}
+		localization_key = GRE_communists_4_tt
+	}
+	text = {
+		trigger = {
+			FROM = { original_tag = PRC }
+			check_variable = { tmpQ > 79 }
+		}
+		localization_key = GRE_communists_3_tt
+	}
+	text = {
+		trigger = {
+			FROM = { original_tag = PRC }
+			check_variable = { tmpQ > 49 }
+		}
+		localization_key = GRE_communists_2_tt
+	}
+	text = {
+		trigger = {
+			FROM = { original_tag = PRC }
+			check_variable = { tmpQ > 0 }
+		}
+		localization_key = GRE_communists_1_tt
+	}
+}
 
 
 #####################################################################################################
@@ -1680,6 +2209,6 @@ defined_text = {
 			original_tag = GRE
             check_variable = { var = fct_com value = 9 compare = less_than_or_equals }
 		}
-		localization_key = GRE
+		localization_key = GRE_fct_rebellious
     }
 }

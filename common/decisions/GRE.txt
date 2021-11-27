@@ -3,6 +3,9 @@ GRE_1936_election_category = {
 	GRE_the_election_of_1936  = { # Election crisis
 
 		icon = eng_support_imperialist_coup
+        on_map_mode = map_and_decisions_view
+        highlight_states = { state = 47 }
+        highlight_color_while_active = 1
 
 		allowed = { 
 			tag = GRE
@@ -40,6 +43,9 @@ GRE_1936_election_category = {
 	GRE_the_election_of_1936_cont  = { # Election crisis
 
 		icon = eng_support_imperialist_coup
+        on_map_mode = map_and_decisions_view
+        highlight_states = { state = 47 }
+        highlight_color_while_active = 1
 
 		allowed = { 
 			tag = GRE
@@ -140,7 +146,7 @@ GRE_1936_election_category = {
 			has_completed_focus = GRE_escalating_strikes
 		}
 
-		days_mission_timeout = 115
+		days_mission_timeout = 114
 
 		fire_only_once = yes
 
@@ -161,7 +167,7 @@ GRE_1936_election_category = {
 		timeout_effect = {
 			custom_effect_tooltip = GRE_1936_election_tt
 			hidden_effect = { 
-                country_event = { id = hellenic_news.4 days = 1 }
+                country_event = { id = hellenic_news.4 days = 0 }
 			}
 		}
 	}
@@ -181,7 +187,7 @@ GRE_1936_election_category = {
 			has_completed_focus = GRE_escalating_strikes
 		}
 
-		days_mission_timeout = 120
+		days_mission_timeout = 119
 
 		fire_only_once = yes
 
@@ -204,60 +210,10 @@ GRE_1936_election_category = {
 		timeout_effect = {
 			custom_effect_tooltip = GRE_1936_election_tt
 			hidden_effect = { 
-                country_event = { id = hellenic_news.5 days = 1 }
+                country_event = { id = hellenic_news.5 days = 0 }
 			}
 		}
 	}
-    
-	GRE_the_election_of_1936_cont_2  = { # Election crisis
-
-		icon = eng_support_imperialist_coup
-
-		allowed = { 
-			tag = GRE
-		}
-
-		available = {
-			has_completed_focus = GRE_escalating_strikes
-		}
-
-		days_mission_timeout = 8
-
-		fire_only_once = yes
-
-		activation = {
-			has_country_flag = GRE_strikes_started
-		}
-
-		visible = {
-			has_country_flag = GRE_strikes_started
-		}
-
-		cancel_if_not_visible = no
-
-		is_good = no
-
-		complete_effect = {
-			hidden_effect = { 
-				set_country_flag = GRE_strikes_dealt
-                clr_country_flag = GRE_strikes_started
-                country_event = { id = hellas.1 days = 1 }
-			}
-		}
-
-		timeout_effect = {
-			custom_effect_tooltip = GRE_1936_election_tt
-			hidden_effect = { 
-                add_to_variable = { fct_mon = 5}   
-                subtract_from_variable = { fct_com = 15}
-                subtract_from_variable = { fct_dem = 15}
-                add_to_variable = { fct_fas = 2.5}
-                faction_gui_call = yes 
-                complete_national_focus = GRE_escalating_strikes
-			}
-		}
-	}
-
 }
 
 #GREECE INVESTMENT DECISIONS
@@ -2471,6 +2427,233 @@ GRE_investment_decisions_category = {
 		}
 	} 
 
+    GRE_recommission_the_american_battleships = {
+		
+		icon = generic_naval
+        on_map_mode = map_and_decisions_view
+        highlight_states = { state = 47 }
+
+		allowed = { 
+			tag = GRE
+			has_dlc = "Battle for the Bosporus"
+		}
+
+		available = {
+			NOT = { has_war_with = USA }
+			has_completed_focus = GRE_american_influencers
+            has_completed_focus = GRE_the_navy
+		}
+
+		cost = 0
+
+		fire_only_once = yes
+
+		visible = {
+            has_completed_focus = GRE_american_influencers
+            NOT = { 
+                has_global_flag = GRE_crete_still_holding 
+                has_global_flag = GRE_government_in_exile
+                has_war_with = USA
+                has_country_flag = toggle_adio 
+            }
+		}
+
+		cancel_if_not_visible = yes
+
+		complete_effect = {
+			if = { 
+				limit = { 
+					NOT = { has_dlc = "Man the Guns" }
+				}
+				add_equipment_production = {
+					equipment = {
+						type = battleship_1
+					}
+					requested_factories = 1
+					progress = 0.8
+					amount = 1
+				}
+				add_equipment_production = {
+					equipment = {
+						type = battleship_1
+					}
+					requested_factories = 1
+					progress = 0.75
+					amount = 1
+				}
+			}
+			else_if = {
+				limit = { 
+					has_dlc = "Man the Guns"
+				}
+				hidden_effect = { 
+					create_equipment_variant = {
+						name = "Mississippi Class"
+						type = ship_hull_heavy_1
+						name_group = GRE_BB_HISTORICAL
+						parent_version = 0
+						modules = { 
+							fixed_ship_battery_slot = ship_heavy_battery_2
+							fixed_ship_anti_air_slot = ship_anti_air_1 
+							fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+							fixed_ship_radar_slot = empty
+							fixed_ship_engine_slot = heavy_ship_engine_1 
+							fixed_ship_secondaries_slot = ship_secondaries_1
+							fixed_ship_armor_slot = ship_armor_bb_2 
+							front_1_custom_slot = ship_anti_air_1
+							front_2_custom_slot = empty 
+							mid_1_custom_slot = ship_secondaries_1 
+							mid_2_custom_slot = empty
+							mid_3_custom_slot = empty 
+							rear_1_custom_slot = ship_heavy_battery_1 
+							rear_2_custom_slot = empty 
+						} 
+					}	
+				}
+				add_equipment_production = {
+					equipment = {
+						type = ship_hull_heavy_1
+						creator = "GRE" 
+						version_name = "Mississippi Class"
+					}
+					name = "Kilkis" 
+					requested_factories = 1
+					progress = 0.8
+					amount = 1
+				}
+				add_equipment_production = {
+					equipment = {
+						type = ship_hull_heavy_1
+						creator = "GRE" 
+						version_name = "Mississippi Class"
+					}
+					name = "Lemnos" 
+					requested_factories = 1
+					progress = 0.6
+					amount = 1
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+			modifier = {
+				num_of_naval_factories > 12
+				factor = 10
+			}
+		}
+	}
+	GRE_build_the_salamis = {
+		
+		icon = generic_naval
+        on_map_mode = map_and_decisions_view
+        highlight_states = { state = 47 }
+
+		allowed = { 
+			tag = GRE
+			has_dlc = "Battle for the Bosporus"
+		}
+
+		available = {
+			has_completed_focus = GRE_bolster_the_schachtplan
+            has_completed_focus = GRE_the_navy
+		}
+
+		cost = 0
+
+		fire_only_once = yes
+
+		visible = {
+			NOT = { has_war_with = GER }
+            NOT = { has_country_flag = toggle_adio }
+		}
+
+        visible = {
+            has_completed_focus = GRE_bolster_the_schachtplan
+            NOT = { 
+                has_global_flag = GRE_crete_still_holding 
+                has_global_flag = GRE_government_in_exile
+                has_war_with = GER
+                has_country_flag = toggle_adio 
+            }
+		}
+
+		cancel_if_not_visible = yes
+
+		complete_effect = {
+			if = { 
+				limit = { 
+					NOT = { has_dlc = "Man the Guns" }
+				}
+				add_equipment_production = {
+					equipment = {
+						type = battleship_1
+					}
+					requested_factories = 1
+					progress = 0.2
+					amount = 1
+				}
+			}
+			else_if = {
+				limit = { 
+					has_dlc = "Man the Guns"
+				}
+				hidden_effect = { 
+					create_equipment_variant = {
+						name = "Salamis Class"
+						type = ship_hull_heavy_1
+						name_group = GRE_BB_HISTORICAL
+						parent_version = 0
+						modules = { 
+							fixed_ship_battery_slot = ship_heavy_battery_2
+							fixed_ship_anti_air_slot = ship_anti_air_1 
+							fixed_ship_fire_control_system_slot = ship_fire_control_system_0
+							fixed_ship_radar_slot = empty
+							fixed_ship_engine_slot = heavy_ship_engine_2 
+							fixed_ship_secondaries_slot = ship_secondaries_2
+							fixed_ship_armor_slot = ship_armor_bb_2 
+							front_1_custom_slot = ship_anti_air_1
+							front_2_custom_slot = empty 
+							mid_1_custom_slot = ship_secondaries_2
+							mid_2_custom_slot = empty
+							mid_3_custom_slot = empty 
+							rear_1_custom_slot = ship_heavy_battery_2 
+							rear_2_custom_slot = empty 
+						} 
+					}	
+				}
+				add_equipment_production = {
+					equipment = {
+						type = ship_hull_heavy_1
+						creator = "GRE" 
+						version_name = "Salamis Class"
+					}
+					name = "Salamis" 
+					requested_factories = 1
+					progress = 0.2
+					amount = 1
+				}
+			}
+		}
+
+		ai_will_do = {
+			factor = 5
+			modifier = {
+				is_historical_focus_on = yes
+				factor = 0
+			}
+			modifier = {
+				num_of_naval_factories > 8
+				factor = 10
+			}
+		}
+	}
+    
+
     GRE_buy_subs_dec = {
         on_map_mode = map_and_decisions_view
         highlight_states = { state = FROM.capital } 
@@ -3327,7 +3510,7 @@ GRE_pay_back_debt_to_the_ifc_category = {
         on_map_mode = map_and_decisions_view
         highlight_states = { state = FROM.capital }                 ### CHECK IF BOTH FAVOR AND THIS WORK PROPERLY AS THEY BOTH TARGET CAPITAL (IF BOTH SHOW)
 
-		icon = hol_attract_foreign_investors
+		icon = bureaucracy
 
 		allowed = { 
 			tag = GRE
@@ -3358,24 +3541,20 @@ GRE_pay_back_debt_to_the_ifc_category = {
 			NOT = {   
 				OR = {
 					check_variable = { GRE.debt@FROM = 0 }
-                    has_country_flag = GRE_small_installment_payment_flag
-                    has_country_flag = GRE_large_installment_payment_flag
+                    check_variable = { GRE.paying_debt@FROM = 1 }
 				}
 			}
 		}
         
         complete_effect = {
-            add_ideas = GRE_paying_off_debt_small
-			hidden_effect = { 
-				set_country_flag = { flag = GRE_small_installment_payment_flag value = 1 days = 1 }
-			}
+            set_variable = { GRE.paying_debt@FROM = 1 }
         }
 
 		remove_effect = {
             FROM = { add_political_power = 10 }
             set_variable = { GRE.debt_package = 5 }
             FROM = { GRE_update_debt_status = yes }
-            remove_ideas = GRE_paying_off_debt_small
+            set_variable = { GRE.paying_debt@FROM = 0 }
 		}    
     }
     
@@ -3383,7 +3562,7 @@ GRE_pay_back_debt_to_the_ifc_category = {
         on_map_mode = map_and_decisions_view
         highlight_states = { state = FROM.capital }                 ### CHECK IF BOTH FAVOR AND THIS WORK PROPERLY AS THEY BOTH TARGET CAPITAL (IF BOTH SHOW)
 
-		icon = hol_attract_foreign_investors
+		icon = bureaucracy
 
 		allowed = { 
 			tag = GRE
@@ -3414,29 +3593,25 @@ GRE_pay_back_debt_to_the_ifc_category = {
 			NOT = {   
 				OR = {
 					check_variable = { GRE.debt@FROM < 10 }
-                    has_country_flag = GRE_small_installment_payment_flag
-                    has_country_flag = GRE_large_installment_payment_flag
+                    check_variable = { GRE.paying_debt@FROM = 1 }
 				}
 			}
 		}
         
         complete_effect = {
-            add_ideas = GRE_paying_off_debt_large
-			hidden_effect = { 
-				set_country_flag = { flag = GRE_large_installment_payment_flag value = 1 days = 1 }
-			}
+			set_variable = { GRE.paying_debt@FROM = 1 }
         }
 
 		remove_effect = {
             FROM = { add_political_power = 20 }
             set_variable = { GRE.debt_package = 10 }
             FROM = { GRE_update_debt_status = yes }
-            remove_ideas = GRE_paying_off_debt_large
+            set_variable = { GRE.paying_debt@FROM = 0 }
 		}
     }
     
     GRE_utilize_gold_reserves_for_further_debt_repayment = {
-		icon = hol_attract_foreign_investors
+		icon = economy
 
 		allowed = { 
 			tag = GRE
@@ -3492,12 +3667,88 @@ GRE_pay_back_debt_to_the_ifc_category = {
             set_variable = { GRE_debt_tokens = 3 }
 		}
 	}
+
+    GRE_utilize_gold_reserves_for_industrial_aleviation = {
+		icon = economy
+
+		allowed = { 
+			tag = GRE
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+        
+        visible = {
+            OR = {
+                has_idea = GRE_spent_too_much_2
+                has_idea = GRE_spent_too_much
+            }
+            OR = {
+                has_idea = GRE_arms_deal
+                has_idea = GRE_arms_deal_1
+            }
+            NOT = { has_decision = GRE_alleviate_exhaustion_from_eastern_endeavours }
+        }
+
+        cost = 0
+
+		fire_only_once = no
+
+		days_remove = 1
+
+		complete_effect = {
+            custom_effect_tooltip = GRE_industrial_aleviation_through_gold_tt
+            if = {
+                limit = {
+                    has_idea = GRE_spent_too_much_2
+                    has_idea = GRE_arms_deal
+                }
+                remove_ideas = GRE_spent_too_much_2
+                remove_ideas = GRE_arms_deal
+                subtract_from_variable = { GRE_eastern_expenditure = 2 }
+            }
+            else_if = {
+                limit = {
+                    has_idea = GRE_spent_too_much_2
+                    has_idea = GRE_arms_deal_1
+                }
+				swap_ideas = {
+					remove_idea = GRE_spent_too_much_2
+					add_idea = GRE_spent_too_much
+				}
+                remove_ideas = GRE_arms_deal_1
+                subtract_from_variable = { GRE_eastern_expenditure = 1 }
+            }
+            else_if = {
+                limit = {
+                    has_idea = GRE_spent_too_much
+                    has_idea = GRE_arms_deal
+                }
+                remove_ideas = GRE_spent_too_much
+                swap_ideas = {
+					remove_idea = GRE_arms_deal
+					add_idea = GRE_arms_deal_2
+				}
+                subtract_from_variable = { GRE_eastern_expenditure = 1 }
+            }
+            else_if = {
+                limit = {
+                    has_idea = GRE_spent_too_much
+                    has_idea = GRE_arms_deal_1
+                }
+                remove_ideas = GRE_spent_too_much
+                remove_ideas = GRE_arms_deal_1
+                subtract_from_variable = { GRE_eastern_expenditure = 1 }
+            }
+		}
+	}
     
     GRE_pay_debt_token_big = {
         on_map_mode = map_and_decisions_view
         highlight_states = { state = FROM.capital }
 
-		icon = hol_attract_foreign_investors
+		icon = bureaucracy
 
 		allowed = { 
 			tag = GRE
@@ -3541,6 +3792,173 @@ GRE_pay_back_debt_to_the_ifc_category = {
             FROM = { GRE_update_debt_status = yes }
 		}
     }
+
+    GRE_put_debts_on_hold_with_FROM = {
+		icon = hol_attract_foreign_investors
+
+		allowed = { 
+			tag = GRE
+		}
+
+		available = {
+            NOT = { has_war_with = FROM }
+		}
+
+		target_trigger = {
+			FROM = {
+                OR = {
+                    original_tag = ENG
+                    original_tag = FRA
+                    original_tag = ITA 
+                }
+			}
+		}
+
+		cost = 0
+        days_remove = 720
+
+		fire_only_once = yes
+
+		visible = {
+			has_country_flag = GRE_kathestos_proclaimed
+			has_dynamic_modifier = { modifier = GRE_debt_to_the_ifc_dyn }
+            check_variable = { GRE.debt@FROM > 0 }
+		}
+        
+        complete_effect = {
+            add_political_power = 50
+            custom_effect_tooltip = favor_hit_freezing_our_debts_tt
+            hidden_effect = {
+                subtract_from_variable = { FROM.favor@GRE = 10 }
+                every_country = {
+                    limit = {
+                        is_in_array = {
+                            array = global.favor_mechanic
+                            value = THIS.id
+                        }
+                        NOT = { original_tag = FROM }
+                    }
+                    subtract_from_variable = { THIS.favor@GRE = 5 }
+                }
+            }
+            set_variable = { GRE.true_debt@FROM = GRE.debt@FROM }
+            set_variable = { GRE.debt_package = GRE.debt@FROM }
+            FROM = { GRE_update_debt_status = yes }
+        }
+
+		remove_effect = {
+            set_variable = { GRE.debt_package = GRE.true_debt@FROM }
+            multiply_variable = { GRE.debt_package = -1 }
+            FROM = { GRE_update_debt_status = yes }
+            clear_variable = GRE.true_debt@FROM
+		}
+    }
+
+    GRE_reopen_debt_negotiations_with_FROM = {
+        icon = hol_attract_foreign_investors
+
+		allowed = { 
+			tag = GRE
+		}
+
+		available = {
+            NOT = { has_war_with = FROM }
+		}
+
+		target_trigger = {
+			FROM = {
+                OR = {
+                    original_tag = ENG
+                    original_tag = FRA
+                    original_tag = ITA 
+                }
+			}
+		}
+
+		cost = 50
+        days_remove = 0
+
+		fire_only_once = yes
+
+		visible = {
+			check_variable = { GRE.true_debt@FROM > 0 }
+		}
+
+        complete_effect = {
+            remove_targeted_decision = {
+                target = FROM
+                decision = GRE_put_debts_on_hold_with_FROM
+            }
+            set_variable = { GRE.debt_package = GRE.true_debt@FROM }
+            multiply_variable = { GRE.debt_package = -1 }
+            FROM = { GRE_update_debt_status = yes }
+            clear_variable = GRE.true_debt@FROM
+        }
+    }
+
+    GRE_default_on_debt_with_FROM = {
+		icon = hol_attract_foreign_investors
+
+		allowed = { 
+			tag = GRE
+		}
+
+		available = {
+            NOT = { has_war_with = FROM }
+		}
+
+		target_trigger = {
+			FROM = {
+                OR = {
+                    original_tag = ENG
+                    original_tag = FRA
+                    original_tag = ITA 
+                }
+			}
+		}
+
+		cost = 0
+        days_remove = 1
+
+		fire_only_once = yes
+
+		visible = {
+			has_country_flag = GRE_kathestos_proclaimed
+			has_dynamic_modifier = { modifier = GRE_debt_to_the_ifc_dyn }
+            check_variable = { GRE.debt@FROM > 0 }
+		}
+        
+        complete_effect = {
+            set_temp_variable = { x = GRE.debt@FROM }
+            multiply_temp_variable = { x = 3 }
+            add_political_power = var:x
+            custom_effect_tooltip = favor_hit_defaulting_our_debts_tt
+            hidden_effect = {
+                set_variable = { FROM.favor@GRE = -30 }
+                every_country = {
+                    limit = {
+                        is_in_array = {
+                            array = global.favor_mechanic
+                            value = THIS.id
+                        }
+                        NOT = { original_tag = FROM }
+                    }
+                    subtract_from_variable = { THIS.favor@GRE = 15 }
+                }
+            }
+            set_variable = { GRE.defaulted_on@FROM = 1 }
+            set_variable = { GRE.debt_package = GRE.debt@FROM }
+            clear_variable = GRE.true_debt@FROM
+            FROM = { GRE_update_debt_status = yes }
+            FROM = {
+                add_opinion_modifier = {
+                    target = GRE
+                    modifier = GRE_defaulted_on_debts
+                }
+            }
+        }
+    }
+    
 
 	GRE_cut_our_ties = {
 		icon = part_cut_ties
@@ -4487,6 +4905,7 @@ GRE_hellenic_academy_category = {
 
         is_good = yes
         days_mission_timeout = 14
+        fixed_random_seed = no
         
         timeout_effect = {
             random_army_leader = {
@@ -4529,7 +4948,39 @@ GRE_hellenic_academy_category = {
             }
         }
     }
-    
+
+    GRE_war_plans_getting_caught = {
+		icon = hotline
+
+        on_map_mode = map_and_decisions_view
+        highlight_states = { state = 47 }
+        highlight_color_while_active = 1
+
+		allowed = { tag = GRE }
+        
+        activation = { always = no }    
+
+		available = { has_completed_focus = GRE_hellenic_storm }
+
+        is_good = no
+        days_mission_timeout = 30
+        fixed_random_seed = no
+        
+        timeout_effect = {
+            country_event = { id = hellas.407 days = 0 }
+            country_event = { id = hellas.408 days = 1 }
+            country_event = { id = hellas.409 days = 2 }
+            country_event = { id = hellas.410 days = 3 }
+            if = {
+                limit = { ALB = { exists = yes } NOT = { is_subject_of = ITA } }
+                country_event = { id = hellas.411 days = 4 }
+            }
+        }
+        
+        complete_effect = {
+        }
+    }
+
     GRE_secure_the_merchant_fleet = {
 		icon = generic_naval
 
@@ -4655,6 +5106,9 @@ GRE_hellenic_academy_category = {
     GRE_reman_bulgarian_line = {
 
 		icon = eng_support_imperialist_coup
+        on_map_mode = map_and_decisions_view
+        highlight_states = { state = 812 }
+        highlight_color_while_active = 1
 
 		allowed = { 
 			tag = GRE
@@ -4886,7 +5340,7 @@ GRE_hellenic_academy_category = {
         available = { always = no }
         cost = 10
         visible = { is_debug = yes }
-        complete_effect = { 
+        complete_effect = {
             hidden_effect = {
                 set_temp_variable = { indX = GRE.army_leaders }
                 set_temp_variable = { indY = 0.15 }
@@ -4944,13 +5398,75 @@ political_actions = {
         visible = { 
             is_debug = yes
         }
+        fixed_random_seed = no
         complete_effect = {
-            add_collaboration = {
-                target = BUL
-                value = 0.3
+            #if = {
+			#	limit = { check_variable = { GRE.metaxas_pro_axis = 1 } }
+			#	set_temp_variable = { tmpALL = 40 }
+			#	set_temp_variable = { tmpAXI = 60 }
+			#}
+			#else_if = {
+			#	limit = { check_variable = { GRE.metaxas_pro_axis = 0.5 } }
+			#	set_temp_variable = { tmpALL = 44 }
+			#	set_temp_variable = { tmpAXI = 56 }
+			#}
+			#else = {
+			#	set_temp_variable = { tmpALL = 48 }
+			#	set_temp_variable = { tmpAXI = 52 }
+			#}
+			#axal_gui_initial = yes
+            #GRE = { puppet = ITA }
+            #185 = { add_dynamic_modifier = { modifier = albanian_front_dynamic } }
+            #807= {
+            #        add_province_modifier = { 
+            #        static_modifiers = { gre_supplies_breakdown }
+            #        province = 976
+            #    }
+            #}
+            every_state = {
+                limit = { 
+                    is_core_of = GRE
+                }
+                cancel_resistance = yes
+                force_disable_resistance = {
+                    clear = yes
+                    occupier = GER
+                    occupied = GRE
+                }
             }
-        }
+            set_variable = { GER.GAR@GRE = 100000 }
+            set_variable = { ITA.GAR@GRE = 100000 }
+            set_variable = { BUL.GAR@GRE = 40000 }
+            ITA = { HS_GAR_weekly_shift_normal = yes }
+            GER = { HS_GAR_weekly_shift_normal = yes }
+            HS_GAR_Bulgarian_Static_Garrison = yes
+            HS_flag_states = yes
+        }#
     }
+
+    #add_colab_mission= {
+	#	icon = generic_operation
+	#	allowed = { tag = GRE }
+    #    activation = { always = no }    
+	#	available = { always = no }
+    #    is_good = yes
+    #    days_mission_timeout = 1
+    #    days_remove = 0
+    #    fixed_random_seed = no
+    #    timeout_effect = {
+    #        every_unit_leader = {
+    #            limit = {
+    #                has_id = 300
+    #            }
+    #            set_temp_variable = {indATK = 1}
+    #            increase_indXYZQ_weighted = yes
+    #        }
+    #    }
+    #    
+    #    complete_effect = {
+    #        clr_country_flag = training_in_serres
+    #    }
+    #}    
     
     check_dec = {
         allowed = { original_tag = GRE }
@@ -5146,211 +5662,6 @@ political_actions = {
             GER_pops_in_crete = yes
         }
     }
-    
-	GRE_recommission_the_american_battleships = {
-		
-		icon = generic_naval
-
-		allowed = { 
-			tag = GRE
-			has_dlc = "Battle for the Bosporus"
-		}
-
-		available = {
-			NOT = { has_war_with = USA }
-			has_completed_focus = GRE_american_influencers
-            has_completed_focus = GRE_the_navy
-		}
-
-		cost = 0
-
-		fire_only_once = yes
-
-		visible = {
-			NOT = { has_war_with = USA }
-		}
-
-		cancel_if_not_visible = yes
-
-		complete_effect = {
-			if = { 
-				limit = { 
-					NOT = { has_dlc = "Man the Guns" }
-				}
-				add_equipment_production = {
-					equipment = {
-						type = battleship_1
-					}
-					requested_factories = 1
-					progress = 0.8
-					amount = 1
-				}
-				add_equipment_production = {
-					equipment = {
-						type = battleship_1
-					}
-					requested_factories = 1
-					progress = 0.75
-					amount = 1
-				}
-			}
-			else_if = {
-				limit = { 
-					has_dlc = "Man the Guns"
-				}
-				hidden_effect = { 
-					create_equipment_variant = {
-						name = "Mississippi Class"
-						type = ship_hull_heavy_1
-						name_group = GRE_BB_HISTORICAL
-						parent_version = 0
-						modules = { 
-							fixed_ship_battery_slot = ship_heavy_battery_2
-							fixed_ship_anti_air_slot = ship_anti_air_1 
-							fixed_ship_fire_control_system_slot = ship_fire_control_system_0
-							fixed_ship_radar_slot = empty
-							fixed_ship_engine_slot = heavy_ship_engine_1 
-							fixed_ship_secondaries_slot = ship_secondaries_1
-							fixed_ship_armor_slot = ship_armor_bb_2 
-							front_1_custom_slot = ship_anti_air_1
-							front_2_custom_slot = empty 
-							mid_1_custom_slot = ship_secondaries_1 
-							mid_2_custom_slot = empty
-							mid_3_custom_slot = empty 
-							rear_1_custom_slot = ship_heavy_battery_1 
-							rear_2_custom_slot = empty 
-						} 
-					}	
-				}
-				add_equipment_production = {
-					equipment = {
-						type = ship_hull_heavy_1
-						creator = "GRE" 
-						version_name = "Mississippi Class"
-					}
-					name = "Kilkis" 
-					requested_factories = 1
-					progress = 0.8
-					amount = 1
-				}
-				add_equipment_production = {
-					equipment = {
-						type = ship_hull_heavy_1
-						creator = "GRE" 
-						version_name = "Mississippi Class"
-					}
-					name = "Lemnos" 
-					requested_factories = 1
-					progress = 0.6
-					amount = 1
-				}
-			}
-		}
-
-		ai_will_do = {
-			factor = 5
-			modifier = {
-				is_historical_focus_on = yes
-				factor = 0
-			}
-			modifier = {
-				num_of_naval_factories > 12
-				factor = 10
-			}
-		}
-	}
-	GRE_build_the_salamis = {
-		
-		icon = generic_naval
-
-		allowed = { 
-			tag = GRE
-			has_dlc = "Battle for the Bosporus"
-		}
-
-		available = {
-			has_completed_focus = GRE_bolster_the_schachtplan
-            has_completed_focus = GRE_the_navy
-		}
-
-		cost = 0
-
-		fire_only_once = yes
-
-		visible = {
-			NOT = { has_war_with = GER }
-		}
-
-		cancel_if_not_visible = yes
-
-		complete_effect = {
-			if = { 
-				limit = { 
-					NOT = { has_dlc = "Man the Guns" }
-				}
-				add_equipment_production = {
-					equipment = {
-						type = battleship_1
-					}
-					requested_factories = 1
-					progress = 0.2
-					amount = 1
-				}
-			}
-			else_if = {
-				limit = { 
-					has_dlc = "Man the Guns"
-				}
-				hidden_effect = { 
-					create_equipment_variant = {
-						name = "Salamis Class"
-						type = ship_hull_heavy_1
-						name_group = GRE_BB_HISTORICAL
-						parent_version = 0
-						modules = { 
-							fixed_ship_battery_slot = ship_heavy_battery_2
-							fixed_ship_anti_air_slot = ship_anti_air_1 
-							fixed_ship_fire_control_system_slot = ship_fire_control_system_0
-							fixed_ship_radar_slot = empty
-							fixed_ship_engine_slot = heavy_ship_engine_2 
-							fixed_ship_secondaries_slot = ship_secondaries_2
-							fixed_ship_armor_slot = ship_armor_bb_2 
-							front_1_custom_slot = ship_anti_air_1
-							front_2_custom_slot = empty 
-							mid_1_custom_slot = ship_secondaries_2
-							mid_2_custom_slot = empty
-							mid_3_custom_slot = empty 
-							rear_1_custom_slot = ship_heavy_battery_2 
-							rear_2_custom_slot = empty 
-						} 
-					}	
-				}
-				add_equipment_production = {
-					equipment = {
-						type = ship_hull_heavy_1
-						creator = "GRE" 
-						version_name = "Salamis Class"
-					}
-					name = "Salamis" 
-					requested_factories = 1
-					progress = 0.2
-					amount = 1
-				}
-			}
-		}
-
-		ai_will_do = {
-			factor = 5
-			modifier = {
-				is_historical_focus_on = yes
-				factor = 0
-			}
-			modifier = {
-				num_of_naval_factories > 8
-				factor = 10
-			}
-		}
-	}
 }
 
 
@@ -5365,7 +5676,7 @@ political_actions = {
 GRE_the_resource_storage_plan = {
 
     the_resource_plan_oil = { 
-		icon = generic_operation
+		icon = extract
 
 		allowed = { 
 			tag = GRE
@@ -5407,7 +5718,7 @@ GRE_the_resource_storage_plan = {
     }
 
     the_resource_plan_aluminium = {
-		icon = generic_operation
+		icon = extract
 
 		allowed = { 
 			tag = GRE
@@ -5449,7 +5760,7 @@ GRE_the_resource_storage_plan = {
     }
     
     the_resource_plan_rubber = {
-		icon = generic_operation
+		icon = extract
 
 		allowed = { 
 			tag = GRE
@@ -5491,7 +5802,7 @@ GRE_the_resource_storage_plan = {
     }
     
     the_resource_plan_tungsten = {
-		icon = generic_operation
+		icon = extract
 
 		allowed = { 
 			tag = GRE
@@ -5533,7 +5844,7 @@ GRE_the_resource_storage_plan = {
     }
     
     the_resource_plan_steel = {
-		icon = generic_operation
+		icon = extract
 
 		allowed = { 
 			tag = GRE
@@ -5575,7 +5886,7 @@ GRE_the_resource_storage_plan = {
     }
     
     the_resource_plan_chromium = {
-		icon = generic_operation
+		icon = extract
 
 		allowed = { 
 			tag = GRE
@@ -5618,7 +5929,7 @@ GRE_the_resource_storage_plan = {
 
 
     the_resource_plan_oil_2 = {
-		icon = generic_operation
+		icon = extract
 
 		allowed = { 
 			tag = GRE
@@ -5659,7 +5970,7 @@ GRE_the_resource_storage_plan = {
     }
 
     the_resource_plan_aluminium_2 = {
-		icon = generic_operation
+		icon = extract
 
 		allowed = { 
 			tag = GRE
@@ -5700,7 +6011,7 @@ GRE_the_resource_storage_plan = {
     }
     
     the_resource_plan_rubber_2 = {
-		icon = generic_operation
+		icon = extract
 
 		allowed = { 
 			tag = GRE
@@ -5741,7 +6052,7 @@ GRE_the_resource_storage_plan = {
     }
     
     the_resource_plan_tungsten_2 = {
-		icon = generic_operation
+		icon = extract
 
 		allowed = { 
 			tag = GRE
@@ -5782,7 +6093,7 @@ GRE_the_resource_storage_plan = {
     }
     
     the_resource_plan_steel_2 = {
-		icon = generic_operation
+		icon = extract
 
 		allowed = { 
 			tag = GRE
@@ -5823,7 +6134,7 @@ GRE_the_resource_storage_plan = {
     }
     
     the_resource_plan_chromium_2 = {
-		icon = generic_operation
+		icon = extract
 
 		allowed = { 
 			tag = GRE
@@ -5864,7 +6175,7 @@ GRE_the_resource_storage_plan = {
     }
     
     unearth_the_hidden_resources_oil = {
-		icon = generic_operation
+		icon = gre_investment
 
 		allowed = { 
 			tag = GRE
@@ -5943,7 +6254,7 @@ GRE_the_resource_storage_plan = {
     }
     
     unearth_the_hidden_resources_aluminium = {
-		icon = generic_operation
+		icon = gre_investment
 
 		allowed = { 
 			tag = GRE
@@ -6022,7 +6333,7 @@ GRE_the_resource_storage_plan = {
     }
     
     unearth_the_hidden_resources_rubber = {
-		icon = generic_operation
+		icon = gre_investment
 
 		allowed = { 
 			tag = GRE
@@ -6101,7 +6412,7 @@ GRE_the_resource_storage_plan = {
     }
     
     unearth_the_hidden_resources_tungsten = {
-		icon = generic_operation
+		icon = gre_investment
 
 		allowed = { 
 			tag = GRE
@@ -6180,7 +6491,7 @@ GRE_the_resource_storage_plan = {
     }
     
     unearth_the_hidden_resources_steel = {
-		icon = generic_operation
+		icon = gre_investment
 
 		allowed = { 
 			tag = GRE
@@ -6259,7 +6570,7 @@ GRE_the_resource_storage_plan = {
     }
     
     unearth_the_hidden_resources_chromium = {
-		icon = generic_operation
+		icon = gre_investment
 
 		allowed = { 
 			tag = GRE
@@ -6342,7 +6653,7 @@ GRE_the_resource_storage_plan = {
 GRE_the_eastern_prospect_category = {
 
 	the_deal = {
-		icon = generic_operation
+		icon = golden
 
 		allowed = { 
 			tag = GRE
@@ -6368,9 +6679,50 @@ GRE_the_eastern_prospect_category = {
 		fire_only_once = yes
 
 		days_remove = 90
+	}
 
-	}    
+    ep_speak_in_favor_FROM = {
+		icon = deals
+        on_map_mode = map_and_decisions_view
+        highlight_states = { state = FROM.capital }
+		allowed = { original_tag = GRE }
+		target_trigger = {
+			FROM = {
+                OR = {
+                    original_tag = JAP
+                    original_tag = CHI
+                    original_tag = PRC 
+                }
+			}
+		}
+		cost = 0
+        days_remove = 60
 
+		fire_only_once = yes
+
+		visible = {
+			has_completed_focus = GRE_extend_arms_sales_to_the_chinese
+            has_completed_focus = GRE_arm_the_japanese
+            has_completed_focus = GRE_arm_the_communists
+		}
+
+        
+		available = { 
+            NOT = { has_war_with = FROM }
+            set_temp_variable = { tmpQ = 49 }
+            custom_trigger_tooltip = {
+                tooltip = ep_from_leading_alignment_by_tmpQ_tt
+                check_variable = { GRE.ep_perc@FROM > tmpQ }
+            }
+        }
+        
+        complete_effect = {
+            add_to_variable = { }
+        }
+
+		remove_effect = {
+		}
+    }
 }
 
 GRE_a_game_of_shadows_category = {
@@ -6900,13 +7252,13 @@ GRE_grecoitalian_war_category = {
 		complete_effect = { 
             add_timed_idea = { idea = GRE_exhausted  days = 20 }
             news_event = { id = hellenic_news.156 days = 0 }                               ### News report event: Greeks smash the Italians back to Albania
-            hidden_effect = { ITA = { ews_event = { id = hellenic_news.156 days = 0 } } }
+            hidden_effect = { ITA = { news_event = { id = hellenic_news.156 days = 0 } } }
 		}
         
         timeout_effect = {
             add_timed_idea = { idea = GRE_exhausted  days = 40 }
             news_event = { id = hellenic_news.157 days = 0 }                               ### News report event: Stalemate in Albania
-            hidden_effect = { ITA = { ews_event = { id = hellenic_news.157 days = 0 } } }
+            hidden_effect = { ITA = { news_event = { id = hellenic_news.157 days = 0 } } }
         }   
     }
 
@@ -7216,6 +7568,7 @@ GRE_grecoitalian_war_category = {
 
 		visible = {
             has_completed_focus = GRE_epixeirhsh_annivas
+            has_war_with = ITA
 		}
 
 		ai_will_do = {
@@ -7688,6 +8041,187 @@ GRE_economic_fluidity = {
 		}    
     }
 
+    GRE_expand_collapse_mining_rights_decisions = {
+        icon = decision_generic_decision
+    
+        allowed = { 
+			tag = GRE
+		}
+        
+        fire_only_once = no
+        days_remove = 0
+        days_re_enable = 0
+        priority = 12
+        
+        visible = {
+            has_completed_focus = GRE_extortion
+            NOT = { has_global_flag = GRE_grecoitalian_start }
+            NOT = { has_global_flag = GRE_crete_still_holding }
+            NOT = { has_global_flag = GRE_government_in_exile }
+        }
+        
+        complete_effect = {
+            hidden_effect = {
+                if = {
+                    limit = {
+                        NOT = { has_country_flag = toggle_mine_rights }
+                    }
+                    set_country_flag = toggle_mine_rights
+                }
+                else = {
+                    clr_country_flag = toggle_mine_rights
+                }
+            }
+        }
+    }
+
+    mining_rights = {
+		icon = paperwork
+        state_target = yes
+        on_map_mode = map_and_decisions_view
+
+        targets = { 47 807 185 186 187 }
+        target_trigger = {
+            FROM = {
+                if = { limit = { state = 187 } 
+                    has_resources_amount = {
+                        resource = oil
+                        amount > 10
+                        state = 187
+                    }
+                }
+            }
+        }
+
+		allowed = { 
+			tag = GRE
+		}
+        
+        available = {
+            NOT = { has_country_flag = mr_ongoing_negotiations }
+        }
+        
+        visible = {
+            has_completed_focus = GRE_extortion
+            NOT = { has_country_flag = toggle_mine_rights }
+            NOT = { has_global_flag = GRE_grecoitalian_start }
+            NOT = { has_global_flag = GRE_crete_still_holding }
+            NOT = { has_global_flag = GRE_government_in_exile }
+            FROM = { NOT = { has_state_flag =  given_mining_rights } }
+        }
+
+        cost = 0
+		fire_only_once = no
+		days_remove = 0
+
+		complete_effect = {
+            hidden_effect = {
+                set_country_flag = mr_ongoing_negotiations
+                FROM = { state_event = { id = hellas.241 days = 0 } }
+            }
+		}    
+    }
+
+    mining_rights_ath_timeout_mission = {
+		icon = paperwork
+        on_map_mode = map_and_decisions_view
+        highlight_states = { state = 47 }
+		allowed = { tag = GRE }
+        available = { always = no }
+        activation = { 47 = { has_state_flag = given_mining_rights } }
+        is_good = yes
+        days_mission_timeout = 180 
+		timeout_effect = {
+            47 = {
+                random_country = {
+                    limit = { tag = var:PREV.return_owner }
+                    THIS = { remove_resource_rights = PREV.PREV }
+                }
+                clr_state_flag = given_mining_rights
+            }
+        }
+    }
+
+    mining_rights_ste_timeout_mission = {
+		icon = paperwork
+        on_map_mode = map_and_decisions_view
+        highlight_states = { state = 807 }
+		allowed = { tag = GRE }
+        available = { always = no }
+        activation = { 807 = { has_state_flag = given_mining_rights } }
+        is_good = yes
+        days_mission_timeout = 180 
+		timeout_effect = { 
+            807 = {
+                random_country = {
+                    limit = { tag = var:PREV.return_owner }
+                    THIS = { remove_resource_rights = PREV.PREV }
+                }
+                clr_state_flag = given_mining_rights
+            }
+        }
+    }
+
+    mining_rights_epi_timeout_mission = {
+		icon = paperwork
+        on_map_mode = map_and_decisions_view
+        highlight_states = { state = 185 }
+		allowed = { tag = GRE }
+        available = { always = no }
+        activation = { 185 = { has_state_flag = given_mining_rights } }
+        is_good = yes
+        days_mission_timeout = 180 
+		timeout_effect = { 
+            185 = {
+                random_country = {
+                    limit = { tag = var:PREV.return_owner }
+                    THIS = { remove_resource_rights = PREV.PREV }
+                }
+                clr_state_flag = given_mining_rights
+            }
+        }
+    }
+
+    mining_rights_pel_timeout_mission = {
+		icon = paperwork
+        on_map_mode = map_and_decisions_view
+        highlight_states = { state = 186 }
+		allowed = { tag = GRE }
+        available = { always = no }
+        activation = { 186 = { has_state_flag = given_mining_rights } }
+        is_good = yes
+        days_mission_timeout = 180 
+		timeout_effect = { 
+            186 = {
+                random_country = {
+                    limit = { tag = var:PREV.return_owner }
+                    THIS = { remove_resource_rights = PREV.PREV }
+                }
+                clr_state_flag = given_mining_rights
+            }
+        }
+    }
+
+    mining_rights_aeg_timeout_mission = {
+		icon = paperwork
+        on_map_mode = map_and_decisions_view
+        highlight_states = { state = 187 }
+		allowed = { tag = GRE }
+        available = { always = no }
+        activation = { 187 = { has_state_flag = given_mining_rights } }
+        is_good = yes
+        days_mission_timeout = 180 
+		timeout_effect = { 
+            187 = {
+                random_country = {
+                    limit = { tag = var:PREV.return_owner }
+                    THIS = { remove_resource_rights = PREV.PREV }
+                }
+                clr_state_flag = given_mining_rights
+            }
+        }
+    }
+
 	solidify_assets = {
     
 		icon = golden
@@ -7809,7 +8343,7 @@ GRE_kathestos_4hs = {
 
     GRE_kanellopoulos_mission_1 = {
 
-		icon = eng_support_imperialist_coup
+		icon = eon
 
 		allowed = { 
 			tag = GRE
@@ -7853,7 +8387,7 @@ GRE_kathestos_4hs = {
     
     GRE_kanellopoulos_mission_2 = {
 
-		icon = eng_support_imperialist_coup
+		icon = eon
 
 		allowed = { 
 			tag = GRE
@@ -8016,7 +8550,7 @@ GRE_kathestos_4hs = {
             always = no
 		}
 
-		days_mission_timeout = 213
+		days_mission_timeout = 205
 
 		fire_only_once = yes
 
@@ -8058,7 +8592,7 @@ GRE_kathestos_4hs = {
             always = no
 		}
 
-		days_mission_timeout = 215
+		days_mission_timeout = 214
 
 		fire_only_once = yes
 
@@ -8074,7 +8608,7 @@ GRE_kathestos_4hs = {
 			custom_effect_tooltip = GRE_1936_election_tt
 			hidden_effect = { 
                 set_country_flag = GRE_kathestos_metaxa
-                country_event = { id = hellas.2 days = 1 }
+                country_event = { id = hellas.2 days = 0 }
                 activate_mission = GRE_metaxas_death_not_visible
 			}
 		}
@@ -8143,7 +8677,7 @@ GRE_kathestos_4hs = {
 		}
 
 		available = {
-            always = no
+            check_variable = { fct_dem > 79.99 }
 		}
 
 		days_mission_timeout = 939
@@ -8203,7 +8737,7 @@ GRE_kathestos_4hs = {
     }  
 
     kathestos_asfaleia_and_wellfare = {
-		icon = eng_support_imperialist_coup
+		icon = begging
 
 		allowed = { tag = GRE }
 		available = { 
@@ -8238,7 +8772,7 @@ GRE_kathestos_4hs = {
 ###Public_Works_Social_wellfare_Wave1
 
 	buisiness_owners_capital = {
-		icon = eng_support_imperialist_coup
+		icon = signing
 
 		allowed = { 
 			tag = GRE
@@ -8288,7 +8822,7 @@ GRE_kathestos_4hs = {
     }
 
 	win_over_workers_and_farmers = {
-		icon = eng_support_imperialist_coup
+		icon = synd
 
 		allowed = { 
 			tag = GRE
@@ -8338,7 +8872,7 @@ GRE_kathestos_4hs = {
     }    
 
 	win_over_traders = {
-		icon = eng_support_imperialist_coup
+		icon = stonks
 
 		allowed = { 
 			tag = GRE
@@ -8392,7 +8926,7 @@ GRE_kathestos_4hs = {
 ######################################
 
 	omothymia = {
-		icon = eng_support_imperialist_coup
+		icon = metaxas
 
 		allowed = { 
 			tag = GRE
@@ -8454,7 +8988,7 @@ GRE_kathestos_4hs = {
 ###################
 
 	establish_rairload_central_in_thess = {
-		icon = eng_support_imperialist_coup
+		icon = industry
 
 		allowed = { 
 			tag = GRE
@@ -8519,14 +9053,13 @@ GRE_kathestos_4hs = {
     }
 
 	establish_airfileds_in_crete_and_thess_chasani = {
-		icon = eng_support_imperialist_coup
+		icon = industry
 
 		allowed = { 
 			tag = GRE
 		}
 
 		available = {
-            num_of_available_civilian_factories > 2
             has_completed_focus = GRE_public_works 
 		}
 
@@ -8594,7 +9127,7 @@ GRE_kathestos_4hs = {
     }
 
 	establish_coastal_works_in_thess = {
-		icon = eng_support_imperialist_coup
+		icon = industry
 
 		allowed = { 
 			tag = GRE
@@ -8666,7 +9199,7 @@ GRE_kathestos_4hs = {
     } 
 
 	establish_hospitals = {
-		icon = eng_support_imperialist_coup
+		icon = industry
 
 		allowed = { 
 			tag = GRE
@@ -8721,7 +9254,7 @@ GRE_kathestos_4hs = {
     }  
 
 	establish_flood_control_works = {
-		icon = eng_support_imperialist_coup
+		icon = industry
 
 		allowed = { 
 			tag = GRE
@@ -8781,7 +9314,7 @@ GRE_kathestos_4hs = {
     }  
 
 	establish_drying_works = {
-		icon = eng_support_imperialist_coup
+		icon = industry
 
 		allowed = { 
 			tag = GRE
@@ -8840,7 +9373,7 @@ GRE_kathestos_4hs = {
     }
 
 	establish_schools_and_kindergartens = {
-		icon = eng_support_imperialist_coup
+		icon = begging
 
 		allowed = { 
 			tag = GRE
@@ -8892,7 +9425,7 @@ GRE_kathestos_4hs = {
 ######################
 
 	establish_social_insurance = {
-		icon = eng_support_imperialist_coup
+		icon = begging
 
 		allowed = { 
 			tag = GRE
@@ -8941,7 +9474,7 @@ GRE_kathestos_4hs = {
     }
 
 	establish_better_working_conditions = {
-		icon = eng_support_imperialist_coup
+		icon = begging
 
 		allowed = { 
 			tag = GRE
@@ -8992,7 +9525,7 @@ GRE_kathestos_4hs = {
     } 
 
 	abolish_non_adult_work = {
-		icon = eng_support_imperialist_coup
+		icon = begging
 
 		allowed = { 
 			tag = GRE
@@ -9039,7 +9572,7 @@ GRE_kathestos_4hs = {
     }
 
 	health_expo = {
-		icon = eng_support_imperialist_coup
+		icon = health
 
 		allowed = { 
 			tag = GRE
@@ -9087,7 +9620,7 @@ GRE_kathestos_4hs = {
     }
     
 	establish_hospitalization_of_workers = {
-		icon = eng_support_imperialist_coup
+		icon = begging
 
 		allowed = { 
 			tag = GRE
@@ -9136,7 +9669,7 @@ GRE_kathestos_4hs = {
     } 
 
 	fight_malaria_trachoma = {
-		icon = eng_support_imperialist_coup
+		icon = health
 
 		allowed = { 
 			tag = GRE
@@ -9185,7 +9718,7 @@ GRE_kathestos_4hs = {
     } 
  
 	breadlines_for_50000_children = {
-		icon = eng_support_imperialist_coup
+		icon = begging
 
 		allowed = { 
 			tag = GRE
@@ -9232,7 +9765,7 @@ GRE_kathestos_4hs = {
     } 
 
 	spiritual_rejuvenation = {
-		icon = eng_support_imperialist_coup
+		icon = metaxas
 
 		allowed = { 
 			tag = GRE
@@ -9282,7 +9815,7 @@ GRE_kathestos_4hs = {
     } 
 
 	tourism_and_antiquities = {
-		icon = eng_support_imperialist_coup
+		icon = part_cut_ties
 
 		allowed = { 
 			tag = GRE
@@ -9328,7 +9861,7 @@ GRE_kathestos_4hs = {
     }
 
 	establish_radio_company = {
-		icon = eng_support_imperialist_coup
+		icon = radio
 
 		allowed = { 
 			tag = GRE
@@ -9381,7 +9914,7 @@ GRE_kathestos_4hs = {
     }   
 
 	better_postal_and_phone_services = {
-		icon = eng_support_imperialist_coup
+		icon = radio
 
 		allowed = { 
 			tag = GRE
@@ -9430,7 +9963,7 @@ GRE_kathestos_4hs = {
     } 
 
 	worker_and_student_housing = {
-		icon = eng_support_imperialist_coup
+		icon = begging
 
 		allowed = { 
 			tag = GRE
@@ -9482,7 +10015,7 @@ GRE_kathestos_4hs = {
 ######################    
 
 	push_for_reforestation = {
-		icon = eng_support_imperialist_coup
+		icon = eon
 
 		allowed = { 
 			tag = GRE
@@ -9553,7 +10086,7 @@ GRE_kathestos_4hs = {
     }
 
 	the_spirit_of_youth = {
-		icon = eng_support_imperialist_coup
+		icon = eon
 
 		allowed = { 
 			tag = GRE
@@ -9624,7 +10157,7 @@ GRE_kathestos_4hs = {
     } 
 
 	outdoor_theaters = {
-		icon = eng_support_imperialist_coup
+		icon = eon
 
 		allowed = { 
 			tag = GRE
@@ -9694,7 +10227,7 @@ GRE_kathestos_4hs = {
     }
 
     eon_military_training = {
-		icon = eng_support_imperialist_coup
+		icon = eon
 
 		allowed = { 
 			tag = GRE
@@ -9764,7 +10297,7 @@ GRE_kathestos_4hs = {
     }
     
     eon_war_drills = {
-		icon = eng_support_imperialist_coup
+		icon = eon
 
 		allowed = { 
 			tag = GRE
@@ -9834,7 +10367,7 @@ GRE_kathestos_4hs = {
     }
     
     eon_the_backbone_of_the_army = {
-		icon = eng_support_imperialist_coup
+		icon = eon
 
 		allowed = { 
 			tag = GRE
@@ -9904,7 +10437,7 @@ GRE_kathestos_4hs = {
     }
     
     eon_rear_guard_of_the_army = {
-		icon = eng_support_imperialist_coup
+		icon = eon
 
 		allowed = { 
 			tag = GRE
@@ -9974,7 +10507,7 @@ GRE_kathestos_4hs = {
     }
 
     fix_inaccessible_regions = {
-		icon = eng_support_imperialist_coup
+		icon = industry
 
 		allowed = { 
 			tag = GRE
@@ -10057,7 +10590,7 @@ GRE_kathestos_asfaleia {
 
     ###[Sub Tree A]###
     purge_the_military_from_the_communist_threat = {
-        icon = generic_operation 
+        icon = purge 
         allowed = { original_tag = GRE }
         visible = { NOT = { has_completed_focus = GRE_dreams_of_a_grand_coalition } has_completed_focus = GRE_establish_asfaleia has_country_flag = GRE_asfaleia_forces_organized}
         available = { set_temp_variable = { tmpZ = 0.7 } com_is_below_tmpZ = yes com_generals_exist = yes }
@@ -10096,7 +10629,7 @@ GRE_kathestos_asfaleia {
     }
 
     honorary_discharge_the_republican_leaders = {
-        icon = generic_operation
+        icon = purge
         allowed = { original_tag = GRE }
         visible = { NOT = { has_completed_focus = GRE_dreams_of_a_grand_coalition } has_completed_focus = GRE_establish_asfaleia has_country_flag = GRE_asfaleia_forces_organized}
         available = { set_temp_variable = { tmpZ = 0.7 } dem_is_below_tmpZ = yes dem_generals_exist = yes }
@@ -10134,7 +10667,7 @@ GRE_kathestos_asfaleia {
     }
 
     purge_the_military_from_the_pest = {
-        icon = generic_operation
+        icon = purge
         allowed = { original_tag = GRE }
         visible = { NOT = { has_completed_focus = GRE_dreams_of_a_grand_coalition } has_completed_focus = GRE_establish_asfaleia has_country_flag = GRE_asfaleia_forces_organized}
         available = { set_temp_variable = { tmpZ = 0.7 } undesired_generals_exist = yes }
@@ -10226,7 +10759,7 @@ GRE_kathestos_asfaleia {
 
     ###[Sub Tree B]###
 	organize_the_forces = {
-		icon = generic_operation
+		icon = salute
 
 		allowed = { 
 			original_tag = GRE
@@ -10270,7 +10803,7 @@ GRE_kathestos_asfaleia {
     }
     
 	first_wave_of_mass_arrests = {
-		icon = generic_operation
+		icon = salute
 
 		allowed = { 
 			tag = GRE
@@ -10341,7 +10874,7 @@ GRE_kathestos_asfaleia {
     }
 
     reinforce_gendarmerie = {
-		icon = generic_operation
+		icon = salute
 
 		allowed = { 
 			tag = GRE
@@ -10390,7 +10923,7 @@ GRE_kathestos_asfaleia {
     }
 
 	reinforce_asfaleia = {
-		icon = generic_operation
+		icon = salute
 
 		allowed = { 
 			tag = GRE
@@ -10450,7 +10983,7 @@ GRE_kathestos_asfaleia {
     ###[Sub Tree C]###
 
     arrest_zachariadis = {
-        icon = generic_operation
+        icon = purge
 
 		allowed = {
 			tag = GRE
@@ -10500,7 +11033,7 @@ GRE_kathestos_asfaleia {
     }
 
 	escalate_the_arrests = {
-		icon = generic_operation
+		icon = oppression
 
 		allowed = { 
 			tag = GRE
@@ -10560,7 +11093,7 @@ GRE_kathestos_asfaleia {
     }      
 
 	the_ordeal_of_castor_oil = {
-		icon = generic_operation
+		icon = oppression
 
 		allowed = { 
 			tag = GRE
@@ -10620,7 +11153,7 @@ GRE_kathestos_asfaleia {
     }
 
     cooperate_with_gestapo_vs_kke = {
-		icon = generic_operation
+		icon = fascism_lean
 
 		allowed = { 
 			tag = GRE
@@ -10677,7 +11210,7 @@ GRE_kathestos_asfaleia {
     }
     
     establish_temporary_management = {
-		icon = generic_operation
+		icon = oppression
 
 		allowed = { 
 			tag = GRE
@@ -10727,7 +11260,7 @@ GRE_kathestos_asfaleia {
     }
     
     the_war_on_communism = {
-		icon = generic_operation
+		icon = oppression
 
 		allowed = { 
 			tag = GRE
@@ -10788,7 +11321,7 @@ GRE_kathestos_asfaleia {
 
     ###[Sub Tree D]###
     persecute_the_opposition = {
-		icon = generic_operation
+		icon = oppression
 
 		allowed = { 
 			tag = GRE
@@ -10840,7 +11373,7 @@ GRE_kathestos_asfaleia {
     }
 
     utterly_crush_the_republicans = {
-		icon = generic_operation
+		icon = oppression
 
 		allowed = { 
 			tag = GRE
@@ -10897,7 +11430,7 @@ GRE_kathestos_asfaleia {
     }
 
     the_war_on_dangerous_minorities = {
-		icon = generic_operation
+		icon = oppression
 
 		allowed = { 
 			tag = GRE
@@ -10937,7 +11470,7 @@ GRE_kathestos_asfaleia {
     } 
 
     crush_slavs = {
-		icon = generic_operation
+		icon = oppression
 
 		allowed = { 
 			tag = GRE
@@ -10981,7 +11514,7 @@ GRE_kathestos_asfaleia {
     }
 
     crush_chams = {
-		icon = generic_operation
+		icon = oppression
 
 		allowed = { 
 			tag = GRE
@@ -11023,7 +11556,7 @@ GRE_kathestos_asfaleia {
     } 
 
     crush_pomaks = {
-		icon = generic_operation
+		icon = oppression
 
 		allowed = { 
 			tag = GRE
@@ -11064,7 +11597,7 @@ GRE_kathestos_asfaleia {
     }
 
     smooth_assim_of_vlachs_arvanites_romanite_jews = {
-		icon = generic_operation
+		icon = flag
 
 		allowed = { 
 			tag = GRE
@@ -11104,7 +11637,7 @@ GRE_kathestos_asfaleia {
     }    
 
     the_cretan_uprising = {
-		icon = generic_operation
+		icon = hotline
 
 		allowed = { 
 			tag = GRE
@@ -11129,7 +11662,7 @@ GRE_kathestos_asfaleia {
     }
     
     talks_of_a_pro_axis_plot = {
-		icon = generic_operation
+		icon = alarm
 
 		allowed = { 
 			tag = GRE
@@ -11155,7 +11688,7 @@ GRE_kathestos_asfaleia {
     }
     
     close_surveilance_of_ringleaders = {
-		icon = generic_operation
+		icon = alarm
 
 		allowed = { 
 			tag = GRE
@@ -11188,7 +11721,7 @@ GRE_kathestos_asfaleia {
     }
     
     take_precautionary_steps = {
-		icon = generic_operation
+		icon = alarm
 
 		allowed = { 
 			tag = GRE
@@ -11212,7 +11745,7 @@ GRE_kathestos_asfaleia {
     }
     
     kotzias_suspicious_actions = {
-		icon = generic_operation
+		icon = alarm
 
 		allowed = { 
 			tag = GRE
@@ -11242,7 +11775,7 @@ GRE_kathestos_asfaleia {
     }
     
     kotzias_restrict_actions = {
-		icon = generic_operation
+		icon = hotline
 
 		allowed = { 
 			tag = GRE
@@ -11284,7 +11817,7 @@ GRE_kathestos_asfaleia {
 GRE_kathestos_propaganda {
 
     archigos_thefirstpeasant_worker_soldier = {
-		icon = generic_operation
+		icon = metaxas
 
 		allowed = { 
 			tag = GRE
@@ -11335,7 +11868,7 @@ GRE_kathestos_propaganda {
     }
     
     fund_neon_kratos = {
-		icon = generic_operation
+		icon = alarm
 
 		allowed = { 
 			tag = GRE
@@ -11382,7 +11915,7 @@ GRE_kathestos_propaganda {
     }  
 
     apply_strict_cencorship = {
-		icon = generic_operation
+		icon = fist
 
 		allowed = { 
 			tag = GRE
@@ -11429,7 +11962,7 @@ GRE_kathestos_propaganda {
     } 
 
     measure_for_tourism = {
-		icon = generic_operation
+		icon = economy
 
 		allowed = { 
 			tag = GRE
@@ -11475,7 +12008,7 @@ GRE_kathestos_propaganda {
     }
     
     burn_the_red_papers = {
-		icon = generic_operation
+		icon = oppression
 
 		allowed = { 
 			tag = GRE
@@ -11521,7 +12054,7 @@ GRE_kathestos_propaganda {
     }  
 
     import_german_magazines_books = {
-		icon = generic_operation
+		icon = deals
 
 		allowed = { 
 			tag = GRE
@@ -11563,7 +12096,7 @@ GRE_kathestos_propaganda {
     } 
 
     sell_hellenism_to_germans= {
-		icon = generic_operation
+		icon = alarm
 
 		allowed = { 
 			tag = GRE
@@ -11605,7 +12138,7 @@ GRE_kathestos_propaganda {
     } 
 
     organize_sport_festivities= {
-		icon = generic_operation
+		icon = pull
 
 		allowed = { 
 			tag = GRE
@@ -11652,7 +12185,7 @@ GRE_kathestos_propaganda {
     }
 
     organize_festivities= {
-		icon = generic_operation
+		icon = part_cut_ties
 
 		allowed = { 
 			tag = GRE
@@ -11700,7 +12233,7 @@ GRE_kathestos_propaganda {
     } 
 
     organize_mass_marches= {
-		icon = generic_operation
+		icon = flag
 
 		allowed = { 
 			tag = GRE
@@ -11749,7 +12282,7 @@ GRE_kathestos_propaganda {
     }     
 
     railway_propaganda= {
-		icon = generic_operation
+		icon = industry
 
 		allowed = { 
 			tag = GRE
@@ -11814,7 +12347,7 @@ GRE_kathestos_propaganda {
 GRE_kathestos_war_preparation = {
 
     hidden_military_reorgn= {
-		icon = generic_operation
+		icon = military
 
 		allowed = { 
 			tag = GRE
@@ -11847,7 +12380,7 @@ GRE_kathestos_war_preparation = {
     } 
 
     extend_military_service_24 = {
-		icon = generic_operation
+		icon = salute
 
 		allowed = { 
 			tag = GRE
@@ -11907,7 +12440,7 @@ GRE_kathestos_war_preparation = {
     } 
     
     serres_military_exercise_12000_men = {
-		icon = generic_operation
+		icon = salute
 
 		allowed = { 
 			tag = GRE
@@ -11944,7 +12477,7 @@ GRE_kathestos_war_preparation = {
     }
 
     serres_training_mission= {
-		icon = generic_operation
+		icon = infil
 		allowed = { 
 			tag = GRE
 		}
@@ -11964,9 +12497,10 @@ GRE_kathestos_war_preparation = {
 
         is_good = yes
         days_mission_timeout = 30
+        fixed_random_seed = no
         
         timeout_effect = {
-            army_experience = 30
+            army_experience = 5
             hidden_effect = {
                 every_army_leader = {
                     limit = {
@@ -11974,9 +12508,13 @@ GRE_kathestos_war_preparation = {
                         check_variable = { num_units_in_state@812:id > 2 }
                         check_variable = { num_battalions > 11 }
                     }
-                    if = { limit = { attack_skill_level < 5 } add_attack = 1 }
-                    if = { limit = { defense_skill_level < 5 } add_defense = 1 }
-                    add_random_trait = { infantry_leader trait_engineer trickster }
+                    set_temp_variable = { indATK = 1 }
+                    set_temp_variable = { indDEF = 1 }
+                    increase_indXYZQ_weighted = yes
+                    random_list = { 
+                        10 = { add_random_trait = { infantry_leader trait_engineer trickster } }
+                        90 = { }
+                    }
                     reduce_unpreparedness = yes
                 }
             }
@@ -12002,7 +12540,7 @@ GRE_kathestos_war_preparation = {
     }    
 
     conscription_plan_1939b= {
-		icon = generic_operation
+		icon = salute
 
 		allowed = { 
 			tag = GRE
@@ -12041,7 +12579,7 @@ GRE_kathestos_war_preparation = {
     }
 
     concealed_partial_and_general_conscription_plans= {
-		icon = generic_operation
+		icon = salute
 
 		allowed = { 
 			tag = GRE
@@ -12056,6 +12594,7 @@ GRE_kathestos_war_preparation = {
 		}
 
 		fire_only_once = yes
+        fixed_random_seed = no
 
         cost = 25
 		days_remove = 200
@@ -12075,7 +12614,8 @@ GRE_kathestos_war_preparation = {
                 randomly_train_tmpX_officers = yes
                 every_army_leader = {                    
                     limit = { is_ideologically_close_tmpZ = yes }
-                    add_planning = 1
+                    set_temp_variable = { indLOG = 1 }
+                    increase_indXYZQ_weighted = yes
                 }
             }
             custom_effect_tooltip = train_ideologically_close_random_higher_tt
@@ -12085,7 +12625,7 @@ GRE_kathestos_war_preparation = {
     }  
 
     prepare_for_fast_relocation= {
-		icon = generic_operation
+		icon = salute
 
 		allowed = { 
 			tag = GRE
@@ -12153,7 +12693,7 @@ GRE_kathestos_war_preparation = {
     }
     
     prepare_for_fast_relocation_mis= {
-		icon = generic_operation
+		icon = infil
 		allowed = { 
 			tag = GRE
 		}
@@ -12176,6 +12716,7 @@ GRE_kathestos_war_preparation = {
 
         is_good = yes
         days_mission_timeout = 30
+        fixed_random_seed = no
         
         timeout_effect = {
             set_temp_variable = { indX = 5 }
@@ -12184,10 +12725,11 @@ GRE_kathestos_war_preparation = {
                     limit = {
                         is_field_marshal = yes
                     }
-                    if = { limit = { attack_skill_level < 5 } add_attack = 1 }
-                    if = { limit = { defense_skill_level < 5 } add_defense = 1 }
-                    if = { limit = { planning_skill_level < 5 } add_planning = 1 }
-                    if = { limit = { logistics_skill_level < 5 } add_logistics = 1 }
+                    set_temp_variable = { indATK = 1 }
+                    set_temp_variable = { indDEF = 1 }
+                    set_temp_variable = { indPLA = 1 }
+                    set_temp_variable = { indLOG = 1 }
+                    increase_indXYZQ_weighted = yes
                     add_unit_leader_trait = organizer
                     reduce_unpreparedness = yes
                 }
@@ -12203,9 +12745,13 @@ GRE_kathestos_war_preparation = {
                         }
                         check_variable = { num_battalions > 9 }
                     }
-                    if = { limit = { planning_skill_level < 5 } add_planning = 1 }
-                    if = { limit = { logistics_skill_level < 5 } add_logistics = 1 }
-                    add_random_trait = { organizer trait_engineer trickster }
+                    set_temp_variable = { indPLA = 1 }
+                    set_temp_variable = { indLOG = 1 }
+                    increase_indXYZQ_weighted = yes
+                    random_list = {
+                        10 = { add_random_trait = { organizer trait_engineer trickster } }
+                        90 = { }
+                    }
                     reduce_unpreparedness = yes
                 }
                 set_temp_variable = { tmpX = 5 }
@@ -12228,7 +12774,7 @@ GRE_kathestos_war_preparation = {
     }
 
     borderline_regions= {
-		icon = generic_operation
+		icon = salute
 
 		allowed = { 
 			tag = GRE
@@ -12275,7 +12821,7 @@ GRE_kathestos_war_preparation = {
     }    
 
     prepare_local_reserves= {
-		icon = generic_operation
+		icon = salute
 
 		allowed = { 
 			tag = GRE
@@ -12290,6 +12836,7 @@ GRE_kathestos_war_preparation = {
 		}
 
 		fire_only_once = yes
+        fixed_random_seed = no
 
         cost = 75
 		days_remove = 90
@@ -12304,8 +12851,9 @@ GRE_kathestos_war_preparation = {
                 randomly_train_tmpX_officers = yes
                 every_army_leader = {                    
                     limit = { is_ideologically_close_tmpZ = yes }
-                    add_planning = 1
-                    add_defense = 1
+                    set_temp_variable = { indDEF = 1 }
+                    set_temp_variable = { indPLA = 1 }
+                    increase_indXYZQ_weighted = yes
                 }
             }
             custom_effect_tooltip = train_ideologically_close_random_higher_tt
@@ -12329,7 +12877,7 @@ GRE_kathestos_war_preparation = {
     }
     
     send_generals_to_get_used_with_land= {
-		icon = generic_operation
+		icon = salute
 
 		allowed = { 
 			tag = GRE
@@ -12391,7 +12939,7 @@ GRE_kathestos_war_preparation = {
     }
 
     send_generals_to_get_used_with_land_mis= {
-		icon = generic_operation
+		icon = infil
 		allowed = { 
 			tag = GRE
 		}
@@ -12412,6 +12960,7 @@ GRE_kathestos_war_preparation = {
 
         is_good = yes
         days_mission_timeout = 90
+        fixed_random_seed = no
         
         timeout_effect = {
             set_temp_variable = { indX = 5 }
@@ -12420,8 +12969,9 @@ GRE_kathestos_war_preparation = {
                     limit = {
                         is_field_marshal = yes
                     }
-                    if = { limit = { defense_skill_level < 5 } add_defense = 1 }
-                    if = { limit = { planning_skill_level < 5 } add_planning = 1 }
+                    set_temp_variable = { indDEF = 1 }
+                    set_temp_variable = { indPLA = 1 }
+                    increase_indXYZQ_weighted = yes
                     add_random_trait = { trait_mountaineer hill_fighter }
                     reduce_unpreparedness = yes
                 }
@@ -12435,9 +12985,13 @@ GRE_kathestos_war_preparation = {
                         }
                         check_variable = { num_battalions > 9 }
                     }
-                    if = { limit = { defense_skill_level < 5 } add_defense = 1 }
-                    if = { limit = { planning_skill_level < 5 } add_planning = 1 }
-                    add_random_trait = { trait_mountaineer trait_engineer hill_fighter trickster }
+                    set_temp_variable = { indDEF = 1 }
+                    set_temp_variable = { indPLA = 1 }
+                    increase_indXYZQ_weighted = yes
+                    random_list = {
+                        10 = { add_random_trait = { trait_mountaineer trait_engineer hill_fighter trickster } }
+                        90 = { }
+                    }
                     reduce_unpreparedness = yes
                 }
                 set_temp_variable = { tmpX = 5 }
@@ -12467,7 +13021,7 @@ GRE_kathestos_war_preparation = {
     }
     
     establish_the_borderline_reserve_plan= {
-		icon = generic_operation
+		icon = salute
 
 		allowed = { 
 			tag = GRE
@@ -12507,7 +13061,7 @@ GRE_kathestos_war_preparation = {
     }   
 
     incident_of_partial_conscription_of_VIII_IX_Merarchies= {
-		icon = generic_operation
+		icon = salute
 
 		allowed = { 
 			tag = GRE
@@ -12553,7 +13107,7 @@ GRE_kathestos_war_preparation = {
     }
 
     jan_1940_inspection= {
-		icon = generic_operation
+		icon = military
 
 		allowed = { 
 			tag = GRE
@@ -12575,7 +13129,7 @@ GRE_kathestos_war_preparation = {
 
         cost = 125
 		days_remove = 165
-
+        fixed_random_seed = no
         
         complete_effect = {
             hidden_effect = {
@@ -12594,20 +13148,20 @@ GRE_kathestos_war_preparation = {
                     }
                     random_list = {
                         10 = {
-                            modifier = { factor = 0 attack_skill_level > 5 }
-                            add_attack = 1
+                            set_temp_variable = {indATK = 1}
+                            increase_indXYZQ_weighted = yes
                         }
                         10 = {
-                            modifier = { factor = 0 defense_skill_level > 5 }
-                            add_defense = 1
+                            set_temp_variable = {indDEF = 1}
+                            increase_indXYZQ_weighted = yes
                         }
                         10 = {
-                            modifier = { factor = 0 logistics_skill_level > 5 }
-                            add_logistics = 1
+                            set_temp_variable = {indPLA = 1}
+                            increase_indXYZQ_weighted = yes
                         }
                         10 = {
-                            modifier = { factor = 0 planning_skill_level > 5 }
-                            add_planning = 1
+                            set_temp_variable = {indLOG = 1}
+                            increase_indXYZQ_weighted = yes
                         }
                         5 = {
                             modifier = { factor = 2 is_assigned_with_at_least_60_bats = yes }
@@ -12644,7 +13198,7 @@ GRE_kathestos_war_preparation = {
     } 
 
     call_class_a= {
-		icon = generic_operation
+		icon = salute
 
 		allowed = { 
 			tag = GRE
@@ -12689,7 +13243,7 @@ GRE_kathestos_war_preparation = {
     }  
 
     call_class_b= {
-		icon = generic_operation
+		icon = salute
 
 		allowed = { 
 			tag = GRE
@@ -12733,7 +13287,7 @@ GRE_kathestos_war_preparation = {
     }
     
     call_class_c= {
-		icon = generic_operation
+		icon = salute
 
 		allowed = { 
 			tag = GRE
@@ -12777,7 +13331,7 @@ GRE_kathestos_war_preparation = {
     }
     
     call_class_d= {
-		icon = generic_operation
+		icon = salute
 
 		allowed = { 
 			tag = GRE
@@ -12821,7 +13375,7 @@ GRE_kathestos_war_preparation = {
     }
     
     call_class_e= {
-		icon = generic_operation
+		icon = salute
 
 		allowed = { 
 			tag = GRE
@@ -12862,10 +13416,10 @@ GRE_kathestos_war_preparation = {
             add_to_variable = { GRE_army_reform_cnt = 1 }
             #######################            
         }
-    } 
+    }
     
     prepare_the_land= {
-		icon = generic_operation
+		icon = salute
 
 		allowed = { 
 			tag = GRE
@@ -12885,7 +13439,7 @@ GRE_kathestos_war_preparation = {
 		ai_will_do = {
 			factor = 1
 		}
-
+        fixed_random_seed = no
 		fire_only_once = yes
 
 		cost = 75
@@ -12902,16 +13456,16 @@ GRE_kathestos_war_preparation = {
                     reduce_unpreparedness = yes
                     random_list = {
                         10 = {
-                            modifier = { factor = 0 defense_skill_level > 5 }
-                            add_defense = 1
+                            set_temp_variable = {indDEF = 1}
+                            increase_indXYZQ_weighted = yes
                         }
                         10 = {
-                            modifier = { factor = 0 logistics_skill_level > 5 }
-                            add_logistics = 1
+                            set_temp_variable = {indPLA = 1}
+                            increase_indXYZQ_weighted = yes
                         }
                         10 = {
-                            modifier = { factor = 0 planning_skill_level > 5 }
-                            add_planning = 1
+                            set_temp_variable = {indLOG = 1}
+                            increase_indXYZQ_weighted = yes
                         }
                         5 = {
                             modifier = { factor = 4 is_assigned_with_at_least_60_bats = yes }
@@ -12946,7 +13500,7 @@ GRE_kathestos_war_preparation = {
     }
     
     metaxas_line= {
-		icon = generic_operation
+		icon = military
 
 		allowed = { 
 			tag = GRE
@@ -12984,7 +13538,7 @@ GRE_kathestos_war_preparation = {
                 set_temp_variable = { tmpX = 6 }
                 set_temp_variable = { tmpY = 3 }
                 set_temp_variable = { tmpZ = 0.8 }
-                set_temp_variable = { tmpDEF = 1 }
+                set_temp_variable = { indDEF = 1 }
                 randomly_train_tmpX_officers = yes
             }
             custom_effect_tooltip = "    "
@@ -13000,7 +13554,7 @@ GRE_kathestos_war_preparation = {
     }   
 
     further_extend_line= {
-		icon = generic_operation
+		icon = military
 
 		allowed = { 
 			tag = GRE
@@ -13038,9 +13592,9 @@ GRE_kathestos_war_preparation = {
                 set_temp_variable = { tmpX = 10 }
                 set_temp_variable = { tmpY = 3 }
                 set_temp_variable = { tmpZ = 0.8 }
-                set_temp_variable = { tmpDEF = 1 }
-                set_temp_variable = { tmpPLA = 1 }
-                set_temp_variable = { tmpLOG = 1 }
+                set_temp_variable = { indDEF = 1 }
+                set_temp_variable = { indPLA = 1 }
+                set_temp_variable = { indLOG = 1 }
                 randomly_train_tmpX_officers = yes
             }
             custom_effect_tooltip = "    "
@@ -13057,7 +13611,7 @@ GRE_kathestos_war_preparation = {
     }  
     
     reveal_the_metaxas_line = {
-		icon = generic_operation
+		icon = fist
 
 		allowed = { 
 			tag = GRE
@@ -13091,7 +13645,7 @@ GRE_kathestos_war_preparation = {
     }     
 
     abandon_line= {
-		icon = generic_operation
+		icon = industry
 
 		allowed = { 
 			tag = GRE
@@ -13123,7 +13677,7 @@ GRE_kathestos_war_preparation = {
     }   
 
     army_buffs = {
-		icon = generic_operation
+		icon = military
 
 		allowed = { 
 			tag = GRE
@@ -13202,10 +13756,130 @@ GRE_kathestos_war_preparation = {
 
 GRE_kathestos_exoteriki_politiki = {
 
+    ### Alignment Decisions ###
+
+    shift_alignment_towards_axis = {
+        priority = 1000000
+        icon = fascism_lean
+        on_map_mode = map_and_decisions_view
+        highlight_states = { state = GER.capital }
+		allowed = { tag = GRE }
+		available = { 
+            custom_trigger_tooltip = {
+                tooltip = axal_not_tied_to_allies
+                NOT = { check_variable = { GRE.axal < 5 } }
+            }
+            NOT = { has_decision = shift_alignment_towards_allies }
+            NOT = { has_decision = shift_alignment_towards_neutrality }
+        }
+
+		visible = {
+            has_completed_focus = GRE_foreign_policy
+            NOT = { has_war_with = GER }
+            NOT = {
+                any_allied_country = {
+                    has_war_with = GER
+                }
+            }
+		}
+
+		ai_will_do = { factor = 1 }
+
+        cost = 50
+		fire_only_once = no
+		days_remove = 90
+        days_re_enable = 30
+
+        modifier = {
+            axal_modifier_token = 0.12
+        }
+    }
+
+    shift_alignment_towards_allies = {
+        priority = 1000000
+        icon = democracy
+        on_map_mode = map_and_decisions_view
+        highlight_states = { state = ENG.capital }
+		allowed = { tag = GRE }
+		available = { 
+            custom_trigger_tooltip = {
+                tooltip = axal_not_tied_to_axis
+                NOT = { check_variable = { GRE.alax < 5 } }
+            }
+            NOT = { has_decision = shift_alignment_towards_axis }
+            NOT = { has_decision = shift_alignment_towards_neutrality }
+        }
+
+		visible = {
+            has_completed_focus = GRE_foreign_policy
+            NOT = { has_war_with = ENG }
+            NOT = { has_war_with = FRA }
+            NOT = { has_war_with = USA }
+            NOT = {
+                any_allied_country = {
+                    OR = {
+                        has_war_with = ENG
+                        has_war_with = FRA
+                        has_war_with = USA
+                    }
+                }
+            }
+		}
+
+		ai_will_do = { factor = 1 }
+
+        cost = 50
+		fire_only_once = no
+		days_remove = 90
+        days_re_enable = 30
+
+        modifier = {
+            alax_modifier_token = 0.12
+        }
+    }
+
+    shift_alignment_towards_neutrality = {
+        priority = 1000000
+        icon = flag
+        on_map_mode = map_and_decisions_view
+        highlight_states = { state = GRE.capital }
+		allowed = { tag = GRE }
+		available = { 
+            custom_trigger_tooltip = {
+                tooltip = axal_close_to_middle_tt
+                check_variable = { GRE.alax < 61 }
+                check_variable = { GRE.alax > 39 }
+            }
+            NOT = { has_decision = shift_alignment_towards_allies }
+            NOT = { has_decision = shift_alignment_towards_axis }
+        }
+
+		visible = {
+            has_completed_focus = GRE_foreign_policy
+            NOT = { has_war_with = ENG }
+            NOT = { has_war_with = FRA }
+            NOT = { has_war_with = USA }
+            NOT = { has_war_with = GER }
+		}
+
+		ai_will_do = { factor = 1 }
+
+        cost = 50
+		fire_only_once = no
+		days_remove = 90
+        days_re_enable = 30
+
+        modifier = {
+            neut_modifier_token = 0.12
+        }
+    }
+
     ### GERMAN PATH ###
 
     freude_und_arbeit_nach_bucharest= {
-		icon = generic_operation
+		icon = fascism_lean
+        on_map_mode = map_and_decisions_view
+        highlight_states = { state = 46 }
         priority = 60629
 		allowed = { 
 			tag = GRE
@@ -13220,6 +13894,7 @@ GRE_kathestos_exoteriki_politiki = {
             has_completed_focus = GRE_courting_the_superpowers
             NOT = { has_war_with = GER }
             NOT = { has_war_with = ROM }
+            date > 1939.01.01
             date < 1940.01.01
 		}
 
@@ -13239,7 +13914,7 @@ GRE_kathestos_exoteriki_politiki = {
     }
     
     german_book_collaboration= {
-		icon = generic_operation
+		icon = deals
         priority = 71129
 		allowed = { 
 			tag = GRE
@@ -13277,7 +13952,7 @@ GRE_kathestos_exoteriki_politiki = {
     } 
 
     junges_griechenland= {
-		icon = generic_operation
+		icon = deals
         priority = 51129
         
 		allowed = { 
@@ -13310,7 +13985,7 @@ GRE_kathestos_exoteriki_politiki = {
     } 
     
     further_expand_upon_the_schactplan = {
-		icon = generic_operation
+		icon = fascism_lean
         priority = 4
         
 		allowed = { 
@@ -13351,7 +14026,7 @@ GRE_kathestos_exoteriki_politiki = {
     }  
 
     alternative_grecogerman_tradedeal = {
-		icon = generic_operation
+		icon = fascism_lean
         priority = 51129
 
 		allowed = { 
@@ -13384,7 +14059,7 @@ GRE_kathestos_exoteriki_politiki = {
     }    
 
     last_ditch_attempt_plea_to_hitler= {
-		icon = generic_operation
+		icon = fascism_lean
         priority = 50229
 
 		allowed = { 
@@ -13418,7 +14093,7 @@ GRE_kathestos_exoteriki_politiki = {
     ### ITALIAN PATH ###
     
     approach_the_italians = {
-		icon = generic_operation
+		icon = deals
         priority = 2
 
 		allowed = { 
@@ -13500,7 +14175,7 @@ GRE_kathestos_exoteriki_politiki = {
     } 
     
     reestablish_relations = {
-		icon = generic_operation
+		icon = deals
         priority = 2
 
 		allowed = { 
@@ -13538,7 +14213,7 @@ GRE_kathestos_exoteriki_politiki = {
     ### BULGARIAN PATH ###
     
     begin_plans_for_bulgarian_asphyxiation = {
-		icon = generic_operation
+		icon = fist
         priority = 2
 
 		allowed = { 
@@ -13568,7 +14243,7 @@ GRE_kathestos_exoteriki_politiki = {
     }
 
     begin_plans_for_bulgarian_atonement = {
-		icon = generic_operation
+		icon = agreement
         priority = 2
 
 		allowed = { 
@@ -13613,7 +14288,7 @@ GRE_kathestos_exoteriki_politiki = {
     ### [BULGARIAN] ATONEMENT PATH ###
 
     push_for_bulgarian_entry_in_the_balkan_pact = {
-		icon = generic_operation
+		icon = deals
         priority = 2
 
 		allowed = { 
@@ -13655,7 +14330,7 @@ GRE_kathestos_exoteriki_politiki = {
     ### [BULGARIAN] BALKAN PACT PATH ###
     
     rally_balkan_pact_members = {
-		icon = generic_operation
+		icon = signing
         priority = 2
 
 		allowed = { 
@@ -13663,13 +14338,23 @@ GRE_kathestos_exoteriki_politiki = {
 		}
 
 		available = {
-            custom_trigger_tooltip = {
-                tooltip = reeled_all_balkans
-                AND = {
-                    check_variable = { var = GRE.reeled@YUG  value = 1 compare = equals }
-                    check_variable = { var = GRE.reeled@TUR  value = 1 compare = equals }
-                    check_variable = { var = GRE.reeled@ROM  value = 1 compare = equals }
-                }
+            set_temp_variable = { findX = YUG.id }
+            set_temp_variable = { ftmpZ = 50 }
+            custom_trigger_tooltip ={
+                tooltip = favor_status_with_findX_at_least_ftmpZ_tt
+                check_variable = { YUG.favor@GRE > 50.0 }
+            }
+            set_temp_variable = { findX = TUR.id }
+            set_temp_variable = { ftmpZ = 50 }
+            custom_trigger_tooltip ={
+                tooltip = favor_status_with_findX_at_least_ftmpZ_tt
+                check_variable = { TUR.favor@GRE > 50.0 }
+            }
+            set_temp_variable = { findX = ROM.id }
+            set_temp_variable = { ftmpZ = 50 }
+            custom_trigger_tooltip ={
+                tooltip = favor_status_with_findX_at_least_ftmpZ_tt
+                check_variable = { ROM.favor@GRE > 50.0 }
             }
 		}
 
@@ -13699,7 +14384,7 @@ GRE_kathestos_exoteriki_politiki = {
     }  
 
     apply_strict_sactions_to_the_bulgarians = {
-		icon = generic_operation
+		icon = paperwork
         priority = 2
 
 		allowed = { 
@@ -13707,13 +14392,23 @@ GRE_kathestos_exoteriki_politiki = {
 		}
 
 		available = {
-            custom_trigger_tooltip = {
-                tooltip = GRE_favor_excellent_pact_tt
-                AND = {
-                    check_variable = { var = YUG.favor@GRE value = 80 compare = greater_than_or_equals }
-                    check_variable = { var = ROM.favor@GRE value = 80 compare = greater_than_or_equals }
-                    check_variable = { var = TUR.favor@GRE value = 80 compare = greater_than_or_equals }
-                }
+            set_temp_variable = { findX = YUG.id }
+            set_temp_variable = { ftmpZ = 80 }
+            custom_trigger_tooltip ={
+                tooltip = favor_status_with_findX_at_least_ftmpZ_tt
+                check_variable = { YUG.favor@GRE > 80.0 }
+            }
+            set_temp_variable = { findX = TUR.id }
+            set_temp_variable = { ftmpZ = 80 }
+            custom_trigger_tooltip ={
+                tooltip = favor_status_with_findX_at_least_ftmpZ_tt
+                check_variable = { TUR.favor@GRE > 80.0 }
+            }
+            set_temp_variable = { findX = ROM.id }
+            set_temp_variable = { ftmpZ = 80 }
+            custom_trigger_tooltip ={
+                tooltip = favor_status_with_findX_at_least_ftmpZ_tt
+                check_variable = { ROM.favor@GRE > 80.0 }
             }
 		}
 
@@ -13752,11 +14447,12 @@ GRE_kathestos_exoteriki_politiki = {
                     modifier = GRE_bulgarian_sactions
                 } 
             }
-            subtract_from_variable = { BUL.favor@GRE = 10 }
-            custom_effect_tooltip = GRE_fdg_bulgaria_tt    
+            subtract_from_variable = { BUL.favor@GRE = 10 } 
             subtract_from_variable = { TUR.favor@GRE = 15 }
             subtract_from_variable = { YUG.favor@GRE = 15 }
             subtract_from_variable = { ROM.favor@GRE = 15 }
+            custom_effect_tooltip = apply_strict_sactions_to_the_bulgarians_tt
+            custom_effect_tooltip = GRE_fdg_bulgaria_tt   
             custom_effect_tooltip = GRE_fdmm_loss_pact_tt
         }
     }
@@ -13764,7 +14460,7 @@ GRE_kathestos_exoteriki_politiki = {
     ### [BULGARIAN] ALLIED PATH ###
     
     inform_allies_for_bulgarian_revanchism = {
-		icon = generic_operation
+		icon = deals
         priority = 2
 
 		allowed = { 
@@ -13772,12 +14468,17 @@ GRE_kathestos_exoteriki_politiki = {
 		}
 
 		available = {
-            custom_trigger_tooltip = {
-                tooltip = reeled_all_allies
-                AND = {
-                    check_variable = { var = GRE.reeled@ENG  value = 1 compare = equals }
-                    check_variable = { var = GRE.reeled@FRA  value = 1 compare = equals }
-                }
+            set_temp_variable = { findX = ENG.id }
+            set_temp_variable = { ftmpZ = 50 }
+            custom_trigger_tooltip ={
+                tooltip = favor_status_with_findX_at_least_ftmpZ_tt
+                check_variable = { ENG.favor@GRE > 50.0 }
+            }
+            set_temp_variable = { findX = FRA.id }
+            set_temp_variable = { ftmpZ = 50 }
+            custom_trigger_tooltip ={
+                tooltip = favor_status_with_findX_at_least_ftmpZ_tt
+                check_variable = { FRA.favor@GRE > 50.0 }
             }
 		}
 
@@ -13805,7 +14506,7 @@ GRE_kathestos_exoteriki_politiki = {
     } 
 
     request_allied_support_over_the_bulgarian_matter = {
-		icon = generic_operation
+		icon = signing
         priority = 2
 
 		allowed = { 
@@ -13813,12 +14514,17 @@ GRE_kathestos_exoteriki_politiki = {
 		}
 
 		available = {
-            custom_trigger_tooltip = {
-                tooltip = GRE_favor_great_allies_tt
-                AND = {
-                    check_variable = { var = ENG.favor@GRE value = 50 compare = greater_than_or_equals }
-                    check_variable = { var = FRA.favor@GRE value = 50 compare = greater_than_or_equals }
-                }
+            set_temp_variable = { findX = ENG.id }
+            set_temp_variable = { ftmpZ = 70 }
+            custom_trigger_tooltip ={
+                tooltip = favor_status_with_findX_at_least_ftmpZ_tt
+                check_variable = { ENG.favor@GRE > 70.0 }
+            }
+            set_temp_variable = { findX = FRA.id }
+            set_temp_variable = { ftmpZ = 70 }
+            custom_trigger_tooltip ={
+                tooltip = favor_status_with_findX_at_least_ftmpZ_tt
+                check_variable = { FRA.favor@GRE > 70.0 }
             }
 		}
 
@@ -13841,6 +14547,7 @@ GRE_kathestos_exoteriki_politiki = {
         remove_effect = {
             set_country_flag = GRE_requested_allied_support_over_the_bulgarian_matter
             subtract_from_variable = { BUL.favor@GRE = 5 }
+            custom_effect_tooltip = request_allied_support_over_the_bulgarian_matter_tt
             custom_effect_tooltip = GRE_fdm_bulgaria_tt    
             custom_effect_tooltip = GRE_fdmm_loss_allies_tt
             hidden_effect = {
@@ -13861,7 +14568,7 @@ GRE_kathestos_exoteriki_politiki = {
     ### [BULGARIAN] AXIS PATH ###
     
     inform_axis_for_bulgarian_revanchism = {
-		icon = generic_operation
+		icon = deals
         priority = 2
 
 		allowed = { 
@@ -13869,9 +14576,11 @@ GRE_kathestos_exoteriki_politiki = {
 		}
 
 		available = {
-            custom_trigger_tooltip = {
-                tooltip = GRE_favor_german_at_least_great_tt
-                check_variable = { var = GER.favor@GRE value = 50 compare = greater_than_or_equals }
+            set_temp_variable = { findX = GER.id }
+            set_temp_variable = { ftmpZ = 50 }
+            custom_trigger_tooltip ={
+                tooltip = favor_status_with_findX_at_least_ftmpZ_tt
+                check_variable = { GER.favor@GRE > 50.0 }
             }
 		}
 
@@ -13897,7 +14606,7 @@ GRE_kathestos_exoteriki_politiki = {
     } 
 
     request_axis_support_over_the_bulgarian_matter = {
-		icon = generic_operation
+		icon = signing
         priority = 2
 
 		allowed = { 
@@ -13905,9 +14614,11 @@ GRE_kathestos_exoteriki_politiki = {
 		}
 
 		available = {
-            custom_trigger_tooltip = {
-                tooltip = GRE_favor_german_excellent_tt
-                check_variable = { var = GER.favor@GRE value = 80 compare = greater_than_or_equals }
+            set_temp_variable = { findX = GER.id }
+            set_temp_variable = { ftmpZ = 95 }
+            custom_trigger_tooltip ={
+                tooltip = favor_status_with_findX_at_least_ftmpZ_tt
+                check_variable = { GER.favor@GRE > 94.99 }
             }
 		}
 
@@ -13930,6 +14641,7 @@ GRE_kathestos_exoteriki_politiki = {
         remove_effect = {
             set_country_flag = GRE_requested_axis_support_over_the_bulgarian_matter
             subtract_from_variable = { BUL.favor@GRE = 5 }
+            custom_effect_tooltip = request_axis_support_over_the_bulgarian_matter_tt
             custom_effect_tooltip = GRE_fdm_bulgaria_tt    
             custom_effect_tooltip = GRE_fdmm_loss_allies_tt
             hidden_effect = {
@@ -13950,7 +14662,7 @@ GRE_kathestos_exoteriki_politiki = {
     #################################
     
     prepare_preemptive_strike = {
-		icon = generic_operation
+		icon = fist
         priority = 2
 
 		allowed = { 
@@ -13985,15 +14697,14 @@ GRE_kathestos_exoteriki_politiki = {
 
         remove_effect = {
             set_country_flag = GRE_bulgarian_preemptive_strike_prepared
-            subtract_from_variable = { BUL.favor@GRE = 5 }
-            custom_effect_tooltip = GRE_fdm_bulgaria_tt          
+            custom_effect_tooltip = prepare_preemptive_strike_tt 
         }
     }     
 
     ### BRITISH / FRENCH / ALLIED PATH ###
 
     ensure_british_of_common_medit_policy = {
-		icon = generic_operation
+		icon = deals
         #priority = 90325
         priority = 5
         
@@ -14024,7 +14735,7 @@ GRE_kathestos_exoteriki_politiki = {
     }
 
     protect_british_telecom_in_athens = {
-		icon = generic_operation
+		icon = hotline
         #priority = 81129
         priority = 5
         
@@ -14071,7 +14782,7 @@ GRE_kathestos_exoteriki_politiki = {
     }    
 
     declare_will_to_befriend_british = {
-		icon = generic_operation
+		icon = democracy
         #priority = 70329
         priority = 5
 
@@ -14134,7 +14845,7 @@ GRE_kathestos_exoteriki_politiki = {
     }
 
     grecoenglish_tobacco_deal= {
-		icon = generic_operation
+		icon = signing
         #priority = 100001
         priority = 5
 
@@ -14167,7 +14878,7 @@ GRE_kathestos_exoteriki_politiki = {
     }
     
     grecobritish_tradedeal = {
-		icon = generic_operation
+		icon = signing
         #priority = 51129
         priority = 5
 
@@ -14199,7 +14910,7 @@ GRE_kathestos_exoteriki_politiki = {
     }     
     
     ask_british_for_a_pact = {
-		icon = generic_operation
+		icon = democracy
         #priority = 100002
         priority = 5
 
@@ -14235,7 +14946,7 @@ GRE_kathestos_exoteriki_politiki = {
     ### SOVIET PATH ###
     
     approach_soviets = {
-		icon = generic_operation
+		icon = deals
         priority = 1
 
 		allowed = { 
@@ -14281,7 +14992,7 @@ GRE_kathestos_exoteriki_politiki = {
     }
 
     begin_talks_on_collaboration = {
-		icon = generic_operation
+		icon = deals
         priority = 1
 
 		allowed = { 
@@ -14316,7 +15027,7 @@ GRE_kathestos_exoteriki_politiki = {
     }
 
     grecosoviet_tradedeal = {
-		icon = generic_operation
+		icon = signing
         priority = 1
 
 		allowed = { 
@@ -14354,7 +15065,7 @@ GRE_kathestos_exoteriki_politiki = {
     #### BALKAN PATH (HEADER) ####
     
     form_balkan_initiative = {
-		icon = generic_operation
+		icon = indep
         priority = 0
 
 		allowed = { 
@@ -14402,7 +15113,7 @@ GRE_kathestos_exoteriki_politiki = {
     ### YUGOSLAVIAN PATH ###
     
     establish_additional_communication_channels_yug = {
-		icon = generic_operation
+		icon = deals
         priority = 0
 
 		allowed = { 
@@ -14441,7 +15152,7 @@ GRE_kathestos_exoteriki_politiki = {
     }
     
     define_common_strategy_yug = {
-		icon = generic_operation
+		icon = deals
         priority = 0
 
 		allowed = { 
@@ -14494,7 +15205,7 @@ GRE_kathestos_exoteriki_politiki = {
     }
     
     reinforce_serbian_positions = {
-		icon = generic_operation
+		icon = deals
         priority = 0
 
 		allowed = { 
@@ -14538,7 +15249,7 @@ GRE_kathestos_exoteriki_politiki = {
     }
     
     approach_paul_karageorgevich = {
-		icon = generic_operation
+		icon = deals
         priority = 0
 
 		allowed = { 
@@ -14582,7 +15293,7 @@ GRE_kathestos_exoteriki_politiki = {
     }
     
     talks_of_an_alliance = {
-		icon = generic_operation
+		icon = deals
         priority = 0
 
 		allowed = { 
@@ -14626,7 +15337,7 @@ GRE_kathestos_exoteriki_politiki = {
     }
     
     explorative_talks_over_eden_plan = {
-		icon = generic_operation
+		icon = signing
         priority = 0
 
 		allowed = { 
@@ -14682,7 +15393,7 @@ GRE_kathestos_exoteriki_politiki = {
     ### TURKISH PATH ###
     
     establish_additional_communication_channels_turkey = {
-		icon = generic_operation
+		icon = deals
         priority = 0
 
 		allowed = { 
@@ -14721,7 +15432,7 @@ GRE_kathestos_exoteriki_politiki = {
     }
     
     define_common_strategy_turkey = {
-		icon = generic_operation
+		icon = deals
         priority = 0
 
 		allowed = { 
@@ -14770,7 +15481,7 @@ GRE_kathestos_exoteriki_politiki = {
     }
     
     reinforce_the_mutual_pact = {
-		icon = generic_operation
+		icon = signing
         priority = 0
 
 		allowed = { 
@@ -14812,7 +15523,7 @@ GRE_kathestos_exoteriki_politiki = {
     }
     
     isolate_saracoglu = {
-		icon = generic_operation
+		icon = fist
         priority = 0
 
 		allowed = { 
@@ -14858,7 +15569,7 @@ GRE_kathestos_exoteriki_politiki = {
     }
     
     offer_alliance_when_war_erupts = {
-		icon = generic_operation
+		icon = signing
         priority = 0
 
 		allowed = { 
@@ -14900,7 +15611,7 @@ GRE_kathestos_exoteriki_politiki = {
     }
     
     position_of_turkey_in_eden_plan = {
-		icon = generic_operation
+		icon = deals
         priority = 0
 
 		allowed = { 
@@ -14946,7 +15657,7 @@ GRE_kathestos_exoteriki_politiki = {
     ### ROMANIAN PATH ###
     
     establish_additional_communication_channels_rom = {
-		icon = generic_operation
+		icon = deals
         priority = 0
 
 		allowed = { 
@@ -14985,7 +15696,7 @@ GRE_kathestos_exoteriki_politiki = {
     }
     
     define_common_strategy_rom = {
-		icon = generic_operation
+		icon = deals
         priority = 0
 
 		allowed = { 
@@ -15042,7 +15753,7 @@ GRE_kathestos_exoteriki_politiki = {
     ### METAXAS HISTORICAL PATH (MISSIONS) ###
 
     thess_intern_exhi_1936= {
-		icon = generic_operation
+		icon = metaxas
         priority = 90325
 		allowed = { 
 			tag = GRE
@@ -15073,7 +15784,7 @@ GRE_kathestos_exoteriki_politiki = {
     }
 
     goebbels_visit_to_athens = {
-		icon = generic_operation
+		icon = fascism_lean
         priority = 90325
 		allowed = { 
 			tag = GRE
@@ -15104,7 +15815,7 @@ GRE_kathestos_exoteriki_politiki = {
     }
     
     ionou_visit_to_athens= {
-		icon = generic_operation
+		icon = metaxas
         priority = 81106
 
 		allowed = { 
@@ -15142,7 +15853,7 @@ GRE_kathestos_exoteriki_politiki = {
     } 
 
     cooperation_deal_with_turkey= {
-		icon = generic_operation
+		icon = metaxas
         priority = 80229
 
 		allowed = { 
@@ -15182,7 +15893,7 @@ GRE_kathestos_exoteriki_politiki = {
     }
 
     metaxas_visit_to_const= {
-		icon = generic_operation
+		icon = metaxas
         priority = 71129
 
 		allowed = { 
@@ -15221,7 +15932,7 @@ GRE_kathestos_exoteriki_politiki = {
     }
 
     metaxas_welcomes_turks_to_athens= {
-		icon = generic_operation
+		icon = metaxas
         priority = 70803
 
 		allowed = { 
@@ -15261,7 +15972,7 @@ GRE_kathestos_exoteriki_politiki = {
     }
     
     metaxas_visit_to_ankara_kemal_funeral= {
-		icon = generic_operation
+		icon = metaxas
         priority = 70120
 
 		allowed = { 
@@ -15307,7 +16018,7 @@ GRE_kathestos_exoteriki_politiki = {
     }
     
     even_yugo_bulg_deal_to_split= {
-		icon = generic_operation
+		icon = metaxas
         priority = 70129
 
 		allowed = { 
@@ -15344,7 +16055,7 @@ GRE_kathestos_exoteriki_politiki = {
     }
 
     belgrade_1939= {
-		icon = generic_operation
+		icon = metaxas
         priority = 61029
 
 		allowed = { 
@@ -15382,7 +16093,7 @@ GRE_kathestos_exoteriki_politiki = {
     }
 
     reprimand_the_british = {
-		icon = generic_operation
+		icon = signing
         priority = 70129
 
 		allowed = { 
@@ -15407,7 +16118,7 @@ GRE_kathestos_exoteriki_politiki = {
     }
     
     bucharest_1939= {
-		icon = generic_operation
+		icon = metaxas
         priority = 61028
 
 		allowed = { 
@@ -15445,7 +16156,7 @@ GRE_kathestos_exoteriki_politiki = {
     }    
 
     new_balkan_deal= {
-		icon = generic_operation
+		icon = metaxas
         priority = 61008
 
 		allowed = { 
@@ -15485,7 +16196,7 @@ GRE_kathestos_exoteriki_politiki = {
     }  
 
     declare_intentions_to_romanian_foreign_minister= {
-		icon = generic_operation
+		icon = metaxas
         priority = 60615
 
 		allowed = { 
@@ -15521,7 +16232,7 @@ GRE_kathestos_exoteriki_politiki = {
     }
 
     a_talk_with_grazzi= {
-		icon = generic_operation
+		icon = metaxas
         priority = 60409
 
 		allowed = { 
@@ -15556,7 +16267,7 @@ GRE_kathestos_exoteriki_politiki = {
     } 
 
     declare_friendship_with_italy = {
-		icon = generic_operation
+		icon = metaxas
         priority = 60409
 
 		allowed = { 
@@ -15592,7 +16303,7 @@ GRE_kathestos_exoteriki_politiki = {
     } 
     
     grazzis_7th_call= {
-		icon = generic_operation
+		icon = metaxas
         priority = 50423
 
 		allowed = { 
@@ -15628,7 +16339,7 @@ GRE_kathestos_exoteriki_politiki = {
     }
     
     council_of_belgrade= {
-		icon = generic_operation
+		icon = metaxas
         priority = 51029
 
 		allowed = { 
@@ -15808,7 +16519,7 @@ GRE_infl_rest_category = {
 GRE_faction_gui_decision_category = {
 
     approach_democrats = {
-		icon = generic_operation
+		icon = agreement
 
 		allowed = { 
 			tag = GRE
@@ -15827,29 +16538,33 @@ GRE_faction_gui_decision_category = {
 		}
 
 		fire_only_once = no
+
+        modifier = {
+            fct_dem_modifier_token = 0.8
+        }
         
         cost = 250
         days_remove = 90
 
         remove_effect = {
-            ###FACTION MECHANICS###        
-            randomize_temp_variable = {
-                var = tmp_dem
-                distribution = uniform
-                min = 7.5
-                max = 15
-            }
-            custom_effect_tooltip = fct_dmajor_boost_tt
-            add_to_variable = { fct_dem = tmp_dem}   
-            faction_gui_call = yes
-            ###### 
+            ####FACTION MECHANICS###        
+            #randomize_temp_variable = {
+            #    var = tmp_dem
+            #    distribution = uniform
+            #    min = 7.5
+            #    max = 15
+            #}
+            #custom_effect_tooltip = fct_dmajor_boost_tt
+            #add_to_variable = { fct_dem = tmp_dem}   
+            #faction_gui_call = yes
+            ####### 
         }
 	} 
 
     approach_communists = {
-		icon = generic_operation
+		icon = agreement
 
-		allowed = { 
+		allowed = {
 			tag = GRE
 		}
 
@@ -15866,27 +16581,31 @@ GRE_faction_gui_decision_category = {
 		}
 
 		fire_only_once = no
+
+        modifier = {
+            fct_com_modifier_token = 0.8
+        }
         
         cost = 250
         days_remove = 90
 
         remove_effect = {
-            ###FACTION MECHANICS###
-            randomize_temp_variable = {
-                var = tmp_com
-                distribution = uniform
-                min = 7.5
-                max = 15
-            }
-            custom_effect_tooltip = fct_cmajor_boost_tt
-            add_to_variable = { fct_com = tmp_com}   
-            faction_gui_call = yes
-            ###### 
+            ####FACTION MECHANICS###
+            #randomize_temp_variable = {
+            #    var = tmp_com
+            #    distribution = uniform
+            #    min = 7.5
+            #    max = 15
+            #}
+            #custom_effect_tooltip = fct_cmajor_boost_tt
+            #add_to_variable = { fct_com = tmp_com}   
+            #faction_gui_call = yes
+            ####### 
         }
 	}
 
     approach_fascists = {
-		icon = generic_operation
+		icon = agreement
 
 		allowed = { 
 			tag = GRE
@@ -15905,27 +16624,31 @@ GRE_faction_gui_decision_category = {
 		}
 
 		fire_only_once = no
+
+        modifier = {
+            fct_fas_modifier_token = 0.8
+        }
         
         cost = 250
         days_remove = 90
 
         remove_effect = {
-            ###FACTION MECHANICS###
-            randomize_temp_variable = {
-                var = tmp_fas
-                distribution = uniform
-                min = 7.5
-                max = 15
-            } 
-            custom_effect_tooltip = fct_fmajor_boost_tt
-            add_to_variable = { fct_fas = tmp_fas}   
-            faction_gui_call = yes
-            ###### 
+            ####FACTION MECHANICS###
+            #randomize_temp_variable = {
+            #    var = tmp_fas
+            #    distribution = uniform
+            #    min = 7.5
+            #    max = 15
+            #} 
+            #custom_effect_tooltip = fct_fmajor_boost_tt
+            #add_to_variable = { fct_fas = tmp_fas}   
+            #faction_gui_call = yes
+            ####### 
         }
 	}
 
     approach_monarchists = {
-		icon = generic_operation
+		icon = agreement
 
 		allowed = { 
 			tag = GRE
@@ -15944,22 +16667,70 @@ GRE_faction_gui_decision_category = {
 		}
 
 		fire_only_once = no
+
+        modifier = {
+            fct_mon_modifier_token = 0.8
+        }
         
         cost = 250
         days_remove = 90
 
         remove_effect = {
-            ###FACTION MECHANICS###
-            randomize_temp_variable = {
-                var = tmp_mon
-                distribution = uniform
-                min = 7.5
-                max = 15
+            ####FACTION MECHANICS###
+            #randomize_temp_variable = {
+            #    var = tmp_mon
+            #    distribution = uniform
+            #    min = 7.5
+            #    max = 15
+            #}
+            #custom_effect_tooltip = fct_mmajor_boost_tt    
+            #add_to_variable = { fct_mon = tmp_mon}   
+            #faction_gui_call = yes
+            ####### 
+        }
+	}
+
+    assimilate_fascists = {
+		icon = agreement
+
+		allowed = { 
+			tag = GRE
+		}
+
+		available = {
+            custom_trigger_tooltip = {
+                tooltip = GRE_fct_fas_loyal_tt
+    			check_variable = { fct_fas > 89.99 }   
             }
-            custom_effect_tooltip = fct_mmajor_boost_tt    
-            add_to_variable = { fct_mon = tmp_mon}   
+            fascism < 0.1
+		}
+
+		visible = {
+			always = yes
+		}
+
+		ai_will_do = {
+			factor = 1
+		}
+
+		fire_only_once = yes
+        
+        cost = 25
+        days_remove = 0
+
+        complete_effect = {
+            set_temp_variable = { tmp_mon_effect_increase = fct_fas_effect_multiplier }
+            set_temp_variable = { tmp_mon_effect = fct_mon_effect_multiplier }
+            add_to_temp_variable = { tmp_mon_effect = tmp_mon_effect_increase }
+            set_variable = { fct_mon_effect_multiplier = tmp_mon_effect }
+            custom_effect_tooltip = GRE_fct_effect_multiplier_change_up_mon
+            set_temp_variable = { tmp_fas_effect_decrease = fct_fas_effect_multiplier }
+            set_temp_variable = { tmp_fas_effect = fct_fas_effect_multiplier }
+            subtract_from_temp_variable = { tmp_fas_effect = tmp_fas_effect_decrease }
+            set_variable = { fct_fas_effect_multiplier = tmp_fas_effect }
+            custom_effect_tooltip = GRE_fct_effect_multiplier_change_down_fas
+            set_country_flag = metaxas_assimilated_fascists
             faction_gui_call = yes
-            ###### 
         }
 	}
 
@@ -15968,6 +16739,9 @@ GRE_faction_gui_decision_category = {
 	GRE_comm_upr = {  #1h eukairia emfuliou
 
 		icon = faction_gre_communist
+        on_map_mode = map_and_decisions_view
+        highlight_states = { state = 185 }
+        highlight_color_while_active = 1
 
 		allowed = { 
 			tag = GRE
@@ -16029,6 +16803,9 @@ GRE_faction_gui_decision_category = {
     GRE_repub_upr = {  #1h eukairia emfuliou
 
 		icon = faction_gre_venezelist
+        on_map_mode = map_and_decisions_view
+        highlight_states = { state = 811 }
+        highlight_color_while_active = 1
 
 		allowed = {
 			tag = GRE

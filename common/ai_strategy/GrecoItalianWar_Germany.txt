@@ -1,0 +1,430 @@
+# befriend
+# conquer
+# antagonize
+# build_ship
+# build_army
+# unit_ratio
+# build_building
+# research_tech
+# garrison
+# protect
+# influence
+# send_volunteers_desire
+
+####################################################################################################################################
+##############################################################[ The Germans ]#######################################################
+####################################################################################################################################
+
+German_base_stance_non_participation = {
+    allowed = {
+        original_tag = GER
+    }
+    enable = {
+        has_global_flag = GRE_grecoitalian_start
+        ITA = { 
+            OR = {
+                has_idea = GRE_italian_ambition     
+                has_idea = GRE_italian_ambition_defensive 
+                has_idea = GRE_italian_ambition_ultra_offensive 
+            }
+        }
+        GRE = {
+            NOT = { is_in_faction_with = ENG }
+            NOT = { gives_military_access_to = ENG }
+        }
+        check_variable = { GER.favor@GRE > 19.99 }
+        date < 1941.03.20 
+    }
+    abort_when_not_enabled = yes
+    
+    ai_strategy = {
+        type = dont_defend_ally_borders
+        id = ITA
+        value = 2000
+    }
+    ai_strategy = {
+        type = dont_join_wars_with
+        id = ITA
+        target_country = GRE
+        value = 5000
+    }
+    ai_strategy = {                                                                         ## Just in case Bulgaria had joined the war vs Italy, let those three fight it out.
+        type = dont_join_wars_with
+        id = BUL
+        target_country = GRE
+        value = 5000
+    }
+    ai_strategy = {
+        type = dont_defend_ally_borders
+        id = BUL
+        value = 2000
+    } 
+}
+
+German_base_stance_participation_yugoslavia = {
+    allowed = {
+        original_tag = GER
+    }
+    enable = {
+        ITA = {
+            OR = {
+                focus_progress = {
+                    focus = ITA_greece_war_goal
+                    progress > 0.01
+                }
+                is_justifying_wargoal_against = GRE
+                has_wargoal_against = GRE
+                has_global_flag = GRE_grecoitalian_start
+            }
+        }
+        check_variable = { GER.favor@GRE < 20 }
+        NOT = { YUG = { has_capitulated = yes } }
+        NOT = { is_in_faction_with = YUG }
+        NOT = { YUG = { is_in_faction_with = SOV } }
+    }
+    abort = {
+        YUG = { has_capitulated = yes }
+    }
+    abort_when_not_enabled = yes
+    
+    ai_strategy = {
+        type = antagonize
+        id = YUG
+        value = 4000
+    }
+
+    ai_strategy = {
+        type = area_priority
+        id = yugoslavia
+        value = 10000
+    }  
+    
+    ai_strategy = {
+        type = prepare_for_war
+        id = YUG
+        value = 10000
+    }
+
+    ai_strategy = {
+        type = dont_defend_ally_borders
+        id = ITA
+        value = 2000
+    }
+    
+    ai_strategy = {
+        type = front_control
+        #you can define a target in following ways. you can define more than one
+        tag = YUG
+        #ratio = 0.0 # the strategy is enabled only if ratio of the front covered by this strat's targets greater than this ratio
+        priority = 5000 # default 0, higher prio strats will override lower
+        ordertype = front # front or invasion. if set this strategy will only apply to that specific order type
+        execution_type = rush # one of careful balanced rush rush_weak. if set will override the execution type of front (only for front orders)
+        execute_order = yes # yes or no. if set will override execute or not decision of front
+        manual_attack = yes # default yes. if no ai will not do manual pokes at enemy (only for front orders)
+    }
+
+    ai_strategy = {
+ 	    type = front_unit_request
+    	tag = YUG
+        #state = 103 
+        #state = 102
+        #state = 109
+        #state = 45
+        #state = 764
+        #state = 107
+        #state = 108
+    	value = 50
+    }
+}
+
+German_base_stance_participation_greece = {
+    allowed = {
+        original_tag = GER
+    }
+    enable = {
+        ITA = {
+            OR = {
+                focus_progress = {
+                    focus = ITA_greece_war_goal
+                    progress > 0.01
+                }
+                is_justifying_wargoal_against = GRE
+                has_wargoal_against = GRE
+                has_global_flag = GRE_grecoitalian_start
+            }
+        }
+        check_variable = { GER.favor@GRE < 20 }
+        is_in_faction_with = BUL
+        OR = {
+            is_in_faction_with = ROM
+            has_military_access_to = ROM
+            YUG = { has_capitulated = yes }
+            is_in_faction_with = YUG
+            has_military_access_to = YUG
+        }
+        #bul is willing#
+    }
+    abort = {
+        GRE = { has_capitulated = yes }
+    }
+    abort_when_not_enabled = yes
+    
+    ai_strategy = {
+        type = antagonize
+        id = GRE
+        value = 4000
+    }
+    
+    ai_strategy = {
+        type = prepare_for_war
+        id = GRE
+        value = 10000
+    }
+    
+    ai_strategy = {
+        type = front_control
+        #you can define a target in following ways. you can define more than one
+        tag = GRE
+        #ratio = 0.0 # the strategy is enabled only if ratio of the front covered by this strat's targets greater than this ratio
+        priority = 4000 # default 0, higher prio strats will override lower
+        ordertype = front # front or invasion. if set this strategy will only apply to that specific order type
+        execution_type = rush # one of careful balanced rush rush_weak. if set will override the execution type of front (only for front orders)
+        execute_order = yes # yes or no. if set will override execute or not decision of front
+        manual_attack = yes # default yes. if no ai will not do manual pokes at enemy (only for front orders)
+    }
+
+    ai_strategy = {
+ 	    type = front_unit_request
+    	tag = GRE
+        #state = 813 
+        #state = 184
+        #state = 812
+        #state = 731
+        value = 35
+    }
+}
+
+German_strategy_A_directive = {
+    allowed = {
+        original_tag = GER
+    }
+    enable = {
+        has_global_flag = GRE_grecoitalian_start
+        date > 1941.03.20   
+        date < 1941.06.15  
+        NOT = { YUG = { is_in_faction_with = GER } }
+    }
+    abort = {
+        YUG = { has_capitulated = yes }
+    }
+    
+    ai_strategy = {
+        type = antagonize
+        id = YUG
+        value = 4000
+    }
+
+    ai_strategy = {
+        type = front_control
+
+        #you can define a target in following ways. you can define more than one
+
+        tag = YUG 				# target against a specific country
+
+        #ratio = 0.0 # the strategy is enabled only if ratio of the front covered by this strat's targets greater than this ratio
+
+        priority = 5000 # default 0, higher prio strats will override lower
+        ordertype = front # front or invasion. if set this strategy will only apply to that specific order type
+        execution_type = rush # one of careful balanced rush rush_weak. if set will override the execution type of front (only for front orders)
+        execute_order = yes # yes or no. if set will override execute or not decision of front
+        manual_attack = yes # default yes. if no ai will not do manual pokes at enemy (only for front orders)
+    }
+
+    ai_strategy = {
+ 	    type = front_unit_request
+    	tag = YUG
+        #state = 103 
+        #state = 102
+        #state = 109
+        #state = 45
+        #state = 764
+        #state = 107
+        #state = 108
+    	value = 100
+    }
+
+    ai_strategy = {
+        type = area_priority
+        id = yugoslavia
+        value = 10000
+    }  
+    
+    ai_strategy = {
+        type = prepare_for_war
+        id = YUG
+        value = 10000
+    }
+    
+    ai_strategy = {
+        type = front_control
+
+        #you can define a target in following ways. you can define more than one
+
+        tag = GRE 				# target against a specific country
+
+        #ratio = 0.0 # the strategy is enabled only if ratio of the front covered by this strat's targets greater than this ratio
+
+        priority = 1000 # default 0, higher prio strats will override lower
+        ordertype = front # front or invasion. if set this strategy will only apply to that specific order type
+        execution_type = rush # one of careful balanced rush rush_weak. if set will override the execution type of front (only for front orders)
+        execute_order = yes # yes or no. if set will override execute or not decision of front
+        manual_attack = yes # default yes. if no ai will not do manual pokes at enemy (only for front orders)
+    }
+    
+    ai_strategy = {
+ 	    type = front_unit_request
+    	tag = GRE
+        #state = 813 
+        #state = 184
+        #state = 812
+        #state = 731
+        value = 50
+    }
+
+    ai_strategy = {
+        type = prepare_for_war
+        id = GRE
+        value = 1000
+    }      
+}
+
+German_strategy_B_marita = {
+    allowed = {
+        original_tag = GER
+    }
+    enable = {
+        has_global_flag = GRE_grecoitalian_start
+        date > 1941.04.06    
+        date < 1941.06.15                      
+        YUG = { has_capitulated = yes }
+    }
+    abort_when_not_enabled = yes
+    abort = {
+        GRE = { has_capitulated = yes }
+    }
+    
+    ai_strategy = {
+        type = antagonize
+        id = GRE
+        value = 4000
+    }
+        
+    ai_strategy = {
+        type = area_priority
+        id = greece
+        value = 10000
+    } 
+
+    ai_strategy = {
+        type = front_control
+
+        #you can define a target in following ways. you can define more than one
+
+        tag = GRE 				# target against a specific country
+
+        #ratio = 0.0 # the strategy is enabled only if ratio of the front covered by this strat's targets greater than this ratio
+
+        priority = 10000 # default 0, higher prio strats will override lower
+        ordertype = front # front or invasion. if set this strategy will only apply to that specific order type
+        execution_type = rush # one of careful balanced rush rush_weak. if set will override the execution type of front (only for front orders)
+        execute_order = yes # yes or no. if set will override execute or not decision of front
+        manual_attack = yes # default yes. if no ai will not do manual pokes at enemy (only for front orders)
+    }
+
+    ai_strategy = {
+ 	    type = front_unit_request
+    	tag = GRE
+        #state = 813 
+        #state = 184
+        #state = 812
+        #state = 731
+        value = 150
+    }
+
+    ai_strategy = {
+        type = prepare_for_war
+        id = GRE
+        value = 5000
+    }
+}
+
+German_strategy_C_merkur = {
+    allowed = {
+        original_tag = GER
+    }
+    enable = {
+        #has_global_flag = GRE_grecoitalian_start
+        YUG = { has_capitulated = yes }
+        date < 1941.06.15                                                                       ## Strict time period before 15 of June, as we dont want to delay barbarossa for just crete and anyway, there is a greek focus rewarding the defence of Crete.
+        #GER = { controls_state = 47 }
+    }
+
+    abort_when_not_enabled = yes
+    
+    ai_strategy = {
+        type = invade
+        id = GRE
+        value = 400000
+    } 
+    
+    ai_strategy = {
+        type = naval_avoid_region
+        id = 202
+        value = -1000
+    } 
+    
+    ai_strategy = {
+        type = front_control
+
+        #you can define a target in following ways. you can define more than one
+
+        state = 182			# target against a specific country
+
+        #ratio = 0.0 # the strategy is enabled only if ratio of the front covered by this strat's targets greater than this ratio
+
+        priority = 5000 # default 0, higher prio strats will override lower
+        ordertype = invasion # front or invasion. if set this strategy will only apply to that specific order type
+        execution_type = rush # one of careful balanced rush rush_weak. if set will override the execution type of front (only for front orders)
+        execute_order = yes # yes or no. if set will override execute or not decision of front
+        manual_attack = yes # default yes. if no ai will not do manual pokes at enemy (only for front orders)
+    }
+}
+
+German_strategy_D_balkans_before_barbarossa = {
+    allowed = {
+        original_tag = GER
+    }
+    enable = {
+        has_global_flag = GRE_grecoitalian_start
+        has_war_with = GRE
+        date < 1941.07.06
+    }
+    
+    abort_when_not_enabled = yes
+    
+    ai_strategy = {
+        type = ignore
+        id = SOV
+        value = 20000
+    }
+    ai_strategy = {
+        type = ignore_claim
+        id = SOV
+        value = 20000
+    }
+    ai_strategy = {
+        type = antagonize
+        id = SOV
+        value = -50000
+    }
+}
