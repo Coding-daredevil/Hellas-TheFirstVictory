@@ -4,434 +4,6 @@
 
 add_namespace = bftb_greece
 
-#Enosis events
-#Enosis - Independent Cyprus event
-country_event = {
-	id = bftb_greece.55
-	title = bftb_greece.55.t
-	desc = bftb_greece.55.desc
-	picture = GFX_report_event_gre_enosis
-	
-	is_triggered_only = yes
-
-	option = {
-		name = bftb_greece.55.a
-		GRE = { country_event = { id = bftb_greece.56 days = 1 } }
-		custom_effect_tooltip = end_of_cyprus_tt
-	}
-	option = {
-		name = bftb_greece.55.b 
-		GRE = { country_event = { id = bftb_greece.57 days = 1 } }
-	}
-}
-#Enosis - Cyprus accepts union with Greece
-country_event = {
-	id = bftb_greece.56
-	title = bftb_greece.56.t
-	desc = bftb_greece.56.desc
-	picture = GFX_report_event_gre_enosis
-	
-	is_triggered_only = yes
-
-	option = {
-		name = bftb_greece.56.a
-		183 = {
-			if = {
-				limit = { is_owned_by = CYP }
-				add_core_of = GRE
-			}
-		}
-		CYP = {
-			every_unit_leader = {
-				set_nationality = GRE
-			}
-		}
-		annex_country = { target = CYP transfer_troops = yes }
-		add_war_support = 0.1
-		add_stability = 0.05
-	}
-}
-#Enosis - Cyprus rejects union with Greece
-country_event = {
-	id = bftb_greece.57
-	title = bftb_greece.57.t
-	desc = bftb_greece.57.desc
-	picture = GFX_report_event_gre_athens
-	
-	is_triggered_only = yes
-
-	option = {
-		name = bftb_greece.57.a 
-		create_wargoal = {
-			type = annex_everything
-			target = CYP
-		}
-	}	
-	option = {
-		name = bftb_greece.57.b 
-		add_stability = 0.05
-		add_war_support = -0.05
-	}
-}
-#Enosis - British Cyprus event
-country_event = {
-	id = bftb_greece.58
-	title = bftb_greece.58.t
-	desc = bftb_greece.58.desc
-	picture = GFX_report_event_gre_enosis
-	
-	is_triggered_only = yes
-
-	option = {
-		name = bftb_greece.58.a #for an alliance
-		GRE = { country_event = { id = bftb_greece.59 days = 1 } }
-	}
-	option = {
-		name = bftb_greece.58.b #for nothing
-		GRE = { country_event = { id = bftb_greece.220 days = 1 } }
-	}
-	option = {
-		name = bftb_greece.58.c #for a compromise
-		GRE = { country_event = { id = bftb_greece.60 days = 1 } }
-	}
-	option = {
-		name = bftb_greece.58.d #no
-		GRE = { country_event = { id = bftb_greece.61 days = 1 } }
-	}
-}
-#Enosis - British accept full Enosis
-country_event = {
-	id = bftb_greece.59
-	title = bftb_greece.59.t
-	desc = bftb_greece.59.desc
-	picture = GFX_report_event_gre_enosis
-	
-	is_triggered_only = yes
-
-	option = {
-		name = bftb_greece.59.a 
-		183 = {
-			if = {
-				limit = { is_owned_by = ENG }
-				add_core_of = GRE
-			}
-		}
-		GRE = { transfer_state = 183 }
-		add_stability = 0.1
-		add_war_support = 0.05
-		if = { 
-			limit = { ENG = { is_faction_leader = yes } }
-			ENG = { 
-				add_to_faction = GRE
-			}
-		}
-	}
-	option = {
-		name = bftb_greece.59.b 
-		183 = {
-			add_core_of = GRE
-		}
-		add_stability = -0.1
-		add_war_support = 0.05
-		hidden_effect = {
-			ENG = {
-				add_opinion_modifier = {
-					target = GRE
-					modifier = GRE_aegean_troublemakers
-				}
-			}
-		}
-	}
-}
-#Enosis - British accept full Enosis unconditionally
-country_event = {
-	id = bftb_greece.220
-	title = bftb_greece.220.t
-	desc = bftb_greece.220.desc
-	picture = GFX_report_event_gre_enosis
-	
-	is_triggered_only = yes
-
-	option = {
-		name = bftb_greece.220.a 
-		183 = {
-			if = {
-				limit = { is_owned_by = ENG }
-				add_core_of = GRE
-			}
-		}
-		GRE = { transfer_state = 183 }
-		add_stability = 0.1
-		add_war_support = 0.05
-	}
-}
-#Enosis - British partial Enosis
-country_event = {
-	id = bftb_greece.60
-	title = bftb_greece.60.t
-	desc = bftb_greece.60.desc
-	picture = GFX_report_event_gre_enosis
-	
-	is_triggered_only = yes
-
-	option = {
-		name = bftb_greece.60.a 
-		CYP = { transfer_state = 183 }
-		GRE = { puppet = CYP }
-		add_stability = 0.1
-		hidden_effect = { 
-			if = { 
-				limit = { 
-					has_dlc = "Together for Victory"
-				}		
-				GRE = {
-					set_autonomy = { target = CYP autonomy_state = autonomy_dominion }
-				}
-			}
-			else = {
-				GRE = {
-					set_autonomy = { target = CYP autonomy_state = autonomy_puppet }
-				}
-			}
-			CYP = { set_cosmetic_tag = CYP_UK }
-			183 = { add_core_of = GRE }
-			if = { 
-				limit = { ENG = { is_faction_leader = yes } }
-				ENG = { 
-					add_to_faction = GRE
-				}
-			}
-		}
-	}
-}
-#Enosis - British reject Enosis prospects
-country_event = {
-	id = bftb_greece.61
-	title = bftb_greece.61.t
-	desc = bftb_greece.61.desc
-	picture = GFX_report_event_gre_cabinet_meeting
-	
-	is_triggered_only = yes
-
-	option = {
-		name = bftb_greece.61.a
-		GRE = { add_state_claim = 183 }
-		add_stability = -0.1
-	}
-}
-#Aristotle Onasis returns to Greece
-country_event = {
-	id = bftb_greece.96
-	title = bftb_greece.96.t
-	desc = bftb_greece.96.desc
-	picture = GFX_report_event_gre_athens
-
-	is_triggered_only = yes
-
-	fire_only_once = yes
-	
-	option = {
-		name = bftb_greece.96.a 
-		add_stability = -0.05
-		hidden_effect = { 
-			set_country_flag = onassis_arrived
-			if = { 
-				limit = { 
-					NOT = { 
-						has_government = fascism
-						has_idea = GRE_eee_in_government
-						has_country_flag = onassis_proposition_accepted
-					}
-				}
-				country_event = { id = bftb_greece.90 }
-			}
-		}	
-	}
-}
-#Byzantinists - An Emperor Appears
-country_event = {
-	id = bftb_greece.232
-	title = bftb_greece.232.t
-	desc = bftb_greece.232.desc
-	picture = GFX_report_event_hitler_croatia_handshake
-
-	trigger = {
-		original_tag = GRE
-		GER = { 
-			AND = {
-				has_completed_focus = GER_oppose_hitler
-				NOT = {  
-					has_country_leader = {
-						name = "Adolf Hitler"
-						ruling_only = yes
-					}
-				}
-			}
-		}
-		has_country_flag = GRE_an_invite_for_an_emperor
-		has_global_flag = form_byzantine_empire_flag
-		has_civil_war = no
-		controls_state = 797
-		controls_state = 183
-		controls_state = 805
-	}
-
-	fire_only_once = yes
-
-	mean_time_to_happen = {
-		days = 180
-	}
-	
-	option = {
-		name = bftb_greece.232.a #our Basileus!
-		create_country_leader = {
-			name = "Adolfos I"
-			desc = "POLITICS_ADOLFOS_I_DESC"
-			picture = "Portrait_GRE_adolfos_i.dds"
-			expire = "1965.1.1"
-			ideology = gen_nazism
-			traits = {
-				basileus
-			}
-		}
-	}
-	option = {
-		name = bftb_greece.232.b #he's a madman!
-		add_stability = 0.05
-	}
-}
-
-#Investment Events
-#German investment events - German politicians return from investment negotiations in Greek capital
-country_event = {
-	id = bftb_greece.166
-	title = bftb_greece.166.t
-	desc = bftb_greece.166.desc
-	picture = GFX_report_event_gre_allied_diplomacy
-
-	is_triggered_only = yes
-	
-	option = {
-		name = bftb_greece.166.a #small investment
-		ai_chance = {
-			base = 10
-		}
-		add_timed_idea = {
-			idea = GRE_small_investment
-			days = 30
-		}
-		hidden_effect = {
-			GRE = { 
-				add_to_variable = {
-					var = GRE_german_influence_over_greek_government
-					value = 5
-				}
-			}
-			GRE = {
-				country_event = { id = bftb_greece.169 days = 2 }
-			}
-		}
-	}
-	option = {
-		name = bftb_greece.166.b #no investment
-		ai_chance = {
-			base = 5
-			modifier = {
-				factor = 10
-				num_of_available_civilian_factories < 15
-			}
-		}
-		GRE = { 
-			country_event = { id = bftb_greece.170 days = 2 }
-		}
-	}
-	option = {
-		name = bftb_greece.166.c #no investments ever!
-		ai_chance = {
-			base = 0.1
-			modifier = {
-				factor = 25
-				has_opinion = {
-					target = GRE
-					value < -50
-				}
-			}
-		}
-		GRE = {
-			country_event = { id = bftb_greece.171 days = 2 }
-		}
-		hidden_effect = {
-			GRE = {
-				set_country_flag = GRE_germany_rebuffed
-			}
-		}
-	}	
-}
-#German investment events - German businessmen attend Greek national showcase to lure investors
-country_event = {
-	id = bftb_greece.167
-	title = bftb_greece.167.t
-	desc = bftb_greece.167.desc
-	picture = GFX_report_event_gre_athens
-
-	is_triggered_only = yes
-	
-	option = {
-		name = bftb_greece.167.a #moderate investment
-		ai_chance = {
-			base = 10
-		}
-		add_timed_idea = {
-			idea = GRE_moderate_investment
-			days = 45
-		}
-		hidden_effect = {
-			GRE = { 
-				add_to_variable = {
-					var = GRE_german_influence_over_greek_government
-					value = 10
-				}
-			}
-			GRE = {
-				country_event = { id = bftb_greece.169 days = 2 }
-			}
-		}
-	}
-	option = {
-		name = bftb_greece.167.b #no investment
-		ai_chance = {
-			base = 5
-			modifier = {
-				factor = 10
-				num_of_available_civilian_factories < 20
-			}
-		}
-		GRE = { 
-			country_event = { id = bftb_greece.170 days = 2 }
-		}
-	}
-	option = {
-		name = bftb_greece.167.c #no investment ever!
-		ai_chance = {
-			base = 0.1
-			modifier = {
-				factor = 25
-				has_opinion = {
-					target = GRE
-					value < -50
-				}
-			}
-		}
-		GRE = {
-			country_event = { id = bftb_greece.171 days = 2 }
-		}
-		hidden_effect = {
-			GRE = {
-				set_country_flag = GRE_germany_rebuffed
-			}
-		}
-	}	
-}
 #German investment events - The Greeks manipulate the fine print of the Schachtplan to their own advantage
 country_event = {
 	id = bftb_greece.168
@@ -937,15 +509,6 @@ country_event = {
 	
 	option = {
 		name = bftb_greece.178.a
-		add_stability = -0.1	
-		hidden_effect = {
-			if = {
-				limit = {
-					check_variable = { var = GRE_debt_to_the_ifc_britain_var value = 2.5 compare = greater_than_or_equals } 
-				}
-				#GRE_default_on_british_debt_effect = yes
-			}
-		}
 	}
 }
 #French investment events - Greek officials petition us in our capital for investment
@@ -1241,16 +804,7 @@ country_event = {
 	is_triggered_only = yes
 	
 	option = {
-		name = bftb_greece.184.a 
-		add_stability = -0.1	
-		hidden_effect = {
-			if = {
-				limit = {
-					check_variable = { var = GRE_debt_to_the_ifc_france_var value = 2.5 compare = greater_than_or_equals } 
-				}
-				#GRE_default_on_french_debt_effect = yes
-			}
-		}
+		name = bftb_greece.184.a
 	}
 }
 #Italian investment events - the Greeks approach us for help with industrialising their country
@@ -1393,7 +947,7 @@ country_event = {
 	option = {
 		name = bftb_greece.187.a 
 		trigger = { 
-			ITA = {
+			FROM = {
 				has_idea = GRE_moderate_investment
 			}
 		}
@@ -1405,7 +959,13 @@ country_event = {
 	option = {
 		name = bftb_greece.187.b
 		trigger = { 
-			has_idea = GRE_heavy_investment
+			FROM = {
+				has_idea = GRE_heavy_investment
+			}
+		}
+		add_offsite_building = {
+			type = arms_factory
+			level = 4
 		}
 		effect_tooltip = {
 			GRE = { 
@@ -1441,18 +1001,7 @@ country_event = {
 	is_triggered_only = yes
 	
 	option = {
-		name = bftb_greece.189.a 
-		add_stability = -0.1
-		add_war_support = 0.05	
-		hidden_effect = {
-			clear_variable = GRE_italian_influence_over_greek_government
-			if = {
-				limit = {
-					check_variable = { var = GRE_debt_to_the_ifc_italy_var value = 2.5 compare = greater_than_or_equals } 
-				}
-				#GRE_default_on_italian_debt_effect = yes
-			}
-		}
+		name = bftb_greece.189.a
 	}
 }
 #Soviet investment events - Greek officials finish their visit to the Presidium
@@ -1464,7 +1013,7 @@ country_event = {
 
 	is_triggered_only = yes
 	
-	option = {
+	option = { #Invest in Greece
 		name = bftb_greece.190.a 
 		ai_chance = {
 			base = 5
@@ -1485,7 +1034,7 @@ country_event = {
 			}
 		}
 	}
-	option = {
+	option = { #No investment yet
 		name = bftb_greece.190.b 
 		ai_chance = {
 			base = 5
@@ -1494,7 +1043,7 @@ country_event = {
 			country_event = { id = bftb_greece.194 days = 2 }
 		}
 	}
-	option = {
+	option = { #Emphatic NO 
 		name = bftb_greece.190.c 
 		ai_chance = {
 			base = 0.1
@@ -1525,7 +1074,7 @@ country_event = {
 
 	is_triggered_only = yes
 	
-	option = {
+	option = { #Moderate Investment 
 		name = bftb_greece.191.a
 		ai_chance = {
 			base = 5
@@ -1534,6 +1083,7 @@ country_event = {
 			idea = GRE_moderate_investment
 			days = 75
 		}
+		custom_effect_tooltip = GRE_increased_influence_tt 
 		hidden_effect = {
 			GRE = { 
 				add_to_variable = {
@@ -1542,11 +1092,11 @@ country_event = {
 				}
 			}
 			GRE = {
-				country_event = { id = bftb_greece.193 days = 2 }
+				country_event = { id = bftb_greece.187 days = 2 }
 			}
 		}
 	}
-	option = {
+	option = { #No investment at this time
 		name = bftb_greece.191.b
 		ai_chance = {
 			base = 5
@@ -1555,7 +1105,7 @@ country_event = {
 			country_event = { id = bftb_greece.194 days = 2 }
 		}
 	}	
-	option = {
+	option = { #Emphatic No 
 		name = bftb_greece.191.c 
 		ai_chance = {
 			base = 0.1
@@ -1599,7 +1149,7 @@ country_event = {
 					region = 149 
 					region = 148 
 				}
-				infrastructure < 10
+				infrastructure < 5
 			}
 			add_building_construction = { 
 				type = infrastructure
@@ -1615,7 +1165,7 @@ country_event = {
 					region = 149 
 					region = 148 
 				}
-				infrastructure < 10
+				infrastructure < 5
 			}
 			add_building_construction = { 
 				type = infrastructure
@@ -1631,7 +1181,7 @@ country_event = {
 					region = 149 
 					region = 148 
 				}
-				infrastructure < 10
+				infrastructure < 5
 			}
 			add_building_construction = { 
 				type = infrastructure
@@ -1652,7 +1202,7 @@ country_event = {
 					value = 30
 				}
 			}
-			GRE = {
+			GRE = {  #there is no reason for bftb_greece_193 to occur at this point
 				country_event = { id = bftb_greece.193 days = 2 }
 			}
 		}
@@ -1690,47 +1240,17 @@ country_event = {
 
 	option = {
 		name = bftb_greece.193.a 
-		trigger = { 
-			SOV = {
+		trigger = {
+			FROM = {
 				has_idea = GRE_small_investment
-			}
-		}
-		GRE = {
-			random_owned_controlled_state = {
-				limit = {
-					ROOT = { has_full_control_of_state = PREV }
-				}
-				add_extra_state_shared_building_slots = 1
-			}
-		}
-	}
-	
-	option = {
-		name = bftb_greece.193.b 
-		trigger = { 
-			SOV = {
-				has_idea = GRE_moderate_investment
 			}
 		}
 		add_offsite_building = {
 			type = arms_factory
-			level = 2
+			level = 1
 		}
 	}
-	option = {
-		name = bftb_greece.193.c 
-		trigger = { 
-			has_idea = GRE_heavy_investment
-		}
-		effect_tooltip = {
-			GRE = { 
-				add_timed_idea = {
-					idea = GRE_heavy_investment
-					days = 75
-				}	
-			}
-		}
-	}	
+
 }
 #Soviet investment events - the Soviets don't invest this time
 country_event = {

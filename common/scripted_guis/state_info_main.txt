@@ -10,19 +10,19 @@ scripted_gui = {
             has_global_flag = allow_info_popups
             OR = {
                 state = 47
-                state = 813
+                state = 841
                 state = 187
                 state = 731
-                state = 811
-                state = 810
+                state = 839
+                state = 838
                 state = 185
-                state = 809
-                state = 807
-                state = 808
+                state = 837
+                state = 835
+                state = 836
                 state = 186
                 state = 184
-                state = 812
-                state = 814
+                state = 840
+                state = 842
                 AND = {
                     state = 182
                     GRE = { has_completed_focus = GRE_crete_falls }
@@ -111,6 +111,7 @@ scripted_gui = {
 		}
 		ai_check = {
 		}
+		#dirty = sgr
 	}
 
     state_info_resistance = {
@@ -118,9 +119,422 @@ scripted_gui = {
 		
 		window_name = "state_info_resistance_window_container"
 		
-		visible = {
-            has_state_flag = state_info_res_opened
-        }
+		visible = { has_state_flag = state_info_res_opened }
+
+		triggers={
+			cycle_behavior_unarmed_click_enabled = { always=yes }
+			item_2_click_enabled = {
+				if = { 
+					limit = { check_variable={ cycle_behavior=0 } }
+					check_variable = { HQ>0 }
+				}
+			}
+			item_3_click_enabled = {
+				if = { 
+					limit = { check_variable={ cycle_behavior=0 } }
+					NOT= { check_variable = { GRE.RES_HQ_STATE=THIS.id } }
+				}
+			}
+			########################################################
+			########################################################
+			########################################################
+			########################################################
+			########################################################
+			########################################################
+			########################################################
+			########################################################
+			########################################################
+			cycle_behavior_unarmed_visible = { check_variable = { cycle_behavior=0 } }
+			cycle_behavior_armed_visible = { check_variable = { cycle_behavior=1 } }
+			cycle_behavior_behavior_visible = { check_variable = { cycle_behavior=2 } }
+			###
+			item_5_visible = { NOT = { check_variable = { cycle_behavior=2 } } }
+			item_6_visible = { NOT = { check_variable = { cycle_behavior=2 } } }
+			item_7_visible = { NOT = { OR = { check_variable = { cycle_behavior=2 } check_variable = { cycle_behavior=1 } } } }
+			########################################################
+			########################################################
+			########################################################
+			food_distribution_top_1_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=1 } }
+			food_distribution_mid_1_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=1 } }
+			food_distribution_mid_2_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=1 } }
+			food_distribution_mid_3_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=1 } }
+			food_distribution_mid_4_increase_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=1 } }
+			food_distribution_mid_5_decrease_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=1 } }
+			food_distribution_bot_1_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=1 } }
+			food_distribution_bot_2_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=1 } }
+			food_distribution_bot_3_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=1 } }
+			#
+			reconnaissance_top_1_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=2 } }
+			reconnaissance_mid_1_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=2 } }
+			reconnaissance_mid_2_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=2 } }
+			reconnaissance_mid_3_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=2 } }
+			reconnaissance_mid_4_increase_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=2 } }
+			reconnaissance_mid_5_decrease_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=2 } }
+			reconnaissance_bot_1_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=2 } }
+			reconnaissance_bot_2_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=2 } }
+			reconnaissance_bot_3_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=2 } }
+			#
+			intel_gathering_top_1_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=3 } }
+			intel_gathering_mid_1_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=3 } }
+			intel_gathering_mid_2_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=3 } }
+			intel_gathering_mid_3_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=3 } }
+			intel_gathering_mid_4_increase_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=3 } }
+			intel_gathering_mid_5_decrease_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=3 } }
+			intel_gathering_bot_1_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=3 } }
+			intel_gathering_bot_2_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=3 } }
+			intel_gathering_bot_3_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=3 } }
+			#
+			route_planning_top_1_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=4 } }
+			route_planning_mid_1_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=4 } }
+			route_planning_mid_2_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=4 } }
+			route_planning_mid_3_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=4 } }
+			route_planning_mid_4_increase_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=4 } }
+			route_planning_mid_5_decrease_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=4 } }
+			route_planning_bot_1_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=4 } }
+			route_planning_bot_2_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=4 } }
+			route_planning_bot_3_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=4 } }
+			#
+			fortify_position_top_1_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=5 } }
+			fortify_position_mid_1_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=5 } }
+			fortify_position_mid_2_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=5 } }
+			fortify_position_mid_3_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=5 } }
+			fortify_position_mid_4_increase_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=5 } }
+			fortify_position_mid_5_decrease_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=5 } }
+			fortify_position_bot_1_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=5 } }
+			fortify_position_bot_2_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=5 } }
+			fortify_position_bot_3_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=5 } }
+			#
+			inspire_populace_top_1_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=6 } }
+			inspire_populace_mid_1_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=6 } }
+			inspire_populace_mid_2_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=6 } }
+			inspire_populace_mid_3_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=6 } }
+			inspire_populace_mid_4_increase_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=6 } }
+			inspire_populace_mid_5_decrease_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=6 } }
+			inspire_populace_bot_1_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=6 } }
+			inspire_populace_bot_2_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=6 } }
+			inspire_populace_bot_3_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=6 } }
+			#
+			seek_aid_top_1_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=7 } }
+			seek_aid_mid_1_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=7 } }
+			seek_aid_mid_2_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=7 } }
+			seek_aid_mid_3_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=7 } }
+			seek_aid_mid_4_increase_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=7 } }
+			seek_aid_mid_5_decrease_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=7 } }
+			seek_aid_bot_1_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=7 } }
+			seek_aid_bot_2_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=7 } }
+			seek_aid_bot_3_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=7 } }
+			#
+			sabotage_top_1_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=8 } }
+			sabotage_top_2_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=8 } }
+			sabotage_top_3_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=8 } }
+			sabotage_top_4_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=8 } }
+			sabotage_top_5_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=8 } }
+			sabotage_top_6_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=8 } }
+			sabotage_top_7_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=8 } }
+			sabotage_top_8_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=8 } }
+			sabotage_top_9_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=8 } }
+			sabotage_top_10_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=8 } }
+			sabotage_top_11_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=8 } }
+			sabotage_top_12_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=8 } }
+			sabotage_top_13_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=8 } }
+			sabotage_top_14_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=8 } }
+			sabotage_top_15_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=8 } }
+			sabotage_top_16_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=8 } }
+			sabotage_mid_1_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=8 } }
+			sabotage_mid_2_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=8 } }
+			sabotage_mid_3_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=8 } }
+			sabotage_mid_4_increase_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=8 } }
+			sabotage_mid_5_decrease_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=8 } }
+			sabotage_bot_1_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=8 } }
+			sabotage_bot_2_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=8 } }
+			sabotage_bot_3_visible = { check_variable = { cycle_behavior=0 } check_variable = { cycle_choice=8 } }
+			####
+			####
+			####
+			seek_conflict_top_1_visible = { check_variable = { cycle_behavior=1 } check_variable = { cycle_choice=1 } }
+			seek_conflict_mid_1_visible = { check_variable = { cycle_behavior=1 } check_variable = { cycle_choice=1 } }
+			#
+			solidify_control_top_1_visible = { check_variable = { cycle_behavior=1 } check_variable = { cycle_choice=2 } }
+			solidify_control_mid_1_visible = { check_variable = { cycle_behavior=1 } check_variable = { cycle_choice=2 } }
+			#
+			ambush_top_1_visible = { check_variable = { cycle_behavior=1 } check_variable = { cycle_choice=3 } }
+			ambush_mid_1_visible = { check_variable = { cycle_behavior=1 } check_variable = { cycle_choice=3 } }
+			#
+			patrol_top_1_visible = { check_variable = { cycle_behavior=1 } check_variable = { cycle_choice=4 } }
+			patrol_mid_1_visible = { check_variable = { cycle_behavior=1 } check_variable = { cycle_choice=4 } }
+			#
+			alert_top_1_visible = { check_variable = { cycle_behavior=1 } check_variable = { cycle_choice=5 } }
+			alert_mid_1_visible = { check_variable = { cycle_behavior=1 } check_variable = { cycle_choice=5 } }
+			#
+			rest_top_1_visible = { check_variable = { cycle_behavior=1 } check_variable = { cycle_choice=6 } }
+			rest_mid_1_visible = { check_variable = { cycle_behavior=1 } check_variable = { cycle_choice=6 } }
+			#
+			raid_top_1_visible = { check_variable = { cycle_behavior=1 } check_variable = { cycle_choice=7 } }
+			raid_mid_1_visible = { check_variable = { cycle_behavior=1 } check_variable = { cycle_choice=7 } }
+			#
+			####
+			####
+			####
+			conflict_avoidant_top_1_visible = { check_variable = { cycle_behavior=2 } check_variable = { cycle_choice=1 } }
+			conflict_avoidant_mid_1_visible = { check_variable = { cycle_behavior=2 } check_variable = { cycle_choice=1 } }
+			#
+			picking_fights_top_1_visible = { check_variable = { cycle_behavior=2 } check_variable = { cycle_choice=2 } }
+			picking_fights_mid_1_visible = { check_variable = { cycle_behavior=2 } check_variable = { cycle_choice=2 } }
+			#
+			balanced_top_1_visible = { check_variable = { cycle_behavior=2 } check_variable = { cycle_choice=3 } }
+			balanced_mid_1_visible = { check_variable = { cycle_behavior=2 } check_variable = { cycle_choice=3 } }
+			#
+			seek_fights_top_1_visible = { check_variable = { cycle_behavior=2 } check_variable = { cycle_choice=4 } }
+			seek_fights_mid_1_visible = { check_variable = { cycle_behavior=2 } check_variable = { cycle_choice=4 } }
+			#
+			shoot_anything_top_1_visible = { check_variable = { cycle_behavior=2 } check_variable = { cycle_choice=5 } }
+			shoot_anything_mid_1_visible = { check_variable = { cycle_behavior=2 } check_variable = { cycle_choice=5 } }
+		}
+
+		effects = {
+			increase_amount_button_click = {
+				add_to_variable={ th=1 }
+				if = { limit = { check_variable={ toggle_tdep_return_deploy=0 } } clamp_variable={ var=th min=0 max=GRE.andartes_pool } }
+				else = { clamp_variable={ var=th min=0 max=THIS.andartes } }
+			}
+			increase_amount_button_shift_click = {
+				add_to_variable={ th=5 }
+				if = { limit = { check_variable={ toggle_tdep_return_deploy=0 } } clamp_variable={ var=th min=0 max=GRE.andartes_pool } }
+				else = { clamp_variable={ var=th min=0 max=THIS.andartes } }
+			}
+			increase_amount_button_control_click = {
+				add_to_variable={ th=10 }
+				if = { limit = { check_variable={ toggle_tdep_return_deploy=0 } } clamp_variable={ var=th min=0 max=GRE.andartes_pool } }
+				else = { clamp_variable={ var=th min=0 max=THIS.andartes } }
+			}
+			increase_amount_button_control_shift_click = {
+				add_to_variable={ th=100 }
+				if = { limit = { check_variable={ toggle_tdep_return_deploy=0 } } clamp_variable={ var=th min=0 max=GRE.andartes_pool } }
+				else = { clamp_variable={ var=th min=0 max=THIS.andartes } }
+			}
+			increase_amount_button_alt_click = {
+				add_to_variable={ th=500 }
+				if = { limit = { check_variable={ toggle_tdep_return_deploy=0 } } clamp_variable={ var=th min=0 max=GRE.andartes_pool } }
+				else = { clamp_variable={ var=th min=0 max=THIS.andartes } }
+			}
+			increase_amount_button_alt_shift_click = {
+				add_to_variable={ th=1000 }
+				if = { limit = { check_variable={ toggle_tdep_return_deploy=0 } } clamp_variable={ var=th min=0 max=GRE.andartes_pool } }
+				else = { clamp_variable={ var=th min=0 max=THIS.andartes } }
+			}
+			td_return_choice_click = {
+				if = {
+					limit = { check_variable = { toggle_tdep_return_deploy=0 } }
+					set_variable = { toggle_tdep_return_deploy=1 }
+				}
+				else = { set_variable = { toggle_tdep_return_deploy=0 } }
+			}
+			####
+			decrease_amount_button_click = {
+				subtract_from_variable={ th=1 }
+				clamp_variable={ var=th min=0 max=THIS.andartes}
+			}
+			decrease_amount_button_shift_click = {
+				subtract_from_variable={ th=5 }
+				clamp_variable={ var=th min=0 max=THIS.andartes}
+			}
+			decrease_amount_button_control_click = {
+				subtract_from_variable={ th=10 }
+				clamp_variable={ var=th min=0 max=THIS.andartes}
+			}
+			decrease_amount_button_control_shift_click = {
+				subtract_from_variable={ th=100 }
+				clamp_variable={ var=th min=0 max=THIS.andartes}
+			}
+			decrease_amount_button_alt_click = {
+				subtract_from_variable={ th=500 }
+				clamp_variable={ var=th min=0 max=THIS.andartes}
+			}
+			decrease_amount_button_alt_shift_click = {
+				subtract_from_variable={ th=1000 }
+				clamp_variable={ var=th min=0 max=THIS.andartes}
+			}
+			########################################################
+			########################################################
+			########################################################
+			combatant_percentage_increase_amount_button_click = {
+				add_to_variable = { combatant_percentage=0.05 }
+				clamp_variable = { var=combatant_percentage min=0 max=1 }
+			}
+			noncombatant_percentage_increase_amount_button_click = {
+				add_to_variable = { noncombatant_percentage=0.05 }
+				clamp_variable = { var=noncombatant_percentage min=0 max=1 }
+			}
+			reservist_percentage_increase_amount_button_click = {
+				add_to_variable = { reservist_percentage=0.05 }
+				clamp_variable = { var=reservist_percentage min=0 max=1 }
+			}
+			combatant_percentage_decrease_amount_button_click = {
+				subtract_from_variable = { combatant_percentage=0.05 }
+				clamp_variable = { var=combatant_percentage min=0 max=1 }
+			}
+			noncombatant_percentage_decrease_amount_button_click = {
+				subtract_from_variable = { noncombatant_percentage=0.05 }
+				clamp_variable = { var=noncombatant_percentage min=0 max=1 }
+			}
+			reservist_percentage_decrease_amount_button_click = {
+				subtract_from_variable = { reservist_percentage=0.05 }
+				clamp_variable = { var=reservist_percentage min=0 max=1 }
+			}
+			realign_percentages_click = {
+				set_temp_variable = { x=combatant_percentage }
+				add_to_temp_variable = { x=noncombatant_percentage }
+				add_to_temp_variable = { x=reservist_percentage }
+				if = { limit={check_variable={x=0} } set_variable={ combatant_percentage=0.33 } set_variable={ noncombatant_percentage=0.34 } set_variable={ reservist_percentage=0.33 }}
+				else = { divide_variable={ combatant_percentage=x } divide_variable={ noncombatant_percentage=x } divide_variable={ reservist_percentage=x } }
+			}
+			########################################################
+			########################################################
+			infeq_increase_amount_button_click = {
+				add_to_variable = { infeq=5 }
+				if = {
+					limit = { check_variable = { toggle_eq_return_deploy=0 } }
+					clamp_variable = { var=infeq min=0 max=GRE.andartes_infeq_reserve }
+				}
+				else = { clamp_variable = { var=infeq min=0 max=and_infeq } }
+			}
+			supeq_increase_amount_button_click = {
+				add_to_variable = { supeq=5 }
+				if = {
+					limit = { check_variable = { toggle_eq_return_deploy=0 } }
+					clamp_variable = { var=supeq min=0 max=GRE.andartes_supeq_reserve }
+				}
+				else = { clamp_variable = { var=supeq min=0 max=and_supeq } }				
+			}
+			arteq_increase_amount_button_click = {
+				add_to_variable = { arteq=5 }
+				if = {
+					limit = { check_variable = { toggle_eq_return_deploy=0 } }
+					clamp_variable = { var=arteq min=0 max=GRE.andartes_arteq_reserve }
+				}
+				else = { clamp_variable = { var=arteq min=0 max=and_arteq } }
+			}
+			infeq_decrease_amount_button_click = {
+				subtract_from_variable = { infeq=5 }
+				if = {
+					limit = { check_variable = { toggle_eq_return_deploy=0 } }
+					clamp_variable = { var=infeq min=0 max=GRE.andartes_infeq_reserve }
+				}
+				else = { clamp_variable = { var=infeq min=0 max=and_infeq } }
+			}
+			supeq_decrease_amount_button_click = {
+				subtract_from_variable = { supeq=5 }
+				if = {
+					limit = { check_variable = { toggle_eq_return_deploy=0 } }
+					clamp_variable = { var=supeq min=0 max=GRE.andartes_supeq_reserve }
+				}
+				else = { clamp_variable = { var=supeq min=0 max=and_supeq } }
+			}
+			arteq_decrease_amount_button_click = {
+				subtract_from_variable = { arteq=5 }
+				if = {
+					limit = { check_variable = { toggle_eq_return_deploy=0 } }
+					clamp_variable = { var=arteq min=0 max=GRE.andartes_arteq_reserve }
+				}
+				else = { clamp_variable = { var=arteq min=0 max=and_arteq } }
+			}
+			return_choice_click = {
+				if = {
+					limit = { check_variable = { toggle_eq_return_deploy=0 } }
+					set_variable = { toggle_eq_return_deploy=1 }
+				}
+				else = { set_variable = { toggle_eq_return_deploy=0 } }
+			}
+			############################################################################
+			############################################################################
+			############################################################################
+			cycle_behavior_unarmed_click = { set_variable = { cycle_behavior=1 } HS_GUI_clear_main_variables=yes }
+			cycle_behavior_armed_click = { set_variable = { cycle_behavior=2 } HS_GUI_clear_main_variables=yes }
+			cycle_behavior_behavior_click = { set_variable = { cycle_behavior=0 } HS_GUI_clear_main_variables=yes }
+			########################################################
+			########################################################
+			########################################################
+			item_0_click = { HS_GUI_clear_main_variables=yes set_variable={ cycle_choice=1 } HS_GUI_UNARMED_food_distribution_variable_preparation=yes }
+			item_1_click = { HS_GUI_clear_main_variables=yes set_variable={ cycle_choice=2 } HS_GUI_UNARMED_reconnaissance_variable_preparation=yes }
+			item_2_click = { HS_GUI_clear_main_variables=yes set_variable={ cycle_choice=3 } HS_GUI_UNARMED_intel_gathering_variable_preparation=yes }
+			item_3_click = { HS_GUI_clear_main_variables=yes set_variable={ cycle_choice=4 } HS_GUI_UNARMED_route_planning_variable_preparation=yes }
+			item_4_click = { HS_GUI_clear_main_variables=yes set_variable={ cycle_choice=5 } HS_GUI_UNARMED_fortify_position_variable_preparation=yes }
+			item_5_click = { HS_GUI_clear_main_variables=yes set_variable={ cycle_choice=6 } HS_GUI_UNARMED_inspire_populace_variable_preparation=yes }
+			item_6_click = { HS_GUI_clear_main_variables=yes set_variable={ cycle_choice=7 } HS_GUI_UNARMED_seek_aid_variable_preparation=yes }
+			item_7_click = { HS_GUI_clear_main_variables=yes set_variable={ cycle_choice=8 } HS_GUI_UNARMED_sabotage_variable_preparation=yes }
+			food_distribution_mid_4_increase_click = { set_temp_variable = { change_amount=1 } HS_GUI_UNARMED_food_distribution_change_amount_effect = yes }
+			food_distribution_mid_4_increase_shift_click = { set_temp_variable = { change_amount=5 } HS_GUI_UNARMED_food_distribution_change_amount_effect = yes }
+			food_distribution_mid_4_increase_control_click = { set_temp_variable = { change_amount=10 } HS_GUI_UNARMED_food_distribution_change_amount_effect = yes }
+			food_distribution_mid_4_increase_control_shift_click = { set_temp_variable = { change_amount=100 } HS_GUI_UNARMED_food_distribution_change_amount_effect = yes }
+			food_distribution_mid_5_decrease_click = { set_temp_variable = { change_amount=-1 } HS_GUI_UNARMED_food_distribution_change_amount_effect = yes }
+			food_distribution_mid_5_decrease_shift_click = { set_temp_variable = { change_amount=-5 } HS_GUI_UNARMED_food_distribution_change_amount_effect = yes }
+			food_distribution_mid_5_decrease_control_click = { set_temp_variable = { change_amount=-10 } HS_GUI_UNARMED_food_distribution_change_amount_effect = yes }
+			food_distribution_mid_5_decrease_control_shift_click = { set_temp_variable = { change_amount=-100 } HS_GUI_UNARMED_food_distribution_change_amount_effect = yes }
+			#
+			reconnaissance_mid_4_increase_click = { set_temp_variable = { change_amount=1 } HS_GUI_UNARMED_reconnaissance_change_amount_effect = yes }
+			reconnaissance_mid_4_increase_shift_click = { set_temp_variable = { change_amount=5 } HS_GUI_UNARMED_reconnaissance_change_amount_effect = yes }
+			reconnaissance_mid_4_increase_control_click = { set_temp_variable = { change_amount=10 } HS_GUI_UNARMED_reconnaissance_change_amount_effect = yes }
+			reconnaissance_mid_4_increase_control_shift_click = { set_temp_variable = { change_amount=100 } HS_GUI_UNARMED_reconnaissance_change_amount_effect = yes }
+			reconnaissance_mid_5_decrease_click = { set_temp_variable = { change_amount=-1 } HS_GUI_UNARMED_reconnaissance_change_amount_effect = yes }
+			reconnaissance_mid_5_decrease_shift_click = { set_temp_variable = { change_amount=-5 } HS_GUI_UNARMED_reconnaissance_change_amount_effect = yes }
+			reconnaissance_mid_5_decrease_control_click = { set_temp_variable = { change_amount=-10 } HS_GUI_UNARMED_reconnaissance_change_amount_effect = yes }
+			reconnaissance_mid_5_decrease_control_shift_click = { set_temp_variable = { change_amount=-100 } HS_GUI_UNARMED_reconnaissance_change_amount_effect = yes }
+			#
+			intel_gathering_mid_4_increase_click = { set_temp_variable = { change_amount=1 } HS_GUI_UNARMED_intel_gathering_change_amount_effect = yes }
+			intel_gathering_mid_4_increase_shift_click = { set_temp_variable = { change_amount=5 } HS_GUI_UNARMED_intel_gathering_change_amount_effect = yes }
+			intel_gathering_mid_4_increase_control_click = { set_temp_variable = { change_amount=10 } HS_GUI_UNARMED_intel_gathering_change_amount_effect = yes }
+			intel_gathering_mid_4_increase_control_shift_click = { set_temp_variable = { change_amount=100 } HS_GUI_UNARMED_intel_gathering_change_amount_effect = yes }
+			intel_gathering_mid_5_decrease_click = { set_temp_variable = { change_amount=-1 } HS_GUI_UNARMED_intel_gathering_change_amount_effect = yes }
+			intel_gathering_mid_5_decrease_shift_click = { set_temp_variable = { change_amount=-5 } HS_GUI_UNARMED_intel_gathering_change_amount_effect = yes }
+			intel_gathering_mid_5_decrease_control_click = { set_temp_variable = { change_amount=-10 } HS_GUI_UNARMED_intel_gathering_change_amount_effect = yes }
+			intel_gathering_mid_5_decrease_control_shift_click = { set_temp_variable = { change_amount=-100 } HS_GUI_UNARMED_intel_gathering_change_amount_effect = yes }
+			#
+			route_planning_mid_4_increase_click = { set_temp_variable = { change_amount=1 } HS_GUI_UNARMED_route_planning_change_amount_effect = yes }
+			route_planning_mid_4_increase_shift_click = { set_temp_variable = { change_amount=5 } HS_GUI_UNARMED_route_planning_change_amount_effect = yes }
+			route_planning_mid_4_increase_control_click = { set_temp_variable = { change_amount=10 } HS_GUI_UNARMED_route_planning_change_amount_effect = yes }
+			route_planning_mid_4_increase_control_shift_click = { set_temp_variable = { change_amount=100 } HS_GUI_UNARMED_route_planning_change_amount_effect = yes }
+			route_planning_mid_5_decrease_click = { set_temp_variable = { change_amount=-1 } HS_GUI_UNARMED_route_planning_change_amount_effect = yes }
+			route_planning_mid_5_decrease_shift_click = { set_temp_variable = { change_amount=-5 } HS_GUI_UNARMED_route_planning_change_amount_effect = yes }
+			route_planning_mid_5_decrease_control_click = { set_temp_variable = { change_amount=-10 } HS_GUI_UNARMED_route_planning_change_amount_effect = yes }
+			route_planning_mid_5_decrease_control_shift_click = { set_temp_variable = { change_amount=-100 } HS_GUI_UNARMED_route_planning_change_amount_effect = yes }
+			#
+			fortify_position_mid_4_increase_click = { set_temp_variable = { change_amount=1 } HS_GUI_UNARMED_fortify_position_change_amount_effect = yes }
+			fortify_position_mid_4_increase_shift_click = { set_temp_variable = { change_amount=5 } HS_GUI_UNARMED_fortify_position_change_amount_effect = yes }
+			fortify_position_mid_4_increase_control_click = { set_temp_variable = { change_amount=10 } HS_GUI_UNARMED_fortify_position_change_amount_effect = yes }
+			fortify_position_mid_4_increase_control_shift_click = { set_temp_variable = { change_amount=100 } HS_GUI_UNARMED_fortify_position_change_amount_effect = yes }
+			fortify_position_mid_5_decrease_click = { set_temp_variable = { change_amount=-1 } HS_GUI_UNARMED_fortify_position_change_amount_effect = yes }
+			fortify_position_mid_5_decrease_shift_click = { set_temp_variable = { change_amount=-5 } HS_GUI_UNARMED_fortify_position_change_amount_effect = yes }
+			fortify_position_mid_5_decrease_control_click = { set_temp_variable = { change_amount=-10 } HS_GUI_UNARMED_fortify_position_change_amount_effect = yes }
+			fortify_position_mid_5_decrease_control_shift_click = { set_temp_variable = { change_amount=-100 } HS_GUI_UNARMED_fortify_position_change_amount_effect = yes }
+			#
+			inspire_populace_mid_4_increase_click = { set_temp_variable = { change_amount=1 } HS_GUI_UNARMED_inspire_populace_change_amount_effect = yes }
+			inspire_populace_mid_4_increase_shift_click = { set_temp_variable = { change_amount=5 } HS_GUI_UNARMED_inspire_populace_change_amount_effect = yes }
+			inspire_populace_mid_4_increase_control_click = { set_temp_variable = { change_amount=10 } HS_GUI_UNARMED_inspire_populace_change_amount_effect = yes }
+			inspire_populace_mid_4_increase_control_shift_click = { set_temp_variable = { change_amount=100 } HS_GUI_UNARMED_inspire_populace_change_amount_effect = yes }
+			inspire_populace_mid_5_decrease_click = { set_temp_variable = { change_amount=-1 } HS_GUI_UNARMED_inspire_populace_change_amount_effect = yes }
+			inspire_populace_mid_5_decrease_shift_click = { set_temp_variable = { change_amount=-5 } HS_GUI_UNARMED_inspire_populace_change_amount_effect = yes }
+			inspire_populace_mid_5_decrease_control_click = { set_temp_variable = { change_amount=-10 } HS_GUI_UNARMED_inspire_populace_change_amount_effect = yes }
+			inspire_populace_mid_5_decrease_control_shift_click = { set_temp_variable = { change_amount=-100 } HS_GUI_UNARMED_inspire_populace_change_amount_effect = yes }
+			#
+			seek_aid_mid_4_increase_click = { set_temp_variable = { change_amount=1 } HS_GUI_UNARMED_seek_aid_change_amount_effect = yes }
+			seek_aid_mid_4_increase_shift_click = { set_temp_variable = { change_amount=5 } HS_GUI_UNARMED_seek_aid_change_amount_effect = yes }
+			seek_aid_mid_4_increase_control_click = { set_temp_variable = { change_amount=10 } HS_GUI_UNARMED_seek_aid_change_amount_effect = yes }
+			seek_aid_mid_4_increase_control_shift_click = { set_temp_variable = { change_amount=100 } HS_GUI_UNARMED_seek_aid_change_amount_effect = yes }
+			seek_aid_mid_5_decrease_click = { set_temp_variable = { change_amount=-1 } HS_GUI_UNARMED_seek_aid_change_amount_effect = yes }
+			seek_aid_mid_5_decrease_shift_click = { set_temp_variable = { change_amount=-5 } HS_GUI_UNARMED_seek_aid_change_amount_effect = yes }
+			seek_aid_mid_5_decrease_control_click = { set_temp_variable = { change_amount=-10 } HS_GUI_UNARMED_seek_aid_change_amount_effect = yes }
+			seek_aid_mid_5_decrease_control_shift_click = { set_temp_variable = { change_amount=-100 } HS_GUI_UNARMED_seek_aid_change_amount_effect = yes }
+			#
+			sabotage_mid_4_increase_click = { set_temp_variable = { change_amount=1 } HS_GUI_UNARMED_sabotage_change_amount_effect = yes }
+			sabotage_mid_4_increase_shift_click = { set_temp_variable = { change_amount=5 } HS_GUI_UNARMED_sabotage_change_amount_effect = yes }
+			sabotage_mid_4_increase_control_click = { set_temp_variable = { change_amount=10 } HS_GUI_UNARMED_sabotage_change_amount_effect = yes }
+			sabotage_mid_4_increase_control_shift_click = { set_temp_variable = { change_amount=100 } HS_GUI_UNARMED_sabotage_change_amount_effect = yes }
+			sabotage_mid_5_decrease_click = { set_temp_variable = { change_amount=-1 } HS_GUI_UNARMED_sabotage_change_amount_effect = yes }
+			sabotage_mid_5_decrease_shift_click = { set_temp_variable = { change_amount=-5 } HS_GUI_UNARMED_sabotage_change_amount_effect = yes }
+			sabotage_mid_5_decrease_control_click = { set_temp_variable = { change_amount=-10 } HS_GUI_UNARMED_sabotage_change_amount_effect = yes }
+			sabotage_mid_5_decrease_control_shift_click = { set_temp_variable = { change_amount=-100 } HS_GUI_UNARMED_sabotage_change_amount_effect = yes }
+			#
+		}
 	}
 
 }

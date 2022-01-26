@@ -36,6 +36,7 @@ set_technology = {
 	early_bomber = 1
 	fuel_silos = 1
 	synth_oil_experiments = 1
+	basic_train = 1
 }
 if = {
 	limit = { not = { has_dlc = "Man the Guns" } }
@@ -92,6 +93,8 @@ if = {
 			modifier = BFTB_balkan_pact_enemy
 		}
         set_country_flag = GRE_grecoitalian_diplomatic_games_still_relevant
+		###########################[ The Greek Army ]###########################
+		add_dynamic_modifier = { modifier = GRE_the_army_dyn }
         #########################[ War Strain Mechanic ]########################
         add_dynamic_modifier = { modifier = GRE_war_strain }
         ###########################[ Debt to the I.F.C ]########################
@@ -100,16 +103,16 @@ if = {
         set_variable = { debt_to_the_ifc_cons = 0.2 }
         ########################[ Inaccessible Regions ]########################
         184 = { add_dynamic_modifier = { modifier = GRE_inaccessible_region } }
-        813 = { add_dynamic_modifier = { modifier = GRE_inaccessible_region } }
+        841 = { add_dynamic_modifier = { modifier = GRE_inaccessible_region } }
         185 = { add_dynamic_modifier = { modifier = GRE_inaccessible_region } }
         805 = { add_dynamic_modifier = { modifier = GRE_inaccessible_region } }
-        810 = { add_dynamic_modifier = { modifier = GRE_inaccessible_region } }
+        838 = { add_dynamic_modifier = { modifier = GRE_inaccessible_region } }
         ##########################[ Bulgarian Claims ]##########################
         184 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
-        811 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
+        839 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
         731 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
-        812 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
-        813 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
+        840 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
+        841 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
 		add_ideas = {
 			export_focus
 			limited_conscription
@@ -139,6 +142,9 @@ if = {
 		set_variable = { var = GRE.debt@ENG value = 100 }
 		set_variable = { var = GRE.debt@FRA value = 100 }
 		set_variable = { var = GRE.debt@ITA value = 100 }
+		set_variable = { gre_the_army_cp = 0.1 }
+		set_variable = { gre_the_army_cp_cost = 10 }
+		set_variable = { gre_the_army_cp_cost = 10 }
 		set_variable = { var = GRE_debt_to_the_ifc_paid_var value = 0 }
 
 		add_opinion_modifier = { 
@@ -181,7 +187,7 @@ set_convoys = 10
 		complete_national_focus = GRE_use_the_military
 		complete_national_focus = GRE_reevaluating_the_drachma
 		complete_national_focus = GRE_utilize_our_strengths
-		complete_national_focus = GRE_hellenic_armed_forces
+		complete_national_focus = GRE_reorganizing_the_supplies
 		remove_ideas = {
 			civilian_economy
 			#GRE_political_instability
@@ -357,533 +363,124 @@ set_convoys = 100
 #########################################################################
 ######################################################################### 
 
+recruit_character = GRE_konstantinos_demertzis
+recruit_character = GRE_ioannis_metaxas
+recruit_character = GRE_konstantinos_maniadakis
+recruit_character = GRE_emmanouil_tsouderos
+recruit_character = GRE_king_george
+recruit_character = GRE_theologos_nikoloudis
+recruit_character = GRE_kostas_kotzias
+recruit_character = GRE_alexandros_koryzis
+recruit_character = GRE_prodromos_bodosakis
+recruit_character = GRE_sitsa_karaiskaki
+recruit_character = GRE_nelly
+recruit_character = GRE_alexandros_kanelopoulos
+recruit_character = GRE_achilleas_kyrou
+recruit_character = GRE_aristeidis_dimitratos
+recruit_character = GRE_andreas_apostolidis
+recruit_character = GRE_theodoros_tourkovasilis
+recruit_character = GRE_konstantinos_bastias
+recruit_character = GRE_pantelis_prevelakis
+recruit_character = GRE_archbishop_chrysanthos
+recruit_character = GRE_archbishop_damaskinos
+recruit_character = GRE_nikos_zachariadis
+recruit_character = GRE_george_mercouris
+recruit_character = GRE_charalambos_katsimitros
+recruit_character = GRE_markos_drakos
+recruit_character = GRE_alexandros_papagos
+recruit_character = GRE_eleftherios_venizelos
+recruit_character = GRE_themistoklis_sofoulis
+recruit_character = GRE_dimitrios_psarros
+recruit_character = GRE_aris_velouchiotis
+recruit_character = GRE_georgios_grivas
+recruit_character = GRE_emmanouil_mantakas
+recruit_character = GRE_napoleon_zervas
+recruit_character = GRE_nikolaos_plastiras
+recruit_character = GRE_panagiotis_demestichas
+recruit_character = GRE_georgios_tsolakoglou
+recruit_character = GRE_evripidis_bakirtzis
+recruit_character = GRE_georgios_kosmas
+recruit_character = GRE_georgios_stanotas
+recruit_character = GRE_ioannis_kotoulas
+recruit_character = GRE_ioannis_pitsikas
+recruit_character = GRE_konstantinos_bakopoulos
+recruit_character = GRE_konstantinos_davakis
+recruit_character = GRE_konstantinos_ventiris
+recruit_character = GRE_stefanos_sarafis
+recruit_character = GRE_theodoros_makridis
+recruit_character = GRE_christodoulos_tsigantes
+recruit_character = GRE_odysseas_aggelis
+recruit_character = GRE_ioannis_sotiris_alexakis
+recruit_character = GRE_konstantinos_dovas
+recruit_character = GRE_athanasios_frontistis
+recruit_character = GRE_dimitrios_giatzis
+recruit_character = GRE_solon_gikas
+recruit_character = GRE_paulos_giparis
+recruit_character = GRE_ignatios_kallergis
+recruit_character = GRE_pausanias_katsotas
+recruit_character = GRE_anastasios_ntalipis
+recruit_character = GRE_ioannis_paparrodou
+recruit_character = GRE_alexandros_rossios
+recruit_character = GRE_panagiotis_spiliotopoulos
+recruit_character = GRE_thrasivoulos_tsakalotos
+recruit_character = GRE_konstantinos_versis
+recruit_character = GRE_vasilios_vrachnos
+recruit_character = GRE_alexandros_sakellariou
+recruit_character = GRE_ioannis_demestichas
+recruit_character = GRE_epameinondas_kavvadias
+recruit_character = GRE_dimitrios_loundras
+recruit_character = GRE_dimitrios_oikonomou
+recruit_character = GRE_ioannis_toubas
+recruit_character = GRE_petros_voulgaris
+recruit_character = GRE_spyridon_avgeris
+recruit_character = GRE_miltiadis_iatridis
+recruit_character = GRE_pyrros_spyromilios
+recruit_character = GRE_marinos_mitralexis
+recruit_character = GRE_ioannis_kellas
+recruit_character = GRE_konstantinos_logothetopoulos
+recruit_character = GRE_ioannis_rallis
 
-create_country_leader = {
-    name = "Konstantinos Demertzis"
-    desc = "POLITICS_KONSTANTINOS_DEMERTZIS_DESC"
-    picture = "GFX_portrait_gre_konstantinos_demertzis"
-    expire = "1965.1.1"
-    ideology = centrism
-    traits = {
-        premier_in_crisis
-    }
+##[Initialize with Flags]##
+###[Venizelos]###
+GRE_eleftherios_venizelos = { set_character_flag = wanted_for_dead set_character_flag = target_of_the_failed_coup }
+###[Plastiras]###
+GRE_nikolaos_plastiras = { set_character_flag = wanted_for_dead set_character_flag = target_of_the_failed_coup }
+###[Demestichas]###
+GRE_ioannis_demestichas = { set_character_flag = wanted_for_dead set_character_flag = target_of_the_failed_coup }
+###[Sarafis]###
+GRE_stefanos_sarafis = { set_character_flag = target_of_the_failed_coup }
+###[Tsigantes]###
+GRE_christodoulos_tsigantes = { set_character_flag = target_of_the_failed_coup }
+###[Loundras]###
+GRE_dimitrios_loundras = { set_character_flag = retired_character }
+###[Voulgaris]###
+GRE_petros_voulgaris = { set_character_flag = retired_character }
+###[Toubas]###
+GRE_ioannis_toubas = { set_character_flag = target_of_the_failed_coup }
+###[Psarros]###
+GRE_dimitrios_psarros = { set_character_flag = target_of_the_failed_coup }
+###[Ventiris]###
+GRE_konstantinos_ventiris = { set_character_flag = target_of_the_failed_coup }
+###[Mantakas]###
+GRE_emmanouil_mantakas = { set_character_flag = target_of_the_failed_coup }
+###[Bakirtzis]###
+GRE_evripidis_bakirtzis = { set_character_flag = target_of_the_failed_coup }
+###[Gyparis]###
+GRE_paulos_giparis = { set_character_flag = target_of_the_failed_coup }
+###[Kallérgis]###
+GRE_ignatios_kallergis = { set_character_flag = target_of_the_failed_coup }
+###[Zervas]###
+GRE_napoleon_zervas = { set_character_flag = target_of_the_failed_coup }
+###[Initialize Purge Variables]###
+set_variable = { hc_plastiras_purged = 1 }
+set_variable = { hc_demestichas_purged = 1 }
+set_variable = { hc_psarros_purged = 1 }
+set_variable = { hc_bakirtzis_purged = 1 }
+set_variable = { hc_zervas_purged = 1 }
+###[Flag the non-randomly-generated Characters]
+every_character = {
+	set_character_flag = og_char
 }
-
-create_country_leader = {
-    name = "Nikos Zachariadis"
-    desc = "POLITICS_NIKOS_ZACHARIADIS_DESC"
-    picture = "GFX_portrait_gre_nikos_zachariadis"
-    expire = "1965.1.1"
-    ideology = stalinism
-    traits = {
-        reluctant_stalinist
-    }
-}
-
-create_country_leader = {
-    name = "Eleftherios Venizelos"
-    desc = "POLITICS_ELEFTHERIOS_VENIZELOS_DESC"
-    picture = "GFX_portrait_gre_eleftherios_venizelos"
-    expire = "1965.1.1"
-    ideology = liberalism
-    traits = {
-        ethnarch
-    }
-}
-
-create_country_leader = {
-    name = "George Mercouris"
-    desc = "POLITICS_GEORGIOS_KOSMIDIS_DESC"
-    picture = "GFX_portrait_gre_george_mercouris"
-    expire = "1965.1.1"
-    ideology = gen_nazism
-    traits = {
-        polemarch
-        likes_turkey
-    }
-}
-
-#########################################################################
-#########################################################################
-##################[                                   ]##################
-##################[         MILITARY LEADERS          ]##################
-##################[                                   ]##################
-#########################################################################
-######################################################################### 
-
-create_corps_commander = {
-    name = "Alexandros Papagos"
-    gfx = "GFX_portrait_gre_alexandros_papagos"
-    traits = { trait_GRE_stauch_monarchist_persona gre_three_war_veteran gre_unprepared_general_3 cavalry_officer }
-    skill = 1
-    id = 300
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-}
-
-create_corps_commander = {
-    name = "Charalambos Katsimitros"
-    gfx = "GFX_portrait_gre_charalambos_katsimitros"
-    traits = { trait_GRE_stauch_monarchist_persona gre_three_war_veteran gre_unprepared_general_3 infantry_officer gre_artillery_officer }
-    skill = 1
-    id = 301
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-}
-
-create_corps_commander = {
-    name = "Markos Drakos"
-    gfx = "GFX_portrait_gre_markos_drakos"
-    traits = { trait_GRE_conventional_leanings gre_three_war_veteran gre_unprepared_general_3 infantry_officer  }
-    skill = 1
-    id = 302
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-}
-
-create_corps_commander = {
-    name = "Dimítrios Psarrós"
-    gfx = "GFX_portrait_gre_dimitrios_psarros"
-    traits = { trait_GRE_stauch_republican_persona gre_unprepared_general_3 gre_three_war_veteran  }
-    skill = 1
-    id = 303
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-}
-
-create_corps_commander = {
-    name = "Áris Velouchiótis"
-    gfx = "GFX_portrait_gre_aris_velouchiotis"
-    traits = { trait_GRE_stauch_communist_persona gre_unprepared_general_3  }
-    skill = 1
-    id = 304
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-}
-
-create_corps_commander = {
-    name = "Geórgios Grívas"
-    gfx = "GFX_portrait_gre_georgios_grivas"
-    traits = { trait_GRE_stauch_monarchist_persona gre_unprepared_general_3 gre_war_veteran }
-    skill = 1
-    id = 305
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-}
-
-create_corps_commander = {
-    name = "Emmanouíl Mántakas"
-    gfx = "GFX_Portrait_GRE_Manolis_Mantakas"
-    traits = { trait_GRE_stauch_republican_persona gre_unprepared_general_3 gre_three_war_veteran  }
-    skill = 1
-    id = 306
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-}
-
-create_corps_commander = {
-    name = "Napoléon Zérvas"
-    gfx = "GFX_portrait_gre_napoleon_zervas"
-    traits = { trait_GRE_stauch_republican_persona gre_unprepared_general_3 gre_three_war_veteran }
-    skill = 1
-    id = 307
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-}
-
-create_corps_commander = {
-    name = "Nikólaos Plastíras"
-    gfx = "GFX_portrait_gre_nikolaos_plastiras"
-    traits = { trait_GRE_stauch_republican_persona gre_unprepared_general_3 gre_three_war_veteran cavalry_officer  }
-    skill = 1
-    id = 308
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-} 
-
-create_corps_commander = {
-    name = "Panagiótis Deméstichas"
-    gfx = "GFX_portrait_gre_panagiotis_demestichas"
-    traits = { trait_GRE_monarchofascism_leanings gre_unprepared_general_3 gre_three_war_veteran }
-    skill = 1
-    id = 309
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-} 
-
-create_corps_commander = {
-    name = "Geórgios Tsolákoglou"
-    gfx = "GFX_portrait_GRE_Georgios_Tsolakoglou_general"
-    traits = { trait_GRE_stauch_monarchist_persona gre_unprepared_general_3 gre_three_war_veteran }
-    skill = 1
-    id = 310
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-} 
-
-create_corps_commander = {
-    name = "Evripídis Bakirtzís"
-    gfx = "GFX_gre_evripidis_bakirtzis"
-    traits = { trait_GRE_stauch_communist_persona gre_unprepared_general_3 gre_three_war_veteran gre_artillery_officer }
-    skill = 1
-    id = 311
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-}
-
-create_corps_commander = {
-    name = "Geórgios Kosmás"
-    gfx = "GFX_portrait_GRE_Georgios_Kosmas"
-    traits = { trait_GRE_stauch_monarchist_persona gre_unprepared_general_3 gre_three_war_veteran infantry_officer }
-    skill = 1
-    id = 312
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-} 
-
-create_corps_commander = {
-    name = "Geórgios Stanótas"
-    gfx = "GFX_portrait_GRE_georgios_stanotas"
-    traits = { trait_GRE_conventional_leanings gre_unprepared_general_3 gre_three_war_veteran cavalry_officer }
-    skill = 1
-    id = 313
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-} 
-
-create_corps_commander = {
-    name = "Ioánnis Kotoúlas"
-    gfx = "GFX_portrait_GRE_Ioannis_Kotoulas"
-    traits = { trait_GRE_conventional_leanings gre_unprepared_general_3 gre_three_war_veteran }
-    skill = 1
-    id = 314
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-} 
-
-create_corps_commander = {
-    name = "Ioánnis Pítsikas"
-    gfx = "GFX_portrait_GRE_ioannis_pitsikas"
-    traits = { trait_GRE_conventional_leanings gre_unprepared_general_3 gre_three_war_veteran infantry_officer }
-    skill = 1
-    id = 315
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-} 
-
-create_corps_commander = {
-    name = "Konstantinos Bakópoulos"
-    gfx = "GFX_portrait_GRE_Konstantinos_Bakopoulos"
-    traits = { trait_GRE_conventional_leanings gre_unprepared_general_3 gre_three_war_veteran }
-    skill = 1
-    id = 316
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-} 
-
-create_corps_commander = {
-    name = "Konstantinos Davákis"
-    gfx = "GFX_portrait_GRE_Konstantinos_Davakis"
-    traits = { trait_GRE_conventional_leanings gre_unprepared_general_3 gre_war_veteran armor_officer infantry_officer }
-    skill = 1
-    id = 317
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-} 
-
-create_corps_commander = {
-    name = "Konstantinos Ventíris"
-    gfx = "GFX_portrait_gre_konstantinos_ventiris"
-    traits = { trait_GRE_stauch_monarchist_persona gre_unprepared_general_3 gre_three_war_veteran }
-    skill = 1
-    id = 318
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-} 
-
-create_corps_commander = {
-    name = "Stéfanos Saráfis"
-    gfx = "GFX_portrait_GRE_stefanos_sarafis"
-    traits = { trait_GRE_socialdemocratic_leanings gre_unprepared_general_3 gre_three_war_veteran }
-    skill = 1
-    id = 319
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-} 
-
-create_corps_commander = {
-    name = "Theódoros Makrídis"
-    gfx = "GFX_portrait_GRE_theodoros_makridis"
-    traits = { trait_GRE_socialdemocratic_leanings gre_unprepared_general_3 infantry_officer }
-    skill = 1
-    id = 320
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-} 
-
-create_corps_commander = {
-    name = "Christódoulos Tsigántes"
-    gfx = "GFX_portrait_gre_tsigantes"
-    traits = { trait_GRE_stauch_republican_persona gre_unprepared_general_3 gre_three_war_veteran infantry_officer }
-    skill = 1
-    id = 321
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-} 
-
-create_corps_commander = {
-    name = "Odysséas Aggelis"
-    gfx = "GFX_portrait_gre_aggelis"
-    traits = { trait_GRE_stauch_monarchist_persona gre_unprepared_general_3 gre_artillery_officer }
-    skill = 1
-    id = 322
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-}
-
-create_corps_commander = {
-    name = "Ioánnis Sotiris Alexákis"
-    gfx = "GFX_portrait_gre_alexakis"
-    traits = { trait_GRE_stauch_republican_persona gre_unprepared_general_3 gre_three_war_veteran }
-    skill = 1
-    id = 323
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-}
-
-create_corps_commander = {
-    name = "Konstantínos Dóvas"
-    gfx = "GFX_portrait_gre_dovas"
-    traits = { trait_GRE_stauch_monarchist_persona gre_unprepared_general_3 gre_war_veteran }
-    skill = 1
-    id = 324
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-}
-
-create_corps_commander = {
-    name = "Athanásios Frontistís"
-    gfx = "GFX_portrait_gre_frontistis"
-    traits = { trait_GRE_conventional_leanings gre_unprepared_general_3  gre_war_veteran}
-    skill = 1
-    id = 325
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-}
-
-create_corps_commander = {
-    name = "Dimítrios Giatzís"
-    gfx = "GFX_portrait_gre_giatzis"
-    traits = { trait_GRE_conventional_leanings gre_unprepared_general_3 infantry_officer gre_three_war_veteran}
-    skill = 1
-    id = 326
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-}
-
-create_corps_commander = {
-    name = "Sólon Gíkas"
-    gfx = "GFX_portrait_gre_gikas"
-    traits = { trait_GRE_stauch_monarchist_persona gre_unprepared_general_3 cavalry_officer gre_war_veteran }
-    skill = 1
-    id = 327
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-}
-
-create_corps_commander = {
-    name = "Paúlos Gipáris"
-    gfx = "GFX_portrait_gre_giparis"
-    traits = { trait_GRE_stauch_republican_persona gre_unprepared_general_3 gre_three_war_veteran }
-    skill = 1
-    id = 328
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-}
-
-create_corps_commander = {
-    name = "Ignátios Kallérgis"
-    gfx = "GFX_portrait_gre_kallergis"
-    traits = { trait_GRE_stauch_republican_persona gre_unprepared_general_3 gre_three_war_veteran }
-    skill = 1
-    id = 329
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-}
-
-create_corps_commander = {
-    name = "Pausanías Katsôtas"
-    gfx = "GFX_portrait_gre_katsotas"
-    traits = { trait_GRE_conventional_leanings gre_unprepared_general_3 infantry_officer }
-    skill = 1
-    id = 330
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-}
-
-create_corps_commander = {
-    name = "Anastásios Ntalipis"
-    gfx = "GFX_portrait_gre_ntalipis"
-    traits = { trait_GRE_stauch_fascist_persona gre_unprepared_general_3 gre_three_war_veteran infantry_officer trait_engineer }
-    skill = 1
-    id = 331
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-}
-
-create_corps_commander = {
-    name = "Ioánnis Paparródou"
-    gfx = "GFX_portrait_gre_paparrodou"
-    traits = { trait_GRE_conventional_leanings gre_unprepared_general_3 gre_artillery_officer commando trait_mountaineer winter_specialist }
-    skill = 1
-    id = 332
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-}
-
-create_corps_commander = {
-    name = "Aléxandros Róssios"
-    gfx = "GFX_portrait_gre_rossios"
-    traits = { trait_GRE_stauch_communist_persona gre_unprepared_general_3 }
-    skill = 1
-    id = 333
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-}
-
-create_corps_commander = {
-    name = "Panagiótis Spiliotópoulos"
-    gfx = "GFX_portrait_gre_spiliotopoulos"
-    traits = { trait_GRE_conventional_leanings gre_unprepared_general_3 infantry_officer gre_three_war_veteran}
-    skill = 1
-    id = 334
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-}
-
-create_corps_commander = {
-    name = "Thrasívoulos Tsakalótos"
-    gfx = "GFX_portrait_gre_tsakalotos"
-    traits = { trait_GRE_conventional_leanings gre_unprepared_general_3 gre_three_war_veteran infantry_officer}
-    skill = 1
-    id = 335
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-}
-
-create_corps_commander = {
-    name = "Konstantínos Versís"
-    gfx = "GFX_portrait_gre_versis"
-    traits = { trait_GRE_conventional_leanings gre_unprepared_general_3 gre_artillery_officer }
-    skill = 1
-    id = 336
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-}
-
-create_corps_commander = {
-    name = "Vasílios Vrachnós"
-    gfx = "GFX_portrait_gre_vrachnos"
-    traits = { trait_GRE_conventional_leanings gre_unprepared_general_3 gre_three_war_veteran }
-    skill = 1
-    id = 337
-    attack_skill = 1
-    defense_skill = 1
-    planning_skill = 1
-    logistics_skill = 1
-}
-
-###################################################################################################
-####################################[                         ]####################################
-####################################[      NAVAL LEADERS      ]####################################
-####################################[                         ]####################################
-###################################################################################################
-
-create_navy_leader = {
-    name = "Alexandros Sakellariou"
-    portrait_path = "gfx/leaders/Europe/portrait_europe_generic_navy_4.dds"
-    traits = { gre_three_war_veteran_navy fleet_protector media_personality bold caustic_personality  }
-    skill = 3
-    attack_skill = 3
-    defense_skill = 2
-    maneuvering_skill = 3
-    coordination_skill = 2
-}
-
 ###################################################################################################
 ####################################[                         ]####################################
 ####################################[        OPERATIVES       ]####################################

@@ -62,13 +62,14 @@ establishing_common_strategy = {
     }
 }
 
-balkan_pact_reinforced = {
+balkan_pact_reinforced_befriendment = {
     allowed = {
         OR = {
             original_tag = YUG
             original_tag = ROM
             original_tag = TUR
             original_tag = BUL
+            original_tag = ALB
         }
     }
     enable = {
@@ -96,6 +97,45 @@ balkan_pact_reinforced = {
         id = YUG
         value = 25
     }
+    ai_strategy = {
+		type = support
+		id = GRE
+		value = 50
+	}
+    ai_strategy = {
+		type = send_lend_lease_desire
+		id = GRE
+		value = 50
+	}
+}
+
+balkan_pact_reinforced_wanted_buildings = {
+    allowed = {
+        OR = {
+            original_tag = YUG
+            original_tag = ROM
+            original_tag = TUR
+            original_tag = BUL
+            original_tag = ALB
+        }
+    }
+    enable = {
+        has_country_flag = balkan_pact_reinforced
+        num_of_civilian_factories < 20
+        num_of_military_factories < 10
+    }
+    abort_when_not_enabled = yes
+
+    ai_strategy = {
+		type = building_target
+		id = industrial_complex
+		value = 20
+	}
+    ai_strategy = {
+		type = building_target
+		id = arms_factory
+		value = 10
+	}
 }
 
 move_units_to_bulgarian_border_if_greece_prepares_ultimatum = {
@@ -180,7 +220,7 @@ balkan_pact_reinforced_bulgaria = {
     }
 }
 
-balkan_pact_reinforced_bulgaria = {
+balkan_pact_reinforced_bulgaria_2 = {
     allowed = {
         OR = {
             original_tag = BUL

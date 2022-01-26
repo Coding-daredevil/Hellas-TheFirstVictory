@@ -33,7 +33,8 @@ country_event = {
 	is_triggered_only = yes
 	
 	option = {
-		name = hellenic_news.2.a       
+		name = hellenic_news.2.a
+		add_command_power = 60
 	}
 }
 
@@ -49,19 +50,16 @@ country_event = {
     is_triggered_only = yes
     
 	option = {
-		name = hellenic_news.3.a    
-        effect_tooltip = {
-            create_country_leader = {
-                name = "Ioannis Metaxas"
-                desc = "POLITICS_IOANNIS_METAXAS_DESC"
-                picture = "Portrait_Greece_Ioannis_Metaxas.dds"
-                expire = "1965.1.1"
-                ideology = despotism
-                traits = {
-                    greek_dictator
-                }
-            }
-        }
+		name = hellenic_news.3.a   
+		retire_character = GRE_konstantinos_demertzis
+		GRE_ioannis_metaxas = {
+			promote_leader = yes
+		}
+		set_party_name = {
+			ideology = neutrality
+			long_name = "Metavatikí Kyvérnisi"
+			name = "Metavatikí Kyvérnisi"
+		}
         add_dynamic_modifier = { modifier = GRE_metaxism_dynamic }
         set_variable = { GRE_var_st_fct = 0.02 }
         set_variable = { GRE_var_war_ten = 1 }
@@ -71,29 +69,7 @@ country_event = {
         set_variable = { GRE_var_guar_ten = 1 }
         set_variable = { GRE_var_badass_fct = -0.01 }
         set_variable = { GRE_var_get_ally_fact = -100 }
-                
-        custom_effect_tooltip = GRE_metaxism_warning_tt
-        hidden_effect = { 
-            retire_country_leader = yes
-            create_country_leader = {
-                name = "Ioannis Metaxas"
-                desc = "POLITICS_IOANNIS_METAXAS_DESC"
-                picture = "Portrait_Greece_Ioannis_Metaxas.dds"
-                expire = "1965.1.1"
-                ideology = despotism
-                traits = {
-                    greek_dictator
-                }
-            }
-            set_party_name = { ideology = neutrality long_name = GRE_metaxas_party_long name = GRE_metaxas_party }
-            set_politics = { ruling_party = neutrality elections_allowed = no }
-            #swap_ideas = { 
-            #    remove_idea = GRE_political_instability
-            #    add_idea = GRE_political_instability_metaxas
-            #}
-            #set_variable = { var = GRE_fascist_loyalty value = 0 }
-            #GRE_political_instability_update_effect = yes
-        }        
+        custom_effect_tooltip = GRE_metaxism_warning_tt    
 	}
 }
 

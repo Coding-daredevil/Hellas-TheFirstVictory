@@ -1,3 +1,370 @@
+########################################################################################
+##############################[ FOREIGN MANUFACTURER ADD ]##############################
+########################################################################################
+
+has_completed_appropriate_fm_focuses = {
+    if = {
+        limit = { FROM = { original_tag = GER } }
+        GRE = { has_completed_focus = GRE_bolster_the_schachtplan }
+    }
+    else_if = {
+        limit = { FROM = { original_tag = ENG } }
+        GRE = { has_completed_focus = GRE_british_docking_rights }
+    } 
+    else_if = {
+        limit = { FROM = { original_tag = FRA } }
+        GRE = { has_completed_focus = GRE_renegotiate_debt_with_france }
+    }             
+    else_if = {
+        limit = { FROM = { original_tag = SOV } }
+        GRE = { has_completed_focus = GRE_appeal_to_the_soviet_union }
+    } 
+    else_if = {
+        limit = { FROM = { original_tag = USA } }
+        GRE = { has_completed_focus = GRE_american_influencers }
+    } 
+    else_if = {
+        limit = { FROM = { original_tag = JAP } }
+        GRE = { has_completed_focus = GRE_arm_the_japanese }
+    }
+    else_if = {
+        limit = { FROM = { original_tag = ITA } }
+        GRE = { has_completed_focus = GRE_rapprochement_with_the_italians }
+    }
+}
+
+has_appropriate_electrical_fm_selected = {
+    if = {
+        limit = {
+            FROM = { original_tag = GER }
+        }
+        has_idea = GRE_siemens
+    }
+    else_if = {
+        limit = {
+            FROM = { original_tag = ENG }
+        }
+        has_idea = GRE_english_electric
+    }
+    else_if = {
+        limit = {
+            FROM = { original_tag = USA }
+        }
+        has_idea = GRE_general_electric
+    }  
+}
+
+has_appropriate_industrial_fm_selected = {
+    if = {
+        limit = {
+            FROM = { original_tag = GER }
+        }
+        has_idea = GRE_krupp
+    }
+    else_if = {
+        limit = {
+            FROM = { original_tag = SOV }
+        }
+        has_idea = GRE_stalingrad_tractor_factory
+    } 
+}
+
+has_appropriate_materiel_art_fm_selected = {
+    if = {
+        limit = {
+            FROM = { original_tag = GER }
+        }
+        has_idea = GRE_rheinmetall
+    }
+    else_if = {
+        limit = {
+            FROM = { original_tag = FRA }
+        }
+        has_idea = GRE_mas
+    }             
+    else_if = {
+        limit = {
+            FROM = { original_tag = SOV }
+        }
+        has_idea = GRE_grabin_design_bureau
+    } 
+    else_if = {
+        limit = {
+            FROM = { original_tag = USA }
+        }
+        has_idea = GRE_springfield_armory
+    }  
+}
+
+
+has_appropriate_materiel_mot_fm_selected = {
+    if = {
+        limit = {
+            FROM = { original_tag = JAP }
+        }
+        has_idea = GRE_nissan
+    }
+    else_if = {
+        limit = {
+            FROM = { original_tag = ITA }
+        }
+        has_idea = GRE_lancia
+    }  
+}
+
+has_appropriate_materiel_infeq_fm_selected = {
+    if = {
+        limit = {
+            FROM = { original_tag = GER }
+        }
+        has_idea = GRE_mauser
+    }
+    else_if = {
+        limit = {
+            FROM = { original_tag = ENG }
+        }
+        has_idea = GRE_rsaf_enfield
+    }          
+    else_if = {
+        limit = {
+            FROM = { original_tag = SOV }
+        }
+        has_idea = GRE_tula_arms_plant
+    }
+}
+
+has_appropriate_materiel_fm_selected = {
+    if = {
+        limit = {
+            FROM = { original_tag = GER }
+        }
+        OR = {
+            has_idea = GRE_mauser
+            has_idea = GRE_rheinmetall
+        } 
+    }
+    else_if = {
+        limit = {
+            FROM = { original_tag = ENG }
+        }
+        has_idea = GRE_rsaf_enfield
+    } 
+    else_if = {
+        limit = {
+            FROM = { original_tag = FRA }
+        }
+        has_idea = GRE_mas
+    }             
+    else_if = {
+        limit = {
+            FROM = { original_tag = SOV }
+        }
+        OR = {
+            has_idea = GRE_tula_arms_plant
+            has_idea = GRE_grabin_design_bureau
+        }
+    } 
+    else_if = {
+        limit = {
+            FROM = { original_tag = USA }
+        }
+        has_idea = GRE_springfield_armory
+    } 
+    else_if = {
+        limit = {
+            FROM = { original_tag = JAP }
+        }
+        has_idea = GRE_nissan
+    }
+    else_if = {
+        limit = {
+            FROM = { original_tag = ITA }
+        }
+        has_idea = GRE_lancia
+    }  
+}
+
+has_appropriate_aircraft_fm_selected = {
+    if = {
+        limit = {
+            FROM = { original_tag = GER }
+        }
+        has_idea = GRE_junkers
+    }
+    else_if = {
+        limit = {
+            FROM = { original_tag = ENG }
+        }
+        has_idea = GRE_supermarine
+    } 
+    else_if = {
+        limit = {
+            FROM = { original_tag = FRA }
+        }
+        has_idea = GRE_bloch
+    }             
+    else_if = {
+        limit = {
+            FROM = { original_tag = SOV }
+        }
+        has_idea = GRE_mig_design_bureau
+    } 
+    else_if = {
+        limit = {
+            FROM = { original_tag = USA }
+        }
+        has_idea = GRE_boeing
+    } 
+    else_if = {
+        limit = {
+            FROM = { original_tag = JAP }
+        }
+        has_idea = GRE_yokosuka
+    }  
+}
+
+has_appropriate_naval_fm_selected = {
+    if = {
+        limit = { FROM = { original_tag = GER } }
+        GRE = { has_idea = GRE_blohm_und_voss }
+    }
+    else_if = {
+        limit = { FROM = { original_tag = ENG } }
+        GRE = { has_idea = GRE_john_brown_company }
+    }
+    else_if = {
+        limit = { FROM = { original_tag = USA } }
+        GRE = { has_idea = GRE_electric_boat_company }
+    } 
+    else_if = {
+        limit = { FROM = { original_tag = JAP } }
+        GRE = { has_idea = GRE_kure_naval_arsenal }
+    }
+}
+
+has_appropriate_armor_fm_selected = {
+    if = {
+        limit = { FROM = { original_tag = GER } }
+        GRE = { has_idea = GRE_man }
+    }
+    else_if = {
+        limit = { FROM = { original_tag = ENG } }
+        GRE = { has_idea = GRE_vickers_armstrong }
+    } 
+    else_if = {
+        limit = { FROM = { original_tag = FRA } }
+        GRE = { has_idea = GRE_AMX }
+    }             
+    else_if = {
+        limit = { FROM = { original_tag = SOV } }
+        GRE = { has_idea = GRE_astrov_design_bureau }
+    } 
+    else_if = {
+        limit = { FROM = { original_tag = USA } }
+        GRE = { has_idea = GRE_chrysler }
+    } 
+    else_if = {
+        limit = { FROM = { original_tag = JAP } }
+        GRE = { has_idea = GRE_osaka_army_arsenal }
+    }
+    else_if = { 
+        limit = { FROM = { original_tag = ITA } }
+        GRE = { has_idea = GRE_fiat }
+    } 
+}
+
+#####################################
+############[Faction ARMY]###########
+#####################################
+
+is_faction_tmpF_hostile = {
+    if = {
+        limit = { check_variable = { tmpF = 0 } }                      #Monarchists
+        check_variable = { GRE.fct_mon < 40 }
+    }
+    else_if = {
+        limit = { check_variable = { tmpF = 1 } }                      #Republicans
+        check_variable = { GRE.fct_dem < 40 }
+    }
+    else_if = {
+        limit = { check_variable = { tmpF = 2 } }                      #Communists
+        check_variable = { GRE.fct_com < 40 }
+    }
+    else_if = {
+        limit = { check_variable = { tmpF = 3 } }                      #Fascists
+        check_variable = { GRE.fct_fas < 40 }
+    }
+}
+
+is_faction_tmpF_neutral = {
+    if = {
+        limit = { check_variable = { tmpF = 0 } }                      #Monarchists
+        check_variable = { GRE.fct_mon > 39.99 }
+        check_variable = { GRE.fct_mon < 60.00 }
+    }
+    else_if = {
+        limit = { check_variable = { tmpF = 1 } }                      #Republicans
+        check_variable = { GRE.fct_dem > 39.99 }
+        check_variable = { GRE.fct_dem < 60.00 }
+    }
+    else_if = {
+        limit = { check_variable = { tmpF = 2 } }                      #Communists
+        check_variable = { GRE.fct_com > 39.99 }
+        check_variable = { GRE.fct_com < 60.00 }
+    }
+    else_if = {
+        limit = { check_variable = { tmpF = 3 } }                      #Fascists
+        check_variable = { GRE.fct_fas > 39.99 }
+        check_variable = { GRE.fct_fas < 60.00 }
+    }
+}
+
+is_faction_tmpF_positive = {
+    if = {
+        limit = { check_variable = { tmpF = 0 } }                      #Monarchists
+        check_variable = { GRE.fct_mon > 59.99 }
+    }
+    else_if = {
+        limit = { check_variable = { tmpF = 1 } }                      #Republicans
+        check_variable = { GRE.fct_dem > 59.99 }
+    }
+    else_if = {
+        limit = { check_variable = { tmpF = 2 } }                      #Communists
+        check_variable = { GRE.fct_com > 59.99 }
+    }
+    else_if = {
+        limit = { check_variable = { tmpF = 3 } }                      #Fascists
+        check_variable = { GRE.fct_fas > 59.99 }
+    }
+}
+
+####################################
+###########[Investments]############
+####################################
+
+factories_within_investment_limit_FROM_to_GRE = {
+    # Base factories = 50, intel on us increases this limit.
+    set_temp_variable = { civ_intel_on_gre = FROM.civilian_intel@GRE }
+    if = {                                                              #y = -1.25x + 112.5
+        limit = {
+            check_variable = { FROM.civilian_intel@GRE < 50.00 }
+            check_variable = { FROM.civilian_intel@GRE > 9.99 }
+        }
+        multiply_temp_variable = { civ_intel_on_gre = -1.25 }
+        add_to_temp_variable = { civ_intel_on_gre = 112.5 }
+        check_variable = { GRE.num_of_factories < civ_intel_on_gre }
+    }
+    else_if = {
+        limit = {
+            check_variable = { FROM.civilian_intel@GRE < 10 }
+        }
+        check_variable = { GRE.num_of_factories < 125.01 }
+    }
+    else = {
+        check_variable = { GRE.num_of_factories < 50.01 }
+    }
+}
+
 ####################################
 #####[Metaxas Ribbentrop Pact]######
 ####################################
@@ -102,6 +469,29 @@ yugoslavian_stance_in_greco_italian_war_betrayal = {
 }
 
 ###
+
+has_fully_realized_the_balkan_pact = {
+    has_global_flag = balkan_pact_fully_completed
+}
+
+has_enacted_alliance_with_turkey = {
+    TUR = {
+        OR = {
+            has_country_flag = grecoturkish_alliance_offered
+            has_country_flag = grecoturkish_eden_plan
+        }
+    }
+}
+
+has_enacted_alliance_with_yugoslavia = {
+    YUG = {
+        OR = {
+            has_country_flag = grecoyugoslav_alliance
+            has_country_flag = grecoyugoslav_eden_plan_drawn_out
+        }
+    }
+}
+
 
 turkish_stance_in_greco_italian_war_alliance = {
     check_variable = { TUR.favor@GRE > 79 }
@@ -219,29 +609,149 @@ havent_frozen_debt_with_from = {
 current_ruling_monarchists = {
     custom_trigger_tooltip ={
         tooltip = current_ruling_mon_tt
-        has_government = neutrality
+        GRE = { has_government = neutrality }
     }
 }
 current_ruling_communists = {
     custom_trigger_tooltip ={
         tooltip = current_ruling_com_tt
-        has_government = communism
+        GRE = { has_government = communism }
     }
 }
 current_ruling_democrats = {
     custom_trigger_tooltip ={
         tooltip = current_ruling_dem_tt
-        has_government = democratic
+        GRE = { has_government = democratic }
     }
 }
 current_ruling_fascists = {
     custom_trigger_tooltip ={
         tooltip = current_ruling_fas_tt
-        has_government = fascism
+        GRE = { has_government = fascism }
     }
 }
 
-##########################################################################
+###[NEW NSB TRIGGERS FOR CHAIN OF COMMAND]###
+##[IDEOLOGY OK]###
+ideologically_tmpZ = {
+    if = {
+        limit = { has_trait = trait_GRE_stauch_monarchist_persona }
+        OR = {
+            current_ruling_monarchists = yes
+            custom_trigger_tooltip = {
+                tooltip = fct_at_least_mon_tt
+                check_variable = { GRE.fct_mon > 69 }
+            }
+        }
+    }
+    else_if = {
+        limit = { has_trait = trait_GRE_stauch_republican_persona }
+        OR = {
+            current_ruling_democrats = yes
+            custom_trigger_tooltip = {
+                tooltip = fct_at_least_dem_tt
+                check_variable = { GRE.fct_dem > 69 }
+            }
+        }
+    }
+    else_if = {
+        limit = { has_trait = trait_GRE_stauch_communist_persona }
+        OR = {
+            current_ruling_communists = yes
+            custom_trigger_tooltip = {
+                tooltip = fct_at_least_com_tt
+                check_variable = { GRE.fct_com > 69 }
+            }
+        }
+    }
+    else_if = {
+        limit = { has_trait = trait_GRE_stauch_fascist_persona }
+        OR = {
+            current_ruling_fascists = yes
+            custom_trigger_tooltip = {
+                tooltip = fct_at_least_fas_tt
+                check_variable = { GRE.fct_fas > 69 }
+            }
+        }
+    }
+    else_if = {
+        limit = { has_trait = trait_GRE_conventional_leanings }
+        OR = {
+            current_ruling_monarchists = yes
+            current_ruling_democrats = yes
+            custom_trigger_tooltip = {
+                tooltip = fct_at_least_mon_tt
+                check_variable = { GRE.fct_mon > 69 }
+            }
+            custom_trigger_tooltip = {
+                tooltip = fct_at_least_dem_tt
+                check_variable = { GRE.fct_dem > 69 }
+            }
+        }
+    }
+    else_if = {
+        limit = { has_trait = trait_GRE_socialdemocratic_leanings }
+        OR = {
+            current_ruling_democrats = yes
+            current_ruling_communists = yes
+            custom_trigger_tooltip = {
+                tooltip = fct_at_least_dem_tt
+                check_variable = { GRE.fct_dem > 69 }
+            }
+            custom_trigger_tooltip = {
+                tooltip = fct_at_least_com_tt
+                check_variable = { GRE.fct_com > 69 }
+            }
+        }
+    }
+    else_if = {
+        limit = { has_trait = trait_GRE_monarchofascism_leanings }
+        OR = {
+            current_ruling_monarchists = yes
+            current_ruling_fascists = yes
+            custom_trigger_tooltip = {
+                tooltip = fct_at_least_mon_tt
+                check_variable = { GRE.fct_mon > 69 }
+            }
+            custom_trigger_tooltip = {
+                tooltip = fct_at_least_fas_tt
+                check_variable = { GRE.fct_fas > 69 }
+            }
+        }
+    }
+    else_if = {
+        limit = { has_trait = trait_GRE_revolutionary_leanings }
+        OR = {
+            current_ruling_communists = yes
+            current_ruling_fascists = yes
+            custom_trigger_tooltip = {
+                tooltip = fct_at_least_com_tt
+                check_variable = { GRE.fct_com > 69 }
+            }
+            custom_trigger_tooltip = {
+                tooltip = fct_at_least_fas_tt
+                check_variable = { GRE.fct_fas > 69 }
+            }
+        }
+    }
+}
+##[Wanted for Dead]##
+is_not_retired = { custom_trigger_tooltip = { tooltip = retired_tt NOT = { has_character_flag = retired_character } } }
+no_longer_target_of_the_failed_coup = { custom_trigger_tooltip = { tooltip = humiliation_reverted_tt NOT = { has_character_flag = target_of_the_failed_coup } } }
+not_wanted_for_dead = { custom_trigger_tooltip = { tooltip = not_wanted_for_dead_tt NOT = { has_character_flag = wanted_for_dead } } }
+##[Purged/Surrendered/Dead]##
+not_psd = { custom_trigger_tooltip = { tooltip = not_purged_surrendered_dead NOT = { has_character_flag = purged_by_regime } NOT = { has_character_flag = surrendered_to_the_enemy } NOT = { has_character_flag = killed_in_action } } }
+does_not_have_known_army_chief_of_staff = {
+    amount_taken_ideas = { amount > 0 slots = { army_chief } }
+    NOT = {
+        GRE_alexandros_papagos = { has_character_flag = selected_as_army_chief }
+        GRE_markos_drakos = { has_character_flag = selected_as_army_chief }
+        GRE_georgios_stanotas = { has_character_flag = selected_as_army_chief }
+        GRE_napoleon_zervas = { has_character_flag = selected_as_army_chief }
+        GRE_konstantinos_davakis = { has_character_flag = selected_as_army_chief }
+    }
+}
+##########################################################################[OLD]
 not_purged_surrendered_dead_papagos = { custom_trigger_tooltip = { tooltip = not_purged_surrendered_dead check_variable = { hc_papagos_purged = 0 } check_variable = { hc_papagos_surrendered = 0 } check_variable = { hc_papagos_dead = 0 }}}
 not_purged_surrendered_dead_drakos = { custom_trigger_tooltip = { tooltip = not_purged_surrendered_dead check_variable = { hc_drakos_purged = 0 } check_variable = { hc_drakos_surrendered = 0 } check_variable = { hc_drakos_dead = 0 }}}
 not_purged_surrendered_dead_stanotas = { custom_trigger_tooltip = { tooltip = not_purged_surrendered_dead check_variable = { hc_stanotas_purged = 0 } check_variable = { hc_stanotas_surrendered = 0 } check_variable = { hc_stanotas_dead = 0 }}}
@@ -355,7 +865,7 @@ has_not_zervas_as_field_marshall = {
 dem_generals_exist = {
     custom_trigger_tooltip = {
         tooltip = dem_generals_exist_tt
-        any_army_leader = {
+        any_unit_leader = {
             has_trait = trait_GRE_stauch_republican_persona
         }
     }
@@ -364,7 +874,7 @@ dem_generals_exist = {
 com_generals_exist = {
     custom_trigger_tooltip = {
         tooltip = com_army_members_exist_tt
-        any_army_leader = {
+        any_unit_leader = {
             has_trait = trait_GRE_stauch_communist_persona
         }
     }
@@ -373,7 +883,11 @@ com_generals_exist = {
 undesired_generals_exist = {
     custom_trigger_tooltip = {
         tooltip = undesied_army_members_exist_tt
-        any_army_leader = {
+        any_unit_leader = {
+            OR = {
+                is_army_leader = yes
+                is_navy_leader = yes
+            }
             is_general_undesired = yes
         }
     }
@@ -382,7 +896,7 @@ undesired_generals_exist = {
 is_general_undesired = {
     OR = {
         if = {
-            limit = { has_trait = trait_gre_stauch_monarchist_persona }
+            limit = { has_trait = trait_GRE_stauch_monarchist_persona }
             NOT = { GRE = { has_government = neutrality } }
             check_variable = { var = GRE.fct_mon value = 70 compare = less_than }
         }
@@ -592,6 +1106,160 @@ has_neither_inf_leader_eng_trickster = {
 
 #####################################################
 
+
+####################################################################
+#################[German Situation in the Ostfront]#################
+####################################################################
+
+HS_GER_OST_on_the_verge_of_victory_lvl4 = {
+    var:global.province_controllers^3529 = { OR = { original_tag = GER is_in_faction_with = GER } } #Stalingrad
+    var:global.province_controllers^6380 = { OR = { original_tag = GER is_in_faction_with = GER } } #Moscow
+    var:global.province_controllers^3151 = { OR = { original_tag = GER is_in_faction_with = GER } } #Leningrad
+}
+
+HS_GER_OST_very_close_to_victory_lvl3 = {
+    count_triggers = {
+        amount = 2
+        var:global.province_controllers^3529 = { OR = { original_tag = GER is_in_faction_with = GER } } #Stalingrad
+        var:global.province_controllers^6380 = { OR = { original_tag = GER is_in_faction_with = GER } } #Moscow
+        var:global.province_controllers^3151 = { OR = { original_tag = GER is_in_faction_with = GER } } #Leningrad
+    }
+}
+
+HS_GER_OST_close_to_victory_lvl2 = {
+    count_triggers = {
+        amount = 1
+        var:global.province_controllers^3529 = { OR = { original_tag = GER is_in_faction_with = GER } } #Stalingrad
+        var:global.province_controllers^6380 = { OR = { original_tag = GER is_in_faction_with = GER } } #Moscow
+        var:global.province_controllers^3151 = { OR = { original_tag = GER is_in_faction_with = GER } } #Leningrad
+    }
+}
+
+HS_GER_OST_expanding_lvl1_at_least_tmpPER = {                                   # In total: 48.
+    multiply_temp_variable = { tmpPER = 48 }
+    round_temp_variable = tmpPER
+    meta_trigger = {
+        text = {
+            count_triggers = {
+                amount = [AMNT]
+                var:global.province_controllers^3734 = { OR = { original_tag = GER is_in_faction_with = GER } } #Krasnodar
+                var:global.province_controllers^9417 = { OR = { original_tag = GER is_in_faction_with = GER } } #Rostov
+                var:global.province_controllers^9461 = { OR = { original_tag = GER is_in_faction_with = GER } } #Voroshilovgrad
+                var:global.province_controllers^418 = { OR = { original_tag = GER is_in_faction_with = GER } } #Kharkov
+                var:global.province_controllers^6474 = { OR = { original_tag = GER is_in_faction_with = GER } } #Stalino
+                var:global.province_controllers^3580 = { OR = { original_tag = GER is_in_faction_with = GER } } #Kursk
+                var:global.province_controllers^413 = { OR = { original_tag = GER is_in_faction_with = GER } } #Voronezh
+                var:global.province_controllers^9355 = { OR = { original_tag = GER is_in_faction_with = GER } } #Orel
+                var:global.province_controllers^3335 = { OR = { original_tag = GER is_in_faction_with = GER } } #Bryansk
+                var:global.province_controllers^6262 = { OR = { original_tag = GER is_in_faction_with = GER } } #Tula
+                var:global.province_controllers^6398 = { OR = { original_tag = GER is_in_faction_with = GER } } #Lipetsk
+                var:global.province_controllers^382 = { OR = { original_tag = GER is_in_faction_with = GER } } #Kaluga
+                var:global.province_controllers^11336 = { OR = { original_tag = GER is_in_faction_with = GER } } #Roslavl
+                var:global.province_controllers^306 = { OR = { original_tag = GER is_in_faction_with = GER } } #Smolensk
+                var:global.province_controllers^11241 = { OR = { original_tag = GER is_in_faction_with = GER } } #Vitebsk
+                var:global.province_controllers^9289 = { OR = { original_tag = GER is_in_faction_with = GER } } #Mogilev
+                var:global.province_controllers^11234 = { OR = { original_tag = GER is_in_faction_with = GER } } #Luki
+                var:global.province_controllers^117 = { OR = { original_tag = GER is_in_faction_with = GER } } #Novgorod
+                var:global.province_controllers^9197 = { OR = { original_tag = GER is_in_faction_with = GER } } #Volkhov
+                var:global.province_controllers^9098 = { OR = { original_tag = GER is_in_faction_with = GER } } #Luga
+                var:global.province_controllers^11202 = { OR = { original_tag = GER is_in_faction_with = GER } } #Pskov
+                var:global.province_controllers^4640 = { OR = { original_tag = GER is_in_faction_with = GER } } #Narva
+                var:global.province_controllers^3152 = { OR = { original_tag = GER is_in_faction_with = GER } } #Tallin
+                var:global.province_controllers^185 = { OR = { original_tag = GER is_in_faction_with = GER } } #Kuressaare
+                var:global.province_controllers^9340 = { OR = { original_tag = GER is_in_faction_with = GER } } #Riga
+                var:global.province_controllers^3255 = { OR = { original_tag = GER is_in_faction_with = GER } } #Jekabils
+                var:global.province_controllers^310 = { OR = { original_tag = GER is_in_faction_with = GER } } #Daugavils
+                var:global.province_controllers^406 = { OR = { original_tag = GER is_in_faction_with = GER } } #Motodeczno
+                var:global.province_controllers^11370 = { OR = { original_tag = GER is_in_faction_with = GER } } #Minsk
+                var:global.province_controllers^3350 = { OR = { original_tag = GER is_in_faction_with = GER } } #Bobruysk
+                var:global.province_controllers^9288 = { OR = { original_tag = GER is_in_faction_with = GER } } #Gomel
+                var:global.province_controllers^525 = { OR = { original_tag = GER is_in_faction_with = GER } } #Kiev
+                var:global.province_controllers^488 = { OR = { original_tag = GER is_in_faction_with = GER } } #Cherkasy
+                var:global.province_controllers^11561 = { OR = { original_tag = GER is_in_faction_with = GER } } #Krivol Rih
+                var:global.province_controllers^11437 = { OR = { original_tag = GER is_in_faction_with = GER } } #Dnipropetrovsk
+                var:global.province_controllers^11405 = { OR = { original_tag = GER is_in_faction_with = GER } } #Zaporozhe
+                var:global.province_controllers^3686 = { OR = { original_tag = GER is_in_faction_with = GER } } #Sevastopol
+                var:global.province_controllers^9680 = { OR = { original_tag = GER is_in_faction_with = GER } } #Kerch
+                var:global.province_controllers^11670 = { OR = { original_tag = GER is_in_faction_with = GER } } #Odessa
+                var:global.province_controllers^476 = { OR = { original_tag = GER is_in_faction_with = GER } } #Vinnytsia
+                var:global.province_controllers^11479 = { OR = { original_tag = GER is_in_faction_with = GER } } #Lwow
+                var:global.province_controllers^3392 = { OR = { original_tag = GER is_in_faction_with = GER } } #Brzesc Litewski
+                var:global.province_controllers^11301 = { OR = { original_tag = GER is_in_faction_with = GER } } #Bialystok
+                var:global.province_controllers^3320 = { OR = { original_tag = GER is_in_faction_with = GER } } #Vilnius
+                var:global.province_controllers^6296 = { OR = { original_tag = GER is_in_faction_with = GER } } #Kaunas
+                var:global.province_controllers^9483 = { OR = { original_tag = GER is_in_faction_with = GER } } #Siauliai
+                var:global.province_controllers^9262 = { OR = { original_tag = GER is_in_faction_with = GER } } #Liepaja
+                var:global.province_controllers^3296 = { OR = { original_tag = GER is_in_faction_with = GER } } #Ventspils
+            }
+        }
+        AMNT = "[?tmpPER|.0]"
+    }
+}
+
+HS_GER_OST_collapsing_lvl0 = {
+    46 = { THIS.controller = { is_in_faction_with = SOV } }
+}
+
+####################################################################
+#################[German Situation in the Westfront]################
+####################################################################
+
+HS_GER_WST_main_westwall_integrity_violated = {
+    any_country = {
+        has_war_with = GER
+        any_of = {
+            array = global.main_westwall_state_array
+            army_manpower_in_state = { state=v amount>0 }
+        }
+    }
+}
+
+HS_GER_WST_paris_liberated = { 
+    var:global.province_controllers^11506 = { has_war_with=GER } #Paris
+}
+
+####################################################################
+#################[German Situation in the Nordfront]################
+####################################################################
+
+HS_GER_WST_nord_westwall_integrity_violated = {
+    any_country = {
+        has_war_with = GER
+        any_of = {
+            array = global.nord_westwall_state_array
+            army_manpower_in_state = { state=v amount>0 }
+        }
+    }
+}
+
+####################################################################
+##################[German Situation in the Sudfront]################
+####################################################################
+
+HS_AXIS_SUD_Afrika_Conquered = {
+    any_country = {
+        has_war_with = GER
+        any_of = {
+            array = global.north_afrikan_states
+            NOT = { controls_state = var:v }
+        }
+    }
+}
+
+HS_AXIS_SUD_Afrika_Lost = {
+    any_country = {
+        has_war_with = GER
+        NOT = {
+            any_of = {
+                array = global.north_afrikan_states
+                army_manpower_in_state = { state=v amount>0 }
+            }
+        }
+    }
+}
+
+####################################################################
+
 crete_is_no_loose_end = {
     custom_trigger_tooltip = {
         tooltip = crete_is_no_loose_end_tt
@@ -617,6 +1285,33 @@ hellenic_state_has_formed_for_a_bit = {
     }
 }
 
+has_any_negative_black_market_level = {
+    OR = {
+        has_dynamic_modifier = { modifier = black_market_obscure }
+        has_dynamic_modifier = { modifier = black_market_cemented }
+        has_dynamic_modifier = { modifier = black_market_ubshakeable }
+    }
+}
+
+has_any_positive_black_market_level = {
+    OR = {
+        has_dynamic_modifier = { modifier = black_market_obscure_controlled }
+        has_dynamic_modifier = { modifier = black_market_cemented_controlled }
+        has_dynamic_modifier = { modifier = black_market_ubshakeable_controlled }
+    }
+}
+
+has_any_black_market_level = {
+    OR = {
+        has_dynamic_modifier = { modifier = black_market_obscure }
+        has_dynamic_modifier = { modifier = black_market_cemented }
+        has_dynamic_modifier = { modifier = black_market_ubshakeable }
+        has_dynamic_modifier = { modifier = black_market_obscure_controlled }
+        has_dynamic_modifier = { modifier = black_market_cemented_controlled }
+        has_dynamic_modifier = { modifier = black_market_ubshakeable_controlled }
+    }
+}
+
 has_axis_occupation = {
     custom_trigger_tooltip = {
         tooltip = has_axis_occupation_tt
@@ -625,6 +1320,12 @@ has_axis_occupation = {
             has_global_flag = GRE_government_in_exile
         }    
     }
+}
+
+has_respective_behavior = {
+    #OR = { 
+    check_variable = { THIS.GAR_BEH@GRE = 2 }
+    #}
 }
 
 gre_hs_xor_trigger_only = {                                                         #Contrary to the effect, here we ONLY check if a human player is playing Greece/HS                                              
@@ -652,24 +1353,20 @@ has_black_market_negative = {
 }
 
 belongs_in_the_allied_sphere = {
-    any_country = {
-        OR = {
-            check_variable = { PREV.id = ENG.id }
-            check_variable = { PREV.id = USA.id }
-            check_variable = { PREV.id = FRA.id }
-            is_in_faction_with = ENG
-        }
+    OR = { 
+        original_tag = ENG
+        original_tag = USA
+        original_tag = FRA
+        is_in_faction_with = ENG
     }
 }
 
 belongs_in_the_axis_sphere = {
-    any_country = { 
-        OR = {
-            check_variable = { PREV.id = GER.id }
-            check_variable = { PREV.id = ITA.id }
-            check_variable = { PREV.id = JAP.id }
-            is_in_faction_with = GER
-        }
+    OR = { 
+        original_tag = GER
+        original_tag = ITA
+        original_tag = JAP
+        is_in_faction_with = GER
     }
 }
 

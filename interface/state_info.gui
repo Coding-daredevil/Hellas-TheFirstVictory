@@ -36,11 +36,11 @@ guiTypes = {
 			font = "hoi_26mbs"
 			borderSize = {x = 0 y = 0}
 			text = state_info_gui_state_controller
-			maxWidth = 470
+            pdx_tooltip_delayed = state_info_gui_state_controller_tt
+			maxWidth = 250
 			maxHeight = 20
 			format = left	
 		}
-        
         
         instantTextboxType = {
             name = "x2_2"
@@ -335,28 +335,43 @@ guiTypes = {
 
             instantTextboxType = {
                 name = "x2_2_1"
-                position = { x = 0 y = 45 }
+                position = { x = 125 y = 45 }
                 textureFile = ""
                 font = "vic_22s"
                 borderSize = {x = 0 y = 0}
                 text = state_info_gui_garrison_1
-                maxWidth = 470
+                pdx_tooltip = state_info_gui_garrison_1_siz_tt
+                maxWidth = 220
                 maxHeight = 20
-                allwaystransparent = yes
+                allwaystransparent = no
                 format = center		
             }
+            
             instantTextboxType = {
                 name = "x2_2_2"
-                position = { x = 0 y = 90 }
+                position = { x = 125 y = 90 }
                 textureFile = ""
                 font = "vic_22s"
                 borderSize = {x = 0 y = 0}
                 text = state_info_gui_garrison_2
-                maxWidth = 470
+                pdx_tooltip = state_info_gui_garrison_1_equ_tt
+                maxWidth = 220
                 maxHeight = 20
-                allwaystransparent = yes
+                allwaystransparent = no
                 format = center	
             }
+            #instantTextboxType = {
+            #    name = "x2_2_3"
+            #    position = { x = 0 y = 125 }
+            #    textureFile = ""
+            #    font = "vic_22s"
+            #    borderSize = {x = 0 y = 0}
+            #    text = state_info_gui_garrison_3
+            #    maxWidth = 470
+            #    maxHeight = 20
+            #    allwaystransparent = yes
+            #    format = center	
+            #}
 
             #iconType = {
             #    name = "resistance_controller_lack_of_local" 
@@ -559,5 +574,1948 @@ guiTypes = {
 			name = "Resistance_Background"
 			spriteType = "GFX_tiled_paper_w_frame_bg"
 		}
+
+        containerWindowType = {
+            name = "x1"
+            position = { x = 15 y = 18 }
+            size = { width = 320 height = 110 }
+
+            background = {
+                name = "x1"
+                quadTextureSprite ="GFX_tiled_paper_bg"
+                position = { x=0 y=0 }					
+            }
+
+            instantTextboxType = {
+                name = "troop_deployment_menu"
+                position = { x = 75 y = 5 }
+                textureFile = ""
+                font = "vic_22s"
+                borderSize = {x = 0 y = 0}
+                text = state_info_gui_troop_deployment_menu
+                pdx_tooltip = state_info_gui_troop_deployment_menu_1_tt
+                pdx_tooltip_delayed = state_info_gui_troop_deployment_menu_2_tt
+                maxWidth = 170
+                maxHeight = 20
+                allwaystransparent = no
+                format = center		
+            }
+
+            iconType = {
+                name ="number_box_bg"
+                spriteType = "GFX_generic_text_bg_108"
+                position = { x=160 y=35 }
+                alwaystransparent = yes
+            }
+
+            instantTextboxType = {
+                name = "troop_deployment"
+                position = { x = 5 y = 38 }
+                textureFile = ""
+                font = "vic_20s"
+                borderSize = {x = 0 y = 0}
+                text = state_info_gui_troop_deployment_menu_add_from_reserves
+                maxWidth = 150
+                maxHeight = 20
+                allwaystransparent = no
+                format = center		
+            }
+
+            instantTextboxType = {
+                name = "troop_deployment_box"
+                position = { x = 160 y = 38 }
+                textureFile = ""
+                font = "vic_22s"
+                borderSize = {x = 0 y = 0}
+                text = "[?th|0]"
+                maxWidth = 108
+                maxHeight = 20
+                allwaystransparent = no
+                format = center
+            }
+
+            buttonType = {
+                name = "increase_amount_button"
+                quadTextureSprite ="GFX_zoom_in"
+                position = { x = 265 y = 33 }
+                scale = 0.6
+                clicksound = click_default
+            }
+
+            buttonType = {
+                name = "decrease_amount_button"
+                quadTextureSprite ="GFX_zoom_out"
+                position = { x = 265 y = 47 }
+                scale = 0.6
+                clicksound = click_default
+            }
+
+            buttonType = {
+                name = "td_return_choice"
+                position = { x = 100 y = 77 }
+                spriteType = "GFX_button_123x34"
+                quadTextureSprite ="button_type_2"	
+                buttonFont = "vic_18"
+                clicksound = click_default
+                text = "[GetTDeploymentReturnChoice]"
+            }
+
+            buttonType = {
+                name = "td_confirm_arrangement"
+                position = {x=175 y=77}
+                spriteType = "GFX_button_123x34"
+                quadTextureSprite ="button_type_1"	
+                #buttonText = "AIRWING_SPLIT_CONFIRM"
+                buttonFont = "vic_18"
+                #shortcut = "RETURN"
+                clicksound = click_default
+                text = "[GetTDeploymentReturnChoiceConfirm]"
+            }
+        }
+
+        containerWindowType = {
+            name = "x2"
+            position = { x = 15 y = 128 }
+            size = { width = 320 height = 160 }
+
+            background = {
+                name = "x1"
+                quadTextureSprite ="GFX_tiled_paper_bg"
+                position = { x=0 y=0 }					
+            }
+
+            instantTextboxType = {
+                name = "troop_composition_menu"
+                position = { x = 85 y = 5 }
+                textureFile = ""
+                font = "vic_22s"
+                borderSize = {x = 0 y = 0}
+                text = state_info_gui_troop_composition_menu
+                pdx_tooltip = state_info_gui_troop_composition_menu_1_tt
+                pdx_tooltip_delayed = state_info_gui_troop_composition_menu_2_tt
+                maxWidth = 150
+                maxHeight = 20
+                allwaystransparent = no
+                format = center		
+            }
+
+            iconType = {
+                name ="combatant_percentage_number_box_bg"
+                spriteType = "GFX_generic_text_bg_108"
+                position = { x=160 y=30 }
+                alwaystransparent = yes
+            }
+
+            instantTextboxType = {
+                name = "combatant_percentage"
+                position = { x = 5 y = 33 }
+                textureFile = ""
+                font = "vic_20s"
+                borderSize = {x = 0 y = 0}
+                text = state_info_gui_troop_composition_menu_add_to_combatant_percentage
+                maxWidth = 150
+                maxHeight = 20
+                allwaystransparent = no
+                format = center		
+            }
+
+            instantTextboxType = {
+                name = "combatant_percentage_box"
+                position = { x = 160 y = 33 }
+                textureFile = ""
+                font = "vic_22s"
+                borderSize = {x = 0 y = 0}
+                text = "[?combatant_percentage|0%]"
+                maxWidth = 108
+                maxHeight = 20
+                allwaystransparent = no
+                format = center
+            }
+
+            buttonType = {
+                name = "combatant_percentage_increase_amount_button"
+                quadTextureSprite ="GFX_zoom_in"
+                position = { x = 265 y = 28 }
+                scale = 0.6
+                clicksound = click_default
+            }
+
+            buttonType = {
+                name = "combatant_percentage_decrease_amount_button"
+                quadTextureSprite ="GFX_zoom_out"
+                position = { x = 265 y = 42 }
+                scale = 0.6
+                clicksound = click_default
+            }
+            #############################################################################
+            iconType = {
+                name ="noncombatant_percentage_number_box_bg"
+                spriteType = "GFX_generic_text_bg_108"
+                position = { x=160 y=60 }
+                alwaystransparent = yes
+            }
+
+            instantTextboxType = {
+                name = "noncombatant_percentage"
+                position = { x = 5 y = 63 }
+                textureFile = ""
+                font = "vic_20s"
+                borderSize = {x = 0 y = 0}
+                text = state_info_gui_troop_composition_menu_add_to_noncombatant_percentage
+                maxWidth = 150
+                maxHeight = 20
+                allwaystransparent = no
+                format = center		
+            }
+
+            instantTextboxType = {
+                name = "noncombatant_percentage_box"
+                position = { x = 160 y = 63 }
+                textureFile = ""
+                font = "vic_22s"
+                borderSize = {x = 0 y = 0}
+                text = "[?noncombatant_percentage|0%]"
+                maxWidth = 108
+                maxHeight = 20
+                allwaystransparent = no
+                format = center
+            }
+
+            buttonType = {
+                name = "noncombatant_percentage_increase_amount_button"
+                quadTextureSprite ="GFX_zoom_in"
+                position = { x = 265 y = 58 }
+                scale = 0.6
+                clicksound = click_default
+            }
+
+            buttonType = {
+                name = "noncombatant_percentage_decrease_amount_button"
+                quadTextureSprite ="GFX_zoom_out"
+                position = { x = 265 y = 72 }
+                scale = 0.6
+                clicksound = click_default
+            }
+            #############################################################################
+            iconType = {
+                name ="reservist_percentage_number_box_bg"
+                spriteType = "GFX_generic_text_bg_108"
+                position = { x=160 y=90 }
+                alwaystransparent = yes
+            }
+
+            instantTextboxType = {
+                name = "reservist_percentage"
+                position = { x = 5 y = 93 }
+                textureFile = ""
+                font = "vic_20s"
+                borderSize = {x = 0 y = 0}
+                text = state_info_gui_troop_composition_menu_add_to_reservist_percentage
+                maxWidth = 150
+                maxHeight = 20
+                allwaystransparent = no
+                format = center		
+            }
+
+            instantTextboxType = {
+                name = "reservist_percentage_box"
+                position = { x = 160 y = 93 }
+                textureFile = ""
+                font = "vic_22s"
+                borderSize = {x = 0 y = 0}
+                text = "[?reservist_percentage|0%]"
+                maxWidth = 108
+                maxHeight = 20
+                allwaystransparent = no
+                format = center
+            }
+
+            buttonType = {
+                name = "reservist_percentage_increase_amount_button"
+                quadTextureSprite ="GFX_zoom_in"
+                position = { x = 265 y = 88 }
+                scale = 0.6
+                clicksound = click_default
+            }
+
+            buttonType = {
+                name = "reservist_percentage_decrease_amount_button"
+                quadTextureSprite ="GFX_zoom_out"
+                position = { x = 265 y = 102 }
+                scale = 0.6
+                clicksound = click_default
+            }
+
+            buttonType = {
+                name = "realign_percentages"
+                position = {x=97 y=123}
+                spriteType = "GFX_button_123x34"
+                quadTextureSprite ="button_type_2"	
+                #buttonText = "AIRWING_SPLIT_CONFIRM"
+                buttonFont = "vic_18"
+                #shortcut = "RETURN"
+                clicksound = click_default
+                text = "Fix Sum"
+            }
+
+            buttonType = {
+                name = "confirm_restructure"
+                position = {x=175 y=123}
+                spriteType = "GFX_button_123x34"
+                quadTextureSprite ="button_type_1"	
+                #buttonText = "AIRWING_SPLIT_CONFIRM"
+                buttonFont = "vic_18"
+                #shortcut = "RETURN"
+                clicksound = click_default
+                text = "Order Restructure"
+            }
+        }
+
+        containerWindowType = {
+            name = "x3"
+            position = { x = 15 y = 288 }
+            size = { width = 320 height = 160 }
+
+            background = {
+                name = "x1"
+                quadTextureSprite ="GFX_tiled_paper_bg"
+                position = { x=0 y=0 }					
+            }
+
+            instantTextboxType = {
+                name = "equipment_deployment_menu"
+                position = { x = 75 y = 5 }
+                textureFile = ""
+                font = "vic_22s"
+                borderSize = {x = 0 y = 0}
+                text = state_info_gui_equipment_deployment_menu
+                pdx_tooltip = state_info_gui_equipment_deployment_menu_1_tt
+                pdx_tooltip_delayed = state_info_gui_equipment_deployment_menu_2_tt
+                maxWidth = 170
+                maxHeight = 20
+                allwaystransparent = no
+                format = center		
+            }
+
+            iconType = {
+                name ="infeq_percentage_number_box_bg"
+                spriteType = "GFX_generic_text_bg_108"
+                position = { x=160 y=30 }
+                alwaystransparent = yes
+            }
+
+            instantTextboxType = {
+                name = "infeq"
+                position = { x = 5 y = 33 }
+                textureFile = ""
+                font = "vic_20s"
+                borderSize = {x = 0 y = 0}
+                text = state_info_gui_equip_deployment_menu_add_to_infeq
+                maxWidth = 150
+                maxHeight = 20
+                allwaystransparent = no
+                format = center		
+            }
+
+            instantTextboxType = {
+                name = "infeq_box"
+                position = { x = 160 y = 33 }
+                textureFile = ""
+                font = "vic_22s"
+                borderSize = {x = 0 y = 0}
+                text = "[?infeq|0]"
+                maxWidth = 108
+                maxHeight = 20
+                allwaystransparent = no
+                format = center
+            }
+
+            buttonType = {
+                name = "infeq_increase_amount_button"
+                quadTextureSprite ="GFX_zoom_in"
+                position = { x = 265 y = 28 }
+                scale = 0.6
+                clicksound = click_default
+            }
+
+            buttonType = {
+                name = "infeq_decrease_amount_button"
+                quadTextureSprite ="GFX_zoom_out"
+                position = { x = 265 y = 42 }
+                scale = 0.6
+                clicksound = click_default
+            }
+            #############################################################################
+            iconType = {
+                name ="supeq_number_box_bg"
+                spriteType = "GFX_generic_text_bg_108"
+                position = { x=160 y=60 }
+                alwaystransparent = yes
+            }
+
+            instantTextboxType = {
+                name = "supeq"
+                position = { x = 5 y = 63 }
+                textureFile = ""
+                font = "vic_20s"
+                borderSize = {x = 0 y = 0}
+                text = state_info_gui_equip_deployment_menu_add_to_supeq
+                maxWidth = 150
+                maxHeight = 20
+                allwaystransparent = no
+                format = center		
+            }
+
+            instantTextboxType = {
+                name = "supeq_box"
+                position = { x = 160 y = 63 }
+                textureFile = ""
+                font = "vic_22s"
+                borderSize = {x = 0 y = 0}
+                text = "[?supeq|0]"
+                maxWidth = 108
+                maxHeight = 20
+                allwaystransparent = no
+                format = center
+            }
+
+            buttonType = {
+                name = "supeq_increase_amount_button"
+                quadTextureSprite ="GFX_zoom_in"
+                position = { x = 265 y = 58 }
+                scale = 0.6
+                clicksound = click_default
+            }
+
+            buttonType = {
+                name = "supeq_decrease_amount_button"
+                quadTextureSprite ="GFX_zoom_out"
+                position = { x = 265 y = 72 }
+                scale = 0.6
+                clicksound = click_default
+            }
+            #############################################################################
+            iconType = {
+                name ="arteq_number_box_bg"
+                spriteType = "GFX_generic_text_bg_108"
+                position = { x=160 y=90 }
+                alwaystransparent = yes
+            }
+
+            instantTextboxType = {
+                name = "arteq"
+                position = { x = 5 y = 93 }
+                textureFile = ""
+                font = "vic_20s"
+                borderSize = {x = 0 y = 0}
+                text = state_info_gui_equip_deployment_menu_add_to_arteq
+                maxWidth = 150
+                maxHeight = 20
+                allwaystransparent = no
+                format = center		
+            }
+
+            instantTextboxType = {
+                name = "arteq_box"
+                position = { x = 160 y = 93 }
+                textureFile = ""
+                font = "vic_22s"
+                borderSize = {x = 0 y = 0}
+                text = "[?arteq|0]"
+                maxWidth = 108
+                maxHeight = 20
+                allwaystransparent = no
+                format = center
+            }
+
+            buttonType = {
+                name = "arteq_increase_amount_button"
+                quadTextureSprite ="GFX_zoom_in"
+                position = { x = 265 y = 88 }
+                scale = 0.6
+                clicksound = click_default
+            }
+
+            buttonType = {
+                name = "arteq_decrease_amount_button"
+                quadTextureSprite ="GFX_zoom_out"
+                position = { x = 265 y = 102 }
+                scale = 0.6
+                clicksound = click_default
+            }
+
+            buttonType = {
+                name = "return_choice"
+                position = { x = 100 y = 122 }
+                spriteType = "GFX_button_123x34"
+                quadTextureSprite ="button_type_2"	
+                buttonFont = "vic_18"
+                clicksound = click_default
+                text = "[GetEquipDeployReturnChoice]"
+            }
+
+            buttonType = {
+                name = "confirm_arrangement"
+                position = {x=175 y=123}
+                spriteType = "GFX_button_123x34"
+                quadTextureSprite ="button_type_1"	
+                #buttonText = "AIRWING_SPLIT_CONFIRM"
+                buttonFont = "vic_18"
+                #shortcut = "RETURN"
+                clicksound = click_default
+                text = "Order Arrangement"
+            }
+        }
+        ########################################################
+        ########################################################
+        ########################################################
+        
+        containerWindowType = {
+            name = "x5"
+            position = { x = 15 y = 448 }
+            size = { width = 320 height = 285 }
+
+            background = {
+                name = "x1"
+                quadTextureSprite ="GFX_tiled_paper_bg"
+                position = { x=0 y=0 }					
+            }
+
+            containerWindowType = {
+                name = "x41"
+                position = { x = 2 y = 2 }
+                size = { width = 70 height = 70 }
+
+                background = {
+                    name = "x1"
+                    quadTextureSprite ="GFX_tiled_plain_bg_small"
+                    position = { x=0 y=0 }					
+                }
+
+                buttonType = {
+                    name = "cycle_behavior_unarmed"
+                    position = {x=3 y=8}
+                    spriteType = "GFX_goal_hs_make_res_contacts"
+                    pdx_disabled_tooltip = "cycle_behavior_unarmed_disabled_tt"
+                    scale = 0.7
+                    clicksound = click_default
+                }
+
+                buttonType = {
+                    name = "cycle_behavior_armed"
+                    position = {x=3 y=8}
+                    spriteType = "GFX_goal_hs_light_up"
+                    scale = 0.7
+                    clicksound = click_default
+                }
+
+                buttonType = {
+                    name = "cycle_behavior_behavior"
+                    position = {x=0 y=6}
+                    spriteType = "GFX_goal_gre_resistance"
+                    scale = 0.7
+                    clicksound = click_default
+                }
+            }
+
+            containerWindowType = {
+                name = "x42"
+                position = { x = 68 y = 2 }
+                size = { width = 170 height = 70 }
+
+                background = {
+                    name = "x1"
+                    quadTextureSprite ="GFX_tiled_plain_bg_small"
+                    position = { x=0 y=0 }					
+                }
+
+                instantTextboxType = {
+                    name = "x42_exp"
+                    position = { x = 5 y = 24 }
+                    textureFile = ""
+                    font = "vic_22s"
+                    borderSize = {x = 0 y = 0}
+                    text = "[GetStateGuiResPanel]"
+                    maxWidth = 160
+                    maxHeight = 70
+                    allwaystransparent = no
+                    format = center
+                }
+            }
+
+            containerWindowType = {
+            name = "x42b"
+            position = { x = 235 y = 2 }
+            size = { width = 82 height = 70 }
+
+                background = {
+                    name = "x1"
+                    quadTextureSprite ="GFX_tiled_plain_bg_small"
+                    position = { x=0 y=0 }					
+                }
+
+                #buttonType = {
+                #    name = "show_non_resisting_container_checkbox"
+                #    position = { x = 5 y = 10 }
+                #    quadTextureSprite ="GFX_generic_checkbox"
+                #    clicksound = click_checkbox
+                #    frame=2
+                #}
+            }
+
+            #############[Behavior]#############
+
+            containerWindowType = {
+                name = "behavior_container_1"
+                position = { x = 2 y = 69 }
+                size = { width = 128 height = 178 }
+			    drag_scroll = { left middle }
+			    verticalScrollbar = "right_vertical_slider"
+
+                background = {
+                    name = "x1"
+                    quadTextureSprite ="GFX_tiled_plain_bg_small"
+                    position = { x=0 y=0 }					
+                }
+
+                buttonType = {
+                    name = "item_0"
+                    position = { x = 6 y = 10 }
+                    quadTextureSprite ="button_type_9"	
+                    buttonText = "[GetStateInfoGuiChoice1]"
+                    buttonFont = "Main_14"
+                    clicksound = click_default
+                    oversound = ui_menu_over
+                }
+                buttonType = {
+                    name = "item_1"
+                    position = { x = 6 y = 40 }
+                    quadTextureSprite ="button_type_9"	
+                    buttonText = "[GetStateInfoGuiChoice2]"
+                    buttonFont = "Main_14"
+                    clicksound = click_default
+                    oversound = ui_menu_over
+                }
+                buttonType = {
+                    name = "item_2"
+                    position = { x = 6 y = 72 }
+                    quadTextureSprite ="button_type_9"	
+                    buttonText = "[GetStateInfoGuiChoice3]"
+                    pdx_disabled_tooltip = item_2_disabled_tt
+                    buttonFont = "Main_14"
+                    clicksound = click_default
+                    oversound = ui_menu_over
+                }
+                buttonType = {
+                    name = "item_3"
+                    position = { x = 6 y = 104 }
+                    quadTextureSprite ="button_type_9"	
+                    buttonText = "[GetStateInfoGuiChoice4]"
+                    pdx_disabled_tooltip = item_3_disabled_tt
+                    buttonFont = "Main_14"
+                    clicksound = click_default
+                    oversound = ui_menu_over
+                }
+                buttonType = {
+                    name = "item_4"
+                    position = { x = 6 y = 136 }
+                    quadTextureSprite ="button_type_9"	
+                    buttonText = "[GetStateInfoGuiChoice5]"
+                    buttonFont = "Main_14"
+                    clicksound = click_default
+                    oversound = ui_menu_over
+                }
+                buttonType = {
+                    name = "item_5"
+                    position = { x = 6 y = 168 }
+                    quadTextureSprite ="button_type_9"	
+                    buttonText = "[GetStateInfoGuiChoice6]"
+                    buttonFont = "Main_14"
+                    clicksound = click_default
+                    oversound = ui_menu_over
+                }
+                buttonType = {
+                    name = "item_6"
+                    position = { x = 6 y = 200 }
+                    quadTextureSprite ="button_type_9"	
+                    buttonText = "[GetStateInfoGuiChoice7]"
+                    buttonFont = "Main_14"
+                    clicksound = click_default
+                    oversound = ui_menu_over
+                }
+                buttonType = {
+                    name = "item_7"
+                    position = { x = 6 y = 232 }
+                    quadTextureSprite ="button_type_9"	
+                    buttonText = "[GetStateInfoGuiChoice8]"
+                    buttonFont = "Main_14"
+                    clicksound = click_default
+                    oversound = ui_menu_over
+                }
+                buttonType = {
+                    name = "item_8"
+                    position = { x = 6 y = 264 }
+                    quadTextureSprite ="button_type_9"	
+                    buttonText = "END"
+                    buttonFont = "Main_14"
+                    clicksound = click_default
+                    oversound = ui_menu_over
+                }
+            }
+            containerWindowType = {
+                name = "behavior_container_2"
+                position = { x = 121 y = 69 }
+                size = { width = 196 height = 64 }
+
+                background = {
+                    name = "x1"
+                    quadTextureSprite ="GFX_tiled_plain_bg_small"
+                    position = { x=0 y=0 }					
+                }
+
+                instantTextboxType = {
+                    name = "food_distribution_top_1"
+                    position = { x = 0 y = 21 }
+                    textureFile = ""
+                    font = "vic_22s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_food_distribution_top_tt
+                    maxWidth = 196
+                    maxHeight = 20
+                    format = center	
+                }
+
+                instantTextboxType = {
+                    name = "reconnaissance_top_1"
+                    position = { x = 0 y = 21 }
+                    textureFile = ""
+                    font = "vic_22s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_reconnaissance_top_tt
+                    maxWidth = 196
+                    maxHeight = 20
+                    format = center	
+                }
+
+                instantTextboxType = {
+                    name = "intel_gathering_top_1"
+                    position = { x = 0 y = 21 }
+                    textureFile = ""
+                    font = "vic_22s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_intel_gathering_top_tt
+                    maxWidth = 196
+                    maxHeight = 20
+                    format = center	
+                }
+
+                instantTextboxType = {
+                    name = "route_planning_top_1"
+                    position = { x = 0 y = 21 }
+                    textureFile = ""
+                    font = "vic_22s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_route_planning_top_tt
+                    maxWidth = 196
+                    maxHeight = 20
+                    format = center	
+                }
+
+                instantTextboxType = {
+                    name = "fortify_position_top_1"
+                    position = { x = 0 y = 21 }
+                    textureFile = ""
+                    font = "vic_22s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_fortify_position_top_tt
+                    maxWidth = 196
+                    maxHeight = 20
+                    format = center	
+                }
+
+                instantTextboxType = {
+                    name = "inspire_populace_top_1"
+                    position = { x = 0 y = 21 }
+                    textureFile = ""
+                    font = "vic_22s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_inspire_populace_top_tt
+                    maxWidth = 196
+                    maxHeight = 20
+                    format = center	
+                }
+
+                instantTextboxType = {
+                    name = "seek_aid_top_1"
+                    position = { x = 0 y = 21 }
+                    textureFile = ""
+                    font = "vic_22s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_seek_aid_top_tt
+                    maxWidth = 196
+                    maxHeight = 20
+                    format = center	
+                }
+                #
+                buttonType = {
+                    name = "sabotage_top_1"
+                    spriteType ="GFX_buildings_strip"
+                    frame=1
+                    scale=0.45
+                    position = { x = 13 y = 10 }
+                    clicksound = click_default
+                }
+                buttonType = {
+                    name = "sabotage_top_2"
+                    spriteType ="GFX_buildings_strip"
+                    frame=2
+                    scale=0.45
+                    position = { x = 34 y = 10 }
+                    clicksound = click_default
+                }
+                buttonType = {
+                    name = "sabotage_top_3"
+                    spriteType ="GFX_buildings_strip"
+                    frame=4
+                    scale=0.45
+                    position = { x = 55 y = 10 }
+                    clicksound = click_default
+                }
+                buttonType = {
+                    name = "sabotage_top_4"
+                    spriteType ="GFX_buildings_strip"
+                    frame=3
+                    scale=0.45
+                    position = { x = 76 y = 10 }
+                    clicksound = click_default
+                }
+                buttonType = {
+                    name = "sabotage_top_5"
+                    spriteType ="GFX_buildings_strip"
+                    frame=5
+                    scale=0.45
+                    position = { x = 97 y = 10 }
+                    clicksound = click_default
+                }
+                buttonType = {
+                    name = "sabotage_top_6"
+                    spriteType ="GFX_buildings_strip"
+                    frame=9
+                    scale=0.45
+                    position = { x = 118 y = 10 }
+                    clicksound = click_default
+                }
+                buttonType = {
+                    name = "sabotage_top_7"
+                    spriteType ="GFX_buildings_strip"
+                    frame=11
+                    scale=0.45
+                    position = { x = 139 y = 10 }
+                    clicksound = click_default
+                }
+                buttonType = {
+                    name = "sabotage_top_8"
+                    spriteType ="GFX_buildings_strip"
+                    frame=10
+                    scale=0.45
+                    position = { x = 160 y = 10 }
+                    clicksound = click_default
+                }
+                buttonType = {
+                    name = "sabotage_top_9"
+                    spriteType ="GFX_buildings_strip"
+                    frame=14
+                    scale=0.45
+                    position = { x = 13 y = 30 }
+                    clicksound = click_default
+                }
+                buttonType = {
+                    name = "sabotage_top_10"
+                    spriteType ="GFX_buildings_strip"
+                    frame=12
+                    scale=0.45
+                    position = { x = 34 y = 30 }
+                    clicksound = click_default
+                }
+                buttonType = {
+                    name = "sabotage_top_11"
+                    spriteType ="GFX_buildings_strip"
+                    frame=13
+                    scale=0.45
+                    position = { x = 55 y = 30 }
+                    clicksound = click_default
+                }
+                buttonType = {
+                    name = "sabotage_top_12"
+                    spriteType ="GFX_buildings_strip"
+                    frame=15
+                    scale=0.45
+                    position = { x = 76 y = 30 }
+                    clicksound = click_default
+                }
+                buttonType = {
+                    name = "sabotage_top_13"
+                    spriteType ="GFX_buildings_strip"
+                    frame=16
+                    scale=0.45
+                    position = { x = 97 y = 30 }
+                    clicksound = click_default
+                }
+                buttonType = {
+                    name = "sabotage_top_14"
+                    spriteType ="GFX_buildings_strip"
+                    frame=6
+                    scale=0.45
+                    position = { x = 118 y = 30 }
+                    clicksound = click_default
+                }
+                buttonType = {
+                    name = "sabotage_top_15"
+                    spriteType ="GFX_buildings_strip"
+                    frame=7
+                    scale=0.45
+                    position = { x = 139 y = 30 }
+                    clicksound = click_default
+                }
+                buttonType = {
+                    name = "sabotage_top_16"
+                    spriteType ="GFX_buildings_strip"
+                    frame=8
+                    scale=0.45
+                    position = { x = 160 y = 30 }
+                    clicksound = click_default
+                }
+             ##################################################################
+             ##################################################################
+             ##################################################################
+                instantTextboxType = {
+                    name = "seek_conflict_top_1"
+                    position = { x = 0 y = 21 }
+                    textureFile = ""
+                    font = "vic_22s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_armed_seek_conflict_top_tt
+                    maxWidth = 196
+                    maxHeight = 20
+                    format = center	
+                }
+                instantTextboxType = {
+                    name = "solidify_control_top_1"
+                    position = { x = 0 y = 21 }
+                    textureFile = ""
+                    font = "vic_22s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_armed_solidify_control_top_tt
+                    maxWidth = 196
+                    maxHeight = 20
+                    format = center	
+                }
+                instantTextboxType = {
+                    name = "ambush_top_1"
+                    position = { x = 0 y = 21 }
+                    textureFile = ""
+                    font = "vic_22s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_armed_ambush_top_tt
+                    maxWidth = 196
+                    maxHeight = 20
+                    format = center	
+                }
+                instantTextboxType = {
+                    name = "patrol_top_1"
+                    position = { x = 0 y = 21 }
+                    textureFile = ""
+                    font = "vic_22s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_armed_patrol_top_tt
+                    maxWidth = 196
+                    maxHeight = 20
+                    format = center	
+                }
+                instantTextboxType = {
+                    name = "alert_top_1"
+                    position = { x = 0 y = 21 }
+                    textureFile = ""
+                    font = "vic_22s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_armed_alert_top_tt
+                    maxWidth = 196
+                    maxHeight = 20
+                    format = center	
+                }
+                instantTextboxType = {
+                    name = "rest_top_1"
+                    position = { x = 0 y = 21 }
+                    textureFile = ""
+                    font = "vic_22s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_armed_rest_top_tt
+                    maxWidth = 196
+                    maxHeight = 20
+                    format = center	
+                }
+                instantTextboxType = {
+                    name = "raid_top_1"
+                    position = { x = 0 y = 21 }
+                    textureFile = ""
+                    font = "vic_22s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_armed_raid_top_tt
+                    maxWidth = 196
+                    maxHeight = 20
+                    format = center	
+                }
+             ##################################################################
+             ##################################################################
+             ##################################################################
+                instantTextboxType = {
+                    name = "conflict_avoidant_top_1"
+                    position = { x = 0 y = 21 }
+                    textureFile = ""
+                    font = "vic_22s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_behavior_conflict_avoidant_top_tt
+                    maxWidth = 196
+                    maxHeight = 20
+                    format = center	
+                }
+                instantTextboxType = {
+                    name = "picking_fights_top_1"
+                    position = { x = 0 y = 21 }
+                    textureFile = ""
+                    font = "vic_22s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_behavior_picking_fights_top_tt
+                    maxWidth = 196
+                    maxHeight = 20
+                    format = center	
+                }
+                instantTextboxType = {
+                    name = "balanced_top_1"
+                    position = { x = 0 y = 21 }
+                    textureFile = ""
+                    font = "vic_22s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_behavior_balanced_top_tt
+                    maxWidth = 196
+                    maxHeight = 20
+                    format = center	
+                }
+                instantTextboxType = {
+                    name = "seek_fights_top_1"
+                    position = { x = 0 y = 21 }
+                    textureFile = ""
+                    font = "vic_22s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_behavior_seek_fights_top_tt
+                    maxWidth = 196
+                    maxHeight = 20
+                    format = center	
+                }
+                instantTextboxType = {
+                    name = "shoot_anything_top_1"
+                    position = { x = 0 y = 21 }
+                    textureFile = ""
+                    font = "vic_22s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_behavior_shoot_anything_top_tt
+                    maxWidth = 196
+                    maxHeight = 20
+                    format = center	
+                }
+            }
+            containerWindowType = {
+                name = "behavior_container_3"
+                position = { x = 121 y = 131 }
+                size = { width = 196 height = 64 }
+
+                background = {
+                    name = "x1"
+                    quadTextureSprite ="GFX_tiled_plain_bg_small"
+                    position = { x=0 y=0 }					
+                }
+                
+                iconType = {
+                    name ="food_distribution_mid_1"
+                    spriteType = "GFX_generic_text_bg_108"
+                    position = { x=74 y=18 }
+                    alwaystransparent = yes
+                }
+                instantTextboxType = {
+                    name = "food_distribution_mid_2"
+                    position = { x = 5 y = 14 }
+                    textureFile = ""
+                    font = "vic_18s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_food_distribution_mid_tt
+                    maxWidth = 70
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = center		
+                }
+                instantTextboxType = {
+                    name = "food_distribution_mid_3"
+                    position = { x = 76 y = 21 }
+                    textureFile = ""
+                    font = "vic_22s"
+                    borderSize = {x = 0 y = 0}
+                    text = "[?cycle_ind_var_1|0]"
+                    maxWidth = 102
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = center
+                }
+                buttonType = {
+                    name = "food_distribution_mid_4_increase"
+                    quadTextureSprite ="GFX_zoom_in"
+                    position = { x = 165 y = 45 }
+                    scale = 0.6
+                    clicksound = click_default
+                }
+                buttonType = {
+                    name = "food_distribution_mid_5_decrease"
+                    quadTextureSprite ="GFX_zoom_out"
+                    position = { x = 150 y = 45 }
+                    scale = 0.6
+                    clicksound = click_default
+                }
+                ####
+                ####
+                iconType = {
+                    name ="reconnaissance_mid_1"
+                    spriteType = "GFX_generic_text_bg_108"
+                    position = { x=74 y=18 }
+                    alwaystransparent = yes
+                }
+                instantTextboxType = {
+                    name = "reconnaissance_mid_2"
+                    position = { x = 5 y = 14 }
+                    textureFile = ""
+                    font = "vic_18s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_reconnaissance_mid_tt
+                    maxWidth = 70
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = center		
+                }
+                instantTextboxType = {
+                    name = "reconnaissance_mid_3"
+                    position = { x = 76 y = 21 }
+                    textureFile = ""
+                    font = "vic_22s"
+                    borderSize = {x = 0 y = 0}
+                    text = "[?cycle_ind_var_1|0]"
+                    maxWidth = 102
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = center
+                }
+                buttonType = {
+                    name = "reconnaissance_mid_4_increase"
+                    quadTextureSprite ="GFX_zoom_in"
+                    position = { x = 165 y = 45 }
+                    scale = 0.6
+                    clicksound = click_default
+                }
+                buttonType = {
+                    name = "reconnaissance_mid_5_decrease"
+                    quadTextureSprite ="GFX_zoom_out"
+                    position = { x = 150 y = 45 }
+                    scale = 0.6
+                    clicksound = click_default
+                }
+                ####
+                ####
+                iconType = {
+                    name ="intel_gathering_mid_1"
+                    spriteType = "GFX_generic_text_bg_108"
+                    position = { x=74 y=18 }
+                    alwaystransparent = yes
+                }
+                instantTextboxType = {
+                    name = "intel_gathering_mid_2"
+                    position = { x = 5 y = 14 }
+                    textureFile = ""
+                    font = "vic_18s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_intel_gathering_mid_tt
+                    maxWidth = 70
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = center		
+                }
+                instantTextboxType = {
+                    name = "intel_gathering_mid_3"
+                    position = { x = 76 y = 21 }
+                    textureFile = ""
+                    font = "vic_22s"
+                    borderSize = {x = 0 y = 0}
+                    text = "[?cycle_ind_var_1|0]"
+                    maxWidth = 102
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = center
+                }
+                buttonType = {
+                    name = "intel_gathering_mid_4_increase"
+                    quadTextureSprite ="GFX_zoom_in"
+                    position = { x = 165 y = 45 }
+                    scale = 0.6
+                    clicksound = click_default
+                }
+                buttonType = {
+                    name = "intel_gathering_mid_5_decrease"
+                    quadTextureSprite ="GFX_zoom_out"
+                    position = { x = 150 y = 45 }
+                    scale = 0.6
+                    clicksound = click_default
+                }
+                ####
+                ####
+                iconType = {
+                    name ="route_planning_mid_1"
+                    spriteType = "GFX_generic_text_bg_108"
+                    position = { x=74 y=18 }
+                    alwaystransparent = yes
+                }
+                instantTextboxType = {
+                    name = "route_planning_mid_2"
+                    position = { x = 5 y = 14 }
+                    textureFile = ""
+                    font = "vic_18s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_route_planning_mid_tt
+                    maxWidth = 70
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = center		
+                }
+                instantTextboxType = {
+                    name = "route_planning_mid_3"
+                    position = { x = 76 y = 21 }
+                    textureFile = ""
+                    font = "vic_22s"
+                    borderSize = {x = 0 y = 0}
+                    text = "[?cycle_ind_var_1|0]"
+                    maxWidth = 102
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = center
+                }
+                buttonType = {
+                    name = "route_planning_mid_4_increase"
+                    quadTextureSprite ="GFX_zoom_in"
+                    position = { x = 165 y = 45 }
+                    scale = 0.6
+                    clicksound = click_default
+                }
+                buttonType = {
+                    name = "route_planning_mid_5_decrease"
+                    quadTextureSprite ="GFX_zoom_out"
+                    position = { x = 150 y = 45 }
+                    scale = 0.6
+                    clicksound = click_default
+                }
+                ####
+                ####
+                iconType = {
+                    name ="fortify_position_mid_1"
+                    spriteType = "GFX_generic_text_bg_108"
+                    position = { x=74 y=18 }
+                    alwaystransparent = yes
+                }
+                instantTextboxType = {
+                    name = "fortify_position_mid_2"
+                    position = { x = 5 y = 14 }
+                    textureFile = ""
+                    font = "vic_18s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_fortify_position_mid_tt
+                    maxWidth = 70
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = center		
+                }
+                instantTextboxType = {
+                    name = "fortify_position_mid_3"
+                    position = { x = 76 y = 21 }
+                    textureFile = ""
+                    font = "vic_22s"
+                    borderSize = {x = 0 y = 0}
+                    text = "[?cycle_ind_var_1|0]"
+                    maxWidth = 102
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = center
+                }
+                buttonType = {
+                    name = "fortify_position_mid_4_increase"
+                    quadTextureSprite ="GFX_zoom_in"
+                    position = { x = 165 y = 45 }
+                    scale = 0.6
+                    clicksound = click_default
+                }
+                buttonType = {
+                    name = "fortify_position_mid_5_decrease"
+                    quadTextureSprite ="GFX_zoom_out"
+                    position = { x = 150 y = 45 }
+                    scale = 0.6
+                    clicksound = click_default
+                }
+                ####
+                ####
+                iconType = {
+                    name ="inspire_populace_mid_1"
+                    spriteType = "GFX_generic_text_bg_108"
+                    position = { x=74 y=18 }
+                    alwaystransparent = yes
+                }
+                instantTextboxType = {
+                    name = "inspire_populace_mid_2"
+                    position = { x = 5 y = 14 }
+                    textureFile = ""
+                    font = "vic_18s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_inspire_populace_mid_tt
+                    maxWidth = 70
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = center		
+                }
+                instantTextboxType = {
+                    name = "inspire_populace_mid_3"
+                    position = { x = 76 y = 21 }
+                    textureFile = ""
+                    font = "vic_22s"
+                    borderSize = {x = 0 y = 0}
+                    text = "[?cycle_ind_var_1|0]"
+                    maxWidth = 102
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = center
+                }
+                buttonType = {
+                    name = "inspire_populace_mid_4_increase"
+                    quadTextureSprite ="GFX_zoom_in"
+                    position = { x = 165 y = 45 }
+                    scale = 0.6
+                    clicksound = click_default
+                }
+                buttonType = {
+                    name = "inspire_populace_mid_5_decrease"
+                    quadTextureSprite ="GFX_zoom_out"
+                    position = { x = 150 y = 45 }
+                    scale = 0.6
+                    clicksound = click_default
+                }
+                ####
+                ####
+                iconType = {
+                    name ="seek_aid_mid_1"
+                    spriteType = "GFX_generic_text_bg_108"
+                    position = { x=74 y=18 }
+                    alwaystransparent = yes
+                }
+                instantTextboxType = {
+                    name = "seek_aid_mid_2"
+                    position = { x = 5 y = 14 }
+                    textureFile = ""
+                    font = "vic_18s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_seek_aid_mid_tt
+                    maxWidth = 70
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = center		
+                }
+                instantTextboxType = {
+                    name = "seek_aid_mid_3"
+                    position = { x = 76 y = 21 }
+                    textureFile = ""
+                    font = "vic_22s"
+                    borderSize = {x = 0 y = 0}
+                    text = "[?cycle_ind_var_1|0]"
+                    maxWidth = 102
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = center
+                }
+                buttonType = {
+                    name = "seek_aid_mid_4_increase"
+                    quadTextureSprite ="GFX_zoom_in"
+                    position = { x = 165 y = 45 }
+                    scale = 0.6
+                    clicksound = click_default
+                }
+                buttonType = {
+                    name = "seek_aid_mid_5_decrease"
+                    quadTextureSprite ="GFX_zoom_out"
+                    position = { x = 150 y = 45 }
+                    scale = 0.6
+                    clicksound = click_default
+                }
+                ####
+                ####
+                iconType = {
+                    name ="sabotage_mid_1"
+                    spriteType = "GFX_generic_text_bg_108"
+                    position = { x=74 y=18 }
+                    alwaystransparent = yes
+                }
+                instantTextboxType = {
+                    name = "sabotage_mid_2"
+                    position = { x = 5 y = 14 }
+                    textureFile = ""
+                    font = "vic_18s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_sabotage_mid_tt
+                    maxWidth = 70
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = center		
+                }
+                instantTextboxType = {
+                    name = "sabotage_mid_3"
+                    position = { x = 76 y = 21 }
+                    textureFile = ""
+                    font = "vic_22s"
+                    borderSize = {x = 0 y = 0}
+                    text = "[?cycle_ind_var_1|0]"
+                    maxWidth = 102
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = center
+                }
+                buttonType = {
+                    name = "sabotage_mid_4_increase"
+                    quadTextureSprite ="GFX_zoom_in"
+                    position = { x = 165 y = 45 }
+                    scale = 0.6
+                    clicksound = click_default
+                }
+                buttonType = {
+                    name = "sabotage_mid_5_decrease"
+                    quadTextureSprite ="GFX_zoom_out"
+                    position = { x = 150 y = 45 }
+                    scale = 0.6
+                    clicksound = click_default
+                }
+                ##########
+                ##########
+                ##########
+                ##########
+                instantTextboxType = {
+                    name = "seek_conflict_mid_1"
+                    position = { x = 5 y = 14 }
+                    textureFile = ""
+                    font = "Arial12"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_armed_seek_conflict_mid_tt
+                    maxWidth = 185
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = center		
+                }
+                #
+                instantTextboxType = {
+                    name = "solidify_control_mid_1"
+                    position = { x = 5 y = 14 }
+                    textureFile = ""
+                    font = "Arial12"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_armed_solidify_control_mid_tt
+                    maxWidth = 185
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = center		
+                }
+                #
+                instantTextboxType = {
+                    name = "ambush_mid_1"
+                    position = { x = 5 y = 14 }
+                    textureFile = ""
+                    font = "Arial12"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_armed_ambush_mid_tt
+                    maxWidth = 185
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = center		
+                }
+                #
+                instantTextboxType = {
+                    name = "patrol_mid_1"
+                    position = { x = 5 y = 5 }
+                    textureFile = ""
+                    font = "Arial12"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_armed_patrol_mid_tt
+                    maxWidth = 185
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = center		
+                }
+                #
+                instantTextboxType = {
+                    name = "alert_mid_1"
+                    position = { x = 5 y = 14 }
+                    textureFile = ""
+                    font = "Arial12"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_armed_alert_mid_tt
+                    maxWidth = 185
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = center		
+                }
+                #
+                instantTextboxType = {
+                    name = "rest_mid_1"
+                    position = { x = 5 y = 14 }
+                    textureFile = ""
+                    font = "Arial12"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_armed_rest_mid_tt
+                    maxWidth = 185
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = center		
+                }
+                #
+                instantTextboxType = {
+                    name = "raid_mid_1"
+                    position = { x = 5 y = 14 }
+                    textureFile = ""
+                    font = "Arial12"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_armed_raid_mid_tt
+                    maxWidth = 185
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = center		
+                }
+                ##########
+                ##########
+                ##########
+                ##########
+                instantTextboxType = {
+                    name = "conflict_avoidant_mid_1"
+                    position = { x = 5 y = 4 }
+                    textureFile = ""
+                    font = "Arial12"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_behavior_conflict_avoidant_mid_tt
+                    maxWidth = 185
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = center		
+                }
+                #
+                instantTextboxType = {
+                    name = "picking_fights_mid_1"
+                    position = { x = 5 y = 14 }
+                    textureFile = ""
+                    font = "Arial12"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_behavior_picking_fights_mid_tt
+                    maxWidth = 185
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = center		
+                }
+                #
+                instantTextboxType = {
+                    name = "balanced_mid_1"
+                    position = { x = 5 y = 14 }
+                    textureFile = ""
+                    font = "Arial12"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_behavior_balanced_mid_tt
+                    maxWidth = 185
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = center		
+                }
+                #
+                instantTextboxType = {
+                    name = "seek_fights_mid_1"
+                    position = { x = 5 y = 14 }
+                    textureFile = ""
+                    font = "Arial12"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_behavior_seek_fights_mid_tt
+                    maxWidth = 185
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = center		
+                }
+                #
+                instantTextboxType = {
+                    name = "shoot_anything_mid_1"
+                    position = { x = 5 y = 14 }
+                    textureFile = ""
+                    font = "Arial12"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_behavior_shoot_anything_mid_tt
+                    maxWidth = 185
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = center		
+                }
+            }
+
+            containerWindowType = {
+                name = "behavior_container_4"
+                position = { x = 2 y = 244 }
+                size = { width = 118 height = 40 }
+
+                background = {
+                    name = "x1"
+                    quadTextureSprite ="GFX_tiled_plain_bg_small"
+                    position = { x=0 y=0 }					
+                }
+                buttonType = {
+                    name = "beh_4"
+                    position = { x = 6 y = 4 }
+                    quadTextureSprite ="button_type_9"	
+                    buttonText = "[GetStateInfoGuiChoiceConfirm]"
+                    font = "vic_18s"
+                    clicksound = click_default
+                    oversound = ui_menu_over
+                }
+            }
+
+            containerWindowType = {
+                name = "behavior_container_5"
+                position = { x = 116 y = 193 }
+                size = { width = 201 height = 91 }
+
+                background = {
+                    name = "x1"
+                    quadTextureSprite ="GFX_tiled_plain_bg_small"
+                    position = { x=0 y=0 }					
+                }
+
+                instantTextboxType = {
+                    name = "food_distribution_bot_1"
+                    position = { x = 10 y = 14 }
+                    textureFile = ""
+                    font = "vic_18s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_food_distribution_bot_tt
+                    pdx_tooltip = state_info_gui_unarmed_food_distribution_bot_immediate_tt
+                    pdx_tooltip_delayed = state_info_gui_unarmed_food_distribution_bot_delayed_tt
+                    maxWidth = 184
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = left		
+                }
+                instantTextboxType = {
+                    name = "food_distribution_bot_2"
+                    position = { x = 10 y = 30 }
+                    textureFile = ""
+                    font = "vic_18s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_food_distribution_bot_2_tt
+                    maxWidth = 184
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = left		
+                }
+                instantTextboxType = {
+                    name = "food_distribution_bot_3"
+                    position = { x = 10 y = 50 }
+                    textureFile = ""
+                    font = "vic_18s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_food_distribution_bot_3_tt
+                    maxWidth = 184
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = left		
+                }
+                ####
+                ####
+                instantTextboxType = {
+                    name = "reconnaissance_bot_1"
+                    position = { x = 10 y = 14 }
+                    textureFile = ""
+                    font = "vic_18s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_reconnaissance_bot_tt
+                    pdx_tooltip = state_info_gui_unarmed_reconnaissance_bot_immediate_tt
+                    pdx_tooltip_delayed = state_info_gui_unarmed_reconnaissance_bot_delayed_tt
+                    maxWidth = 184
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = left		
+                }
+                instantTextboxType = {
+                    name = "reconnaissance_bot_2"
+                    position = { x = 10 y = 30 }
+                    textureFile = ""
+                    font = "vic_18s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_reconnaissance_bot_2_tt
+                    maxWidth = 184
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = left		
+                }
+                instantTextboxType = {
+                    name = "reconnaissance_bot_3"
+                    position = { x = 10 y = 50 }
+                    textureFile = ""
+                    font = "vic_18s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_reconnaissance_bot_3_tt
+                    maxWidth = 184
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = left		
+                }
+                ####
+                ####
+                instantTextboxType = {
+                    name = "intel_gathering_bot_1"
+                    position = { x = 10 y = 14 }
+                    textureFile = ""
+                    font = "vic_18s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_intel_gathering_bot_tt
+                    pdx_tooltip = state_info_gui_unarmed_intel_gathering_bot_immediate_tt
+                    pdx_tooltip_delayed = state_info_gui_unarmed_intel_gathering_bot_delayed_tt
+                    maxWidth = 184
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = left		
+                }
+                instantTextboxType = {
+                    name = "intel_gathering_bot_2"
+                    position = { x = 10 y = 30 }
+                    textureFile = ""
+                    font = "vic_18s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_intel_gathering_bot_2_tt
+                    maxWidth = 184
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = left		
+                }
+                instantTextboxType = {
+                    name = "intel_gathering_bot_3"
+                    position = { x = 10 y = 50 }
+                    textureFile = ""
+                    font = "vic_18s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_intel_gathering_bot_3_tt
+                    maxWidth = 184
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = left		
+                }
+                ####
+                ####
+                instantTextboxType = {
+                    name = "route_planning_bot_1"
+                    position = { x = 10 y = 14 }
+                    textureFile = ""
+                    font = "vic_18s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_route_planning_bot_tt
+                    pdx_tooltip = state_info_gui_unarmed_route_planning_bot_immediate_tt
+                    pdx_tooltip_delayed = state_info_gui_unarmed_route_planning_bot_delayed_tt
+                    maxWidth = 184
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = left		
+                }
+                instantTextboxType = {
+                    name = "route_planning_bot_2"
+                    position = { x = 10 y = 32 }
+                    textureFile = ""
+                    font = "vic_18s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_route_planning_bot_2_tt
+                    maxWidth = 184
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = left		
+                }
+                instantTextboxType = {
+                    name = "route_planning_bot_3"
+                    position = { x = 10 y = 50 }
+                    textureFile = ""
+                    font = "vic_18s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_route_planning_bot_3_tt
+                    maxWidth = 184
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = left		
+                }
+                ####
+                ####
+                instantTextboxType = {
+                    name = "fortify_position_bot_1"
+                    position = { x = 10 y = 14 }
+                    textureFile = ""
+                    font = "vic_18s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_fortify_position_bot_tt
+                    pdx_tooltip = state_info_gui_unarmed_fortify_position_bot_immediate_tt
+                    pdx_tooltip_delayed = state_info_gui_unarmed_fortify_position_bot_delayed_tt
+                    maxWidth = 184
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = left		
+                }
+                instantTextboxType = {
+                    name = "fortify_position_bot_2"
+                    position = { x = 10 y = 30 }
+                    textureFile = ""
+                    font = "vic_18s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_fortify_position_bot_2_tt
+                    maxWidth = 184
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = left		
+                }
+                instantTextboxType = {
+                    name = "fortify_position_bot_3"
+                    position = { x = 10 y = 50 }
+                    textureFile = ""
+                    font = "vic_18s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_fortify_position_bot_3_tt
+                    maxWidth = 184
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = left		
+                }
+                ####
+                ####
+                instantTextboxType = {
+                    name = "inspire_populace_bot_1"
+                    position = { x = 10 y = 14 }
+                    textureFile = ""
+                    font = "vic_18s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_inspire_populace_bot_tt
+                    pdx_tooltip = state_info_gui_unarmed_inspire_populace_bot_immediate_tt
+                    pdx_tooltip_delayed = state_info_gui_unarmed_inspire_populace_bot_delayed_tt
+                    maxWidth = 184
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = left		
+                }
+                instantTextboxType = {
+                    name = "inspire_populace_bot_2"
+                    position = { x = 10 y = 30 }
+                    textureFile = ""
+                    font = "vic_18s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_inspire_populace_bot_2_tt
+                    maxWidth = 184
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = left		
+                }
+                instantTextboxType = {
+                    name = "inspire_populace_bot_3"
+                    position = { x = 10 y = 50 }
+                    textureFile = ""
+                    font = "vic_18s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_inspire_populace_bot_3_tt
+                    maxWidth = 184
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = left		
+                }
+                ####
+                ####
+                instantTextboxType = {
+                    name = "seek_aid_bot_1"
+                    position = { x = 10 y = 14 }
+                    textureFile = ""
+                    font = "vic_18s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_seek_aid_bot_tt
+                    pdx_tooltip = state_info_gui_unarmed_seek_aid_bot_immediate_tt
+                    pdx_tooltip_delayed = state_info_gui_unarmed_seek_aid_bot_delayed_tt
+                    maxWidth = 184
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = left		
+                }
+                instantTextboxType = {
+                    name = "seek_aid_bot_2"
+                    position = { x = 10 y = 30 }
+                    textureFile = ""
+                    font = "vic_18s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_seek_aid_bot_2_tt
+                    maxWidth = 184
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = left		
+                }
+                instantTextboxType = {
+                    name = "seek_aid_bot_3"
+                    position = { x = 10 y = 50 }
+                    textureFile = ""
+                    font = "vic_18s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_seek_aid_bot_3_tt
+                    maxWidth = 184
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = left		
+                }
+                ####
+                ####
+                instantTextboxType = {
+                    name = "sabotage_bot_1"
+                    position = { x = 10 y = 14 }
+                    textureFile = ""
+                    font = "vic_18s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_sabotage_bot_tt
+                    pdx_tooltip = state_info_gui_unarmed_sabotage_bot_immediate_tt
+                    pdx_tooltip_delayed = state_info_gui_unarmed_sabotage_bot_delayed_tt
+                    maxWidth = 184
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = left		
+                }
+                instantTextboxType = {
+                    name = "sabotage_bot_2"
+                    position = { x = 10 y = 30 }
+                    textureFile = ""
+                    font = "vic_18s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_sabotage_bot_2_tt
+                    maxWidth = 184
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = left		
+                }
+                instantTextboxType = {
+                    name = "sabotage_bot_3"
+                    position = { x = 10 y = 50 }
+                    textureFile = ""
+                    font = "vic_18s"
+                    borderSize = {x = 0 y = 0}
+                    text = state_info_gui_unarmed_sabotage_bot_3_tt
+                    maxWidth = 184
+                    maxHeight = 20
+                    allwaystransparent = no
+                    format = left		
+                }
+            }
+        }
     }
 }

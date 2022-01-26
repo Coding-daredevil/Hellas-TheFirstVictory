@@ -78,6 +78,7 @@ leader_traits = {
         opinion_gain_monthly_factor = 0.1
         fascism_acceptance = 10
         fascism_drift = 0.02
+        fct_fas_modifier_token = 0.2
         custom_modifier_tooltip = GRE_kotzias_tt
     }
     
@@ -86,7 +87,10 @@ leader_traits = {
         
         neutrality_drift = 0.10
         stability_weekly = 0.005
-        
+        fct_dem_modifier_token = 0.2
+        fct_com_modifier_token = 0.2
+        fct_fas_modifier_token = 0.2
+        fct_mon_modifier_token = 0.2
         custom_modifier_tooltip = GRE_koryzis_tt
     }
     
@@ -97,10 +101,10 @@ leader_traits = {
         production_speed_buildings_factor = 0.05
         equipment_bonus = {
             infantry_equipment = {
-                build_cost_ic = -0.08 instant = yes
+                build_cost_ic = -0.06 instant = yes
             }
             support_equipment = {
-                build_cost_ic = -0.10 instant = yes
+                build_cost_ic = -0.08 instant = yes
             }
         }
     }
@@ -133,6 +137,10 @@ leader_traits = {
         stability_weekly = 0.002
         production_speed_buildings_factor = 0.05
         consumer_goods_factor = 0.02
+        fct_dem_modifier_token = 0.25
+        fct_com_modifier_token = 0.25
+        fct_fas_modifier_token = 0.15
+        fct_mon_modifier_token = 0.15
     
         custom_modifier_tooltip = GRE_dimitratos_tt
     }
@@ -297,7 +305,7 @@ leader_traits = {
         random = no
 
         planning_speed = 0.08
-        out_of_supply_factor = 0.04
+        out_of_supply_factor = -0.04
         org_loss_when_moving = -0.04
         recon_factor = 0.1
         land_night_attack = 0.05
@@ -308,7 +316,7 @@ leader_traits = {
         random = no
 
         planning_speed = 0.12
-        out_of_supply_factor = 0.08
+        out_of_supply_factor = -0.08
         org_loss_when_moving = -0.08
         recon_factor = 0.15
         land_night_attack = 0.10
@@ -320,8 +328,8 @@ leader_traits = {
         random = no
 
         planning_speed = 0.15
-        out_of_supply_factor = 0.10
-        org_loss_when_moving = 0.10
+        out_of_supply_factor = -0.10
+        org_loss_when_moving = -0.10
         recon_factor = 0.2
         land_night_attack = 0.15
         dig_in_speed_factor = 0.15
@@ -375,70 +383,359 @@ leader_traits = {
         supply_consumption_factor = -0.05
     }
 
+    greek_navy_chief_sakellariou_1 = {
+        random = no
+
+        experience_gain_navy_factor = 0.05
+        screening_efficiency = 0.05
+        navy_screen_attack_factor = 0.04
+        navy_screen_defence_factor = 0.04
+        mines_planting_by_fleets_factor = 0.15
+    }
+
+    greek_navy_chief_sakellariou_2 = {
+        random = no
+
+        experience_gain_navy_factor = 0.10
+        screening_efficiency = 0.10
+        navy_screen_attack_factor = 0.08
+        navy_screen_defence_factor = 0.08
+        mines_planting_by_fleets_factor = 0.20
+    }
+
+    greek_navy_chief_sakellariou_3 = {
+        random = no
+
+        experience_gain_navy_factor = 0.15
+        screening_efficiency = 0.15
+        navy_screen_attack_factor = 0.12
+        navy_screen_defence_factor = 0.12
+        mines_planting_by_fleets_factor = 0.25
+    }
+
+    greek_navy_chief_sakellariou_4 = {
+        random = no
+
+        experience_gain_navy_factor = 0.20
+        screening_efficiency = 0.20
+        navy_screen_attack_factor = 0.15
+        navy_screen_defence_factor = 0.15
+        mines_planting_by_fleets_factor = 0.30
+    }
+
+    greek_navy_chief_demestichas_1 = {
+        random = no
+
+        navy_org_factor = 0.02
+        naval_morale_factor = 0.03
+        naval_speed_factor = 0.04
+        naval_coordination = 0.05
+        naval_invasion_prep_speed = 0.05
+    }
+
+    greek_navy_chief_demestichas_2 = {
+        random = no
+
+        navy_org_factor = 0.04
+        naval_morale_factor = 0.06
+        naval_speed_factor = 0.08
+        naval_coordination = 0.10
+        naval_invasion_prep_speed = 0.10
+    }
+
+    greek_navy_chief_demestichas_3 = {
+        random = no
+
+        navy_org_factor = 0.06
+        naval_morale_factor = 0.09
+        naval_speed_factor = 0.12
+        naval_coordination = 0.15
+        naval_invasion_prep_speed = 0.15
+    }
+
+    greek_navy_chief_demestichas_4 = {
+        random = no
+
+        navy_org_factor = 0.08
+        naval_morale_factor = 0.12
+        naval_speed_factor = 0.15
+        naval_coordination = 0.20
+        naval_invasion_prep_speed = 0.20
+    }
+
+    greek_navy_chief_kavvadias_1 = {
+        random = no
+
+        navy_max_range_factor = 0.04
+        navy_visibility = -0.03
+        convoy_raiding_efficiency_factor = 0.02
+        navy_submarine_attack_factor = 0.05
+        navy_submarine_defence_factor = 0.05
+    }
+
+    greek_navy_chief_kavvadias_2 = {
+        random = no
+
+        navy_max_range_factor = 0.08
+        navy_visibility = -0.06
+        convoy_raiding_efficiency_factor = 0.05
+        navy_submarine_attack_factor = 0.10
+        navy_submarine_defence_factor = 0.10
+    }
+
+    greek_navy_chief_kavvadias_3 = {
+        random = no
+
+        navy_max_range_factor = 0.12
+        navy_visibility = -0.09
+        convoy_raiding_efficiency_factor = 0.10
+        navy_submarine_attack_factor = 0.15
+        navy_submarine_defence_factor = 0.15
+    }
+
+    greek_navy_chief_kavvadias_4 = {
+        random = no
+
+        navy_max_range_factor = 0.15
+        navy_visibility = -0.12
+        convoy_raiding_efficiency_factor = 0.15
+        navy_submarine_attack_factor = 0.20
+        navy_submarine_defence_factor = 0.20
+    }
+
+    greek_navy_chief_oikonomou_1 = {
+        random = no
+
+        experience_gain_navy_factor = 0.05
+        navy_org_factor = 0.04
+        navy_capital_ship_attack_factor = 0.05
+        navy_capital_ship_defence_factor = 0.05
+        navy_anti_air_attack_factor = 0.05
+    }
+
+    greek_navy_chief_oikonomou_2 = {
+        random = no
+
+        experience_gain_navy_factor = 0.1
+        navy_org_factor = 0.08
+        navy_capital_ship_attack_factor = 0.1
+        navy_capital_ship_defence_factor = 0.1
+        navy_anti_air_attack_factor = 0.1
+    }
+
+    greek_navy_chief_oikonomou_3 = {
+        random = no
+
+        experience_gain_navy_factor = 0.15
+        navy_org_factor = 0.12
+        navy_capital_ship_attack_factor = 0.15
+        navy_capital_ship_defence_factor = 0.15
+        navy_anti_air_attack_factor = 0.15
+    }
+
+    greek_navy_chief_oikonomou_4 = {
+        random = no
+
+        experience_gain_navy_factor = 0.20
+        navy_org_factor = 0.15
+        navy_capital_ship_attack_factor = 0.20
+        navy_capital_ship_defence_factor = 0.20
+        navy_anti_air_attack_factor = 0.20
+    }
+
+    greek_navy_chief_voulgaris_1 = {
+        random = no
+
+        experience_gain_nav_bomber_combat_factor = 0.05
+        air_nav_efficiency = 0.04
+        naval_strike_attack_factor = 0.03
+        naval_strike_targetting_factor = 0.03 
+        naval_strike_agility_factor = 0.03
+        naval_coordination = 0.06
+    }
+
+    greek_navy_chief_voulgaris_2 = {
+        random = no
+
+        experience_gain_nav_bomber_combat_factor = 0.10
+        air_nav_efficiency = 0.08
+        naval_strike_attack_factor = 0.06
+        naval_strike_targetting_factor = 0.06
+        naval_strike_agility_factor = 0.06
+        naval_coordination = 0.12
+    }
+
+    greek_navy_chief_voulgaris_3 = {
+        random = no
+
+        experience_gain_nav_bomber_combat_factor = 0.15
+        air_nav_efficiency = 0.12
+        naval_strike_attack_factor = 0.09
+        naval_strike_targetting_factor = 0.09
+        naval_strike_agility_factor = 0.09
+        naval_coordination = 0.18
+    }
+
+    greek_navy_chief_voulgaris_4 = {
+        random = no
+
+        experience_gain_nav_bomber_combat_factor = 0.20
+        air_nav_efficiency = 0.15
+        naval_strike_attack_factor = 0.12
+        naval_strike_targetting_factor = 0.12
+        naval_strike_agility_factor = 0.12
+        naval_coordination = 0.25
+    }
+
     ##############################
 
     greek_high_command_papagos_trait = {
         random = no
+        experience_gain_army = 0.09
         custom_modifier_tooltip = high_command_bonuses_tt
     }
 
     greek_high_command_drakos_trait = {
         random = no
+        experience_gain_army = 0.09
         custom_modifier_tooltip = high_command_bonuses_tt
     }
 
     greek_high_command_stanotas_trait = {
         random = no
+        experience_gain_army = 0.09
         custom_modifier_tooltip = high_command_bonuses_tt
     }
 
     greek_high_command_zervas_trait = {
         random = no
+        experience_gain_army = 0.09
         custom_modifier_tooltip = high_command_bonuses_tt
     }
 
     greek_high_command_plastiras_trait = {
         random = no
+        experience_gain_army = 0.09
         custom_modifier_tooltip = high_command_bonuses_tt
     }
     
     greek_high_command_katsimitros_trait = {
         random = no
+        experience_gain_army = 0.09
         custom_modifier_tooltip = high_command_bonuses_tt
     }
     
     greek_high_command_kosmas_trait = {
         random = no
+        experience_gain_army = 0.09
         custom_modifier_tooltip = high_command_bonuses_tt
     }
 
     greek_high_command_aggelis_trait = {
         random = no
+        experience_gain_army = 0.09
         custom_modifier_tooltip = high_command_bonuses_tt
     }
 
     greek_high_command_davakis_trait = {
         random = no
+        experience_gain_army = 0.09
         custom_modifier_tooltip = high_command_bonuses_tt
     }
 
     greek_high_command_alexakis_trait = {
         random = no
+        experience_gain_army = 0.09
         custom_modifier_tooltip = high_command_bonuses_tt
     }
 
     greek_high_command_velouchiotis_trait = {
         random = no
+        experience_gain_army = 0.09
         custom_modifier_tooltip = high_command_bonuses_tt
     }
 
     greek_high_command_bakirtzis_trait = {
         random = no
+        experience_gain_army = 0.09
         custom_modifier_tooltip = high_command_bonuses_tt
     }
 
     greek_high_command_rossios_trait = {
         random = no
+        experience_gain_army = 0.09
+        custom_modifier_tooltip = high_command_bonuses_tt
+    }
+
+    greek_high_command_sakellariou_trait = {
+        random = no
+        experience_gain_navy = 0.09
+        custom_modifier_tooltip = high_command_bonuses_tt
+    }
+
+    greek_high_command_demestichas_trait = {
+        random = no
+        experience_gain_navy = 0.09
+        custom_modifier_tooltip = high_command_bonuses_tt
+    }
+
+    greek_high_command_kavvadias_trait = {
+        random = no
+        experience_gain_navy = 0.09
+        custom_modifier_tooltip = high_command_bonuses_tt
+    }
+
+    greek_high_command_loundras_trait = {
+        random = no
+        experience_gain_navy = 0.09
+        custom_modifier_tooltip = high_command_bonuses_tt
+    }
+
+    greek_high_command_oikonomou_trait = {
+        random = no
+        experience_gain_navy = 0.09
+        custom_modifier_tooltip = high_command_bonuses_tt
+    }
+
+    greek_high_command_toubas_trait = {
+        random = no
+        experience_gain_navy = 0.09
+        custom_modifier_tooltip = high_command_bonuses_tt
+    }
+
+    greek_high_command_voulgaris_trait = {
+        random = no
+        experience_gain_navy = 0.09
+        custom_modifier_tooltip = high_command_bonuses_tt
+    }
+
+    greek_high_command_avgeris_trait = {
+        random = no
+        experience_gain_navy = 0.09
+        custom_modifier_tooltip = high_command_bonuses_tt
+    }
+
+    greek_high_command_iatridis_trait = {
+        random = no
+        experience_gain_navy = 0.09
+        custom_modifier_tooltip = high_command_bonuses_tt
+    }
+
+    greek_high_command_spyromilios_trait = {
+        random = no
+        experience_gain_navy = 0.09
+        custom_modifier_tooltip = high_command_bonuses_tt
+    }
+
+    greek_high_command_mitralexis_trait = {
+        random = no
+        experience_gain_air = 0.09
+        custom_modifier_tooltip = high_command_bonuses_tt
+    }
+
+    greek_high_command_kellas_trait = {
+        random = no
+        experience_gain_air = 0.09
         custom_modifier_tooltip = high_command_bonuses_tt
     }
 

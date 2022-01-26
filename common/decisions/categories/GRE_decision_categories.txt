@@ -14,7 +14,7 @@ GRE_1936_election_category = {
 	}
 }
 
-GRE_pay_back_debt_to_the_ifc_category = {
+GRE_economic_alleviation_category = {
 	priority = 6
 	icon = gre_paying_ifc_debt
 
@@ -43,18 +43,22 @@ GRE_investment_decisions_category  = {
 }
 
 GRE_hellenic_academy_category  = {
-	priority = 2
+	priority = 999
 	icon = gre_hellenic_academy
     picture = GFX_dec_cat_army
 
     visible = {
-        has_completed_focus = GRE_solidify_the_budget
+        OR = {
+            has_completed_focus = GRE_solidify_the_budget
+            has_country_flag = GRE_faction_gui_flag
+        }
     }
 
 	allowed = {
 		original_tag = GRE
 		has_dlc = "Battle for the Bosporus"
 	}
+    scripted_gui = hell_acad_gui
     visible_when_empty = yes
 }
 
@@ -184,13 +188,10 @@ GRE_the_resource_storage_plan = {
 	priority = 12
 	picture = GFX_dec_cat_gre_resources
 
-	allowed = {
-		original_tag = GRE
-		has_dlc = "Battle for the Bosporus"
-	}
-    
+	allowed = { original_tag = GRE }
     visible = {
-        NOT = { has_global_flag = GRE_government_in_exile }
+        has_completed_focus = GRE_spend_gold_for_resources
+        NOT = { has_axis_occupation=yes }
     }
 }
 
@@ -199,6 +200,7 @@ GRE_infl_majors_category = {
 	picture = GFX_dec_cat_earth
     visible = { has_completed_focus = GRE_a_game_of_shadows }
 	visible_when_empty = yes
+    scripted_gui = infl_mech_major_gui
 }
 
 GRE_infl_balkans_category = {
@@ -206,6 +208,7 @@ GRE_infl_balkans_category = {
 	picture = GFX_dec_cat_balkans
     visible = { has_completed_focus = GRE_a_game_of_shadows }
 	visible_when_empty = yes
+    scripted_gui = infl_mech_balkans_gui
 }
 
 GRE_infl_rest_category = {
@@ -213,6 +216,7 @@ GRE_infl_rest_category = {
 	picture = GFX_dec_cat_earth
     visible = { has_completed_focus = GRE_a_game_of_shadows }
 	visible_when_empty = yes
+    scripted_gui = infl_mech_rest_gui
 }
 
 GRE_the_eastern_prospect_category = {
@@ -243,7 +247,7 @@ GRE_a_game_of_shadows_category = {
 
 
 GRE_grecoitalian_war_category = {
-	priority = 14
+	priority = 100000
 	picture = GFX_grecoitalian_war_cat
 
 	allowed = {
@@ -332,43 +336,4 @@ GRE_hellenic_state_catefory = {
     visible = {
         has_global_flag = GRE_hellenic_state_formed
     }
-}
-
-#	custom_icon = {
-#		value = GRE_monarchist_loyalty_icon_value
-#		desc = GRE_monarchist_loyalty_breakdown
-#
-#		visible = {
-#			has_country_flag = GRE_factions_unlocked
-#		}
-#	}
-#	
-#	custom_icon = {
-#		value = GRE_republican_loyalty_icon_value
-#		desc = GRE_republican_loyalty_breakdown
-#
-#		visible = {
-#			has_country_flag = GRE_factions_unlocked
-#		}
-#	}
-#
-#	custom_icon = {
-#		value = GRE_communist_loyalty_icon_value
-#		desc = GRE_communist_loyalty_breakdown
-#
-#		visible = {
-#			has_country_flag = GRE_factions_unlocked
-#		}
-#	}
-#	
-#	custom_icon = {
-#		value = GRE_fascist_loyalty_breakdown
-#		desc = GRE_fascist_loyalty_icon_value
-#
-#		visible = {
-#			has_country_flag = GRE_factions_unlocked
-#		}
-#	}
-#	
-#	visible_when_empty = yes
 }

@@ -39,15 +39,30 @@ country_event = {
         }
 
 		GRE = {
-            add_stability = 0.35
-            add_war_support = 0.3
-            add_to_variable = { fct_mon = 5}   
-            subtract_from_variable = { fct_com = 7.5}
-            subtract_from_variable = { fct_dem = 5}
-            add_to_variable = { fct_fas = 5}
+            add_stability = 0.5
+            add_war_support = 0.5
+            activate_decision = political_stabilization
+            add_days_remove  = {
+                decision = political_stabilization
+                days = 60
+            }
             set_variable = { decision_taken = 0 }
             set_variable = { metaxas_pro_axis = 1 }
             faction_gui_call = yes
+            if = {
+                limit = { has_decision = workers_entering_factories }
+                add_days_remove  = {
+                    decision = workers_entering_factories
+                    days = -30
+                }
+            }
+            custom_effect_tooltip = h1_lean_axis_heavy_tt
+            ###FACTION MECHANICS###
+            set_temp_dem_adverse = yes
+            set_temp_com_catastrophic = yes
+            set_temp_fas_favourable = yes
+            set_temp_mon_favourable = yes
+            #######################
             hidden_effect = { complete_national_focus = GRE_escalating_strikes }
 		}
     }
@@ -59,15 +74,30 @@ country_event = {
         }
 
 		GRE = {
-            add_stability = 0.15
-            add_war_support = 0.1
-            add_to_variable = { fct_mon = 2.5}   
-            subtract_from_variable = { fct_com = 1.5}
-            subtract_from_variable = { fct_dem = 1.0}
-            add_to_variable = { fct_fas = 2.5}
+            add_stability = 0.25
+            add_war_support = 0.25
+            activate_decision = political_stabilization
+            add_days_remove  = {
+                decision = political_stabilization
+                days = 150
+            }
             set_variable = { decision_taken = 1 }
             set_variable = { metaxas_pro_axis = 0.5 }
             faction_gui_call = yes
+            if = {
+                limit = { has_decision = workers_entering_factories }
+                add_days_remove  = {
+                    decision = workers_entering_factories
+                    days = -45
+                }
+            }
+            custom_effect_tooltip = h1_lean_axis_light_tt
+            ###FACTION MECHANICS###
+            set_temp_dem_insignificant_negative = yes
+            set_temp_com_slightly_detrimental = yes
+            set_temp_fas_beneficial = yes
+            set_temp_mon_beneficial = yes
+            #######################
             hidden_effect = { complete_national_focus = GRE_escalating_strikes }
 		}
     }
@@ -79,14 +109,28 @@ country_event = {
         }
 
 		GRE = {
-            add_stability = -0.15
-            add_war_support = -0.05
-            subtract_from_variable = { fct_mon = 2.5}   
-            add_to_variable = { fct_com = 5}
-            add_to_variable = { fct_dem = 2.5}
-            subtract_from_variable = { fct_fas = 2.5}
+            add_stability = -0.2
+            add_war_support = -0.2
             set_variable = { decision_taken = 2 }
             faction_gui_call = yes
+            if = {
+                limit = { has_decision = workers_entering_factories }
+                add_days_remove  = {
+                    decision = workers_entering_factories
+                    days = -180
+                }
+            }
+            swap_ideas = {
+                remove_idea = limited_conscription
+                add_idea = disarmed_nation
+            }
+            custom_effect_tooltip = h1_lean_allies_light_tt
+            ###FACTION MECHANICS###
+            set_temp_dem_beneficial = yes
+            set_temp_com_favourable = yes
+            set_temp_fas_detrimental = yes
+            set_temp_mon_detrimental = yes
+            #######################
             hidden_effect = { complete_national_focus = GRE_escalating_strikes }
 		}
     }    
@@ -107,9 +151,13 @@ country_event = {
 
         add_stability = 0.02
         add_war_support = 0.15
-        remove_country_leader_trait = greek_dictator
-        add_country_leader_trait = arkhigos_0
+        swap_ruler_traits = { remove = greek_dictator add = arkhigos_0 }
         complete_national_focus = GRE_the_4th_of_august_regime
+        set_party_name = {
+			ideology = neutrality
+			long_name = "Kathestós tis 4hs Augoústou"
+			name = "4h Augoústou"
+		}
         set_country_flag = GRE_kathestos_proclaimed
         set_variable = { GRE_ark = 0 }
         if = { 
@@ -131,9 +179,11 @@ country_event = {
         else_if = {
             limit = { check_variable = { decision_taken = 1 } }
             add_to_variable = { fct_mon = 5}   
-            subtract_from_variable = { fct_com = 7,5}
-            subtract_from_variable = { fct_dem = 0}
+            subtract_from_variable = { fct_com = 7.5 }
+            subtract_from_variable = { fct_dem = 0 }
             add_to_variable = { fct_fas = 1 }
+            set_temp_variable = { tmp_mon = 5}
+            set_temp_variable = { tmp_com = -7.5}
             custom_effect_tooltip = GRE_drakos_selection_tt
             custom_effect_tooltip = fact_inf_tt 
             custom_effect_tooltip = com_fct_imp_tt 
@@ -145,6 +195,10 @@ country_event = {
             subtract_from_variable = { fct_com = 2.5}
             subtract_from_variable = { fct_dem = 2.5}
             add_to_variable = { fct_fas = 1 }
+            set_temp_variable = { tmp_mon = 2.5}
+            set_temp_variable = { tmp_com = -2.5}
+            set_temp_variable = { tmp_dem = -2.5}
+            set_temp_variable = { tmp_fas = 1}
             custom_effect_tooltip = GRE_stanotas_selection_tt
             custom_effect_tooltip = dem_fct_imp_tt 
             custom_effect_tooltip = com_fct_imp_tt 
@@ -154,12 +208,13 @@ country_event = {
             limit = { check_variable = { decision_taken = 3 } }
             subtract_from_variable = { fct_mon = 2.5}   
             add_to_variable = { fct_dem = 2.5}
+            set_temp_variable = { tmp_mon = -2.5}
+            set_temp_variable = { tmp_dem = 2.5}
             custom_effect_tooltip = GRE_zervas_selection_tt
             custom_effect_tooltip = dem_fct_imp_tt 
             custom_effect_tooltip = mon_fct_imp_tt 
         }
-        faction_gui_call = yes   
-        axal_gui_initial = yes 
+        faction_gui_call = yes
         hidden_effect = { 
             add_ideas = GRE_kotzias
             add_ideas = GRE_diakos
@@ -230,22 +285,35 @@ country_event = {                                                       ### Cret
 country_event = {                                                       ### Archbishop
 	id = hellas.5
 	title = hellas.5.t
-	desc = hellas.5.desc
+	desc = {
+        text = hellas.5_a.desc
+        trigger = { NOT = { has_completed_focus = GRE_dreams_of_a_grand_coalition } }
+    }
+    desc = {
+        text = hellas.5_b.desc
+        trigger = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+    }
 	picture = GFX_report_event_archbishop_election
 
-	is_triggered_only = yes
+	trigger = {
+        has_country_flag = GRE_kathestos_proclaimed
+        date > 1938.11.1
+    }
 
 	fire_only_once = yes
 	
 	option = {
 		name = hellas.5.a
-
-		ai_chance = {
-			base = 100
-        }
-        
+        trigger = { NOT = { has_completed_focus = GRE_dreams_of_a_grand_coalition } }
+		ai_chance = { base = 100 }
         add_stability = 0.02
         set_country_flag = archbishop_chrysanthos_elected
+        effect_tooltip = { activate_advisor = GRE_archbishop_chrysanthos }
+        if = {
+            limit = { amount_taken_ideas = { amount < 3 slots = { political_advisor } } }
+            hidden_effect = { activate_advisor = GRE_archbishop_chrysanthos }
+        }
+        custom_effect_tooltip = activate_if_open_slot_tt
         custom_effect_tooltip =  hellas.5.a_tt
     } 
 	option = {
@@ -254,8 +322,15 @@ country_event = {                                                       ### Arch
 		ai_chance = {
             base = 0
         }
-        add_stability = -0.05
+        if = { limit = { has_completed_focus = GRE_dreams_of_a_grand_coalition } add_stability = 0.1 add_political_power=50 }
+        else = { add_stability = -0.05 }
         set_country_flag = archbishop_damaskinos_elected
+        effect_tooltip = { activate_advisor = GRE_archbishop_damaskinos }
+        if = {
+            limit = { amount_taken_ideas = { amount < 3 slots = { political_advisor } } }
+            hidden_effect = { activate_advisor = GRE_archbishop_damaskinos }
+        }
+        custom_effect_tooltip = activate_if_open_slot_tt
         custom_effect_tooltip =  hellas.5.b_tt
     }  
 }
@@ -272,8 +347,8 @@ country_event = {
         date > 1936.08.01
 		tag = GRE
         OR = {
-    		check_variable = { var = fct_com value = 30 compare = less_than_or_equals }
-            check_variable = { var = fct_dem value = 30 compare = less_than_or_equals }
+    		check_variable = { var = fct_com value = 40 compare = less_than }
+            check_variable = { var = fct_dem value = 40 compare = less_than }
         }
         has_country_flag = GRE_kathestos_proclaimed
 	}
@@ -292,11 +367,11 @@ country_event = {
 			}
         add_stability = -0.05
         if = { 
-            limit = { check_variable = { var = fct_com value = 30 compare = less_than_or_equals } }
+            limit = { check_variable = { var = fct_com value = 40 compare = less_than } }
             set_country_flag = GRE_comm_upr_1
         }
         if = { 
-            limit = { check_variable = { var = fct_dem value = 30 compare = less_than_or_equals } }
+            limit = { check_variable = { var = fct_dem value = 40 compare = less_than } }
             set_country_flag = GRE_repub_upr_1
         }
     }
@@ -337,7 +412,7 @@ country_event = {                   ###METAX LINE SMALL
                     }
                 }
             }
-            812 = {
+            840 = {
                 if = {
                     limit = { is_controlled_by = ROOT }
                     add_building_construction = {
@@ -399,7 +474,7 @@ country_event = {               ###METAX LINE LONG
                     }
                 }
             }
-            812 = {
+            840 = {
                 if = {
                     limit = { is_controlled_by = ROOT }
                     add_building_construction = {
@@ -445,7 +520,7 @@ country_event = {               ###METAX LINE LONG
                     }
                 }
             }
-            813 = {
+            841 = {
                 if = {
                     limit = { is_controlled_by = ROOT }
                     add_building_construction = {
@@ -456,7 +531,7 @@ country_event = {               ###METAX LINE LONG
                     }
                 }
             }
-            810 = {
+            838 = {
                 if = {
                     limit = { is_controlled_by = ROOT }
                     add_building_construction = {
@@ -536,54 +611,55 @@ unit_leader_event = {               # 1 / 8 / 1936 -> Papagos becomes FeldMarsha
             base = 100
         }
         name = hellas.11.a
-        THIS = {
-            promote_leader = yes 
-            reduce_unpreparedness = yes
+        GRE_alexandros_papagos = {
+            promote_leader = yes
+            promote_officer = yes 
+            if = { limit = { NOT = { has_trait = gre_recently_trained_general } } reduce_unpreparedness = yes }
         }
+        hidden_effect = { activate_advisor = GRE_alexandros_papagos_chief }
         custom_effect_tooltip = GRE_papagos_selection_event_tt
-        GRE = { set_country_flag = papagos_1 add_ideas = GRE_alexandros_papagos_1 }
     }
     option = {
         name = hellas.11.b
         trigger = {
             check_variable = { GRE.decision_taken > 0 }
         }
-        random_army_leader = {
-            limit = { has_id = 302 }
-            promote_leader = yes 
-            reduce_unpreparedness = yes
+        GRE_markos_drakos = {
+            promote_leader = yes
+            promote_officer = yes 
+            if = { limit = { NOT = { has_trait = gre_recently_trained_general } } reduce_unpreparedness = yes }
         }
+        hidden_effect = { activate_advisor = GRE_markos_drakos_chief }
         set_variable = { GRE.decision_taken = 1 }
         custom_effect_tooltip = GRE_drakos_selection_event_tt
-        GRE = { set_country_flag = drakos_1 add_ideas = GRE_markos_drakos_1 }
     }
     option = {
         name = hellas.11.c
         trigger = {
             check_variable = { GRE.decision_taken > 0 }
         }
-        random_army_leader = {
-            limit = { has_id = 313 }
-            promote_leader = yes 
-            reduce_unpreparedness = yes
+        GRE_georgios_stanotas = {
+            promote_leader = yes
+            promote_officer = yes 
+            if = { limit = { NOT = { has_trait = gre_recently_trained_general } } reduce_unpreparedness = yes }
         }
+        hidden_effect = { activate_advisor = GRE_georgios_stanotas_chief }
         set_variable = { GRE.decision_taken = 2 }
         custom_effect_tooltip = GRE_stanotas_selection_event_tt
-        GRE = { set_country_flag = stanotas_1 add_ideas = GRE_georgios_stanotas_1 }
     }
     option = {
         name = hellas.11.d
         trigger = {
             check_variable = { GRE.decision_taken > 1 }
         }
-        random_army_leader = {
-            limit = { has_id = 307 }
-            promote_leader = yes 
-            reduce_unpreparedness = yes
+        GRE_napoleon_zervas = {
+            promote_leader = yes
+            promote_officer = yes 
+            if = { limit = { NOT = { has_trait = gre_recently_trained_general } } reduce_unpreparedness = yes }
         }
+        hidden_effect = { activate_advisor = GRE_napoleon_zervas_chief }
         set_variable = { GRE.decision_taken = 3 }
         custom_effect_tooltip = GRE_zervas_selection_event_tt
-        GRE = { set_country_flag = zervas_1 add_ideas = GRE_napoleon_zervas_1 }
     }
 }
 
@@ -607,21 +683,679 @@ country_event = {
 	
 	option = {
 		name = hellas.12.a #F
-		hidden_effect = { 
-			create_country_leader = {
-				name = "Themistoklís Sofoúlis"
-				desc = "POLITICS_THEMISTOKLIS_SOFOULIS_DESC"
-				picture = GFX_portrait_gre_themistoklis_sofoulis
-				expire = "1965.1.1"
-				ideology = liberalism
-				traits = {
-					professional_crisis_solver
-				}
-			}
-		}	
+		hidden_effect = {
+            retire_character = GRE_eleftherios_venizelos
+        }
+        #recruit_character = GRE_themistoklis_sofoulis
+        promote_character = GRE_themistoklis_sofoulis
 	}
 }
 
+unit_leader_event = {               # 21 / 2 / 1936 -> Navy Promotions
+	id = hellas.13
+	title = hellas.13.t
+	desc = hellas.13.desc
+    
+    is_triggered_only = yes 
+    timeout_days = 14
+    option = {
+        ai_chance = { base = 100 }
+        name = hellas.13.a
+        GRE_epameinondas_kavvadias = { promote_officer = yes }
+        hidden_effect = { activate_advisor = GRE_epameinondas_kavvadias_chief }
+        custom_effect_tooltip = h13_chief_selection
+        if = {
+            limit = { GRE_ioannis_metaxas = { is_country_leader = yes } }
+            add_to_variable = { GRE.fct_mon = 2.5 }
+            add_to_variable = { GRE.fct_fas = 2.5 }
+            add_to_variable = { GRE.fct_dem = -2.5 }
+            add_to_variable = { GRE.fct_com = -2.5 }
+            custom_effect_tooltip = h13_cannon_boost
+        }
+    }
+    option = {
+        name = hellas.13.b
+        GRE_alexandros_sakellariou = { promote_officer = yes }
+        hidden_effect = { activate_advisor = GRE_alexandros_sakellariou_chief }
+        custom_effect_tooltip = h13_chief_selection
+        if = {
+            limit = { GRE_ioannis_metaxas = { is_country_leader = yes } }
+            add_to_variable = { GRE.fct_mon = 2.5 }
+            add_to_variable = { GRE.fct_fas = 2.5 }
+            add_to_variable = { GRE.fct_dem = -2.5 }
+            add_to_variable = { GRE.fct_com = -2.5 }
+            custom_effect_tooltip = h13_cannon_boost
+        }
+    }
+    option = {
+        name = hellas.13.c
+        GRE_dimitrios_oikonomou = { promote_officer = yes }
+        hidden_effect = { activate_advisor = GRE_dimitrios_oikonomou_chief }
+        custom_effect_tooltip = h13_chief_selection
+        if = {
+            limit = { GRE_ioannis_metaxas = { is_country_leader = yes } }
+            add_to_variable = { GRE.fct_mon = 2.5 }
+            add_to_variable = { GRE.fct_fas = 2.5 }
+            add_to_variable = { GRE.fct_dem = -2.5 }
+            add_to_variable = { GRE.fct_com = -2.5 }
+            custom_effect_tooltip = h13_cannon_boost
+        }
+    }
+    option = {
+        name = hellas.13.d
+        trigger = { GRE_petros_voulgaris = { is_not_retired = yes } }
+        GRE_petros_voulgaris = { promote_officer = yes }
+        hidden_effect = { activate_advisor = GRE_dimitrios_oikonomou_chief }
+        custom_effect_tooltip = h13_chief_selection
+        if = {
+            limit = { GRE_ioannis_metaxas = { is_country_leader = yes } }
+            add_to_variable = { GRE.fct_mon = 2.5 }
+            add_to_variable = { GRE.fct_fas = 2.5 }
+            add_to_variable = { GRE.fct_dem = -2.5 }
+            add_to_variable = { GRE.fct_com = -2.5 }
+            custom_effect_tooltip = h13_cannon_boost
+        }
+    }
+    option = {
+        name = hellas.13.e
+        trigger = { GRE_ioannis_demestichas = { not_wanted_for_dead = yes } }
+        GRE_ioannis_demestichas = { promote_officer = yes }
+        hidden_effect = { activate_advisor = GRE_ioannis_demestichas_chief }
+        set_variable = { GRE.decision_taken = 3 }
+        custom_effect_tooltip = h13_chief_selection
+        if = {
+            limit = { GRE_ioannis_metaxas = { is_country_leader = yes } }
+            add_to_variable = { GRE.fct_mon = -2.5 }
+            add_to_variable = { GRE.fct_fas = -2.5 }
+            add_to_variable = { GRE.fct_dem = 2.5 }
+            add_to_variable = { GRE.fct_com = 2.5 }
+            custom_effect_tooltip = h13_althist_boost
+        }
+    }
+    option = {
+        name = hellas.13.f
+        trigger = { date < 1936.6.1 }
+        custom_effect_tooltip = h13_chief_selection_postpone
+        hidden_effect = {
+            GRE_epameinondas_kavvadias = { 
+                unit_leader_event = {
+                    id = hellas.13
+                    days = 110
+                    random = 0
+                    random_days = 20
+                } 
+            }
+        }
+    }
+}
+
+unit_leader_event = {               # Convicted to Death Generals
+	id = hellas.14
+	title = hellas.14.t
+	desc = hellas.14.desc
+    
+    is_triggered_only = yes 
+    timeout_days = 14
+    option = {
+        ai_chance = { base = 100 }
+        custom_effect_tooltip = h14_a
+        hidden_effect = {
+            every_character = {
+                limit = { has_character_flag = wanted_for_dead }
+                clr_character_flag = wanted_for_dead
+            }
+        }
+        add_to_variable = { GRE.fct_dem = 2.5 }
+        add_to_variable = { GRE.fct_com = 1.5 }
+        name = hellas.14.a
+    }
+    option = {
+        name = hellas.14.b
+        hidden_effect = {
+            every_character = {
+                limit = { has_character_flag = wanted_for_dead }
+                clr_character_flag = wanted_for_dead
+            }
+            every_character = {
+                limit = { has_character_flag = target_of_the_failed_coup }
+                clr_character_flag = target_of_the_failed_coup
+            }
+            clear_variable = hc_plastiras_purged
+            clear_variable = hc_demestichas_purged
+            clear_variable = hc_psarros_purged
+            clear_variable = hc_bakirtzis_purged
+            clear_variable = hc_zervas_purged
+        }
+        custom_effect_tooltip = h14_c
+    }
+    option = {
+        name = hellas.14.c
+        trigger = { date < 1937.1.1 }
+        custom_effect_tooltip = h14_d
+        hidden_effect = {
+            GRE_nikolaos_plastiras = {
+                unit_leader_event = {
+                    id = hellas.14
+                    days = 170
+                    random = 0
+                    random_days = 20
+                }
+            }
+        }
+    }
+}
+
+unit_leader_event = {               # Zachariadis Arrested by Maniadakis
+	id = hellas.15
+	title = hellas.15.t
+	desc = hellas.15.desc
+    
+    is_triggered_only = yes
+    timeout_days = 7
+    option = {
+        ai_chance = { base = 100 }
+        name = hellas.15.a
+    }
+}
+
+unit_leader_event = {               # Velouchiotis Arrested by Maniadakis
+	id = hellas.16
+	title = hellas.16.t
+	desc = hellas.16.desc
+    
+    is_triggered_only = yes
+    timeout_days = 16
+    option = {
+        name = hellas.16.a
+        ai_chance = { base = 100 }
+        GRE_aris_velouchiotis = { add_to_variable = { torture_level = 1 } }
+    }
+    option = {
+        name = hellas.16.b
+        GRE_aris_velouchiotis = { add_to_variable = { torture_level = 0 } }
+    }
+    option = {
+        name = hellas.16.c
+        GRE_aris_velouchiotis = { add_to_variable = { torture_level = 2 } }
+    }
+}
+
+country_event = {
+	id = hellas.17
+	title = hellas.17.t
+	desc = hellas.17.desc
+    picture = GFX_report_event_monarchists_power_up
+
+	trigger = { 
+        original_tag = GRE
+        check_variable = { fct_mon_effect_multiplier < 4 }
+        has_country_flag = GRE_kathestos_proclaimed
+        has_country_flag = GRE_faction_gui_flag
+        NOT = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+    }
+
+    mean_time_to_happen = {
+        days = 120
+        modifier = {
+            set_temp_variable = { tmp = 1 }
+            if = { limit = { check_variable = { GRE.final_mon_military_weight = 0 } } set_temp_variable = { mg = 0.005 } }
+            else = { set_temp_variable = { mg = GRE.final_mon_military_weight } multiply_temp_variable = { mg = 0.04 } }
+            divide_temp_variable = { tmp = mg }
+            factor = tmp
+            always = yes
+        }
+	}
+
+	fire_only_once = no
+	
+	option = {
+		name = hellas.17.a
+        set_temp_variable_to_random = { var = tmp_mon_effect_increase min = 0.04 max = 0.06}
+        #set_temp_variable = { tmp_mon_effect_increase = 0.05 }
+        multiply_temp_variable = { tmp_mon_effect = fct_mon_effect_multiplier }
+        set_temp_variable = { tmp_mon_effect = fct_mon_effect_multiplier }
+        add_to_temp_variable = { tmp_mon_effect = tmp_mon_effect_increase }
+        set_variable = { fct_mon_effect_multiplier = tmp_mon_effect }
+        custom_effect_tooltip = GRE_fct_effect_multiplier_change_up_mon
+        custom_effect_tooltip = GRE_fct_effect_multiplier_over_200_danger_tt
+        GRE_faction_mon_refresh = yes
+    }
+}
+
+country_event = {
+	id = hellas.18
+	title = hellas.18.t
+	desc = hellas.18.desc
+    picture = GFX_report_event_democrats_power_up
+
+	trigger = { 
+        original_tag = GRE
+        check_variable = { fct_dem_effect_multiplier < 4 }
+        if = {
+            limit = { has_country_flag = republican_uprising_utterly_crushed }
+            check_variable = { fct_dem > 49.99 }
+        }
+        has_country_flag = GRE_kathestos_proclaimed
+        has_country_flag = GRE_faction_gui_flag
+        NOT = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+    }
+
+    mean_time_to_happen = {
+        days = 120
+        modifier = {
+            set_temp_variable = { tmp = 1 }
+            set_temp_variable = { tmpF = 1 }
+            if = { limit = { check_variable = { GRE.final_dem_military_weight = 0 } } set_temp_variable = { mg = 0.005 } }
+            else = { set_temp_variable = { mg = GRE.final_dem_military_weight } multiply_temp_variable = { mg = 0.04 } }
+            divide_temp_variable = { tmp = mg }
+            factor = tmp
+            always = yes
+        }
+	}
+
+	fire_only_once = no
+	
+	option = {
+		name = hellas.18.a
+        set_temp_variable_to_random = { var = tmp_dem_effect_increase min = 0.04 max = 0.06}
+        #set_temp_variable = { tmp_dem_effect_increase = 0.05 }
+        set_temp_variable = { tmp_dem_effect = fct_dem_effect_multiplier }
+        add_to_temp_variable = { tmp_dem_effect = tmp_dem_effect_increase }
+        set_variable = { fct_dem_effect_multiplier = tmp_dem_effect }
+        custom_effect_tooltip = GRE_fct_effect_multiplier_change_up_dem
+        custom_effect_tooltip = GRE_fct_effect_multiplier_over_200_danger_tt
+        GRE_faction_refresh = yes
+    }
+}
+
+country_event = {
+	id = hellas.19
+	title = hellas.19.t
+	desc = hellas.19.desc
+    picture = GFX_report_event_communists_power_up
+
+	trigger = { 
+        original_tag = GRE
+        check_variable = { fct_com_effect_multiplier < 4 }
+        if = {
+            limit = { has_country_flag = communist_uprising_utterly_crushed }
+            check_variable = { fct_com > 49.99 }
+        }
+        has_country_flag = GRE_kathestos_proclaimed
+        has_country_flag = GRE_faction_gui_flag
+        NOT = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+    }
+
+    mean_time_to_happen = {
+        days = 120
+        modifier = {
+            set_temp_variable = { tmp = 1 }
+            set_temp_variable = { tmpF = 2 }
+            if = { limit = { check_variable = { GRE.final_com_military_weight = 0 } } set_temp_variable = { mg = 0.005 } }
+            else = { set_temp_variable = { mg = GRE.final_com_military_weight } multiply_temp_variable = { mg = 0.04 } }
+            divide_temp_variable = { tmp = mg }
+            factor = tmp
+            always = yes
+        }
+	}
+
+	fire_only_once = no
+	
+	option = {
+		name = hellas.19.a
+        set_temp_variable_to_random = { var = tmp_com_effect_increase min = 0.04 max = 0.06}
+        #set_temp_variable = { tmp_com_effect_increase = 0.05 }
+        set_temp_variable = { tmp_com_effect = fct_com_effect_multiplier }
+        add_to_temp_variable = { tmp_com_effect = tmp_com_effect_increase }
+        set_variable = { fct_com_effect_multiplier = tmp_com_effect }
+        custom_effect_tooltip = GRE_fct_effect_multiplier_change_up_com
+        custom_effect_tooltip = GRE_fct_effect_multiplier_over_200_danger_tt
+        GRE_faction_refresh = yes
+    }
+}
+
+country_event = {
+	id = hellas.20
+	title = hellas.20.t
+	desc = hellas.20.desc
+    picture = GFX_report_event_fascists_power_up
+
+	trigger = { 
+        original_tag = GRE
+        check_variable = { fct_fas_effect_multiplier < 4 }
+        NOT = { has_country_flag = metaxas_assimilated_fascists }
+        has_country_flag = GRE_kathestos_proclaimed
+        has_country_flag = GRE_faction_gui_flag
+        NOT = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
+    }
+
+    mean_time_to_happen = {
+        days = 120
+        modifier = {
+            set_temp_variable = { tmp = 1 }
+            set_temp_variable = { tmpF = 3 }
+            if = { limit = { check_variable = { GRE.final_fas_military_weight = 0 } } set_temp_variable = { mg = 0.005 } }
+            else = { set_temp_variable = { mg = GRE.final_fas_military_weight } multiply_temp_variable = { mg = 0.04 } }
+            divide_temp_variable = { tmp = mg }
+            factor = tmp
+            always = yes
+        }
+	}
+
+	fire_only_once = no
+	
+	option = {
+		name = hellas.20.a
+        set_temp_variable_to_random = { var = tmp_fas_effect_increase min = 0.04 max = 0.06}
+        #set_temp_variable = { tmp_fas_effect_increase = 0.05 }
+        set_temp_variable = { tmp_fas_effect = fct_fas_effect_multiplier }
+        add_to_temp_variable = { tmp_fas_effect = tmp_fas_effect_increase }
+        set_variable = { fct_fas_effect_multiplier = tmp_fas_effect }
+        custom_effect_tooltip = GRE_fct_effect_multiplier_change_up_fas
+        custom_effect_tooltip = GRE_fct_effect_multiplier_over_200_danger_tt
+        GRE_faction_refresh = yes
+    }
+}
+
+###[Axal Progress Reports]###
+
+country_event = {                                                       #[Neutral]#
+	id = hellas.21
+	title = hellas.21.t
+	desc = hellas.21.desc
+    picture = GFX_report_event_metaxas_diplomacy
+
+	trigger = { 
+        original_tag = GRE
+        has_country_flag = GRE_kathestos_proclaimed
+        check_variable = { axal > 40.00 }
+        check_variable = { axal < 60.00 }
+        check_variable = { axal_event_n = 0 }
+    }
+	fire_only_once = no
+
+    mean_time_to_happen = {
+        days = 20
+    }
+
+    immediate = {
+        hidden_effect = { set_variable = { axal_event_n = 1 } }
+    }
+	
+	option = { name = hellas.21.a }
+}
+
+country_event = {                                                       #[Allies#1]#
+	id = hellas.22
+	title = hellas.22.t
+	desc = hellas.21.desc
+    picture = GFX_report_event_axal_allies_lean
+
+	trigger = { 
+        original_tag = GRE
+        has_country_flag = GRE_kathestos_proclaimed
+        check_variable = { axal > 30.00 }
+        check_variable = { axal < 40.01 }
+        check_variable = { axal_event_al1 = 0 }
+    }
+	fire_only_once = no
+
+    mean_time_to_happen = {
+        days = 20
+    }
+
+    immediate = {
+        hidden_effect = { reset_axal_events_variables = yes set_variable = { axal_event_al1 = 1 } }
+    }
+	
+	option = { name = hellas.21.a }
+}
+
+country_event = {                                                       #[Allies#2]#
+	id = hellas.23
+	title = hellas.23.t
+	desc = hellas.21.desc
+    picture = GFX_report_event_axal_allies_lean
+
+	trigger = { 
+        original_tag = GRE
+        has_country_flag = GRE_kathestos_proclaimed
+        check_variable = { axal > 20.00 }
+        check_variable = { axal < 30.01 }
+        check_variable = { axal_event_al2 = 0 }
+    }
+	fire_only_once = no
+
+    mean_time_to_happen = {
+        days = 20
+    }
+
+    immediate = {
+        hidden_effect = { reset_axal_events_variables = yes set_variable = { axal_event_al2 = 1 } }
+    }
+	
+	option = { name = hellas.21.a }
+}
+
+country_event = {                                                       #[Allies#3]#
+	id = hellas.24
+	title = hellas.24.t
+	desc = hellas.21.desc
+    picture = GFX_report_event_axal_allies_lean
+
+	trigger = { 
+        original_tag = GRE
+        has_country_flag = GRE_kathestos_proclaimed
+        check_variable = { axal > 10.00 }
+        check_variable = { axal < 20.01 }
+        check_variable = { axal_event_al3 = 0 }
+    }
+	fire_only_once = no
+
+    mean_time_to_happen = {
+        days = 20
+    }
+
+    immediate = {
+        hidden_effect = { reset_axal_events_variables = yes set_variable = { axal_event_al3 = 1 } }
+    }
+	
+	option = { name = hellas.21.a }
+}
+
+country_event = {                                                       #[Allies#4]#
+	id = hellas.25
+	title = hellas.25.t
+	desc = hellas.21.desc
+    picture = GFX_report_event_axal_allies_lean
+
+	trigger = { 
+        original_tag = GRE
+        has_country_flag = GRE_kathestos_proclaimed
+        check_variable = { axal > 4.99 }
+        check_variable = { axal < 10.01 }
+        check_variable = { axal_event_al4 = 0 }
+    }
+	fire_only_once = no
+
+    mean_time_to_happen = {
+        days = 20
+    }
+
+    immediate = {
+        hidden_effect = { reset_axal_events_variables = yes set_variable = { axal_event_al4 = 1 } }
+    }
+	
+	option = { name = hellas.21.a }
+}
+
+country_event = {                                                       #[Allies#5]#
+	id = hellas.26
+	title = hellas.26.t
+	desc = hellas.21.desc
+    picture = GFX_report_event_axal_allies_lean
+
+	trigger = { 
+        original_tag = GRE
+        has_country_flag = GRE_kathestos_proclaimed
+        check_variable = { axal > 0.00 }
+        check_variable = { axal < 5.00 }
+        check_variable = { axal_event_al5 = 0 }
+    }
+	fire_only_once = no
+
+    mean_time_to_happen = {
+        days = 20
+    }
+
+    immediate = {
+        hidden_effect = { reset_axal_events_variables = yes set_variable = { axal_event_al5 = 1 } }
+    }
+	
+	option = { name = hellas.21.a }
+}
+
+country_event = {                                                       #[Axis#1]#
+	id = hellas.27
+	title = hellas.27.t
+	desc = hellas.21.desc
+    picture = GFX_report_event_axal_axis_lean
+
+	trigger = { 
+        original_tag = GRE
+        has_country_flag = GRE_kathestos_proclaimed
+        check_variable = { axal > 59.99 }
+        check_variable = { axal < 70.00 }
+        check_variable = { axal_event_ax1 = 0 }
+    }
+	fire_only_once = no
+
+    mean_time_to_happen = {
+        days = 20
+    }
+
+    immediate = {
+        hidden_effect = { reset_axal_events_variables = yes set_variable = { axal_event_ax1 = 1 } }
+    }
+	
+	option = { name = hellas.21.a }
+}
+
+country_event = {                                                       #[Axis#2]#
+	id = hellas.28
+	title = hellas.28.t
+	desc = hellas.21.desc
+    picture = GFX_report_event_axal_axis_lean
+
+	trigger = { 
+        original_tag = GRE
+        has_country_flag = GRE_kathestos_proclaimed
+        check_variable = { axal > 69.99 }
+        check_variable = { axal < 80.00 }
+        check_variable = { axal_event_ax2 = 0 }
+    }
+	fire_only_once = no
+
+    mean_time_to_happen = {
+        days = 20
+    }
+
+    immediate = {
+        hidden_effect = { reset_axal_events_variables = yes set_variable = { axal_event_ax2 = 1 } }
+    }
+	
+	option = { name = hellas.21.a }
+}
+
+country_event = {                                                       #[Axis#3]#
+	id = hellas.29
+	title = hellas.29.t
+	desc = hellas.21.desc
+    picture = GFX_report_event_axal_axis_lean
+
+	trigger = { 
+        original_tag = GRE
+        has_country_flag = GRE_kathestos_proclaimed
+        check_variable = { axal > 79.99 }
+        check_variable = { axal < 80.00 }
+        check_variable = { axal_event_ax3 = 0 }
+    }
+	fire_only_once = no
+
+    mean_time_to_happen = {
+        days = 20
+    }
+
+    immediate = {
+        hidden_effect = { reset_axal_events_variables = yes set_variable = { axal_event_ax3 = 1 } }
+    }
+	
+	option = { name = hellas.21.a }
+}
+
+country_event = {                                                       #[Axis#4]#
+	id = hellas.30
+	title = hellas.30.t
+	desc = hellas.21.desc
+    picture = GFX_report_event_axal_axis_lean
+
+	trigger = { 
+        original_tag = GRE
+        has_country_flag = GRE_kathestos_proclaimed
+        check_variable = { axal > 89.99 }
+        check_variable = { axal < 95.01 }
+        check_variable = { axal_event_ax4 = 0 }
+    }
+	fire_only_once = no
+
+    mean_time_to_happen = {
+        days = 20
+    }
+
+    immediate = {
+        hidden_effect = { reset_axal_events_variables = yes set_variable = { axal_event_ax4 = 1 } }
+    }
+	
+	option = { name = hellas.21.a }
+}
+
+country_event = {                                                       #[Axis#5]#
+	id = hellas.31
+	title = hellas.31.t
+	desc = hellas.21.desc
+    picture = GFX_report_event_axal_axis_lean
+
+	trigger = { 
+        original_tag = GRE
+        has_country_flag = GRE_kathestos_proclaimed
+        check_variable = { axal > 95.00 }
+        check_variable = { axal_event_ax5 = 0 }
+    }
+	fire_only_once = no
+
+    mean_time_to_happen = {
+        days = 20
+    }
+
+    immediate = {
+        hidden_effect = { reset_axal_events_variables = yes set_variable = { axal_event_ax5 = 1 } }
+    }
+	
+	option = { name = hellas.21.a }
+}
+
+country_event = {                                                       #[Metaxas Falling Sick]#
+	id = hellas.32
+	title = hellas.32.t
+	desc = hellas.32.desc
+    picture = GFX_report_event_metaxas_diplomacy
+
+	fire_only_once = yes
+    is_triggered_only = yes
+    #timeout_days = 1
+	
+	option = { name = hellas.32.a }
+}
 
 ########################################
 ####                                ####
@@ -708,7 +1442,7 @@ country_event = {                                                       #WARNING
         divisions_in_border_state = {
             type = infantry
             size > 2
-            state = 810
+            state = 838
             border_state = 805
         }
 		date > 1936.08.04
@@ -1375,10 +2109,8 @@ unit_leader_event = {                                                           
 
     immediate = {
         hidden_effect = {
-            THIS = {
-                remove_unit_leader = yes
-                add_to_variable = { GRE.officers_died = 1 }
-            }
+            add_to_variable = { GRE.officers_died = 1 }
+            THIS = { retire = yes }
         }
     }
     option = {
@@ -1424,7 +2156,7 @@ unit_leader_event = {                                                           
     option = {
         name = hellas.238.a
         trigger = {
-            THIS = { is_general_undesired = no}
+            THIS = { is_general_undesired = no }
         }
     }
     option = {
@@ -1465,7 +2197,7 @@ unit_leader_event = {                                                           
     }
 }
 
-unit_leader_event = {                                                                   #Officer Defects
+unit_leader_event = {                                                                   #Officer Difficulties
 	id = hellas.239
 	title = hellas.239.t
 	desc = hellas.239.desc
@@ -2121,6 +2853,27 @@ country_event = {               #MINING RIGHTS - ACCEPTED OR DENIED
     }
 }
 
+country_event = {                                                   #BEDROCK EVENT
+	id = hellas.246
+	title = hellas.246.t
+	desc = hellas.246.desc
+    picture = GFX_report_event_metaxas_inonu_balkan_leaders
+
+	is_triggered_only = yes
+	fire_only_once = yes
+	
+	option = {
+		name = hellas.246.a
+        add_political_power = 200
+    }
+    
+	option = {
+		name = hellas.246.b
+        set_country_flag = chose_investments 
+        custom_effect_tooltip = GRE_bedrock_additional_decisions_tt
+    }
+}
+
 ########################################
 ####                                ####
 ####   EXOTERIKI POLITIKI EVENTS    ####
@@ -2380,8 +3133,8 @@ country_event = {               #BELGRADE 1939 - YUGOLAV PRINCE REVEALS BULGARIA
 	
 	option = {
 		name = hellas.308.a
-        
-        unlock_decision_tooltip = reprimand_the_british
+
+        activate_mission = reprimand_the_british 
         set_country_flag = reprimand_the_british_available
         custom_effect_tooltip = GRE_fbm_balkan_tt
         custom_effect_tooltip = GRE_fdm_bulgaria_tt
@@ -2404,32 +3157,306 @@ country_event = {               #BELGRADE 1939 - YUGOSLAV PRINCE REVEALS BRITISH
 	
 	option = { ##PROTEST HEAVILY
 		name = hellas.309.a
-        add_political_power = -50
-        hidden_effect = {
-            country_event = { id = hellas.3095 days = 14 }
-        }
-    }  
+        add_political_power = -150
+        set_variable = { GRE.protest_level = 4 }
+        hidden_effect = { country_event = { id = hellas.3095 days = 14 } }
+    }
+    option = { ##PROTEST NORMALLY
+		name = hellas.309.b
+        add_political_power = -75
+        set_variable = { GRE.protest_level = 3 }
+        hidden_effect = { country_event = { id = hellas.3095 days = 14 } }
+    }
+    option = { ##PROTEST CHILLY
+		name = hellas.309.c
+        add_political_power = -25
+        set_variable = { GRE.protest_level = 2 }
+        hidden_effect = { country_event = { id = hellas.3095 days = 14 } }
+    }
+    option = { ##PROTEST WEAKLY
+		name = hellas.309.d
+        set_variable = { GRE.protest_level = 1 }
+        hidden_effect = { country_event = { id = hellas.3095 days = 14 } }
+    }
     option = { ##KEEP QUITE
         name = hellas.309.b
+        add_political_power = -50
+        add_stability = -0.05
+        add_war_support = -0.05
     }
 }
 
 country_event = {               #BRITISH RESPONSE
 	id = hellas.3095
-	title = hellas.3095.t
-	desc = hellas.3095.desc
+    title = { text = hellas.3095.t_a trigger = { check_variable = { opt = 1 } } }
+    title = { text = hellas.3095.t_b trigger = { check_variable = { opt = 2 } } }
+    title = { text = hellas.3095.t_c trigger = { check_variable = { opt = 3 } } }
+    title = { text = hellas.3095.t_d trigger = { check_variable = { opt = 4 } } }
+	desc = { text = hellas.3095.desc_a trigger = { check_variable = { opt = 1 } } }
+    desc = { text = hellas.3095.desc_b trigger = { check_variable = { opt = 2 } } }
+    desc = { text = hellas.3095.desc_c trigger = { check_variable = { opt = 3 } } }
+    desc = { text = hellas.3095.desc_d trigger = { check_variable = { opt = 4 } } }
     picture = GFX_report_event_belgrade_1939
 
 	is_triggered_only = yes
-
 	fire_only_once = yes
+
+    immediate = {
+        hidden_effect = {
+            ###[British Influence]###
+            if = {
+                limit = {
+                    check_variable = { var=ENG.favor@GRE value=-60 compare=less_than }
+                }
+                add_to_temp_variable = { b1 = 0 }
+                add_to_temp_variable = { b2 = 0 }
+                add_to_temp_variable = { b3 = 10 }
+                add_to_temp_variable = { b4 = 90 }
+            }
+            else_if = {
+                limit = {
+                    check_variable = { var=ENG.favor@GRE value=-60 compare=greater_than_or_equals }
+                    check_variable = { var=ENG.favor@GRE value=-30 compare=less_than }
+                }
+                add_to_temp_variable = { b1 = 0 }
+                add_to_temp_variable = { b2 = 5 }
+                add_to_temp_variable = { b3 = 15 }
+                add_to_temp_variable = { b4 = 80 }
+            }
+            else_if = {
+                limit = {
+                    check_variable = { var=ENG.favor@GRE value=-30 compare=greater_than_or_equals }
+                    check_variable = { var=ENG.favor@GRE value=0 compare=less_than }
+                }
+                add_to_temp_variable = { b1 = 5 }
+                add_to_temp_variable = { b2 = 10 }
+                add_to_temp_variable = { b3 = 15 }
+                add_to_temp_variable = { b4 = 70 }
+            }
+            else_if = {
+                limit = {
+                    check_variable = { var=ENG.favor@GRE value=0 compare=greater_than_or_equals }
+                    check_variable = { var=ENG.favor@GRE value=30 compare=less_than }
+                }
+                add_to_temp_variable = { b1 = 10 }
+                add_to_temp_variable = { b2 = 20 }
+                add_to_temp_variable = { b3 = 30 }
+                add_to_temp_variable = { b4 = 40 }
+            }
+            else_if = {
+                limit = {
+                    check_variable = { var=ENG.favor@GRE value=30 compare=greater_than_or_equals }
+                    check_variable = { var=ENG.favor@GRE value=40 compare=less_than }
+                }
+                add_to_temp_variable = { b1 = 20 }
+                add_to_temp_variable = { b2 = 30 }
+                add_to_temp_variable = { b3 = 30 }
+                add_to_temp_variable = { b4 = 20 }
+            }
+            else_if = {
+                limit = {
+                    check_variable = { var=ENG.favor@GRE value=40 compare=greater_than_or_equals }
+                    check_variable = { var=ENG.favor@GRE value=50 compare=less_than }
+                }
+                add_to_temp_variable = { b1 = 25 }
+                add_to_temp_variable = { b2 = 50 }
+                add_to_temp_variable = { b3 = 15 }
+                add_to_temp_variable = { b4 = 10 }
+            }
+            else_if = {
+                limit = {
+                    check_variable = { var=ENG.favor@GRE value=50 compare=greater_than_or_equals }
+                    check_variable = { var=ENG.favor@GRE value=60 compare=less_than }
+                }
+                add_to_temp_variable = { b1 = 35 }
+                add_to_temp_variable = { b2 = 50 }
+                add_to_temp_variable = { b3 = 10 }
+                add_to_temp_variable = { b4 = 5 }
+            }
+            else_if = {
+                limit = {
+                    check_variable = { var=ENG.favor@GRE value=70 compare=greater_than_or_equals }
+                    check_variable = { var=ENG.favor@GRE value=80 compare=less_than }
+                }
+                add_to_temp_variable = { b1 = 50 }
+                add_to_temp_variable = { b2 = 40 }
+                add_to_temp_variable = { b3 = 10 }
+                add_to_temp_variable = { b4 = 0 }
+            }
+            else_if = {
+                limit = {
+                    check_variable = { var=ENG.favor@GRE value=80 compare=greater_than_or_equals }
+                    check_variable = { var=ENG.favor@GRE value=90 compare=less_than }
+                }
+                add_to_temp_variable = { b1 = 60 }
+                add_to_temp_variable = { b2 = 30 }
+                add_to_temp_variable = { b3 = 10 }
+                add_to_temp_variable = { b4 = 0 }
+            }
+            else_if = {
+                limit = {
+                    check_variable = { var=ENG.favor@GRE value=90 compare=greater_than_or_equals }
+                    check_variable = { var=ENG.favor@GRE value=95 compare=less_than }
+                }
+                add_to_temp_variable = { b1 = 80 }
+                add_to_temp_variable = { b2 = 20 }
+                add_to_temp_variable = { b3 = 0 }
+                add_to_temp_variable = { b4 = 0 }
+            }
+            else_if = {
+                limit = {
+                    check_variable = { var=ENG.favor@GRE value=95 compare=greater_than_or_equals }
+                    check_variable = { var=ENG.favor@GRE value=100 compare=less_than_or_equals }
+                }
+                add_to_temp_variable = { b1 = 100 }
+                add_to_temp_variable = { b2 = 0 }
+                add_to_temp_variable = { b3 = 0 }
+                add_to_temp_variable = { b4 = 0 }
+            }
+            ###[AXAL]###
+            if = { limit = { check_variable = { GRE.alax < 5 } } add_to_temp_variable = { b1 = 0 } add_to_temp_variable = { b2 = 0 } add_to_temp_variable = { b3 = 0 } add_to_temp_variable = { b4 = 100 } }
+            else_if = { limit = { check_variable = { GRE.alax < 10 } } add_to_temp_variable = { b1 = 0 } add_to_temp_variable = { b2 = 0 } add_to_temp_variable = { b3 = 25 } add_to_temp_variable = { b4 = 75 } }
+            else_if = { limit = { check_variable = { GRE.alax < 20 } } add_to_temp_variable = { b1 = 0 } add_to_temp_variable = { b2 = 10 } add_to_temp_variable = { b3 = 20 } add_to_temp_variable = { b4 = 70 } }
+            else_if = { limit = { check_variable = { GRE.alax < 30 } } add_to_temp_variable = { b1 = 10 } add_to_temp_variable = { b2 = 20 } add_to_temp_variable = { b3 = 30 } add_to_temp_variable = { b4 = 40 } }
+            else_if = { limit = { check_variable = { GRE.alax < 40.01 } } add_to_temp_variable = { b1 = 10 } add_to_temp_variable = { b2 = 30 } add_to_temp_variable = { b3 = 30 } add_to_temp_variable = { b4 = 30 } }
+            else_if = { limit = { check_variable = { GRE.alax < 59.99 } } add_to_temp_variable = { b1 = 25 } add_to_temp_variable = { b2 = 25 } add_to_temp_variable = { b3 = 25 } add_to_temp_variable = { b4 = 25 } }
+            else_if = { limit = { check_variable = { GRE.alax < 70 } } add_to_temp_variable = { b1 = 30 } add_to_temp_variable = { b2 = 30 } add_to_temp_variable = { b3 = 30 } add_to_temp_variable = { b4 = 10 } }
+            else_if = { limit = { check_variable = { GRE.alax < 80 } } add_to_temp_variable = { b1 = 40 } add_to_temp_variable = { b2 = 30 } add_to_temp_variable = { b3 = 20 } add_to_temp_variable = { b4 = 10 } }
+            else_if = { limit = { check_variable = { GRE.alax < 90 } } add_to_temp_variable = { b1 = 70 } add_to_temp_variable = { b2 = 20 } add_to_temp_variable = { b3 = 10 } add_to_temp_variable = { b4 = 0 } }
+            else_if = { limit = { check_variable = { GRE.alax < 95.01 } } add_to_temp_variable = { b1 = 75 } add_to_temp_variable = { b2 = 25 } add_to_temp_variable = { b3 = 0 } add_to_temp_variable = { b4 = 0 } }
+            else = { add_to_temp_variable = { b1 = 100 } add_to_temp_variable = { b2 = 0 } add_to_temp_variable = { b3 = 0 } add_to_temp_variable = { b4 = 0 } }
+            ###[BASE BIAS]###
+            add_to_temp_variable = { b1 = 30 } 
+            add_to_temp_variable = { b2 = 30 } 
+            add_to_temp_variable = { b3 = 30 } 
+            add_to_temp_variable = { b4 = 10 }
+            ###[AVERAGE]###
+            divide_temp_variable = { b1 = 3 }
+            divide_temp_variable = { b2 = 3 }
+            divide_temp_variable = { b3 = 3 }
+            divide_temp_variable = { b4 = 3 }
+            ###[PROTEST LEVEL ADJUSTMENTS]###
+            if = { 
+                limit = { check_variable = { GRE.protest_level = 4 } }
+                multiply_temp_variable = { b1 = 2.00 }   #100%higher
+                multiply_temp_variable = { b2 = 1.50 }   #50%higher
+                multiply_temp_variable = { b3 = 0.50 }   #50%lower
+                multiply_temp_variable = { b4 = 0.10 }   #90%lower
+                log="DID IT"
+            }
+            else_if = { 
+                limit = { check_variable = { GRE.protest_level = 3 } }
+                multiply_temp_variable = { b1 = 1.75 }   #75%higher
+                multiply_temp_variable = { b2 = 1.25 }   #25%higher
+                multiply_temp_variable = { b3 = 0.75 }   #25%lower
+                multiply_temp_variable = { b4 = 0.25 }   #75%lower
+            }
+            else_if = { 
+                limit = { check_variable = { GRE.protest_level = 2 } }
+                multiply_temp_variable = { b1 = 1.50 }   #50%higher
+                multiply_temp_variable = { b2 = 1.25 }   #25%higher
+                multiply_temp_variable = { b3 = 0.75 }   #25%lower
+                multiply_temp_variable = { b4 = 0.50 }   #50%lower
+            }
+            log="[?b1]"
+            log="[?b2]"
+            log="[?b3]"
+            log="[?b4]"
+            ###[FINAL]###
+            random_list = {
+                seed = random
+                var:b1 = { set_variable = { opt = 1 } }
+                var:b2 = { set_variable = { opt = 2 } }
+                var:b3 = { set_variable = { opt = 3 } }
+                var:b4 = { set_variable = { opt = 4 } }
+            }
+        }
+    }
 	
-	option = { ##BRITISH YIELD
+	option = { # Best Result
 		name = hellas.3095.a
+        trigger = { check_variable = { opt = 1 } }
+        add_political_power = 150
+        add_stability = 0.1
+        add_war_support = 0.1
+        every_country = {
+            limit = { has_country_flag=balkan_pact_reinforced NOT={has_country_flag=GRE_kathestos_proclaimed} }
+            add_political_power = 75
+            add_stability = 0.05
+            add_war_support = 0.05
+            add_to_variable = { overall_alliance_weight = 1.5 }
+            custom_effect_tooltip = alliance_chance_adequately_increased_tt
+        }
+        set_temp_variable = { findX = ENG.id }
+        set_temp_variable = { findY = 5 }
+        add_to_variable = { GER.favor@GRE = findY }
+        custom_effect_tooltip = favor_boost_with_findX_by_findY
+        clear_variable = opt
+        clear_variable = protest_level
+    }
+    option = { # 2nd Best Result
+		name = hellas.3095.b
+        trigger = { check_variable = { opt = 2 } }
         add_political_power = 75
-        add_to_variable = { ENG.favor@GRE = 5 }
-        custom_effect_tooltip = GRE_fbm_british_tt
+        add_stability = 0.05
+        add_war_support = 0.05
+        every_country = {
+            limit = { has_country_flag = balkan_pact_reinforced NOT={has_country_flag=GRE_kathestos_proclaimed} }
+            add_political_power = 25
+            add_stability = 0.02
+            add_war_support = 0.02
+            add_to_variable = { overall_alliance_weight = 0.75 }
+            custom_effect_tooltip = alliance_chance_slightly_increased_tt
+        }
+        set_temp_variable = { findX = ENG.id }
+        set_temp_variable = { findY = 5 }
+        add_to_variable = { GER.favor@GRE = findY }
+        custom_effect_tooltip = favor_boost_with_findX_by_findY
+        clear_variable = opt
+        clear_variable = protest_level
     }  
+    option = { # 2nd Worst Result
+		name = hellas.3095.c
+        trigger = { check_variable = { opt = 3 } }
+        add_political_power = -75
+        add_stability = -0.05
+        add_war_support = -0.05
+        every_country = {
+            limit = { has_country_flag = balkan_pact_reinforced NOT={has_country_flag=GRE_kathestos_proclaimed} }
+            add_political_power = -25
+            add_stability = -0.02
+            add_war_support = -0.02
+            add_to_variable = { overall_alliance_weight = -0.75 }
+            custom_effect_tooltip = alliance_chance_slightly_reduced_tt
+        }
+        set_temp_variable = { findX = ENG.id }
+        set_temp_variable = { findY = -5 }
+        add_to_variable = { GER.favor@GRE = findY }
+        custom_effect_tooltip = favor_hit_with_findX_by_findY
+        clear_variable = opt
+        clear_variable = protest_level
+    }
+    option = { # Worst Result
+		name = hellas.3095.d
+        trigger = { check_variable = { opt = 4 } }
+        add_political_power = -150
+        add_stability = -0.1
+        add_war_support = -0.1
+        every_country = {
+            limit = { has_country_flag = balkan_pact_reinforced NOT={has_country_flag=GRE_kathestos_proclaimed} }
+            add_political_power = -75
+            add_stability = -0.05
+            add_war_support = -0.05
+            add_to_variable = { overall_alliance_weight = -1.5 }
+            custom_effect_tooltip = alliance_chance_adequately_decreased_tt
+        }
+        set_temp_variable = { findX = ENG.id }
+        set_temp_variable = { findY = -5 }
+        add_to_variable = { GER.favor@GRE = findY }
+        custom_effect_tooltip = favor_hit_with_findX_by_findY
+        clear_variable = opt
+        clear_variable = protest_level
+    }
 }
 
 country_event = {               #BUCHAREST 1939
@@ -2591,7 +3618,7 @@ country_event = {               #THE PRO-AXIS PLOT
 		name = hellas.317.a
         trigger = {
             has_country_flag = prepared_for_1940_plot
-            has_country_flag = GRE_kotzias_safe_removal
+            GRE_kostas_kotzias = { has_character_flag = GRE_kotzias_safe_removal }
         }
         add_political_power = 400
         set_temp_variable = { tmp_mon_effect_increase = 0.25 }
@@ -2607,11 +3634,11 @@ country_event = {               #THE PRO-AXIS PLOT
             OR = {
                 AND = {
                     has_country_flag = prepared_for_1940_plot
-                    NOT = { has_country_flag = GRE_kotzias_safe_removal }
+                    NOT = { GRE_kostas_kotzias = { has_character_flag = GRE_kotzias_safe_removal } }
                 }
                 AND = {
                     has_country_flag = GRE_kotzias_safe_removal
-                    NOT = { has_country_flag = prepared_for_1940_plot }
+                    NOT = { GRE_kostas_kotzias = { has_character_flag = GRE_kotzias_safe_removal } }
                 }
             }
         }
@@ -2624,7 +3651,7 @@ country_event = {               #THE PRO-AXIS PLOT
 		name = hellas.317.c
         trigger = {
             NOT = { has_country_flag = prepared_for_1940_plot }
-            NOT = { has_country_flag = GRE_kotzias_safe_removal }
+            NOT = { GRE_kostas_kotzias = { has_character_flag = GRE_kotzias_safe_removal } }
         }
         add_political_power = -400
         add_stability = -0.4
@@ -2692,10 +3719,7 @@ country_event = {               #THE GRUESOME DECISION
         else = {
             date > 1939.03.18
         }
-        has_country_leader = {
-            name = "Ioannis Metaxas"
-            ruling_only = yes
-        }
+        GRE_ioannis_metaxas = { is_country_leader = yes }
 	}
 
 	mean_time_to_happen = {
@@ -2807,7 +3831,25 @@ country_event = {                                                               
                 target = GRE
                 modifier = GRE_common_balkan_strategy
             }
-            set_country_flag = common_strategy_with_greece_defined
+            hidden_effect = {
+                remove_opinion_modifier = {
+                    target = GRE
+                    modifier = BFTB_incongruous_neighbors
+                }
+                remove_opinion_modifier = {
+                    target = ROM
+                    modifier = BFTB_incongruous_neighbors
+                }
+                remove_opinion_modifier = {
+                    target = TUR
+                    modifier = BFTB_incongruous_neighbors
+                }
+                remove_opinion_modifier = {
+                    target = YUG
+                    modifier = BFTB_incongruous_neighbors
+                }
+            }
+            set_country_flag = balkan_pact_reinforced
         }
         GRE = {
             add_opinion_modifier = { 
@@ -2815,6 +3857,32 @@ country_event = {                                                               
                 modifier = GRE_common_balkan_strategy
             }
             country_event = { id = hellas.3201 days = 1 }
+        }
+        hidden_effect = {
+            GRE = {
+                remove_opinion_modifier = {
+                    target = BUL
+                    modifier = BFTB_balkan_pact_enemy
+                }
+            }
+            TUR = {
+                remove_opinion_modifier = {
+                    target = BUL
+                    modifier = BFTB_balkan_pact_enemy
+                }
+            }
+            YUG = {
+                remove_opinion_modifier = {
+                    target = BUL
+                    modifier = BFTB_balkan_pact_enemy
+                }
+            }
+            ROM = {
+                remove_opinion_modifier = {
+                    target = BUL
+                    modifier = BFTB_balkan_pact_enemy
+                }
+            }
         }
         every_state = {
             limit = {
@@ -3171,10 +4239,54 @@ country_event = {                                                               
                         expire = "1965.1.1"
                         ideology = despotism
                     }
+                    hidden_effect = {
+                        remove_opinion_modifier = {
+                            target = GRE
+                            modifier = BFTB_incongruous_neighbors
+                        }
+                        remove_opinion_modifier = {
+                            target = ROM
+                            modifier = BFTB_incongruous_neighbors
+                        }
+                        remove_opinion_modifier = {
+                            target = TUR
+                            modifier = BFTB_incongruous_neighbors
+                        }
+                        remove_opinion_modifier = {
+                            target = YUG
+                            modifier = BFTB_incongruous_neighbors
+                        }
+                    }
                     #hidden_effect = {
                     #	retire_ideology_leader = fascism
                     #}
                     set_country_flag = shackled_to_the_balkan_pact
+                }
+                hidden_effect = {
+                    GRE = {
+                        remove_opinion_modifier = {
+                            target = BUL
+                            modifier = BFTB_balkan_pact_enemy
+                        }
+                    }
+                    TUR = {
+                        remove_opinion_modifier = {
+                            target = BUL
+                            modifier = BFTB_balkan_pact_enemy
+                        }
+                    }
+                    YUG = {
+                        remove_opinion_modifier = {
+                            target = BUL
+                            modifier = BFTB_balkan_pact_enemy
+                        }
+                    }
+                    ROM = {
+                        remove_opinion_modifier = {
+                            target = BUL
+                            modifier = BFTB_balkan_pact_enemy
+                        }
+                    }
                 }
             }
         }
@@ -3737,34 +4849,46 @@ country_event = {
 	trigger = {
         original_tag = GRE
         has_active_mission = GRE_repub_upr
-        check_variable = { fct_dem < 21 }
         NOT = { has_country_flag = republican_uprising_utterly_crushed }
         NOT = { has_country_flag = dem_civilwar_started }
+        check_variable = { fct_dem < 40 }
     }
 
     mean_time_to_happen = {
-        days = 1
+        days = 240
         modifier = {
-            set_temp_variable = { x = 3.75 }
-            multiply_temp_variable = { x = fct_dem }
-            add_to_temp_variable = { x = 10 }
+            set_temp_variable = { x = fct_dem }
+            divide_temp_variable = { x = 40 }
+            if = { limit = { check_variable = { fct_dem < 20 } } divide_temp_variable = { x = 2 } }
             factor = x
-            always = yes
         }
 	}
 
 	fire_only_once = no
+    timeout_days = 5
 	
 	option = {
 		name = hellas.352.a
 
 		ai_chance = {base = 100}
-        set_temp_variable = { tmp_dem_effect_increase = 0.10 }
+        ###[Increase Overall Effect Multiplier]###
+        set_temp_variable_to_random = { var = tmp_dem_effect_increase min = 0.06 max = 0.14 }
         set_temp_variable = { tmp_dem_effect = fct_dem_effect_multiplier }
         add_to_temp_variable = { tmp_dem_effect = tmp_dem_effect_increase }
         set_variable = { fct_dem_effect_multiplier = tmp_dem_effect }
         custom_effect_tooltip = GRE_fct_effect_multiplier_change_up_dem
+        ###[Remove Days from Mission]###
+        set_temp_variable = { current_remaining = days_mission_timeout@GRE_repub_upr }
+        set_temp_variable_to_random =  { var = percentage_days_lost min = 0.01 max = 0.2 }
+        multiply_temp_variable = { current_remaining = percentage_days_lost }
+        multiply_temp_variable = { current_remaining = -1 }
+        add_days_mission_timeout = {
+            mission = GRE_repub_upr
+            days = current_remaining
+        }
+        ################################
         custom_effect_tooltip = GRE_fct_effect_multiplier_over_200_danger_tt
+        custom_effect_tooltip = h352_dem_additional_days_lost_tt
         GRE_faction_refresh = yes
     }
 }
@@ -3780,32 +4904,44 @@ country_event = {
         NOT = { has_country_flag = communist_uprising_utterly_crushed }
         has_active_mission = GRE_comm_upr
         NOT = { has_country_flag = com_civilwar_started }
-        check_variable = { fct_com < 21 }
+        check_variable = { fct_com < 40 }
     }
 
     mean_time_to_happen = {
-        days = 1
+        days = 240
         modifier = {
-            set_temp_variable = { x = 3.75 }
-            multiply_temp_variable = { x = fct_com }
-            add_to_temp_variable = { x = 10 }
+            set_temp_variable = { x = fct_com }
+            divide_temp_variable = { x = 40 }
+            if = { limit = { check_variable = { fct_com < 20 } } divide_temp_variable = { x = 2 } }
             factor = x
-            always = yes
         }
 	}
 
 	fire_only_once = no
+    timeout_days = 5
 	
 	option = {
 		name = hellas.353.a
 
 		ai_chance = {base = 100}
-        set_temp_variable = { tmp_com_effect_increase = 0.10 }
+        ###[Increase Overall Effect Multiplier]###
+        set_temp_variable_to_random = { var = tmp_com_effect_increase min = 0.06 max = 0.14}
         set_temp_variable = { tmp_com_effect = fct_com_effect_multiplier }
         add_to_temp_variable = { tmp_com_effect = tmp_com_effect_increase }
         set_variable = { fct_com_effect_multiplier = tmp_com_effect }
         custom_effect_tooltip = GRE_fct_effect_multiplier_change_up_com
+        ###[Remove Days from Mission]###
+        set_temp_variable = { current_remaining = days_mission_timeout@GRE_comm_upr }
+        set_temp_variable_to_random =  { var = percentage_days_lost min = 0.01 max = 0.2 }
+        multiply_temp_variable = { current_remaining = percentage_days_lost }
+        multiply_temp_variable = { current_remaining = -1 }
+        add_days_mission_timeout = {
+            mission = GRE_comm_upr
+            days = current_remaining
+        }
+        ################################
         custom_effect_tooltip = GRE_fct_effect_multiplier_over_200_danger_tt
+        custom_effect_tooltip = h352_com_additional_days_lost_tt
         GRE_faction_refresh = yes
     }
 }
@@ -3870,7 +5006,7 @@ country_event = {
                 size = x
                 capital = 47
                 states = { 
-                    807 186 187
+                    835 186 187
                 }
                 keep_unit_leaders_trigger = {
                     has_trait = trait_GRE_stauch_monarchist_persona
@@ -3894,7 +5030,7 @@ country_event = {
                 size = x
                 capital = 47
                 states = {
-                    811 731 810 812
+                    839 731 838 840
                 }
                 keep_unit_leaders_trigger = {
                     has_trait = trait_GRE_stauch_republican_persona
@@ -3918,7 +5054,7 @@ country_event = {
                 size = x
                 capital = 47
                 states = {
-                    185 809 810
+                    185 837 838
                 }
                 keep_unit_leaders_trigger = {
                     has_trait = trait_GRE_stauch_communist_persona
@@ -3941,7 +5077,7 @@ country_event = {
                 size = x
                 capital = 47
                 states = {
-                    811 731
+                    839 731
                 }
                 keep_unit_leaders_trigger = {
                     has_trait = trait_GRE_stauch_fascist_persona
@@ -3970,14 +5106,10 @@ country_event = {
 
 	fire_only_once = yes
 	
-	#Give into Greece
 	option = {
 		name = hellas.400.a
 
-		ai_chance = {
-			base = 100
-			}
-        add_equipment_to_stockpile = { type = anti_air_equipment amount = 41 producer = GRE }
+        add_equipment_to_stockpile = { type = anti_air_equipment amount = 41 producer = FRA }
         add_equipment_to_stockpile = { type = fighter_equipment_0 amount = 5 producer = GRE }
         add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 500 producer = GRE }
         add_equipment_to_stockpile = { type = support_equipment amount = 25 producer = GRE }
@@ -4002,65 +5134,122 @@ country_event = {       ## Order AA, AT
 			base = 100
 			}
         if = {
-            limit = {
-                has_idea = GRE_schachtplan
+            limit = { has_idea = GRE_schachtplan }
+            if = {
+                limit = { GER = { has_tech = interwar_antitank } }
+                add_equipment_to_stockpile = { type = anti_air_equipment amount = 110 producer = GER }
+                add_equipment_to_stockpile = { type = anti_tank_equipment amount = 24 producer = GER }
             }
-            add_equipment_to_stockpile = { type = anti_air_equipment amount = 110 producer = GER }
-            add_equipment_to_stockpile = { type = anti_tank_equipment amount = 24 }
-            add_to_variable = { GER.favor@GRE = 3 }
+            else = {
+                add_equipment_to_stockpile = { type = anti_air_equipment amount = 134 producer = GER }
+            }
+            set_temp_variable = { findX = GER.id }
+            set_temp_variable = { findY = 3 }
+            add_to_variable = { GER.favor@GRE = findY }
+            custom_effect_tooltip = favor_boost_with_findX_by_findY
+
         }
         else_if = {
-            limit = {
-            has_idea = GRE_schachtplan_modified
+            limit = { has_idea = GRE_schachtplan_modified }
+            if = {
+                limit = { GER = { has_tech = interwar_antitank } }
+                add_equipment_to_stockpile = { type = anti_air_equipment amount = 127 producer = GER }
+                add_equipment_to_stockpile = { type = anti_tank_equipment amount = 28 producer = GER }
             }
-            add_equipment_to_stockpile = { type = anti_air_equipment amount = 127 producer = GER }
-            add_equipment_to_stockpile = { type = anti_tank_equipment amount = 28 } 
-            add_to_variable = { GER.favor@GRE = 4 }
+            else = {
+                add_equipment_to_stockpile = { type = anti_air_equipment amount = 155 producer = GER }
+            } 
+            set_temp_variable = { findX = GER.id }
+            set_temp_variable = { findY = 4 }
+            add_to_variable = { GER.favor@GRE = findY }
+            custom_effect_tooltip = favor_boost_with_findX_by_findY
         }
         else_if = {
-            limit = {
-            has_idea = GRE_schachtplan_fascistised
+            limit = { has_idea = GRE_schachtplan_fascistised }
+            if = {
+                limit = { GER = { has_tech = interwar_antitank } }
+                add_equipment_to_stockpile = { type = anti_air_equipment amount = 143 producer = GER }
+                add_equipment_to_stockpile = { type = anti_tank_equipment amount = 31 producer = GER }
             }
-            add_equipment_to_stockpile = { type = anti_air_equipment amount = 143 producer = GER }
-            add_equipment_to_stockpile = { type = anti_tank_equipment amount = 31 } 
-            add_to_variable = { GER.favor@GRE = 5 }
+            else = {
+                add_equipment_to_stockpile = { type = anti_air_equipment amount = 174 producer = GER }
+            }
+            set_temp_variable = { findX = GER.id }
+            set_temp_variable = { findY = 5 }
+            add_to_variable = { GER.favor@GRE = findY }
+            custom_effect_tooltip = favor_boost_with_findX_by_findY
         }
         else = {
-            add_equipment_to_stockpile = { type = anti_air_equipment amount = 100 producer = GER }
-            add_equipment_to_stockpile = { type = anti_tank_equipment amount = 22 }       
-            add_to_variable = { GER.favor@GRE = 1 }
+            if = {
+                limit = { GER = { has_tech = interwar_antitank } }
+                add_equipment_to_stockpile = { type = anti_air_equipment amount = 100 producer = GER }
+                add_equipment_to_stockpile = { type = anti_tank_equipment amount = 22 producer = GER }
+            }
+            else = {
+                add_equipment_to_stockpile = { type = anti_air_equipment amount = 122 producer = GER }
+            }     
+            set_temp_variable = { findX = GER.id }
+            set_temp_variable = { findY = 1 }
+            add_to_variable = { GER.favor@GRE = findY }
+            custom_effect_tooltip = favor_boost_with_findX_by_findY
         }
     }  
 	option = {  ##FRANCE
 		name = hellas.401.b
 
-		ai_chance = {
-			base = 100
-			}
-        add_equipment_to_stockpile = { type = anti_air_equipment amount = 100 producer = ENG }
-        add_equipment_to_stockpile = { type = anti_tank_equipment amount = 22 }
-        add_to_variable = { ENG.favor@GRE = 6 }
-        add_to_variable = { FRA.favor@GRE = 6 }
+		ai_chance = { base = 100 }
+        if = {
+            limit = { ENG = { has_tech = interwar_antitank } }
+            add_equipment_to_stockpile = { type = anti_air_equipment amount = 50 producer = ENG }
+            add_equipment_to_stockpile = { type = anti_air_equipment amount = 50 producer = FRA }
+            add_equipment_to_stockpile = { type = anti_tank_equipment amount = 22 producer = ENG }
+        }
+        else = {
+            add_equipment_to_stockpile = { type = anti_air_equipment amount = 61 producer = ENG }
+            add_equipment_to_stockpile = { type = anti_air_equipment amount = 61 producer = FRA }
+        }
+        set_temp_variable = { findX = ENG.id }
+        set_temp_variable = { findY = 6 }
+        add_to_variable = { GER.favor@GRE = findY }
+        custom_effect_tooltip = favor_boost_with_findX_by_findY
+        set_temp_variable = { findX = GER.id }
+        set_temp_variable = { findY = 6 }
+        add_to_variable = { FRA.favor@GRE = findY }
+        custom_effect_tooltip = favor_boost_with_findX_by_findY
     }  
 	option = {  ##SOVIET
 		name = hellas.401.c
 
-		ai_chance = {
-			base = 100
-			}
-        add_equipment_to_stockpile = { type = anti_air_equipment amount = 94 producer = SOV }
-        add_equipment_to_stockpile = { type = anti_tank_equipment amount = 20 }
-        add_to_variable = { SOV.favor@GRE = 5 }    
+		ai_chance = { base = 100 }
+        if = {
+            limit = { SOV = { has_tech = interwar_antitank } }
+            add_equipment_to_stockpile = { type = anti_air_equipment amount = 94 producer = SOV }
+            add_equipment_to_stockpile = { type = anti_tank_equipment amount = 20 producer = SOV }
+        }
+        else = {
+            add_equipment_to_stockpile = { type = anti_air_equipment amount = 114 producer = SOV }
+        }
+        set_temp_variable = { findX = SOV.id }
+        set_temp_variable = { findY = 5 }
+        add_to_variable = { GER.favor@GRE = findY }
+        custom_effect_tooltip = favor_boost_with_findX_by_findY 
     }      
 	option = {  ##USA
 		name = hellas.401.d
 
-		ai_chance = {
-			base = 100
-			}
-        add_equipment_to_stockpile = { type = anti_air_equipment amount = 110 producer = USA }
-        add_equipment_to_stockpile = { type = anti_tank_equipment amount = 24 }  
-        add_to_variable = { USA.favor@GRE = 4 }
+		ai_chance = { base = 100 }
+        if = {
+            limit = { USA = { has_tech = interwar_antitank } }
+            add_equipment_to_stockpile = { type = anti_air_equipment amount = 110 producer = USA }
+            add_equipment_to_stockpile = { type = anti_tank_equipment amount = 24 producer = USA }
+        }
+        else = {
+            add_equipment_to_stockpile = { type = anti_air_equipment amount = 134 producer = USA }
+        }
+        set_temp_variable = { findX = USA.id }
+        set_temp_variable = { findY = 4 }
+        add_to_variable = { GER.favor@GRE = findY }
+        custom_effect_tooltip = favor_boost_with_findX_by_findY
     }  
 }
 
@@ -4085,38 +5274,49 @@ country_event = {       ## Order Mortars
                 has_idea = GRE_schachtplan
             }
             add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 600 producer = GER }
-            add_to_variable = { GER.favor@GRE = 2 }
+            set_temp_variable = { findX = GER.id }
+            set_temp_variable = { findY = 2 }
+            add_to_variable = { GER.favor@GRE = findY }
+            custom_effect_tooltip = favor_boost_with_findX_by_findY
         }
         else_if = {
             limit = {
             has_idea = GRE_schachtplan_modified
             }
             add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 800 producer = GER } 
-            add_to_variable = { GER.favor@GRE = 3 }
+            set_temp_variable = { findX = GER.id }
+            set_temp_variable = { findY = 3 }
+            add_to_variable = { GER.favor@GRE = findY }
+            custom_effect_tooltip = favor_boost_with_findX_by_findY
         }
         else_if = {
             limit = {
             has_idea = GRE_schachtplan_fascistised
             }
             add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 1000 producer = GER }
-            add_to_variable = { GER.favor@GRE = 4 }
+            set_temp_variable = { findX = GER.id }
+            set_temp_variable = { findY = 4 }
+            add_to_variable = { GER.favor@GRE = findY }
+            custom_effect_tooltip = favor_boost_with_findX_by_findY
         }
         else = {
             add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 400 producer = GER }   
-            add_to_variable = { GER.favor@GRE = 1 }
+            set_temp_variable = { findX = GER.id }
+            set_temp_variable = { findY = 1 }
+            add_to_variable = { GER.favor@GRE = findY }
+            custom_effect_tooltip = favor_boost_with_findX_by_findY
         }
     }  
 	option = {  ##FRANCE
 		name = hellas.402.b
 
-		ai_chance = {
-			base = 100
-			}
-        set_technology = {
-            support_weapons = 1
-        }
+		ai_chance = { base = 100 }
+        set_technology = { support_weapons = 1 }
         add_equipment_to_stockpile = { type = infantry_equipment_1 amount = 315 producer = FRA }
-        add_to_variable = { FRA.favor@GRE = 3 }
+        set_temp_variable = { findX = FRA.id }
+        set_temp_variable = { findY = 3 }
+        add_to_variable = { GER.favor@GRE = findY }
+        custom_effect_tooltip = favor_boost_with_findX_by_findY
     }  
 	option = {  ##SOVIET
 		name = hellas.402.c
@@ -4125,7 +5325,10 @@ country_event = {       ## Order Mortars
 			base = 100
 			}
         add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 600 producer = SOV }
-        add_to_variable = { SOV.favor@GRE = 3 }    
+        set_temp_variable = { findX = SOV.id }
+        set_temp_variable = { findY = 3 }
+        add_to_variable = { GER.favor@GRE = findY }
+        custom_effect_tooltip = favor_boost_with_findX_by_findY 
     }      
 	option = {  ##USA
 		name = hellas.402.d
@@ -4134,7 +5337,10 @@ country_event = {       ## Order Mortars
 			base = 100
 			}
         add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 600 producer = USA }
-        add_to_variable = { USA.favor@GRE = 3 }
+        set_temp_variable = { findX = USA.id }
+        set_temp_variable = { findY = 3 }
+        add_to_variable = { GER.favor@GRE = findY }
+        custom_effect_tooltip = favor_boost_with_findX_by_findY
     }  
 }
 
@@ -4159,53 +5365,64 @@ country_event = {       ## Order Misc
                 has_idea = GRE_schachtplan
             }
             add_equipment_to_stockpile = { type = support_equipment amount = 200 producer = GER }
-            add_to_variable = { GER.favor@GRE = 2 }
+            set_temp_variable = { findX = GER.id }
+            set_temp_variable = { findY = 2 }
+            add_to_variable = { GER.favor@GRE = findY }
+            custom_effect_tooltip = favor_boost_with_findX_by_findY
         }
         else_if = {
-            limit = {
-            has_idea = GRE_schachtplan_modified
-            }
+            limit = { has_idea = GRE_schachtplan_modified }
             add_equipment_to_stockpile = { type = support_equipment amount = 230 producer = GER }
-            add_to_variable = { GER.favor@GRE = 3 }
+            set_temp_variable = { findX = GER.id }
+            set_temp_variable = { findY = 3 }
+            add_to_variable = { GER.favor@GRE = findY }
+            custom_effect_tooltip = favor_boost_with_findX_by_findY
         }
         else_if = {
-            limit = {
-            has_idea = GRE_schachtplan_fascistised
-            }
+            limit = { has_idea = GRE_schachtplan_fascistised }
             add_equipment_to_stockpile = { type = support_equipment amount = 260 producer = GER }
-            add_to_variable = { GER.favor@GRE = 4 }
+            set_temp_variable = { findX = GER.id }
+            set_temp_variable = { findY = 4 }
+            add_to_variable = { GER.favor@GRE = findY }
+            custom_effect_tooltip = favor_boost_with_findX_by_findY
         }
         else = {
             add_equipment_to_stockpile = { type = support_equipment amount = 170 producer = GER }   
-            add_to_variable = { GER.favor@GRE = 1 }
+            set_temp_variable = { findX = GER.id }
+            set_temp_variable = { findY = 1 }
+            add_to_variable = { GER.favor@GRE = findY }
+            custom_effect_tooltip = favor_boost_with_findX_by_findY
         }
     }  
 	option = {  ##FRANCE
 		name = hellas.403.b
 
-		ai_chance = {
-			base = 100
-			}
+		ai_chance = { base = 100 }
         add_equipment_to_stockpile = { type = support_equipment amount = 175 producer = FRA }
-        add_to_variable = { FRA.favor@GRE = 3 }
+        set_temp_variable = { findX = FRA.id }
+        set_temp_variable = { findY = 3 }
+        add_to_variable = { GER.favor@GRE = findY }
+        custom_effect_tooltip = favor_boost_with_findX_by_findY
     }  
 	option = {  ##SOVIET
 		name = hellas.403.c
 
-		ai_chance = {
-			base = 100
-			}
+		ai_chance = { base = 100 }
         add_equipment_to_stockpile = { type = support_equipment amount = 175 producer = SOV }
-        add_to_variable = { SOV.favor@GRE = 3 }    
+        set_temp_variable = { findX = SOV.id }
+        set_temp_variable = { findY = 2 }
+        add_to_variable = { GER.favor@GRE = findY }
+        custom_effect_tooltip = favor_boost_with_findX_by_findY   
     }      
 	option = {  ##USA
 		name = hellas.403.d
 
-		ai_chance = {
-			base = 100
-			}
+		ai_chance = { base = 100 }
         add_equipment_to_stockpile = { type = support_equipment amount = 175 producer = USA }
-        add_to_variable = { USA.favor@GRE = 3 }
+        set_temp_variable = { findX = USA.id }
+        set_temp_variable = { findY = 3 }
+        add_to_variable = { GER.favor@GRE = findY }
+        custom_effect_tooltip = favor_boost_with_findX_by_findY
     }  
 }
 
@@ -4242,6 +5459,7 @@ country_event = {       ## Choose Partner to Modernize the army
 	id = hellas.405
 	title = hellas.405.t
 	desc = hellas.405.desc
+    picture = GFX_report_event_greek_hold_on
 
 	is_triggered_only = yes
 
@@ -4255,7 +5473,7 @@ country_event = {       ## Choose Partner to Modernize the army
                 check_variable = { var = FRA.favor@GRE value = 50 compare = greater_than_or_equals }
             }
         }     
-        hidden_effect = {
+        #hidden_effect = {
             ### MOTORIZED / MECH1 ###
             if = {
                 limit = { NOT = { has_tech = motorised_infantry } }
@@ -4263,173 +5481,288 @@ country_event = {       ## Choose Partner to Modernize the army
             }
             ########################
             ###       TANKS      ###
-            set_technology = { gwtank = 1 }
-            set_technology = { basic_heavy_tank = 1 }
+            set_technology = { gwtank_chassis = 1 }
+            if = { limit = { NOT = { has_tech = basic_heavy_tank_chassis } OR = { ENG = { has_tech = basic_heavy_tank_chassis } FRA = { has_tech = basic_heavy_tank_chassis } } } add_tech_bonus = { bonus = 3.0 uses = 1 category = cat_heavy_armor } }
+            else_if = { limit = { NOT = { has_tech = basic_medium_tank_chassis } OR = { ENG = { has_tech = basic_medium_tank_chassis } FRA = { has_tech = basic_medium_tank_chassis } } } add_tech_bonus = { bonus = 3.0 uses = 1 category = cat_medium_armor } }
+            else_if = { limit = { NOT = { has_tech = basic_light_tank_chassis } OR = { ENG = { has_tech = basic_light_tank_chassis } FRA = { has_tech = basic_light_tank_chassis } } } add_tech_bonus = { bonus = 3.0 uses = 1 category = cat_light_armor } }
             ########################
             ###      SUPPORT     ###
+            set_temp_variable = { x = 0 }
+            set_temp_variable = { limit = 2 }
+            custom_effect_tooltip = support_picked_in_order_tt
             if = {
-                limit = { NOT = { has_tech = tech_engineers2 } }
+                limit = { NOT = { has_tech = tech_engineers2 } OR = { ENG = { has_tech = tech_engineers2 } FRA = { has_tech = tech_engineers2 } } check_variable = { x < limit } }
                 set_technology = { tech_engineers2 = 1 }
+                add_to_temp_variable = { x = 1 }
             }
             if = {
-                limit = { NOT = { has_tech = tech_recon2 } }
+                limit = { NOT = { has_tech = tech_recon2 } OR = { ENG = { has_tech = tech_recon2 } FRA = { has_tech = tech_recon2 } } check_variable = { x < limit } }
                 set_technology = { tech_recon2 = 1 }
+                add_to_temp_variable = { x = 1 }
             }
             if = {
-                limit = { NOT = { has_tech = tech_maintenance_company } }
+                limit = { NOT = { has_tech = tech_maintenance_company } OR = { ENG = { has_tech = tech_maintenance_company } FRA = { has_tech = tech_maintenance_company } } }
                 set_technology = { tech_maintenance_company = 1 }
             }
-            else_if = {
-                limit = { NOT = { has_tech = tech_maintenance_company2 } }
+            if = {
+                limit = { NOT = { has_tech = tech_maintenance_company2 } OR = { ENG = { has_tech = tech_maintenance_company2 } FRA = { has_tech = tech_maintenance_company2 } } check_variable = { x < limit } }
                 set_technology = { tech_maintenance_company2 = 1 }
+                add_to_temp_variable = { x = 1 }
             }
             if = {
-                limit = { NOT = { has_tech = tech_field_hospital } }
+                limit = { NOT = { has_tech = tech_field_hospital } OR = { ENG = { has_tech = tech_field_hospital } FRA = { has_tech = tech_field_hospital } } }
                 set_technology = { tech_field_hospital = 1 }
-            }  
-            else_if = {
-                limit = { NOT = { has_tech = tech_field_hospital2 } }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_field_hospital2 } OR = { ENG = { has_tech = tech_field_hospital2 } FRA = { has_tech = tech_field_hospital2 } } check_variable = { x < limit } }
                 set_technology = { tech_field_hospital2 = 1 }
-            } 
+                add_to_temp_variable = { x = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_logistics_company } OR = { ENG = { has_tech = tech_logistics_company } FRA = { has_tech = tech_logistics_company } } }
+                set_technology = { tech_logistics_company = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_logistics_company2 } OR = { ENG = { has_tech = tech_logistics_company2 } FRA = { has_tech = tech_logistics_company2 } } check_variable = { x < limit } }
+                set_technology = { tech_logistics_company2 = 1 }
+                add_to_temp_variable = { x = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_signal_company } OR = { ENG = { has_tech = tech_signal_company } FRA = { has_tech = tech_signal_company } } }
+                set_technology = { tech_signal_company = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_signal_company2 } OR = { ENG = { has_tech = tech_signal_company2 } FRA = { has_tech = tech_signal_company2 } } check_variable = { x < limit } }
+                set_technology = { tech_signal_company2 = 1 }
+                add_to_temp_variable = { x = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_military_police } OR = { ENG = { has_tech = tech_military_police } FRA = { has_tech = tech_military_police } } }
+                set_technology = { tech_military_police = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_military_police2 } OR = { ENG = { has_tech = tech_military_police2 } FRA = { has_tech = tech_military_police2 } } check_variable = { x < limit } }
+                set_technology = { tech_military_police2 = 1 }
+                add_to_temp_variable = { x = 1 }
+            }
             ########################
             ###      WEAPONS     ###
             if = {
-                limit = { NOT = { has_tech = infantry_weapons1 } }
+                limit = { NOT = { has_tech = infantry_weapons1 } OR = { ENG = { has_tech = infantry_weapons1 } FRA = { has_tech = infantry_weapons1 } } }
                 set_technology = { infantry_weapons1 = 1 }
             }
             else_if = {
-                limit = { NOT = { has_tech = infantry_weapons2 } }
+                limit = { NOT = { has_tech = infantry_weapons2 } OR = { ENG = { has_tech = infantry_weapons2 } FRA = { has_tech = infantry_weapons2 } } }
                 set_technology = { infantry_weapons2 = 1 }
-            }  
+            }
             else_if = {
-                limit = { NOT = { has_tech = improved_infantry_weapons } }
+                limit = { NOT = { has_tech = improved_infantry_weapons } OR = { ENG = { has_tech = improved_infantry_weapons } FRA = { has_tech = improved_infantry_weapons } } }
                 set_technology = { improved_infantry_weapons = 1 }
-            }  
+            }
             ########################
             ###     ARTILLERY    ###
             #ART
             if = {
-                limit = { NOT = { has_tech = interwar_artillery } }
+                limit = { NOT = { has_tech = interwar_artillery } OR = { ENG = { has_tech = interwar_artillery } FRA = { has_tech = interwar_artillery } } }
                 set_technology = { interwar_artillery = 1 }
             }
             else_if = {
-                limit = { NOT = { has_tech = artillery1 } }
+                limit = { NOT = { has_tech = artillery1 } OR = { ENG = { has_tech = artillery1 } FRA = { has_tech = artillery1 } } }
                 set_technology = { artillery1 = 1 }
             }  
             else_if = {
-                limit = { NOT = { has_tech = artillery2 } }
+                limit = { NOT = { has_tech = artillery2 } OR = { ENG = { has_tech = artillery2 } FRA = { has_tech = artillery2 } } }
                 set_technology = { artillery2 = 1 }
             } 
             #AA
             if = {
-                limit = { NOT = { has_tech = antiair1 } }
+                limit = { NOT = { has_tech = antiair1 } OR = { ENG = { has_tech = antiair1 } FRA = { has_tech = antiair1 } } }
                 set_technology = { antiair1 = 1 }
             }
             else_if = {
-                limit = { NOT = { has_tech = antiair2 } }
+                limit = { NOT = { has_tech = antiair2 } OR = { ENG = { has_tech = antiair2 } FRA = { has_tech = antiair2 } } }
                 set_technology = { antiair2 = 1 }
             }  
             else_if = {
-                limit = { NOT = { has_tech = antiair3 } }
+                limit = { NOT = { has_tech = antiair3 } OR = { ENG = { has_tech = antiair3 } FRA = { has_tech = antiair3 } } }
                 set_technology = { antiair3 = 1 }
             }  
             #AT
             if = {
-                limit = { NOT = { has_tech = antitank1 } }
+                limit = { NOT = { has_tech = antitank1 } OR = { ENG = { has_tech = antitank1 } FRA = { has_tech = antitank1 } } }
                 set_technology = { antitank1 = 1 }
             }
             else_if = {
-                limit = { NOT = { has_tech = antitank2 } }
+                limit = { NOT = { has_tech = antitank2 } OR = { ENG = { has_tech = antitank2 } FRA = { has_tech = antitank2 } } }
                 set_technology = { antitank2 = 1 }
             }  
             else_if = {
-                limit = { NOT = { has_tech = antitank3 } }
+                limit = { NOT = { has_tech = antitank3 } OR = { ENG = { has_tech = antitank3 } FRA = { has_tech = antitank3 } } }
                 set_technology = { antitank3 = 1 }
             }            
             ########################
             ###     DOCTRINE     ###
-            add_tech_bonus = {
-                name = GRE_modernize_the_army
-                bonus = 4.0
-                uses = 2
-                category = cat_grand_battle_plan
-            }        
-        }        
-    }     
+            add_doctrine_cost_reduction = {
+				name = GRE_modernize_the_army
+				cost_reduction = 0.5
+				uses = 1
+				category = cat_grand_battle_plan
+			}
+        #}        
+    }
 	option = {  ##GER
 		name = hellas.405.b
         trigger = {
             check_variable = { var = GER.favor@GRE value = 50 compare = greater_than_or_equals }
         }
-        hidden_effect = {
+        #hidden_effect = {
             ### MOTORIZED / MECH1 ###
             if = {
                 limit = { NOT = { has_tech = motorised_infantry } }
                 set_technology = { motorised_infantry = 1 }
             }
             else_if = {
-                limit = { NOT = { has_tech = mechanised_infantry } }
+                limit = { NOT = { has_tech = mechanised_infantry } GER = { has_tech = mechanised_infantry } }
                 set_technology = { mechanised_infantry = 1 }        
             }
             ########################
             ### ARMORED CAR 1/2  ###
             if = {
-                limit = { NOT = { has_tech = armored_car1 } }
+                limit = { NOT = { has_tech = armored_car1 } GER = { has_tech = armored_car1 } }
                 set_technology = { armored_car1 = 1 }
             }
             else_if = {
-                limit = { NOT = { has_tech = armored_car2 } }
+                limit = { NOT = { has_tech = armored_car2 } GER = { has_tech = armored_car2 } }
                 set_technology = { armored_car2 = 1 }
             }
             ########################
             ###       TANKS      ###
-            set_technology = { gwtank = 1 }
-            set_technology = { basic_light_tank = 1 }
-            set_technology = { basic_light_td = 1 }
-            set_technology = { basic_light_art = 1 }
-            set_technology = { basic_light_spaa = 1 }
-            set_technology = { improved_light_tank = 1 }
-            set_technology = { basic_heavy_tank = 1 }
+            if = {
+                limit = {
+                    GER = { has_tech = gwtank_chassis }
+                }
+                set_technology = { gwtank_chassis = 1 }
+            }
+            if = {
+                limit = {
+                    GER = { has_tech = basic_light_tank_chassis }
+                }
+                set_technology = { basic_light_tank_chassis = 1 }
+            }
+            if = {
+                limit = {
+                    GER = { has_tech = basic_medium_tank_chassis }
+                }
+                set_technology = { basic_medium_tank_chassis = 1 }
+            }
+            if = {
+                limit = {
+                    GER = { has_tech = basic_heavy_tank_chassis }
+                }
+                set_technology = { basic_heavy_tank_chassis = 1 }
+            } 
+            if = {
+                limit = {
+                    GER = { has_tech = engine_tech_1 }
+                }
+                set_technology = { engine_tech_1 = 1 }
+            } 
+            if = {
+                limit = {
+                    GER = { has_tech = armor_tech_1 }
+                }
+                set_technology = { armor_tech_1 = 1 }
+            }
             ########################
             ###      SUPPORT     ###
+            set_temp_variable = { x = 0 }
+            set_temp_variable = { limit = 3 }
+            custom_effect_tooltip = support_picked_in_order_tt
             if = {
-                limit = { NOT = { has_tech = tech_signal_company } }
+                limit = { NOT = { has_tech = tech_engineers2 } GER = { has_tech = tech_engineers2 } check_variable = { x < limit }  }
+                set_technology = { tech_engineers2 = 1 }
+                add_to_temp_variable = { x = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_recon2 } GER = { has_tech = tech_recon2 } check_variable = { x < limit }  }
+                set_technology = { tech_recon2 = 1 }
+                add_to_temp_variable = { x = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_maintenance_company } GER = { has_tech = tech_maintenance_company }  }
+                set_technology = { tech_maintenance_company = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_maintenance_company2 } GER = { has_tech = tech_maintenance_company2 } check_variable = { x < limit }  }
+                set_technology = { tech_maintenance_company2 = 1 }
+                add_to_temp_variable = { x = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_signal_company } GER = { has_tech = tech_signal_company }  }
                 set_technology = { tech_signal_company = 1 }
             }
-            else_if = {
-                limit = { NOT = { has_tech = tech_signal_company2 } }
-                set_technology = { tech_signal_company2 = 1 }        
+            if = {
+                limit = { NOT = { has_tech = tech_signal_company2 } GER = { has_tech = tech_signal_company2 } check_variable = { x < limit }  }
+                set_technology = { tech_signal_company2 = 1 }
+                add_to_temp_variable = { x = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_military_police } GER = { has_tech = tech_military_police }  }
+                set_technology = { tech_military_police = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_military_police2 } GER = { has_tech = tech_military_police2 } check_variable = { x < limit }  }
+                set_technology = { tech_military_police2 = 1 }
+                add_to_temp_variable = { x = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_field_hospital } GER = { has_tech = tech_field_hospital }  }
+                set_technology = { tech_field_hospital = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_field_hospital2 } GER = { has_tech = tech_field_hospital2 } check_variable = { x < limit }  }
+                set_technology = { tech_field_hospital2 = 1 }
+                add_to_temp_variable = { x = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_logistics_company } GER = { has_tech = tech_logistics_company }  }
+                set_technology = { tech_logistics_company = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_logistics_company2 } GER = { has_tech = tech_logistics_company2 } check_variable = { x < limit }  }
+                set_technology = { tech_logistics_company2 = 1 }
+                add_to_temp_variable = { x = 1 }
             }
             ########################
             ###      WEAPONS     ###
             if = {
-                limit = { NOT = { has_tech = infantry_weapons1 } }
+                limit = { NOT = { has_tech = infantry_weapons1 } GER = { has_tech = infantry_weapons1 } }
                 set_technology = { infantry_weapons1 = 1 }
             }
             else_if = {
-                limit = { NOT = { has_tech = infantry_weapons2 } }
+                limit = { NOT = { has_tech = infantry_weapons2 } GER = { has_tech = infantry_weapons2 } }
                 set_technology = { infantry_weapons2 = 1 }
             }  
             else_if = {
-                limit = { NOT = { has_tech = improved_infantry_weapons } }
+                limit = { NOT = { has_tech = improved_infantry_weapons } GER = { has_tech = improved_infantry_weapons } }
                 set_technology = { improved_infantry_weapons = 1 }
             }            
             ########################
-            ###     DOCTRINE     ###
-            add_tech_bonus = {
-                name = GRE_modernize_the_army
-                bonus = 4.0
-                uses = 4
-                category = cat_mobile_warfare
-            }        
-        }
-    }  
+            ###     DOCTRINE     ###   
+            add_doctrine_cost_reduction = {
+				name = GRE_modernize_the_army
+				cost_reduction = 0.5
+				uses = 2
+				category = cat_mobile_warfare
+			}
+        #}
+    }
 	option = {  ##SOV
 		name = hellas.405.c
         trigger = {
             check_variable = { var = SOV.favor@GRE value = 50 compare = greater_than_or_equals }
         }
-        hidden_effect = {
+        #hidden_effect = {
             ###     MOTORIZED    ###
             if = {
                 limit = { NOT = { has_tech = motorised_infantry } }
@@ -4437,92 +5770,191 @@ country_event = {       ## Choose Partner to Modernize the army
             }
             ########################
             ###       TANKS      ###
-            set_technology = { gwtank = 1 }
-            set_technology = { basic_heavy_tank = 1 }            
-			add_tech_bonus = {
-				name = GRE_hellenic_armoured_corp
-				bonus = 0.5
-				ahead_reduction = 1
-				uses = 1
-				category = cat_heavy_armor
-			}
+            if = {
+                limit = {
+                    SOV = { has_tech = gwtank_chassis }
+                }
+                set_technology = { gwtank_chassis = 1 }
+            }
+            if = {
+                limit = {
+                    SOV = { has_tech = basic_heavy_tank_chassis }
+                }
+                set_technology = { basic_heavy_tank_chassis = 1 }
+                add_tech_bonus = {
+                    name = GRE_hellenic_armoured_corp
+                    bonus = 0.25
+                    uses = 1
+                    category = cat_heavy_armor
+                }
+            } 
+            else_if = {
+                limit = {
+                    SOV = { has_tech = basic_medium_tank_chassis }
+                }
+                set_technology = { basic_medium_tank_chassis = 1 }
+                add_tech_bonus = {
+                    name = GRE_hellenic_armoured_corp
+                    bonus = 0.25
+                    uses = 1
+                    category = cat_medium_armor
+                }
+            } 
+            else_if = {
+                limit = {
+                    SOV = { has_tech = basic_light_tank_chassis }
+                }
+                set_technology = { basic_light_tank_chassis = 1 }
+                add_tech_bonus = {
+                    name = GRE_hellenic_armoured_corp
+                    bonus = 0.25
+                    uses = 1
+                    category = cat_light_armor
+                }
+            }
+            if = {
+                limit = {
+                    SOV = { has_tech = armor_tech_1 }
+                }
+                set_technology = { armor_tech_1 = 1 }
+            }
+            else_if = {
+                limit = {
+                    SOV = { has_tech = engine_tech_1 }
+                }
+                set_technology = { engine_tech_1 = 1 }
+            }			
             ########################
             ###      SUPPORT     ###
+            set_temp_variable = { x = 0 }
+            set_temp_variable = { limit = 1 }
+            custom_effect_tooltip = support_picked_in_order_tt
             if = {
-                limit = { NOT = { has_tech = tech_engineers2 } }
+                limit = { NOT = { has_tech = tech_engineers2 } SOV = { has_tech = tech_engineers2 } check_variable = { x < limit }  }
                 set_technology = { tech_engineers2 = 1 }
-            } 
+                add_to_temp_variable = { x = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_recon2 } SOV = { has_tech = tech_recon2 } check_variable = { x < limit }  }
+                set_technology = { tech_recon2 = 1 }
+                add_to_temp_variable = { x = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_maintenance_company } SOV = { has_tech = tech_maintenance_company }  }
+                set_technology = { tech_maintenance_company = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_maintenance_company2 } SOV = { has_tech = tech_maintenance_company2 } check_variable = { x < limit }  }
+                set_technology = { tech_maintenance_company2 = 1 }
+                add_to_temp_variable = { x = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_signal_company } SOV = { has_tech = tech_signal_company }  }
+                set_technology = { tech_signal_company = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_signal_company2 } SOV = { has_tech = tech_signal_company2 } check_variable = { x < limit }  }
+                set_technology = { tech_signal_company2 = 1 }
+                add_to_temp_variable = { x = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_military_police } SOV = { has_tech = tech_military_police }  }
+                set_technology = { tech_military_police = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_military_police2 } SOV = { has_tech = tech_military_police2 } check_variable = { x < limit }  }
+                set_technology = { tech_military_police2 = 1 }
+                add_to_temp_variable = { x = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_field_hospital } SOV = { has_tech = tech_field_hospital }  }
+                set_technology = { tech_field_hospital = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_field_hospital2 } SOV = { has_tech = tech_field_hospital2 } check_variable = { x < limit }  }
+                set_technology = { tech_field_hospital2 = 1 }
+                add_to_temp_variable = { x = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_logistics_company } SOV = { has_tech = tech_logistics_company }  }
+                set_technology = { tech_logistics_company = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_logistics_company2 } SOV = { has_tech = tech_logistics_company2 } check_variable = { x < limit }  }
+                set_technology = { tech_logistics_company2 = 1 }
+                add_to_temp_variable = { x = 1 }
+            }
             ########################
             ###      WEAPONS     ###
             if = {
-                limit = { NOT = { has_tech = infantry_weapons1 } }
+                limit = { NOT = { has_tech = infantry_weapons1 } SOV = { has_tech = infantry_weapons1 } }
                 set_technology = { infantry_weapons1 = 1 }
             }
             else_if = {
-                limit = { NOT = { has_tech = infantry_weapons2 } }
+                limit = { NOT = { has_tech = infantry_weapons2 } SOV = { has_tech = infantry_weapons2 } }
                 set_technology = { infantry_weapons2 = 1 }
             }  
             else_if = {
-                limit = { NOT = { has_tech = improved_infantry_weapons } }
+                limit = { NOT = { has_tech = improved_infantry_weapons } SOV = { has_tech = improved_infantry_weapons } }
                 set_technology = { improved_infantry_weapons = 1 }
             }  
             ########################
             ###     ARTILLERY    ###
             #ART
             if = {
-                limit = { NOT = { has_tech = interwar_artillery } }
+                limit = { NOT = { has_tech = interwar_artillery } SOV = { has_tech = interwar_artillery } }
                 set_technology = { interwar_artillery = 1 }
             }
             else_if = {
-                limit = { NOT = { has_tech = artillery1 } }
+                limit = { NOT = { has_tech = artillery1 } SOV = { has_tech = artillery1 } }
                 set_technology = { artillery1 = 1 }
             }  
             else_if = {
-                limit = { NOT = { has_tech = artillery2 } }
+                limit = { NOT = { has_tech = artillery2 } SOV = { has_tech = artillery2 } }
                 set_technology = { artillery2 = 1 }
             } 
             #AA
             if = {
-                limit = { NOT = { has_tech = antiair1 } }
+                limit = { NOT = { has_tech = antiair1 } SOV = { has_tech = antiair1 } }
                 set_technology = { antiair1 = 1 }
             }
             else_if = {
-                limit = { NOT = { has_tech = antiair2 } }
+                limit = { NOT = { has_tech = antiair2 } SOV = { has_tech = antiair2 } }
                 set_technology = { antiair2 = 1 }
             }  
             else_if = {
-                limit = { NOT = { has_tech = antiair3 } }
+                limit = { NOT = { has_tech = antiair3 } SOV = { has_tech = antiair3 } }
                 set_technology = { antiair3 = 1 }
             }  
             #AT
             if = {
-                limit = { NOT = { has_tech = antitank1 } }
+                limit = { NOT = { has_tech = antitank1 } SOV = { has_tech = antitank1 } }
                 set_technology = { antitank1 = 1 }
             }
             else_if = {
-                limit = { NOT = { has_tech = antitank2 } }
+                limit = { NOT = { has_tech = antitank2 } SOV = { has_tech = antitank2 } }
                 set_technology = { antitank2 = 1 }
             }  
             else_if = {
-                limit = { NOT = { has_tech = antitank3 } }
+                limit = { NOT = { has_tech = antitank3 } SOV = { has_tech = antitank3 } }
                 set_technology = { antitank3 = 1 }
             }                
             ########################
             ###     DOCTRINE     ###
-            add_tech_bonus = {
+            add_doctrine_cost_reduction = {
                 name = GRE_modernize_the_army
-                bonus = 4.0
-                uses = 4
+                cost_reduction = 0.5
+                uses = 1
                 category = cat_mass_assault
             }        
-        }            
+        #}            
     }   
 	option = {  ##USA
 		name = hellas.405.d
         trigger = {
             check_variable = { var = USA.favor@GRE value = 50 compare = greater_than_or_equals }
         }
-        hidden_effect = {
+        #hidden_effect = {
             ### MOTORIZED / MECH1 ###
             if = {
                 limit = { NOT = { has_tech = motorised_infantry } }
@@ -4530,234 +5962,376 @@ country_event = {       ## Choose Partner to Modernize the army
             }
             ########################
             ###       TANKS      ###
-			add_tech_bonus = {
-				name = GRE_hellenic_armoured_corp
-				bonus = 0.5
-				ahead_reduction = 1
-				uses = 1
-				category = cat_medium_armor
-			}
+			if = {
+                limit = {
+                    USA = { has_tech = gwtank_chassis }
+                }
+                set_technology = { gwtank_chassis = 1 }
+            }
+            if = {
+                limit = {
+                    USA = { has_tech = basic_heavy_tank_chassis }
+                }
+                set_technology = { basic_heavy_tank_chassis = 1 }
+            } 
+            else_if = {
+                limit = {
+                    USA = { has_tech = basic_medium_tank_chassis }
+                }
+                set_technology = { basic_medium_tank_chassis = 1 }
+            } 
+            else_if = {
+                limit = {
+                    USA = { has_tech = basic_light_tank_chassis }
+                }
+                set_technology = { basic_light_tank_chassis = 1 }
+            }
+            if = {
+                limit = {
+                    USA = { has_tech = engine_tech_1 }
+                }
+                set_technology = { armor_tech_1 = 1 }
+            }
+            else_if = {
+                limit = {
+                    USA = { has_tech = armor_tech_1 }
+                }
+                set_technology = { engine_tech_1 = 1 }
+            }	
             ########################
             ###      SUPPORT     ###
+            set_temp_variable = { x = 0 }
+            set_temp_variable = { limit = 3 }
+            custom_effect_tooltip = support_picked_in_order_tt
             if = {
-                limit = { NOT = { has_tech = tech_engineers2 } }
+                limit = { NOT = { has_tech = tech_engineers2 } USA = { has_tech = tech_engineers2 } check_variable = { x < limit }  }
                 set_technology = { tech_engineers2 = 1 }
+                add_to_temp_variable = { x = 1 }
             }
             if = {
-                limit = { NOT = { has_tech = tech_recon2 } }
+                limit = { NOT = { has_tech = tech_recon2 } USA = { has_tech = tech_recon2 } check_variable = { x < limit }  }
                 set_technology = { tech_recon2 = 1 }
+                add_to_temp_variable = { x = 1 }
             }
             if = {
-                limit = { NOT = { has_tech = tech_maintenance_company } }
+                limit = { NOT = { has_tech = tech_maintenance_company } USA = { has_tech = tech_maintenance_company }  }
                 set_technology = { tech_maintenance_company = 1 }
             }
-            else_if = {
-                limit = { NOT = { has_tech = tech_maintenance_company2 } }
+            if = {
+                limit = { NOT = { has_tech = tech_maintenance_company2 } USA = { has_tech = tech_maintenance_company2 } check_variable = { x < limit }  }
                 set_technology = { tech_maintenance_company2 = 1 }
+                add_to_temp_variable = { x = 1 }
             }
             if = {
-                limit = { NOT = { has_tech = tech_field_hospital } }
+                limit = { NOT = { has_tech = tech_field_hospital } USA = { has_tech = tech_field_hospital }  }
                 set_technology = { tech_field_hospital = 1 }
-            }  
-            else_if = {
-                limit = { NOT = { has_tech = tech_field_hospital2 } }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_field_hospital2 } USA = { has_tech = tech_field_hospital2 } check_variable = { x < limit }  }
                 set_technology = { tech_field_hospital2 = 1 }
-            } 
+                add_to_temp_variable = { x = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_logistics_company } USA = { has_tech = tech_logistics_company }  }
+                set_technology = { tech_logistics_company = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_logistics_company2 } USA = { has_tech = tech_logistics_company2 } check_variable = { x < limit }  }
+                set_technology = { tech_logistics_company2 = 1 }
+                add_to_temp_variable = { x = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_signal_company } USA = { has_tech = tech_signal_company }  }
+                set_technology = { tech_signal_company = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_signal_company2 } USA = { has_tech = tech_signal_company2 } check_variable = { x < limit }  }
+                set_technology = { tech_signal_company2 = 1 }
+                add_to_temp_variable = { x = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_military_police } USA = { has_tech = tech_military_police }  }
+                set_technology = { tech_military_police = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_military_police2 } USA = { has_tech = tech_military_police2 } check_variable = { x < limit }  }
+                set_technology = { tech_military_police2 = 1 }
+                add_to_temp_variable = { x = 1 }
+            }
             ########################
             ###      WEAPONS     ###
             if = {
-                limit = { NOT = { has_tech = infantry_weapons1 } }
+                limit = { NOT = { has_tech = infantry_weapons1 } USA = { has_tech = infantry_weapons1 } }
                 set_technology = { infantry_weapons1 = 1 }
             }
             else_if = {
-                limit = { NOT = { has_tech = infantry_weapons2 } }
+                limit = { NOT = { has_tech = infantry_weapons2 } USA = { has_tech = infantry_weapons2 } }
                 set_technology = { infantry_weapons2 = 1 }
             }  
             else_if = {
-                limit = { NOT = { has_tech = improved_infantry_weapons } }
+                limit = { NOT = { has_tech = improved_infantry_weapons } USA = { has_tech = improved_infantry_weapons } }
                 set_technology = { improved_infantry_weapons = 1 }
             }  
             ########################
             ###     ARTILLERY    ###
             #ART
             if = {
-                limit = { NOT = { has_tech = interwar_artillery } }
+                limit = { NOT = { has_tech = interwar_artillery } USA = { has_tech = interwar_artillery } }
                 set_technology = { interwar_artillery = 1 }
             }
             else_if = {
-                limit = { NOT = { has_tech = artillery1 } }
+                limit = { NOT = { has_tech = artillery1 } USA = { has_tech = artillery1 } }
                 set_technology = { artillery1 = 1 }
             }  
             else_if = {
-                limit = { NOT = { has_tech = artillery2 } }
+                limit = { NOT = { has_tech = artillery2 } USA = { has_tech = artillery2 } }
                 set_technology = { artillery2 = 1 }
             } 
             #AA
             if = {
-                limit = { NOT = { has_tech = antiair1 } }
+                limit = { NOT = { has_tech = antiair1 } USA = { has_tech = antiair1 } }
                 set_technology = { antiair1 = 1 }
             }
             else_if = {
-                limit = { NOT = { has_tech = antiair2 } }
+                limit = { NOT = { has_tech = antiair2 } USA = { has_tech = antiair2 } }
                 set_technology = { antiair2 = 1 }
             }  
             else_if = {
-                limit = { NOT = { has_tech = antiair3 } }
+                limit = { NOT = { has_tech = antiair3 } USA = { has_tech = antiair3 } }
                 set_technology = { antiair3 = 1 }
             }  
             #AT
             if = {
-                limit = { NOT = { has_tech = antitank1 } }
+                limit = { NOT = { has_tech = antitank1 } USA = { has_tech = antitank1 } }
                 set_technology = { antitank1 = 1 }
             }
             else_if = {
-                limit = { NOT = { has_tech = antitank2 } }
+                limit = { NOT = { has_tech = antitank2 } USA = { has_tech = antitank2 } }
                 set_technology = { antitank2 = 1 }
             }  
             else_if = {
-                limit = { NOT = { has_tech = antitank3 } }
+                limit = { NOT = { has_tech = antitank3 } USA = { has_tech = antitank3 } }
                 set_technology = { antitank3 = 1 }
             }    
             ########################
             ###     SPECOPS      ###
             if = {
-                limit = { NOT = { has_tech = marines } }
+                limit = { NOT = { has_tech = marines } USA = { has_tech = marines } }
                 set_technology = { marines = 1 }
             }
             if = {
-                limit = { NOT = { has_tech = paratroopers } }
+                limit = { NOT = { has_tech = paratroopers } USA = { has_tech = paratroopers } }
                 set_technology = { paratroopers = 1 }
             }     
             if = {
-                limit = { NOT = { has_tech = tech_special_forces } }
+                limit = { NOT = { has_tech = tech_special_forces } USA = { has_tech = tech_special_forces } }
                 set_technology = { tech_special_forces = 1 }
             }             
             ########################
             ###     DOCTRINE     ###
-            add_tech_bonus = {
+            add_doctrine_cost_reduction = {
                 name = GRE_modernize_the_army
-                bonus = 4.0
-                uses = 4
+                cost_reduction = 0.5
+                uses = 1
                 category = cat_superior_firepower
             }        
-        }              
+        #}              
     }  
 	option = {  ##JAP
 		name = hellas.405.e
         trigger = {
             check_variable = { var = JAP.favor@GRE value = 50 compare = greater_than_or_equals }
+            check_variable = { GRE.ep_pot@JAP > 0 }
         }
-        hidden_effect = {
+        #hidden_effect = {
+            custom_effect_tooltip = has_jap_tokens_1_tt
+            subtract_from_variable = { GRE.ep_pot@JAP = 1 }
             ### MOROTRIZED & BICYCLE INFANTRY & AC ###
             if = {
-                limit = { NOT = { has_tech = motorised_infantry } }
+                limit = { NOT = { has_tech = motorised_infantry } JAP = { has_tech = motorised_infantry } }
                 set_technology = { motorised_infantry = 1 }
             }            
             if = {
-                limit = { NOT = { has_tech = bicycle_infantry } }
+                limit = { NOT = { has_tech = bicycle_infantry } JAP = { has_tech = bicycle_infantry } }
                 set_technology = { bicycle_infantry = 1 }
             }
             if = {
-                limit = { NOT = { has_tech = armored_car1 } }
+                limit = { NOT = { has_tech = armored_car1 } JAP = { has_tech = armored_car1 } }
                 set_technology = { armored_car1 = 1 }
             }            
             ########################
             ###       TANKS      ###
-            set_technology = { gwtank = 1 }
-            set_technology = { basic_light_tank = 1 }
-            ########################
-            ###      SUPPORT     ###
             if = {
-                limit = { NOT = { has_tech = tech_engineers2 } }
-                set_technology = { tech_engineers2 = 1 }
-            }
+                limit = {
+                    JAP = { has_tech = gwtank_chassis }
+                }
+                set_technology = { gwtank_chassis = 1 }
+            } 
             if = {
-                limit = { NOT = { has_tech = tech_recon2 } }
-                set_technology = { tech_recon2 = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_maintenance_company } }
-                set_technology = { tech_maintenance_company = 1 }
+                limit = {
+                    JAP = { has_tech = basic_light_tank_chassis }
+                }
+                set_technology = { basic_light_tank_chassis = 1 }
             }
             else_if = {
-                limit = { NOT = { has_tech = tech_maintenance_company2 } }
+                limit = {
+                    JAP = { has_tech = basic_medium_tank_chassis }
+                }
+                set_technology = { basic_medium_tank_chassis = 1 }
+            }
+            else_if = {
+                limit = {
+                    JAP = { has_tech = basic_heavy_tank_chassis }
+                }
+                set_technology = { basic_heavy_tank_chassis = 1 }
+            } 
+            if = {
+                limit = {
+                    JAP = { has_tech = engine_tech_1 }
+                }
+                set_technology = { armor_tech_1 = 1 }
+            }
+            else_if = {
+                limit = {
+                    JAP = { has_tech = armor_tech_1 }
+                }
+                set_technology = { engine_tech_1 = 1 }
+            }
+            ########################
+            ###      SUPPORT     ###
+            set_temp_variable = { x = 0 }
+            set_temp_variable = { limit = 3 }
+            custom_effect_tooltip = support_picked_in_order_tt
+            if = {
+                limit = { NOT = { has_tech = tech_engineers2 } JAP = { has_tech = tech_engineers2 } check_variable = { x < limit }  }
+                set_technology = { tech_engineers2 = 1 }
+                add_to_temp_variable = { x = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_recon2 } JAP = { has_tech = tech_recon2 } check_variable = { x < limit }  }
+                set_technology = { tech_recon2 = 1 }
+                add_to_temp_variable = { x = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_maintenance_company } JAP = { has_tech = tech_maintenance_company }  }
+                set_technology = { tech_maintenance_company = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_maintenance_company2 } JAP = { has_tech = tech_maintenance_company2 } check_variable = { x < limit }  }
                 set_technology = { tech_maintenance_company2 = 1 }
+                add_to_temp_variable = { x = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_field_hospital } JAP = { has_tech = tech_field_hospital }  }
+                set_technology = { tech_field_hospital = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_field_hospital2 } JAP = { has_tech = tech_field_hospital2 } check_variable = { x < limit }  }
+                set_technology = { tech_field_hospital2 = 1 }
+                add_to_temp_variable = { x = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_logistics_company } JAP = { has_tech = tech_logistics_company }  }
+                set_technology = { tech_logistics_company = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_logistics_company2 } JAP = { has_tech = tech_logistics_company2 } check_variable = { x < limit }  }
+                set_technology = { tech_logistics_company2 = 1 }
+                add_to_temp_variable = { x = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_signal_company } JAP = { has_tech = tech_signal_company }  }
+                set_technology = { tech_signal_company = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_signal_company2 } JAP = { has_tech = tech_signal_company2 } check_variable = { x < limit }  }
+                set_technology = { tech_signal_company2 = 1 }
+                add_to_temp_variable = { x = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_military_police } JAP = { has_tech = tech_military_police }  }
+                set_technology = { tech_military_police = 1 }
+            }
+            if = {
+                limit = { NOT = { has_tech = tech_military_police2 } JAP = { has_tech = tech_military_police2 } check_variable = { x < limit }  }
+                set_technology = { tech_military_police2 = 1 }
+                add_to_temp_variable = { x = 1 }
             }
             ########################
             ###      WEAPONS     ###
             if = {
-                limit = { NOT = { has_tech = infantry_weapons1 } }
+                limit = { NOT = { has_tech = infantry_weapons1 } JAP = { has_tech = infantry_weapons1 } }
                 set_technology = { infantry_weapons1 = 1 }
             }
             else_if = {
-                limit = { NOT = { has_tech = infantry_weapons2 } }
+                limit = { NOT = { has_tech = infantry_weapons2 } JAP = { has_tech = infantry_weapons2 } }
                 set_technology = { infantry_weapons2 = 1 }
             }  
             else_if = {
-                limit = { NOT = { has_tech = improved_infantry_weapons } }
+                limit = { NOT = { has_tech = improved_infantry_weapons } JAP = { has_tech = improved_infantry_weapons } }
                 set_technology = { improved_infantry_weapons = 1 }
             }  
             ########################
             ###     ARTILLERY    ###
             #ART
             if = {
-                limit = { NOT = { has_tech = interwar_artillery } }
+                limit = { NOT = { has_tech = interwar_artillery } JAP = { has_tech = interwar_artillery } }
                 set_technology = { interwar_artillery = 1 }
             }
             else_if = {
-                limit = { NOT = { has_tech = artillery1 } }
+                limit = { NOT = { has_tech = artillery1 } JAP = { has_tech = artillery1 } }
                 set_technology = { artillery1 = 1 }
             }  
             else_if = {
-                limit = { NOT = { has_tech = artillery2 } }
+                limit = { NOT = { has_tech = artillery2 } JAP = { has_tech = artillery2 } }
                 set_technology = { artillery2 = 1 }
             } 
             #AA
             if = {
-                limit = { NOT = { has_tech = antiair1 } }
+                limit = { NOT = { has_tech = antiair1 } JAP = { has_tech = antiair1 } }
                 set_technology = { antiair1 = 1 }
             }
             else_if = {
-                limit = { NOT = { has_tech = antiair2 } }
+                limit = { NOT = { has_tech = antiair2 } JAP = { has_tech = antiair2 } }
                 set_technology = { antiair2 = 1 }
             }  
             else_if = {
-                limit = { NOT = { has_tech = antiair3 } }
+                limit = { NOT = { has_tech = antiair3 } JAP = { has_tech = antiair3 } }
                 set_technology = { antiair3 = 1 }
             }  
             #AT
             if = {
-                limit = { NOT = { has_tech = antitank1 } }
+                limit = { NOT = { has_tech = antitank1 } JAP = { has_tech = antitank1 } }
                 set_technology = { antitank1 = 1 }
             }
             else_if = {
-                limit = { NOT = { has_tech = antitank2 } }
+                limit = { NOT = { has_tech = antitank2 } JAP = { has_tech = antitank2 } }
                 set_technology = { antitank2 = 1 }
             }  
             else_if = {
-                limit = { NOT = { has_tech = antitank3 } }
+                limit = { NOT = { has_tech = antitank3 } JAP = { has_tech = antitank3 } }
                 set_technology = { antitank3 = 1 }
             }      
             ########################
             ###     SPECOPS      ###
             if = {
-                limit = { NOT = { has_tech = marines } }
+                limit = { NOT = { has_tech = marines } JAP = { has_tech = marines } }
                 set_technology = { marines = 1 }
             }   
             if = {
-                limit = { NOT = { has_tech = tech_special_forces } }
+                limit = { NOT = { has_tech = tech_special_forces } JAP = { has_tech = tech_special_forces } }
                 set_technology = { tech_special_forces = 1 }
             }              
             ########################
             ###     DOCTRINE     ###
-            add_tech_bonus = {
+            add_doctrine_cost_reduction = {
                 name = GRE_modernize_the_army
-                bonus = 4.0
-                uses = 3
+                cost_reduction = 0.5
+                uses = 2
                 category = cat_grand_battle_plan
-            }        
-        }             
-    }       
+            }
+        #}       
+    }
 }
 
 country_event = {
@@ -4939,18 +6513,38 @@ country_event = {
                 check_variable = { var = THIS.favor@GRE value = 30 compare = less_than }
             }
             modifier = {
-                factor = 2
-                check_variable = { var = THIS.favor@GRE value = 30 compare = greater_than_or_equals }
+                factor = 0.75
+                check_variable = { var = THIS.favor@GRE value = 40 compare = greater_than_or_equals }
                 check_variable = { var = THIS.favor@GRE value = 50 compare = less_than }
             }
             modifier = {
-                factor = 4
-                check_variable = { var = THIS.favor@GRE value = 80 compare = less_than }
+                factor = 1.5
                 check_variable = { var = THIS.favor@GRE value = 50 compare = greater_than_or_equals }
+                check_variable = { var = THIS.favor@GRE value = 60 compare = less_than }
             }
             modifier = {
-                factor = 8 
+                factor = 2
+                check_variable = { var = THIS.favor@GRE value = 60 compare = greater_than_or_equals }
+                check_variable = { var = THIS.favor@GRE value = 70 compare = less_than }
+            }
+            modifier = {
+                factor = 4
+                check_variable = { var = THIS.favor@GRE value = 70 compare = greater_than_or_equals }
+                check_variable = { var = THIS.favor@GRE value = 80 compare = less_than }
+            }
+            modifier = {
+                factor = 8
                 check_variable = { var = THIS.favor@GRE value = 80 compare = greater_than_or_equals }
+                check_variable = { var = THIS.favor@GRE value = 90 compare = less_than }
+            }
+            modifier = {
+                factor = 14
+                check_variable = { var = THIS.favor@GRE value = 90 compare = greater_than_or_equals }
+                check_variable = { var = THIS.favor@GRE value = 95 compare = less_than }
+            }
+            modifier = {
+                factor = 20
+                check_variable = { var = THIS.favor@GRE value = 95 compare = greater_than_or_equals }
             }
 		}
 		add_timed_idea = {
@@ -5885,9 +7479,11 @@ country_event = {
                 }
             }    
         }
-        add_to_variable = { FROM.favor@GRE = 2 }
-        custom_effect_tooltip = GRE_favor_boost_miniscule_from_tt
-	}    
+        set_temp_variable = { findX = FROM.id }
+        set_temp_variable = { findY = -4 }
+        subtract_from_variable = { FROM.favor@GRE = 4 }
+        custom_effect_tooltip = favor_hit_with_findX_by_findY
+	}
 }
 
 country_event = {                                                                           ### - Investment Denied
@@ -5921,18 +7517,38 @@ country_event = {                                                               
                 check_variable = { var = THIS.favor@GRE value = 30 compare = less_than }
             }
             modifier = {
-                factor = 0.5
-                check_variable = { var = THIS.favor@GRE value = 30 compare = greater_than_or_equals }
+                factor = 0.75
+                check_variable = { var = THIS.favor@GRE value = 40 compare = greater_than_or_equals }
                 check_variable = { var = THIS.favor@GRE value = 50 compare = less_than }
             }
             modifier = {
-                factor = 2
-                check_variable = { var = THIS.favor@GRE value = 80 compare = less_than }
+                factor = 1.5
                 check_variable = { var = THIS.favor@GRE value = 50 compare = greater_than_or_equals }
+                check_variable = { var = THIS.favor@GRE value = 60 compare = less_than }
             }
             modifier = {
-                factor = 8 
+                factor = 2
+                check_variable = { var = THIS.favor@GRE value = 60 compare = greater_than_or_equals }
+                check_variable = { var = THIS.favor@GRE value = 70 compare = less_than }
+            }
+            modifier = {
+                factor = 4
+                check_variable = { var = THIS.favor@GRE value = 70 compare = greater_than_or_equals }
+                check_variable = { var = THIS.favor@GRE value = 80 compare = less_than }
+            }
+            modifier = {
+                factor = 8
                 check_variable = { var = THIS.favor@GRE value = 80 compare = greater_than_or_equals }
+                check_variable = { var = THIS.favor@GRE value = 90 compare = less_than }
+            }
+            modifier = {
+                factor = 14
+                check_variable = { var = THIS.favor@GRE value = 90 compare = greater_than_or_equals }
+                check_variable = { var = THIS.favor@GRE value = 95 compare = less_than }
+            }
+            modifier = {
+                factor = 20
+                check_variable = { var = THIS.favor@GRE value = 95 compare = greater_than_or_equals }
             }
 		}
 		add_timed_idea = {
@@ -6014,6 +7630,10 @@ country_event = {                                                               
                     }            
                 }
             }
+            set_temp_variable = { findX = FROM.id }
+            set_temp_variable = { findY = -6.5 }
+            subtract_from_variable = { FROM.favor@GRE = 6.5 }
+            custom_effect_tooltip = favor_hit_with_findX_by_findY
         }
         else = {
             custom_effect_tooltip = GRE_extra_slots_per_manpower_tt
@@ -6048,11 +7668,17 @@ country_event = {                                                               
                     }            
                 }    
             }
+            set_temp_variable = { findX = FROM.id }
+            set_temp_variable = { findY = -5 }
+            subtract_from_variable = { FROM.favor@GRE = 5 }
+            custom_effect_tooltip = favor_hit_with_findX_by_findY
         }
     }
 	option = {                                                                                  ### Outsourcing -> Leads to event below
 		name = hellas.504.b #medium investment
-        
+        trigger = { 
+            factories_within_investment_limit_FROM_to_GRE = yes
+        }
         custom_effect_tooltip = GRE_outsourcing_tt
         country_event = { id = hellas.505 days = 0 }
     }
@@ -6079,7 +7705,11 @@ country_event = {                                                               
                 }
             } 
             custom_effect_tooltip = GRE_drilling_for_oil_tt
-            add_to_variable = { GRE_drilled_for_oil = 1 }        
+            add_to_variable = { GRE_drilled_for_oil = 1 }
+            set_temp_variable = { findX = FROM.id }
+            set_temp_variable = { findY = -10 }
+            subtract_from_variable = { FROM.favor@GRE = 10 }
+            custom_effect_tooltip = favor_hit_with_findX_by_findY
         }
         else_if = {
             limit = {
@@ -6093,6 +7723,10 @@ country_event = {                                                               
             }
             custom_effect_tooltip = GRE_drilling_for_oil_tt
             add_to_variable = { GRE_drilled_for_oil = 1 }  
+            set_temp_variable = { findX = FROM.id }
+            set_temp_variable = { findY = -8 }
+            subtract_from_variable = { FROM.favor@GRE = 8 }
+            custom_effect_tooltip = favor_hit_with_findX_by_findY
         }
     }
 	option = {                                                                                  ### Expand Mines
@@ -6127,6 +7761,10 @@ country_event = {                                                               
             add_to_variable = { FROM.favor@GRE = 5 }
             custom_effect_tooltip = GRE_favor_boost_mediocre_from_tt
             add_to_variable = { GRE_mine_expansion = 1 }
+            set_temp_variable = { findX = FROM.id }
+            set_temp_variable = { findY = -5 }
+            subtract_from_variable = { FROM.favor@GRE = 5 }
+            custom_effect_tooltip = favor_hit_with_findX_by_findY
         }
         else_if = {
             limit = {
@@ -6155,6 +7793,10 @@ country_event = {                                                               
             add_to_variable = { FROM.favor@GRE = 5 }
             custom_effect_tooltip = GRE_favor_boost_mediocre_from_tt
             add_to_variable = { GRE_mine_expansion = 1 }
+            set_temp_variable = { findX = FROM.id }
+            set_temp_variable = { findY = -5 }
+            subtract_from_variable = { FROM.favor@GRE = 5 }
+            custom_effect_tooltip = favor_hit_with_findX_by_findY
         }
         else_if = {
             limit = {
@@ -6183,8 +7825,17 @@ country_event = {                                                               
             add_to_variable = { FROM.favor@GRE = 5 }
             custom_effect_tooltip = GRE_favor_boost_mediocre_from_tt
             add_to_variable = { GRE_mine_expansion = 1 }
+            set_temp_variable = { findX = FROM.id }
+            set_temp_variable = { findY = -5 }
+            subtract_from_variable = { FROM.favor@GRE = 5 }
+            custom_effect_tooltip = favor_hit_with_findX_by_findY
         }        
     }  
+    option = {                                                                                  ### Go Back
+		name = hellas.504.e
+
+        add_political_power = 125
+    }
 }
 
 country_event = {                                                                           ### - Outsourcing -> Civs / Mils/ Docks
@@ -6208,10 +7859,18 @@ country_event = {                                                               
             }
             add_offsite_building = { type = industrial_complex level = 2 }
             add_to_variable = { FROM.FROM.civslent@GRE = 2 }
+            set_temp_variable = { findX = FROM.FROM.id }
+            set_temp_variable = { findY = -8 }
+            subtract_from_variable = { FROM.FROM.favor@GRE = 8 }
+            custom_effect_tooltip = favor_hit_with_findX_by_findY
         }
         else = {
             add_offsite_building = { type = industrial_complex level = 1 }
             add_to_variable = { FROM.FROM.civslent@GRE = 1 }
+            set_temp_variable = { findX = FROM.FROM.id }
+            set_temp_variable = { findY = -6 }
+            subtract_from_variable = { FROM.FROM.favor@GRE = 6 }
+            custom_effect_tooltip = favor_hit_with_findX_by_findY
         }
     }
     option = {                                                                                  ### Mils
@@ -6227,10 +7886,18 @@ country_event = {                                                               
             }
             add_offsite_building = { type = arms_factory level = 2 }
             add_to_variable = { FROM.FROM.milslent@GRE = 2 }
+            set_temp_variable = { findX = FROM.FROM.id }
+            set_temp_variable = { findY = -8 }
+            subtract_from_variable = { FROM.FROM.favor@GRE = 8 }
+            custom_effect_tooltip = favor_hit_with_findX_by_findY
         }
         else = {
             add_offsite_building = { type = arms_factory level = 1 }
             add_to_variable = { FROM.FROM.milslent@GRE = 1 }
+            set_temp_variable = { findX = FROM.FROM.id }
+            set_temp_variable = { findY = -6 }
+            subtract_from_variable = { FROM.FROM.favor@GRE = 6 }
+            custom_effect_tooltip = favor_hit_with_findX_by_findY
         }
     }
     option = {                                                                                  ### Docs
@@ -6246,10 +7913,18 @@ country_event = {                                                               
             }
             add_offsite_building = { type = dockyard level = 2 }
             add_to_variable = { FROM.FROM.dockslent@GRE = 2 }
+            set_temp_variable = { findX = FROM.FROM.id }
+            set_temp_variable = { findY = -8 }
+            subtract_from_variable = { FROM.FROM.favor@GRE = 8 }
+            custom_effect_tooltip = favor_hit_with_findX_by_findY
         }
         else = {
             add_offsite_building = { type = dockyard level = 1 }
             add_to_variable = { FROM.FROM.dockslent@GRE = 1 }
+            set_temp_variable = { findX = FROM.FROM.id }
+            set_temp_variable = { findY = -6 }
+            subtract_from_variable = { FROM.FROM.favor@GRE = 6 }
+            custom_effect_tooltip = favor_hit_with_findX_by_findY
         }
     }
 }
@@ -6399,29 +8074,52 @@ country_event = {                                                               
 	title = hellas.94.t
 	desc = {
         text = hellas.94_alliance.desc
-        trigger = { turkish_stance_in_greco_italian_war_alliance = yes }
+        trigger = { check_variable = { result = 2 } }
     }
     desc = {
         text = hellas.94_positive.desc
-        trigger = { turkish_stance_in_greco_italian_war_positive = yes }
+        trigger = { check_variable = { result = 1 } }
     }
     desc = {
         text = hellas.94_neutral.desc
-        trigger = { turkish_stance_in_greco_italian_war_neutral = yes }
+        trigger = { check_variable = { result = 0 } }
     }
 	picture = GFX_report_event_ismet_inonu
 
     immediate = {
         hidden_effect = {
-            german_stance_in_greco_italian_war = yes
+            ############[ Turkish Related ]############
             if = {
-                limit = {
-                    OR = {
-                        turkish_stance_in_greco_italian_war_alliance = yes
-                        turkish_stance_in_greco_italian_war_positive = yes
-                    }
-                    GRE = { complete_national_focus = GRE_turkic_guarantees_against_bulgarians }
-                }
+                limit = { has_fully_realized_the_balkan_pact=yes }
+                set_temp_variable = { alliance_chance = 100 }
+                set_temp_variable = { positive_chance = 0 }
+                set_temp_variable = { neutral_chance = 0 }
+            }
+            else_if = {
+                limit = { has_enacted_alliance_with_turkey=yes }
+                set_temp_variable = { alliance_chance = TUR.overall_alliance_weight }
+                multiply_temp_variable = { alliance_chance = 10 }
+                set_temp_variable = { positive_chance = 100 }
+                subtract_from_temp_variable = { positive_chance = alliance_chance }
+                set_temp_variable = { alliance_chance = 0 }
+            }
+            else = {
+                set_temp_variable = { positive_chance = TUR.overall_alliance_weight }
+                multiply_temp_variable = { positive_chance = 10 }
+                set_temp_variable = { neutral_chance = 100 }
+                subtract_from_temp_variable = { neutral_chance = positive_chance }
+                set_temp_variable = { alliance_chance = 0 }
+            }
+            random_list = {
+                log = yes
+                seed = random
+                var:alliance_chance = { set_temp_variable = { result = 2 } }
+                var:positive_chance = { set_temp_variable = { result = 1 } }
+                var:neutral_chance = { set_temp_variable = { result = 0 } }
+            }
+            if = {
+                limit = { check_variable = { result > 0 } }
+                GRE = { complete_national_focus = GRE_turkic_guarantees_against_bulgarians }
             }
         }
     }
@@ -6437,28 +8135,68 @@ country_event = {                                                               
 	title = hellas.95.t
 	desc = {
         text = hellas.95_alliance.desc
-        trigger = { yugoslavian_stance_in_greco_italian_war_alliance = yes }
+        trigger = { check_variable = { result = 2 } }
     }
     desc = {
         text = hellas.95_positive.desc
-        trigger = { yugoslavian_stance_in_greco_italian_war_positive = yes }
+        trigger = { check_variable = { result = 1 } }
     }
     desc = {
         text = hellas.95_neutral.desc
-        trigger = { yugoslavian_stance_in_greco_italian_war_neutral = yes }
+        trigger = { check_variable = { result = 0 } }
     }
     desc = {
         text = hellas.95_betrayal.desc
-        trigger = { yugoslavian_stance_in_greco_italian_war_betrayal = yes }
+        trigger = { check_variable = { result = -1 } }
     }
 	picture = GFX_report_event_paul_diplomacy
 
     immediate = {
         hidden_effect = {
-            german_stance_in_greco_italian_war = yes
+            ############[ Yugoslavian Related ]############
+            if = {
+                limit = { has_fully_realized_the_balkan_pact=yes }
+                set_temp_variable = { alliance_chance = 100 }
+                set_temp_variable = { positive_chance = 0 }
+                set_temp_variable = { neutral_chance = 0 }
+                set_temp_variable = { betrayal_chance = 0 }
+            }
+            else_if = {
+                limit = { has_enacted_alliance_with_yugoslavia=yes }
+                set_temp_variable = { alliance_chance = YUG.overall_alliance_weight }
+                multiply_temp_variable = { alliance_chance = 10 }
+                set_temp_variable = { positive_chance = 100 }
+                subtract_from_temp_variable = { positive_chance = alliance_chance }
+                set_temp_variable = { alliance_chance = 0 }
+                set_temp_variable = { betrayal_chance = 0 }
+            }
+            else_if = {
+                limit = { has_enacted_alliance_with_yugoslavia=no check_variable = { YUG.favor@GRE > 0 } }
+                set_temp_variable = { positive_chance = YUG.overall_alliance_weight }
+                multiply_temp_variable = { positive_chance = 10 }
+                set_temp_variable = { neutral_chance = 100 }
+                subtract_from_temp_variable = { neutral_chance = positive_chance }
+                set_temp_variable = { alliance_chance = 0 }
+                set_temp_variable = { betrayal_chance = 0 }
+            }
+            else = {
+                set_temp_variable = { neutral_chance = YUG.overall_alliance_weight }
+                multiply_temp_variable = { neutral_chance = 10 }
+                set_temp_variable = { betrayal_chance = 100 }
+                subtract_from_temp_variable = { betrayal_chance = neutral_chance }
+                set_temp_variable = { alliance_chance = 0 }
+                set_temp_variable = { positive_chance = 0 }
+            }
+            random_list = {
+                log = yes
+                seed = random
+                var:alliance_chance = { set_temp_variable = { result = 2 } }
+                var:positive_chance = { set_temp_variable = { result = 1 } }
+                var:neutral_chance = { set_temp_variable = { result = 0 } }
+                var:betrayal_chance = { set_temp_variable = { result = -1 } }
+            }
         }
     }
-
     is_triggered_only = yes
 	fire_only_once = yes
 	
@@ -6688,7 +8426,7 @@ country_event = {                                                               
         divisions_in_border_state = {
             type = infantry
             size < 3
-            state = 812
+            state = 840
             border_state = 212
         }     
         divisions_in_border_state = {
@@ -6849,8 +8587,8 @@ country_event = {                                                               
                     hostility_reason = asked_to_join
                 }
             }
+            GER = { set_rule = { can_not_declare_war = no } }
         }
-
         GRE = { country_event = { id = hellenic_news.153 days = 0 }  }
     }
     
@@ -8583,7 +10321,7 @@ country_event = {                                                               
     }
     option = {                                                                                      ## Sterea 
 		name = hellas.11723.c
-        trigger = { check_variable = { mr_mineral_sterea = 0 } NOT = { 807 = { has_state_flag = given_mining_rights } } }
+        trigger = { check_variable = { mr_mineral_sterea = 0 } NOT = { 835 = { has_state_flag = given_mining_rights } } }
         set_variable = { mr_mineral_sterea = 1 }
         GER = { 47 = { calculate_state_resource_importance_PREV = yes } }
         set_variable = { GRE.mr_cost_return_ste_check = total_worth }
@@ -9045,6 +10783,7 @@ country_event = {                                                               
             if = {
                 limit = { check_variable = { mr_success = 1 } }
                 ###[Green Light for Naval Invasion]###
+                GER = { set_rule = { can_not_declare_war = yes } }
                 set_global_flag = Metaxas_Ribbentrop_Pact
             }
         }
@@ -9052,6 +10791,10 @@ country_event = {                                                               
 
 	option = {
 		name = hellas.118.a
+        effect_tooltip = {
+            GER = { set_rule = { can_not_declare_war = yes } }
+        }
+        custom_effect_tooltip = mr_no_declaration_tt
         trigger = { check_variable = { mr_success = 1 } }
     }
     option = {
@@ -9117,8 +10860,8 @@ country_event = {                                                               
                 }
             }
             if = { limit = { check_variable = { mr_mineral_sterea = 1 } } 
-                GRE = { give_resource_rights = { receiver = GER state = 807 } }
-                807 = {
+                GRE = { give_resource_rights = { receiver = GER state = 835 } }
+                835 = {
                     set_state_flag = given_mining_rights
                     set_variable = { return_owner = GER.id }
                 }
@@ -9206,7 +10949,7 @@ country_event = {                                                               
                 release_puppet_on_controlled = SOM
             }
             ##[Northern Italian State]##
-            ITA = { set_capital = 159 }
+            ITA = { set_capital = { state = 159 } }
             ITA = { white_peace = ENG white_peace = GRE }
             if = { limit = { check_variable = { mr_ital_north = 1 } } GER = { puppet = ITA } ITA = { set_politics = { ruling_party = neutrality } } }
             else_if = { limit = { check_variable = { mr_ital_north = 2 } } ITA = { leave_faction = yes set_politics = { ruling_party = neutrality } set_rule = { can_join_factions = no can_create_factions = no can_not_declare_war = yes can_send_volunteers = no } } GRE = { give_guarantee = ITA } GER = { give_guarantee = ITA } }
@@ -9271,6 +11014,7 @@ country_event = {                                                               
             ###################[Basic Stuff]######################
             set_country_flag = GRE_victor_in_a_war
             set_country_flag = GRE_victor_in_a_big_war
+            GER = { set_rule = { can_not_declare_war = no } }
             diplomatic_relation = {
                 country = GER
                 relation = non_aggression_pact
@@ -9833,17 +11577,8 @@ country_event = {                                                               
 	option = {                                                                            
 		name = hellas.999.a
         
-        kill_country_leader = yes
-        create_country_leader = {
-            name = "King George II"
-            desc = "POLITICS_KING_GEORGE_II_DESC"
-            picture = "Portrait_Greece_King_George_II.dds"
-            expire = "1965.1.1"
-            ideology = despotism
-            traits = {
-                
-            }
-        }
+        retire_character = GRE_alexandros_koryzis
+        promote_character = GRE_king_george
     }
 }
 
@@ -9861,18 +11596,9 @@ country_event = {                                                               
 	option = {                                                                            
 		name = hellas.9995.a
         
-        retire_country_leader = yes
-        create_country_leader = {
-            name = "Emmanouil Tsouderos"
-            desc = "POLITICS_EMMANOUIL_TSOUDEROS_DESC"
-            picture = "Portrait_Greece_Emmanouil_Tsouderos.dds"
-            expire = "1965.1.1"
-            ideology = centrism
-            traits = {
-                
-            }
-        }
-        if = { 
+        GRE_king_george = { remove_country_leader_role = { ideology = despotism } }
+        promote_character = GRE_emmanouil_tsouderos
+        if = {
             limit = {
                 NOT = { has_completed_focus = GRE_dreams_of_a_grand_coalition } 
             }
@@ -9899,6 +11625,7 @@ country_event = {                                                               
     immediate = {
         hidden_effect = {
             set_variable = { treaty_signed_date = global.date }
+            retire_character = GRE_georgios_tsolakoglou
             if = {
                 limit = { has_country_flag = tsolakoglou_initiative }
                 every_state = {                                                                             ##disband armies due to capitulation
@@ -9910,9 +11637,9 @@ country_event = {                                                               
                             NOT = { state = 182 }                                                            # This doesn't apply for Sterea Ellada / Attika / Peloponnese / Crete / Nisia Aegeou
                             NOT = { state = 47  }
                             NOT = { state = 186 }
-                            NOT = { state = 807 }
+                            NOT = { state = 835 }
                             NOT = { state = 187 }
-                            NOT = { state = 814 }
+                            NOT = { state = 842 }
                         }
                         GRE = {
                             delete_unit = { 
@@ -9977,7 +11704,7 @@ country_event = {                                                               
     }
 }
 
-country_event = {                                                                                
+country_event = {
 	id = hellas.1003
 	title = hellas.1003.t
 	desc = hellas.1003.desc
@@ -9997,27 +11724,31 @@ country_event = {
             create_dynamic_country = {
                 original_tag = GRE
                 save_global_event_target_as = hellenic_state
-                #save_event_target_as = hellenic_state
-                every_state = { #transfer to HS
+                #############################[Preliminary State Transfer]############################
+                every_state = {
                     limit = {
                         is_owned_by = GRE
                         NOT = { state = 182 }
                     }
                     event_target:hellenic_state = { transfer_state = PREV }
                 }
+                GER = { transfer_state = 47 transfer_state = 839 }                                                                   # TEMPORARILY TO NAVAL INVADE CRETE (doesn't work otherwise)
+                set_capital = { state = 47 }
+                add_to_array = { global.axis_occupiers=GER.id }
+                add_to_array = { global.axis_occupiers=ITA.id }
                 #############################[Setup Occupation Zones]############################
-                813 = { add_dynamic_modifier = { modifier = GRE_german_occupation_zone } }
+                841 = { add_dynamic_modifier = { modifier = GRE_german_occupation_zone } }
                 731 = { add_dynamic_modifier = { modifier = GRE_german_occupation_zone } }
-                811 = { add_dynamic_modifier = { modifier = GRE_german_occupation_zone } }
-                810 = { add_dynamic_modifier = { modifier = GRE_german_occupation_zone } }
+                839 = { add_dynamic_modifier = { modifier = GRE_german_occupation_zone } }
+                838 = { add_dynamic_modifier = { modifier = GRE_german_occupation_zone } }
                 47 = { add_dynamic_modifier = { modifier = GRE_german_occupation_zone } }
                 187 = { add_dynamic_modifier = { modifier = GRE_german_occupation_zone } }
-                807 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } }
-                808 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } }
-                809 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } }
+                835 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } }
+                836 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } }
+                837 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } }
                 186 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } }
                 185 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } } 
-                814 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } } 
+                842 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } } 
                 #######################[Bulgarian Direct Annexations (Historical)]###############
                 if = {                                                                                                              # If Bulgaria is alive, in Axis and historical stuff should happen.
                     limit = {
@@ -10032,57 +11763,37 @@ country_event = {
                     731 = { clr_state_flag = BUL_historical_bulgarian_claim_flag }
                     731 = { clr_state_flag = BUL_bulgarian_claim_warranted_flag }
                     731 = { remove_dynamic_modifier = { modifier = bulgarian_territorial_expansion_arranged } }
-                    811 = { clr_state_flag = BUL_historical_bulgarian_claim_flag }
-                    811 = { clr_state_flag = BUL_bulgarian_claim_warranted_flag }
-                    811 = { remove_dynamic_modifier = { modifier = bulgarian_territorial_expansion_arranged } }   
-                    813 = { clr_state_flag = BUL_historical_bulgarian_claim_flag }
-                    813 = { clr_state_flag = BUL_bulgarian_claim_warranted_flag }
-                    813 = { remove_dynamic_modifier = { modifier = bulgarian_territorial_expansion_arranged } }                
+                    839 = { clr_state_flag = BUL_historical_bulgarian_claim_flag }
+                    839 = { clr_state_flag = BUL_bulgarian_claim_warranted_flag }
+                    839 = { remove_dynamic_modifier = { modifier = bulgarian_territorial_expansion_arranged } }
+                    841 = { clr_state_flag = BUL_historical_bulgarian_claim_flag }
+                    841 = { clr_state_flag = BUL_bulgarian_claim_warranted_flag }
+                    841 = { remove_dynamic_modifier = { modifier = bulgarian_territorial_expansion_arranged } }
                     184 = { BUL = { transfer_state = PREV } }
-                    812 = { BUL = { transfer_state = PREV } }
+                    840 = { BUL = { transfer_state = PREV } }
+                    add_to_array = { global.axis_occupiers=BUL.id }
                 }
                 else = {
                     184 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } }                                      # Italians take control of their portion, as this would have happened historically since the Germans only took strategic regions and Italians the mass of land.
-                    812 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } } 
+                    840 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } } 
                 }
-                ################################[Rule Setting]###################################
+                ################################[Set HS Rules]###################################
                 set_rule = { 
                     can_join_factions = no 
                     can_create_factions = no
                     can_not_declare_war = yes
                     can_send_volunteers = no
                 }
-                #GER = { add_to_faction = event_target:hellenic_state }             # Not a good idea because GRE will be able to see all Axis troops., so just give access (below)
-                GER = { transfer_state = 47 }                                       # TEMPORARILY TO NAVAL INVADE CRETE (doesn't work otherwise)
-                GER = { transfer_state = 811 }    
-                set_capital = 47
-                set_politics = {
-                    ruling_party = fascism
-                    elections_allowed = no
-                }
-                set_popularities = {
-                    democratic = 15
-                    fascism = 50
-                    neutrality = 20
-                    communism = 15
-                }
+                ################################[Political Setting]###################################
+                set_politics = { ruling_party = fascism elections_allowed = no }
+                set_popularities = { democratic = 15 fascism = 50 neutrality = 20 communism = 15 }
                 set_cosmetic_tag = GRE_HELLENIC_STATE_fascism
-                create_country_leader = {
-                    name = "Geórgios Tsolákoglou"
-                    desc = "POLITICS_GEORGIOS_TSOLAKOGLOU_DESC"
-                    picture = "Portrait_Greece_Georgios_Tsolakoglou.dds"
-                    expire = "1965.1.1"
-                    ideology = fascism_ideology
-                    traits = {
-                        
-                    }
-                }
                 GRE = {                                                                     ## Disband Units in Aegean Islands and mainland Greece
-                    delete_unit = {state = 807 disband = yes}
+                    delete_unit = {state = 835 disband = yes}
                     delete_unit = {state = 47 disband = yes}
                     delete_unit = {state = 186 disband = yes}
                     delete_unit = {state = 187 disband = yes}
-                    delete_unit = {state = 814 disband = yes}
+                    delete_unit = {state = 842 disband = yes}
                     set_temp_variable = { convoy_num = GRE.convoys_secured }
                     multiply_temp_variable = { convoy_num = -1 }
                     add_equipment_to_stockpile = {
@@ -10097,18 +11808,21 @@ country_event = {
                         army_ratio = 0
                         navy_ratio = 0.0
                         air_ratio = 0.0
-                        keep_unit_leaders_trigger = {
-                            always = yes
-                        }
+                        keep_unit_leaders_trigger = { always = yes }
                     }
                 }
+                ################################[Characters/Technologies/Ideas/Focuses]###################################
+                HS_split_characters_to_respective_nations=yes
+                promote_character = GRE_georgios_tsolakoglou
+                if = { limit = { GRE = { has_country_flag = archbishop_damaskinos_elected } } event_target:hellenic_state = { complete_national_focus = oust_chrysanthus_for_damaskinos } }
                 inherit_technology = GRE
                 set_research_slots = 0
                 add_ideas = HS_ind_shackles_4
                 add_ideas = HS_tripple_occupation
                 add_ideas = HS_occupation_costs
                 add_ideas = HS_german_plundering
-                add_ideas = HS_death
+                add_dynamic_modifier = { modifier=HS_death }
+                #add_ideas = HS_death
                 if = {
                     limit = { GRE = { has_completed_focus = GRE_dreams_of_a_grand_coalition } }
                     add_ideas = HS_spirit_of_grand_coalition
@@ -10121,9 +11835,7 @@ country_event = {
                 complete_national_focus = appoint_tsolakoglou
             }
             every_country = {
-                limit = {
-                    is_in_faction_with = GER
-                }
+                limit = { is_in_faction_with = GER }
                 diplomatic_relation = {
                     country = event_target:hellenic_state
                     relation = non_aggression_pact
@@ -10151,20 +11863,21 @@ country_event = {
                     active = yes
                 }
             }
+            HS_calculate_initial_anger_level = yes
             HS_set_up_occupation_zones = yes
+            HS_set_up_areas_of_interest_arrays = yes
             HS_calculate_factories_in_occupation_zones = yes
             HS_flag_states = yes 
+            HS_shut_down_the_games_resistance_mechanic_in_states = yes
             #######[Resource Rights for Sterea/Pel. go to the Reich]######
-            ITA = { give_resource_rights = { receiver = GER state = 807 } }
+            ITA = { give_resource_rights = { receiver = GER state = 835 } }
             ITA = { give_resource_rights = { receiver = GER state = 186 } }
             ##############################################################
             GRE = { country_event = { id = hellas.1004 days = 10 } }
         }
     }
 	
-	option = {                                                                            
-		name = hellas.1003.a
-    }
+	option = { name = hellas.1003.a }
 }
 
 country_event = {                                                                                   ## Fallschirmjager in Crete                                                               
@@ -10266,7 +11979,7 @@ country_event = {                                                               
             }
             GER = { 
                 transfer_state = 47 
-                transfer_state = 811
+                transfer_state = 839
                 transfer_state = 187
             }
         }
@@ -10290,8 +12003,9 @@ country_event = {                                                               
     immediate = {
         hidden_effect = {
             set_global_flag = GRE_famine_started
+            GRE = { HS_FAM_set_base_state_level = yes }
             47 = { add_dynamic_modifier = { modifier = great_famine } }
-            811 = { add_dynamic_modifier = { modifier = great_famine } }
+            839 = { add_dynamic_modifier = { modifier = great_famine } }
             187 = { add_dynamic_modifier = { modifier = great_famine } }
         }
     }
@@ -10300,7 +12014,7 @@ country_event = {                                                               
 		name = hellas.1010.a 
         effect_tooltip = {
             47 = { add_dynamic_modifier = { modifier = great_famine } }
-            811 = { add_dynamic_modifier = { modifier = great_famine } }
+            839 = { add_dynamic_modifier = { modifier = great_famine } }
             187 = { add_dynamic_modifier = { modifier = great_famine } }
         }
     }
@@ -10318,7 +12032,8 @@ country_event = {                                                               
     
     immediate = {
         hidden_effect = {
-            HS_famine_initialize = yes
+            HS_FAM_initialize = yes
+            GRE = { HS_FAM_set_base_state_level = yes }
         }
     }
     
@@ -10328,7 +12043,107 @@ country_event = {                                                               
     }
 }
 
-state_event = {                                                                                   ## Black Market levels up!
+state_event = {                                                                                   ## KommandaturRefresh
+	id = hellas.10111
+	title = hellas.1012.t
+	desc = hellas.1012.desc
+	picture = GFX_report_event_greek_hs_hungry_kids
+
+    timeout_days=1
+    is_triggered_only=yes
+	fire_only_once = no
+    hidden = yes
+    
+    immediate = {
+        hidden_effect = {
+            GRE = {
+                set_temp_variable = { x_base=GER.GAR_BASE_MISSION_TIMEOUT }
+                subtract_from_temp_variable = { x_base=10 }
+                set_temp_variable = { x1=x_base }
+                set_temp_variable = { x2=x_base }
+                subtract_from_temp_variable = { x1=2 }
+                add_to_temp_variable = { x2=2 }
+                set_temp_variable_to_random={var=x min=x1 max=x2 integer=yes}
+                add_days_mission_timeout={mission=kommandatur days=x}
+            }
+            GER = { HS_GAR_select_behavior_THIS=yes }
+        }
+    }
+
+    option = {
+		name = hellas.1012.a
+
+		ai_chance = { base = 100 }
+    }
+}
+
+state_event = {                                                                                   ## CommandoPiazza refresh
+	id = hellas.10112
+	title = hellas.1012.t
+	desc = hellas.1012.desc
+	picture = GFX_report_event_greek_hs_hungry_kids
+
+    timeout_days=1
+    is_triggered_only=yes
+	fire_only_once = no
+    hidden = yes
+    
+    immediate = {
+        hidden_effect = {
+            GRE = {
+                set_temp_variable = { x_base=ITA.GAR_BASE_MISSION_TIMEOUT }
+                subtract_from_temp_variable = { x_base=10 }
+                set_temp_variable = { x1=x_base }
+                set_temp_variable = { x2=x_base }
+                subtract_from_temp_variable = { x1=2 }
+                add_to_temp_variable = { x2=2 }
+                set_temp_variable_to_random={var=x min=x1 max=x2 integer=yes}
+                add_days_mission_timeout={mission=commando_piazza days=x}
+            }
+            ITA = { HS_GAR_select_behavior_THIS=yes }
+        }
+    }
+
+    option = {
+		name = hellas.1012.a
+		ai_chance = { base = 100 }
+    }
+}
+
+state_event = {                                                                                   ## BulgarianPolice refresh
+	id = hellas.10113
+	title = hellas.1012.t
+	desc = hellas.1012.desc
+	picture = GFX_report_event_greek_hs_hungry_kids
+
+    timeout_days=1
+    is_triggered_only=yes
+	fire_only_once = no
+    hidden = yes
+    
+    immediate = {
+        hidden_effect = {
+            GRE = {
+                set_temp_variable = { x_base=BUL.GAR_BASE_MISSION_TIMEOUT }
+                subtract_from_temp_variable = { x_base=10 }
+                set_temp_variable = { x1=x_base }
+                set_temp_variable = { x2=x_base }
+                subtract_from_temp_variable = { x1=2 }
+                add_to_temp_variable = { x2=2 }
+                set_temp_variable_to_random={var=x min=x1 max=x2 integer=yes}
+                add_days_mission_timeout={mission=bul_pol days=x}
+            }
+            BUL = { HS_GAR_select_behavior_THIS=yes }
+        }
+    }
+
+    option = {
+		name = hellas.1012.a
+		ai_chance = { base = 100 }
+    }
+}
+
+state_event = {                                                                                   ## Black Market Events!
 	id = hellas.1012
 	title = hellas.1012.t
 	desc = hellas.1012.desc
@@ -10336,49 +12151,81 @@ state_event = {                                                                 
 
     trigger = {
         GRE = { has_global_flag = GRE_famine_started }
-        any_state = {
-            is_in_array = {
-                array = global.greek_mainland_states_all
-                value = THIS
-            }
-        }
+        has_dynamic_modifier = { modifier=great_famine }
 	}
 
-	mean_time_to_happen = { 
+	mean_time_to_happen = {
         days = 180
         modifier = {
             factor = 0.25
-            OR = {
-                state = 47
-                state = 811
-            }
+            OR = { state=47 state=839 }
         }
         modifier = {
             factor = 0.50
-            OR = {
-                state = 808
-                state = 187
-            }
+            OR = { state=836 state=187 }
         }
         modifier = {
             factor = 0.75
-            OR = {
-                state = 182
-                state = 186
-                state = 807
-            }
+            OR = { state=182 state=186 state=835 }
+        }
+        modifier = {
+            factor = 0.50
+            has_any_black_market_level=no
         }
     }
 
 	fire_only_once = no
     hidden = yes
     
-    immediate = {
-        hidden_effect = {
-            GRE = { add_political_power = 100 }
-            THIS = { event_based_black_market_shift = yes }
-        }
-    }
+    immediate = { hidden_effect = { THIS = { HS_BM_event_based_black_market_shift=yes } } }
+}
+
+country_event = {                                                                                   ## Black Market Negative Increase
+	id = hellas.10121
+	title = hellas.10121.t
+	desc = hellas.10121.desc
+	picture = GFX_report_event_hs_black_market_2
+
+    is_triggered_only=yes
+    fire_only_once=no
+
+    option = { name = hellas.10121.a }
+}
+
+country_event = {                                                                                   ## Black Market Positive Increase
+	id = hellas.10122
+	title = hellas.10122.t
+	desc = hellas.10122.desc
+	picture = GFX_report_event_hs_black_market_3
+
+    is_triggered_only=yes
+    fire_only_once=no
+
+    option = { name = hellas.10122.a }
+}
+
+country_event = {                                                                                   ## Black Market Toggles to Negative
+	id = hellas.10123
+	title = hellas.10123.t
+	desc = hellas.10123.desc
+	picture = GFX_report_event_hs_black_market_1
+
+    is_triggered_only=yes
+    fire_only_once=no
+
+    option = { name = hellas.10123.a }
+}
+
+country_event = {                                                                                   ## Black Market Toggles to Positive
+	id = hellas.10124
+	title = hellas.10124.t
+	desc = hellas.10124.desc
+	picture = GFX_report_event_hs_black_market_toggle
+
+    is_triggered_only=yes
+    fire_only_once=no
+
+    option = { name = hellas.10124.a }
 }
 
 country_event = {                                                                                   ## Government Returns (Fast)                                                   
@@ -10540,6 +12387,374 @@ country_event = {                                                               
         }
         GRE = { set_country_flag = relocated_to_London }
         custom_effect_tooltip = hellas.1014.d_tt
+    }
+}
+
+country_event = {                                                                                   ## Personality Change Germany (REVEALED)                                                       
+	id = hellas.10151
+	title = hellas.10151.t
+	desc = hellas.1015.desc
+	picture = GFX_report_event_hs_ger_gar
+
+	trigger = { 
+        original_tag=GRE
+        has_axis_occupation = yes
+        is_ai = no                                                                                   # we do not want two triggers, but we want player to see.
+        is_in_array = { array=GRE.occupier_nations value=GER.id }
+    }
+	fire_only_once = no
+    mean_time_to_happen = { days=60 }
+    
+    immediate = {
+        hidden_effect = {
+            GER = { HS_GAR_update_personality_THIS=yes }
+        }
+    }
+    
+	option = {                                                                                                                                                         
+		name = hellas.1015.a 
+        effect_tooltip = {
+            GER = { HS_GAR_update_personality_THIS=yes }
+        }
+    }
+}
+
+country_event = {                                                                                   ## Personality Change Italy (REVEALED)                                                       
+	id = hellas.10152
+	title = hellas.10152.t
+	desc = hellas.1015.desc
+	picture = GFX_report_event_hs_ita_gar
+
+	trigger = { 
+        original_tag=GRE
+        has_axis_occupation = yes
+        is_ai = no                                                                                   # we do not want two triggers, but we want player to see.
+        is_in_array = { array=GRE.occupier_nations value=ITA.id }
+    }
+	fire_only_once = no
+    mean_time_to_happen = { days=60 }
+    
+    immediate = {
+        hidden_effect = {
+            ITA = { HS_GAR_update_personality_THIS=yes }
+        }
+    }
+    
+	option = {                                                                                                                                                         
+		name = hellas.1015.a 
+        effect_tooltip = {
+            ITA = { HS_GAR_update_personality_THIS=yes }
+        }
+    }
+}
+
+country_event = {                                                                                   ## Personality Change Bulgaria (REVEALED)                                                       
+	id = hellas.10153
+	title = hellas.10153.t
+	desc = hellas.1015.desc
+	picture = GFX_report_event_hs_bul_gar
+
+	trigger = {
+        original_tag=GRE
+        has_axis_occupation = yes
+        is_ai = no                                                                                   # we do not want two triggers, but we want player to see.
+        is_in_array = { array=GRE.occupier_nations value=BUL.id }
+    }
+	fire_only_once = no
+    mean_time_to_happen = { days=60 }
+    
+    immediate = {
+        hidden_effect = {
+            BUL = { HS_GAR_update_personality_THIS=yes }
+        }
+    }
+    
+	option = {
+		name = hellas.1015.a 
+        effect_tooltip = {
+            BUL = { HS_GAR_update_personality_THIS=yes }
+        }
+    }
+}
+
+country_event = {                                                                                   ## Personality Change Turkey (REVEALED)                                                       
+	id = hellas.10154
+	title = hellas.10154.t
+	desc = hellas.1015.desc
+	picture = GFX_report_event_greek_hs_hungry_kids
+
+	trigger = {
+        original_tag=GRE
+        has_axis_occupation = yes
+        is_ai = no                                                                                   # we do not want two triggers, but we want player to see.
+        is_in_array = { array=GRE.occupier_nations value=TUR.id }
+    }
+	fire_only_once = no
+    mean_time_to_happen = { days=60 }
+    
+    immediate = {
+        hidden_effect = {
+            TUR = { HS_GAR_update_personality_THIS=yes }
+        }
+    }
+    
+	option = {                                                                                                                                                         
+		name = hellas.1015.a 
+        effect_tooltip = {
+            TUR = { HS_GAR_update_personality_THIS=yes }
+        }
+    }
+}
+
+country_event = {                                                                                   ## Personality Change Yugoslavia (REVEALED)                                                       
+	id = hellas.10155
+	title = hellas.10155.t
+	desc = hellas.1015.desc
+	picture = GFX_report_event_greek_hs_hungry_kids
+
+	trigger = {
+        original_tag=GRE
+        has_axis_occupation = yes
+        is_ai = no                                                                                   # we do not want two triggers, but we want player to see.
+        is_in_array = { array=GRE.occupier_nations value=YUG.id }
+    }
+	fire_only_once = no
+    mean_time_to_happen = { days=60 }
+    
+    immediate = {
+        hidden_effect = {
+            YUG = { HS_GAR_update_personality_THIS=yes }
+        }
+    }
+    
+	option = {                                                                                                                                                         
+		name = hellas.1015.a 
+        effect_tooltip = {
+            YUG = { HS_GAR_update_personality_THIS=yes }
+        }
+    }
+}
+
+################[ STATE RELATED EVENTS ON GARRISON ACTIONS ]################
+
+##########[Plunder]##########
+
+state_event = {                                                                                   ## Plunder of State Event (STATE)                                                    
+	id = hellas.1016
+	title = hellas.1016.t
+	desc = hellas.1016.desc
+	picture = GFX_report_event_hs_plunder
+
+	is_triggered_only = yes
+	fire_only_once = no
+    
+    immediate = {
+        hidden_effect = { 
+            HS_GAR_EVNT_outcome_calculation = yes
+            random_list = {
+                seed=random
+                var:case0 = {
+                    set_variable = { plun_state_fam = 1 }
+                    set_variable = { plun_state_agi = 0.04 }
+                    set_variable = { plun_state_and = 8 }
+                    set_variable = { plun_state_and_per = 0 }
+                    set_variable = { plun_severity=1 }
+                }
+                var:case1 = {
+                    set_variable = { plun_state_fam = 1 }
+                    set_variable = { plun_state_agi = 0.08 }
+                    set_variable = { plun_state_and = 10 }
+                    set_variable = { plun_state_and_per = 0 }
+                    set_variable = { plun_severity=2 }
+                }
+                var:case2 = {
+                    set_variable = { plun_state_fam = 1 }
+                    set_variable = { plun_state_agi = 0.12 }
+                    set_variable = { plun_state_and = 12 }
+                    set_variable = { plun_state_and_per = 0 }
+                    set_variable = { plun_severity=3 }
+                }
+                var:case3 = {
+                    set_variable = { plun_state_fam = 1 }
+                    set_variable = { plun_state_agi = 0.14 }
+                    set_variable = { plun_state_and = 16 }
+                    set_variable = { plun_state_and_per = 0 }
+                    set_variable = { plun_severity=4 }
+                }
+                var:case4 = {
+                    set_variable = { plun_state_fam = 2 }
+                    set_variable = { plun_state_agi = 0.16 }
+                    set_variable = { plun_state_and = 18 }
+                    set_variable = { plun_state_and_per = 0.05 }
+                    set_variable = { plun_severity=5 }
+                }
+                var:case5 = {
+                    set_variable = { plun_state_fam = 2 }
+                    set_variable = { plun_state_agi = 0.20 }
+                    set_variable = { plun_state_and = 20 }
+                    set_variable = { plun_state_and_per = 0.10 }
+                    set_variable = { plun_severity=6 }
+                }
+                var:case6 = {
+                    set_variable = { plun_state_fam = 3 }
+                    set_variable = { plun_state_agi = 0.24 }
+                    set_variable = { plun_state_and = 22 }
+                    set_variable = { plun_state_and_per = 0.15 }
+                    set_variable = { plun_severity=7 }
+                }
+                var:case7 = {
+                    set_variable = { plun_state_fam = 3 }
+                    set_variable = { plun_state_agi = 0.28 }
+                    set_variable = { plun_state_and = 24 }
+                    set_variable = { plun_state_and_per = 0.20 }
+                    set_variable = { plun_severity=8 }
+                }
+                var:case8 = {
+                    set_variable = { plun_state_fam = 4 }
+                    set_variable = { plun_state_agi = 0.32 }
+                    set_variable = { plun_state_and = 26 }
+                    set_variable = { plun_state_and_per = 0.25 }
+                    set_variable = { plun_severity=9 }
+                }
+            }
+            add_dynamic_modifier={ modifier=plundered_state days=30 } 
+            gre_hs_xor=yes
+            var:event_sender = { country_event = { id = hellas.10161 days=1 random=144 } }
+        }
+    }
+    
+	option = { name = hellas.1016.a }
+}
+
+country_event = {                                                                                   ## Plunder of State Event (PLAYER REVEALED)                                                       
+	id = hellas.10161
+	title = hellas.1016.t
+	desc = hellas.1016.desc
+	picture = GFX_report_event_hs_plunder
+
+	is_triggered_only = yes
+	fire_only_once = no
+    
+	option = {                                                                                                                                                         
+		name = hellas.1016.a
+        custom_effect_tooltip = plundered_state_severity_tt
+        effect_tooltip = { FROM = { add_dynamic_modifier={ modifier=plundered_state days=30 } } }
+        clear_variable = FROM.plun_severity
+    }
+}
+
+##########[Binge]##########
+
+state_event = {                                                                                    ## Binge of State Event (STATE)                                                    
+	id = hellas.1017
+	title = hellas.1017.t
+	desc = hellas.1017.desc
+	picture = GFX_report_event_hs_binge
+
+	is_triggered_only = yes
+	fire_only_once = no
+    
+    immediate = {
+        hidden_effect = { 
+            HS_GAR_EVNT_outcome_calculation = yes
+            random_list = {
+                seed=random
+                var:case0 = {
+                    set_variable = { har_pop_state_fam = 0 }
+                    set_variable = { har_pop_state_agi = 0.02 }
+                    set_variable = { har_pop_state_and = 2 }
+                    set_variable = { har_pop_state_and_per = 0 }
+                    set_variable = { har_pop_state_base_recon = 0 }
+                    set_variable = { har_severity=1 }
+                }
+                var:case1 = {
+                    set_variable = { har_pop_state_fam = 0 }
+                    set_variable = { har_pop_state_agi = 0.04 }
+                    set_variable = { har_pop_state_and = 3 }
+                    set_variable = { har_pop_state_and_per = 0 }
+                    set_variable = { har_pop_state_base_recon = 0 }
+                    set_variable = { har_severity=2 }
+                }
+                var:case2 = {
+                    set_variable = { har_pop_state_fam = 0 }
+                    set_variable = { har_pop_state_agi = 0.06 }
+                    set_variable = { har_pop_state_and = 4 }
+                    set_variable = { har_pop_state_and_per = 0 }
+                    set_variable = { har_pop_state_base_recon = 0 }
+                    set_variable = { har_severity=3 }
+                }
+                var:case3 = {
+                    set_variable = { har_pop_state_fam = 1 }
+                    set_variable = { har_pop_state_agi = 0.08 }
+                    set_variable = { har_pop_state_and = 5 }
+                    set_variable = { har_pop_state_and_per = 0 }
+                    set_variable = { har_pop_state_base_recon = 0 }
+                    set_variable = { har_severity=4 }
+                }
+                var:case4 = {
+                    set_variable = { har_pop_state_fam = 1 }
+                    set_variable = { har_pop_state_agi = 0.10 }
+                    set_variable = { har_pop_state_and = 6 }
+                    set_variable = { har_pop_state_and_per = 0 }
+                    set_variable = { har_pop_state_base_recon = -0.1 }
+                    set_variable = { har_severity=5 }
+                }
+                var:case5 = {
+                    set_variable = { har_pop_state_fam = 1 }
+                    set_variable = { har_pop_state_agi = 0.12 }
+                    set_variable = { har_pop_state_and = 7 }
+                    set_variable = { har_pop_state_and_per = 0 }
+                    set_variable = { har_pop_state_base_recon = -0.2 }
+                    set_variable = { har_severity=6 }
+                }
+                var:case6 = {
+                    set_variable = { har_pop_state_fam = 2 }
+                    set_variable = { har_pop_state_agi = 0.15 }
+                    set_variable = { har_pop_state_and = 8 }
+                    set_variable = { har_pop_state_and_per = 0.1 }
+                    set_variable = { har_pop_state_base_recon = -0.3 }
+                    set_variable = { har_severity=7 }
+                }
+                var:case7 = {
+                    set_variable = { har_pop_state_fam = 2 }
+                    set_variable = { har_pop_state_agi = 0.20 }
+                    set_variable = { har_pop_state_and = 9 }
+                    set_variable = { har_pop_state_and_per = 0.15 }
+                    set_variable = { har_pop_state_base_recon = -0.4 }
+                    set_variable = { har_severity=8 }
+                }
+                var:case8 = {
+                    set_variable = { har_pop_state_fam = 3 }
+                    set_variable = { har_pop_state_agi = 0.25 }
+                    set_variable = { har_pop_state_and = 10 }
+                    set_variable = { har_pop_state_and_per = 0.20 }
+                    set_variable = { har_pop_state_base_recon = -0.5 }
+                    set_variable = { har_severity=9 }
+                }
+            }
+            add_dynamic_modifier={ modifier=harassed_population days=30 } 
+            gre_hs_xor=yes
+            var:event_sender = { country_event = { id = hellas.10171 days=1 random=144 } }
+        }
+    }
+    
+	option = { name = hellas.1017.a }
+}
+
+country_event = {                                                                                   ## Binge of State Event (PLAYER REVEALED)                                                       
+	id = hellas.10171
+	title = hellas.1017.t
+	desc = hellas.1017.desc
+	picture = GFX_report_event_hs_binge
+
+	is_triggered_only = yes
+	fire_only_once = no
+    
+	option = {                                                                                                                                                         
+		name = hellas.1017.a
+        custom_effect_tooltip = harassed_state_severity_tt
+        effect_tooltip = { FROM = { add_dynamic_modifier={ modifier=harassed_population days=30 } } }
+        clear_variable = FROM.har_severity
     }
 }
 
@@ -11160,7 +13375,7 @@ country_event = {
 		name = hellas.10000.a
         
         event_target:hellenic_state = { transfer_state = 47 }
-        event_target:hellenic_state = { transfer_state = 811 }
+        event_target:hellenic_state = { transfer_state = 839 }
         GER = { set_province_controller = 11818 }
         GER = { set_province_controller = 4109 }
         GER = { set_province_controller = 11965 }
@@ -11173,7 +13388,7 @@ country_event = {
             GER = { set_province_controller = 1164 }
             GER = { set_province_controller = 9940 }
             GER = { set_province_controller = 4170 }
-            add_to_array = { global.greek_mainland_states_all = 182 }
+            add_to_array = { global.greek_occupied_states_all = 182 }
             add_to_array = { global.german_occupied_states = 182 }
             182 = { 
                 add_resistance = 9 
