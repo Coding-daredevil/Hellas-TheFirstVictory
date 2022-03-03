@@ -5013,9 +5013,152 @@ ELAS_resistance_battle_sandbox = {                                            ##
 ###################[HELLENIC STATE SE]###################
 #########################################################
 
+
+HS_GUI_clear_main_variables = {
+    clear_variable=cycle_choice
+    clear_variable=cycle_ind_1
+    clear_variable=cycle_ind_2
+    clear_variable=cycle_ind_var_1 
+    clear_variable=cycle_ind_var_2 
+    clear_variable=cycle_ind_var_3
+}
+
 #####[Calculation for State GUI]#####
 
+HS_GUI_initialize_composition = {
+    set_variable = { combatant_percentage=0 }
+    set_variable = { noncombatant_percentage=1 }
+    set_variable = { reservist_percentage=0 }
+    set_variable = { available_noncombatants=andartes }
+}
+
+HS_GUI_set_food_distribution = {
+    set_temp_variable = { tmp=cycle_ind_var_1 }
+    subtract_from_temp_variable = { tmp=state_food_distribution_manpower } 
+    subtract_from_variable = { available_noncombatants=tmp }
+    set_variable={ state_food_distribution_manpower=cycle_ind_var_1 }
+    set_variable={ state_food_distribution_efficiency=cycle_ind_2 }
+    set_variable={ res_group_state_stb=cycle_ind_var_2 }
+    set_variable={ res_group_state_fam=cycle_ind_var_3 }
+} 
+
+HS_GUI_set_reconnaissance = {
+    set_temp_variable = { tmp=cycle_ind_var_1 }
+    subtract_from_temp_variable = { tmp=state_reconnaissance_manpower }
+    subtract_from_variable = { available_noncombatants=tmp }
+    set_variable={ state_reconnaissance_manpower=cycle_ind_var_1 }
+    set_variable={ state_reconnaissance_efficiency=cycle_ind_2 }
+    set_variable={ res_group_state_recon=cycle_ind_var_2 }
+} 
+
+HS_GUI_set_intel_gathering = {
+    set_temp_variable = { tmp=cycle_ind_var_1 }
+    subtract_from_temp_variable = { tmp=state_intel_gathering_manpower }
+    subtract_from_variable = { available_noncombatants=tmp }
+    set_variable={ state_intel_gathering_manpower=cycle_ind_var_1 }
+    set_variable={ state_intel_gathering_efficiency=cycle_ind_2 }
+    set_variable={ res_group_intel_gathering=cycle_ind_var_2 }
+} 
+
+HS_GUI_refresh_food_distribution = {
+    if = { 
+        limit = { check_variable = { y>0 } check_variable= { available_noncombatants<y } }
+        set_temp_variable = { z=state_food_distribution_manpower }
+        divide_temp_variable = { z=x }
+        set_variable = { state_food_distribution_efficiency=z }
+        set_variable = { res_group_state_stb=0.10 }
+        multiply_variable = { res_group_state_stb=state_food_distribution_efficiency }
+        if = {
+            limit = { check_variable={ var=state_food_distribution_efficiency value=1.75 compare=greater_than_or_equals } }
+            set_variable = { res_group_state_fam=-3 }
+        }
+        else_if = {
+            limit = { check_variable={ var=state_food_distribution_efficiency value=1.25 compare=greater_than_or_equals } }
+            set_variable = { res_group_state_fam=-2 }
+        }
+        else_if = {
+            limit = { check_variable={ var=state_food_distribution_efficiency value=0.75 compare=greater_than_or_equals } }
+            set_variable = { res_group_state_fam=-1 }
+        }
+        else = { set_variable = { res_group_state_fam=0 } }
+    }
+    else = { subtract_from_variable = { available_noncombatants=y } }
+}
+
+HS_GUI_refresh_reconnaissance = {
+    if = {
+        limit = { check_variable = { y>0 } check_variable= { available_noncombatants<y } }
+        set_temp_variable = { z=state_reconnaissance_manpower }
+        divide_temp_variable = { z=x }
+        set_variable = { state_reconnaissance_efficiency=z }
+        set_variable = { res_group_state_recon=0.50 }
+        multiply_variable = { res_group_state_recon=state_reconnaissance_efficiency }
+    }
+    else = { subtract_from_variable = { available_noncombatants=y } }
+}
+
+HS_GUI_refresh_intel_gathering = {
+    if = {
+        limit = { check_variable = { y>0 } check_variable= { available_noncombatants<y } }
+        set_temp_variable = { z=state_intel_gathering_manpower }
+        divide_temp_variable = { z=x }
+        set_variable = { state_intel_gathering_efficiency=z }
+        set_variable = { res_group_state_recon=0.50 }
+        multiply_variable = { res_group_intel_gathering=state_intel_gathering_efficiency }
+    }
+    else = { subtract_from_variable = { available_noncombatants=y } }
+}
+
+HS_GUI_WEEKLY_refresh_pool_or_effects = {
+    ###[Food Distribution]###
+    ######
+}
+
+HS_GUI_WEEKLY_check_requirement_changes = {
+    if = {
+        limit = { NOT={ check_variable={ state_food_distribution_efficiency=0 } } }
+        HS_GUI_UNARMED_food_distribution_variable_preparation=yes
+        set_temp_variable = { x=state_food_distribution_efficiency }
+        multiply_temp_variable = { x=cycle_ind_1 }
+        if = {
+            limit = { NOT={ check_variable={ x=state_food_distribution_manpower } } }
+            set_temp_variable={ y=x }
+            subtract_from_temp_variable={ y=state_food_distribution_manpower }
+            HS_GUI_refresh_food_distribution=yes
+        }
+    }
+    if = {
+        limit = { NOT={ check_variable={ state_reconnaissance_efficiency=0 } } }
+        HS_GUI_UNARMED_reconnaissance_variable_preparation=yes
+        set_temp_variable = { x=state_reconnaissance_efficiency }
+        multiply_temp_variable = { x=cycle_ind_1 }
+        if = {
+            limit = { NOT={ check_variable={ x=state_reconnaissance_manpower } } }
+            set_temp_variable={ y=x }
+            subtract_from_temp_variable={ y=state_reconnaissance_manpower }
+            HS_GUI_refresh_reconnaissance=yes
+        }
+    }
+    if = {
+        limit = { NOT={ check_variable={ state_intel_gathering_efficiency=0 } } }
+        HS_GUI_UNARMED_intel_gathering_variable_preparation=yes
+        set_temp_variable = { x=state_intel_gathering_efficiency }
+        multiply_temp_variable = { x=cycle_ind_1 }
+        if = {
+            limit = { NOT={ check_variable={ x=state_intel_gathering_manpower } } }
+            set_temp_variable={ y=x }
+            subtract_from_temp_variable={ y=state_intel_gathering_manpower }
+            HS_GUI_refresh_intel_gathering=yes
+        }
+    }
+}
+
 HS_GUI_UNARMED_food_distribution_variable_preparation = {
+    ###[ Set Indicators to Current Values ]###
+    set_variable = { cycle_ind_var_1=state_food_distribution_manpower }
+    set_variable = { cycle_ind_2=state_food_distribution_efficiency}
+    HS_GUI_UNARMED_food_distribution_set_display_effects=yes
+    ##############################################
     set_temp_variable = { total_mult=0 }
     set_temp_variable = { x=THIS.fields }
     multiply_temp_variable = { x=0.5 }
@@ -5047,14 +5190,18 @@ HS_GUI_UNARMED_food_distribution_variable_preparation = {
 }
 
 HS_GUI_UNARMED_food_distribution_change_amount_effect = {
-    add_to_variable={ cycle_ind_var_1=change_amount } 
+    add_to_variable={ cycle_ind_var_1=change_amount }
     set_temp_variable = { x=cycle_ind_1 }
     multiply_temp_variable = { x=2 }
-    clamp_variable={ var=cycle_ind_var_1 min=0 max=THIS.andartes }
+    clamp_variable={ var=cycle_ind_var_1 min=0 max=THIS.available_noncombatants }
     clamp_variable={ var=cycle_ind_var_1 min=0 max=x }
     set_variable = { cycle_ind_2=cycle_ind_var_1 }
     divide_variable = { cycle_ind_2=cycle_ind_1 }
     ####################[Effects]#######################
+    HS_GUI_UNARMED_food_distribution_set_display_effects = yes
+}
+
+HS_GUI_UNARMED_food_distribution_set_display_effects = {
     set_variable = { cycle_ind_var_2=0.10 }
     multiply_variable = { cycle_ind_var_2=cycle_ind_2 }
     if = { 
@@ -5072,16 +5219,12 @@ HS_GUI_UNARMED_food_distribution_change_amount_effect = {
     else = { set_variable = { cycle_ind_var_3=0 } }
 }
 
-HS_GUI_clear_main_variables = {
-    clear_variable=cycle_choice
-    clear_variable=cycle_ind_1
-    clear_variable=cycle_ind_2
-    clear_variable=cycle_ind_var_1 
-    clear_variable=cycle_ind_var_2 
-    clear_variable=cycle_ind_var_3
-}
-
 HS_GUI_UNARMED_reconnaissance_variable_preparation = {
+    ###[ Set Indicators to Current Values ]###
+    set_variable = { cycle_ind_var_1=state_reconnaissance_manpower }
+    set_variable = { cycle_ind_2=state_reconnaissance_efficiency}
+    HS_GUI_UNARMED_reconnaissance_set_display_effects=yes
+    ##############################################
     set_temp_variable = { total_mult=0 }
     set_temp_variable = { x=THIS.fields }
     multiply_temp_variable = { x=0.25 }
@@ -5114,28 +5257,41 @@ HS_GUI_UNARMED_reconnaissance_change_amount_effect = {
     add_to_variable={ cycle_ind_var_1=change_amount } 
     set_temp_variable = { x=cycle_ind_1 }
     multiply_temp_variable = { x=2 }
-    clamp_variable={ var=cycle_ind_var_1 min=0 max=THIS.andartes }
+    clamp_variable={ var=cycle_ind_var_1 min=0 max=THIS.available_noncombatants }
     clamp_variable={ var=cycle_ind_var_1 min=0 max=x }
     set_variable = { cycle_ind_2=cycle_ind_var_1 }
     divide_variable = { cycle_ind_2=cycle_ind_1 }
     ####################[Effects]#######################
+    HS_GUI_UNARMED_reconnaissance_set_display_effects=yes
+}
+
+HS_GUI_UNARMED_reconnaissance_set_display_effects = {
     set_variable = { cycle_ind_var_2=0.50 }
     multiply_variable = { cycle_ind_var_2=cycle_ind_2 }
 }
 
 HS_GUI_UNARMED_intel_gathering_variable_preparation = {
+    ###[ Set Indicators to Current Values ]###
+    set_variable = { cycle_ind_var_1=state_intel_gathering_manpower }
+    set_variable = { cycle_ind_2=state_intel_gathering_efficiency}
+    HS_GUI_UNARMED_intel_gathering_set_display_effects=yes
+    ##############################################
     set_variable={ cycle_ind_1=500 }
 }
 
 HS_GUI_UNARMED_intel_gathering_change_amount_effect = {
-    add_to_variable={ cycle_ind_var_1=change_amount } 
+    add_to_variable={ cycle_ind_var_1=change_amount }
     set_temp_variable = { x=cycle_ind_1 }
     multiply_temp_variable = { x=2 }
-    clamp_variable={ var=cycle_ind_var_1 min=0 max=THIS.andartes }
+    clamp_variable={ var=cycle_ind_var_1 min=0 max=THIS.available_noncombatants }
     clamp_variable={ var=cycle_ind_var_1 min=0 max=x }
     set_variable = { cycle_ind_2=cycle_ind_var_1 }
     divide_variable = { cycle_ind_2=cycle_ind_1 }
     ####################[Effects]#######################
+    HS_GUI_UNARMED_intel_gathering_set_display_effects=yes
+}
+
+HS_GUI_UNARMED_intel_gathering_set_display_effects = {
     set_variable = { cycle_ind_var_2=0.50 }
     multiply_variable = { cycle_ind_var_2=cycle_ind_2 }
 }
@@ -5152,7 +5308,7 @@ HS_GUI_UNARMED_route_planning_change_amount_effect = {
     add_to_variable={ cycle_ind_var_1=change_amount } 
     set_temp_variable = { x=cycle_ind_1 }
     multiply_temp_variable = { x=2 }
-    clamp_variable={ var=cycle_ind_var_1 min=0 max=THIS.andartes }
+    clamp_variable={ var=cycle_ind_var_1 min=0 max=THIS.available_noncombatants }
     clamp_variable={ var=cycle_ind_var_1 min=0 max=x }
     set_variable = { cycle_ind_2=cycle_ind_var_1 }
     divide_variable = { cycle_ind_2=cycle_ind_1 }
@@ -5196,7 +5352,7 @@ HS_GUI_UNARMED_fortify_position_change_amount_effect = {
     add_to_variable={ cycle_ind_var_1=change_amount } 
     set_temp_variable = { x=cycle_ind_1 }
     multiply_temp_variable = { x=2 }
-    clamp_variable={ var=cycle_ind_var_1 min=0 max=THIS.andartes }
+    clamp_variable={ var=cycle_ind_var_1 min=0 max=THIS.available_noncombatants }
     clamp_variable={ var=cycle_ind_var_1 min=0 max=x }
     set_variable = { cycle_ind_2=cycle_ind_var_1 }
     divide_variable = { cycle_ind_2=cycle_ind_1 }
@@ -5218,7 +5374,7 @@ HS_GUI_UNARMED_inspire_populace_change_amount_effect = {
     add_to_variable={ cycle_ind_var_1=change_amount } 
     set_temp_variable = { x=cycle_ind_1 }
     multiply_temp_variable = { x=2 }
-    clamp_variable={ var=cycle_ind_var_1 min=0 max=THIS.andartes }
+    clamp_variable={ var=cycle_ind_var_1 min=0 max=THIS.available_noncombatants }
     clamp_variable={ var=cycle_ind_var_1 min=0 max=x }
     set_variable = { cycle_ind_2=cycle_ind_var_1 }
     divide_variable = { cycle_ind_2=cycle_ind_1 }
@@ -5241,7 +5397,7 @@ HS_GUI_UNARMED_seek_aid_change_amount_effect = {
     add_to_variable={ cycle_ind_var_1=change_amount } 
     set_temp_variable = { x=cycle_ind_1 }
     multiply_temp_variable = { x=2 }
-    clamp_variable={ var=cycle_ind_var_1 min=0 max=THIS.andartes }
+    clamp_variable={ var=cycle_ind_var_1 min=0 max=THIS.available_noncombatants }
     clamp_variable={ var=cycle_ind_var_1 min=0 max=x }
     set_variable = { cycle_ind_2=cycle_ind_var_1 }
     divide_variable = { cycle_ind_2=cycle_ind_1 }
@@ -5262,7 +5418,7 @@ HS_GUI_UNARMED_sabotage_change_amount_effect = {
     add_to_variable={ cycle_ind_var_1=change_amount } 
     set_temp_variable = { x=cycle_ind_1 }
     multiply_temp_variable = { x=2 }
-    clamp_variable={ var=cycle_ind_var_1 min=0 max=THIS.andartes }
+    clamp_variable={ var=cycle_ind_var_1 min=0 max=THIS.available_noncombatants }
     clamp_variable={ var=cycle_ind_var_1 min=0 max=x }
     set_variable = { cycle_ind_2=cycle_ind_var_1 }
     divide_variable = { cycle_ind_2=cycle_ind_1 }
@@ -5497,6 +5653,7 @@ HS_add_daily_agitation_to_states = {
             limit = { NOT = { check_variable = { THIS.modifier@state_agitation_token=0 } } }
             add_to_variable = { THIS.state_agitation = THIS.modifier@state_agitation_token }
         }
+        else = { subtract_from_variable = { state_agitation=0.10 } }
     }
 }
 
@@ -5517,9 +5674,13 @@ HS_set_daily_base_reconnaissance = {
         
         if = {
             limit = { NOT = { check_variable = { THIS.modifier@state_daily_reconnaissance_percentage_token=0 } } }
-            add_to_variable = { THIS.reconnaissance_level = THIS.modifier@state_daily_reconnaissance_percentage_token }
+            set_temp_variable = { y=THIS.modifier@state_daily_reconnaissance_percentage_token }
+            divide_temp_variable = { y=100 }
+            add_to_variable = { THIS.reconnaissance_level = y }
         }
-        subtract_from_variable = { THIS.reconnaissance_level=0.05 }
+        else = { 
+            subtract_from_variable = { THIS.reconnaissance_level=0.25 }
+        }
         clamp_variable = { var=THIS.reconnaissance_level min=THIS.modifier@state_base_reconnaissance_percentage_token max=100 }
     }
 }
@@ -5532,16 +5693,17 @@ HS_add_daily_combined_modifiers = {
             limit = { NOT = { check_variable = { modifier@state_agitation_token=0 } } }
             add_to_variable = { state_agitation = modifier@state_agitation_token }
         }
+        else = { subtract_from_variable = { state_agitation=0.10 } }
         if = {
             limit = { NOT = { check_variable = { modifier@state_andartes_token=0 } } }
             add_to_variable = { andartes = modifier@state_andartes_token }
         }
         if = {
-            limit = { NOT = { check_variable = { modifier@state_daily_reconnaissance_percentage_token=0 } } }
-            add_to_variable = { reconnaissance_level = modifier@state_daily_reconnaissance_percentage_token }
+            limit = { NOT = { check_variable = { THIS.modifier@state_daily_reconnaissance_percentage_token=0 } } }
+            add_to_variable = { THIS.reconnaissance_level = THIS.modifier@state_daily_reconnaissance_percentage_token }
         }
-        subtract_from_variable = { reconnaissance_level=0.05 }
-        clamp_variable = { var=reconnaissance_level min=modifier@state_base_reconnaissance_percentage_token max=100 }
+        else = { subtract_from_variable = { THIS.reconnaissance_level=0.25 } }
+        clamp_variable = { var=THIS.reconnaissance_level min=THIS.modifier@state_base_reconnaissance_percentage_token max=100 }
     }
 }
 

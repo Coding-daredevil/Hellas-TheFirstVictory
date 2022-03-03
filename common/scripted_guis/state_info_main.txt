@@ -72,6 +72,14 @@ scripted_gui = {
 				else = {
 					clr_state_flag = state_info_res_opened
 				}
+				if = { 
+					limit = { 
+						check_variable = { combatant_percentage=0 }
+						check_variable = { noncombatant_percentage=0 }
+						check_variable = { reservist_percentage=0 }
+					}
+					HS_GUI_initialize_composition=yes
+				}
 			}
 			greek_resistance_open_1_click = {
 				if = {
@@ -80,6 +88,14 @@ scripted_gui = {
 				}
 				else = {
 					clr_state_flag = state_info_res_opened
+				}
+				if = { 
+					limit = { 
+						check_variable = { combatant_percentage=0 }
+						check_variable = { noncombatant_percentage=0 }
+						check_variable = { reservist_percentage=0 }
+					}
+					HS_GUI_initialize_composition=yes
 				}
 			}
 			greek_resistance_open_2_click = {
@@ -90,6 +106,14 @@ scripted_gui = {
 				else = {
 					clr_state_flag = state_info_res_opened
 				}
+				if = { 
+					limit = { 
+						check_variable = { combatant_percentage=0 }
+						check_variable = { noncombatant_percentage=0 }
+						check_variable = { reservist_percentage=0 }
+					}
+					HS_GUI_initialize_composition=yes
+				}
 			}
 			greek_resistance_open_3_click = {
 				if = {
@@ -98,6 +122,14 @@ scripted_gui = {
 				}
 				else = {
 					clr_state_flag = state_info_res_opened
+				}
+				if = { 
+					limit = { 
+						check_variable = { combatant_percentage=0 }
+						check_variable = { noncombatant_percentage=0 }
+						check_variable = { reservist_percentage=0 }
+					}
+					HS_GUI_initialize_composition=yes
 				}
 			}
 		}
@@ -534,6 +566,12 @@ scripted_gui = {
 			sabotage_mid_5_decrease_control_click = { set_temp_variable = { change_amount=-10 } HS_GUI_UNARMED_sabotage_change_amount_effect = yes }
 			sabotage_mid_5_decrease_control_shift_click = { set_temp_variable = { change_amount=-100 } HS_GUI_UNARMED_sabotage_change_amount_effect = yes }
 			#
+			###[Final Button]###
+			confirm_action_button_click = {
+				if = { limit={ check_variable={cycle_behavior=0} check_variable={cycle_choice=1 } } HS_GUI_set_food_distribution=yes }			### Food Distribution
+				else_if = { limit={ check_variable={cycle_behavior=0} check_variable={cycle_choice=2 } } HS_GUI_set_reconnaissance=yes }		### State Reconnaissance
+				else_if = { limit={ check_variable={cycle_behavior=0} check_variable={cycle_choice=3 } } HS_GUI_set_intel_gathering=yes }		### State Intel Gathering
+			}
 		}
 	}
 
