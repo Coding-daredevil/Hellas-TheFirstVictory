@@ -145,6 +145,112 @@ defined_text = {
 }
 
 defined_text = {
+	name = GetSabotageBuildingName
+	text = {
+		trigger = {
+			check_variable={ building_targeted_for_sabotage=0 }
+		}
+		localization_key = state_info_gui_sabotage_default_tt
+	}
+	text = {
+		trigger = {
+			check_variable={ building_targeted_for_sabotage=1 }
+		}
+		localization_key = state_info_gui_sabotage_1_tt
+	}
+	text = {
+		trigger = {
+			check_variable={ building_targeted_for_sabotage=2 }
+		}
+		localization_key = state_info_gui_sabotage_2_tt
+	}
+	text = {
+		trigger = {
+			check_variable={ building_targeted_for_sabotage=3 }
+		}
+		localization_key = state_info_gui_sabotage_3_tt
+	}
+	text = {
+		trigger = {
+			check_variable={ building_targeted_for_sabotage=4 }
+		}
+		localization_key = state_info_gui_sabotage_4_tt
+	}
+	text = {
+		trigger = {
+			check_variable={ building_targeted_for_sabotage=5 }
+		}
+		localization_key = state_info_gui_sabotage_5_tt
+	}
+	text = {
+		trigger = {
+			check_variable={ building_targeted_for_sabotage=6 }
+		}
+		localization_key = state_info_gui_sabotage_6_tt
+	}
+	text = {
+		trigger = {
+			check_variable={ building_targeted_for_sabotage=7 }
+		}
+		localization_key = state_info_gui_sabotage_7_tt
+	}
+	text = {
+		trigger = {
+			check_variable={ building_targeted_for_sabotage=8 }
+		}
+		localization_key = state_info_gui_sabotage_8_tt
+	}
+	text = {
+		trigger = {
+			check_variable={ building_targeted_for_sabotage=9 }
+		}
+		localization_key = state_info_gui_sabotage_9_tt
+	}
+	text = {
+		trigger = {
+			check_variable={ building_targeted_for_sabotage=10 }
+		}
+		localization_key = state_info_gui_sabotage_10_tt
+	}
+	text = {
+		trigger = {
+			check_variable={ building_targeted_for_sabotage=11 }
+		}
+		localization_key = state_info_gui_sabotage_11_tt
+	}
+	text = {
+		trigger = {
+			check_variable={ building_targeted_for_sabotage=12 }
+		}
+		localization_key = state_info_gui_sabotage_12_tt
+	}
+	text = {
+		trigger = {
+			check_variable={ building_targeted_for_sabotage=13 }
+		}
+		localization_key = state_info_gui_sabotage_13_tt
+	}
+	text = {
+		trigger = {
+			check_variable={ building_targeted_for_sabotage=14 }
+		}
+		localization_key = state_info_gui_sabotage_14_tt
+	}
+	text = {
+		trigger = {
+			check_variable={ building_targeted_for_sabotage=15 }
+		}
+		localization_key = state_info_gui_sabotage_15_tt
+	}
+	text = {
+		trigger = {
+			check_variable={ building_targeted_for_sabotage=16 }
+		}
+		localization_key = state_info_gui_sabotage_16_tt
+	}
+}
+
+defined_text = {
 	name = GetStateInfoGuiChoiceConfirm
 	text = {
 		trigger = { check_variable = { cycle_behavior=0 } }
@@ -207,6 +313,10 @@ defined_text = {
 defined_text = {
 	name = GetTDeploymentReturnChoiceConfirm
 	text = {
+		trigger = { has_state_flag=state_deploying_recalling }
+		localization_key = state_info_gui_tcdep_deployment_menu_days_notice_disabled_tt
+	}
+	text = {
 		trigger = { check_variable = { toggle_tdep_return_deploy=0 } }
 		localization_key = state_info_gui_tcdep_deployment_menu_deploy_tt
 	}
@@ -214,6 +324,28 @@ defined_text = {
 		trigger = { check_variable = { toggle_tdep_return_deploy=1 } }
 		localization_key = state_info_gui_tcdep_deployment_menu_return_tt
 	}
+}
+
+defined_text = {
+	name = GetTCompositionBoxColor
+	text = {
+		trigger = { 
+			set_temp_variable={ x=gui_noncombatant_percentage }
+			multiply_temp_variable={ x=THIS.andartes }
+			check_variable={ var=x value=THIS.allocated_noncombatants compare=greater_than_or_equals }
+		}
+		localization_key = state_info_gui_troop_composition_menu_add_to_noncombatant_percentage_good
+	}
+	text = { localization_key=state_info_gui_troop_composition_menu_add_to_noncombatant_percentage_warn }
+}
+
+defined_text = {
+	name = GetTCompositionReturnChoiceConfirm
+	text = {
+		trigger = { has_state_flag=state_restructuring_forces }
+		localization_key = state_info_gui_troop_composition_menu_days_notice_disabled_tt
+	}
+	text = { localization_key = "Order Restructure" }
 }
 
 defined_text = {
@@ -226,6 +358,15 @@ defined_text = {
 		trigger = { check_variable = { toggle_eq_return_deploy=1 } }
 		localization_key = state_info_gui_equip_deployment_menu_return_tt
 	}
+}
+
+defined_text = {
+	name = GetEquipDeploymentReturnChoiceConfirm
+	text = {
+		trigger = { has_state_flag=state_redeploying_equipment }
+		localization_key = state_info_gui_equip_deployment_menu_days_notice_disabled_tt
+	}
+	text = { localization_key = "Order Arrangement" }
 }
 
 defined_text = {
@@ -1183,6 +1324,168 @@ defined_text = {
 ########################################################################################################################################################################################################
 
 defined_text = {
+    name = GetPapagosRankGFX
+    text = { trigger = { check_variable = { GRE.hc_papagos_rank = 0 } } localization_key = "GFX_high_command_army_0" }
+	text = { trigger = { check_variable = { GRE.hc_papagos_rank = 1 } } localization_key = "GFX_high_command_army_1" }
+	text = { trigger = { check_variable = { GRE.hc_papagos_rank = 2 } } localization_key = "GFX_high_command_army_2" }
+	text = { trigger = { check_variable = { GRE.hc_papagos_rank = 3 } } localization_key = "GFX_high_command_army_3" }
+}
+defined_text = {
+    name = GetStanotasRankGFX
+    text = { trigger = { check_variable = { GRE.hc_stanotas_rank = 0 } } localization_key = "GFX_high_command_army_0" }
+	text = { trigger = { check_variable = { GRE.hc_stanotas_rank = 1 } } localization_key = "GFX_high_command_army_1" }
+	text = { trigger = { check_variable = { GRE.hc_stanotas_rank = 2 } } localization_key = "GFX_high_command_army_2" }
+	text = { trigger = { check_variable = { GRE.hc_stanotas_rank = 3 } } localization_key = "GFX_high_command_army_3" }
+}
+defined_text = {
+    name = GetDrakosRankGFX
+    text = { trigger = { check_variable = { GRE.hc_drakos_rank = 0 } } localization_key = "GFX_high_command_army_0" }
+	text = { trigger = { check_variable = { GRE.hc_drakos_rank = 1 } } localization_key = "GFX_high_command_army_1" }
+	text = { trigger = { check_variable = { GRE.hc_drakos_rank = 2 } } localization_key = "GFX_high_command_army_2" }
+	text = { trigger = { check_variable = { GRE.hc_drakos_rank = 3 } } localization_key = "GFX_high_command_army_3" }
+}
+defined_text = {
+    name = GetZervasRankGFX
+    text = { trigger = { check_variable = { GRE.hc_zervas_rank = 0 } } localization_key = "GFX_high_command_army_0" }
+	text = { trigger = { check_variable = { GRE.hc_zervas_rank = 1 } } localization_key = "GFX_high_command_army_1" }
+	text = { trigger = { check_variable = { GRE.hc_zervas_rank = 2 } } localization_key = "GFX_high_command_army_2" }
+	text = { trigger = { check_variable = { GRE.hc_zervas_rank = 3 } } localization_key = "GFX_high_command_army_3" }
+}
+defined_text = {
+    name = GetPlastirasRankGFX
+    text = { trigger = { check_variable = { GRE.hc_plastiras_rank = 0 } } localization_key = "GFX_high_command_army_0" }
+	text = { trigger = { check_variable = { GRE.hc_plastiras_rank = 1 } } localization_key = "GFX_high_command_army_1" }
+	text = { trigger = { check_variable = { GRE.hc_plastiras_rank = 2 } } localization_key = "GFX_high_command_army_2" }
+	text = { trigger = { check_variable = { GRE.hc_plastiras_rank = 3 } } localization_key = "GFX_high_command_army_3" }
+}
+defined_text = {
+    name = GetKatsimitrosRankGFX
+    text = { trigger = { check_variable = { GRE.hc_katsimitros_rank = 0 } } localization_key = "GFX_high_command_army_0" }
+	text = { trigger = { check_variable = { GRE.hc_katsimitros_rank = 1 } } localization_key = "GFX_high_command_army_1" }
+	text = { trigger = { check_variable = { GRE.hc_katsimitros_rank = 2 } } localization_key = "GFX_high_command_army_2" }
+	text = { trigger = { check_variable = { GRE.hc_katsimitros_rank = 3 } } localization_key = "GFX_high_command_army_3" }
+}
+defined_text = {
+    name = GetKosmasRankGFX
+    text = { trigger = { check_variable = { GRE.hc_kosmas_rank = 0 } } localization_key = "GFX_high_command_army_0" }
+	text = { trigger = { check_variable = { GRE.hc_kosmas_rank = 1 } } localization_key = "GFX_high_command_army_1" }
+	text = { trigger = { check_variable = { GRE.hc_kosmas_rank = 2 } } localization_key = "GFX_high_command_army_2" }
+	text = { trigger = { check_variable = { GRE.hc_kosmas_rank = 3 } } localization_key = "GFX_high_command_army_3" }
+}
+defined_text = {
+    name = GetAggelisRankGFX
+    text = { trigger = { check_variable = { GRE.hc_aggelis_rank = 0 } } localization_key = "GFX_high_command_army_0" }
+	text = { trigger = { check_variable = { GRE.hc_aggelis_rank = 1 } } localization_key = "GFX_high_command_army_1" }
+	text = { trigger = { check_variable = { GRE.hc_aggelis_rank = 2 } } localization_key = "GFX_high_command_army_2" }
+	text = { trigger = { check_variable = { GRE.hc_aggelis_rank = 3 } } localization_key = "GFX_high_command_army_3" }
+}
+defined_text = {
+    name = GetDavakisRankGFX
+    text = { trigger = { check_variable = { GRE.hc_davakis_rank = 0 } } localization_key = "GFX_high_command_army_0" }
+	text = { trigger = { check_variable = { GRE.hc_davakis_rank = 1 } } localization_key = "GFX_high_command_army_1" }
+	text = { trigger = { check_variable = { GRE.hc_davakis_rank = 2 } } localization_key = "GFX_high_command_army_2" }
+	text = { trigger = { check_variable = { GRE.hc_davakis_rank = 3 } } localization_key = "GFX_high_command_army_3" }
+}
+defined_text = {
+    name = GetAlexakisRankGFX
+    text = { trigger = { check_variable = { GRE.hc_alexakis_rank = 0 } } localization_key = "GFX_high_command_army_0" }
+	text = { trigger = { check_variable = { GRE.hc_alexakis_rank = 1 } } localization_key = "GFX_high_command_army_1" }
+	text = { trigger = { check_variable = { GRE.hc_alexakis_rank = 2 } } localization_key = "GFX_high_command_army_2" }
+	text = { trigger = { check_variable = { GRE.hc_alexakis_rank = 3 } } localization_key = "GFX_high_command_army_3" }
+}
+defined_text = {
+    name = GetVelouchiotisRankGFX
+    text = { trigger = { check_variable = { GRE.hc_velouchiotis_rank = 0 } } localization_key = "GFX_high_command_army_0" }
+	text = { trigger = { check_variable = { GRE.hc_velouchiotis_rank = 1 } } localization_key = "GFX_high_command_army_1" }
+	text = { trigger = { check_variable = { GRE.hc_velouchiotis_rank = 2 } } localization_key = "GFX_high_command_army_2" }
+	text = { trigger = { check_variable = { GRE.hc_velouchiotis_rank = 3 } } localization_key = "GFX_high_command_army_3" }
+}
+defined_text = {
+    name = GetBakirtzisRankGFX
+    text = { trigger = { check_variable = { GRE.hc_bakirtzis_rank = 0 } } localization_key = "GFX_high_command_army_0" }
+	text = { trigger = { check_variable = { GRE.hc_bakirtzis_rank = 1 } } localization_key = "GFX_high_command_army_1" }
+	text = { trigger = { check_variable = { GRE.hc_bakirtzis_rank = 2 } } localization_key = "GFX_high_command_army_2" }
+	text = { trigger = { check_variable = { GRE.hc_bakirtzis_rank = 3 } } localization_key = "GFX_high_command_army_3" }
+}
+defined_text = {
+    name = GetRossiosRankGFX
+    text = { trigger = { check_variable = { GRE.hc_rossios_rank = 0 } } localization_key = "GFX_high_command_army_0" }
+	text = { trigger = { check_variable = { GRE.hc_rossios_rank = 1 } } localization_key = "GFX_high_command_army_1" }
+	text = { trigger = { check_variable = { GRE.hc_rossios_rank = 2 } } localization_key = "GFX_high_command_army_2" }
+	text = { trigger = { check_variable = { GRE.hc_rossios_rank = 3 } } localization_key = "GFX_high_command_army_3" }
+}
+defined_text = {
+    name = GetSakellariouRankGFX
+    text = { trigger = { check_variable = { GRE.hc_sakellariou_rank = 0 } } localization_key = "GFX_high_command_navy_0" }
+	text = { trigger = { check_variable = { GRE.hc_sakellariou_rank = 1 } } localization_key = "GFX_high_command_navy_1" }
+	text = { trigger = { check_variable = { GRE.hc_sakellariou_rank = 2 } } localization_key = "GFX_high_command_navy_2" }
+	text = { trigger = { check_variable = { GRE.hc_sakellariou_rank = 3 } } localization_key = "GFX_high_command_navy_3" }
+}
+defined_text = {
+    name = GetDemestichasRankGFX
+    text = { trigger = { check_variable = { GRE.hc_demestichas_rank = 0 } } localization_key = "GFX_high_command_navy_0" }
+	text = { trigger = { check_variable = { GRE.hc_demestichas_rank = 1 } } localization_key = "GFX_high_command_navy_1" }
+	text = { trigger = { check_variable = { GRE.hc_demestichas_rank = 2 } } localization_key = "GFX_high_command_navy_2" }
+	text = { trigger = { check_variable = { GRE.hc_demestichas_rank = 3 } } localization_key = "GFX_high_command_navy_3" }
+}
+defined_text = {
+    name = GetKavvadiasRankGFX
+    text = { trigger = { check_variable = { GRE.hc_kavvadias_rank = 0 } } localization_key = "GFX_high_command_navy_0" }
+	text = { trigger = { check_variable = { GRE.hc_kavvadias_rank = 1 } } localization_key = "GFX_high_command_navy_1" }
+	text = { trigger = { check_variable = { GRE.hc_kavvadias_rank = 2 } } localization_key = "GFX_high_command_navy_2" }
+	text = { trigger = { check_variable = { GRE.hc_kavvadias_rank = 3 } } localization_key = "GFX_high_command_navy_3" }
+}
+defined_text = {
+    name = GetLoundrasRankGFX
+    text = { trigger = { check_variable = { GRE.hc_loundras_rank = 0 } } localization_key = "GFX_high_command_navy_0" }
+	text = { trigger = { check_variable = { GRE.hc_loundras_rank = 1 } } localization_key = "GFX_high_command_navy_1" }
+	text = { trigger = { check_variable = { GRE.hc_loundras_rank = 2 } } localization_key = "GFX_high_command_navy_2" }
+	text = { trigger = { check_variable = { GRE.hc_loundras_rank = 3 } } localization_key = "GFX_high_command_navy_3" }
+}
+defined_text = {
+    name = GetOikonomouRankGFX
+    text = { trigger = { check_variable = { GRE.hc_oikonomou_rank = 0 } } localization_key = "GFX_high_command_navy_0" }
+	text = { trigger = { check_variable = { GRE.hc_oikonomou_rank = 1 } } localization_key = "GFX_high_command_navy_1" }
+	text = { trigger = { check_variable = { GRE.hc_oikonomou_rank = 2 } } localization_key = "GFX_high_command_navy_2" }
+	text = { trigger = { check_variable = { GRE.hc_oikonomou_rank = 3 } } localization_key = "GFX_high_command_navy_3" }
+}
+defined_text = {
+    name = GetToubasRankGFX
+    text = { trigger = { check_variable = { GRE.hc_toubas_rank = 0 } } localization_key = "GFX_high_command_navy_0" }
+	text = { trigger = { check_variable = { GRE.hc_toubas_rank = 1 } } localization_key = "GFX_high_command_navy_1" }
+	text = { trigger = { check_variable = { GRE.hc_toubas_rank = 2 } } localization_key = "GFX_high_command_navy_2" }
+	text = { trigger = { check_variable = { GRE.hc_toubas_rank = 3 } } localization_key = "GFX_high_command_navy_3" }
+}
+defined_text = {
+    name = GetVoulgarisRankGFX
+    text = { trigger = { check_variable = { GRE.hc_voulgaris_rank = 0 } } localization_key = "GFX_high_command_navy_0" }
+	text = { trigger = { check_variable = { GRE.hc_voulgaris_rank = 1 } } localization_key = "GFX_high_command_navy_1" }
+	text = { trigger = { check_variable = { GRE.hc_voulgaris_rank = 2 } } localization_key = "GFX_high_command_navy_2" }
+	text = { trigger = { check_variable = { GRE.hc_voulgaris_rank = 3 } } localization_key = "GFX_high_command_navy_3" }
+}
+defined_text = {
+    name = GetAvgerisRankGFX
+    text = { trigger = { check_variable = { GRE.hc_avgeris_rank = 0 } } localization_key = "GFX_high_command_navy_0" }
+	text = { trigger = { check_variable = { GRE.hc_avgeris_rank = 1 } } localization_key = "GFX_high_command_navy_1" }
+	text = { trigger = { check_variable = { GRE.hc_avgeris_rank = 2 } } localization_key = "GFX_high_command_navy_2" }
+	text = { trigger = { check_variable = { GRE.hc_avgeris_rank = 3 } } localization_key = "GFX_high_command_navy_3" }
+}
+defined_text = {
+    name = GetIatridisRankGFX
+    text = { trigger = { check_variable = { GRE.hc_iatridis_rank = 0 } } localization_key = "GFX_high_command_navy_0" }
+	text = { trigger = { check_variable = { GRE.hc_iatridis_rank = 1 } } localization_key = "GFX_high_command_navy_1" }
+	text = { trigger = { check_variable = { GRE.hc_iatridis_rank = 2 } } localization_key = "GFX_high_command_navy_2" }
+	text = { trigger = { check_variable = { GRE.hc_iatridis_rank = 3 } } localization_key = "GFX_high_command_navy_3" }
+}
+defined_text = {
+    name = GetSpyromiliosRankGFX
+    text = { trigger = { check_variable = { GRE.hc_spyromilios_rank = 0 } } localization_key = "GFX_high_command_navy_0" }
+	text = { trigger = { check_variable = { GRE.hc_spyromilios_rank = 1 } } localization_key = "GFX_high_command_navy_1" }
+	text = { trigger = { check_variable = { GRE.hc_spyromilios_rank = 2 } } localization_key = "GFX_high_command_navy_2" }
+	text = { trigger = { check_variable = { GRE.hc_spyromilios_rank = 3 } } localization_key = "GFX_high_command_navy_3" }
+}
+
+defined_text = {
     name = GetChiefPapagosLedger
     text = {
         trigger = { check_variable = { GRE.hc_papagos_rank = 0 } }
@@ -1200,6 +1503,36 @@ defined_text = {
         trigger = { check_variable = { GRE.hc_papagos_rank = 3 } }
         localization_key = greek_chief_of_army_papagos_4_stats
     }
+}
+
+
+defined_text = {
+    name = GetChiefPapagosFullLedger
+    text = {
+        trigger = { check_variable = { GRE.hc_papagos_rank = 0 } }
+        localization_key = greek_chief_of_army_full_papagos_1_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_papagos_rank = 1 } }
+        localization_key = greek_chief_of_army_full_papagos_2_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_papagos_rank = 2 } }
+        localization_key = greek_chief_of_army_full_papagos_3_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_papagos_rank = 3 } }
+        localization_key = greek_chief_of_army_full_papagos_4_stats
+    }
+}
+
+defined_text = {
+    name = GetPapagosAssignementLedgerShort
+    text = {
+        trigger = { GRE_alexandros_papagos = { has_character_flag=selected_as_army_chief } }
+        localization_key = greek_chief_of_army_papagos_ledger
+    }
+	text = { localization_key = greek_high_command_papagos_ledger }
 }
 
 defined_text = {
@@ -1223,6 +1556,35 @@ defined_text = {
 }
 
 defined_text = {
+    name = GetChiefDrakosFullLedger
+    text = {
+        trigger = { check_variable = { GRE.hc_drakos_rank = 0 } }
+        localization_key = greek_chief_of_army_full_drakos_1_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_drakos_rank = 1 } }
+        localization_key = greek_chief_of_army_full_drakos_2_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_drakos_rank = 2 } }
+        localization_key = greek_chief_of_army_full_drakos_3_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_drakos_rank = 3 } }
+        localization_key = greek_chief_of_army_full_drakos_4_stats
+    }
+}
+
+defined_text = {
+    name = GetDrakosAssignementLedgerShort
+    text = {
+        trigger = { GRE_markos_drakos = { has_character_flag=selected_as_army_chief } }
+        localization_key = greek_chief_of_army_drakos_ledger
+    }
+	text = { localization_key = greek_high_command_drakos_ledger }
+}
+
+defined_text = {
     name = GetChiefStanotasLedger
     text = {
         trigger = { check_variable = { GRE.hc_stanotas_rank = 0 } }
@@ -1240,6 +1602,35 @@ defined_text = {
         trigger = { check_variable = { GRE.hc_stanotas_rank = 3 } }
         localization_key = greek_chief_of_army_stanotas_4_stats
     }
+}
+
+defined_text = {
+    name = GetChiefStanotasFullLedger
+    text = {
+        trigger = { check_variable = { GRE.hc_stanotas_rank = 0 } }
+        localization_key = greek_chief_of_army_full_stanotas_1_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_stanotas_rank = 1 } }
+        localization_key = greek_chief_of_army_full_stanotas_2_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_stanotas_rank = 2 } }
+        localization_key = greek_chief_of_army_full_stanotas_3_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_stanotas_rank = 3 } }
+        localization_key = greek_chief_of_army_full_stanotas_4_stats
+    }
+}
+
+defined_text = {
+    name = GetStanotasAssignementLedgerShort
+    text = {
+        trigger = { GRE_georgios_stanotas = { has_character_flag=selected_as_army_chief } }
+        localization_key = greek_chief_of_army_stanotas_ledger
+    }
+	text = { localization_key = greek_high_command_stanotas_ledger }
 }
 
 defined_text = {
@@ -1263,6 +1654,35 @@ defined_text = {
 }
 
 defined_text = {
+    name = GetChiefZervasFullLedger
+    text = {
+        trigger = { check_variable = { GRE.hc_zervas_rank = 0 } }
+        localization_key = greek_chief_of_army_full_zervas_1_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_zervas_rank = 1 } }
+        localization_key = greek_chief_of_army_full_zervas_2_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_zervas_rank = 2 } }
+        localization_key = greek_chief_of_army_full_zervas_3_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_zervas_rank = 3 } }
+        localization_key = greek_chief_of_army_full_zervas_4_stats
+    }
+}
+
+defined_text = {
+    name = GetZervasAssignementLedgerShort
+    text = {
+        trigger = { GRE_napoleon_zervas = { has_character_flag=selected_as_army_chief } }
+        localization_key = greek_chief_of_army_zervas_ledger
+    }
+	text = { localization_key = greek_high_command_zervas_ledger }
+}
+
+defined_text = {
     name = GetChiefDavakisLedger
     text = {
         trigger = { check_variable = { GRE.hc_davakis_rank = 0 } }
@@ -1280,6 +1700,35 @@ defined_text = {
         trigger = { check_variable = { GRE.hc_davakis_rank = 3 } }
         localization_key = greek_chief_of_army_davakis_4_stats
     }
+}
+
+defined_text = {
+    name = GetChiefDavakisFullLedger
+    text = {
+        trigger = { check_variable = { GRE.hc_davakis_rank = 0 } }
+        localization_key = greek_chief_of_army_full_davakis_1_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_davakis_rank = 1 } }
+        localization_key = greek_chief_of_army_full_davakis_2_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_davakis_rank = 2 } }
+        localization_key = greek_chief_of_army_full_davakis_3_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_davakis_rank = 3 } }
+        localization_key = greek_chief_of_army_full_davakis_4_stats
+    }
+}
+
+defined_text = {
+    name = GetDavakisAssignementLedgerShort
+    text = {
+        trigger = { GRE_konstantinos_davakis = { has_character_flag=selected_as_army_chief } }
+        localization_key = greek_chief_of_army_davakis_ledger
+    }
+	text = { localization_key = greek_high_command_davakis_ledger }
 }
 
 defined_text = {
@@ -1303,6 +1752,35 @@ defined_text = {
 }
 
 defined_text = {
+    name = GetChiefSakellariouFullLedger
+    text = {
+        trigger = { check_variable = { GRE.hc_sakellariou_rank = 0 } }
+        localization_key = navy_chief_sakellariou_full_1_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_sakellariou_rank = 1 } }
+        localization_key = navy_chief_sakellariou_full_2_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_sakellariou_rank = 2 } }
+        localization_key = navy_chief_sakellariou_full_3_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_sakellariou_rank = 3 } }
+        localization_key = navy_chief_sakellariou_full_4_stats
+    }
+}
+
+defined_text = {
+    name = GetSakellariouAssignementLedgerShort
+    text = {
+        trigger = { GRE_alexandros_sakellariou = { has_character_flag=selected_as_navy_chief } }
+        localization_key = navy_chief_sakellariou_ledger
+    }
+	text = { localization_key = greek_high_command_sakellariou_ledger }
+}
+
+defined_text = {
     name = GetChiefDemestichasLedger
     text = {
         trigger = { check_variable = { GRE.hc_demestichas_rank = 0 } }
@@ -1320,6 +1798,35 @@ defined_text = {
         trigger = { check_variable = { GRE.hc_demestichas_rank = 3 } }
         localization_key = navy_chief_demestichas_4_stats
     }
+}
+
+defined_text = {
+    name = GetChiefDemestichasFullLedger
+    text = {
+        trigger = { check_variable = { GRE.hc_demestichas_rank = 0 } }
+        localization_key = navy_chief_demestichas_full_1_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_demestichas_rank = 1 } }
+        localization_key = navy_chief_demestichas_full_2_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_demestichas_rank = 2 } }
+        localization_key = navy_chief_demestichas_full_3_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_demestichas_rank = 3 } }
+        localization_key = navy_chief_demestichas_full_4_stats
+    }
+}
+
+defined_text = {
+    name = GetDemestichasAssignementLedgerShort
+    text = {
+        trigger = { GRE_ioannis_demestichas = { has_character_flag=selected_as_navy_chief } }
+        localization_key = navy_chief_demestichas_ledger
+    }
+	text = { localization_key = greek_high_command_demestichas_ledger }
 }
 
 defined_text = {
@@ -1343,6 +1850,35 @@ defined_text = {
 }
 
 defined_text = {
+    name = GetChiefKavvadiasFullLedger
+    text = {
+        trigger = { check_variable = { GRE.hc_kavvadias_rank = 0 } }
+        localization_key = navy_chief_kavvadias_full_1_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_kavvadias_rank = 1 } }
+        localization_key = navy_chief_kavvadias_full_2_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_kavvadias_rank = 2 } }
+        localization_key = navy_chief_kavvadias_full_3_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_kavvadias_rank = 3 } }
+        localization_key = navy_chief_kavvadias_full_4_stats
+    }
+}
+
+defined_text = {
+    name = GetKavvadiasAssignementLedgerShort
+    text = {
+        trigger = { GRE_epameinondas_kavvadias = { has_character_flag=selected_as_navy_chief } }
+        localization_key = navy_chief_kavvadias_ledger
+    }
+	text = { localization_key = greek_high_command_kavvadias_ledger }
+}
+
+defined_text = {
     name = GetChiefOikonomouLedger
     text = {
         trigger = { check_variable = { GRE.hc_oikonomou_rank = 0 } }
@@ -1363,6 +1899,35 @@ defined_text = {
 }
 
 defined_text = {
+    name = GetChiefOikonomouFullLedger
+    text = {
+        trigger = { check_variable = { GRE.hc_oikonomou_rank = 0 } }
+        localization_key = navy_chief_oikonomou_full_1_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_oikonomou_rank = 1 } }
+        localization_key = navy_chief_oikonomou_full_2_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_oikonomou_rank = 2 } }
+        localization_key = navy_chief_oikonomou_full_3_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_oikonomou_rank = 3 } }
+        localization_key = navy_chief_oikonomou_full_4_stats
+    }
+}
+
+defined_text = {
+    name = GetOikonomouAssignementLedgerShort
+    text = {
+        trigger = { GRE_dimitrios_oikonomou = { has_character_flag=selected_as_navy_chief } }
+        localization_key = navy_chief_oikonomou_ledger
+    }
+	text = { localization_key = greek_high_command_oikonomou_ledger }
+}
+
+defined_text = {
     name = GetChiefVoulgarisLedger
     text = {
         trigger = { check_variable = { GRE.hc_voulgaris_rank = 0 } }
@@ -1380,6 +1945,35 @@ defined_text = {
         trigger = { check_variable = { GRE.hc_voulgaris_rank = 3 } }
         localization_key = navy_chief_voulgaris_4_stats
     }
+}
+
+defined_text = {
+    name = GetChiefVoulgarisFullLedger
+    text = {
+        trigger = { check_variable = { GRE.hc_voulgaris_rank = 0 } }
+        localization_key = navy_chief_voulgaris_full_1_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_voulgaris_rank = 1 } }
+        localization_key = navy_chief_voulgaris_full_2_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_voulgaris_rank = 2 } }
+        localization_key = navy_chief_voulgaris_full_3_stats
+    } 
+	text = {
+        trigger = { check_variable = { GRE.hc_voulgaris_rank = 3 } }
+        localization_key = navy_chief_voulgaris_full_4_stats
+    }
+}
+
+defined_text = {
+    name = GetVoulgarisAssignementLedgerShort
+    text = {
+        trigger = { GRE_petros_voulgaris = { has_character_flag=selected_as_navy_chief } }
+        localization_key = navy_chief_voulgaris_ledger
+    }
+	text = { localization_key = greek_high_command_voulgaris_ledger }
 }
 
 defined_text = {
@@ -2029,6 +2623,129 @@ defined_text = {
 ################################################################[																	   ]################################################################
 ########################################################################################################################################################################################################
 
+defined_text = {
+	name = GetDipReacX_MAG
+	text = {
+		trigger = { has_completed_focus=GRE_a_game_of_shadows }
+		localization_key = report_event_mag_displayer_tt
+	}
+	text = {
+		trigger = { always=yes }
+		localization_key = ""
+	}
+}
+
+defined_text = {
+	name = GetDipReacX_Name_Reason
+	text = {
+		trigger = { check_variable = { tmpREAC1=50 }}			# Unevenly paid debt
+		localization_key = "unfavorable diplomatic reactions, due to  unevenly paying our debt."
+	}
+	text = {
+		trigger = { check_variable = { tmpREAC1=51 }}			# Increased Industrialization
+		localization_key = "favorable diplomatic reactions, due to industrializing our nation."
+	}
+	text = {
+		trigger = { check_variable = { tmpREAC1=52 }}			# Got Caught Snooping by Mussolini
+		localization_key = "a unfavorable reaction from the Italians, who are actively looking for a ruse to lay their hands on our nation."
+	}
+}
+
+defined_text = {
+	name = GetEvent332Desc
+	text = {
+		trigger = { check_variable = { TYPE=0 }}
+		localization_key = hellas.332_t0.desc
+	}
+	text = {
+		trigger = { check_variable = { TYPE=1 }}
+		localization_key = hellas.332_t0.desc
+	}
+	text = {
+		trigger = { check_variable = { TYPE=50 }}			# Unevenly paid debt
+		localization_key = hellas.332_t50.desc
+	}
+	text = {
+		trigger = { check_variable = { TYPE=51 }}			# Increased Industrialization
+		localization_key = hellas.332_t51.desc
+	}
+	text = {
+		trigger = { check_variable = { TYPE=52 }}			# Got Caught Snooping by Mussolini
+		localization_key = hellas.332_t52.desc
+	}
+	text = {
+		trigger = { check_variable = { TYPE=60 }}
+		localization_key = hellas.332_t60.desc
+	}
+	text = {
+		trigger = { check_variable = { TYPE=61 }}
+		localization_key = hellas.332_t61.desc
+	}
+	text = {
+		trigger = { check_variable = { TYPE=62 }}
+		localization_key = hellas.332_t62.desc
+	}
+	text = {
+		trigger = { check_variable = { TYPE=63 }}
+		localization_key = hellas.332_t63.desc
+	}
+	text = {
+		trigger = { check_variable = { TYPE=64 }}
+		localization_key = hellas.332_t64.desc
+	}
+}
+
+defined_text = {
+	name = GetEvent332Picture
+	text = {
+		trigger = { FROM={ original_tag=ENG } }
+		localization_key = "GFX_report_event_churchil_diplomacy"
+	}
+	#text = {
+	#	trigger = { FROM={ original_tag=USA } }
+	#	localization_key = "GFX_report_event_hitler_diplomacy"
+	#}
+	#text = {
+	#	trigger = { FROM={ original_tag=FRA } }
+	#	localization_key = "GFX_report_event_hitler_diplomacy"
+	#}
+	#text = {
+	#	trigger = { FROM={ original_tag=SOV } }
+	#	localization_key = "GFX_report_event_hitler_diplomacy"
+	#}
+	text = {
+		trigger = { FROM={ original_tag=GER } }
+		localization_key = "GFX_report_event_hitler_diplomacy"
+	}
+	text = {
+		trigger = { FROM={ original_tag=ITA } }
+		localization_key = "GFX_report_event_mussolini_diplomacy"
+	}
+	text = {
+		trigger = { FROM={ original_tag=BUL } }
+		localization_key = "GFX_report_event_boris_diplomacy"
+	}
+	text = {
+		trigger = { FROM={ original_tag=TUR } }
+		localization_key = "GFX_report_event_ismet_inonu"
+	}
+	text = {
+		trigger = { FROM={ original_tag=YUG } }
+		localization_key = "GFX_report_event_paul_diplomacy"
+	}
+	text = {
+		trigger = { FROM={ original_tag=ROM } }
+		localization_key = "GFX_report_event_romanian_fm"
+	}
+	text = {
+		trigger = { FROM={ original_tag=ALB } }
+		localization_key = "GFX_report_event_albanian_king_zog"
+	}
+	text = {
+		localization_key = "GFX_report_event_gre_megali_conference_signing"
+	}
+}
+
 #####################################################################################################
 ###############################[ Scripted Deals Scripted Localization ]##############################
 #####################################################################################################
@@ -2627,6 +3344,67 @@ defined_text = {
 ################################################################[                    							                       ]################################################################
 ################################################################[																	   ]################################################################
 ########################################################################################################################################################################################################
+
+defined_text = {
+    name = GetAllianceWeightTmpAW
+	text = {
+        trigger = { 
+        	check_variable = { var=tmpAW value=-5 compare=greater_than_or_equals }
+        	check_variable = { var=tmpAW value=-3 compare=less_than_or_equals }
+        }
+        localization_key = alliance_weight_dimmensely_tt
+    }
+	text = {
+        trigger = { 
+        	check_variable = { var=tmpAW value=-3 compare=greater_than}
+        	check_variable = { var=tmpAW value=-2 compare=less_than_or_equals }
+        }
+        localization_key = alliance_weight_dsignificantly_tt
+    }
+	text = {
+        trigger = { 
+        	check_variable = { var=tmpAW value=-2 compare=greater_than }
+        	check_variable = { var=tmpAW value=-1 compare=less_than_or_equals }
+        }
+        localization_key = alliance_weight_dmoderately_tt
+    }
+	text = {
+        trigger = { 
+        	check_variable = { var=tmpAW value=-1 compare=greater_than_or_equals }
+        	check_variable = { var=tmpAW value=0 compare=less_than }
+        }
+        localization_key = alliance_weight_dslightly_tt
+    }
+	text = {
+        trigger = { 
+        	check_variable = { var=tmpAW value=0 compare=greater_than_or_equals }
+        	check_variable = { var=tmpAW value=1 compare=less_than }
+        }
+        localization_key = alliance_weight_slightly_tt
+    }
+	text = {
+        trigger = { 
+        	check_variable = { var=tmpAW value=1 compare=greater_than_or_equals }
+        	check_variable = { var=tmpAW value=2 compare=less_than }
+        }
+        localization_key = alliance_weight_moderately_tt
+    }
+	text = {
+        trigger = { 
+        	check_variable = { var=tmpAW value=2 compare=greater_than_or_equals }
+        	check_variable = { var=tmpAW value=3 compare=less_than }
+        }
+        localization_key = alliance_weight_significantly_tt
+    }
+	text = {
+        trigger = { 
+        	check_variable = { var=tmpAW value=3 compare=greater_than_or_equals }
+        	check_variable = { var=tmpAW value=5 compare=less_than_or_equals }
+        }
+        localization_key = alliance_weight_immensely_tt
+    }
+}
+
 defined_text = {
     name = GetFavorHit
 	text = {
@@ -2711,6 +3489,19 @@ defined_text = {
         }
         localization_key = hit_catastrophic
     }
+	text = {
+        trigger = {
+			check_variable = { var = findY value = -10 compare = less_than_or_equals }
+        	check_variable = { var = findY value = -20 compare = greater_than }
+        }
+        localization_key = hit_cataclysmic
+    }
+	text = {
+        trigger = {
+			check_variable = { var = findY value = -20 compare = less_than_or_equals }
+        }
+        localization_key = hit_fatal
+    }
 }
 
 defined_text = {
@@ -2780,14 +3571,14 @@ defined_text = {
 	text = {
 		trigger = {
 			check_variable = { var = ftmpZ value = 0 compare = less_than }
-			check_variable = { var = ftmpZ value = -30 compare = greater_than } 
+			check_variable = { var = ftmpZ value = -30 compare = greater_than_or_equals } 
 		}
 		localization_key = GRE_favor_num_detrimental
 	}
 	text = {
 		trigger = {
 			check_variable = { var = ftmpZ value = -30 compare = less_than }
-			check_variable = { var = ftmpZ value = -60 compare = greater_than } 
+			check_variable = { var = ftmpZ value = -60 compare = greater_than_or_equals } 
 		}
 		localization_key = GRE_favor_num_deleterious
 	}
@@ -2866,14 +3657,14 @@ defined_text = {
 	text = {
 		trigger = {
 			check_variable = { var = THIS.favor@GRE value = 0 compare = less_than }
-			check_variable = { var = THIS.favor@GRE value = -30 compare = greater_than } 
+			check_variable = { var = THIS.favor@GRE value = -30 compare = greater_than_or_equals } 
 		}
 		localization_key = GRE_dec_cat_favor_detrimental
 	}
 	text = {
 		trigger = {
 			check_variable = { var = THIS.favor@GRE value = -30 compare = less_than }
-			check_variable = { var = THIS.favor@GRE value = -60 compare = greater_than } 
+			check_variable = { var = THIS.favor@GRE value = -60 compare = greater_than_or_equals } 
 		}
 		localization_key = GRE_dec_cat_favor_deleterious
 	}
@@ -2882,6 +3673,93 @@ defined_text = {
 			check_variable = { var = THIS.favor@GRE value = -60 compare = less_than }
 		}
 		localization_key = GRE_dec_cat_favor_abysmal
+	}
+}
+
+
+defined_text = {
+    name = GetFavorPercentageGUI
+	text = {
+        trigger = {
+        	check_variable = { var = THIS.favor@GRE value = 95 compare = greater_than_or_equals }
+        }
+        localization_key = GRE_favor_gui_supreme
+    }
+	text = {
+        trigger = {
+			check_variable = { var = THIS.favor@GRE value = 95 compare = less_than }
+        	check_variable = { var = THIS.favor@GRE value = 90 compare = greater_than_or_equals }
+        }
+        localization_key = GRE_favor_gui_unequivocal
+    }
+	text = {
+        trigger = {
+        	check_variable = { var = THIS.favor@GRE value = 90 compare = less_than }
+			check_variable = { var = THIS.favor@GRE value = 80 compare = greater_than_or_equals }
+        }
+        localization_key = GRE_favor_gui_excellent
+    }
+	text = {
+        trigger = {
+        	check_variable = { var = THIS.favor@GRE value = 80 compare = less_than }
+			check_variable = { var = THIS.favor@GRE value = 70 compare = greater_than_or_equals }
+        }
+        localization_key = GRE_favor_gui_sturdy
+    }
+	text = {
+        trigger = {
+        	check_variable = { var = THIS.favor@GRE value = 70 compare = less_than }
+			check_variable = { var = THIS.favor@GRE value = 60 compare = greater_than_or_equals }
+        }
+        localization_key = GRE_favor_gui_considerable
+    }
+	text = {
+        trigger = {
+        	check_variable = { var = THIS.favor@GRE value = 60 compare = less_than }
+			check_variable = { var = THIS.favor@GRE value = 50 compare = greater_than_or_equals }
+        }
+        localization_key = GRE_favor_gui_rising
+    }
+	text = {
+		trigger = {
+			check_variable = { var = THIS.favor@GRE value = 50 compare = less_than }
+            check_variable = { var = THIS.favor@GRE value = 40 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_favor_gui_mediocre
+	}
+	text = {
+		trigger = {
+			check_variable = { var = THIS.favor@GRE value = 40 compare = less_than }
+            check_variable = { var = THIS.favor@GRE value = 30 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_favor_gui_feeble
+	}
+	text = {
+		trigger = {
+			check_variable = { var = THIS.favor@GRE value = 30 compare = less_than }
+            check_variable = { var = THIS.favor@GRE value = 0 compare = greater_than_or_equals } 
+		}
+		localization_key = GRE_favor_gui_insignificant
+	}
+	text = {
+		trigger = {
+			check_variable = { var = THIS.favor@GRE value = 0 compare = less_than }
+			check_variable = { var = THIS.favor@GRE value = -30 compare = greater_than_or_equals } 
+		}
+		localization_key = GRE_favor_gui_detrimental
+	}
+	text = {
+		trigger = {
+			check_variable = { var = THIS.favor@GRE value = -30 compare = less_than }
+			check_variable = { var = THIS.favor@GRE value = -60 compare = greater_than_or_equals } 
+		}
+		localization_key = GRE_favor_gui_deleterious
+	}
+	text = {
+		trigger = {
+			check_variable = { var = THIS.favor@GRE value = -60 compare = less_than }
+		}
+		localization_key = GRE_favor_gui_abysmal
 	}
 }
 
@@ -2954,14 +3832,14 @@ defined_text = {
 	text = {
 		trigger = {
 			check_variable = { var = THIS.favor@GRE value = 0 compare = less_than }
-			check_variable = { var = THIS.favor@GRE value = -30 compare = greater_than } 
+			check_variable = { var = THIS.favor@GRE value = -30 compare = greater_than_or_equals } 
 		}
 		localization_key = GRE_favor_detrimental
 	}
 	text = {
 		trigger = {
 			check_variable = { var = THIS.favor@GRE value = -30 compare = less_than }
-			check_variable = { var = THIS.favor@GRE value = -60 compare = greater_than } 
+			check_variable = { var = THIS.favor@GRE value = -60 compare = greater_than_or_equals } 
 		}
 		localization_key = GRE_favor_deleterious
 	}
@@ -3445,6 +4323,80 @@ defined_text = {
 }
 
 defined_text = {
+	name = GetArmyFriendliness
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = GRE.overall_friendliness value = 0.80 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_loyal
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = GRE.overall_friendliness value = 0.80 compare = less_than }
+            check_variable = { var = GRE.overall_friendliness value = 0.70 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_friendly
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = GRE.overall_friendliness value = 0.70 compare = less_than }
+            check_variable = { var = GRE.overall_friendliness value = 0.60 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_growing
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = GRE.overall_friendliness value = 0.60 compare = less_than }
+            check_variable = { var = GRE.overall_friendliness value = 0.50 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_adequate
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = GRE.overall_friendliness value = 0.50 compare = less_than }
+            check_variable = { var = GRE.overall_friendliness value = 0.40 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_inconsequential
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = GRE.overall_friendliness value = 0.40 compare = less_than }
+            check_variable = { var = GRE.overall_friendliness value = 0.30 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_unfavorable
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = GRE.overall_friendliness value = 0.30 compare = less_than }
+            check_variable = { var = GRE.overall_friendliness value = 0.20 compare = greater_than_or_equals }
+		}
+		localization_key = GRE_fct_worsening
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+			check_variable = { var = GRE.overall_friendliness value = 0.19 compare = less_than }
+            check_variable = { var = GRE.overall_friendliness value = 0.9 compare = greater_than }
+		}
+		localization_key = GRE_fct_horrible
+	}
+	text = {
+		trigger = {
+			original_tag = GRE
+            check_variable = { var = GRE.overall_friendliness value = 0.9 compare = less_than_or_equals }
+		}
+		localization_key = GRE_fct_rebellious
+	} 
+}
+
+defined_text = {
 	name = GetMonL
 	text = {
 		trigger = {
@@ -3810,4 +4762,24 @@ defined_text = {
 		}
 		localization_key = [GetFasL]
 	}
+}
+
+defined_text = {
+    name = LedgerGetVariableToSort
+    text = {
+        trigger = { check_variable = { sort_var = 1 } }
+        localization_key = "original_tag"
+    }
+    text = {
+        trigger = { check_variable = { sort_var = 2 } }
+        localization_key = "opinion@GRE"
+    }
+    text = {
+        trigger = { check_variable = { sort_var = 3 } }
+        localization_key = "infl_weekly@GRE"
+    }
+    text = {
+        trigger = { check_variable = { sort_var = 4 } }
+        localization_key = "favor@GRE"
+    }
 }

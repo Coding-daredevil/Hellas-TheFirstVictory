@@ -1,5 +1,525 @@
 guiTypes = {
     containerWindowType = {
+		name = "infl_mech_open_container"
+		position = { x = 1650 y = 604 }
+		
+		buttonType ={
+			name ="infl_mech_button"
+			spriteType = "GFX_war_cabinet_button"
+			position = { x=0 y=0 }
+			clicksound = click_close
+			oversound = ui_menu_over
+			shortcut = "ctrl+e"
+			pdx_tooltip = WPLAN_NAME_TOOLTIP
+			scale=0.45
+		}
+	}
+
+    containerWindowType = {
+        name = "infl_mech_main_container"
+        position = { x = 0 y = 0 }
+        size = { width = 550 height = 100%% }
+
+        containerWindowType = {
+            name = "infl_mech_countrydiplomacyview"
+            position = { x=-606 y=78}	
+            show_position = { x=-6 y =78 }
+            show_animation_type = decelerated
+            hide_animation_type = accelerated
+            animation_time = 300	
+            size = { width=550 height=100%% }
+            verticalScrollbar = "right_vertical_slider"
+            #horizontalScrollbar = "bottom_horizontal_slider"
+            
+            #hide_sound = menu_close_window
+            show_sound = menu_open_window
+            
+            background = {
+                name = "infl_mech_Background"		
+                spriteType ="GFX_tiled_bg"
+            }
+
+            iconType ={
+                name ="production_header_bg"
+                spriteType = "GFX_header_bg"
+                position = { x= 5 y = 07 }
+                Orientation = "UPPER_LEFT"
+            }
+            
+            instantTextboxType = {
+                name = "infl_mech_diplomacy_title"
+                position = { x = 45 y = 8 }
+                textureFile = ""
+                font = "hoi_36header"
+                borderSize = {x = 0 y = 0}
+                text = "Influence"
+                maxWidth = 240
+                maxHeight = 20
+                format = left
+            }
+            
+            containerWindowType = {
+                name = "infl_mech_country_list"
+                position = { x = 0 y = 50}	
+                size = { width = 530 height = 100%% }
+                
+                containerWindowType = {
+                    name = "infl_mech_top_filter_window"
+                    position = { x = 3 y = -10 }	
+                    size = { width = 545 height = 170 }
+                    verticalScrollbar = "right_vertical_slider"
+                    margin = { top = 14 bottom = 14 }
+                
+                    background = {
+                        name = "infl_mech_Background"
+                        spriteType ="GFX_tiled_bg"
+                    }
+
+                    iconType ={
+                        name = "infl_mech_diplo_filter_area_bg"
+                        spriteType = "GFX_diplo_filter_area_bg"
+                        position = { x= 15 y = 0 }
+                    }
+
+                    buttonType = {
+                        name = "filter_europe_button"
+                        quadTextureSprite ="GFX_sort_button_100x29"
+                        font = "hoi_16mbs"
+                        text = "Europe"					
+                        position = { x = 105 y = 1 }
+                    }
+
+                    buttonType = {
+                        name = "filter_na_button"
+                        quadTextureSprite ="GFX_sort_button_100x29"
+                        font = "hoi_16mbs"
+                        text = "North America"					
+                        position = { x = 210 y = 1 }
+                    }
+
+                    buttonType = {
+                        name = "filter_sa_button"
+                        quadTextureSprite ="GFX_sort_button_100x29"
+                        font = "hoi_16mbs"
+                        text = "South America"					
+                        position = { x = 315 y = 1 }
+                    }
+
+                    buttonType = {
+                        name = "filter_oc_button"
+                        quadTextureSprite ="GFX_sort_button_100x29"
+                        font = "hoi_16mbs"
+                        text = "Oceania"					
+                        position = { x = 420 y = 1 }
+                    }
+
+                    buttonType = {
+                        name = "filter_af_button"
+                        quadTextureSprite ="GFX_sort_button_100x29"
+                        font = "hoi_16mbs"
+                        text = "Africa"					
+                        position = { x = 105 y = 36 }
+                    }
+
+                    buttonType = {
+                        name = "filter_as_button"
+                        quadTextureSprite ="GFX_sort_button_100x29"
+                        font = "hoi_16mbs"
+                        text = "Asia"					
+                        position = { x = 210 y = 36 }
+                    }
+
+                    buttonType = {
+                        name = "filter_me_button"
+                        quadTextureSprite ="GFX_sort_button_100x29"
+                        font = "hoi_16mbs"
+                        text = "Middle East"					
+                        position = { x = 315 y = 36 }
+                    }
+
+                    buttonType = {
+                        name = "filter_bl_button"
+                        quadTextureSprite ="GFX_sort_button_100x29"
+                        font = "hoi_16mbs"
+                        text = "Balkans"					
+                        position = { x = 420 y = 36 }
+                    }
+
+                    ###################################################
+
+                    buttonType = {
+                        name = "filter_democratic_button"
+                        quadTextureSprite ="GFX_sort_button_100x29"
+                        font = "hoi_16mbs"
+                        text = "Democratic"					
+                        position = { x = 105 y = 71 }
+                    }
+
+                    buttonType = {
+                        name = "filter_communist_button"
+                        quadTextureSprite ="GFX_sort_button_100x29"
+                        font = "hoi_16mbs"
+                        text = "Communist"					
+                        position = { x = 210 y = 71 }
+                    }
+
+                    buttonType = {
+                        name = "filter_fascist_button"
+                        quadTextureSprite ="GFX_sort_button_100x29"
+                        font = "hoi_16mbs"
+                        text = "Fascist"					
+                        position = { x = 315 y = 71 }
+                    }
+
+                    buttonType = {
+                        name = "filter_non_aligned_button"
+                        quadTextureSprite ="GFX_sort_button_100x29"
+                        font = "hoi_16mbs"
+                        text = "Non Aligned"					
+                        position = { x = 420 y = 71 }
+                    }
+
+                    ###################################################
+
+                    buttonType = {
+                        name = "filter_major_button"
+                        quadTextureSprite ="GFX_sort_button_100x29"
+                        font = "hoi_16mbs"
+                        text = "Major Countries"					
+                        position = { x = 105 y = 106 }
+                    }
+
+                    buttonType = {
+                        name = "filter_axis_button"
+                        quadTextureSprite ="GFX_sort_button_100x29"
+                        font = "hoi_16mbs"
+                        text = "Axis"					
+                        position = { x = 210 y = 106 }
+                    }
+
+                    buttonType = {
+                        name = "filter_allies_button"
+                        quadTextureSprite ="GFX_sort_button_100x29"
+                        font = "hoi_16mbs"
+                        text = "Allies"					
+                        position = { x = 315 y = 106 }
+                    }
+
+                    buttonType = {
+                        name = "filter_commitern_button"
+                        quadTextureSprite ="GFX_sort_button_100x29"
+                        font = "hoi_16mbs"
+                        text = "Commitern"					
+                        position = { x = 420 y = 106 }
+                    }
+                }
+
+                containerWindowType = {
+                    name = "infl_mech_main_label_window"
+                    position = { x = 3 y = 160 }	
+                    size = { width = 545 height = 60 }
+
+                    
+                    #position = { x = 41 y = 0 }
+                    #position = { x = 191 y = 0 }
+                    #position = { x = 251 y = 0 }
+                    #position = { x = 355 y = 0 }
+
+                    #instantTextBoxType = {
+                    #    name = "infl_mech_major_banner_1"
+                    #    position = { x = 13 y = 0 }
+                    #    font = "hoi_20bs"
+                    #    text = infl_main_banner_1
+                    #    maxWidth = 191
+                    #    maxHeight = 24
+                    #    format = center
+                    #}
+
+                    #instantTextBoxType = {
+                    #    name = "infl_mech_major_banner_2"
+                    #    position = { x = 234 y = 0 }
+                    #    font = "hoi_20bs"
+                    #    text = infl_main_banner_2
+                    #    maxWidth = 60
+                    #    maxHeight = 24
+                    #    format = center
+                    #}
+                    #
+                    #instantTextBoxType = {
+                    #    name = "infl_mech_major_banner_3"
+                    #    position = { x = 294 y = 0 }
+                    #    font = "hoi_20bs"
+                    #    text = infl_main_banner_3
+                    #    maxWidth = 60
+                    #    maxHeight = 24
+                    #    format = center
+                    #}
+                    #
+                    #instantTextBoxType = {
+                    #    name = "infl_mech_major_banner_4"
+                    #    position = { x = 368 y = 0 }
+                    #    font = "hoi_20bs"
+                    #    text = infl_main_banner_4
+                    #    maxWidth = 140
+                    #    maxHeight = 24
+                    #    format = center
+                    #}
+                    
+                    buttonType = {
+                        name = "sort_alphabetical"
+                        quadTextureSprite ="GFX_sort_button_202x29"
+                        font = "hoi_20bs"
+                        text = infl_main_banner_1					
+                        position = { x= 13 y = -5 }
+                    }
+
+                    buttonType = {
+                        name = "sort_opinion"
+                        quadTextureSprite ="GFX_sort_up_down_button_83x29"
+                        font = "hoi_20bs"
+                        text = infl_main_banner_2					
+                        position = { x = 212 y = -5 }
+                    }
+
+                    buttonType = {
+                        name = "sort_weekly"
+                        quadTextureSprite ="GFX_sort_up_down_button_83x29"
+                        font = "hoi_20bs"
+                        text = infl_main_banner_3					
+                        position = { x = 292 y = -5 }
+                    }
+
+                    buttonType = {
+                        name = "sort_influence"
+                        quadTextureSprite ="GFX_sort_button_140x29"
+                        font = "hoi_20bs"
+                        text = infl_main_banner_4					
+                        position = { x = 370 y = -5 }
+                    }
+
+                    background = {
+                        name = "infl_mech_Background2"
+                        spriteType ="GFX_tiled_bg"
+                    }
+
+                }
+                
+                #containerWindowType = {
+                #    name = "filters"
+                #    position = { x = 3 y = 125 }	
+                #    size = { width = 542 height = 35 }
+                #    clipping = no
+                #
+                #    background = {
+                #        name = "Background"
+                #        spriteType ="GFX_diplo_countrylist_binding"
+                #    }
+                #    
+                #    buttonType = {
+                #        name = "sort_alphabetical"
+                #        quadTextureSprite ="GFX_sort_button_202x29"
+                #        font = "hoi_18mbs"
+                #        text = "COUNTRYLIST_LABEL"					
+                #        position = { x= 10 y = 2 }
+                #    }			
+                #    
+                #    buttonType = {
+                #        name = "opinion_flag1"
+                #        quadTextureSprite ="GFX_flag_small"
+                #        position = { x= 245 y = 4 }
+                #    }	
+                #
+                #    buttonType = {
+                #        name = "opinion_flag2"
+                #        quadTextureSprite ="GFX_flag_small"
+                #        position = { x= 307 y = 4 }
+                #    }					
+                #    
+                #    iconType ={
+                #        name ="our_opinion_icon"
+                #        spriteType = "GFX_opinion_arrow_right"
+                #        position = { x= 271 y = 8 }
+                #    }				
+                #    
+                #    iconType ={
+                #        name ="their_opinion_icon"
+                #        spriteType = "GFX_opinion_arrow_left"
+                #        position = { x= 332 y = 8 }
+                #    }
+                #}	
+                
+                containerWindowType = {
+                    name = "infl_mech_countries"
+                    position = { x = 0 y = 185 }	
+                    size = { width = 545 height = -5 }
+                    margin = { top = 8 bottom = 8 }
+                    verticalScrollbar = "right_vertical_slider"
+                    scroll_wheel_factor = 45
+                    smooth_scrolling = yes
+            
+                    background = {
+                        name = "infl_mech_Background"
+                        spriteType ="GFX_tiled_window_1b_thin_border"
+                    }
+                    
+                    gridboxtype = {
+                        name = "infl_mech_gridbox"
+                        position = { x = 12 y = 5 }
+                        size = { width = 100%% height = 112%% }
+                        slotsize = { width = 100%% height = 45 }
+                        max_slots_horizontal = 1
+                        format = "UPPER_LEFT"
+                    }
+                }
+            }
+
+            containerWindowType = {
+                name = "infl_mech_intel_ledger_container"
+                position = { x = 0 y = 151 }	
+                size = { width = 100%% height = 100%% }
+                margin = { left = 1 right = 1 }
+            }
+            
+
+            buttonType = {
+                name = "infl_mech_close_button"
+                position = { x = -43 y = 9 }
+                quadTextureSprite ="GFX_closebutton"
+                buttonFont = "hoi_16mbs"
+                shortcut = "ESCAPE"
+                Orientation = "UPPER_RIGHT"
+                clicksound = click_close
+                pdx_tooltip = "CLOSE"
+            }
+        }
+    }
+
+    containerWindowType = {
+		name="infl_mech_gridbox_entry"
+		position={ x=3 y=0 }
+		size={ width=0 height=45 }
+
+		#buttonType = {
+		#	name = "wplans_entry_button"
+		#	position = { x = 0 y = 0 }
+		#	quadTextureSprite ="button_type_4"	
+		#	buttonText = "[GetWplanName]"
+		#	buttonFont = "hoi_16mbs"
+		#	clicksound = click_default
+		#	oversound = ui_menu_over
+		#}
+
+        iconType ={
+            name ="infl_main_cont"
+            spriteType = "GFX_diplo_countrylist_entry"
+            position = { x= -6 y = -4 }
+        }
+
+        iconType = {
+            name = "infl_mech_main_flag"
+            position = { x = 3 y = 3 }
+            spriteType = "GFX_flag_small2"
+            alwaystransparent=no
+        }
+
+        iconType = {
+            name = "flag_frame"
+            spriteType = "GFX_small_flag_frame_thin"
+            position = { x = 0 y = 0 }
+            alwaystransparent = yes
+        }	
+
+        instantTextBoxType = {
+            name = "infl_mech_main_name"
+            position = { x = 41 y = 6 }
+            font = "hoi_16typewriter"
+            text = infl_main_name
+            maxWidth = 150
+            maxHeight = 24
+            format = center
+            alwaystransparent=no
+        }
+
+        iconType = {
+			name = "infl_mech_main_opin_bg"
+			spriteType = "GFX_opinion_bg"
+			position = { x = 224 y = 0 }
+		}	
+        
+        instantTextBoxType = {
+            name = "infl_mech_main_opin"
+            position = { x = 212 y = 6 }
+            font = "hoi_16mbs"
+            text = infl_main_opin
+            maxWidth = 60
+            maxHeight = 24
+            pdx_tooltip = infl_opinion_tt
+            format = center
+        }
+
+        iconType = {
+			name = "infl_mech_main_week_bg"
+			spriteType = "GFX_opinion_bg"
+			position = { x = 302 y = 0 }
+		}	
+
+        instantTextBoxType = {
+            name = "infl_mech_main_week"
+            position = { x = 290 y = 6 }
+            font = "hoi_16mbs"
+            text = infl_main_week
+            maxWidth = 60
+            maxHeight = 24
+            format = center
+        }
+
+        iconType = {
+			name = "infl_mech_main_infl_bg"
+			spriteType = "GFX_opinion_bg"
+			position = { x = 360 y = 0 }
+            scale = 1
+		}	
+
+        instantTextBoxType = {
+            name = "infl_mech_main_infl"
+            position = { x = 372 y = 6 }
+            font = "hoi_18bs"
+            text = infl_main_infl
+            maxWidth = 140
+            maxHeight = 24
+            pdx_tooltip = infl_influence_tt
+            format = left
+        }
+	}
+
+
+
+    #containerWindowType = {
+    #    name = "infl_mech_main_container"
+    #    position = { x = 0 y = 0 }
+    #    size = { width = 510 height = 250 }
+    #
+    #    buttonType = {
+    #        name = "all_button"
+    #        position = { x = 0 y = 0 }
+    #        quadTextureSprite ="button_type_5"	
+    #        buttonText = "All"
+    #        buttonFont = "Main_14"
+    #        clicksound = click_default
+    #        oversound = ui_menu_over
+    #    }
+    #    buttonType = {
+    #        name = "majors_button"
+    #        position = { x = 91 y = 0 }
+    #        quadTextureSprite ="button_type_5"	
+    #        buttonText = "All"
+    #        buttonFont = "Main_14"
+    #        clicksound = click_default
+    #        oversound = ui_menu_over
+    #    }
+    #}
+
+    containerWindowType = {
         name = "infl_mech_major_container"
         position = { x = 0 y = 0 }
         size = { width = 510 height = 250 }

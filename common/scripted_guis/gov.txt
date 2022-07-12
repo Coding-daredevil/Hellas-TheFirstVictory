@@ -1,0 +1,154 @@
+scripted_gui = {
+
+	gov = {
+		context_type = player_context
+		
+		window_name = "gov_container"
+        parent_window_token = politics_tab
+
+		visible = { original_tag=GRE always=yes }
+		
+		effects = {
+			gov_open_button_click = {
+				if = {
+					limit = { NOT = { has_country_flag = gov_opened } }
+					set_country_flag = gov_opened
+					gov_apply_filters=yes
+				}
+				else = { clr_country_flag=gov_opened }
+			}
+		}
+		
+		triggers = {
+			gov_open_button_visible = {}
+		}
+		
+		ai_enabled = { always=no }
+	}
+	gov_fs = {
+		context_type = player_context
+		window_name = "gov_container"
+        parent_window_token = top_bar
+
+		visible = { original_tag=GRE always=yes }
+		
+		effects = {
+			gov_open_button_click = {
+				if = {
+					limit = { NOT = { has_country_flag = gov_opened } }
+					set_country_flag = gov_opened
+					gov_apply_filters=yes
+				}
+				else = { clr_country_flag=gov_opened }
+			}
+		}
+		
+		triggers = { 
+			gov_open_button_click_enabled={ always=yes }
+			gov_open_button_visible={ always=yes }
+		}
+		ai_enabled = { always=no }
+		properties = {
+			gov_open_button = {
+				x=-397
+				y=-387
+			}
+		}
+	}
+	gov_main = {
+		context_type = player_context
+		
+		window_name = "gov_main_window_container"
+		
+		visible = { has_country_flag=gov_opened }
+
+		properties = { 
+			#####[Top]#####
+			gov_top_portrait = { image=[GetCharacterPortrait] }
+			#####[Bottom]#####
+			gov_portrait = { image=[GetCharacterPortrait] }
+			available_button = { frame=gov_available }
+			branch_leader_button = { frame=gov_bleader }
+			branch_advisor_button = { frame=gov_badvisor }
+			conditional_dead_button = { frame=gov_cdead }
+			conditional_purged_button = { frame=gov_cpurged }
+			conditional_surrendered_button = { frame=gov_csurrendered }
+			ideological_mon_button = { frame=gov_imon }
+			ideological_dem_button = { frame=gov_idem }
+			ideological_com_button = { frame=gov_icom }
+			ideological_fas_button = { frame=gov_ifas }
+			ideological_con_button = { frame=gov_icon }
+			ideological_sod_button = { frame=gov_isod }
+			ideological_rev_button = { frame=gov_irev }
+			ideological_mfa_button = { frame=gov_imfa }
+		}
+
+		dynamic_lists = {
+			gov_top_head_gridbox = { array=global.gov_head_array entry_container=gov_top_gridbox_entry change_scope=no}
+			gov_top_side_gridbox = { array=global.gov_side_array entry_container=gov_top_gridbox_entry change_scope=no}
+			gov_top_advisor_first_gridbox = { array=global.gov_advisor_first_array entry_container=gov_top_gridbox_entry change_scope=no}
+			gov_top_advisor_second_gridbox = { array=global.gov_advisor_second_array entry_container=gov_top_gridbox_entry change_scope=no}
+			gov_bottom_gridbox = {
+				array=global.gov_array
+				entry_container=gov_bottom_gridbox_entry
+				change_scope = no
+			}
+		}
+
+		triggers = {
+			###################################################################################
+			available_button_visible = { check_variable={ gov_filters>0 }}
+			negative_filters_button_visible = { check_variable={ gov_filters>0 }}
+			branch_button_visible = { check_variable={ gov_filters>0 }}
+			conditional_button_visible = { check_variable={ gov_filters>0 }}
+			ideological_button_visible = { check_variable={ gov_filters>0 }}
+			branch_leader_button_visible = { check_variable={ gov_filters>0 } check_variable={ gov_branch>0 }}
+			branch_advisor_button_visible = { check_variable={ gov_filters>0 } check_variable={ gov_branch>0 }}
+			conditional_dead_button_visible = { check_variable={ gov_filters>0 } check_variable={ gov_conditional>0 }}
+			conditional_purged_button_visible = { check_variable={ gov_filters>0 } check_variable={ gov_conditional>0 }}
+			conditional_surrendered_button_visible = { check_variable={ gov_filters>0 } check_variable={ gov_conditional>0 }}
+			ideological_mon_button_visible = { check_variable={ gov_filters>0 } check_variable={ gov_ideological>0 }}
+			ideological_dem_button_visible = { check_variable={ gov_filters>0 } check_variable={ gov_ideological>0 }}
+			ideological_com_button_visible = { check_variable={ gov_filters>0 } check_variable={ gov_ideological>0 }}
+			ideological_fas_button_visible = { check_variable={ gov_filters>0 } check_variable={ gov_ideological>0 }}
+			ideological_con_button_visible = { check_variable={ gov_filters>0 } check_variable={ gov_ideological>0 }}
+			ideological_sod_button_visible = { check_variable={ gov_filters>0 } check_variable={ gov_ideological>0 }}
+			ideological_rev_button_visible = { check_variable={ gov_filters>0 } check_variable={ gov_ideological>0 }}
+			ideological_mfa_button_visible = { check_variable={ gov_filters>0 } check_variable={ gov_ideological>0 }}
+			###################################################################################
+			gov_portrait_click_enabled = { targeted_character_is_available_for_hire_as_political_advisor=yes has_pp_for_targeted_character=yes }
+			gov_portrait_dead_visible = { targeted_character_is_dead=yes }
+			gov_portrait_purged_visible = { targeted_character_is_purged=yes }
+			gov_portrait_surrendered_visible = { targeted_character_has_surrendered=yes }
+		}
+
+		effects = {
+			gov_main_close_click = { clr_country_flag=gov_opened }
+			#####[Filters]#####
+			all_conditional_button_click = { add_to_variable={ gov_filters=1 } set_temp_variable={ x=gov_filters } modulo_temp_variable={ x=2 } set_variable={ gov_filters=x } gov_reset_all_filters_if_back_to_all=yes gov_apply_filters=yes }
+			negative_filters_button_click = { add_to_variable={ gov_reverted_filters=1 } set_temp_variable={ x=gov_reverted_filters } modulo_temp_variable={ x=2 } set_variable={ gov_reverted_filters=x } gov_apply_filters=yes }
+			branch_button_click = { add_to_variable={ gov_branch=1 } set_temp_variable={ x=gov_branch } modulo_temp_variable={ x=2 } set_variable={ gov_branch=x } gov_reset_branch_filters_if_zero=yes gov_apply_filters=yes }
+			conditional_button_click = { add_to_variable={ gov_conditional=1 } set_temp_variable={ x=gov_conditional } modulo_temp_variable={ x=2 } set_variable={ gov_conditional=x } gov_reset_conditional_filters_if_zero=yes gov_apply_filters=yes }
+			ideological_button_click = { add_to_variable={ gov_ideological=1 } set_temp_variable={ x=gov_ideological } modulo_temp_variable={ x=2 } set_variable={ gov_ideological=x } gov_reset_ideological_filters_if_zero=yes gov_apply_filters=yes }
+			available_button_click = { add_to_variable={ gov_available=2 } set_temp_variable={ x=gov_available } modulo_temp_variable={ x=4 } set_variable={ gov_available=x } gov_apply_filters=yes }
+			branch_leader_button_click = { add_to_variable={ gov_bleader=2 } set_temp_variable={ x=gov_bleader } modulo_temp_variable={ x=4 } set_variable={ gov_bleader=x } gov_apply_filters=yes }
+			branch_advisor_button_click = { add_to_variable={ gov_badvisor=2 } set_temp_variable={ x=gov_badvisor } modulo_temp_variable={ x=4 } set_variable={ gov_badvisor=x } gov_apply_filters=yes }
+			conditional_dead_button_click = { add_to_variable={ gov_cdead=2 } set_temp_variable={ x=gov_cdead } modulo_temp_variable={ x=4 } set_variable={ gov_cdead=x } gov_apply_filters=yes }
+			conditional_purged_button_click = { add_to_variable={ gov_cpurged=2 } set_temp_variable={ x=gov_cpurged } modulo_temp_variable={ x=4 } set_variable={ gov_cpurged=x } gov_apply_filters=yes }
+			conditional_surrendered_button_click = { add_to_variable={ gov_csurrendered=2 } set_temp_variable={ x=gov_csurrendered } modulo_temp_variable={ x=4 } set_variable={ gov_csurrendered=x } gov_apply_filters=yes }
+			ideological_mon_button_click = { add_to_variable={ gov_imon=2 } set_temp_variable={ x=gov_imon } modulo_temp_variable={ x=4 } set_variable={ gov_imon=x } gov_apply_filters=yes }
+			ideological_dem_button_click = { add_to_variable={ gov_idem=2 } set_temp_variable={ x=gov_idem } modulo_temp_variable={ x=4 } set_variable={ gov_idem=x } gov_apply_filters=yes }
+			ideological_com_button_click = { add_to_variable={ gov_icom=2 } set_temp_variable={ x=gov_icom } modulo_temp_variable={ x=4 } set_variable={ gov_icom=x } gov_apply_filters=yes }
+			ideological_fas_button_click = { add_to_variable={ gov_ifas=2 } set_temp_variable={ x=gov_ifas } modulo_temp_variable={ x=4 } set_variable={ gov_ifas=x } gov_apply_filters=yes }
+			ideological_con_button_click = { add_to_variable={ gov_icon=2 } set_temp_variable={ x=gov_icon } modulo_temp_variable={ x=4 } set_variable={ gov_icon=x } gov_apply_filters=yes }
+			ideological_sod_button_click = { add_to_variable={ gov_isod=2 } set_temp_variable={ x=gov_isod } modulo_temp_variable={ x=4 } set_variable={ gov_isod=x } gov_apply_filters=yes }
+			ideological_rev_button_click = { add_to_variable={ gov_irev=2 } set_temp_variable={ x=gov_irev } modulo_temp_variable={ x=4 } set_variable={ gov_irev=x } gov_apply_filters=yes }
+			ideological_mfa_button_click = { add_to_variable={ gov_imfa=2 } set_temp_variable={ x=gov_imfa } modulo_temp_variable={ x=4 } set_variable={ gov_imfa=x } gov_apply_filters=yes }
+			#####[Top Portraits]#####
+			gov_top_portrait_click = { deactivate_targeted_character=yes }
+			#####[Bottom Portraits]#####
+			gov_portrait_click = { hire_targeted_character_as_political_advisor=yes }
+		}
+	}
+}
+

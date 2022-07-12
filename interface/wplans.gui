@@ -1,0 +1,230 @@
+
+guiTypes = {
+	containerWindowType = {
+		name = "wplans_container"
+		position = { x = 1850 y = 604 }
+		
+		buttonType ={
+			name ="wplans_open_button"
+			spriteType = "GFX_war_cabinet_button"
+			position = { x=0 y=0 }
+			clicksound = click_close
+			oversound = ui_menu_over
+			shortcut = "ctrl+w"
+			pdx_tooltip = WPLAN_NAME_TOOLTIP
+			scale=0.45
+		}
+	}
+	
+	### Main Window ###
+	containerWindowType = {
+		name = "wplans_main_window_container"
+		position = {x=540 y=80}
+		size = { width=831 height=880 }
+
+		fade_time = 300
+		fade_type = linear
+		moveable = yes
+		
+		background = {
+			name = "wplans_Background"
+			spriteType = "GFX_tiled_plain_bg2"
+		}
+		
+		instantTextboxType = {
+			name = "wplans_main_window_title"
+			position = { x = 0 y = 8 }
+			textureFile = ""
+			font = "hoi_36header"
+			borderSize = {x = 0 y = 0}
+			text = WPLAN_MAIN_NAME
+			maxWidth = 799
+			maxHeight = 20
+			format = CENTER	
+		}
+
+		iconType ={
+			name ="wplans_open_icon_1"
+			spriteType = "GFX_war_cabinet_button"
+			position = { x=0 y=2 }
+			alwaystransparent=yes
+			scale=0.7
+		}
+
+		iconType ={
+			name ="wplans_open_icon_2"
+			spriteType = "GFX_war_cabinet_button"
+			position = { x=733 y=2 }
+			alwaystransparent=yes
+			scale=0.7
+		}
+		
+		buttonType = {
+			name = "wplans_main_close"
+			quadTextureSprite = "GFX_closebutton"
+			position = { x= 795 y = 7 }
+			clicksound = click_close
+			shortcut = "ESCAPE"
+			pdx_tooltip = "WPLAN_CLOSE_TOOLTIP"
+		}
+		
+		containerWindowType = {
+			name = "wplans_primary_container"
+			position = { x=0 y=60 }
+			size = { width = 100%% height = 100%% }
+			margin = { top = 13 left = 13 bottom = 24 right = 13}
+			#drag_scroll = { left middle }
+			#verticalScrollbar = "right_vertical_slider"
+			#horizontalScrollbar = "bottom_horizontal_slider"
+
+			background = {
+                name = "main_background"
+                quadTextureSprite = "GFX_tiled_window_thin_border2"
+            }
+
+			
+			containerWindowType = {
+				name = "gridXXX"
+				position = {x=1 y=0}
+				size = {width=793 height=55}
+				drag_scroll = { left middle }
+				horizontalScrollbar = "bottom_horizontal_slider"
+				
+				
+				background = {
+					name = "BackgroundXXX"
+					spriteType ="GFX_tiled_window_transparent"
+				} 
+				
+				gridBoxType = {
+					name="wplans_gridbox"
+					format = "UPPER_LEFT"
+					position={ x=10 y=0 }
+					slotsize={ width=218 height=30 }
+					max_slots_vertical=1
+					add_horizontal=yes 
+				}
+			}
+
+		 ##################[Basic Stuff]##################
+
+			iconType = {
+				name ="wplans_greta_overview"
+				spriteType = "GFX_test_df"
+				position = { x = 15  y = 55 }
+				scale=1
+				alwaystransparent = no
+			}
+
+		 ##################[Albanian Zoom]#################
+		 	iconType = {
+				name ="wplans_greta_albanian_closeup"
+				spriteType = "GFX_albanian_coast_clean"
+				position = { x = 15  y = 55 }
+				scale=1
+				alwaystransparent = no
+			} 
+		 	iconType = {
+				name ="wplans_greta_albanian_closeup_attack"
+				spriteType = "GFX_albanian_coast_attack"
+				position = { x = 15  y = 55 }
+				scale=1
+				alwaystransparent = no
+			} 
+		 	iconType = {
+				name ="wplans_greta_albanian_closeup_defense"
+				spriteType = "GFX_albanian_coast_defensive_line"
+				position = { x = 15  y = 55 }
+				scale=1
+				alwaystransparent = no
+			}
+
+		 ##################[Albanian Zoom]#################
+		 	iconType = {
+				name ="wplans_grebul_full_assault"
+				spriteType = "GFX_bulgarian_full_assault"
+				position = { x = 15  y = 55 }
+				scale=1
+				alwaystransparent = no
+			}
+			iconType = {
+				name ="wplans_grebul_smaller_assault"
+				spriteType = "GFX_bulgarian_smaller_assault"
+				position = { x = 15  y = 55 }
+				scale=1
+				alwaystransparent = no
+			}
+
+		 ####################[Secondary Gridbox]####################
+			containerWindowType = {
+				name = "gridXXX2"
+				position = {x=1 y=742}
+				size = {width=793 height=55}
+				drag_scroll = { left middle }
+				horizontalScrollbar = "bottom_horizontal_slider"
+				
+				background = {
+					name = "BackgroundXXX2"
+					spriteType ="GFX_tiled_window_transparent"
+				} 
+				
+				gridBoxType = {
+					name="wplans_secondary_gridbox"
+					format = "UPPER_LEFT"
+					position={ x=10 y=0 }
+					slotsize={ width=134 height=30 }
+					max_slots_vertical=1
+					add_horizontal=yes 
+				}
+			}
+		 ####################[No Plans]####################
+		 	iconType = {
+				name ="wplans_noplans"
+				spriteType = "GFX_no_plans"
+				position = { x = 0  y = 67 }
+				scale=1
+				alwaystransparent = no
+			}
+        }
+    }
+
+	containerWindowType = {
+		name="wplans_gridbox_entry"
+		position={ x=0 y=0 }
+		size={ width=0 height=0 }
+
+		buttonType = {
+			name = "wplans_entry_button"
+			position = { x = 0 y = 0 }
+			quadTextureSprite ="button_type_4"	
+			buttonText = "[GetWplanName]"
+			buttonFont = "hoi_16mbs"
+			clicksound = click_default
+			oversound = ui_menu_over
+		}
+	}
+
+	containerWindowType = {
+		name="wplans_gridbox_secondary_entry"
+		position={ x=0 y=0 }
+		size={ width=0 height=0 }
+
+		buttonType = {
+			name = "wplans_secondary_entry_button"
+			position = {x=0 y=0}
+			spriteType = "GFX_decision_select_icon_strip"
+			quadTextureSprite ="GFX_generic_checkbox"
+			clicksound = click_checkbox
+		}
+		instantTextboxType = {
+			name = "wplans_secondary_entry_text"
+			position = { x = 34 y = 0 }
+			font = "hoi_16mbs"
+			borderSize = {x = 0 y = 0}
+			text = "[GetWplanSecondaryName]"
+			maxWidth = 100
+			maxHeight = 20
+			format = center	
+		}
+	}
+}

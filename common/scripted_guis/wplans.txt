@@ -1,0 +1,79 @@
+scripted_gui = {
+    wplans_fs = {
+		context_type = player_context
+		window_name = "wplans_container"
+        parent_window_token = top_bar
+
+		visible = { original_tag=GRE always=yes }
+		
+		effects = {
+			wplans_open_button_click = {
+				if = {
+					limit = { NOT = { has_country_flag = wplans_opened } }
+					set_country_flag = wplans_opened
+				}
+				else = { clr_country_flag=wplans_opened }
+			}
+		}
+		
+		triggers = {
+			wplans_open_button_click_enabled={ always=yes }
+			wplans_open_button_visible={ always=yes } # check_variable = { GRE.warplans_array^0>0 }
+		}
+		ai_enabled = { always=no }
+		properties = {
+			wplans_open_button = {
+				x=-325
+				y=-600
+			}
+		}
+	}
+    wplans_main = {
+		context_type = player_context
+		
+		window_name = "wplans_main_window_container"
+		visible = { has_country_flag=wplans_opened }
+
+		dynamic_lists = {
+			wplans_gridbox = {
+				array=GRE.warplans_array
+				entry_container=wplans_gridbox_entry
+			}
+			wplans_secondary_gridbox = {
+				array=GRE.warplans_secondary_array
+				entry_container=wplans_gridbox_secondary_entry
+			}
+		}
+		
+		properties = {
+			wplans_secondary_entry_button = { frame = GRE.warplans_secondary_array^i }
+		}
+
+		triggers = {
+			wplans_noplans_visible = { check_variable={ GRE.warplans_array^0=0 }}
+			wplans_greta_overview_visible = { check_variable={ GRE_current_warplan=10000 }}
+			wplans_greta_albanian_closeup_visible = { check_variable={ GRE_current_warplan=10001 }}
+			wplans_greta_albanian_closeup_attack_visible = { check_variable={ GRE.warplans_secondary_array^0=2 }}
+			wplans_greta_albanian_closeup_defense_visible = { check_variable={ GRE.warplans_secondary_array^1=2 }}
+			wplans_grebul_full_assault_visible = { check_variable={ GRE_current_warplan=10002 }}
+			wplans_grebul_smaller_assault_visible = { check_variable={ GRE_current_warplan=10002} has_collaboration={ target=BUL value>0.5 }}
+		}
+
+        effects = {
+            wplans_main_close_click = { clr_country_flag = wplans_opened }
+			wplans_entry_button_click = {
+				set_variable={ GRE_current_warplan=v }
+				clear_array = GRE.warplans_secondary_array
+				if = {
+					limit={ check_variable={ v=10001 }}
+					add_to_array={ GRE.warplans_secondary_array=1 }
+					add_to_array={ GRE.warplans_secondary_array=1 }
+				}
+			}
+			wplans_secondary_entry_button_click = {
+				if = { limit={ check_variable={ GRE.warplans_secondary_array^i=1 }} set_variable={ GRE.warplans_secondary_array^i=2 } }
+				else = { set_variable={ GRE.warplans_secondary_array^i=1 }}
+			}
+        }
+    }
+}

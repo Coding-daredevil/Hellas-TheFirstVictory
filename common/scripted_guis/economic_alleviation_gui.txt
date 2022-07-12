@@ -1,0 +1,280 @@
+scripted_gui = {
+
+	hell_ecall_gui = {
+		context_type = player_context
+		context_type = decision_category
+		window_name = "hell_ecall_container"
+
+		visible = { always=yes }
+		properties = {
+			hell_ecall_eng_flag = { image=[ENG.GetFlag] }
+			hell_ecall_fra_flag = { image=[FRA.GetFlag] }
+			hell_ecall_ita_flag = { image=[ITA.GetFlag] }
+			payd_small_icon = { image=[?ecall_selector.GetFlag] }
+			payd_large_icon = { image=[?ecall_selector.GetFlag] }
+			payd_gold_icon  = { image=[?ecall_selector.GetFlag] }
+			payd_icon = { image=[?ecall_selector.GetFlag] }
+		}
+
+		triggers = {
+			payd_small_click_enabled = {
+				NOT={ check_variable={ ecall_selector=0 }}
+				check_variable = { var=GRE.debt@var:ecall_selector value=0 compare=greater_than }
+			}
+			payd_big_click_enabled = { 
+				NOT={ check_variable={ ecall_selector=0 }} 
+				check_variable = { var=GRE.debt@var:ecall_selector value=15 compare=greater_than_or_equals }
+				has_completed_focus = GRE_paying_back_our_debts_in_bulk
+			}
+			payd_gold_click_enabled = { 
+				NOT={ check_variable={ ecall_selector=0 }}
+				check_variable = { var=GRE.debt@var:ecall_selector value=10 compare=greater_than_or_equals }
+				custom_trigger_tooltip = { 
+					tooltip=greek_debt_tokens_exist 
+					check_variable = { GRE_debt_tokens>0 }
+				}
+			}
+			payd_later_click_enabled = {
+				NOT={ check_variable={ ecall_selector=0 }}
+				check_variable = { var=GRE.debt@var:ecall_selector value=0 compare=greater_than }
+			}
+			payd_later_visible = { check_variable={ GRE.true_debt@var:ecall_selector=0 }}
+			payd_now_visible = { NOT={ check_variable={ GRE.true_debt@var:ecall_selector=0 }}}
+			payd_now_click_enabled = { check_variable = { GRE.ecall_froze_debt_passed_days@var:ecall_selector>5 }}
+			payd_never_click_enabled = {
+				NOT={ check_variable={ ecall_selector=0 }}
+				check_variable = { var=GRE.debt@var:ecall_selector value=0 compare=greater_than }
+			}
+			payd_icon_visible = { NOT={ check_variable={ ecall_selector=0 }} }
+			pay_button_click_enabled = {
+				NOT={ check_variable={ ecall_selector=0 }}
+				if = {
+					limit = { check_variable={ ecall_paytype<2 }}
+					check_variable = { ecall_payment>0 }
+					check_variable = { var=GRE.paid_debt@var:ecall_selector value=100 compare=less_than }
+					check_variable = { var=GRE.debt@var:ecall_selector value=ecall_payment compare=greater_than_or_equals }
+					set_temp_variable = { b_ppcost=4 }
+					if={ limit={NOT={check_variable={ modifier@base_debt_modifier_token=0 }}} set_temp_variable={ dmod=1 } subtract_from_temp_variable={ dmod=modifier@base_debt_modifier_token } clamp_temp_variable={ var=dmod min=0 max=1 } multiply_temp_variable={ b_ppcost=dmod }}
+					set_temp_variable = { ppcost=b_ppcost }
+					multiply_temp_variable = { ppcost=ecall_payment }
+					multiply_temp_variable = { ppcost=ecall_percent_off }
+					if = { limit = { check_variable={ ecall_paytype=0 } } has_political_power>ppcost }
+					else = { check_variable={ GRE_debt_tokens>0 }}
+				}
+				else_if = { limit = { check_variable={ ecall_paytype=1 } } custom_trigger_tooltip = { tooltip=greek_debt_tokens_exist check_variable = { GRE_debt_tokens>0 }}}
+				else_if = { limit = { check_variable={ ecall_paytype>1 } } custom_trigger_tooltip = { tooltip=certain_about_repercussions always=yes }}
+			}
+		}
+
+		effects = {
+			hell_ecall_eng_flag_click = { set_variable={ ecall_selector=ENG.id } clear_variable=ecall_payment }
+			hell_ecall_fra_flag_click = { set_variable={ ecall_selector=FRA.id } clear_variable=ecall_payment }
+			hell_ecall_ita_flag_click = { set_variable={ ecall_selector=ITA.id } clear_variable=ecall_payment }
+			payd_small_click = { set_variable={ ecall_payment=1 } set_variable={ ecall_percent_off=1 } set_variable={ ecall_paytype=0 } }
+			payd_small_control_click = { set_variable={ ecall_payment=2 } set_variable={ ecall_percent_off=1 } set_variable={ ecall_paytype=0 } }
+			payd_small_control_shift_click = { set_variable={ ecall_payment=3 } set_variable={ ecall_percent_off=1 } set_variable={ ecall_paytype=0 } }
+			payd_big_click = { set_variable={ ecall_payment=15 } set_variable={ ecall_percent_off=0.95 } set_variable={ ecall_paytype=0 } }
+			payd_big_control_click = { set_variable={ ecall_payment=20 } set_variable={ ecall_percent_off=0.90 } set_variable={ ecall_paytype=0 } }
+			payd_big_control_shift_click = { set_variable={ ecall_payment=25 } set_variable={ ecall_percent_off=0.85 } set_variable={ ecall_paytype=0 } }
+			payd_gold_click = { set_variable={ ecall_payment=10 } set_variable={ ecall_paytype=1 } }
+			payd_later_click = { 
+				set_variable={ ecall_paytype=2 }
+				effect_tooltip = {
+					add_political_power = 50
+					set_temp_variable = { findX=ecall_selector }
+					set_temp_variable = { findY=-15 }
+					var:ecall_selector = { custom_effect_tooltip=axal_nl_tt add_to_variable = { favor@GRE=findY tooltip=favor_hit_with_findX_by_findY_no_name_tt }}
+					every_country = {
+						limit = {
+							is_in_array = {
+								array = global.favor_mechanic
+								value = THIS.id
+							}
+							NOT = { original_tag = GRE.ecall_selector }
+						}
+						set_temp_variable = { findX=THIS.id }
+						set_temp_variable = { findY=-7.5 }
+						add_to_variable = { THIS.favor@GRE=findY tooltip=favor_hit_with_findX_by_findY_no_name_tt }
+					}
+					#######################################################
+					set_variable = { GRE.true_debt@var:ecall_selector = GRE.debt@var:ecall_selector }
+					set_variable = { GRE.debt_package = GRE.debt@var:ecall_selector }
+					var:ecall_selector = { GRE_update_debt_status = yes }
+					set_variable = { GRE.ecall_froze_debt_at@var:ecall_selector=global.num_days}
+					set_variable = { GRE.ecall_froze_debt_end@var:ecall_selector=global.num_days}
+					add_to_variable = { GRE.ecall_froze_debt_end@var:ecall_selector=10 }
+					#######################################################
+					clear_variable = ecall_payment
+					clear_variable = ecall_paytype
+				}
+			}
+			payd_now_click = {
+				set_variable={ ecall_paytype=2.5 }
+				effect_tooltip = {
+					set_variable = { GRE.debt_package = GRE.true_debt@var:ecall_selector }
+					multiply_variable = { GRE.debt_package = -1 }
+					var:ecall_selector = { GRE_update_debt_status = yes }
+					clear_variable = GRE.true_debt@var:ecall_selector
+					clear_variable = GRE.ecall_froze_debt_end@var:ecall_selector
+					clear_variable = GRE.ecall_froze_debt_at@var:ecall_selector
+					clear_variable = GRE.ecall_froze_debt_remaining_days@var:ecall_selector
+					clear_variable = GRE.ecall_froze_debt_passed_days@var:ecall_selector
+				}
+			}
+			payd_never_click = {
+				set_variable={ ecall_paytype=3 }
+				effect_tooltip = {
+					set_temp_variable = { x = GRE.debt@var:ecall_selector }
+					add_to_temp_variable = { x = GRE.true_debt@var:ecall_selector }
+					multiply_temp_variable = { x = 3 }
+					add_political_power = var:x
+					set_temp_variable = { findX=ecall_selector }
+					set_temp_variable = { findY=-30 }
+					var:ecall_selector = { custom_effect_tooltip=axal_nl_tt add_to_variable = { favor@GRE=findY tooltip=favor_hit_with_findX_by_findY_no_name_tt }}
+					every_country = {
+						limit = {
+							is_in_array = {
+								array = global.favor_mechanic
+								value = THIS.id
+							}
+							NOT = { original_tag = GRE.ecall_selector }
+						}
+						set_temp_variable = { findX=THIS.id }
+						set_temp_variable = { findY=-15 }
+						add_to_variable = { THIS.favor@GRE=findY tooltip=favor_hit_with_findX_by_findY_no_name_tt }
+					}
+					set_variable = { GRE.defaulted_on@var:ecall_selector = 1 }
+					set_variable = { GRE.debt_package = GRE.debt@var:ecall_selector }
+					add_to_variable = { GRE.debt_package = GRE.true_debt@var:ecall_selector }
+					clear_variable = GRE.true_debt@var:ecall_selector
+					var:ecall_selector = { GRE_update_debt_status = yes }
+					var:ecall_selector = {
+						add_opinion_modifier = {
+							target = GRE
+							modifier = GRE_defaulted_on_debts
+						}
+					}
+					clear_variable = ecall_payment
+				}
+			}
+			pay_button_click = {
+				#if = { limit={ check_variable={ ecall_payment>GRE.debt@var:ecall_selector }} set_temp_variable={ ecall_payment=GRE.debt@var:ecall_selector }}
+				hidden_effect = {
+					if = {
+						limit = { check_variable={ ecall_paytype<2 }}
+
+						ecall_calculate_ppcosts=yes
+						var:ecall_selector = { add_political_power = ppcost }
+						multiply_temp_variable = { ppcost=-1 }
+						if = { limit = { check_variable={ ecall_paytype=0 } } add_political_power = ppcost }
+						else_if = { limit = { check_variable={ ecall_paytype=1 } } subtract_from_variable={ GRE_debt_tokens=1 }}
+						#####################################################
+						set_variable = { GRE.debt_package = var:ecall_payment }
+						var:ecall_selector = { GRE_update_debt_status = yes }
+						######[REPORT EVENTS]######
+						if = { limit = { NOT = { check_variable = { GRE.ecall_selector=ENG }}} add_to_temp_array = { creditors_to_check=ENG.id }}
+						if = { limit = { NOT = { check_variable = { GRE.ecall_selector=FRA }}} add_to_temp_array = { creditors_to_check=FRA.id }}
+						if = { limit = { NOT = { check_variable = { GRE.ecall_selector=ITA }}} add_to_temp_array = { creditors_to_check=ITA.id }}
+						set_temp_variable = { cred_paid=GRE.ecall_selector }
+						for_each_scope_loop = {
+							array=creditors_to_check
+
+							clear_temp_array = tmpCHANCES
+							clear_temp_array = tmpRECEIVERS
+							clear_temp_array = tmpWEIGHT
+							##################################################
+							set_temp_variable = { tmpSCALEMAG=1 }
+							calculate_THIS_debt_difference_chance_to_avoid_event=yes
+							calculate_final_b1_b2_from_temporary_array_tmpCHANCES_with_tmpWEIGHT_and_mode_tmpMODE=yes
+							add_to_temp_array = { tmpRECEIVERS=THIS.id }
+							set_temp_variable = { tmpREAC1=50 }
+							potentially_send_report_events_for_action_tmpREAC1_with_args_tmpARRVAL_tmpMAG_to_targets_tmpRECEIVERS=yes
+						}
+					}
+					else_if = {
+						limit = { check_variable={ ecall_paytype=2 }}
+
+						add_political_power = 50
+						set_temp_variable = { findX=ecall_selector }
+						set_temp_variable = { findY=-15 }
+						var:ecall_selector = { add_to_variable = { favor@GRE=findY tooltip=favor_hit_with_findX_by_findY_no_name_tt }}
+						every_country = {
+							limit = {
+								is_in_array = {
+									array = global.favor_mechanic
+									value = THIS.id
+								}
+								NOT = { original_tag = GRE.ecall_selector }
+							}
+							set_temp_variable = { findX=THIS.id }
+							set_temp_variable = { findY=-7.5 }
+							add_to_variable = { THIS.favor@GRE=findY tooltip=favor_hit_with_findX_by_findY_no_name_tt }
+						}
+						#######################################################
+						set_variable = { GRE.true_debt@var:ecall_selector = GRE.debt@var:ecall_selector }
+						set_variable = { GRE.debt_package = GRE.debt@var:ecall_selector }
+						var:ecall_selector = { GRE_update_debt_status = yes }
+						set_variable = { GRE.ecall_froze_debt_at@var:ecall_selector=global.num_days}
+						set_variable = { GRE.ecall_froze_debt_end@var:ecall_selector=global.num_days}
+						add_to_variable = { GRE.ecall_froze_debt_end@var:ecall_selector=720 }
+                        set_variable = { GRE.ecall_froze_debt_remaining_days@var:ecall_selector=720 }
+                        set_variable = { GRE.ecall_froze_debt_passed_days@var:ecall_selector=0}
+						#######################################################
+						clear_variable = ecall_payment
+						clear_variable = ecall_paytype
+					}
+					else_if = {
+						limit = { check_variable={ ecall_paytype=2.5 }}
+						
+						set_variable = { GRE.debt_package = GRE.true_debt@var:ecall_selector }
+						multiply_variable = { GRE.debt_package = -1 }
+						var:ecall_selector = { GRE_update_debt_status = yes }
+						clear_variable = GRE.true_debt@var:ecall_selector
+						clear_variable = GRE.ecall_froze_debt_end@var:ecall_selector
+						clear_variable = GRE.ecall_froze_debt_at@var:ecall_selector
+						clear_variable = GRE.ecall_froze_debt_remaining_days@var:ecall_selector
+						clear_variable = GRE.ecall_froze_debt_passed_days@var:ecall_selector
+					}
+					else_if = {
+						limit = { check_variable={ ecall_paytype=3 }}
+
+						set_temp_variable = { x = GRE.debt@var:ecall_selector }
+						add_to_temp_variable = { x = GRE.true_debt@var:ecall_selector }
+						multiply_temp_variable = { x = 3 }
+						add_political_power = var:x
+						set_temp_variable = { findX=ecall_selector }
+						set_temp_variable = { findY=-30 }
+						var:ecall_selector = { add_to_variable = { favor@GRE=findY tooltip=favor_hit_with_findX_by_findY_no_name_tt }}
+						every_country = {
+							limit = {
+								is_in_array = {
+									array = global.favor_mechanic
+									value = THIS.id
+								}
+								NOT = { original_tag = GRE.ecall_selector }
+							}
+							set_temp_variable = { findX=THIS.id }
+							set_temp_variable = { findY=-15 }
+							add_to_variable = { THIS.favor@GRE=findY tooltip=favor_hit_with_findX_by_findY_no_name_tt }
+						}
+						set_variable = { GRE.defaulted_on@var:ecall_selector = 1 }
+						set_variable = { GRE.debt_package = GRE.debt@var:ecall_selector }
+						add_to_variable = { GRE.debt_package = GRE.true_debt@var:ecall_selector }
+						clear_variable = GRE.true_debt@var:ecall_selector
+						var:ecall_selector = { GRE_update_debt_status = yes }
+						var:ecall_selector = {
+							add_opinion_modifier = {
+								target = GRE
+								modifier = GRE_defaulted_on_debts
+							}
+						}
+						clear_variable = ecall_payment
+						clear_variable = ecall_paytype
+					}
+					set_variable = { GRE.paying_debt@var:ecall_selector = 0 }
+				}
+			}
+		}
+	}
+}
+

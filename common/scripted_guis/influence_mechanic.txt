@@ -1,5 +1,101 @@
 scripted_gui = {
 
+	infl_mech_main_open_gui = {
+		context_type = player_context
+		window_name = "infl_mech_open_container"
+        parent_window_token = top_bar
+
+		visible = { original_tag=GRE always=yes }
+		
+		effects = {
+			infl_mech_button_click = {
+				if = { 
+					limit = { NOT = { has_country_flag = infl_mech_opened } }
+					clear_array = global.carr
+					clear_array = global.bcarr
+					every_country = { limit={NOT={original_tag=ROOT}} add_to_array={ global.carr=THIS.id } add_to_array={ global.bcarr=THIS.id }}
+					set_country_flag = infl_mech_opened
+					inflmech_apply_filters_and_sort=yes 
+				}
+				else = { clr_country_flag=infl_mech_opened }
+			}
+		}
+		properties = {
+			infl_mech_button = {
+				x=-325
+				y=-600
+			}
+		}
+	}
+
+	infl_mech_main_gui = {
+		context_type = player_context
+		window_name = "infl_mech_main_container"
+
+		visible = { has_country_flag=infl_mech_opened }
+
+		properties = {
+			infl_mech_main_flag 		= { image=[THIS.GetFlag] }
+			filter_europe_button 		= { frame=infmech_feur }
+			filter_na_button 			= { frame=infmech_fnam }
+			filter_sa_button 			= { frame=infmech_fsam }
+			filter_oc_button 			= { frame=infmech_foce }
+			filter_af_button 			= { frame=infmech_fafr }
+			filter_as_button 			= { frame=infmech_fasi }
+			filter_me_button 			= { frame=infmech_fmea }
+			filter_bl_button			= { frame=infmech_fblk }
+			filter_democratic_button 	= { frame=infmech_fdem }
+			filter_communist_button 	= { frame=infmech_fcom }
+			filter_fascist_button 		= { frame=infmech_ffas }
+			filter_non_aligned_button 	= { frame=infmech_fnoa }
+			filter_major_button 		= { frame=infmech_fmaj }
+			filter_axis_button 			= { frame=infmech_faxi }
+			filter_allies_button 		= { frame=infmech_fall }
+			filter_commitern_button 	= { frame=infmech_fcmn }
+			###############################
+			sort_alphabetical = { frame=infmech_salp }
+			sort_opinion = { frame=infmech_sopi }
+			sort_weekly = { frame=infmech_swee }
+			sort_influence = { frame=infmech_sinf }
+		}
+
+		dynamic_lists = {
+			infl_mech_gridbox = {
+				array=global.carr
+				entry_container=infl_mech_gridbox_entry
+				change_scope = yes
+			}
+		}
+
+		effects = {
+			#####[Filters]#####
+			filter_europe_button_click = { if = { limit = { check_variable={ infmech_feur=0 }} set_variable={ infmech_feur=2 }} else = { clear_variable=infmech_feur } inflmech_apply_filters_and_sort=yes }
+			filter_na_button_click = { if = { limit = { check_variable={ infmech_fnam=0 }} set_variable={ infmech_fnam=2 }} else = { clear_variable=infmech_fnam } inflmech_apply_filters_and_sort=yes }
+			filter_sa_button_click = { if = { limit = { check_variable={ infmech_fsam=0 }} set_variable={ infmech_fsam=2 }} else = { clear_variable=infmech_fsam } inflmech_apply_filters_and_sort=yes }
+			filter_oc_button_click = { if = { limit = { check_variable={ infmech_foce=0 }} set_variable={ infmech_foce=2 }} else = { clear_variable=infmech_foce } inflmech_apply_filters_and_sort=yes }
+			filter_af_button_click = { if = { limit = { check_variable={ infmech_fafr=0 }} set_variable={ infmech_fafr=2 }} else = { clear_variable=infmech_fafr } inflmech_apply_filters_and_sort=yes }
+			filter_as_button_click = { if = { limit = { check_variable={ infmech_fasi=0 }} set_variable={ infmech_fasi=2 }} else = { clear_variable=infmech_fasi } inflmech_apply_filters_and_sort=yes }
+			filter_me_button_click = { if = { limit = { check_variable={ infmech_fmea=0 }} set_variable={ infmech_fmea=2 }} else = { clear_variable=infmech_fmea } inflmech_apply_filters_and_sort=yes }
+			filter_bl_button_click = { if = { limit = { check_variable={ infmech_fblk=0 }} set_variable={ infmech_fblk=2 }} else = { clear_variable=infmech_fblk } inflmech_apply_filters_and_sort=yes }
+			filter_democratic_button_click = { if = { limit = { check_variable={ infmech_fdem=0 }} set_variable={ infmech_fdem=2 }} else = { clear_variable=infmech_fdem } inflmech_apply_filters_and_sort=yes }
+			filter_communist_button_click = { if = { limit = { check_variable={ infmech_fcom=0 }} set_variable={ infmech_fcom=2 }} else = { clear_variable=infmech_fcom } inflmech_apply_filters_and_sort=yes }
+			filter_fascist_button_click = { if = { limit = { check_variable={ infmech_ffas=0 }} set_variable={ infmech_ffas=2 }} else = { clear_variable=infmech_ffas } inflmech_apply_filters_and_sort=yes }
+			filter_non_aligned_button_click = { if = { limit = { check_variable={ infmech_fnoa=0 }} set_variable={ infmech_fnoa=2 }} else = { clear_variable=infmech_fnoa } inflmech_apply_filters_and_sort=yes }
+			filter_major_button_click = { if = { limit = { check_variable={ infmech_fmaj=0 }} set_variable={ infmech_fmaj=2 }} else = { clear_variable=infmech_fmaj } inflmech_apply_filters_and_sort=yes }
+			filter_axis_button_click = { if = { limit = { check_variable={ infmech_faxi=0 }} set_variable={ infmech_faxi=2 }} else = { clear_variable=infmech_faxi } inflmech_apply_filters_and_sort=yes }
+			filter_allies_button_click = { if = { limit = { check_variable={ infmech_fall=0 }} set_variable={ infmech_fall=2 }} else = { clear_variable=infmech_fall } inflmech_apply_filters_and_sort=yes }
+			filter_commitern_button_click = { if = { limit = { check_variable={ infmech_fcmn=0 }} set_variable={ infmech_fcmn=2 }} else = { clear_variable=infmech_fcmn } inflmech_apply_filters_and_sort=yes }	
+			#####[Sorting]#####
+			sort_alphabetical_click = { set_variable={ sort_var=1 } clear_prev_sort=yes if={limit={check_variable={infmech_salp=0}}set_variable={infmech_salp=2}}else={clear_variable=infmech_salp clear_variable=sort_var}	inflmech_apply_filters_and_sort=yes }
+			sort_opinion_click = { set_variable={ sort_var=2 } clear_prev_sort=yes clear_prev_sort=yes if={limit={check_variable={infmech_sopi=0}}set_variable={infmech_sopi=2}}else_if={limit={check_variable={infmech_sopi=2}}set_variable={infmech_sopi=3}}else={clear_variable=infmech_sopi clear_variable=sort_var} inflmech_apply_filters_and_sort=yes }
+			sort_weekly_click = { set_variable={ sort_var=3 } clear_prev_sort=yes clear_prev_sort=yes if={limit={check_variable={infmech_swee=0}}set_variable={infmech_swee=2}}else_if={limit={check_variable={infmech_swee=2}}set_variable={infmech_swee=3}}else={clear_variable=infmech_swee clear_variable=sort_var} inflmech_apply_filters_and_sort=yes }
+			sort_influence_click = { set_variable={ sort_var=4 } clear_prev_sort=yes clear_prev_sort=yes if={limit={check_variable={infmech_sinf=0}}set_variable={infmech_sinf=2}}else_if={limit={check_variable={infmech_sinf2=0}}set_variable={infmech_sinf2=1}}else={clear_variable=infmech_sinf clear_variable=infmech_sinf2 clear_variable=sort_var} inflmech_apply_filters_and_sort=yes }
+			#####[Close]#####
+			infl_mech_close_button_click = { clr_country_flag=infl_mech_opened }
+
+		}
+	}
+
 	infl_mech_major_gui = {
 		context_type = player_context
 

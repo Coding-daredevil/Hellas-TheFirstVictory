@@ -1,0 +1,606 @@
+scripted_gui = {
+
+	coc = {
+		context_type = player_context
+		window_name = "coc_container"
+        parent_window_token = politics_tab 
+
+		visible = { original_tag=GRE always=yes }
+		
+		effects = {
+			coc_open_button_click = {
+				if = { limit={ NOT={ has_country_flag=coc_opened }} set_country_flag=coc_opened coc_apply_filters=yes }
+				else = { clr_country_flag=coc_opened }
+			}
+		}
+		
+		triggers = { 
+			coc_open_button_click_enabled={ always=yes }
+			coc_open_button_visible={ always=yes }
+		}
+		
+		properties = {
+			coc_open_button = {
+				x=-178
+				y=598
+			}
+		}
+	} 
+	coc_fs = {
+		context_type = player_context
+		window_name = "coc_container"
+        parent_window_token = top_bar
+
+		visible = { original_tag=GRE always=yes }
+		
+		effects = {
+			coc_open_button_click = {
+				if = { limit={ NOT={ has_country_flag=coc_opened }} set_country_flag=coc_opened coc_apply_filters=yes }
+				else = { clr_country_flag=coc_opened }
+			}
+		}
+		
+		triggers = { 
+			coc_open_button_click_enabled={ always=yes }
+			coc_open_button_visible={ always=yes }
+		}
+	} 
+
+	coc__main = {
+		context_type = player_context
+		
+		window_name = "coc_main_window_container"
+		
+		visible = { has_country_flag=coc_opened }
+
+		properties = { 
+			######[Top]#####
+			coc_top_portrait = { image=[GetCharacterPortrait] }
+			coc_top_portrait_army_rank = { image=[GetCharacterRank] }
+			#####[Bottom]#####
+			coc_portrait = { image=[GetCharacterPortrait] }
+			coc_portrait_army_rank = { image=[GetCharacterRank] }
+			available_button = { frame=coc_available }
+			branch_leader_button = { frame=coc_bleader }
+			branch_advisor_button = { frame=coc_badvisor }
+			branch_army_button = { frame=coc_barmy }
+			branch_navy_button = { frame=coc_bnavy }
+			branch_air_button = { frame=coc_bair }
+			conditional_dead_button = { frame=coc_cdead }
+			conditional_purged_button = { frame=coc_cpurged }
+			conditional_surrendered_button = { frame=coc_csurrendered }
+			conditional_assigned_button = { frame=coc_cassigned }
+			conditional_combat_button = { frame=coc_ccombat }
+			conditional_wounded_button = { frame=coc_cwounded }
+			ideological_mon_button = { frame=coc_imon }
+			ideological_dem_button = { frame=coc_idem }
+			ideological_com_button = { frame=coc_icom }
+			ideological_fas_button = { frame=coc_ifas }
+			ideological_con_button = { frame=coc_icon }
+			ideological_sod_button = { frame=coc_isod }
+			ideological_rev_button = { frame=coc_irev }
+			ideological_mfa_button = { frame=coc_imfa }
+		}
+
+		dynamic_lists = {
+			coc_top_head_gridbox = { array=global.coc_head_array entry_container=coc_top_gridbox_entry change_scope=no}
+			coc_top_side_gridbox = { array=global.coc_side_array entry_container=coc_top_gridbox_entry change_scope=no}
+			coc_top_advisor_first_gridbox = { array=global.coc_advisor_first_array entry_container=coc_top_gridbox_entry change_scope=no}
+			coc_top_advisor_second_gridbox = { array=global.coc_advisor_second_array entry_container=coc_top_gridbox_entry change_scope=no}
+			coc_bottom_gridbox = {
+				array=global.coc_array
+				entry_container=coc_bottom_gridbox_entry
+				change_scope = no
+			}
+		}
+
+		triggers = { 
+			coc_top_portrait_army_rank_visible = { targeted_character_is_army=yes }
+			coc_top_portrait_navy_rank_visible = { targeted_character_is_navy=yes }
+			coc_top_portrait_air_rank_visible  = { targeted_character_is_air=yes }
+			#########################################################################
+			coc_portrait_army_rank_visible = { targeted_character_is_army=yes }
+			coc_portrait_navy_rank_visible = { targeted_character_is_navy=yes }
+			coc_portrait_air_rank_visible  = { targeted_character_is_air=yes }
+			###################################################################################
+			available_button_visible = { check_variable={ coc_filters>0 }}
+			sort_stats_button_visible = { check_variable={ coc_filters>0 }}
+			negative_filters_button_visible = { check_variable={ coc_filters>0 }}
+			branch_button_visible = { check_variable={ coc_filters>0 }}
+			conditional_button_visible = { check_variable={ coc_filters>0 }}
+			ideological_button_visible = { check_variable={ coc_filters>0 }}
+			branch_leader_button_visible = { check_variable={ coc_filters>0 } check_variable={ coc_branch>0 }}
+			branch_advisor_button_visible = { check_variable={ coc_filters>0 } check_variable={ coc_branch>0 }}
+			branch_army_button_visible = { check_variable={ coc_filters>0 } check_variable={ coc_branch>0 }}
+			branch_navy_button_visible = { check_variable={ coc_filters>0 } check_variable={ coc_branch>0 }}
+			branch_air_button_visible = { check_variable={ coc_filters>0 } check_variable={ coc_branch>0 }}
+			conditional_dead_button_visible = { check_variable={ coc_filters>0 } check_variable={ coc_conditional>0 }}
+			conditional_purged_button_visible = { check_variable={ coc_filters>0 } check_variable={ coc_conditional>0 }}
+			conditional_surrendered_button_visible = { check_variable={ coc_filters>0 } check_variable={ coc_conditional>0 }}
+			conditional_assigned_button_visible = { check_variable={ coc_filters>0 } check_variable={ coc_conditional>0 }}
+			conditional_combat_button_visible = { check_variable={ coc_filters>0 } check_variable={ coc_conditional>0 }}
+			conditional_wounded_button_visible = { check_variable={ coc_filters>0 } check_variable={ coc_conditional>0 }}
+			ideological_mon_button_visible = { check_variable={ coc_filters>0 } check_variable={ coc_ideological>0 }}
+			ideological_dem_button_visible = { check_variable={ coc_filters>0 } check_variable={ coc_ideological>0 }}
+			ideological_com_button_visible = { check_variable={ coc_filters>0 } check_variable={ coc_ideological>0 }}
+			ideological_fas_button_visible = { check_variable={ coc_filters>0 } check_variable={ coc_ideological>0 }}
+			ideological_con_button_visible = { check_variable={ coc_filters>0 } check_variable={ coc_ideological>0 }}
+			ideological_sod_button_visible = { check_variable={ coc_filters>0 } check_variable={ coc_ideological>0 }}
+			ideological_rev_button_visible = { check_variable={ coc_filters>0 } check_variable={ coc_ideological>0 }}
+			ideological_mfa_button_visible = { check_variable={ coc_filters>0 } check_variable={ coc_ideological>0 }}
+			###################################################################################
+			coc_portrait_click_enabled = { targeted_character_is_available_for_hire_in_high_command=yes targeted_character_not_psd=yes }
+			coc_portrait_right_click_enabled = { targeted_character_is_available_for_hire_as_chief=yes targeted_character_not_psd=yes }
+			coc_portrait_dead_visible = { targeted_character_is_dead=yes }
+			coc_portrait_purged_visible = { targeted_character_is_purged=yes }
+			coc_portrait_surrendered_visible = { targeted_character_has_surrendered=yes }
+		}
+
+		
+
+		effects = {
+			coc_main_close_click = { clr_country_flag=coc_opened }
+			#####[Filters]#####
+			all_conditional_button_click = { add_to_variable={ coc_filters=1 } set_temp_variable={ x=coc_filters } modulo_temp_variable={ x=2 } set_variable={ coc_filters=x } coc_reset_all_filters_if_back_to_all=yes coc_apply_filters=yes }
+			sort_stats_button_click = { add_to_variable={ coc_sort_array=1 } set_temp_variable={ x=coc_sort_array } modulo_temp_variable={ x=6 } set_variable={ coc_sort_array=x } coc_apply_filters=yes }
+			sort_stats_button_right_click = { subtract_from_variable={ coc_sort_array=1 } if={limit={check_variable={ coc_sort_array<0 }} set_variable={ coc_sort_array=5 }} set_temp_variable={ x=coc_sort_array } modulo_temp_variable={ x=6 } set_variable={ coc_sort_array=x } coc_apply_filters=yes }
+			negative_filters_button_click = { add_to_variable={ coc_reverted_filters=1 } set_temp_variable={ x=coc_reverted_filters } modulo_temp_variable={ x=2 } set_variable={ coc_reverted_filters=x } coc_apply_filters=yes }
+			branch_button_click = { add_to_variable={ coc_branch=1 } set_temp_variable={ x=coc_branch } modulo_temp_variable={ x=2 } set_variable={ coc_branch=x } coc_reset_branch_filters_if_zero=yes coc_apply_filters=yes }
+			conditional_button_click = { add_to_variable={ coc_conditional=1 } set_temp_variable={ x=coc_conditional } modulo_temp_variable={ x=2 } set_variable={ coc_conditional=x } coc_reset_conditional_filters_if_zero=yes coc_apply_filters=yes }
+			ideological_button_click = { add_to_variable={ coc_ideological=1 } set_temp_variable={ x=coc_ideological } modulo_temp_variable={ x=2 } set_variable={ coc_ideological=x } coc_reset_ideological_filters_if_zero=yes coc_apply_filters=yes }
+			available_button_click = { add_to_variable={ coc_available=2 } set_temp_variable={ x=coc_available } modulo_temp_variable={ x=4 } set_variable={ coc_available=x } coc_apply_filters=yes }
+			branch_leader_button_click = { add_to_variable={ coc_bleader=2 } set_temp_variable={ x=coc_bleader } modulo_temp_variable={ x=4 } set_variable={ coc_bleader=x } coc_apply_filters=yes }
+			branch_advisor_button_click = { add_to_variable={ coc_badvisor=2 } set_temp_variable={ x=coc_badvisor } modulo_temp_variable={ x=4 } set_variable={ coc_badvisor=x } coc_apply_filters=yes }
+			branch_army_button_click = { add_to_variable={ coc_barmy=2 } set_temp_variable={ x=coc_barmy } modulo_temp_variable={ x=4 } set_variable={ coc_barmy=x } coc_apply_filters=yes }
+			branch_navy_button_click = { add_to_variable={ coc_bnavy=2 } set_temp_variable={ x=coc_bnavy } modulo_temp_variable={ x=4 } set_variable={ coc_bnavy=x } coc_apply_filters=yes }
+			branch_air_button_click = { add_to_variable={ coc_bair=2 } set_temp_variable={ x=coc_bair } modulo_temp_variable={ x=4 } set_variable={ coc_bair=x } coc_apply_filters=yes }
+			conditional_dead_button_click = { add_to_variable={ coc_cdead=2 } set_temp_variable={ x=coc_cdead } modulo_temp_variable={ x=4 } set_variable={ coc_cdead=x } coc_apply_filters=yes }
+			conditional_purged_button_click = { add_to_variable={ coc_cpurged=2 } set_temp_variable={ x=coc_cpurged } modulo_temp_variable={ x=4 } set_variable={ coc_cpurged=x } coc_apply_filters=yes }
+			conditional_surrendered_button_click = { add_to_variable={ coc_csurrendered=2 } set_temp_variable={ x=coc_csurrendered } modulo_temp_variable={ x=4 } set_variable={ coc_csurrendered=x } coc_apply_filters=yes }
+			conditional_assigned_button_click = { add_to_variable={ coc_cassigned=2 } set_temp_variable={ x=coc_cassigned } modulo_temp_variable={ x=4 } set_variable={ coc_cassigned=x } coc_apply_filters=yes }
+			conditional_combat_button_click = { add_to_variable={ coc_ccombat=2 } set_temp_variable={ x=coc_ccombat } modulo_temp_variable={ x=4 } set_variable={ coc_ccombat=x } coc_apply_filters=yes }
+			conditional_wounded_button_click = { add_to_variable={ coc_cwounded=2 } set_temp_variable={ x=coc_cwounded } modulo_temp_variable={ x=4 } set_variable={ coc_cwounded=x } coc_apply_filters=yes }
+			ideological_mon_button_click = { add_to_variable={ coc_imon=2 } set_temp_variable={ x=coc_imon } modulo_temp_variable={ x=4 } set_variable={ coc_imon=x } coc_apply_filters=yes }
+			ideological_dem_button_click = { add_to_variable={ coc_idem=2 } set_temp_variable={ x=coc_idem } modulo_temp_variable={ x=4 } set_variable={ coc_idem=x } coc_apply_filters=yes }
+			ideological_com_button_click = { add_to_variable={ coc_icom=2 } set_temp_variable={ x=coc_icom } modulo_temp_variable={ x=4 } set_variable={ coc_icom=x } coc_apply_filters=yes }
+			ideological_fas_button_click = { add_to_variable={ coc_ifas=2 } set_temp_variable={ x=coc_ifas } modulo_temp_variable={ x=4 } set_variable={ coc_ifas=x } coc_apply_filters=yes }
+			ideological_con_button_click = { add_to_variable={ coc_icon=2 } set_temp_variable={ x=coc_icon } modulo_temp_variable={ x=4 } set_variable={ coc_icon=x } coc_apply_filters=yes }
+			ideological_sod_button_click = { add_to_variable={ coc_isod=2 } set_temp_variable={ x=coc_isod } modulo_temp_variable={ x=4 } set_variable={ coc_isod=x } coc_apply_filters=yes }
+			ideological_rev_button_click = { add_to_variable={ coc_irev=2 } set_temp_variable={ x=coc_irev } modulo_temp_variable={ x=4 } set_variable={ coc_irev=x } coc_apply_filters=yes }
+			ideological_mfa_button_click = { add_to_variable={ coc_imfa=2 } set_temp_variable={ x=coc_imfa } modulo_temp_variable={ x=4 } set_variable={ coc_imfa=x } coc_apply_filters=yes }
+			#####[Top Portraits]#####
+			coc_top_portrait_click = { deactivate_targeted_character=yes }
+			#####[Bottom Portraits]#####
+			coc_portrait_click = { if={ limit={ targeted_character_is_available_for_hire_in_high_command=yes } hidden_effect={ hire_targeted_character_in_high_command=yes }}}
+			coc_portrait_right_click = { if={ limit={ targeted_character_is_available_for_hire_as_chief=yes } hidden_effect={ hire_targeted_character_as_chief=yes }}}
+		}
+	}
+
+	#coc_main = {
+	#	context_type = player_context
+	#	
+	#	window_name = "coc_main_window_container"
+	#	
+	#	visible = {
+    #        has_country_flag = coc_opened
+	#	}
+	#
+	#	properties = {
+    #        greek_officer_picture_aggelis = { x=GRE.hc_aggelis_seat_x y=GRE.hc_aggelis_seat_y }
+	#		greek_officer_picture_bakirtzis = { x=GRE.hc_bakirtzis_seat_x y=GRE.hc_bakirtzis_seat_y }
+	#		greek_officer_picture_davakis = { x=GRE.hc_davakis_seat_x y=GRE.hc_davakis_seat_y }
+	#		greek_officer_picture_alexakis = { x=GRE.hc_alexakis_seat_x y=GRE.hc_alexakis_seat_y }
+	#		greek_officer_picture_drakos = { x=GRE.hc_drakos_seat_x y=GRE.hc_drakos_seat_y }
+	#		greek_officer_picture_katsimitros = { x=GRE.hc_katsimitros_seat_x y=GRE.hc_katsimitros_seat_y }
+	#		greek_officer_picture_kosmas = { x=GRE.hc_kosmas_seat_x y=GRE.hc_kosmas_seat_y }
+	#		greek_officer_picture_papagos = { x=GRE.hc_papagos_seat_x y=GRE.hc_papagos_seat_y }
+	#		greek_officer_picture_plastiras = { x=GRE.hc_plastiras_seat_x y=GRE.hc_plastiras_seat_y }
+	#		greek_officer_picture_rossios = { x=GRE.hc_rossios_seat_x y=GRE.hc_rossios_seat_y }
+	#		greek_officer_picture_stanotas = { x=GRE.hc_stanotas_seat_x y=GRE.hc_stanotas_seat_y }
+	#		greek_officer_picture_velouchiotis = { x=GRE.hc_velouchiotis_seat_x y=GRE.hc_velouchiotis_seat_y }
+	#		greek_officer_picture_zervas = { x=GRE.hc_zervas_seat_x y=GRE.hc_zervas_seat_y }
+	#		###[Navy]###
+	#		greek_officer_picture_sakellariou = { x=GRE.hc_sakellariou_seat_x y=GRE.hc_sakellariou_seat_y }
+	#		greek_officer_picture_demestichas = { x=GRE.hc_demestichas_seat_x y=GRE.hc_demestichas_seat_y }
+	#		greek_officer_picture_kavvadias = { x=GRE.hc_kavvadias_seat_x y=GRE.hc_kavvadias_seat_y }
+	#		greek_officer_picture_loundras = { x=GRE.hc_loundras_seat_x y=GRE.hc_loundras_seat_y }
+	#		greek_officer_picture_oikonomou = { x=GRE.hc_oikonomou_seat_x y=GRE.hc_oikonomou_seat_y }
+	#		greek_officer_picture_toubas = { x=GRE.hc_toubas_seat_x y=GRE.hc_toubas_seat_y }
+	#		greek_officer_picture_voulgaris = { x=GRE.hc_voulgaris_seat_x y=GRE.hc_voulgaris_seat_y }
+	#		greek_officer_picture_avgeris = { x=GRE.hc_avgeris_seat_x y=GRE.hc_avgeris_seat_y }
+	#		greek_officer_picture_iatridis = { x=GRE.hc_iatridis_seat_x y=GRE.hc_iatridis_seat_y }
+	#		greek_officer_picture_spyromilios = { x=GRE.hc_spyromilios_seat_x y=GRE.hc_spyromilios_seat_y }
+	#		########
+	#		###  ###
+	#		########
+	#	 	greek_officer_ledger_aggelis = { x=GRE.hc_aggelis_ledger_x y=GRE.hc_aggelis_seat_y }
+	#		greek_officer_ledger_bakirtzis = { x=GRE.hc_bakirtzis_ledger_x y=GRE.hc_bakirtzis_seat_y }
+	#		greek_officer_ledger_davakis = { x=GRE.hc_davakis_ledger_x y=GRE.hc_davakis_seat_y }
+	#		greek_officer_ledger_alexakis = { x=GRE.hc_alexakis_ledger_x y=GRE.hc_alexakis_seat_y }
+	#		greek_officer_ledger_drakos = { x=GRE.hc_drakos_ledger_x y=GRE.hc_drakos_seat_y }
+	#		greek_officer_ledger_katsimitros = { x=GRE.hc_katsimitros_ledger_x y=GRE.hc_katsimitros_seat_y }
+	#		greek_officer_ledger_kosmas = { x=GRE.hc_kosmas_ledger_x y=GRE.hc_kosmas_seat_y }
+	#		greek_officer_ledger_papagos = { x=GRE.hc_papagos_ledger_x y=GRE.hc_papagos_seat_y }
+	#		greek_officer_ledger_plastiras = { x=GRE.hc_plastiras_ledger_x y=GRE.hc_plastiras_seat_y }
+	#		greek_officer_ledger_rossios = { x=GRE.hc_rossios_ledger_x y=GRE.hc_rossios_seat_y }
+	#		greek_officer_ledger_stanotas = { x=GRE.hc_stanotas_ledger_x y=GRE.hc_stanotas_seat_y }
+	#		greek_officer_ledger_velouchiotis = { x=GRE.hc_velouchiotis_ledger_x y=GRE.hc_velouchiotis_seat_y }
+	#		greek_officer_ledger_zervas = { x=GRE.hc_zervas_ledger_x y=GRE.hc_zervas_seat_y }
+	#		###[Navy]###
+	#		greek_officer_ledger_sakellariou = { x=GRE.hc_sakellariou_ledger_x y=GRE.hc_sakellariou_seat_y }
+	#		greek_officer_ledger_demestichas = { x=GRE.hc_demestichas_ledger_x y=GRE.hc_demestichas_seat_y }
+	#		greek_officer_ledger_kavvadias = { x=GRE.hc_kavvadias_ledger_x y=GRE.hc_kavvadias_seat_y }
+	#		greek_officer_ledger_loundras = { x=GRE.hc_loundras_ledger_x y=GRE.hc_loundras_seat_y }
+	#		greek_officer_ledger_oikonomou = { x=GRE.hc_oikonomou_ledger_x y=GRE.hc_oikonomou_seat_y }
+	#		greek_officer_ledger_toubas = { x=GRE.hc_toubas_ledger_x y=GRE.hc_toubas_seat_y }
+	#		greek_officer_ledger_voulgaris = { x=GRE.hc_voulgaris_ledger_x y=GRE.hc_voulgaris_seat_y }
+	#		greek_officer_ledger_avgeris = { x=GRE.hc_avgeris_ledger_x y=GRE.hc_avgeris_seat_y }
+	#		greek_officer_ledger_iatridis = { x=GRE.hc_iatridis_ledger_x y=GRE.hc_iatridis_seat_y }
+	#		greek_officer_ledger_spyromilios = { x=GRE.hc_spyromilios_ledger_x y=GRE.hc_spyromilios_seat_y }
+	#		###
+	#		########################
+	#		########[RANKS]#########
+	#		########################
+	#		greek_officer_rank_aggelis = { image="[GetAggelisRankGFX]" }
+	#		greek_officer_rank_bakirtzis = { image="[GetBakirtzisRankGFX]" }
+	#		greek_officer_rank_davakis = { image="[GetDavakisRankGFX]" }
+	#		greek_officer_rank_alexakis = { image="[GetAlexakisRankGFX]" } 
+	#		greek_officer_rank_drakos = { image="[GetDrakosRankGFX]" } 
+	#		greek_officer_rank_katsimitros = { image="[GetKatsimitrosRankGFX]" } 
+	#		greek_officer_rank_kosmas = { image="[GetKosmasRankGFX]" } 
+	#		greek_officer_rank_papagos = { image="[GetPapagosRankGFX]" }
+	#		greek_officer_rank_plastiras = { image="[GetPlastirasRankGFX]" } 
+	#		greek_officer_rank_rossios = { image="[GetRossiosRankGFX]" }
+	#		greek_officer_rank_stanotas = { image="[GetStanotasRankGFX]" }
+	#		greek_officer_rank_velouchiotis = { image="[GetVelouchiotisRankGFX]" } 
+	#		greek_officer_rank_zervas = { image="[GetZervasRankGFX]" } 
+	#		greek_officer_rank_sakellariou = { image="[GetSakellariouRankGFX]" } 
+	#		greek_officer_rank_demestichas = { image="[GetDemestichasRankGFX]" } 
+	#		greek_officer_rank_kavvadias = { image="[GetKavvadiasRankGFX]" } 
+	#		greek_officer_rank_loundras = { image="[GetLoundrasRankGFX]" } 
+	#		greek_officer_rank_oikonomou = { image="[GetOikonomouRankGFX]" } 
+	#		greek_officer_rank_toubas = { image="[GetToubasRankGFX]" } 
+	#		greek_officer_rank_voulgaris = { image="[GetVoulgarisRankGFX]" } 
+	#		greek_officer_rank_avgeris = { image="[GetAvgerisRankGFX]" }
+	#		greek_officer_rank_iatridis = { image="[GetIatridisRankGFX]" }
+	#		greek_officer_rank_spyromilios = { image="[GetSpyromiliosRankGFX]" }
+    #    }
+    #    
+    #    triggers = {
+	#	 #######[Army Chief Triggers]#######
+	#		army_chief_picture_blanc_visible = { amount_taken_ideas = { amount < 1 slots = { army_chief } } }
+	#		navy_chief_picture_blanc_visible = { amount_taken_ideas = { amount < 1 slots = { navy_chief } } }
+	#	 	air_chief_picture_blanc_visible = { amount_taken_ideas = { amount < 1 slots = { air_chief } } }
+	#	 #######[Off.A Portrait Triggers]#######
+	#		greek_officer_picture_papagos_visible = { OR={ GRE_alexandros_papagos={ has_character_flag=selected_as_army_chief } check_variable = { GRE.hc_papagos_seat > 0 } } }
+	#		greek_officer_picture_stanotas_visible = { OR={ GRE_georgios_stanotas={ has_character_flag=selected_as_army_chief } check_variable = { GRE.hc_stanotas_seat > 0 } } }
+	#		greek_officer_picture_drakos_visible = { OR={ GRE_markos_drakos={ has_character_flag=selected_as_army_chief } check_variable = { GRE.hc_drakos_seat > 0 } } }
+	#		greek_officer_picture_zervas_visible = { OR={ GRE_napoleon_zervas={ has_character_flag=selected_as_army_chief } check_variable = { GRE.hc_zervas_seat > 0 } } }
+	#		greek_officer_picture_davakis_visible = { OR={ GRE_konstantinos_davakis={ has_character_flag=selected_as_army_chief } check_variable = { GRE.hc_davakis_seat > 0 } } }
+	#	 	greek_officer_picture_aggelis_visible = { check_variable = { GRE.hc_aggelis_seat > 0 } }
+	#		greek_officer_picture_bakirtzis_visible = { check_variable = { GRE.hc_bakirtzis_seat > 0 } }
+	#		greek_officer_picture_alexakis_visible = { check_variable = { GRE.hc_alexakis_seat > 0 } }
+	#		greek_officer_picture_katsimitros_visible = { check_variable = { GRE.hc_katsimitros_seat > 0 } }
+	#		greek_officer_picture_kosmas_visible = { check_variable = { GRE.hc_kosmas_seat > 0 } }
+	#		greek_officer_picture_plastiras_visible = { check_variable = { GRE.hc_plastiras_seat > 0 } }
+	#		greek_officer_picture_rossios_visible = { check_variable = { GRE.hc_rossios_seat > 0 } }
+	#		greek_officer_picture_velouchiotis_visible = { check_variable = { GRE.hc_velouchiotis_seat > 0 } }
+	#		###[Navy]###
+	#		greek_officer_picture_sakellariou_visible = { OR={ GRE_alexandros_sakellariou={ has_character_flag=selected_as_navy_chief } check_variable = { GRE.hc_sakellariou_seat > 0 } } }
+	#		greek_officer_picture_demestichas_visible = { OR={ GRE_ioannis_demestichas={ has_character_flag=selected_as_navy_chief } check_variable = { GRE.hc_demestichas_seat > 0 } } }
+	#		greek_officer_picture_kavvadias_visible = { OR={ GRE_epameinondas_kavvadias={ has_character_flag=selected_as_navy_chief } check_variable = { GRE.hc_kavvadias_seat > 0 } } }
+	#		greek_officer_picture_oikonomou_visible = { OR={ GRE_dimitrios_oikonomou={ has_character_flag=selected_as_navy_chief } check_variable = { GRE.hc_oikonomou_seat > 0 } } }
+	#		greek_officer_picture_voulgaris_visible = { OR={ GRE_petros_voulgaris={ has_character_flag=selected_as_navy_chief } check_variable = { GRE.hc_voulgaris_seat > 0 } } }
+	#		greek_officer_picture_loundras_visible = { check_variable = { GRE.hc_loundras_seat > 0 } }
+	#		greek_officer_picture_toubas_visible = { check_variable = { GRE.hc_toubas_seat > 0 } }
+	#		greek_officer_picture_avgeris_visible = { check_variable = { GRE.hc_avgeris_seat > 0 } }
+	#		greek_officer_picture_iatridis_visible = { check_variable = { GRE.hc_iatridis_seat > 0 } }
+	#		greek_officer_picture_spyromilios_visible = { check_variable = { GRE.hc_spyromilios_seat > 0 } }
+	#		###
+	#	 #######[Off.A Ledger Triggers ]#######
+	#	 	greek_officer_ledger_papagos_visible = { OR={ GRE_alexandros_papagos={ has_character_flag=selected_as_army_chief } check_variable = { GRE.hc_papagos_seat > 0 } } }
+	#		greek_officer_ledger_stanotas_visible = { OR={ GRE_georgios_stanotas={ has_character_flag=selected_as_army_chief } check_variable = { GRE.hc_stanotas_seat > 0 } } }
+	#		greek_officer_ledger_drakos_visible = { OR={ GRE_markos_drakos={ has_character_flag=selected_as_army_chief } check_variable = { GRE.hc_drakos_seat > 0 } } }
+	#		greek_officer_ledger_zervas_visible = { OR={ GRE_napoleon_zervas={ has_character_flag=selected_as_army_chief } check_variable = { GRE.hc_zervas_seat > 0 } } }
+	#		greek_officer_ledger_davakis_visible = { OR={ GRE_konstantinos_davakis={ has_character_flag=selected_as_army_chief } check_variable = { GRE.hc_davakis_seat > 0 } } }
+	#	 	greek_officer_ledger_aggelis_visible = { check_variable = { GRE.hc_aggelis_seat > 0 } }
+	#		greek_officer_ledger_bakirtzis_visible = { check_variable = { GRE.hc_bakirtzis_seat > 0 } }
+	#		greek_officer_ledger_alexakis_visible = { check_variable = { GRE.hc_alexakis_seat > 0 } }
+	#		greek_officer_ledger_katsimitros_visible = { check_variable = { GRE.hc_katsimitros_seat > 0 } }
+	#		greek_officer_ledger_kosmas_visible = { check_variable = { GRE.hc_kosmas_seat > 0 } }
+	#		greek_officer_ledger_plastiras_visible = { check_variable = { GRE.hc_plastiras_seat > 0 } }
+	#		greek_officer_ledger_rossios_visible = { check_variable = { GRE.hc_rossios_seat > 0 } }
+	#		greek_officer_ledger_velouchiotis_visible = { check_variable = { GRE.hc_velouchiotis_seat > 0 } }
+	#		###[Navy]###
+	#		greek_officer_ledger_sakellariou_visible = { OR={ GRE_alexandros_sakellariou={ has_character_flag=selected_as_navy_chief } check_variable = { GRE.hc_sakellariou_seat > 0 } } }
+	#		greek_officer_ledger_demestichas_visible = { OR={ GRE_ioannis_demestichas={ has_character_flag=selected_as_navy_chief } check_variable = { GRE.hc_demestichas_seat > 0 } } }
+	#		greek_officer_ledger_kavvadias_visible = { OR={ GRE_epameinondas_kavvadias={ has_character_flag=selected_as_navy_chief } check_variable = { GRE.hc_kavvadias_seat > 0 } } }
+	#		greek_officer_ledger_oikonomou_visible = { OR={ GRE_dimitrios_oikonomou={ has_character_flag=selected_as_navy_chief } check_variable = { GRE.hc_oikonomou_seat > 0 } } }
+	#		greek_officer_ledger_voulgaris_visible = { OR={ GRE_petros_voulgaris={ has_character_flag=selected_as_navy_chief } check_variable = { GRE.hc_voulgaris_seat > 0 } } }
+	#		greek_officer_ledger_loundras_visible = { check_variable = { GRE.hc_loundras_seat > 0 } }
+	#		greek_officer_ledger_toubas_visible = { check_variable = { GRE.hc_toubas_seat > 0 } }
+	#		greek_officer_ledger_avgeris_visible = { check_variable = { GRE.hc_avgeris_seat > 0 } }
+	#		greek_officer_ledger_iatridis_visible = { check_variable = { GRE.hc_iatridis_seat > 0 } }
+	#		greek_officer_ledger_spyromilios_visible = { check_variable = { GRE.hc_spyromilios_seat > 0 } }
+	#		###
+	#	 #######[HC.1 Rank Triggers]#######
+	#	 	high_command_1_rank_army_0_visible = { check_variable = { GRE.hc_rank@var:1 = 1 } }
+	#		high_command_1_rank_army_1_visible = { check_variable = { GRE.hc_rank@var:1 = 2 } }
+	#		high_command_1_rank_army_2_visible = { check_variable = { GRE.hc_rank@var:1 = 3 } }
+	#		high_command_1_rank_army_3_visible = { check_variable = { GRE.hc_rank@var:1 = 4 } }
+	#		high_command_1_rank_navy_0_visible = { check_variable = { GRE.hc_rank@var:1 = 5 } }
+	#		high_command_1_rank_navy_1_visible = { check_variable = { GRE.hc_rank@var:1 = 6 } }
+	#		high_command_1_rank_navy_2_visible = { check_variable = { GRE.hc_rank@var:1 = 7 } }
+	#		high_command_1_rank_navy_3_visible = { check_variable = { GRE.hc_rank@var:1 = 8 } }
+	#		high_command_1_rank_air_0_visible = { check_variable = { GRE.hc_rank@var:1 = 9 } }
+	#		high_command_1_rank_air_1_visible = { check_variable = { GRE.hc_rank@var:1 = 10 } }
+	#		high_command_1_rank_air_2_visible = { check_variable = { GRE.hc_rank@var:1 = 11 } }
+	#		high_command_1_rank_air_3_visible = { check_variable = { GRE.hc_rank@var:1 = 12 } }
+	#	 #######[HC.2 Rank Triggers]#######
+	#	 	high_command_2_rank_army_0_visible = { check_variable = { GRE.hc_rank@var:2 = 1 } }
+	#		high_command_2_rank_army_1_visible = { check_variable = { GRE.hc_rank@var:2 = 2 } }
+	#		high_command_2_rank_army_2_visible = { check_variable = { GRE.hc_rank@var:2 = 3 } }
+	#		high_command_2_rank_army_3_visible = { check_variable = { GRE.hc_rank@var:2 = 4 } }
+	#		high_command_2_rank_navy_0_visible = { check_variable = { GRE.hc_rank@var:2 = 5 } }
+	#		high_command_2_rank_navy_1_visible = { check_variable = { GRE.hc_rank@var:2 = 6 } }
+	#		high_command_2_rank_navy_2_visible = { check_variable = { GRE.hc_rank@var:2 = 7 } }
+	#		high_command_2_rank_navy_3_visible = { check_variable = { GRE.hc_rank@var:2 = 8 } }
+	#		high_command_2_rank_air_0_visible = { check_variable = { GRE.hc_rank@var:2 = 9 } }
+	#		high_command_2_rank_air_1_visible = { check_variable = { GRE.hc_rank@var:2 = 10 } }
+	#		high_command_2_rank_air_2_visible = { check_variable = { GRE.hc_rank@var:2 = 11 } }
+	#		high_command_2_rank_air_3_visible = { check_variable = { GRE.hc_rank@var:2 = 12 } }
+	#	 #######[HC.3 Rank Triggers]#######
+	#	 	high_command_3_rank_army_0_visible = { check_variable = { GRE.hc_rank@var:3 = 1 } }
+	#		high_command_3_rank_army_1_visible = { check_variable = { GRE.hc_rank@var:3 = 2 } }
+	#		high_command_3_rank_army_2_visible = { check_variable = { GRE.hc_rank@var:3 = 3 } }
+	#		high_command_3_rank_army_3_visible = { check_variable = { GRE.hc_rank@var:3 = 4 } }
+	#		high_command_3_rank_navy_0_visible = { check_variable = { GRE.hc_rank@var:3 = 5 } }
+	#		high_command_3_rank_navy_1_visible = { check_variable = { GRE.hc_rank@var:3 = 6 } }
+	#		high_command_3_rank_navy_2_visible = { check_variable = { GRE.hc_rank@var:3 = 7 } }
+	#		high_command_3_rank_navy_3_visible = { check_variable = { GRE.hc_rank@var:3 = 8 } }
+	#		high_command_3_rank_air_0_visible = { check_variable = { GRE.hc_rank@var:3 = 9 } }
+	#		high_command_3_rank_air_1_visible = { check_variable = { GRE.hc_rank@var:3 = 10 } }
+	#		high_command_3_rank_air_2_visible = { check_variable = { GRE.hc_rank@var:3 = 11 } }
+	#		high_command_3_rank_air_3_visible = { check_variable = { GRE.hc_rank@var:3 = 12 } }
+	#	 #######[HC.4 Rank Triggers]#######
+	#	 	high_command_4_rank_army_0_visible = { check_variable = { GRE.hc_rank@var:4 = 1 } }
+	#		high_command_4_rank_army_1_visible = { check_variable = { GRE.hc_rank@var:4 = 2 } }
+	#		high_command_4_rank_army_2_visible = { check_variable = { GRE.hc_rank@var:4 = 3 } }
+	#		high_command_4_rank_army_3_visible = { check_variable = { GRE.hc_rank@var:4 = 4 } }
+	#		high_command_4_rank_navy_0_visible = { check_variable = { GRE.hc_rank@var:4 = 5 } }
+	#		high_command_4_rank_navy_1_visible = { check_variable = { GRE.hc_rank@var:4 = 6 } }
+	#		high_command_4_rank_navy_2_visible = { check_variable = { GRE.hc_rank@var:4 = 7 } }
+	#		high_command_4_rank_navy_3_visible = { check_variable = { GRE.hc_rank@var:4 = 8 } }
+	#		high_command_4_rank_air_0_visible = { check_variable = { GRE.hc_rank@var:4 = 9 } }
+	#		high_command_4_rank_air_1_visible = { check_variable = { GRE.hc_rank@var:4 = 10 } }
+	#		high_command_4_rank_air_2_visible = { check_variable = { GRE.hc_rank@var:4 = 11 } }
+	#		high_command_4_rank_air_3_visible = { check_variable = { GRE.hc_rank@var:4 = 12 } }
+	#	 #######[HC.5 Rank Triggers]#######
+	#	 	high_command_5_rank_army_0_visible = { check_variable = { GRE.hc_rank@var:5 = 1 } }
+	#		high_command_5_rank_army_1_visible = { check_variable = { GRE.hc_rank@var:5 = 2 } }
+	#		high_command_5_rank_army_2_visible = { check_variable = { GRE.hc_rank@var:5 = 3 } }
+	#		high_command_5_rank_army_3_visible = { check_variable = { GRE.hc_rank@var:5 = 4 } }
+	#		high_command_5_rank_navy_0_visible = { check_variable = { GRE.hc_rank@var:5 = 5 } }
+	#		high_command_5_rank_navy_1_visible = { check_variable = { GRE.hc_rank@var:5 = 6 } }
+	#		high_command_5_rank_navy_2_visible = { check_variable = { GRE.hc_rank@var:5 = 7 } }
+	#		high_command_5_rank_navy_3_visible = { check_variable = { GRE.hc_rank@var:5 = 8 } }
+	#		high_command_5_rank_air_0_visible = { check_variable = { GRE.hc_rank@var:5 = 9 } }
+	#		high_command_5_rank_air_1_visible = { check_variable = { GRE.hc_rank@var:5 = 10 } }
+	#		high_command_5_rank_air_2_visible = { check_variable = { GRE.hc_rank@var:5 = 11 } }
+	#		high_command_5_rank_air_3_visible = { check_variable = { GRE.hc_rank@var:5 = 12 } }
+	#	 #######[WB Triggers]#######
+	#	 	###[Army]###
+	#	 	high_command_wb_picture_aggelis_click_enabled = { GRE_odysseas_aggelis = { set_temp_variable = { tmpZ = 0.7 }  not_psd=yes ideologically_tmpZ=yes NOT = { has_character_flag = selected_as_army_chief has_character_flag = selected_in_high_command } } }
+	#		high_command_wb_picture_bakirtzis_click_enabled = { GRE_evripidis_bakirtzis = { set_temp_variable = { tmpZ = 0.7 }  not_psd=yes ideologically_tmpZ=yes NOT = { has_character_flag = selected_as_army_chief has_character_flag = selected_in_high_command } } } 
+	#		high_command_wb_picture_davakis_click_enabled = { GRE_konstantinos_davakis = { set_temp_variable = { tmpZ = 0.7 }  not_psd=yes ideologically_tmpZ=yes NOT = { has_character_flag = selected_as_army_chief has_character_flag = selected_in_high_command } } } 
+	#		high_command_wb_picture_alexakis_click_enabled = { GRE_ioannis_sotiris_alexakis = { set_temp_variable = { tmpZ = 0.7 }  not_psd=yes ideologically_tmpZ=yes NOT = { has_character_flag = selected_as_army_chief has_character_flag = selected_in_high_command } } } 
+	#		high_command_wb_picture_drakos_click_enabled = { GRE_markos_drakos = { set_temp_variable = { tmpZ = 0.7 }  not_psd=yes ideologically_tmpZ=yes NOT = { has_character_flag = selected_as_army_chief has_character_flag = selected_in_high_command } } } 
+	#		high_command_wb_picture_katsimitros_click_enabled = { GRE_charalambos_katsimitros = { set_temp_variable = { tmpZ = 0.7 }  not_psd=yes ideologically_tmpZ=yes NOT = { has_character_flag = selected_as_army_chief has_character_flag = selected_in_high_command } } } 
+	#		high_command_wb_picture_kosmas_click_enabled = { GRE_georgios_kosmas = { set_temp_variable = { tmpZ = 0.7 }  not_psd=yes ideologically_tmpZ=yes NOT = { has_character_flag = selected_as_army_chief has_character_flag = selected_in_high_command } } } 
+	#		high_command_wb_picture_papagos_click_enabled = { GRE_alexandros_papagos = { set_temp_variable = { tmpZ = 0.7 }  not_psd=yes ideologically_tmpZ=yes NOT = { has_character_flag = selected_as_army_chief has_character_flag = selected_in_high_command } } } 
+	#		high_command_wb_picture_plastiras_click_enabled = { GRE_nikolaos_plastiras = { set_temp_variable = { tmpZ = 0.7 }  not_psd=yes ideologically_tmpZ=yes NOT = { has_character_flag = selected_as_army_chief has_character_flag = selected_in_high_command } } } 
+	#		high_command_wb_picture_rossios_click_enabled = { GRE_alexandros_rossios = { set_temp_variable = { tmpZ = 0.7 }  not_psd=yes ideologically_tmpZ=yes NOT = { has_character_flag = selected_as_army_chief has_character_flag = selected_in_high_command } } } 
+	#		high_command_wb_picture_stanotas_click_enabled = { GRE_georgios_stanotas = { set_temp_variable = { tmpZ = 0.7 }  not_psd=yes ideologically_tmpZ=yes NOT = { has_character_flag = selected_as_army_chief has_character_flag = selected_in_high_command } } }
+	#		high_command_wb_picture_velouchiotis_click_enabled = { GRE_aris_velouchiotis = { set_temp_variable = { tmpZ = 0.7 }  not_psd=yes ideologically_tmpZ=yes NOT = { has_character_flag = selected_as_army_chief has_character_flag = selected_in_high_command } } } 
+	#		high_command_wb_picture_zervas_click_enabled = { GRE_napoleon_zervas = { set_temp_variable = { tmpZ = 0.7 }  not_psd=yes ideologically_tmpZ=yes NOT = { has_character_flag = selected_as_army_chief has_character_flag = selected_in_high_command } } } 
+	#		###[Navy]###
+	#		high_command_wb_picture_sakellariou_click_enabled = { GRE_alexandros_sakellariou = { set_temp_variable = { tmpZ = 0.7 }  not_psd=yes ideologically_tmpZ=yes NOT = { has_character_flag = selected_as_navy_chief has_character_flag = selected_in_high_command } } }
+	#		high_command_wb_picture_demestichas_click_enabled = { GRE_ioannis_demestichas = { set_temp_variable = { tmpZ = 0.7 }  not_psd=yes ideologically_tmpZ=yes NOT = { has_character_flag = selected_as_navy_chief has_character_flag = selected_in_high_command } } }
+	#		high_command_wb_picture_kavvadias_click_enabled = { GRE_epameinondas_kavvadias = { set_temp_variable = { tmpZ = 0.7 }  not_psd=yes ideologically_tmpZ=yes NOT = { has_character_flag = selected_as_navy_chief has_character_flag = selected_in_high_command } } }
+	#		high_command_wb_picture_loundras_click_enabled = { GRE_dimitrios_loundras = { set_temp_variable = { tmpZ = 0.7 }  not_psd=yes ideologically_tmpZ=yes NOT = { has_character_flag = selected_as_navy_chief has_character_flag = selected_in_high_command } } }
+	#		high_command_wb_picture_oikonomou_click_enabled = { GRE_dimitrios_oikonomou = { set_temp_variable = { tmpZ = 0.7 }  not_psd=yes ideologically_tmpZ=yes NOT = { has_character_flag = selected_as_navy_chief has_character_flag = selected_in_high_command } } }
+	#		high_command_wb_picture_toubas_click_enabled = { GRE_ioannis_toubas = { set_temp_variable = { tmpZ = 0.7 }  not_psd=yes ideologically_tmpZ=yes NOT = { has_character_flag = selected_as_navy_chief has_character_flag = selected_in_high_command } } }
+	#		high_command_wb_picture_voulgaris_click_enabled = { GRE_petros_voulgaris = { set_temp_variable = { tmpZ = 0.7 }  not_psd=yes ideologically_tmpZ=yes NOT = { has_character_flag = selected_as_navy_chief has_character_flag = selected_in_high_command } } }
+	#		high_command_wb_picture_avgeris_click_enabled = { GRE_spyridon_avgeris = { set_temp_variable = { tmpZ = 0.7 }  not_psd=yes ideologically_tmpZ=yes NOT = { has_character_flag = selected_as_navy_chief has_character_flag = selected_in_high_command } } }
+	#		high_command_wb_picture_iatridis_click_enabled = { GRE_miltiadis_iatridis = { set_temp_variable = { tmpZ = 0.7 }  not_psd=yes ideologically_tmpZ=yes NOT = { has_character_flag = selected_as_navy_chief has_character_flag = selected_in_high_command } } }
+	#		high_command_wb_picture_spyromilios_click_enabled = { GRE_pyrros_spyromilios = { set_temp_variable = { tmpZ = 0.7 }  not_psd=yes ideologically_tmpZ=yes NOT = { has_character_flag = selected_as_navy_chief has_character_flag = selected_in_high_command } } }
+	#		###
+	#		###[Promotions - Available]###
+	#		greek_officer_rank_papagos_click_enabled = { GRE_alexandros_papagos={ meets_promotion_criteria=yes } }
+	#		greek_officer_rank_drakos_click_enabled = {  GRE_markos_drakos={ meets_promotion_criteria=yes } }
+	#		greek_officer_rank_stanotas_click_enabled = {  GRE_georgios_stanotas={ meets_promotion_criteria=yes } }
+	#		greek_officer_rank_zervas_click_enabled = {  GRE_napoleon_zervas={ meets_promotion_criteria=yes } }
+	#		greek_officer_rank_plastiras_click_enabled = {  GRE_nikolaos_plastiras={ meets_promotion_criteria=yes } }
+	#		greek_officer_rank_katsimitros_click_enabled = {  GRE_charalambos_katsimitros={ meets_promotion_criteria=yes } }
+	#		greek_officer_rank_kosmas_click_enabled = {  GRE_georgios_kosmas={ meets_promotion_criteria=yes } }
+	#		greek_officer_rank_aggelis_click_enabled = {  GRE_odysseas_aggelis={ meets_promotion_criteria=yes } }
+	#		greek_officer_rank_davakis_click_enabled = {  GRE_konstantinos_davakis={ meets_promotion_criteria=yes } }
+	#		greek_officer_rank_alexakis_click_enabled = {  GRE_ioannis_sotiris_alexakis={ meets_promotion_criteria=yes } }
+	#		greek_officer_rank_velouchiotis_click_enabled = {  GRE_aris_velouchiotis={ meets_promotion_criteria=yes } }
+	#		greek_officer_rank_bakirtzis_click_enabled = {  GRE_evripidis_bakirtzis={ meets_promotion_criteria=yes } }
+	#		greek_officer_rank_rossios_click_enabled = {  GRE_alexandros_rossios={ meets_promotion_criteria=yes } }
+	#		###[Navy]###
+	#		greek_officer_rank_sakellariou_click_enabled = { GRE_alexandros_sakellariou={ meets_promotion_criteria=yes } }
+	#		greek_officer_rank_demestichas_click_enabled = { GRE_ioannis_demestichas={ meets_promotion_criteria=yes } }
+	#		greek_officer_rank_kavvadias_click_enabled = { GRE_epameinondas_kavvadias={ meets_promotion_criteria=yes } }
+	#		greek_officer_rank_loundras_click_enabled = { GRE_dimitrios_loundras={ meets_promotion_criteria=yes } }
+	#		greek_officer_rank_oikonomou_click_enabled = { GRE_dimitrios_oikonomou={ meets_promotion_criteria=yes } }
+	#		greek_officer_rank_toubas_click_enabled = { GRE_ioannis_toubas={ meets_promotion_criteria=yes } }
+	#		greek_officer_rank_voulgaris_click_enabled = { GRE_petros_voulgaris={ meets_promotion_criteria=yes } }
+	#		greek_officer_rank_avgeris_click_enabled = { GRE_spyridon_avgeris={ meets_promotion_criteria=yes } }
+	#		greek_officer_rank_iatridis_click_enabled = { GRE_miltiadis_iatridis={ meets_promotion_criteria=yes } }
+	#		greek_officer_rank_spyromilios_click_enabled = { GRE_pyrros_spyromilios={ meets_promotion_criteria=yes } }
+	#		###[Deaths]###
+	#		high_command_wb_picture_papagos_dead_visible = { check_variable = { hc_papagos_dead = 1 } }
+	#		high_command_wb_picture_drakos_dead_visible = { check_variable = { hc_drakos_dead = 1 } }
+	#		high_command_wb_picture_stanotas_dead_visible = { check_variable = { hc_stanotas_dead = 1 } }
+	#		high_command_wb_picture_zervas_dead_visible = { check_variable = { hc_zervas_dead = 1 } }
+	#		high_command_wb_picture_plastiras_dead_visible = { check_variable = { hc_plastiras_dead = 1 } }
+	#		high_command_wb_picture_katsimitros_dead_visible = { check_variable = { hc_katsimitros_dead = 1 } }
+	#		high_command_wb_picture_kosmas_dead_visible = { check_variable = { hc_kosmas_dead = 1 } }
+	#		high_command_wb_picture_aggelis_dead_visible = { check_variable = { hc_aggelis_dead = 1 } }
+	#		high_command_wb_picture_davakis_dead_visible = { check_variable = { hc_davakis_dead = 1 } }
+	#		high_command_wb_picture_alexakis_dead_visible = { check_variable = { hc_alexakis_dead = 1 } }
+	#		high_command_wb_picture_velouchiotis_dead_visible = { check_variable = { hc_velouchiotis_dead = 1 } }
+	#		high_command_wb_picture_bakirtzis_dead_visible = { check_variable = { hc_bakirtzis_dead = 1 } }
+	#		high_command_wb_picture_rossios_dead_visible = { check_variable = { hc_rossios_dead = 1 } }
+	#		##[Navy]##
+	#		high_command_wb_picture_sakellariou_dead_visible = { check_variable = { GRE.hc_sakellariou_dead = 1 } }
+	#		high_command_wb_picture_demestichas_dead_visible = { check_variable = { GRE.hc_demestichas_dead = 1 } }
+	#		high_command_wb_picture_kavvadias_dead_visible = { check_variable = { GRE.hc_kavvadias_dead = 1 } }
+	#		high_command_wb_picture_loundras_dead_visible = { check_variable = { GRE.hc_loundras_dead = 1 } }
+	#		high_command_wb_picture_oikonomou_dead_visible = { check_variable = { GRE.hc_oikonomou_dead = 1 } }
+	#		high_command_wb_picture_toubas_dead_visible = { check_variable = { GRE.hc_toubas_dead = 1 } }
+	#		high_command_wb_picture_voulgaris_dead_visible = { check_variable = { GRE.hc_voulgaris_dead = 1 } }
+	#		high_command_wb_picture_avgeris_dead_visible = { check_variable = { GRE.hc_avgeris_dead = 1 } }
+	#		high_command_wb_picture_iatridis_dead_visible = { check_variable = { GRE.hc_iatridis_dead = 1 } }
+	#		high_command_wb_picture_spyromilios_dead_visible = { check_variable = { GRE.hc_spyromilios_dead = 1 } }
+	#		###[Surrenders]###
+	#		high_command_wb_picture_papagos_surrendered_visible = { check_variable = { hc_papagos_surrendered = 1 } }
+	#		high_command_wb_picture_drakos_surrendered_visible = { check_variable = { hc_drakos_surrendered = 1 } }
+	#		high_command_wb_picture_stanotas_surrendered_visible = { check_variable = { hc_stanotas_surrendered = 1 } }
+	#		high_command_wb_picture_zervas_surrendered_visible = { check_variable = { hc_zervas_surrendered = 1 } }
+	#		high_command_wb_picture_plastiras_surrendered_visible = { check_variable = { hc_plastiras_surrendered = 1 } }
+	#		high_command_wb_picture_katsimitros_surrendered_visible = { check_variable = { hc_katsimitros_surrendered = 1 } }
+	#		high_command_wb_picture_kosmas_surrendered_visible = { check_variable = { hc_kosmas_surrendered = 1 } }
+	#		high_command_wb_picture_aggelis_surrendered_visible = { check_variable = { hc_aggelis_surrendered = 1 } }
+	#		high_command_wb_picture_davakis_surrendered_visible = { check_variable = { hc_davakis_surrendered = 1 } }
+	#		high_command_wb_picture_alexakis_surrendered_visible = { check_variable = { hc_alexakis_surrendered = 1 } }
+	#		high_command_wb_picture_velouchiotis_surrendered_visible = { check_variable = { hc_velouchiotis_surrendered = 1 } }
+	#		high_command_wb_picture_bakirtzis_surrendered_visible = { check_variable = { hc_bakirtzis_surrendered = 1 } }
+	#		high_command_wb_picture_rossios_surrendered_visible = { check_variable = { hc_rossios_surrendered = 1 } }
+	#		##[Navy]##
+	#		high_command_wb_picture_sakellariou_surrendered_visible = { check_variable = { GRE.hc_sakellariou_surrendered = 1 } }
+	#		high_command_wb_picture_demestichas_surrendered_visible = { check_variable = { GRE.hc_demestichas_surrendered = 1 } }
+	#		high_command_wb_picture_kavvadias_surrendered_visible = { check_variable = { GRE.hc_kavvadias_surrendered = 1 } }
+	#		high_command_wb_picture_loundras_surrendered_visible = { check_variable = { GRE.hc_loundras_surrendered = 1 } }
+	#		high_command_wb_picture_oikonomou_surrendered_visible = { check_variable = { GRE.hc_oikonomou_surrendered = 1 } }
+	#		high_command_wb_picture_toubas_surrendered_visible = { check_variable = { GRE.hc_toubas_surrendered = 1 } }
+	#		high_command_wb_picture_voulgaris_surrendered_visible = { check_variable = { GRE.hc_voulgaris_surrendered = 1 } }
+	#		high_command_wb_picture_avgeris_surrendered_visible = { check_variable = { GRE.hc_avgeris_surrendered = 1 } }
+	#		high_command_wb_picture_iatridis_surrendered_visible = { check_variable = { GRE.hc_iatridis_surrendered = 1 } }
+	#		high_command_wb_picture_spyromilios_surrendered_visible = { check_variable = { GRE.hc_spyromilios_surrendered = 1 } }
+	#		###[Purged]###
+	#		high_command_wb_picture_papagos_purged_visible = { check_variable = { hc_papagos_purged = 1 } }
+	#		high_command_wb_picture_drakos_purged_visible = { check_variable = { hc_drakos_purged = 1 } }
+	#		high_command_wb_picture_stanotas_purged_visible = { check_variable = { hc_stanotas_purged = 1 } }
+	#		high_command_wb_picture_zervas_purged_visible = { check_variable = { hc_zervas_purged = 1 } }
+	#		high_command_wb_picture_plastiras_purged_visible = { check_variable = { hc_plastiras_purged = 1 } }
+	#		high_command_wb_picture_katsimitros_purged_visible = { check_variable = { hc_katsimitros_purged = 1 } }
+	#		high_command_wb_picture_kosmas_purged_visible = { check_variable = { hc_kosmas_purged = 1 } }
+	#		high_command_wb_picture_aggelis_purged_visible = { check_variable = { hc_aggelis_purged = 1 } }
+	#		high_command_wb_picture_davakis_purged_visible = { check_variable = { hc_davakis_purged = 1 } }
+	#		high_command_wb_picture_alexakis_purged_visible = { check_variable = { hc_alexakis_purged = 1 } }
+	#		high_command_wb_picture_velouchiotis_purged_visible = { check_variable = { hc_velouchiotis_purged = 1 } }
+	#		high_command_wb_picture_bakirtzis_purged_visible = { check_variable = { hc_bakirtzis_purged = 1 } }
+	#		high_command_wb_picture_rossios_purged_visible = { check_variable = { hc_rossios_purged = 1 } }
+	#		##[Navy]##
+	#		high_command_wb_picture_sakellariou_purged_visible = { check_variable = { GRE.hc_sakellariou_purged = 1 } }
+	#		high_command_wb_picture_demestichas_purged_visible = { check_variable = { GRE.hc_demestichas_purged = 1 } }
+	#		high_command_wb_picture_kavvadias_purged_visible = { check_variable = { GRE.hc_kavvadias_purged = 1 } }
+	#		high_command_wb_picture_loundras_purged_visible = { check_variable = { GRE.hc_loundras_purged = 1 } }
+	#		high_command_wb_picture_oikonomou_purged_visible = { check_variable = { GRE.hc_oikonomou_purged = 1 } }
+	#		high_command_wb_picture_toubas_purged_visible = { check_variable = { GRE.hc_toubas_purged = 1 } }
+	#		high_command_wb_picture_voulgaris_purged_visible = { check_variable = { GRE.hc_voulgaris_purged = 1 } }
+	#		high_command_wb_picture_avgeris_purged_visible = { check_variable = { GRE.hc_avgeris_purged = 1 } }
+	#		high_command_wb_picture_iatridis_purged_visible = { check_variable = { GRE.hc_iatridis_purged = 1 } }
+	#		high_command_wb_picture_spyromilios_purged_visible = { check_variable = { GRE.hc_spyromilios_purged = 1 } }
+	#	}
+	#	
+	#	effects = {
+	#		coc_main_close_click = { clr_country_flag = coc_opened }
+	#		####[ASSIGNMENTS]####
+	#		###[HIRE]###
+	#		##[Chief]##
+	#		high_command_wb_picture_papagos_control_click = { if = { limit={ amount_taken_ideas={ amount<1 slots={ army_chief }} set_temp_variable = { tmpZ=0.7 }  not_psd=yes ideologically_tmpZ=yes is_field_marshal=yes has_political_power>100 } add_political_power=-100 activate_advisor=GRE_alexandros_papagos_chief } }
+	#		high_command_wb_picture_drakos_control_click = { if = { limit={ amount_taken_ideas={ amount<1 slots={ army_chief }} set_temp_variable = { tmpZ=0.7 }  not_psd=yes ideologically_tmpZ=yes is_field_marshal=yes has_political_power>100 } add_political_power=-100 activate_advisor=GRE_alexandros_drakos_chief } }
+	#		high_command_wb_picture_stanotas_control_click = { if = { limit={ amount_taken_ideas={ amount<1 slots={ army_chief }} set_temp_variable = { tmpZ=0.7 }  not_psd=yes ideologically_tmpZ=yes is_field_marshal=yes has_political_power>100 } add_political_power=-100 activate_advisor=GRE_alexandros_stanotas_chief } }
+	#		high_command_wb_picture_zervas_control_click = { if = { limit={ amount_taken_ideas={ amount<1 slots={ army_chief }} set_temp_variable = { tmpZ=0.7 }  not_psd=yes ideologically_tmpZ=yes is_field_marshal=yes has_political_power>100 } add_political_power=-100 activate_advisor=GRE_alexandros_zervas_chief } }
+	#		high_command_wb_picture_davakis_control_click = { if = { limit={ amount_taken_ideas={ amount<1 slots={ army_chief }} set_temp_variable = { tmpZ=0.7 }  not_psd=yes ideologically_tmpZ=yes is_field_marshal=yes has_political_power>100 } add_political_power=-100 activate_advisor=GRE_alexandros_davakis_chief } }
+	#		###
+	#		high_command_wb_picture_papagos_click = { if = { limit={check_variable={ GRE.hc_num_chosen<3 } has_political_power>100} add_political_power=-100 activate_advisor=GRE_alexandros_papagos_hca } }
+	#		high_command_wb_picture_drakos_click = { if = { limit={check_variable={ GRE.hc_num_chosen<3 } has_political_power>100} add_political_power=-100 activate_advisor=GRE_markos_drakos_hca } }
+	#		high_command_wb_picture_stanotas_click = { if = { limit={check_variable={ GRE.hc_num_chosen<3 } has_political_power>100} add_political_power=-100 activate_advisor=GRE_georgios_stanotas_hca } }
+	#		high_command_wb_picture_zervas_click = { if = { limit={check_variable={ GRE.hc_num_chosen<3 } has_political_power>100} add_political_power=-100 activate_advisor=GRE_napoleon_zervas_hca } }
+	#		high_command_wb_picture_plastiras_click = { if = { limit={check_variable={ GRE.hc_num_chosen<3 } has_political_power>100} add_political_power=-100 activate_advisor=GRE_nikolaos_plastiras_hca } }
+	#		high_command_wb_picture_katsimitros_click = { if = { limit={check_variable={ GRE.hc_num_chosen<3 } has_political_power>100} add_political_power=-100 activate_advisor=GRE_charalambos_katsimitros_hca } }
+	#		high_command_wb_picture_kosmas_click = { if = { limit={check_variable={ GRE.hc_num_chosen<3 } has_political_power>100} add_political_power=-100 activate_advisor=GRE_georgios_kosmas_hca } }
+	#		high_command_wb_picture_aggelis_click = { if = { limit={check_variable={ GRE.hc_num_chosen<3 } has_political_power>100} add_political_power=-100 activate_advisor=GRE_odysseas_aggelis_hca } }
+	#		high_command_wb_picture_davakis_click = { if = { limit={check_variable={ GRE.hc_num_chosen<3 } has_political_power>100} add_political_power=-100 activate_advisor=GRE_konstantinos_davakis_hca } }
+	#		high_command_wb_picture_alexakis_click = { if = { limit={check_variable={ GRE.hc_num_chosen<3 } has_political_power>100} add_political_power=-100 activate_advisor=GRE_ioannis_sotiris_alexakis_hca } }
+	#		high_command_wb_picture_velouchiotis_click = { if = { limit={check_variable={ GRE.hc_num_chosen<3 } has_political_power>100} add_political_power=-100 activate_advisor=GRE_aris_velouchiotis_hca } }
+	#		high_command_wb_picture_bakirtzis_click = { if = { limit={check_variable={ GRE.hc_num_chosen<3 } has_political_power>100} add_political_power=-100 activate_advisor=GRE_evripidis_bakirtzis_hca } }
+	#		high_command_wb_picture_rossios_click = { if = { limit={check_variable={ GRE.hc_num_chosen<3 } has_political_power>100} add_political_power=-100 activate_advisor=GRE_alexandros_rossios_hca } }
+	#		high_command_wb_picture_sakellariou_click = { if = { limit={check_variable={ GRE.hc_num_chosen<3 } has_political_power>100} add_political_power=-100 activate_advisor=GRE_alexandros_sakellariou_hca } }
+	#		high_command_wb_picture_demestichas_click = { if = { limit={check_variable={ GRE.hc_num_chosen<3 } has_political_power>100} add_political_power=-100 activate_advisor=GRE_ioannis_demestichas_hca } }
+	#		high_command_wb_picture_kavvadias_click = { if = { limit={check_variable={ GRE.hc_num_chosen<3 } has_political_power>100} add_political_power=-100 activate_advisor=GRE_epameinondas_kavvadias_hca } }
+	#		high_command_wb_picture_loundras_click = { if = { limit={check_variable={ GRE.hc_num_chosen<3 } has_political_power>100} add_political_power=-100 activate_advisor=GRE_dimitrios_loundras_hca } }
+	#		high_command_wb_picture_oikonomou_click = { if = { limit={check_variable={ GRE.hc_num_chosen<3 } has_political_power>100} add_political_power=-100 activate_advisor=GRE_dimitrios_oikonomou_hca } }
+	#		high_command_wb_picture_toubas_click = { if = { limit={check_variable={ GRE.hc_num_chosen<3 } has_political_power>100} add_political_power=-100 activate_advisor=GRE_ioannis_toubas_hca } }
+	#		high_command_wb_picture_voulgaris_click = { if = { limit={check_variable={ GRE.hc_num_chosen<3 } has_political_power>100} add_political_power=-100 activate_advisor=GRE_petros_voulgaris_hca } }
+	#		high_command_wb_picture_avgeris_click = { if = { limit={check_variable={ GRE.hc_num_chosen<3 } has_political_power>100} add_political_power=-100 activate_advisor=GRE_spyridon_avgeris_hca } }
+	#		high_command_wb_picture_iatridis_click = { if = { limit={check_variable={ GRE.hc_num_chosen<3 } has_political_power>100} add_political_power=-100 activate_advisor=GRE_miltiadis_iatridis_hca } }
+	#		high_command_wb_picture_spyromilios_click = { if = { limit={check_variable={ GRE.hc_num_chosen<3 } has_political_power>100} add_political_power=-100 activate_advisor=GRE_pyrros_spyromilios_hca } }
+	#		###[FIRE]###
+	#		##[Chief]##
+	#		greek_officer_picture_papagos_click = { if={limit={has_idea=GRE_alexandros_papagos_hca} deactivate_advisor=GRE_alexandros_papagos_hca } else_if={limit={has_idea=GRE_alexandros_papagos_chief} deactivate_advisor=GRE_alexandros_papagos_chief } }
+	#		greek_officer_picture_drakos_click = { if={limit={has_idea=GRE_markos_drakos_hca} deactivate_advisor=GRE_markos_drakos_hca } else_if={limit={has_idea=GRE_markos_drakos_chief} deactivate_advisor=GRE_markos_drakos_chief } }
+	#		greek_officer_picture_stanotas_click = { if={limit={has_idea=GRE_georgios_stanotas_hca} deactivate_advisor=GRE_georgios_stanotas_hca } else_if={limit={has_idea=GRE_georgios_stanotas_chief} deactivate_advisor=GRE_georgios_stanotas_chief } }
+	#		greek_officer_picture_zervas_click = { if={limit={has_idea=GRE_napoleon_zervas_hca} deactivate_advisor=GRE_napoleon_zervas_hca } else_if={limit={has_idea=GRE_napoleon_zervas_chief} deactivate_advisor=GRE_napoleon_zervas_chief } }
+	#		greek_officer_picture_davakis_click = { if={limit={has_idea=GRE_konstantinos_davakis_hca} deactivate_advisor=GRE_konstantinos_davakis_hca } else_if={limit={has_idea=GRE_konstantinos_davakis_chief} deactivate_advisor=GRE_konstantinos_davakis_chief } }
+	#		greek_officer_picture_plastiras_click = { deactivate_advisor=GRE_nikolaos_plastiras_hca }
+	#		greek_officer_picture_katsimitros_click = { deactivate_advisor=GRE_charalambos_katsimitros_hca }
+	#		greek_officer_picture_kosmas_click = { deactivate_advisor=GRE_georgios_kosmas_hca }
+	#		greek_officer_picture_aggelis_click = { deactivate_advisor=GRE_odysseas_aggelis_hca }
+	#		greek_officer_picture_alexakis_click = { deactivate_advisor=GRE_ioannis_sotiris_alexakis_hca }
+	#		greek_officer_picture_velouchiotis_click = { deactivate_advisor=GRE_aris_velouchiotis_hca }
+	#		greek_officer_picture_bakirtzis_click = { deactivate_advisor=GRE_evripidis_bakirtzis_hca }
+	#		greek_officer_picture_rossios_click = { deactivate_advisor=GRE_alexandros_rossios_hca }
+	#		greek_officer_picture_sakellariou_click = { deactivate_advisor=GRE_alexandros_sakellariou_hca }
+	#		greek_officer_picture_demestichas_click = { deactivate_advisor=GRE_ioannis_demestichas_hca }
+	#		greek_officer_picture_kavvadias_click = { deactivate_advisor=GRE_epameinondas_kavvadias_hca }
+	#		greek_officer_picture_loundras_click = { deactivate_advisor=GRE_dimitrios_loundras_hca }
+	#		greek_officer_picture_oikonomou_click = { deactivate_advisor=GRE_dimitrios_oikonomou_hca }
+	#		greek_officer_picture_toubas_click = { deactivate_advisor=GRE_ioannis_toubas_hca }
+	#		greek_officer_picture_voulgaris_click = { deactivate_advisor=GRE_petros_voulgaris_hca }
+	#		greek_officer_picture_avgeris_click = { deactivate_advisor=GRE_spyridon_avgeris_hca }
+	#		greek_officer_picture_iatridis_click = { deactivate_advisor=GRE_miltiadis_iatridis_hca }
+	#		greek_officer_picture_spyromilios_click = { deactivate_advisor=GRE_pyrros_spyromilios_hca }
+	#		####[RANKS/PROMOTIONS]####
+	#		greek_officer_rank_papagos_click = { GRE_alexandros_papagos = { promote_officer = yes } }
+	#		greek_officer_rank_drakos_click = { GRE_markos_drakos = { promote_officer = yes } }
+	#		greek_officer_rank_stanotas_click = { GRE_georgios_stanotas = { promote_officer = yes } }
+	#		greek_officer_rank_zervas_click = { GRE_napoleon_zervas = { promote_officer = yes } }
+	#		greek_officer_rank_plastiras_click = { GRE_nikolaos_plastiras = { promote_officer = yes } }
+	#		greek_officer_rank_katsimitros_click = { GRE_charalambos_katsimitros = { promote_officer = yes } }
+	#		greek_officer_rank_kosmas_click = { GRE_georgios_kosmas = { promote_officer = yes } }
+	#		greek_officer_rank_aggelis_click = { GRE_odysseas_aggelis = { promote_officer = yes } }
+	#		greek_officer_rank_davakis_click = { GRE_konstantinos_davakis = { promote_officer = yes } }
+	#		greek_officer_rank_alexakis_click = { GRE_ioannis_sotiris_alexakis = { promote_officer = yes } }
+	#		greek_officer_rank_velouchiotis_click = { GRE_aris_velouchiotis = { promote_officer = yes } }
+	#		greek_officer_rank_bakirtzis_click = { GRE_evripidis_bakirtzis = { promote_officer = yes } }
+	#		greek_officer_rank_rossios_click = { GRE_alexandros_rossios = { promote_officer = yes } }
+	#		###[Navy]###
+	#		greek_officer_rank_sakellariou_click = { GRE_alexandros_sakellariou = { promote_officer = yes } }
+	#		greek_officer_rank_demestichas_click = { GRE_ioannis_demestichas = { promote_officer = yes } }
+	#		greek_officer_rank_kavvadias_click = { GRE_epameinondas_kavvadias = { promote_officer = yes } }
+	#		greek_officer_rank_loundras_click = { GRE_dimitrios_loundras = { promote_officer = yes } }
+	#		greek_officer_rank_oikonomou_click = { GRE_dimitrios_oikonomou = { promote_officer = yes } }
+	#		greek_officer_rank_toubas_click = { GRE_ioannis_toubas = { promote_officer = yes } }
+	#		greek_officer_rank_voulgaris_click = { GRE_petros_voulgaris = { promote_officer = yes } }
+	#		greek_officer_rank_avgeris_click = { GRE_spyridon_avgeris = { promote_officer = yes } }
+	#		greek_officer_rank_iatridis_click = { GRE_miltiadis_iatridis = { promote_officer = yes } }
+	#		greek_officer_rank_spyromilios_click = { GRE_pyrros_spyromilios = { promote_officer = yes } }
+	#	}
+	#}
+}

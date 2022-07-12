@@ -1,0 +1,38 @@
+####################################
+#########[ STATE INFO GUI ]#########
+####################################
+
+# Scope is State
+
+not_deploying_or_recalling_days_tmpDD = {
+    # Checks whether state (scope) is deploying or recalling manpower for less than tmpDD days.
+    NOT = { has_state_flag = { flag=state_deploying_recalling value>0 } }
+}
+
+not_restructuring_troops_daysDR_valDR = {
+    # Checks whether state (scope) is restructing forces in state for less than daysDR days and valDR value. 
+    NOT = { has_state_flag = { flag=state_restructuring_forces value>valDR } }
+}
+
+not_deploying_or_withdrawing_equipment_tmpDE = {
+    # Checks whether state (scope) is deploying or withdrawing equipment in state for less than tmpDE days.   
+    NOT = { has_state_flag = { flag=state_redeploying_equipment value>0 } }
+}
+
+not_all_gui_percentages_equal_to_actual = {
+    NOT = { 
+        AND = {
+            check_variable = { combatant_percentage = gui_combatant_percentage }
+            check_variable = { noncombatant_percentage = gui_noncombatant_percentage }
+            check_variable = { reservist_percentage = gui_reservist_percentage }
+        }
+    }
+}
+
+total_gui_percentages_equal_100 = {
+    set_temp_variable = { chk=gui_combatant_percentage }
+    add_to_temp_variable = { chk=gui_noncombatant_percentage }
+    add_to_temp_variable = { chk=gui_reservist_percentage }
+    check_variable = { var=chk value=0.999 compare=greater_than_or_equals }
+    check_variable = { var=chk value=1.001 compare=less_than_or_equals }
+}

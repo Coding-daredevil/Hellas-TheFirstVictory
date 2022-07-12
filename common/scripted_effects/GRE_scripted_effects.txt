@@ -1,10 +1,620 @@
-GRE_check = {
-    add_political_power = 500
-}
-
 #############################################################################################################################################################################################
 ##################################################################################[GENERAL SCRIPTED EFFECTS]#################################################################################
 #############################################################################################################################################################################################
+
+calculate_final_b1_b2_from_temporary_array_tmpCHANCES_with_tmpWEIGHT_and_mode_tmpMODE = {
+    # This function calculates all distinct b1s & b2s calculated on previous steps to create a final b1, b2 chance for an event. No naming is required, just two arrays in proper order.
+    # Chances array contains b1 values and Weight array contains desired weights. Supposedly chances are 50, 75, 80 and our weights are 2, 0.5, 1. Therefore the final outcome will be:
+    # 2*50 + 0.5*75 + 1*80 out of 300. 100 + 37.5 + 80 out of 300 => b1 = 217.5/300 = 0.725 which leaves b2 as 0.275. Mode defines function. Mode 0 (default) utilizes weights. Mode 1
+    # will take the highest b1 value (and thus lowest b2 value) and Mode 2 will take the lowest of b1 value (and thus highest b2 value).
+
+    ###[Initialization]###
+    set_temp_variable = { b1=0 }
+    set_temp_variable = { vars_count=tmpCHANCES^num }
+    multiply_temp_variable = { vars_count=100 }
+    if = { limit={ NOT={ check_variable = { tmpCHANCES^num=tmpWEIGHT^num }}} clear_temp_array=tmpWEIGHT resize_temp_array={ array=tmpWEIGHT value=1 size=tmpCHANCES^num }}
+    ###[Refit Weight Array to add up to 1]###
+    set_temp_variable = { sum=0 }
+    for_each_loop = { array=tmpWEIGHT add_to_temp_variable={ sum=v }}
+    for_each_loop = { array=tmpWEIGHT set_temp_variable={ q=v } divide_temp_variable={ q=sum } set_temp_variable={ tmpWEIGHT^i=q }}
+    ###[Value*Weight]###
+    for_each_loop = {
+        array=tmpCHANCES
+
+        set_temp_variable = { tmp=v }
+        multiply_temp_variable = { tmp=tmpWEIGHT^i }
+        add_to_temp_variable = { b1=tmp }
+    }
+    ###[Mode]###
+    if = {
+        limit = { check_variable={ tmpMODE=1 }}
+        find_highest_in_array = { array=tmpCHANCES value=b1 }
+    }
+    else_if = {
+        limit = { check_variable={ tmpMODE=2 }}
+        find_lowest_in_array = { array=tmpCHANCES value=b1 }
+    }
+    set_temp_variable = { b2=100 }
+    subtract_from_temp_variable = { b2=b1 }
+    log="Final: b1=[?b1|3], b2=[?b2|3]"
+}
+
+########################################################################################
+##########################[ AGENCY BONUS/DEBUFF CALCULATORS ]###########################
+########################################################################################
+
+calculate_enemy_civilian_intelligence_chance_to_avoid_event = {
+    # This function calculates the chance to avoid a bad event from certain actions due to low enemy civilian intelligence.
+
+    for_each_scope_loop = { array=tmpENEMIES add_to_temp_array={ tmpFINAL=THIS.id } add_to_temp_array={ tmpARMINT=THIS.civilian_intel@GRE }}
+    for_each_scope_loop = {
+        array=tmpENEMIES
+
+        for_each_scope_loop = {
+            array=allies
+
+            if = {
+                limit = { NOT={ is_in_array={ array=tmpFINAL value=THIS.id }}}
+                add_to_temp_array = { tmpFINAL=THIS.id }
+                add_to_temp_array = { tmpARMINT=THIS.civilian_intel@GRE }
+            }
+        }
+    }
+    find_highest_in_array = { array=tmpARMINT value=x index=junk }
+    calculate_linearly_y_ax_b=yes
+    set_temp_variable = { ccivi_b2=y }
+    multiply_temp_variable = { ccivi_b2=100 }
+    set_temp_variable = { ccivi_b1=100 }
+    subtract_from_temp_variable = { ccivi_b1=ccivi_b2 }
+    ############################################
+    log="CAI: b1=[?ccivi_b1|2], b2=[?ccivi_b2|2]"
+    add_to_temp_array = { tmpCHANCES=ccivi_b1 }
+}
+
+calculate_enemy_army_intelligence_chance_to_avoid_event = {
+    # This function calculates the chance to avoid a bad event from certain actions due to low enemy army intelligence. ENEMIES (tmpENEMIES) is a dynamic array working as following. For each 
+    # input, it tries to see if there are any faction members or puppets. If not, then it only runs for that one nation. It eventually takes the maximum possible army intelligence of all 
+    # countries in tmpFINAL and does linearly calculates two chances like below, depending on tmpTHR.
+
+    for_each_scope_loop = { array=tmpENEMIES add_to_temp_array={ tmpFINAL=THIS.id } add_to_temp_array={ tmpARMINT=THIS.army_intel@GRE }}
+    for_each_scope_loop = {
+        array=tmpENEMIES
+
+        for_each_scope_loop = {
+            array=allies
+
+            if = {
+                limit = { NOT={ is_in_array={ array=tmpFINAL value=THIS.id }}}
+                add_to_temp_array = { tmpFINAL=THIS.id }
+                add_to_temp_array = { tmpARMINT=THIS.army_intel@GRE }
+            }
+        }
+    }
+    find_highest_in_array = { array=tmpARMINT value=x index=junk }
+    calculate_linearly_y_ax_b=yes
+    set_temp_variable = { carmi_b2=y }
+    multiply_temp_variable = { carmi_b2=100 }
+    set_temp_variable = { carmi_b1=100 }
+    subtract_from_temp_variable = { carmi_b1=carmi_b2 }
+    ############################################
+    log="carmi: b1=[?carmi_b1|2], b2=[?carmi_b2|2]"
+    add_to_temp_array = { tmpCHANCES=carmi_b1 }
+}
+
+calculate_enemy_naval_intelligence_chance_to_avoid_event = {
+    # This function calculates the chance to avoid a bad event from certain actions due to low enemy naval intelligence.
+
+    for_each_scope_loop = { array=tmpENEMIES add_to_temp_array={ tmpFINAL=THIS.id } add_to_temp_array={ tmpARMINT=THIS.navy_intel@GRE }}
+    for_each_scope_loop = {
+        array=tmpENEMIES
+
+        for_each_scope_loop = {
+            array=allies
+
+            if = {
+                limit = { NOT={ is_in_array={ array=tmpFINAL value=THIS.id }}}
+                add_to_temp_array = { tmpFINAL=THIS.id }
+                add_to_temp_array = { tmpARMINT=THIS.navy_intel@GRE }
+            }
+        }
+    }
+    find_highest_in_array = { array=tmpARMINT value=x index=junk }
+    calculate_linearly_y_ax_b=yes
+    set_temp_variable = { cnavi_b2=y }
+    multiply_temp_variable = { cnavi_b2=100 }
+    set_temp_variable = { cnavi_b1=100 }
+    subtract_from_temp_variable = { cnavi_b1=cnavi_b2 }
+    ############################################
+    log="cni: b1=[?cnavi_b1|2], b2=[?cnavi_b2|2]"
+    add_to_temp_array = { tmpCHANCES=cnavi_b1 }
+}
+
+calculate_enemy_air_intelligence_chance_to_avoid_event = {
+    # This function calculates the chance to avoid a bad event from certain actions due to low enemy naval intelligence.
+
+    for_each_scope_loop = { array=tmpENEMIES add_to_temp_array={ tmpFINAL=THIS.id } add_to_temp_array={ tmpARMINT=THIS.navy_intel@GRE }}
+    for_each_scope_loop = {
+        array=tmpENEMIES
+
+        for_each_scope_loop = {
+            array=allies
+
+            if = {
+                limit = { NOT={ is_in_array={ array=tmpFINAL value=THIS.id }}}
+                add_to_temp_array = { tmpFINAL=THIS.id }
+                add_to_temp_array = { tmpARMINT=THIS.navy_intel@GRE }
+            }
+        }
+    }
+    find_highest_in_array = { array=tmpARMINT value=x index=junk }
+    calculate_linearly_y_ax_b=yes
+    set_temp_variable = { cairi_b2=y }
+    multiply_temp_variable = { cairi_b2=100 }
+    set_temp_variable = { cairi_b1=100 }
+    subtract_from_temp_variable = { cairi_b1=cairi_b2 }
+    ############################################
+    log="cni: b1=[?cairi_b1|2], b2=[?cairi_b2|2]"
+    add_to_temp_array = { tmpCHANCES=cairi_b1 }
+}
+
+calculate_world_tension_chance_to_avoid_event = {
+    # This function calculates the chance to avoid a bad event from certain actions due to high world tension. For example, if tmpTHR is 20, then chances are calculated linearly between [0-20) 
+    # world tension. If tmpTHR is negative, then the limits are reverted.
+
+    set_temp_variable = { global_tension=global.threat }
+    multiply_temp_variable = { global_tension=100 }
+    clamp_temp_variable = { var=global_tension min=0 max=100 }
+    set_temp_variable = { x=global_tension }
+    calculate_linearly_y_ax_b = yes
+    set_temp_variable = { cwt_b2=y }
+    multiply_temp_variable = { cwt_b2=100 }
+    set_temp_variable = { cwt_b1=100 }
+    subtract_from_temp_variable = { cwt_b1=cwt_b2 }
+    ############################################
+    log="CWT: b1=[?cwt_b1|2], b2=[?cwt_b2|2]"
+    add_to_temp_array = { tmpCHANCES=cwt_b1 }
+}
+
+calculate_national_intelligence_chance_to_avoid_event = {
+    # This function calculates your national ability to avoid bad events from certain actions. Takes as input tmpEDIFF (event difficulty). Arguments tmpARG1, tmpARG2 are magnitude
+    # adjusters on the two main parameters that define success (default=1). (Maxes with 1 arg: About 10 Counter Int, 31 agency upgrades )
+    # RETURNS: cni_b1, cni_b2 (chances for random list)
+    
+    if = { limit={ has_intelligence_agency=no } set_temp_variable={ base=-100 }}
+    else = {
+        set_temp_variable = { base=modifier@intelligence_agency_defense }
+        multiply_temp_variable = { base=tmpARG1 }
+        set_temp_variable = { bonus=GRE.agency_upgrade_number }
+        multiply_temp_variable = { bonus=tmpARG2 }
+        add_to_temp_variable = { base=bonus }
+    }
+    set_temp_variable = { divider=base }
+    add_to_temp_variable = { divider=tmpEDIFF }
+    set_temp_variable = { cni_b1=base }
+    divide_temp_variable = { cni_b1=divider }
+    multiply_temp_variable = { cni_b1=100 }
+    set_temp_variable = { cni_b2=100 }
+    subtract_from_temp_variable = { cni_b2=cni_b1 }
+    ############################################
+    log="CNI: b1=[?cni_b1|2], b2=[?cni_b2|2]"
+    add_to_temp_array = { tmpCHANCES=cni_b1 }
+}
+
+calculate_THIS_debt_difference_chance_to_avoid_event = {
+    # This function calculates the chance to avoid a protest event from the other two parties, in case the current one has been paid while having at least tmpTHR. The chance linearly increases at it reaches its maximum (100-tmpTHR).
+    # ScaleMAG is an optional argument that will scale tmpMAG variable depending on the difference. cred_paid is the creditor paid, while THIS is potential protester.
+
+    set_temp_variable = { cur_debt=GRE.debt@var:cred_paid }
+    set_temp_variable = { debt_diff=GRE.debt@THIS }
+    subtract_from_temp_variable = { debt_diff=cur_debt }
+    
+    if = {
+        limit = { check_variable={ tmpSCALEMAG=1 }}
+        set_temp_variable = { tmpMAG=debt_diff }
+        divide_temp_variable = { tmpMAG=5 }
+    }
+    log = "CD: [?GRE.debt@var:cred_paid], DD: [?GRE.debt@THIS], DIFF: [?debt_diff], TMAG: [?tmpMAG]"
+    if = {
+        limit = { check_variable={ debt_diff>10 }}
+        set_temp_variable = { tmpTHR=GRE.debt@THIS }
+        set_temp_variable = { x=GRE.debt@var:cred_paid }
+        calculate_linearly_y_ax_b=yes
+        set_temp_variable = { tdf_b2=y }
+        multiply_temp_variable = { tdf_b2=100 }
+        divide_temp_variable = { tdf_b2=4 }                     # This division here aims to lower the % of proc, because you essentially spam this every time you pay something.
+        set_temp_variable = { tdf_b1=100 }
+        subtract_from_temp_variable = { tdf_b1=tdf_b2 }
+    }
+    else = {
+        set_temp_variable = { tdf_b1=100 }
+        set_temp_variable = { tdf_b2=0 }
+    }
+    add_to_temp_array = { tmpCHANCES=tdf_b1 }
+    log="TDF: b1=[?tdf_b1|2], b2=[?tdf_b2|2]"
+}
+
+calculate_linearly_y_ax_b = {
+    # This function calculates y=ax+b as we did in highschool due to the game's and my personal limitations to reach up to this point. If tmpTHR is positive, then it considers 0 the max 
+    # to give a weight of 1, otherwise if tmpTHR is negative, this gets reverted to consider 1 as the maximum point. In other words, if thr=20, then we check between [0, 20], if thr=-20,
+    # we check between [20, 100]. Takes X as input (e.g. world tension) and tmpTHR. Returns y
+
+    if = {                                                                      # (cwt_b2 = x * -1/tmpTHR + 1)
+        limit = { check_variable={ tmpTHR>0 }}
+        clamp_temp_variable = { var=x max=tmpTHR }
+        multiply_temp_variable = { x=-1 }
+        divide_temp_variable = { x=tmpTHR }
+        set_temp_variable = { y=1 }
+        add_to_temp_variable = { y=x }
+    }
+    else = {                                                                    # (cwt_b2 = (x-tmpTHR)/(100-tmpTHR))
+        multiply_temp_variable = { tmpTHR=-1 }
+        clamp_temp_variable = { var=x min=tmpTHR }
+        subtract_from_temp_variable = { x=tmpTHR }
+        set_temp_variable = { divider=100 }
+        subtract_from_temp_variable = { divider=tmpTHR }
+        divide_temp_variable = { x=divider }
+        set_temp_variable = { y=x }
+    }
+}
+
+########################################################################################
+##############################[ INFRASTRUCTURE EXPANSION ]##############################
+########################################################################################
+
+expand_greek_railway_system_generator ={
+    # As in python, this generator retains state and upgrades the railway system accordingly.
+
+    custom_effect_tooltip = railway_system_expansion_level_tt
+    if = {
+        limit = { check_variable={ GRE.railway_expansion_level=0 }}
+        custom_effect_tooltip = railway_system_expansion_0_tt
+        hidden_effect = {
+            build_railway = { start_state=47 target_state=839 }
+            build_railway = { path = { 4109 1109 3988 7211 } }
+            build_railway = { path = { 11818 3936 6990 9930 13242 11774 11905 } }
+            build_railway = { path = { 11895 3844 3864 } }
+            835 = {
+                add_building_construction = {
+                    type = naval_base
+                    level = 1
+                    instant_build = yes
+                    province = 13251
+                }
+            }
+            build_railway = {
+                path = { 13251 12001 }
+            }
+            hidden_effect = {
+                build_railway = { path = { 11895 13248 } }
+                build_railway = { path = { 3988 7096 } }
+            }
+        }
+    }
+    else_if = {
+        limit = { check_variable={ GRE.railway_expansion_level=1 }}
+        custom_effect_tooltip = railway_system_expansion_1_tt
+        hidden_effect = {
+            47 = {
+                add_building_construction = {
+                    type = infrastructure
+                    level = 1
+                    instant_build = yes
+                }
+            }
+            839 = {
+                add_building_construction = {
+                    type = infrastructure
+                    level = 1
+                    instant_build = yes
+                }
+            }
+            build_railway = { path = { 11818 10163 13240 3973 13250 11895 13246 13241 1109 4109 11965 } }
+            build_railway = { path = { 11818 3936 6990 9930 13242 11774 11905 } }
+            build_railway = { path = { 7211 4193 1173 4178 4078 7096 } }
+        }
+    }
+    else_if = { 
+        limit = { check_variable={ GRE.railway_expansion_level=2 }}
+        custom_effect_tooltip = railway_system_expansion_2_tt
+        hidden_effect = {
+            185 = { add_building_construction = { type=infrastructure level=1 instant_build=yes }}
+            836 = { add_building_construction = { type=supply_node level=1 province=11895 instant_build=yes }}
+            186 = { add_building_construction = { type=supply_node level=1 province=4078 instant_build=yes }}
+            build_railway = { path = { 1109 976 13251 } }
+            build_railway = { path = { 12001 9916 6930 9805 } }
+            build_railway = { path = { 13248 3914 } }
+        }
+    }
+    else_if = { 
+        limit = { check_variable={ GRE.railway_expansion_level=3 }}
+        custom_effect_tooltip = railway_system_expansion_3_tt
+        hidden_effect = {
+            836 = { add_building_construction = { type=fuel_silo level=1 instant_build=yes }}
+            185 = { add_building_construction = { type=supply_node province=3914 level=1 instant_build=yes }}
+            840 = { add_building_construction = { type=supply_node province=9930 level=1 instant_build=yes }}
+            build_railway = { path = { 13248 13252 9916 } }
+            build_railway = { path = { 3914 9805 } }
+        }
+    }
+    else_if = { 
+        limit = { check_variable={ GRE.railway_expansion_level=4 }}
+        custom_effect_tooltip = railway_system_expansion_4_tt
+        hidden_effect = {
+            836 = { add_building_construction = { type=fuel_silo level=1 instant_build=yes }}
+            186 = { add_building_construction = { type=fuel_silo level=1 instant_build=yes }}
+            47 = { add_building_construction = { type=infrastructure level=1 instant_build=yes }}
+            839 = { add_building_construction = { type=infrastructure level=1 instant_build=yes }}
+            186 = { add_building_construction = { type=infrastructure level=1 instant_build=yes }}
+            835 = { add_building_construction = { type=infrastructure level=1 instant_build=yes }}
+            185 = { add_building_construction = { type=infrastructure level=1 instant_build=yes }}
+            838 = { add_building_construction = { type=infrastructure level=1 instant_build=yes }}
+            836 = { add_building_construction = { type=infrastructure level=1 instant_build=yes }}
+            every_controlled_state = { 
+                if = {
+                    limit = { has_dynamic_modifier = { modifier = GRE_inaccessible_region } }
+                    remove_dynamic_modifier = { modifier = GRE_inaccessible_region }
+                }
+            }
+        }
+    }
+    add_to_variable = { GRE.railway_expansion_level=1 }
+}
+
+########################################################################################
+###########################[ GENERAL WEIGHTS FROM IFNLUENCE ]###########################
+########################################################################################
+
+set_linear_influence_weights_with_THIS = {
+    # This function lineary sets bonuses/nerfs depending on influence. (y = 0.01x)
+
+    set_temp_variable = { wght=0.01 }
+    multiply_temp_variable = { wght=THIS.favor@GRE }
+}
+
+set_linear_parameter_thisPAR_weights = {
+    # This function lineary sets weights depending on parameter thisPAR (temp_var), with max/min values parMAX, parMIN. Best outcome will always be 1.
+    # NEG: y = -thisPAR/parMIN
+    # POS: y = thisPAR/parMAX
+
+    set_temp_variable = { par_wght=thisPAR }
+    if = { limit={ check_variable={ thisPAR>0 }} divide_temp_variable = { par_wght=parMAX } }
+    else = { divide_temp_variable = { par_wght=parMIN } }
+}
+
+########################################################################################
+#############################[ REACTION EVENTS TO ACTIONS ]#############################
+########################################################################################
+
+potentially_send_report_events_for_action_tmpREAC1_with_args_tmpARRVAL_tmpMAG_and_code = {
+    # This function determines whether positive/negative events will be fired by nations when you activate x decisions. Decisions are in X code (meaning you need 
+    # to insert only ONE codes, like 51 for industrial expansion. Code is XXXX form, depicting Mon/Dem/Com/Fas. 0 depicts no results, 1 depicts favorable/negative 
+    # results depending on the code selected. ARRVAL is an optional temp array storing all values which depend on feature set. For example, if I set 
+    # 60/61 which is for authoritarian actions, tmpARRVAL has to include favor won/lost (2 vars). MAG is for magnitude (default(mostly)/user choices x times).
+
+    for_each_scope_loop = {
+        array = global.favor_mechanic
+
+        random_list = {
+            seed=random
+            log=yes
+            b1 = { }
+            b2 = {
+                if = {
+                    limit = {
+                        OR = {
+                            AND = { has_government=neutrality check_variable={ CM=1 } }
+                            AND = { has_government=democratic check_variable={ CD=1 } }
+                            AND = { has_government=communism check_variable={ CC=1 } }
+                            AND = { has_government=fascism check_variable={ CF=1 } }
+                        }
+                    }
+                    set_variable = { THIS.init_e332t@GRE=tmpREAC1 }
+                    set_variable = { THIS.init_e332MAG@GRE=tmpMAG }
+                    set_temp_variable_to_random = { var=tmpX min=0 max=7 integer=yes }
+                    set_variable = { THIS.init_e332d@GRE=tmpX }
+                    country_event = { id = hellas.3331 days=1 }
+                }
+            }
+        }
+    }
+}
+
+potentially_send_report_events_for_actions_tmpREAC1_tmpREAC2_with_args_tmpARRVAL_tmpMAG_and_code = {
+    # This function determines whether positive/negative events will be fired by nations when you activate xx decisions. Decisions are in XX code (meaning you need 
+    # to insert a combination of codes, like 60 and 61 for authoritarian. Code is XXXX form, depicting Mon/Dem/Com/Fas (CM/CD/CC/CF). 0 depicts no results, 1 depicts 
+    # favorable results, whereas 2 depicts negative results. ARRVAL is an optional temp array storing all values which depend on feature set. For example, if I set 
+    # 60/61 which is for authoritarian actions, tmpARRVAL has to include favor won/lost (2 vars). MAG is for magnitude (default(mostly)/user choices x times).
+
+    for_each_scope_loop = {
+        array = global.favor_mechanic
+
+        random_list = {
+            seed=random
+            log=yes
+            b1 = { }
+            b2 = {
+                for_each_loop = { array=tmpARRVAL add_to_array={THIS.init_e332ARRVAL@GRE=v }}
+                set_variable = { THIS.init_e332MAG@GRE=tmpMAG }
+                if = {
+                    limit = {
+                        OR = {
+                            AND = { has_government=neutrality check_variable={ CM=1 } }
+                            AND = { has_government=democratic check_variable={ CD=1 } }
+                            AND = { has_government=communism check_variable={ CC=1 } }
+                            AND = { has_government=fascism check_variable={ CF=1 } }
+                        }
+                    }
+                    set_variable = { THIS.init_e332t@GRE=tmpREAC1 }
+                    set_temp_variable_to_random = { var=tmpX min=0 max=7 integer=yes }
+                    set_variable = { THIS.init_e332d@GRE=tmpX }
+                    country_event = { id = hellas.3331 days=1 }
+                }
+                else_if = {
+                    limit = {
+                        OR = {
+                            AND = { has_government=neutrality check_variable={ CM=2 } }
+                            AND = { has_government=democratic check_variable={ CD=2 } }
+                            AND = { has_government=communism check_variable={ CC=2 } }
+                            AND = { has_government=fascism check_variable={ CF=2 } }
+                        }
+                    }
+                    set_variable = { THIS.init_e332t@GRE=tmpREAC2 }
+                    set_temp_variable_to_random = { var=tmpX min=0 max=7 integer=yes }
+                    set_variable = { THIS.init_e332d@GRE=tmpX }
+                    country_event = { id = hellas.3331 days=1 }
+                }
+            }
+        }
+    }
+}
+
+potentially_send_report_events_for_action_tmpREAC1_with_args_tmpARRVAL_tmpMAG_to_targets_tmpRECEIVERS = {
+    # This function determines whether positive/negative events will be fired by nations when you activate x decisions. Decisions are in X code (meaning you need 
+    # to insert only ONE codes, like 51 for industrial expansion. Receivers are a temp array of nations that a report event will be judged for.
+    
+    for_each_scope_loop = {
+        array = tmpRECEIVERS
+
+        random_list = {
+            seed=random
+            log=yes
+            b1 = { }
+            b2 = {
+                if = {
+                    limit = {
+                        check_variable = { tmpREAC1=52 }
+                        mussolini_historical_tensions_with_greece = yes
+                    }
+                    set_variable = { THIS.init_e332t@GRE=tmpREAC1 }
+                    set_variable = { THIS.init_e332MAG@GRE=tmpMAG }
+                    set_temp_variable_to_random = { var=tmpX min=0 max=7 integer=yes }
+                    set_variable = { THIS.init_e332d@GRE=tmpX }
+                    country_event = { id = hellas.3331 days=1 }
+                }
+                else = {
+                    set_variable = { THIS.init_e332t@GRE=tmpREAC1 }
+                    set_variable = { THIS.init_e332MAG@GRE=tmpMAG }
+                    set_temp_variable_to_random = { var=tmpX min=0 max=7 integer=yes }
+                    set_variable = { THIS.init_e332d@GRE=tmpX }
+                    country_event = { id = hellas.3331 days=1 }
+                }
+            }
+        }
+    }
+}
+
+potentially_send_report_events_for_unevently_paid_debt_gui = {
+    # This function calculates whether player paid more debt towards one nation over the other, in which case a diplomatic protest will take place.
+
+    set_temp_variable = { index=1 }
+    add_to_temp_array = { debt_collectors=ENG.id }
+    add_to_temp_array = { debt_collectors=FRA.id }
+    add_to_temp_array = { debt_collectors=ITA.id }
+    for_each_scope_loop = {
+        array = debt_collectors
+
+        if={
+            limit={
+                NOT={ check_variable = { THIS=GRE.ecall_selector }}
+                set_temp_variable = { x=GRE.debt@THIS }
+                subtract_from_temp_variable = { x=GRE.debt@var:GRE.ecall_selector }
+                check_variable = { var=x value=15 compare=greater_than_or_equals}
+            }
+            set_linear_influence_weights_with_THIS=yes
+            multiply_temp_variable = { wght=25 }
+            set_temp_variable = { tmp=x }
+            subtract_from_temp_variable = { tmp=15 }
+            divide_temp_variable = { tmp=5 }
+            set_temp_variable = { wght2=-2 }
+            multiply_temp_variable = { wght2=tmp }
+            set_temp_variable = { b1=50 }
+            set_temp_variable = { b2=50 }
+            add_to_temp_variable = { b1=wght }
+            add_to_temp_variable = { b1=wght }
+            subtract_from_temp_variable = { b2=wght }
+            subtract_from_temp_variable = { b2=wght }
+            random_list = {
+                seed=random
+                b1 = { }
+                b2 = { set_variable = { THIS.init_e332t@GRE=50 } set_variable = { THIS.init_e332d@GRE=1 } country_event = { id = hellas.3331 days=1 }  }
+            }
+        }
+    }
+}
+
+potentially_send_report_events_for_unevently_paid_debt = {
+    # This function calculates whether player paid more debt towards one nation over the other, in which case a diplomatic protest will take place.
+
+    set_temp_variable = { index=1 }
+    add_to_temp_array = { debt_collectors=ENG.id }
+    add_to_temp_array = { debt_collectors=FRA.id }
+    add_to_temp_array = { debt_collectors=ITA.id }
+    for_each_scope_loop = {
+        array = debt_collectors
+
+        if={
+            limit={
+                NOT={ check_variable = { THIS.id=PREV.FROM.id }}
+                set_temp_variable = { x=GRE.debt@THIS }
+                subtract_from_temp_variable = { x=GRE.debt@PREV.FROM }
+                check_variable = { var=x value=15 compare=greater_than_or_equals}
+            }
+            set_linear_influence_weights_with_THIS=yes
+            multiply_temp_variable = { wght=25 }
+            set_temp_variable = { tmp=x }
+            subtract_from_temp_variable = { tmp=15 }
+            divide_temp_variable = { tmp=5 }
+            set_temp_variable = { wght2=-2 }
+            multiply_temp_variable = { wght2=tmp }
+            set_temp_variable = { b1=50 }
+            set_temp_variable = { b2=50 }
+            add_to_temp_variable = { b1=wght }
+            add_to_temp_variable = { b1=wght }
+            subtract_from_temp_variable = { b2=wght }
+            subtract_from_temp_variable = { b2=wght }
+            random_list = {
+                seed=random
+                b1 = { }
+                b2 = { set_variable = { THIS.init_e332t@GRE=50 } set_variable = { THIS.init_e332d@GRE=1 } country_event = { id = hellas.3331 days=1 }  }
+            }
+        }
+    }
+}
+
+send_event_FROM_scope_to_GRE_of_type_tmpT_in_days_tmpD = {
+    # This function works as a stack for event senders. We send through an event because its mandatory if we want FROM to depict sender nation (otherwise we get our nation) back which breaks everything.
+    # We have no problem when same id is used by different scopes (GER+ITA) but we have a problem when we want to send an event by nation X 7 days later while event another of nation X is to be sent 
+    # after 3 days. In that case we would override the variables. In that regard we keep a stack of 7 events. The only case we have an error is when a nation is to send more than 7 report events
+    # in a few days in that case events will be lost.
+    
+    #log="Scope is: [?THIS.GetName]"
+    #log="T: [?THIS.init_e332t@GRE], D: [?THIS.init_e332d@GRE]"
+
+    set_temp_variable = { event_index=1 }
+    resize_temp_array = { array=stack value=1 size=7 }
+    for_each_loop = {
+        array = stack
+
+        #log="THIS; [THIS.GetName]"
+        meta_effect = {
+            text = {
+                if = {
+                    limit = { NOT={ is_in_array={ array=GRE.e_332_[STACK_POS] value=THIS.id }}}
+                    add_to_array = { GRE.e_332_[STACK_POS]=THIS.id }
+                    set_variable = { THIS.e332_[STACK_POS]_t@GRE=THIS.init_e332t@GRE }
+                    set_variable = { THIS.e332_[STACK_POS]_MAG@GRE=THIS.init_e332MAG@GRE }
+                    for_each_loop = { array=THIS.init_e332ARRVAL@GRE add_to_array={THIS.e332_[STACK_POS]_ARRVAL@GRE=v }}
+                    GRE = { country_event={ id=hellas.332000[STACK_POS] days=PREV.init_e332d@GRE }}
+                    set_temp_variable={ break=1 }
+                }
+            }
+            STACK_POS = "[?event_index|.0]"
+        }
+        add_to_temp_variable = { event_index=1 }
+    }
+    clear_variable = THIS.init_e332t@GRE
+    clear_variable = THIS.init_e332d@GRE
+}
 
 ########################################################################################
 ##############################[ DEBT TO THE IFC REVAMPED ]##############################
@@ -16,6 +626,7 @@ GRE_check = {
 
 GRE_update_debt_status = {                                                   ### Updates debt status for all three nations (ENG/FRA/ITA) and total debt paid. Enters through country scope!
     subtract_from_variable = { GRE.debt@THIS = GRE.debt_package }             ## Subtract from scope's stack the debt package (defined by decision, either small or big)
+    add_to_variable = { GRE.paid_debt@THIS = GRE.debt_package }               ## Keep count of how much debt Greece paid to THIS (gui purposes).
     add_to_variable = { GRE.GRE_debt_to_the_ifc_paid_var = GRE.debt_package } ## Add package to total counter 
     set_variable = { GRE.debt_package = 0 }                                   ## Resets the package to 0
     GRE = { GRE_calculate_effects_of_debt = yes }                             ## Calls below scripted effect through the scope of Greece
@@ -1056,11 +1667,11 @@ tmpT_axal_by_tmpQ = {
     if = {
         limit = { check_variable = { tmpT = 1 } }                                           # Increase AXAL (towards Axis), Decrease ALAX (subsequently)
         add_to_variable = { GRE.axal = tmpQ }
-        custom_effect_tooltip = increase_axal_by_tmpQ
+        custom_effect_tooltip = axal_increase_by_tmpQ
     }
     else = {
         subtract_from_variable = { GRE.axal = tmpQ }
-        custom_effect_tooltip = decrease_axal_by_tmpQ
+        custom_effect_tooltip = axal_decrease_by_tmpQ
     }
     axal_gui_call = yes
 }
@@ -1073,6 +1684,17 @@ tmpT_axal_by_tmpQ = {
 #########################################################
 ####################[ ALIGNMENT CALC.]###################
 #########################################################
+
+ep_calculate_overpayment = {
+    if = { 
+        limit = { check_variable={ var=GRE_eastern_expenditure value=1 compare=equals } }
+        add_ideas = GRE_spent_too_much
+    }
+    else_if = {
+        limit = { check_variable={ var=GRE_eastern_expenditure value=2 compare=equals } }
+        swap_ideas = { remove_idea=GRE_spent_too_much add_idea=GRE_spent_too_much_2 }
+    }
+}
 
 ep_calculate_alignment = {
     set_temp_variable = { ep_pot = 100 }
@@ -1139,7 +1761,7 @@ ep_calculate_alignment = {
 find_total_and_faction_weight_of_ideology_characters = {
     find_num_weight_initialize_main_weight_variables = yes
     find_num_weight_initialize_battalion_variables = yes
-    every_unit_leader = {
+    every_character = {
         #limit = { OR = { is_army_leader = yes is_navy_leader = yes } }
         ###[Main Ideologies]###
         if = {
@@ -1344,6 +1966,7 @@ find_num_weight_of_ideology_characters = {
     ##################################################################
     ##############################[ARMY]##############################
     ##################################################################
+    find_num_weight_initialize_counters = yes
     find_num_weight_initialize_temps = yes
     every_army_leader = {
         ###[Overall Beliefs]### 
@@ -1357,15 +1980,15 @@ find_num_weight_of_ideology_characters = {
         else_if = { limit = { has_trait = trait_GRE_revolutionary_leanings } add_to_temp_variable = { recnter = 1 } if = { limit = { is_leading_army = yes } add_to_temp_variable = { recntera = 1 } } else_if = { limit = { is_leading_army_group = yes } add_to_temp_variable = { recnterag = 1 } } if = { limit = { has_trait = gre_war_veteran } add_to_temp_variable = { recnterv2 = 1 } } else_if = { limit = { has_trait = gre_two_war_veteran } add_to_temp_variable = { recnterv3 = 1 } } else_if = { limit = { has_trait = gre_three_war_veteran } add_to_temp_variable = { recnterv4 = 1 } } }
         ###[Friendliness]###
         ##[+4 to -4, depending on level Loyal->Friendly. If character has 2 beliefs, then the highest is taken into consideration]##
-        if = { limit = { set_temp_variable = { tmpZ = 0.8 } is_ideologically_close_tmpZ = yes } add_to_temp_variable = { loyal_cnter = 1 } add_to_temp_variable = { overall_cnter = 4 } }
-        else_if = { limit = { set_temp_variable = { tmpZ = 0.7 } is_ideologically_close_tmpZ = yes } add_to_temp_variable = { friendly_cnter = 1 } add_to_temp_variable = { overall_cnter = 3 } }
-        else_if = { limit = { set_temp_variable = { tmpZ = 0.6 } is_ideologically_close_tmpZ = yes } add_to_temp_variable = { growing_cnter = 1 } add_to_temp_variable = { overall_cnter = 2 } }
-        else_if = { limit = { set_temp_variable = { tmpZ = 0.5 } is_ideologically_close_tmpZ = yes } add_to_temp_variable = { adequate_cnter = 1 } add_to_temp_variable = { overall_cnter = 1 } }
-        else_if = { limit = { set_temp_variable = { tmpZ = 0.4 } is_ideologically_close_tmpZ = yes } add_to_temp_variable = { inconsequential_cnter = 1 } add_to_temp_variable = { overall_cnter = 0 } }
-        else_if = { limit = { set_temp_variable = { tmpZ = 0.3 } is_ideologically_close_tmpZ = yes } add_to_temp_variable = { unfavorable_cnter = 1 } add_to_temp_variable = { overall_cnter = -1 } }
-        else_if = { limit = { set_temp_variable = { tmpZ = 0.2 } is_ideologically_close_tmpZ = yes } add_to_temp_variable = { worsening_cnter = 1 } add_to_temp_variable = { overall_cnter = -2 } }
-        else_if = { limit = { set_temp_variable = { tmpZ = 0.1 } is_ideologically_close_tmpZ = yes } add_to_temp_variable = { horrible_cnter = 1 } add_to_temp_variable = { overall_cnter = -3 } }
-        else_if = { limit = { set_temp_variable = { tmpZ = 0.0 } is_ideologically_close_tmpZ = yes } add_to_temp_variable = { rebellious_cnter = 1 } add_to_temp_variable = { overall_cnter = -4 } }  
+        if = { limit = { set_temp_variable = { tmpZ = 80 } is_ideologically_close_tmpZ = yes } add_to_temp_variable = { loyal_cnter = 1 } add_to_temp_variable = { overall_cnter = 4 } }
+        else_if = { limit = { set_temp_variable = { tmpZ = 70 }  is_ideologically_close_tmpZ = yes } add_to_temp_variable = { friendly_cnter = 1 } add_to_temp_variable = { overall_cnter = 3 } }
+        else_if = { limit = { set_temp_variable = { tmpZ = 60 }  is_ideologically_close_tmpZ = yes } add_to_temp_variable = { growing_cnter = 1 } add_to_temp_variable = { overall_cnter = 2 } }
+        else_if = { limit = { set_temp_variable = { tmpZ = 50 }  is_ideologically_close_tmpZ = yes } add_to_temp_variable = { adequate_cnter = 1 } add_to_temp_variable = { overall_cnter = 1 } }
+        else_if = { limit = { set_temp_variable = { tmpZ = 40 }  is_ideologically_close_tmpZ = yes } add_to_temp_variable = { inconsequential_cnter = 1 } add_to_temp_variable = { overall_cnter = 0 } }
+        else_if = { limit = { set_temp_variable = { tmpZ = 30 }  is_ideologically_close_tmpZ = yes } add_to_temp_variable = { unfavorable_cnter = 1 } add_to_temp_variable = { overall_cnter = -1 } }
+        else_if = { limit = { set_temp_variable = { tmpZ = 20 }  is_ideologically_close_tmpZ = yes } add_to_temp_variable = { worsening_cnter = 1 } add_to_temp_variable = { overall_cnter = -2 } }
+        else_if = { limit = { set_temp_variable = { tmpZ = 10 }  is_ideologically_close_tmpZ = yes } add_to_temp_variable = { horrible_cnter = 1 } add_to_temp_variable = { overall_cnter = -3 } }
+        else_if = { limit = { set_temp_variable = { tmpZ = 0  }  is_ideologically_close_tmpZ = yes } add_to_temp_variable = { rebellious_cnter = 1 } add_to_temp_variable = { overall_cnter = -4 } }  
     }
     ###[Land Leaders]###
     set_variable = { GRE.monarchist_leaders = mcnter }
@@ -1397,18 +2020,6 @@ find_num_weight_of_ideology_characters = {
     add_assigned_army_group = yes
     set_variable = { GRE.army_leaders_assigned = mcntera }
     set_variable = { GRE.army_leaders_assigned_fm = mcnterag }
-    ###
-    set_variable = { GRE.loyal_leaders = loyal_cnter }
-    set_variable = { GRE.friendly_leaders = friendly_cnter }
-    set_variable = { GRE.growing_leaders = growing_cnter }
-    set_variable = { GRE.adequate_leaders = adequate_cnter }
-    set_variable = { GRE.inconsequential_leaders = inconsequential_cnter }
-    set_variable = { GRE.unfavorable_leaders = unfavorable_cnter }
-    set_variable = { GRE.worsening_leaders = worsening_cnter }
-    set_variable = { GRE.horrible_leaders = horrible_cnter }
-    set_variable = { GRE.rebellious_leaders = rebellious_cnter }
-    divide_temp_variable = { overall_cnter = GRE.army_leaders }
-    set_variable = { GRE.overall_friendliness = overall_cnter }
     ##################################################################
     ##############################[NAVY]##############################
     ##################################################################
@@ -1425,15 +2036,15 @@ find_num_weight_of_ideology_characters = {
         else_if = { limit = { has_trait = trait_GRE_revolutionary_leanings } add_to_temp_variable = { recnter = 1 } if = { limit = { is_assigned = yes } add_to_temp_variable = { recntera = 1 } } if = { limit = { has_trait = gre_war_veteran } add_to_temp_variable = { recnterv2 = 1 } } else_if = { limit = { has_trait = gre_two_war_veteran } add_to_temp_variable = { recnterv3 = 1 } } else_if = { limit = { has_trait = gre_three_war_veteran } add_to_temp_variable = { recnterv4 = 1 } } }
         ###[Friendliness]###
         ##[+4 to -4, depending on level Loyal->Friendly. If character has 2 beliefs, then the highest is taken into consideration]##
-        if = { limit = { set_temp_variable = { tmpZ = 0.8 } is_ideologically_close_tmpZ = yes } add_to_temp_variable = { loyal_cnter = 1 } add_to_temp_variable = { overall_cnter = 4 } }
-        else_if = { limit = { set_temp_variable = { tmpZ = 0.7 } is_ideologically_close_tmpZ = yes } add_to_temp_variable = { friendly_cnter = 1 } add_to_temp_variable = { overall_cnter = 3 } }
-        else_if = { limit = { set_temp_variable = { tmpZ = 0.6 } is_ideologically_close_tmpZ = yes } add_to_temp_variable = { growing_cnter = 1 } add_to_temp_variable = { overall_cnter = 2 } }
-        else_if = { limit = { set_temp_variable = { tmpZ = 0.5 } is_ideologically_close_tmpZ = yes } add_to_temp_variable = { adequate_cnter = 1 } add_to_temp_variable = { overall_cnter = 1 } }
-        else_if = { limit = { set_temp_variable = { tmpZ = 0.4 } is_ideologically_close_tmpZ = yes } add_to_temp_variable = { inconsequential_cnter = 1 } add_to_temp_variable = { overall_cnter = 0 } }
-        else_if = { limit = { set_temp_variable = { tmpZ = 0.3 } is_ideologically_close_tmpZ = yes } add_to_temp_variable = { unfavorable_cnter = 1 } add_to_temp_variable = { overall_cnter = -1 } }
-        else_if = { limit = { set_temp_variable = { tmpZ = 0.2 } is_ideologically_close_tmpZ = yes } add_to_temp_variable = { worsening_cnter = 1 } add_to_temp_variable = { overall_cnter = -2 } }
-        else_if = { limit = { set_temp_variable = { tmpZ = 0.1 } is_ideologically_close_tmpZ = yes } add_to_temp_variable = { horrible_cnter = 1 } add_to_temp_variable = { overall_cnter = -3 } }
-        else_if = { limit = { set_temp_variable = { tmpZ = 0.0 } is_ideologically_close_tmpZ = yes } add_to_temp_variable = { rebellious_cnter = 1 } add_to_temp_variable = { overall_cnter = -4 } }  
+        if = { limit = { set_temp_variable = { tmpZ = 80 } is_ideologically_close_tmpZ = yes } add_to_temp_variable = { loyal_cnter = 1 } add_to_temp_variable = { overall_cnter = 4 } }
+        else_if = { limit = { set_temp_variable = { tmpZ = 70 } is_ideologically_close_tmpZ = yes } add_to_temp_variable = { friendly_cnter = 1 } add_to_temp_variable = { overall_cnter = 3 } }
+        else_if = { limit = { set_temp_variable = { tmpZ = 60 } is_ideologically_close_tmpZ = yes } add_to_temp_variable = { growing_cnter = 1 } add_to_temp_variable = { overall_cnter = 2 } }
+        else_if = { limit = { set_temp_variable = { tmpZ = 50 } is_ideologically_close_tmpZ = yes } add_to_temp_variable = { adequate_cnter = 1 } add_to_temp_variable = { overall_cnter = 1 } }
+        else_if = { limit = { set_temp_variable = { tmpZ = 40 } is_ideologically_close_tmpZ = yes } add_to_temp_variable = { inconsequential_cnter = 1 } add_to_temp_variable = { overall_cnter = 0 } }
+        else_if = { limit = { set_temp_variable = { tmpZ = 30 } is_ideologically_close_tmpZ = yes } add_to_temp_variable = { unfavorable_cnter = 1 } add_to_temp_variable = { overall_cnter = -1 } }
+        else_if = { limit = { set_temp_variable = { tmpZ = 20 } is_ideologically_close_tmpZ = yes } add_to_temp_variable = { worsening_cnter = 1 } add_to_temp_variable = { overall_cnter = -2 } }
+        else_if = { limit = { set_temp_variable = { tmpZ = 10 } is_ideologically_close_tmpZ = yes } add_to_temp_variable = { horrible_cnter = 1 } add_to_temp_variable = { overall_cnter = -3 } }
+        else_if = { limit = { set_temp_variable = { tmpZ = 0  } is_ideologically_close_tmpZ = yes } add_to_temp_variable = { rebellious_cnter = 1 } add_to_temp_variable = { overall_cnter = -4 } }  
     }
     ###[Navy Leaders]###
     set_variable = { GRE.monarchist_leaders_n = mcnter }
@@ -1455,18 +2066,58 @@ find_num_weight_of_ideology_characters = {
     set_variable = { GRE.revolutionary_leaders_n_assigned = recntera }
     add_assigned_army_or_navy = yes
     set_variable = { GRE.navy_leaders_assigned = mcntera }
-    ###
-    add_to_variable = { GRE.loyal_leaders = loyal_cnter }
-    add_to_variable = { GRE.friendly_leaders = friendly_cnter }
-    add_to_variable = { GRE.growing_leaders = growing_cnter }
-    add_to_variable = { GRE.adequate_leaders = adequate_cnter }
-    add_to_variable = { GRE.inconsequential_leaders = inconsequential_cnter }
-    add_to_variable = { GRE.unfavorable_leaders = unfavorable_cnter }
-    add_to_variable = { GRE.worsening_leaders = worsening_cnter }
-    add_to_variable = { GRE.horrible_leaders = horrible_cnter }
-    add_to_variable = { GRE.rebellious_leaders = rebellious_cnter }
-    divide_temp_variable = { overall_cnter = GRE.navy_leaders }
-    add_to_variable = { GRE.overall_friendliness = overall_cnter }
+    ##[Base Represenntation]##
+    set_temp_variable = { dvd_cnt = GRE.army_leaders }
+    add_to_temp_variable = { dvd_cnt = GRE.navy_leaders }
+    set_variable = { GRE.base_monarchist_representation=GRE.conventional_leaders }
+    add_to_variable = { GRE.base_monarchist_representation=GRE.conventional_leaders_n }
+    add_to_variable = { GRE.base_monarchist_representation=GRE.monarchofascist_leaders }
+    add_to_variable = { GRE.base_monarchist_representation=GRE.monarchofascist_leaders_n }
+    divide_variable = { GRE.base_monarchist_representation=2 }
+    add_to_variable = { GRE.base_monarchist_representation=GRE.monarchist_leaders }
+    add_to_variable = { GRE.base_monarchist_representation=GRE.monarchist_leaders_n }
+    divide_variable = { GRE.base_monarchist_representation=dvd_cnt }
+    #log="B_CONV: [?GRE.conventional_leaders] [?GRE.conventional_leaders_n]\nB_MONF: [?GRE.monarchofascist_leaders] [?GRE.conventional_leaders_n]\n"
+    set_variable = { GRE.base_republican_representation=GRE.conventional_leaders }
+    add_to_variable = { GRE.base_republican_representation=GRE.conventional_leaders_n }
+    add_to_variable = { GRE.base_republican_representation=GRE.socialdemocratic_leaders }
+    add_to_variable = { GRE.base_republican_representation=GRE.socialdemocratic_leaders_n }
+    divide_variable = { GRE.base_republican_representation=2 }
+    add_to_variable = { GRE.base_republican_representation=GRE.republican_leaders }
+    add_to_variable = { GRE.base_republican_representation=GRE.republican_leaders_n }
+    divide_variable = { GRE.base_republican_representation=dvd_cnt }
+    set_variable = { GRE.base_communist_representation=GRE.revolutionary_leaders }
+    add_to_variable = { GRE.base_communist_representation=GRE.revolutionary_leaders_n }
+    add_to_variable = { GRE.base_communist_representation=GRE.socialdemocratic_leaders }
+    add_to_variable = { GRE.base_communist_representation=GRE.socialdemocratic_leaders_n }
+    divide_variable = { GRE.base_communist_representation=2 }
+    add_to_variable = { GRE.base_communist_representation=GRE.communist_leaders }
+    add_to_variable = { GRE.base_communist_representation=GRE.communist_leaders_n }
+    divide_variable = { GRE.base_communist_representation=dvd_cnt }
+    set_variable = { GRE.base_fascist_representation=GRE.revolutionary_leaders }
+    add_to_variable = { GRE.base_fascist_representation=GRE.revolutionary_leaders_n }
+    add_to_variable = { GRE.base_fascist_representation=GRE.monarchofascist_leaders }
+    add_to_variable = { GRE.base_fascist_representation=GRE.monarchofascist_leaders_n }
+    divide_variable = { GRE.base_fascist_representation=2 }
+    add_to_variable = { GRE.base_fascist_representation=GRE.fascist_leaders }
+    add_to_variable = { GRE.base_fascist_representation=GRE.fascist_leaders_n }
+    divide_variable = { GRE.base_fascist_representation=dvd_cnt }
+    ####
+    set_variable = { GRE.loyal_leaders = loyal_cnter }
+    set_variable = { GRE.friendly_leaders = friendly_cnter }
+    set_variable = { GRE.growing_leaders = growing_cnter }
+    set_variable = { GRE.adequate_leaders = adequate_cnter }
+    set_variable = { GRE.inconsequential_leaders = inconsequential_cnter }
+    set_variable = { GRE.unfavorable_leaders = unfavorable_cnter }
+    set_variable = { GRE.worsening_leaders = worsening_cnter }
+    set_variable = { GRE.horrible_leaders = horrible_cnter }
+    set_variable = { GRE.rebellious_leaders = rebellious_cnter }
+    #log="OVCNT: [?overall_cnter],   ARM: [?GRE.army_leaders],    NAV: [?GRE.navy_leaders]"
+    set_temp_variable = { dvd_cnt = GRE.army_leaders }
+    add_to_temp_variable = { dvd_cnt = GRE.navy_leaders }
+    multiply_temp_variable = { dvd_cnt = 4 }
+    divide_temp_variable = { overall_cnter = dvd_cnt }
+    set_variable = { GRE.overall_friendliness = overall_cnter }
 }
 
 
@@ -2151,7 +2802,7 @@ promote_officer = {
     level_up_army_chief_of_staff = yes
     level_up_navy_chief_of_staff = yes
     ###[Army]###
-    if = { 
+    if = {
         limit = { is_character = GRE_alexandros_papagos }
         add_to_variable = { GRE.hc_papagos_rank = 1 }
         set_temp_variable = { gui_refresh = GRE.hc_papagos_rank }
@@ -2657,19 +3308,19 @@ promote_officer = {
             limit = { check_variable = { GRE.hc_oikonomou_rank = 1 } } 
             add_to_variable = { GRE.hc_oikonomou_egcsf = 0.05}
             add_to_variable = { GRE.hc_oikonomou_ncsaf = 0.03}
-            add_to_variable = { GRE.hc_oikonomou_ncsaf = 0.03}
+            add_to_variable = { GRE.hc_oikonomou_ncsdf = 0.03}
         }
         else_if = { 
             limit = { check_variable = { GRE.hc_oikonomou_rank = 2 } } 
             add_to_variable = { GRE.hc_oikonomou_egcsf = 0.05}
             add_to_variable = { GRE.hc_oikonomou_ncsaf = 0.03}
-            add_to_variable = { GRE.hc_oikonomou_ncsaf = 0.03}
+            add_to_variable = { GRE.hc_oikonomou_ncsdf = 0.03}
         }
         if = { 
             limit = { check_variable = { GRE.hc_oikonomou_rank = 3 } } 
             add_to_variable = { GRE.hc_oikonomou_egcsf = 0.05}
             add_to_variable = { GRE.hc_oikonomou_ncsaf = 0.03}
-            add_to_variable = { GRE.hc_oikonomou_ncsaf = 0.03}
+            add_to_variable = { GRE.hc_oikonomou_ncsdf = 0.03}
         }
     }
     else_if = { 
@@ -2855,6 +3506,45 @@ refresh_coc_gui_ranks = {
     if = { limit = { is_character = GRE_aris_velouchiotis } set_variable = { GRE.hc_rank@var:GRE.hc_velouchiotis_seat = gui_refresh } }
     if = { limit = { is_character = GRE_evripidis_bakirtzis } set_variable = { GRE.hc_rank@var:GRE.hc_bakirtzis_seat = gui_refresh } }
     if = { limit = { is_character = GRE_alexandros_rossios } set_variable = { GRE.hc_rank@var:GRE.hc_rossios_seat = gui_refresh } }
+}
+
+get_character_rank = {
+    # This function retrieves character rank through THIS scope.
+
+    if = { limit = { is_character = GRE_alexandros_papagos }             set_temp_variable = { crank=GRE.hc_papagos_rank } }
+    else_if = { limit = { is_character = GRE_markos_drakos }             set_temp_variable = { crank=GRE.hc_drakos_rank } }
+    else_if = { limit = { is_character = GRE_georgios_stanotas }         set_temp_variable = { crank=GRE.hc_stanotas_rank } }
+    else_if = { limit = { is_character = GRE_napoleon_zervas }           set_temp_variable = { crank=GRE.hc_zervas_rank } }
+    else_if = { limit = { is_character = GRE_nikolaos_plastiras }        set_temp_variable = { crank=GRE.hc_plastiras_rank } }
+    else_if = { limit = { is_character = GRE_charalambos_katsimitros }   set_temp_variable = { crank=GRE.hc_katsimitros_rank } }
+    else_if = { limit = { is_character = GRE_georgios_kosmas }           set_temp_variable = { crank=GRE.hc_kosmas_rank } }
+    else_if = { limit = { is_character = GRE_odysseas_aggelis }          set_temp_variable = { crank=GRE.hc_aggelis_rank } }
+    else_if = { limit = { is_character = GRE_konstantinos_davakis }      set_temp_variable = { crank=GRE.hc_davakis_rank } }
+    else_if = { limit = { is_character = GRE_ioannis_sotiris_alexakis }  set_temp_variable = { crank=GRE.hc_alexakis_rank } }
+    else_if = { limit = { is_character = GRE_aris_velouchiotis }         set_temp_variable = { crank=GRE.hc_velouchiotis_rank } }
+    else_if = { limit = { is_character = GRE_evripidis_bakirtzis }       set_temp_variable = { crank=GRE.hc_bakirtzis_rank } }
+    else_if = { limit = { is_character = GRE_alexandros_rossios }        set_temp_variable = { crank=GRE.hc_rossios_rank } }
+    else_if = { limit = { is_character = GRE_alexandros_sakellariou }    set_temp_variable = { crank=GRE.hc_sakellariou_rank} }
+    else_if = { limit = { is_character = GRE_ioannis_demestichas }       set_temp_variable = { crank=GRE.hc_demestichas_rank} }
+    else_if = { limit = { is_character = GRE_epameinondas_kavvadias }    set_temp_variable = { crank=GRE.hc_kavvadias_rank} }
+    else_if = { limit = { is_character = GRE_dimitrios_loundras }        set_temp_variable = { crank=GRE.hc_loundras_rank} }
+    else_if = { limit = { is_character = GRE_dimitrios_oikonomou }       set_temp_variable = { crank=GRE.hc_oikonomou_rank} }
+    else_if = { limit = { is_character = GRE_ioannis_toubas }            set_temp_variable = { crank=GRE.hc_toubas_rank} }
+    else_if = { limit = { is_character = GRE_petros_voulgaris }          set_temp_variable = { crank=GRE.hc_voulgaris_rank} }
+    else_if = { limit = { is_character = GRE_spyridon_avgeris }          set_temp_variable = { crank=GRE.hc_avgeris_rank} }
+    else_if = { limit = { is_character = GRE_miltiadis_iatridis }        set_temp_variable = { crank=GRE.hc_iatridis_rank} }
+    else_if = { limit = { is_character = GRE_pyrros_spyromilios }        set_temp_variable = { crank=GRE.hc_spyromilios_rank} }
+}
+
+retrieve_criteria_for_promotion = {
+    custom_effect_tooltip=get_this_tt
+    get_character_rank=yes
+    custom_effect_tooltip = "Required for Promotion:"
+    if = {
+        limit={ check_variable={ crank=0 }}
+        custom_effect_tooltip = "25 Army Experience"
+        custom_effect_tooltip = "25 Command Power"
+    }
 }
 
 ### Initialized by tmpX (number), tmpY (ideologyType)
@@ -5029,6 +5719,10 @@ HS_GUI_initialize_composition = {
     set_variable = { combatant_percentage=0 }
     set_variable = { noncombatant_percentage=1 }
     set_variable = { reservist_percentage=0 }
+    set_variable = { gui_combatant_percentage=0 }
+    set_variable = { gui_noncombatant_percentage=1 }
+    set_variable = { gui_reservist_percentage=0 }
+    set_variable = { allocated_noncombatants=0 }
     set_variable = { available_noncombatants=andartes }
 }
 
@@ -5036,6 +5730,7 @@ HS_GUI_set_food_distribution = {
     set_temp_variable = { tmp=cycle_ind_var_1 }
     subtract_from_temp_variable = { tmp=state_food_distribution_manpower } 
     subtract_from_variable = { available_noncombatants=tmp }
+    add_to_variable = { allocated_noncombatants=tmp }
     set_variable={ state_food_distribution_manpower=cycle_ind_var_1 }
     set_variable={ state_food_distribution_efficiency=cycle_ind_2 }
     set_variable={ res_group_state_stb=cycle_ind_var_2 }
@@ -5046,6 +5741,7 @@ HS_GUI_set_reconnaissance = {
     set_temp_variable = { tmp=cycle_ind_var_1 }
     subtract_from_temp_variable = { tmp=state_reconnaissance_manpower }
     subtract_from_variable = { available_noncombatants=tmp }
+    add_to_variable = { allocated_noncombatants=tmp }
     set_variable={ state_reconnaissance_manpower=cycle_ind_var_1 }
     set_variable={ state_reconnaissance_efficiency=cycle_ind_2 }
     set_variable={ res_group_state_recon=cycle_ind_var_2 }
@@ -5055,9 +5751,56 @@ HS_GUI_set_intel_gathering = {
     set_temp_variable = { tmp=cycle_ind_var_1 }
     subtract_from_temp_variable = { tmp=state_intel_gathering_manpower }
     subtract_from_variable = { available_noncombatants=tmp }
+    add_to_variable = { allocated_noncombatants=tmp }
     set_variable={ state_intel_gathering_manpower=cycle_ind_var_1 }
     set_variable={ state_intel_gathering_efficiency=cycle_ind_2 }
     set_variable={ res_group_intel_gathering=cycle_ind_var_2 }
+} 
+
+HS_GUI_set_route_planning = {
+    set_temp_variable = { tmp=cycle_ind_var_1 }
+    subtract_from_temp_variable = { tmp=state_route_planning_manpower } 
+    subtract_from_variable = { available_noncombatants=tmp }
+    add_to_variable = { allocated_noncombatants=tmp }
+    set_variable={ state_route_planning_manpower=cycle_ind_var_1 }
+    set_variable={ state_route_planning_efficiency=cycle_ind_2 }
+    set_variable={ res_group_state_dman=cycle_ind_var_2 }
+    set_variable={ res_group_state_dequ=cycle_ind_var_3 }
+} 
+
+HS_GUI_set_fortify_position = {
+    set_temp_variable = { tmp=cycle_ind_var_1 }
+    subtract_from_temp_variable = { tmp=state_fortify_position_manpower }
+    subtract_from_variable = { available_noncombatants=tmp }
+    add_to_variable = { allocated_noncombatants=tmp }
+    set_variable={ state_fortify_position_manpower=cycle_ind_var_1 }
+    set_variable={ state_fortify_position_efficiency=cycle_ind_2 }
+    set_variable={ res_group_state_fort=cycle_ind_var_2 }
+} 
+
+HS_GUI_set_inspire_populace = {
+    set_temp_variable = { tmp=cycle_ind_var_1 }
+    subtract_from_temp_variable = { tmp=state_inspire_populace_manpower } 
+    subtract_from_variable = { available_noncombatants=tmp }
+    add_to_variable = { allocated_noncombatants=tmp }
+    set_variable={ state_inspire_populace_manpower=cycle_ind_var_1 }
+    set_variable={ state_inspire_populace_efficiency=cycle_ind_2 }
+    set_variable={ res_group_state_and_daily=cycle_ind_var_2 }
+    set_variable={ res_group_state_like=cycle_ind_var_3 }
+} 
+
+HS_GUI_set_seek_aid = {
+    set_temp_variable = { tmp=cycle_ind_var_1 }
+    subtract_from_temp_variable = { tmp=state_seek_aid_manpower }
+    subtract_from_variable = { available_noncombatants=tmp }
+    add_to_variable = { allocated_noncombatants=tmp }
+    set_variable={ state_seek_aid_manpower=cycle_ind_var_1 }
+    set_variable={ state_seek_aid_efficiency=cycle_ind_2 }
+    set_variable={ res_group_state_fort=cycle_ind_var_2 }
+} 
+
+HS_GUI_set_sabotage_default = {
+    clear_variable = building_targeted_for_sabotage
 } 
 
 HS_GUI_refresh_food_distribution = {
@@ -5082,7 +5825,7 @@ HS_GUI_refresh_food_distribution = {
         }
         else = { set_variable = { res_group_state_fam=0 } }
     }
-    else = { subtract_from_variable = { available_noncombatants=y } }
+    else = { subtract_from_variable = { available_noncombatants=y } add_to_variable = { allocated_noncombatants=y } }
 }
 
 HS_GUI_refresh_reconnaissance = {
@@ -5094,7 +5837,7 @@ HS_GUI_refresh_reconnaissance = {
         set_variable = { res_group_state_recon=0.50 }
         multiply_variable = { res_group_state_recon=state_reconnaissance_efficiency }
     }
-    else = { subtract_from_variable = { available_noncombatants=y } }
+    else = { subtract_from_variable = { available_noncombatants=y } add_to_variable = { allocated_noncombatants=y } }
 }
 
 HS_GUI_refresh_intel_gathering = {
@@ -5106,7 +5849,59 @@ HS_GUI_refresh_intel_gathering = {
         set_variable = { res_group_state_recon=0.50 }
         multiply_variable = { res_group_intel_gathering=state_intel_gathering_efficiency }
     }
-    else = { subtract_from_variable = { available_noncombatants=y } }
+    else = { subtract_from_variable = { available_noncombatants=y } add_to_variable = { allocated_noncombatants=y } }
+}
+
+HS_GUI_refresh_route_planning = {
+    if = { 
+        limit = { check_variable = { y>0 } check_variable= { available_noncombatants<y } }
+        set_temp_variable = { z=state_route_planning_manpower }
+        divide_temp_variable = { z=x }
+        set_variable = { state_route_planning_efficiency=z }
+        set_variable = { res_group_state_dman=0.30 }
+        multiply_variable = { res_group_state_dman=state_route_planning_efficiency }
+        set_variable = { res_group_state_dequ=0.20 }
+        multiply_variable = { res_group_state_dequ=state_route_planning_efficiency }
+    }
+    else = { subtract_from_variable = { available_noncombatants=y } add_to_variable = { allocated_noncombatants=y } }
+}
+
+HS_GUI_refresh_fortify_position = {
+    if = {
+        limit = { check_variable = { y>0 } check_variable= { available_noncombatants<y } }
+        set_temp_variable = { z=state_fortify_position_manpower }
+        divide_temp_variable = { z=x }
+        set_variable = { state_fortify_position_efficiency=z }
+        set_variable = { res_group_state_recon=0.50 }
+        multiply_variable = { res_group_fortify_position=state_fortify_position_efficiency }
+    }
+    else = { subtract_from_variable = { available_noncombatants=y } add_to_variable = { allocated_noncombatants=y } }
+}
+
+HS_GUI_refresh_inspire_populace = {
+    if = { 
+        limit = { check_variable = { y>0 } check_variable= { available_noncombatants<y } }
+        set_temp_variable = { z=state_inspire_populace_manpower }
+        divide_temp_variable = { z=x }
+        set_variable = { state_inspire_populace_efficiency=z }
+        set_variable = { res_group_state_and_daily=2 }
+        multiply_variable = { res_group_state_and_daily=state_inspire_populace_efficiency }
+        set_variable = { res_group_state_like=0.20 }
+        multiply_variable = { res_group_state_like=state_inspire_populace_efficiency }
+    }
+    else = { subtract_from_variable = { available_noncombatants=y } add_to_variable = { allocated_noncombatants=y } }
+}
+
+HS_GUI_refresh_seek_aid = {
+    if = {
+        limit = { check_variable = { y>0 } check_variable= { available_noncombatants<y } }
+        set_temp_variable = { z=state_seek_aid_manpower }
+        divide_temp_variable = { z=x }
+        set_variable = { state_seek_aid_efficiency=z }
+        set_variable = { res_group_state_recon=8 }
+        multiply_variable = { res_group_seek_aid=state_seek_aid_efficiency }
+    }
+    else = { subtract_from_variable = { available_noncombatants=y } add_to_variable = { allocated_noncombatants=y } }
 }
 
 HS_GUI_WEEKLY_refresh_pool_or_effects = {
@@ -5151,6 +5946,54 @@ HS_GUI_WEEKLY_check_requirement_changes = {
             HS_GUI_refresh_intel_gathering=yes
         }
     }
+    if = {
+        limit = { NOT={ check_variable={ state_route_planning_efficiency=0 } } }
+        HS_GUI_UNARMED_route_planning_variable_preparation=yes
+        set_temp_variable = { x=state_route_planning_efficiency }
+        multiply_temp_variable = { x=cycle_ind_1 }
+        if = {
+            limit = { NOT={ check_variable={ x=state_route_planning_manpower } } }
+            set_temp_variable={ y=x }
+            subtract_from_temp_variable={ y=state_route_planning_manpower }
+            HS_GUI_refresh_route_planning=yes
+        }
+    }
+    if = {
+        limit = { NOT={ check_variable={ state_fortify_position_efficiency=0 } } }
+        HS_GUI_UNARMED_fortify_position_variable_preparation=yes
+        set_temp_variable = { x=state_fortify_position_efficiency }
+        multiply_temp_variable = { x=cycle_ind_1 }
+        if = {
+            limit = { NOT={ check_variable={ x=state_fortify_position_manpower } } }
+            set_temp_variable={ y=x }
+            subtract_from_temp_variable={ y=state_fortify_position_manpower }
+            HS_GUI_refresh_fortify_position=yes
+        }
+    }
+    if = {
+        limit = { NOT={ check_variable={ state_inspire_populace_efficiency=0 } } }
+        HS_GUI_UNARMED_inspire_populace_variable_preparation=yes
+        set_temp_variable = { x=state_inspire_populace_efficiency }
+        multiply_temp_variable = { x=cycle_ind_1 }
+        if = {
+            limit = { NOT={ check_variable={ x=state_inspire_populace_manpower } } }
+            set_temp_variable={ y=x }
+            subtract_from_temp_variable={ y=state_inspire_populace_manpower }
+            HS_GUI_refresh_inspire_populace=yes
+        }
+    }
+    if = {
+        limit = { NOT={ check_variable={ state_seek_aid_efficiency=0 } } }
+        HS_GUI_UNARMED_seek_aid_variable_preparation=yes
+        set_temp_variable = { x=state_seek_aid_efficiency }
+        multiply_temp_variable = { x=cycle_ind_1 }
+        if = {
+            limit = { NOT={ check_variable={ x=state_seek_aid_manpower } } }
+            set_temp_variable={ y=x }
+            subtract_from_temp_variable={ y=state_seek_aid_manpower }
+            HS_GUI_refresh_seek_aid=yes
+        }
+    }
 }
 
 HS_GUI_UNARMED_food_distribution_variable_preparation = {
@@ -5187,13 +6030,16 @@ HS_GUI_UNARMED_food_distribution_variable_preparation = {
     multiply_temp_variable = { y=0.125 }
     add_to_temp_variable = { x=y }
     set_variable={ cycle_ind_1=x }
+    round_variable = cycle_ind_1
 }
 
 HS_GUI_UNARMED_food_distribution_change_amount_effect = {
     add_to_variable={ cycle_ind_var_1=change_amount }
     set_temp_variable = { x=cycle_ind_1 }
     multiply_temp_variable = { x=2 }
-    clamp_variable={ var=cycle_ind_var_1 min=0 max=THIS.available_noncombatants }
+    set_temp_variable = { q=THIS.available_noncombatants }
+    add_to_temp_variable = { q=THIS.state_food_distribution_manpower }
+    if = { limit={ check_variable={ q<x }} set_temp_variable={ x=q }}
     clamp_variable={ var=cycle_ind_var_1 min=0 max=x }
     set_variable = { cycle_ind_2=cycle_ind_var_1 }
     divide_variable = { cycle_ind_2=cycle_ind_1 }
@@ -5251,13 +6097,16 @@ HS_GUI_UNARMED_reconnaissance_variable_preparation = {
     multiply_temp_variable = { x=total_mult }
     if={ limit={ check_variable={ base=1 } } multiply_temp_variable={ x=1.2} }
     set_variable={ cycle_ind_1=x }
+    round_variable = cycle_ind_1
 }
 
 HS_GUI_UNARMED_reconnaissance_change_amount_effect = {
     add_to_variable={ cycle_ind_var_1=change_amount } 
     set_temp_variable = { x=cycle_ind_1 }
     multiply_temp_variable = { x=2 }
-    clamp_variable={ var=cycle_ind_var_1 min=0 max=THIS.available_noncombatants }
+    set_temp_variable = { q=THIS.available_noncombatants }
+    add_to_temp_variable = { q=THIS.state_reconnaissance_manpower }
+    if = { limit={ check_variable={ q<x }} set_temp_variable={ x=q }}
     clamp_variable={ var=cycle_ind_var_1 min=0 max=x }
     set_variable = { cycle_ind_2=cycle_ind_var_1 }
     divide_variable = { cycle_ind_2=cycle_ind_1 }
@@ -5283,7 +6132,9 @@ HS_GUI_UNARMED_intel_gathering_change_amount_effect = {
     add_to_variable={ cycle_ind_var_1=change_amount }
     set_temp_variable = { x=cycle_ind_1 }
     multiply_temp_variable = { x=2 }
-    clamp_variable={ var=cycle_ind_var_1 min=0 max=THIS.available_noncombatants }
+    set_temp_variable = { q=THIS.available_noncombatants }
+    add_to_temp_variable = { q=THIS.state_intel_gathering_manpower }
+    if = { limit={ check_variable={ q<x }} set_temp_variable={ x=q }}
     clamp_variable={ var=cycle_ind_var_1 min=0 max=x }
     set_variable = { cycle_ind_2=cycle_ind_var_1 }
     divide_variable = { cycle_ind_2=cycle_ind_1 }
@@ -5297,29 +6148,46 @@ HS_GUI_UNARMED_intel_gathering_set_display_effects = {
 }
 
 HS_GUI_UNARMED_route_planning_variable_preparation = {
+    ###[ Set Indicators to Current Values ]###
+    set_variable = { cycle_ind_var_1=state_route_planning_manpower }
+    set_variable = { cycle_ind_2=state_route_planning_efficiency}
+    HS_GUI_UNARMED_route_planning_set_display_effects=yes
+    ##############################################
     set_temp_variable = { x=THIS.distance_to@GRE.RES_HQ_STATE }
     multiply_temp_variable = { x=10 }
-    if = { limit={ is_coastal=yes } multiply_temp_variable={ x=2 } }
+    if = { limit={ is_island_state=yes } multiply_temp_variable={ x=2 } }
     if = { limit={ check_variable={ base>0 } } multiply_temp_variable={ x=2 } }
     set_variable={ cycle_ind_1=x }
+    round_variable = cycle_ind_1
 }
 
 HS_GUI_UNARMED_route_planning_change_amount_effect = {
     add_to_variable={ cycle_ind_var_1=change_amount } 
     set_temp_variable = { x=cycle_ind_1 }
     multiply_temp_variable = { x=2 }
-    clamp_variable={ var=cycle_ind_var_1 min=0 max=THIS.available_noncombatants }
+    set_temp_variable = { q=THIS.available_noncombatants }
+    add_to_temp_variable = { q=THIS.state_route_planning_manpower }
+    if = { limit={ check_variable={ q<x }} set_temp_variable={ x=q }}
     clamp_variable={ var=cycle_ind_var_1 min=0 max=x }
     set_variable = { cycle_ind_2=cycle_ind_var_1 }
     divide_variable = { cycle_ind_2=cycle_ind_1 }
     ####################[Effects]#######################
-    set_variable = { cycle_ind_var_2=-0.30 }
+    HS_GUI_UNARMED_route_planning_set_display_effects = yes
+}
+
+HS_GUI_UNARMED_route_planning_set_display_effects = {
+    set_variable = { cycle_ind_var_2=0.30 }
     multiply_variable = { cycle_ind_var_2=cycle_ind_2 }
-    set_variable = { cycle_ind_var_3=-0.20 }
+    set_variable = { cycle_ind_var_3=0.20 }
     multiply_variable = { cycle_ind_var_3=cycle_ind_2 }
 }
 
 HS_GUI_UNARMED_fortify_position_variable_preparation = {
+    ###[ Set Indicators to Current Values ]###
+    set_variable = { cycle_ind_var_1=state_fortify_position_manpower }
+    set_variable = { cycle_ind_2=state_fortify_position_efficiency}
+    HS_GUI_UNARMED_fortify_position_set_display_effects=yes
+    ##############################################
     set_temp_variable = { total_mult=0 }
     set_temp_variable = { x=THIS.fields }
     multiply_temp_variable = { x=4.00 }
@@ -5346,39 +6214,58 @@ HS_GUI_UNARMED_fortify_position_variable_preparation = {
     multiply_temp_variable = { x=total_mult }
     if={ limit={ check_variable={ base=1 } } multiply_temp_variable={ x=1.2} }
     set_variable={ cycle_ind_1=x }
+    round_variable = cycle_ind_1
 }
 
 HS_GUI_UNARMED_fortify_position_change_amount_effect = {
     add_to_variable={ cycle_ind_var_1=change_amount } 
     set_temp_variable = { x=cycle_ind_1 }
     multiply_temp_variable = { x=2 }
-    clamp_variable={ var=cycle_ind_var_1 min=0 max=THIS.available_noncombatants }
+    set_temp_variable = { q=THIS.available_noncombatants }
+    add_to_temp_variable = { q=THIS.state_fortify_position_manpower }
+    if = { limit={ check_variable={ q<x }} set_temp_variable={ x=q }}
     clamp_variable={ var=cycle_ind_var_1 min=0 max=x }
     set_variable = { cycle_ind_2=cycle_ind_var_1 }
     divide_variable = { cycle_ind_2=cycle_ind_1 }
     ####################[Effects]#######################
+    HS_GUI_UNARMED_fortify_position_set_display_effects=yes
+}
+
+HS_GUI_UNARMED_fortify_position_set_display_effects = {
     set_variable = { cycle_ind_var_2=0.50 }
     multiply_variable = { cycle_ind_var_2=cycle_ind_2 }
 }
 
 HS_GUI_UNARMED_inspire_populace_variable_preparation = {
+    ###[ Set Indicators to Current Values ]###
+    set_variable = { cycle_ind_var_1=state_inspire_populace_manpower }
+    set_variable = { cycle_ind_2=state_inspire_populace_efficiency}
+    HS_GUI_UNARMED_inspire_populace_set_display_effects=yes
+    ##############################################
     set_temp_variable = { x=THIS.province_num }
     multiply_temp_variable = { x=20 }
     set_temp_variable = { y=state_population_k }
     multiply_temp_variable = { y=0.125 }
     add_to_temp_variable = { x=y }
     set_variable={ cycle_ind_1=x }
+    round_variable = cycle_ind_1
 }
 
 HS_GUI_UNARMED_inspire_populace_change_amount_effect = {
     add_to_variable={ cycle_ind_var_1=change_amount } 
     set_temp_variable = { x=cycle_ind_1 }
     multiply_temp_variable = { x=2 }
-    clamp_variable={ var=cycle_ind_var_1 min=0 max=THIS.available_noncombatants }
+    set_temp_variable = { q=THIS.available_noncombatants }
+    add_to_temp_variable = { q=THIS.state_inspire_populace_manpower }
+    if = { limit={ check_variable={ q<x }} set_temp_variable={ x=q }}
     clamp_variable={ var=cycle_ind_var_1 min=0 max=x }
     set_variable = { cycle_ind_2=cycle_ind_var_1 }
     divide_variable = { cycle_ind_2=cycle_ind_1 }
     ####################[Effects]#######################
+    HS_GUI_UNARMED_inspire_populace_set_display_effects=yes
+}
+
+HS_GUI_UNARMED_inspire_populace_set_display_effects = {
     set_variable = { cycle_ind_var_2=2 }
     multiply_variable = { cycle_ind_var_2=cycle_ind_2 }
     set_variable = { cycle_ind_var_3=0.20 }
@@ -5386,22 +6273,34 @@ HS_GUI_UNARMED_inspire_populace_change_amount_effect = {
 }
 
 HS_GUI_UNARMED_seek_aid_variable_preparation = {
+    ###[ Set Indicators to Current Values ]###
+    set_variable = { cycle_ind_var_1=state_seek_aid_manpower }
+    set_variable = { cycle_ind_2=state_seek_aid_efficiency}
+    HS_GUI_UNARMED_seek_aid_set_display_effects=yes
+    ##############################################
     set_temp_variable = { x=10000 }
     divide_temp_variable = { x=state_population_k }
-    if = { limit={ is_coastal=yes } multiply_temp_variable={ x=2 } }
+    if = { limit={ is_island_state=yes } multiply_temp_variable={ x=2 } }
     if = { limit={ check_variable={ base>0 } } multiply_temp_variable={ x=2 } }
     set_variable={ cycle_ind_1=x }
+    round_variable = cycle_ind_1
 }
 
 HS_GUI_UNARMED_seek_aid_change_amount_effect = {
     add_to_variable={ cycle_ind_var_1=change_amount } 
     set_temp_variable = { x=cycle_ind_1 }
     multiply_temp_variable = { x=2 }
-    clamp_variable={ var=cycle_ind_var_1 min=0 max=THIS.available_noncombatants }
+    set_temp_variable = { q=THIS.available_noncombatants }
+    add_to_temp_variable = { q=THIS.state_seek_aid_manpower }
+    if = { limit={ check_variable={ q<x }} set_temp_variable={ x=q }}
     clamp_variable={ var=cycle_ind_var_1 min=0 max=x }
     set_variable = { cycle_ind_2=cycle_ind_var_1 }
     divide_variable = { cycle_ind_2=cycle_ind_1 }
     ####################[Effects]#######################
+    HS_GUI_UNARMED_seek_aid_set_display_effects=yes
+}
+
+HS_GUI_UNARMED_seek_aid_set_display_effects = {
     set_variable = { cycle_ind_var_2=8 }
     multiply_variable = { cycle_ind_var_2=cycle_ind_2 }
 }
@@ -5409,9 +6308,10 @@ HS_GUI_UNARMED_seek_aid_change_amount_effect = {
 HS_GUI_UNARMED_sabotage_variable_preparation = {
     set_temp_variable = { x=THIS.distance_to@GRE.RES_HQ_STATE }
     multiply_temp_variable = { x=10 }
-    if = { limit={ is_coastal=yes } multiply_temp_variable={ x=2 } }
+    if = { limit={ is_island_state=yes } multiply_temp_variable={ x=2 } }
     if = { limit={ check_variable={ base>0 } } multiply_temp_variable={ x=2 } }
     set_variable={ cycle_ind_1=x }
+    round_variable = cycle_ind_1
 }
 
 HS_GUI_UNARMED_sabotage_change_amount_effect = {
@@ -5685,10 +6585,38 @@ HS_set_daily_base_reconnaissance = {
     }
 }
 
+HS_set_unyielding_greeks_THIS = {
+    if = {
+        limit={
+            NOT = { has_dynamic_modifier={ modifier=unyielding_greeks_angered } }
+            check_variable = { var=THIS.resistance_affinity value=10 compare=greater_than_or_equals }
+            check_variable = { var=THIS.resistance_affinity value=50 compare=less_than }
+        }
+        add_dynamic_modifier={ modifier=unyielding_greeks_angered }
+    }
+    else_if = {
+        limit={
+            NOT = { has_dynamic_modifier={ modifier=unyielding_greeks_determined } }
+            check_variable = { var=THIS.resistance_affinity value=50 compare=greater_than_or_equals }
+            check_variable = { var=THIS.resistance_affinity value=80 compare=less_than }
+        }
+        add_dynamic_modifier={ modifier=unyielding_greeks_determined }
+    }
+    else_if = {
+        limit={
+            NOT = { has_dynamic_modifier={ modifier=unyielding_greeks_ferocious } }
+            check_variable = { var=THIS.resistance_affinity value=80 compare=greater_than_or_equals }
+            check_variable = { var=THIS.resistance_affinity value=100 compare=less_than_or_equals }
+        }
+        add_dynamic_modifier={ modifier=unyielding_greeks_ferocious }
+    }
+}
+
 HS_add_daily_combined_modifiers = {
     for_each_scope_loop = {
         array = global.greek_occupied_states_all
         
+        ###[Modifier Calculations]###
         if = {
             limit = { NOT = { check_variable = { modifier@state_agitation_token=0 } } }
             add_to_variable = { state_agitation = modifier@state_agitation_token }
@@ -5702,8 +6630,31 @@ HS_add_daily_combined_modifiers = {
             limit = { NOT = { check_variable = { THIS.modifier@state_daily_reconnaissance_percentage_token=0 } } }
             add_to_variable = { THIS.reconnaissance_level = THIS.modifier@state_daily_reconnaissance_percentage_token }
         }
-        else = { subtract_from_variable = { THIS.reconnaissance_level=0.25 } }
+        else = { subtract_from_variable = { THIS.reconnaissance_level=0.25 } } 
+        if = {
+            limit = { NOT = { check_variable = { THIS.modifier@state_andartes_daily_manpower_redeployment_token=0 } } }
+            add_to_variable = { THIS.manpower_redeployment_bonus = THIS.modifier@state_andartes_daily_manpower_redeployment_token }
+        }
+        if = {
+            limit = { NOT = { check_variable = { THIS.modifier@state_andartes_daily_equipment_redeployment_token=0 } } }
+            add_to_variable = { THIS.equipment_redeployment_bonus = THIS.modifier@state_andartes_daily_equipment_redeployment_token }
+        }
+        if = {
+            limit = { NOT = { check_variable = { THIS.modifier@state_resistance_affinity_token=0 } } }
+            add_to_variable = { THIS.resistance_affinity = THIS.modifier@state_resistance_affinity_token }
+        }
+        ###[Clamps]###
+        clamp_variable = { var=THIS.state_agitation min=0 max=100 }
         clamp_variable = { var=THIS.reconnaissance_level min=THIS.modifier@state_base_reconnaissance_percentage_token max=100 }
+        clamp_variable = { var=THIS.manpower_redeployment_bonus min=THIS.modifier@state_base_manpower_redeployment_token max=80 }
+        clamp_variable = { var=THIS.equipment_redeployment_bonus min=THIS.modifier@state_base_equipment_redeployment_token max=80 }
+        clamp_variable = { var=THIS.resistance_affinity min=0 max=100 }
+        ###[Subsequent Effect Calculations]###
+        calculate_troop_deployment_recall_time_for_THIS_state=yes
+        ###[Other Modifiers]###
+        HS_set_unyielding_greeks_THIS=yes
+        ###[Other Effects]###
+        distribute_daily_new_andartes=yes
     }
 }
 
@@ -5774,7 +6725,7 @@ HS_GAR_fire_respective_state_events = {
 HS_GAR_update_personality_THIS = {
     # This function selects personality for occupier depending on certain variables.
     # Variables Used: ANGER@GRE, AGI@GRE, CALM_DAYS@GRE, 
-    set_variable = { THIS.PERSONALITY@GRE = 1 }
+    set_variable = { THIS.PERSONALITY@GRE = 0 }
     HS_GAR_PER_CHANCE_calc_peaceful_b1 = yes
     HS_GAR_PER_CHANCE_calc_indulgent_b2 = yes
     HS_GAR_PER_CHANCE_calc_defiling_b3 = yes
@@ -6020,62 +6971,41 @@ HS_GAR_calculate_state_weights_for_behavior_THIS = {
     clear_array = THIS.hs_gar_current_behavior_weighted_equipment_states_value
     clear_array = THIS.hs_gar_current_behavior_weighted_equipment_states_adj_value
 
+    #log="Before: T:[THIS.GetName], P:[PREV.GetName]"
     for_each_scope_loop = {
         array=global.greek_mainland_states_all
-    
+
         if = {
             limit = { check_variable = { THIS.controller=PREV.original_tag } }
+            ###[Initialization]###
+            set_temp_variable = { state_manpower_score_is=100 }
+            set_temp_variable = { state_equipment_score_is=100 }
+            set_temp_variable = { manpower_weight=1 }
+            set_temp_variable = { equipment_weight=1 }
+            ######################
             if = {
                 limit = { check_variable = { PREV.GAR_BEH@GRE = 1 } }                                                                                                           #### PATROL
 
-                set_temp_variable = { state_manpower_score_is=100 }
-                set_temp_variable = { state_equipment_score_is=100 }
-                set_temp_variable = { manpower_weight=1 }
-                set_temp_variable = { equipment_weight=1 }
                 if = { limit={check_variable={base>0} } add_to_temp_variable={manpower_weight=-0.2} add_to_temp_variable={equipment_weight=-0.5} }                                  # Base 20%/50% less in bases
                 if = { limit={has_dynamic_modifier={modifier=plundered_state} } add_to_temp_variable={manpower_weight=-0.2} add_to_temp_variable={equipment_weight=-0.2} }          # Base 20%/20$ less in plundered states
                 if = { limit={has_dynamic_modifier={modifier=terrorized_populace} } add_to_temp_variable={manpower_weight=-0.15} add_to_temp_variable={equipment_weight=-0.15} }    # Base 15%/15% less in terrorized states
                 if = { limit={has_dynamic_modifier={modifier=reprisals_massacres} } add_to_temp_variable={manpower_weight=-0.40} add_to_temp_variable={equipment_weight=-0.4} }     # Base 40%/40% less in massacred states
-                if = { limit={has_dynamic_modifier={modifier=res_sabotaged} } add_to_temp_variable={manpower_weight=0.25} add_to_temp_variable={equipment_weight=0.4} }             # Base 25%/40% more in res sabotaged states
-                if = { limit={has_dynamic_modifier={modifier=fac_sabotaged} } add_to_temp_variable={manpower_weight=0.40} add_to_temp_variable={equipment_weight=0.6} }             # Base 40%/60% more in fac sabotaged states
-                multiply_temp_variable = { state_manpower_score_is=manpower_weight }                                                                                                # Base % found here
-                multiply_temp_variable = { state_equipment_score_is=equipment_weight }
-                multiply_temp_variable = { state_manpower_score_is=state_agitation }                                                                                                # State Agitation
-                multiply_temp_variable = { state_equipment_score_is=state_agitation }
-                add_to_array = { array=PREV.hs_gar_current_behavior_weighted_states_id value=THIS.id }
-                add_to_array = { array=PREV.hs_gar_current_behavior_weighted_manpower_states_value value=state_manpower_score_is }
-                add_to_array = { array=PREV.hs_gar_current_behavior_weighted_equipment_states_value value=state_equipment_score_is }
-                #log="[THIS.GetName] - MS:[?state_manpower_score_is], ES:[?state_equipment_score_is]"
+                #if = { limit={has_dynamic_modifier={modifier=res_sabotaged} } add_to_temp_variable={manpower_weight=0.25} add_to_temp_variable={equipment_weight=0.4} }             # Base 25%/40% more in res sabotaged states
+                #if = { limit={has_dynamic_modifier={modifier=fac_sabotaged} } add_to_temp_variable={manpower_weight=0.40} add_to_temp_variable={equipment_weight=0.6} }             # Base 40%/60% more in fac sabotaged states
             }
             else_if = {
-                limit = { check_variable = { PREV.GAR_BEH@GRE = 2 } }                                                                                                            #### PLUNDER
+                limit = { check_variable = { PREV.GAR_BEH@GRE = 2 } }                                                                                                           #### PLUNDER
                 
-                set_temp_variable = { state_manpower_score_is=100 }
-                set_temp_variable = { state_equipment_score_is=100 }
-                set_temp_variable = { manpower_weight=1 }
-                set_temp_variable = { equipment_weight=1 }
                 if = { limit={check_variable={base>0} } add_to_temp_variable={manpower_weight=0.5} add_to_temp_variable={equipment_weight=0.5} }                                    # Base 50%/50% more in bases
                 if = { 
                     limit={ is_in_array={ array=PREV.targeted_states_for_plunder value=THIS.id } }
                     add_to_temp_variable={ manpower_weight=3.00 } 
                     add_to_temp_variable={ equipment_weight=4.00 }                                                                                                                  # Base 300%/400% more
                 }
-                multiply_temp_variable = { state_manpower_score_is=manpower_weight }                                                                                                # Base % found here
-                multiply_temp_variable = { state_equipment_score_is=equipment_weight }
-                multiply_temp_variable = { state_manpower_score_is=state_agitation }                                                                                                # State Agitation
-                multiply_temp_variable = { state_equipment_score_is=state_agitation }
-                add_to_array = { array=PREV.hs_gar_current_behavior_weighted_states_id value=THIS.id }
-                add_to_array = { array=PREV.hs_gar_current_behavior_weighted_manpower_states_value value=state_manpower_score_is }
-                add_to_array = { array=PREV.hs_gar_current_behavior_weighted_equipment_states_value value=state_equipment_score_is }
-                #log="[THIS.GetName] - MS:[?state_manpower_score_is], ES:[?state_equipment_score_is]"
             }
-            if = {
-                limit = { check_variable = { PREV.GAR_BEH@GRE = 5 } }                                                                                                           #### PATROL
+            else_if = {
+                limit = { check_variable = { PREV.GAR_BEH@GRE = 5 } }                                                                                                           #### ALERT
 
-                set_temp_variable = { state_manpower_score_is=100 }
-                set_temp_variable = { state_equipment_score_is=100 }
-                set_temp_variable = { manpower_weight=1 }
-                set_temp_variable = { equipment_weight=1 }
                 ################[Add Resource Bonus to base Value]##############
                 calculate_state_resource_importance_ONLY = yes
                 multiply_temp_variable = { total_worth=2 }                                                                                                                          # Base 200% more important resource defence.
@@ -6083,17 +7013,19 @@ HS_GAR_calculate_state_weights_for_behavior_THIS = {
                 add_to_temp_variable = { state_equipment_score_is=total_worth }
                 ################################################################
                 if = { limit={check_variable={base>0} } add_to_temp_variable={manpower_weight=1.0} add_to_temp_variable={equipment_weight=1.0} }                                    # Base 200%/200% more in bases
-                if = { limit={has_dynamic_modifier={modifier=res_sabotaged} } add_to_temp_variable={manpower_weight=0.5} add_to_temp_variable={equipment_weight=0.5} }              # Base 50%/50% more in res sabotaged states
-                if = { limit={has_dynamic_modifier={modifier=fac_sabotaged} } add_to_temp_variable={manpower_weight=0.5} add_to_temp_variable={equipment_weight=0.5} }              # Base 50%/50% more in fac sabotaged states
-                multiply_temp_variable = { state_manpower_score_is=manpower_weight }                                                                                                # Base % found here
-                multiply_temp_variable = { state_equipment_score_is=equipment_weight }
-                multiply_temp_variable = { state_manpower_score_is=state_agitation }                                                                                                # State Agitation
-                multiply_temp_variable = { state_equipment_score_is=state_agitation }
-                add_to_array = { array=PREV.hs_gar_current_behavior_weighted_states_id value=THIS.id }
-                add_to_array = { array=PREV.hs_gar_current_behavior_weighted_manpower_states_value value=state_manpower_score_is }
-                add_to_array = { array=PREV.hs_gar_current_behavior_weighted_equipment_states_value value=state_equipment_score_is }
-                #log="[THIS.GetName] - MS:[?state_manpower_score_is], ES:[?state_equipment_score_is]"
+                #if = { limit={has_dynamic_modifier={modifier=res_sabotaged} } add_to_temp_variable={manpower_weight=0.5} add_to_temp_variable={equipment_weight=0.5} }              # Base 50%/50% more in res sabotaged states
+                #if = { limit={has_dynamic_modifier={modifier=fac_sabotaged} } add_to_temp_variable={manpower_weight=0.5} add_to_temp_variable={equipment_weight=0.5} }              # Base 50%/50% more in fac sabotaged states
             }
+            set_temp_variable = { agitation_bonus=1 }
+            multiply_temp_variable = { agitation_bonus=state_agitation }
+            multiply_temp_variable = { state_manpower_score_is=manpower_weight }                                                                                                # Base % found here
+            multiply_temp_variable = { state_equipment_score_is=equipment_weight }
+            add_to_temp_variable = { state_manpower_score_is=agitation_bonus }                                                                                                  # State Agitation
+            add_to_temp_variable = { state_equipment_score_is=agitation_bonus }
+            add_to_array = { array=PREV.hs_gar_current_behavior_weighted_states_id value=THIS.id }
+            add_to_array = { array=PREV.hs_gar_current_behavior_weighted_manpower_states_value value=state_manpower_score_is }
+            add_to_array = { array=PREV.hs_gar_current_behavior_weighted_equipment_states_value value=state_equipment_score_is }
+            #log="[THIS.GetName] - [PREV.GetName] --- MS:[?state_manpower_score_is], ES:[?state_equipment_score_is]"
         }
     }
     for_each_loop = { array=THIS.hs_gar_current_behavior_weighted_manpower_states_value add_to_temp_variable={ total_state_manpower_score=v } }
@@ -7574,6 +8506,20 @@ HS_calculate_total_factories_in_occupation_zones = {
 }
 
 HS_flag_states = {
+    835 = {
+        set_variable = { GRE.RES_HQ_STATE=THIS.id }
+        set_variable = { province_num = 8 }
+        set_variable = { fields = 2 }
+        set_variable = { forest = 1 }
+        set_variable = { hills = 3 }
+        set_variable = { mountains = 2 }
+        set_variable = { hnm = 5 }
+        set_variable = { fld_r = 0.250 }
+        set_variable = { hnm_r = 0.625 }
+        set_variable = { state_agitation = 0 }
+        set_variable = { state_agitation_multiplier = 1.5 }
+        calculate_base_time_to_deploy_recall=yes
+    }
     47 = {
         set_variable = { province_num = 2 }
         set_variable = { urban = 2 }
@@ -7586,18 +8532,7 @@ HS_flag_states = {
         add_to_array = { HQ_controller = ITA.id }
         set_variable = { base = 1 }
         set_variable = { base_controller = controller }
-    }
-    835 = {
-        set_variable = { province_num = 8 }
-        set_variable = { fields = 2 }
-        set_variable = { forest = 1 }
-        set_variable = { hills = 3 }
-        set_variable = { mountains = 2 }
-        set_variable = { hnm = 5 }
-        set_variable = { fld_r = 0.250 }
-        set_variable = { hnm_r = 0.625 }
-        set_variable = { state_agitation = 0 }
-        set_variable = { state_agitation_multiplier = 1.5 }
+        calculate_base_time_to_deploy_recall=yes
     }
     186 = {
         set_variable = { province_num = 7 }
@@ -7610,6 +8545,7 @@ HS_flag_states = {
         set_variable = { state_agitation_multiplier = 1.5 }
         set_variable = { base = 1 }
         set_variable = { base_controller = controller }
+        calculate_base_time_to_deploy_recall=yes
     }
     836 = {
         set_variable = { province_num = 9 }
@@ -7621,6 +8557,7 @@ HS_flag_states = {
         set_variable = { hnm_r = 0.556 }
         set_variable = { state_agitation = 0 }
         set_variable = { state_agitation_multiplier = 1.5 }
+        calculate_base_time_to_deploy_recall=yes
     }
     185 = {
         set_variable = { province_num = 9 }
@@ -7635,6 +8572,7 @@ HS_flag_states = {
         ###
         set_variable = { base = 1 }
         set_variable = { base_controller = controller }
+        calculate_base_time_to_deploy_recall=yes
     }
     838 = {
         set_variable = { province_num = 9 }
@@ -7646,6 +8584,7 @@ HS_flag_states = {
         set_variable = { hnm_r = 0.888 }
         set_variable = { state_agitation = 0 }
         set_variable = { state_agitation_multiplier = 1.25 }
+        calculate_base_time_to_deploy_recall=yes
     }
     839 = {
         set_variable = { province_num = 2 }
@@ -7656,6 +8595,7 @@ HS_flag_states = {
         ###
         set_variable = { base = 1 }
         set_variable = { base_controller = controller }
+        calculate_base_time_to_deploy_recall=yes
     }
     731 = {
         set_variable = { province_num = 3 }
@@ -7664,6 +8604,7 @@ HS_flag_states = {
         set_variable = { fld_r = 0.666 }
         set_variable = { state_agitation = 0 }
         set_variable = { state_agitation_multiplier = 1.25 }
+        calculate_base_time_to_deploy_recall=yes
     }
     840 = {
         set_variable = { HQ = 1 }
@@ -7677,6 +8618,7 @@ HS_flag_states = {
         set_variable = { hnm_r = 0.666 }
         set_variable = { state_agitation = 0 }
         set_variable = { state_agitation_multiplier = 1.25 }
+        calculate_base_time_to_deploy_recall=yes
     }
     184 = {
         set_variable = { province_num = 2 }
@@ -7686,6 +8628,7 @@ HS_flag_states = {
         set_variable = { hnm_r = 1.000 }
         set_variable = { state_agitation = 0 }
         set_variable = { state_agitation_multiplier = 1.25 }
+        calculate_base_time_to_deploy_recall=yes
     }
     841 = {
         set_variable = { province_num = 1 }
@@ -7694,24 +8637,28 @@ HS_flag_states = {
         set_variable = { hnm_r = 1 }
         set_variable = { state_agitation = 0 }
         set_variable = { state_agitation_multiplier = 1.25 }
+        calculate_base_time_to_deploy_recall=yes
     }
     837 = {
         set_variable = { province_num = 2 }
         set_variable = { island = 2 }
         set_variable = { state_agitation = 0 }
         set_variable = { state_agitation_multiplier = 1 }
+        calculate_base_time_to_deploy_recall=yes
     }
     842 = {
         set_variable = { province_num = 1 }
         set_variable = { island = 1 }
         set_variable = { state_agitation = 0 }
         set_variable = { state_agitation_multiplier = 1 }
+        calculate_base_time_to_deploy_recall=yes
     }
     187 = {
         set_variable = { province_num = 2 }
         set_variable = { island = 2 }
         set_variable = { state_agitation = 0 }
         set_variable = { state_agitation_multiplier = 1 }
+        calculate_base_time_to_deploy_recall=yes
     }
     182 = {
         set_variable = { province_num = 4 }
@@ -7722,6 +8669,7 @@ HS_flag_states = {
         set_variable = { hnm_r = 0.500 }
         set_variable = { state_agitation = 0 }
         set_variable = { state_agitation_multiplier = 2 }
+        calculate_base_time_to_deploy_recall=yes
     }
 }
 
@@ -8107,7 +9055,7 @@ HS_split_characters_to_respective_nations = {
         GRE_prodromos_bodosakis = { set_nationality = GRE }                                     # GiE, escaped
         GRE_sitsa_karaiskaki = { set_nationality = GRE }                                        # GiE (surprisingly), convicted to death 2 times, amnesty in 1954
         retire_character = GRE_nelly                                                            # Stuck at USA in 1939. Make event
-        GRE_alexandros_kanelopoulos = { set_nationality = event_target:hellenic_state }         # Took over father's 'Company of Chemical Products & Fertilizers
+        GRE_alexandros_kanellopoulos = { set_nationality = event_target:hellenic_state }        # Took over father's 'Company of Chemical Products & Fertilizers
         GRE_achilleas_kyrou = { set_nationality = event_target:hellenic_state }                 # Made Head of Newspaper by Germans, but quit, almost immediately
         GRE_aristeidis_dimitratos = { set_nationality = GRE }                                   # GiE
         GRE_andreas_apostolidis = { set_nationality = event_target:hellenic_state }             # -
@@ -8169,7 +9117,7 @@ HS_split_characters_to_respective_nations = {
         GRE_pyrros_spyromilios = { set_nationality = GRE }                                      # GiE
         GRE_marinos_mitralexis = { set_nationality = GRE }                                      # GiE
         GRE_ioannis_kellas = { set_nationality = GRE }
-        every_unit_leader = {
+        every_character = {
             limit = { NOT = { has_character_flag = og_char } }
             random_list = {
                 seed = random
@@ -8888,31 +9836,53 @@ calculate_mg_percentage = {
     if = {
         limit = { check_variable = { tmpF = 0 } }
         set_temp_variable = { mg = GRE.final_mon_military_weight }
+        set_temp_variable = { x = GRE.base_monarchist_representation }
+        multiply_temp_variable = { x=100 }
+        divide_temp_variable = { mg=x }
     }
     else_if = {
         limit = { check_variable = { tmpF = 1 } }
         set_temp_variable = { mg = GRE.final_dem_military_weight }
+        set_temp_variable = { x = GRE.base_republican_representation }
+        multiply_temp_variable = { x=100 }
+        divide_temp_variable = { mg=x }
     }
     else_if = {
         limit = { check_variable = { tmpF = 2 } }
         set_temp_variable = { mg = GRE.final_com_military_weight }
+        set_temp_variable = { x = GRE.base_communist_representation }
+        multiply_temp_variable = { x=100 }
+        divide_temp_variable = { mg=x }
     }
     else_if = {
         limit = { check_variable = { tmpF = 3 } }
         set_temp_variable = { mg = GRE.final_fas_military_weight }
+        set_temp_variable = { x = GRE.base_fascist_representation }
+        multiply_temp_variable = { x=100 }
+        divide_temp_variable = { mg=x }
     }
-    multiply_temp_variable = { mg = 0.04 }
-    if = { limit = { check_variable = { mg = 0 } } set_temp_variable = { mg = 0.005 } }
+    if = { limit = { check_variable = { mg = 0 } } set_temp_variable = { mg = 0.05 } }
 }
 
 calculate_wri_passer = {
-    if = { 
-        limit = { check_variable = { mg < 0.6 } }        #That means less than 15% military grip.
+    if = {
+        limit = { check_variable = { mg < 0.50 } }        #That means less than 50% military grip of what they base deserve.
+        set_temp_variable = { passer = 1 }
+        divide_temp_variable = { passer = mg }
+        multiply_temp_variable = { passer = -0.12 }
+    }
+    else_if = {
+        limit = { check_variable = { mg < 0.9 } }        #That means less than 90% military grip of what they base deserve.
         set_temp_variable = { passer = 1 }
         divide_temp_variable = { passer = mg }
         multiply_temp_variable = { passer = -0.04 }
     }
-    else = {                                             #If more than 15% military grip.
+    else_if = {
+        limit = { check_variable = { mg < 1.1 } }        #That means around 90% to 110% of what they base deserve
+        set_temp_variable = { passer = mg }
+        multiply_temp_variable = { passer = 0.04 }
+    }
+    else = {                                             #When more than 110% of what they deserve is allocated
         set_temp_variable = { passer = mg }
         multiply_temp_variable = { passer = 0.12 }
     }
@@ -9558,13 +10528,13 @@ GRE_add_faction_favor = {
     set_temp_variable = { ffas = 0 }
     if = {
         limit = {
-            has_idea = GRE_kotzias
+            has_idea = GRE_kostas_kotzias_political_advisor
         }
         add_to_temp_variable = { ffas = 0.5 }
     }
     if = {
         limit = {
-            has_idea = GRE_koryzis
+            has_idea = GRE_alexandros_koryzis_political_advisor
         }
         add_to_temp_variable = { fmon = 0.75 }
         add_to_temp_variable = { fdem = 0.75 }
@@ -9573,7 +10543,7 @@ GRE_add_faction_favor = {
     }
     if = {
         limit = {
-            has_idea = GRE_dimitratos
+            has_idea = GRE_aristeidis_dimitratos_political_advisor
         }
         add_to_temp_variable = { fmon = 0.5 }
         add_to_temp_variable = { fdem = 1.0 }
@@ -10082,7 +11052,7 @@ GRE_add_favor_weekly = {
     if = {                                                                                                                   ## Has Kotzias (bonus to GER/ITA/JAP influence)
         limit = {
             original_tag = GER
-            GRE = { has_idea = GRE_kotzias }
+            GRE = { has_idea = GRE_kostas_kotzias_political_advisor }
         }
         add_to_temp_variable = { x = 0.5 }
     }
@@ -10092,13 +11062,13 @@ GRE_add_favor_weekly = {
                 original_tag = ITA
                 original_tag = JAP
             }
-            GRE = { has_idea = GRE_kotzias }
+            GRE = { has_idea = GRE_kostas_kotzias_political_advisor }
         }
         add_to_temp_variable = { x = 0.25 }    
     }
     if = {                                                                                                                   ## Has Nelly (bonus to all -SOV/ITA, extra bonus to USA/GER)
         limit = {
-            GRE = { has_idea = GRE_nelly }
+            GRE = { has_idea = GRE_nelly_political_advisor }
             NOT = {
                 OR = {
                     original_tag = SOV
@@ -10114,13 +11084,13 @@ GRE_add_favor_weekly = {
                 original_tag = GER
                 original_tag = USA
             }
-            GRE = { has_idea = GRE_nelly }
+            GRE = { has_idea = GRE_nelly_political_advisor }
         }
         add_to_temp_variable = { x = 0.5 }    
     }
     if = {                                                                                                                   ## Has Karaiskaki (bonus to GER, and its a big one)
         limit = {
-            GRE = { has_idea = GRE_karaiskaki }
+            GRE = { has_idea = GRE_sitsa_karaiskaki_political_advisor }
             original_tag = GER
         }
         add_to_temp_variable = { x = 0.75 }
@@ -10602,7 +11572,7 @@ GRE_add_favor = {
     if = {                                                                                                                   ## Has Kotzias (bonus to GER/ITA/JAP influence)
         limit = {
             original_tag = GER
-            GRE = { has_idea = GRE_kotzias }
+            GRE = { has_idea = GRE_kostas_kotzias_political_advisor }
         }
         add_to_temp_variable = { x = 2 }
     }
@@ -10612,13 +11582,13 @@ GRE_add_favor = {
                 original_tag = ITA
                 original_tag = JAP
             }
-            GRE = { has_idea = GRE_kotzias }
+            GRE = { has_idea = GRE_kostas_kotzias_political_advisor }
         }
         add_to_temp_variable = { x = 1 }    
     }
     if = {                                                                                                                   ## Has Nelly (bonus to all -SOV/ITA, extra bonus to USA/GER)
         limit = {
-            GRE = { has_idea = GRE_nelly }
+            GRE = { has_idea = GRE_nelly_political_advisor }
             NOT = {
                 OR = {
                     original_tag = SOV
@@ -10634,13 +11604,13 @@ GRE_add_favor = {
                 original_tag = GER
                 original_tag = USA
             }
-            GRE = { has_idea = GRE_nelly }
+            GRE = { has_idea = GRE_nelly_political_advisor }
         }
         add_to_temp_variable = { x = 2 }    
     }
     if = {                                                                                                                   ## Has Karaiskaki (bonus to GER, and its a big one)
         limit = {
-            GRE = { has_idea = GRE_karaiskaki }
+            GRE = { has_idea = GRE_sitsa_karaiskaki_political_advisor }
             original_tag = GER
         }
         add_to_temp_variable = { x = 3 }
@@ -10976,7 +11946,8 @@ find_num_weight_initialize_temps = {
     set_temp_variable = { sdcnterv4 = 0 }
     set_temp_variable = { mfcnterv4 = 0 }
     set_temp_variable = { recnterv4 = 0 }
-    ###
+}
+find_num_weight_initialize_counters = {
     set_temp_variable = { loyal_cnter = 0 }
     set_temp_variable = { friendly_cnter = 0 }
     set_temp_variable = { growing_cnter = 0 }

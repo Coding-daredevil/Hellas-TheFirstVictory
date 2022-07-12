@@ -31,6 +31,7 @@ scripted_gui = {
 		}
         
         triggers = {
+            #resistance_controller_local = { always=no }
             greek_resistance_open_0_visible = {
 				has_dynamic_modifier = { modifier = early_resistance_groups}
             }
@@ -64,6 +65,23 @@ scripted_gui = {
 		}
 		
 		effects = {
+			#resistance_controller_local_click = {
+			#	if = {
+			#		limit = { NOT = { has_state_flag = state_info_res_opened } }
+			#		set_state_flag = state_info_res_opened
+			#	}
+			#	else = {
+			#		clr_state_flag = state_info_res_opened
+			#	}
+			#	if = { 
+			#		limit = { 
+			#			check_variable = { gui_combatant_percentage=0 }
+			#			check_variable = { gui_noncombatant_percentage=0 }
+			#			check_variable = { gui_reservist_percentage=0 }
+			#		}
+			#		HS_GUI_initialize_composition=yes
+			#	}
+			#}
 			greek_resistance_open_0_click = {
 				if = {
 					limit = { NOT = { has_state_flag = state_info_res_opened } }
@@ -74,9 +92,9 @@ scripted_gui = {
 				}
 				if = { 
 					limit = { 
-						check_variable = { combatant_percentage=0 }
-						check_variable = { noncombatant_percentage=0 }
-						check_variable = { reservist_percentage=0 }
+						check_variable = { gui_combatant_percentage=0 }
+						check_variable = { gui_noncombatant_percentage=0 }
+						check_variable = { gui_reservist_percentage=0 }
 					}
 					HS_GUI_initialize_composition=yes
 				}
@@ -91,9 +109,9 @@ scripted_gui = {
 				}
 				if = { 
 					limit = { 
-						check_variable = { combatant_percentage=0 }
-						check_variable = { noncombatant_percentage=0 }
-						check_variable = { reservist_percentage=0 }
+						check_variable = { gui_combatant_percentage=0 }
+						check_variable = { gui_noncombatant_percentage=0 }
+						check_variable = { gui_reservist_percentage=0 }
 					}
 					HS_GUI_initialize_composition=yes
 				}
@@ -108,9 +126,9 @@ scripted_gui = {
 				}
 				if = { 
 					limit = { 
-						check_variable = { combatant_percentage=0 }
-						check_variable = { noncombatant_percentage=0 }
-						check_variable = { reservist_percentage=0 }
+						check_variable = { gui_combatant_percentage=0 }
+						check_variable = { gui_noncombatant_percentage=0 }
+						check_variable = { gui_reservist_percentage=0 }
 					}
 					HS_GUI_initialize_composition=yes
 				}
@@ -124,10 +142,10 @@ scripted_gui = {
 					clr_state_flag = state_info_res_opened
 				}
 				if = { 
-					limit = { 
-						check_variable = { combatant_percentage=0 }
-						check_variable = { noncombatant_percentage=0 }
-						check_variable = { reservist_percentage=0 }
+					limit = {
+						check_variable = { gui_combatant_percentage=0 }
+						check_variable = { gui_noncombatant_percentage=0 }
+						check_variable = { gui_reservist_percentage=0 }
 					}
 					HS_GUI_initialize_composition=yes
 				}
@@ -155,16 +173,80 @@ scripted_gui = {
 
 		triggers={
 			cycle_behavior_unarmed_click_enabled = { always=yes }
+			td_return_choice_click_enabled = { not_deploying_or_recalling_days_tmpDD=yes not_restructuring_troops_daysDR_valDR=yes }
+			td_confirm_arrangement_click_enabled = {
+				not_deploying_or_recalling_days_tmpDD=yes
+				not_restructuring_troops_daysDR_valDR=yes
+				NOT = { check_variable = { th=0 } }
+			}
+			combatant_percentage_increase_amount_button_click_enabled = { not_deploying_or_recalling_days_tmpDD=yes not_restructuring_troops_daysDR_valDR=yes }
+			combatant_percentage_decrease_amount_button_click_enabled = { not_deploying_or_recalling_days_tmpDD=yes not_restructuring_troops_daysDR_valDR=yes }
+			noncombatant_percentage_increase_amount_button_click_enabled = { not_deploying_or_recalling_days_tmpDD=yes not_restructuring_troops_daysDR_valDR=yes }
+			noncombatant_percentage_decrease_amount_button_click_enabled = { not_deploying_or_recalling_days_tmpDD=yes not_restructuring_troops_daysDR_valDR=yes }
+			reservist_percentage_increase_amount_button_click_enabled = { not_deploying_or_recalling_days_tmpDD=yes not_restructuring_troops_daysDR_valDR=yes }
+			reservist_percentage_decrease_amount_button_click_enabled = { not_deploying_or_recalling_days_tmpDD=yes not_restructuring_troops_daysDR_valDR=yes }
+			realign_percentages_click_enabled = { not_deploying_or_recalling_days_tmpDD=yes not_restructuring_troops_daysDR_valDR=yes }
+			confirm_restructure_click_enabled = { 
+				not_deploying_or_recalling_days_tmpDD=yes 
+				not_restructuring_troops_daysDR_valDR=yes 
+				not_all_gui_percentages_equal_to_actual=yes
+				total_gui_percentages_equal_100=yes
+			}
+			infeq_increase_amount_button_click_enabled = { not_deploying_or_recalling_days_tmpDD=yes not_restructuring_troops_daysDR_valDR=yes not_deploying_or_withdrawing_equipment_tmpDE=yes }
+			infeq_decrease_amount_button_click_enabled = { not_deploying_or_recalling_days_tmpDD=yes not_restructuring_troops_daysDR_valDR=yes not_deploying_or_withdrawing_equipment_tmpDE=yes }
+			supeq_increase_amount_button_click_enabled = { not_deploying_or_recalling_days_tmpDD=yes not_restructuring_troops_daysDR_valDR=yes not_deploying_or_withdrawing_equipment_tmpDE=yes }
+			supeq_decrease_amount_button_click_enabled = { not_deploying_or_recalling_days_tmpDD=yes not_restructuring_troops_daysDR_valDR=yes not_deploying_or_withdrawing_equipment_tmpDE=yes }
+			arteq_increase_amount_button_click_enabled = { not_deploying_or_recalling_days_tmpDD=yes not_restructuring_troops_daysDR_valDR=yes not_deploying_or_withdrawing_equipment_tmpDE=yes }
+			arteq_decrease_amount_button_click_enabled = { not_deploying_or_recalling_days_tmpDD=yes not_restructuring_troops_daysDR_valDR=yes not_deploying_or_withdrawing_equipment_tmpDE=yes }
+			return_choice_click_enabled = { not_deploying_or_recalling_days_tmpDD=yes not_restructuring_troops_daysDR_valDR=yes not_deploying_or_withdrawing_equipment_tmpDE=yes }
+			confirm_arrangement_click_enabled = { not_deploying_or_recalling_days_tmpDD=yes not_restructuring_troops_daysDR_valDR=yes not_deploying_or_withdrawing_equipment_tmpDE=yes }
+			item_0_click_enabled = {
+				if = { 
+					limit = { check_variable={ cycle_behavior=0 } }
+					not_restructuring_troops_daysDR_valDR=yes
+				}
+			}
+			item_1_click_enabled = {
+				if = {
+					limit = { check_variable={ cycle_behavior=0 } }
+					not_restructuring_troops_daysDR_valDR=yes
+				}
+			}
 			item_2_click_enabled = {
 				if = { 
 					limit = { check_variable={ cycle_behavior=0 } }
 					check_variable = { HQ>0 }
+					not_restructuring_troops_daysDR_valDR=yes
 				}
 			}
 			item_3_click_enabled = {
-				if = { 
+				if = {
 					limit = { check_variable={ cycle_behavior=0 } }
-					NOT= { check_variable = { GRE.RES_HQ_STATE=THIS.id } }
+					not_restructuring_troops_daysDR_valDR=yes
+				}
+			}
+			item_4_click_enabled = {
+				if = {
+					limit = { check_variable={ cycle_behavior=0 } }
+					not_restructuring_troops_daysDR_valDR=yes
+				}
+			}
+			item_5_click_enabled = {
+				if = {
+					limit = { check_variable={ cycle_behavior=0 } }
+					not_restructuring_troops_daysDR_valDR=yes
+				}
+			}
+			item_6_click_enabled = {
+				if = {
+					limit = { check_variable={ cycle_behavior=0 } }
+					not_restructuring_troops_daysDR_valDR=yes
+				}
+			}
+			item_7_click_enabled = {
+				if = {
+					limit = { check_variable={ cycle_behavior=0 } }
+					not_restructuring_troops_daysDR_valDR=yes
 				}
 			}
 			########################################################
@@ -327,32 +409,32 @@ scripted_gui = {
 			increase_amount_button_click = {
 				add_to_variable={ th=1 }
 				if = { limit = { check_variable={ toggle_tdep_return_deploy=0 } } clamp_variable={ var=th min=0 max=GRE.andartes_pool } }
-				else = { clamp_variable={ var=th min=0 max=THIS.andartes } }
+				else = { calculate_recallable_andartes=yes clamp_variable={ var=th min=0 max=x } }
 			}
 			increase_amount_button_shift_click = {
 				add_to_variable={ th=5 }
 				if = { limit = { check_variable={ toggle_tdep_return_deploy=0 } } clamp_variable={ var=th min=0 max=GRE.andartes_pool } }
-				else = { clamp_variable={ var=th min=0 max=THIS.andartes } }
+				else = { calculate_recallable_andartes=yes clamp_variable={ var=th min=0 max=x } }
 			}
 			increase_amount_button_control_click = {
 				add_to_variable={ th=10 }
 				if = { limit = { check_variable={ toggle_tdep_return_deploy=0 } } clamp_variable={ var=th min=0 max=GRE.andartes_pool } }
-				else = { clamp_variable={ var=th min=0 max=THIS.andartes } }
+				else = { calculate_recallable_andartes=yes clamp_variable={ var=th min=0 max=x } }
 			}
 			increase_amount_button_control_shift_click = {
 				add_to_variable={ th=100 }
 				if = { limit = { check_variable={ toggle_tdep_return_deploy=0 } } clamp_variable={ var=th min=0 max=GRE.andartes_pool } }
-				else = { clamp_variable={ var=th min=0 max=THIS.andartes } }
+				else = { calculate_recallable_andartes=yes clamp_variable={ var=th min=0 max=x } }
 			}
 			increase_amount_button_alt_click = {
 				add_to_variable={ th=500 }
 				if = { limit = { check_variable={ toggle_tdep_return_deploy=0 } } clamp_variable={ var=th min=0 max=GRE.andartes_pool } }
-				else = { clamp_variable={ var=th min=0 max=THIS.andartes } }
+				else = { calculate_recallable_andartes=yes clamp_variable={ var=th min=0 max=x } }
 			}
 			increase_amount_button_alt_shift_click = {
 				add_to_variable={ th=1000 }
 				if = { limit = { check_variable={ toggle_tdep_return_deploy=0 } } clamp_variable={ var=th min=0 max=GRE.andartes_pool } }
-				else = { clamp_variable={ var=th min=0 max=THIS.andartes } }
+				else = { calculate_recallable_andartes=yes clamp_variable={ var=th min=0 max=x } }
 			}
 			td_return_choice_click = {
 				if = {
@@ -360,115 +442,113 @@ scripted_gui = {
 					set_variable = { toggle_tdep_return_deploy=1 }
 				}
 				else = { set_variable = { toggle_tdep_return_deploy=0 } }
+				clear_variable = th
+			}
+			td_confirm_arrangement_click = {
+				if = { limit={check_variable={ toggle_tdep_return_deploy=0 }} add_andartes_based_off_percentages=yes }
+				else = { recall_andartes_based_off_percentages=yes }
+				for_each_scope_loop = {
+					array=global.greek_occupied_states_all
+					if = { limit={ not_deploying_or_recalling_days_tmpDD=yes } set_variable={th=0} }
+				}
 			}
 			####
 			decrease_amount_button_click = {
 				subtract_from_variable={ th=1 }
-				clamp_variable={ var=th min=0 max=THIS.andartes}
+				if = { limit = { check_variable={ toggle_tdep_return_deploy=0 } } clamp_variable={ var=th min=0 max=GRE.andartes_pool } }
+				else = { calculate_recallable_andartes=yes clamp_variable={ var=th min=0 max=x } }
 			}
 			decrease_amount_button_shift_click = {
 				subtract_from_variable={ th=5 }
-				clamp_variable={ var=th min=0 max=THIS.andartes}
+				if = { limit = { check_variable={ toggle_tdep_return_deploy=0 } } clamp_variable={ var=th min=0 max=GRE.andartes_pool } }
+				else = { calculate_recallable_andartes=yes clamp_variable={ var=th min=0 max=x } }
 			}
 			decrease_amount_button_control_click = {
 				subtract_from_variable={ th=10 }
-				clamp_variable={ var=th min=0 max=THIS.andartes}
+				if = { limit = { check_variable={ toggle_tdep_return_deploy=0 } } clamp_variable={ var=th min=0 max=GRE.andartes_pool } }
+				else = { calculate_recallable_andartes=yes clamp_variable={ var=th min=0 max=x } }
 			}
 			decrease_amount_button_control_shift_click = {
 				subtract_from_variable={ th=100 }
-				clamp_variable={ var=th min=0 max=THIS.andartes}
+				if = { limit = { check_variable={ toggle_tdep_return_deploy=0 } } clamp_variable={ var=th min=0 max=GRE.andartes_pool } }
+				else = { calculate_recallable_andartes=yes clamp_variable={ var=th min=0 max=x } }
 			}
 			decrease_amount_button_alt_click = {
 				subtract_from_variable={ th=500 }
-				clamp_variable={ var=th min=0 max=THIS.andartes}
+				if = { limit = { check_variable={ toggle_tdep_return_deploy=0 } } clamp_variable={ var=th min=0 max=GRE.andartes_pool } }
+				else = { calculate_recallable_andartes=yes clamp_variable={ var=th min=0 max=x } }
 			}
 			decrease_amount_button_alt_shift_click = {
 				subtract_from_variable={ th=1000 }
-				clamp_variable={ var=th min=0 max=THIS.andartes}
+				if = { limit = { check_variable={ toggle_tdep_return_deploy=0 } } clamp_variable={ var=th min=0 max=GRE.andartes_pool } }
+				else = { calculate_recallable_andartes=yes clamp_variable={ var=th min=0 max=x } }
 			}
 			########################################################
 			########################################################
 			########################################################
 			combatant_percentage_increase_amount_button_click = {
-				add_to_variable = { combatant_percentage=0.05 }
-				clamp_variable = { var=combatant_percentage min=0 max=1 }
+				add_to_variable = { gui_combatant_percentage=0.05 }
+				clamp_variable = { var=gui_combatant_percentage min=0 max=1 }
 			}
 			noncombatant_percentage_increase_amount_button_click = {
-				add_to_variable = { noncombatant_percentage=0.05 }
-				clamp_variable = { var=noncombatant_percentage min=0 max=1 }
+				add_to_variable = { gui_noncombatant_percentage=0.05 }
+				clamp_variable = { var=gui_noncombatant_percentage min=0 max=1 }
 			}
 			reservist_percentage_increase_amount_button_click = {
-				add_to_variable = { reservist_percentage=0.05 }
-				clamp_variable = { var=reservist_percentage min=0 max=1 }
+				add_to_variable = { gui_reservist_percentage=0.05 }
+				clamp_variable = { var=gui_reservist_percentage min=0 max=1 }
 			}
 			combatant_percentage_decrease_amount_button_click = {
-				subtract_from_variable = { combatant_percentage=0.05 }
-				clamp_variable = { var=combatant_percentage min=0 max=1 }
+				subtract_from_variable = { gui_combatant_percentage=0.05 }
+				clamp_variable = { var=gui_combatant_percentage min=0 max=1 }
 			}
 			noncombatant_percentage_decrease_amount_button_click = {
-				subtract_from_variable = { noncombatant_percentage=0.05 }
-				clamp_variable = { var=noncombatant_percentage min=0 max=1 }
+				subtract_from_variable = { gui_noncombatant_percentage=0.05 }
+				clamp_variable = { var=gui_noncombatant_percentage min=0 max=1 }
 			}
 			reservist_percentage_decrease_amount_button_click = {
-				subtract_from_variable = { reservist_percentage=0.05 }
-				clamp_variable = { var=reservist_percentage min=0 max=1 }
+				subtract_from_variable = { gui_reservist_percentage=0.05 }
+				clamp_variable = { var=gui_reservist_percentage min=0 max=1 }
 			}
 			realign_percentages_click = {
-				set_temp_variable = { x=combatant_percentage }
-				add_to_temp_variable = { x=noncombatant_percentage }
-				add_to_temp_variable = { x=reservist_percentage }
-				if = { limit={check_variable={x=0} } set_variable={ combatant_percentage=0.33 } set_variable={ noncombatant_percentage=0.34 } set_variable={ reservist_percentage=0.33 }}
-				else = { divide_variable={ combatant_percentage=x } divide_variable={ noncombatant_percentage=x } divide_variable={ reservist_percentage=x } }
+				set_temp_variable = { x=gui_combatant_percentage }
+				add_to_temp_variable = { x=gui_noncombatant_percentage }
+				add_to_temp_variable = { x=gui_reservist_percentage }
+				if = { limit={check_variable={x=0} } set_variable={ gui_combatant_percentage=0.33 } set_variable={ gui_noncombatant_percentage=0.34 } set_variable={ gui_reservist_percentage=0.33 }}
+				else = { divide_variable={ gui_combatant_percentage=x } divide_variable={ gui_noncombatant_percentage=x } divide_variable={ gui_reservist_percentage=x } }
 			}
+			confirm_restructure_click = { restructure_troops_in_state=yes }
 			########################################################
 			########################################################
 			infeq_increase_amount_button_click = {
-				add_to_variable = { infeq=5 }
-				if = {
-					limit = { check_variable = { toggle_eq_return_deploy=0 } }
-					clamp_variable = { var=infeq min=0 max=GRE.andartes_infeq_reserve }
-				}
-				else = { clamp_variable = { var=infeq min=0 max=and_infeq } }
+				add_to_variable = { gui_infeq=5 }
+				if = { limit= { check_variable= { toggle_eq_return_deploy=0 }} clamp_variable= { var=gui_infeq min=0 max=GRE.andartes_infeq_reserve }}
+				else = { clamp_variable = { var=gui_infeq min=0 max=infeq } }
 			}
 			supeq_increase_amount_button_click = {
-				add_to_variable = { supeq=5 }
-				if = {
-					limit = { check_variable = { toggle_eq_return_deploy=0 } }
-					clamp_variable = { var=supeq min=0 max=GRE.andartes_supeq_reserve }
-				}
-				else = { clamp_variable = { var=supeq min=0 max=and_supeq } }				
+				add_to_variable = { gui_supeq=5 }
+				if = { limit= { check_variable= { toggle_eq_return_deploy=0 }} clamp_variable= { var=gui_supeq min=0 max=GRE.andartes_supeq_reserve }}
+				else = { clamp_variable = { var=gui_supeq min=0 max=supeq } }
 			}
 			arteq_increase_amount_button_click = {
-				add_to_variable = { arteq=5 }
-				if = {
-					limit = { check_variable = { toggle_eq_return_deploy=0 } }
-					clamp_variable = { var=arteq min=0 max=GRE.andartes_arteq_reserve }
-				}
-				else = { clamp_variable = { var=arteq min=0 max=and_arteq } }
+				add_to_variable = { gui_arteq=5 }
+				if = { limit= { check_variable= { toggle_eq_return_deploy=0 }} clamp_variable= { var=gui_arteq min=0 max=GRE.andartes_arteq_reserve }}
+				else = { clamp_variable = { var=gui_arteq min=0 max=arteq } }
 			}
 			infeq_decrease_amount_button_click = {
-				subtract_from_variable = { infeq=5 }
-				if = {
-					limit = { check_variable = { toggle_eq_return_deploy=0 } }
-					clamp_variable = { var=infeq min=0 max=GRE.andartes_infeq_reserve }
-				}
-				else = { clamp_variable = { var=infeq min=0 max=and_infeq } }
+				subtract_from_variable = { gui_infeq=5 }
+				if = { limit={ check_variable={ toggle_eq_return_deploy=0 }} clamp_variable= { var=gui_infeq min=0 max=GRE.andartes_infeq_reserve }}
+				else = { clamp_variable = { var=gui_infeq min=0 max=infeq } }
 			}
 			supeq_decrease_amount_button_click = {
-				subtract_from_variable = { supeq=5 }
-				if = {
-					limit = { check_variable = { toggle_eq_return_deploy=0 } }
-					clamp_variable = { var=supeq min=0 max=GRE.andartes_supeq_reserve }
-				}
-				else = { clamp_variable = { var=supeq min=0 max=and_supeq } }
+				subtract_from_variable = { gui_supeq=5 }
+				if = { limit={ check_variable={ toggle_eq_return_deploy=0 }} clamp_variable= { var=gui_supeq min=0 max=GRE.andartes_supeq_reserve }}
+				else = { clamp_variable = { var=gui_supeq min=0 max=supeq } }
 			}
 			arteq_decrease_amount_button_click = {
-				subtract_from_variable = { arteq=5 }
-				if = {
-					limit = { check_variable = { toggle_eq_return_deploy=0 } }
-					clamp_variable = { var=arteq min=0 max=GRE.andartes_arteq_reserve }
-				}
-				else = { clamp_variable = { var=arteq min=0 max=and_arteq } }
+				subtract_from_variable = { gui_arteq=5 }
+				if = { limit={ check_variable={ toggle_eq_return_deploy=0 }} clamp_variable= { var=gui_arteq min=0 max=GRE.andartes_arteq_reserve }}
+				else = { clamp_variable = { var=gui_arteq min=0 max=arteq } }
 			}
 			return_choice_click = {
 				if = {
@@ -476,7 +556,11 @@ scripted_gui = {
 					set_variable = { toggle_eq_return_deploy=1 }
 				}
 				else = { set_variable = { toggle_eq_return_deploy=0 } }
+				clear_variable = gui_infeq
+				clear_variable = gui_supeq
+				clear_variable = gui_arteq
 			}
+			confirm_arrangement_click = { deploy_recall_equipment_in_state=yes }
 			############################################################################
 			############################################################################
 			############################################################################
@@ -494,6 +578,24 @@ scripted_gui = {
 			item_5_click = { HS_GUI_clear_main_variables=yes set_variable={ cycle_choice=6 } HS_GUI_UNARMED_inspire_populace_variable_preparation=yes }
 			item_6_click = { HS_GUI_clear_main_variables=yes set_variable={ cycle_choice=7 } HS_GUI_UNARMED_seek_aid_variable_preparation=yes }
 			item_7_click = { HS_GUI_clear_main_variables=yes set_variable={ cycle_choice=8 } HS_GUI_UNARMED_sabotage_variable_preparation=yes }
+			#
+			sabotage_top_1_click = { set_variable={ building_targeted_for_sabotage=1 } }
+			sabotage_top_2_click = { set_variable={ building_targeted_for_sabotage=2 } }
+			sabotage_top_3_click = { set_variable={ building_targeted_for_sabotage=3 } }
+			sabotage_top_4_click = { set_variable={ building_targeted_for_sabotage=4 } }
+			sabotage_top_5_click = { set_variable={ building_targeted_for_sabotage=5 } }
+			sabotage_top_6_click = { set_variable={ building_targeted_for_sabotage=6 } }
+			sabotage_top_7_click = { set_variable={ building_targeted_for_sabotage=7 } }
+			sabotage_top_8_click = { set_variable={ building_targeted_for_sabotage=8 } }
+			sabotage_top_9_click = { set_variable={ building_targeted_for_sabotage=9 } }
+			sabotage_top_10_click = { set_variable={ building_targeted_for_sabotage=10 } }
+			sabotage_top_11_click = { set_variable={ building_targeted_for_sabotage=11 } }
+			sabotage_top_12_click = { set_variable={ building_targeted_for_sabotage=12 } }
+			sabotage_top_13_click = { set_variable={ building_targeted_for_sabotage=13 } }
+			sabotage_top_14_click = { set_variable={ building_targeted_for_sabotage=14 } }
+			sabotage_top_15_click = { set_variable={ building_targeted_for_sabotage=15 } }
+			sabotage_top_16_click = { set_variable={ building_targeted_for_sabotage=16 } }
+			#
 			food_distribution_mid_4_increase_click = { set_temp_variable = { change_amount=1 } HS_GUI_UNARMED_food_distribution_change_amount_effect = yes }
 			food_distribution_mid_4_increase_shift_click = { set_temp_variable = { change_amount=5 } HS_GUI_UNARMED_food_distribution_change_amount_effect = yes }
 			food_distribution_mid_4_increase_control_click = { set_temp_variable = { change_amount=10 } HS_GUI_UNARMED_food_distribution_change_amount_effect = yes }
@@ -571,6 +673,11 @@ scripted_gui = {
 				if = { limit={ check_variable={cycle_behavior=0} check_variable={cycle_choice=1 } } HS_GUI_set_food_distribution=yes }			### Food Distribution
 				else_if = { limit={ check_variable={cycle_behavior=0} check_variable={cycle_choice=2 } } HS_GUI_set_reconnaissance=yes }		### State Reconnaissance
 				else_if = { limit={ check_variable={cycle_behavior=0} check_variable={cycle_choice=3 } } HS_GUI_set_intel_gathering=yes }		### State Intel Gathering
+				else_if = { limit={ check_variable={cycle_behavior=0} check_variable={cycle_choice=4 } } HS_GUI_set_route_planning=yes }		### State Route Planning
+				else_if = { limit={ check_variable={cycle_behavior=0} check_variable={cycle_choice=5 } } HS_GUI_set_fortify_position=yes }		### State Fortify Position
+				else_if = { limit={ check_variable={cycle_behavior=0} check_variable={cycle_choice=6 } } HS_GUI_set_inspire_populace=yes }		### State Inspire Populace
+				else_if = { limit={ check_variable={cycle_behavior=0} check_variable={cycle_choice=7 } } HS_GUI_set_seek_aid=yes }				### State Seek Aid
+				else_if = { limit={ check_variable={cycle_behavior=0} check_variable={cycle_choice=8 } } HS_GUI_set_sabotage_default=yes }				### State Seek Aid
 			}
 		}
 	}

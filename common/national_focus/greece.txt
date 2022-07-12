@@ -218,13 +218,6 @@ focus_tree = {
 		id = GRE_connecting_our_prefectures
 		icon = GFX_goal_generic_construct_infrastructure
 		prerequisite = { focus = GRE_utilize_our_strengths }
-		available = {
-			OR = {
-				has_full_control_of_state = 186
-				has_full_control_of_state = 47
-				has_full_control_of_state = 185
-			}
-		}
 		x = 0
 		y = 1
 		relative_position_id = GRE_utilize_our_strengths
@@ -236,39 +229,11 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY FOCUS_FILTER_STABILITY }
 		completion_reward = {
 			add_stability = 0.04
-			build_railway = {
-				start_state = 47
-				target_state = 839
+			if = {
+				limit = { NOT = { has_completed_focus=GRE_connecting_our_prefectures } }
+				expand_greek_railway_system_generator=yes
 			}
-			build_railway = {
-				path = { 4109 1109 3988 7211 }
-			}
-			build_railway = {
-				path = { 11818 3936 6990 9930 13242 11774 11905 }
-			}
-			build_railway = {
-				path = { 11895 3844 3864 }
-			}
-			835 = {
-				add_building_construction = {
-					type = naval_base
-					level = 1
-					instant_build = yes
-					province = 13251
-				}
-			}
-			build_railway = {
-				path = { 13251 12001 }
-			}
-			hidden_effect = {
-				build_railway = {
-					path = { 11895 13248 }
-				}
-				build_railway = {
-					path = { 3988 7096 }
-				}
-			}
-		}			
+		}
 	}
     
 	focus = {
@@ -569,29 +534,20 @@ focus_tree = {
 		id = GRE_fiscal_responsibility
 		icon = GFX_focus_generic_treaty
 		prerequisite = { focus = GRE_paying_back_our_debts_in_bulk }
-		available = { 
-            custom_trigger_tooltip = { 
-                tooltip = GRE_at_least_20_total_debt_tt
-                check_variable = { GRE_debt_to_the_ifc_paid_var > 59 }
-            }
-		}
 		x = 0
 		y = 1
 		relative_position_id = GRE_paying_back_our_debts_in_bulk
 		cost = 2.15
-		ai_will_do = {
-			base = 1
-		}
-
-		bypass = {
-			AND = {
-				has_country_flag = GRE_defaulted_on_debt_flag
-				NOT = { has_government = communism }
-			}
-		}
 
 		completion_reward = {
 			add_political_power = 75
+			effect_tooltip = {
+				add_trait = {
+					character = GRE_andreas_apostolidis
+					slot = political_advisor
+					trait = minister_of_economics
+				}
+			}
 		}
 	}		
 
@@ -863,7 +819,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_political_power = 60
 			unlock_decision_category_tooltip = GRE_economic_fluidity
 		}
 	}
@@ -884,7 +839,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_political_power = 90
             #hidden_effect = { add_dynamic_modifier = { modifier = GRE_alternating_tariffs } }
             custom_effect_tooltip = GRE_tariff_tt
 		}
@@ -1074,7 +1028,6 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			add_political_power = 120
 			custom_effect_tooltip = GRE_extortion_tt
 		}
 	}
@@ -1097,20 +1050,20 @@ focus_tree = {
 				remove_idea = GRE_foreign_monopolies_3
 				add_idea = GRE_foreign_monopolies_4
 			}
-            hidden_effect = {
-                every_country = {
-                    limit = {
-                        is_in_array = {
-                            array = global.favor_mechanic
-                            value = THIS.id
-                        }
-                    }
-                    add_to_variable = { THIS.favor@GRE = 10 }
-                }
-            }
-            custom_effect_tooltip = GRE_favor_boost_major_all_tt
 			add_ideas = GRE_booming_tourism
 			custom_effect_tooltip = GRE_encourage_tourism_tt
+			custom_effect_tooltip = axal_nl2_tt
+			every_country = {
+				limit = {
+					is_in_array = {
+						array = global.favor_mechanic
+						value = THIS.id
+					}
+				}
+				set_temp_variable = { findX=THIS.id }
+				set_temp_variable = { findY=2 }
+				add_to_variable = { THIS.favor@GRE = findY tooltip=favor_boost_with_findX_by_findY_no_name_tt }
+			}
 		}
 	}	
 
@@ -1406,123 +1359,101 @@ focus_tree = {
 		y = 1
 		relative_position_id = GRE_extortion
 		cost = 2.9
-		ai_will_do = {
-			base = 1
+		available = { 
+			num_of_civilian_factories>12
+			add_to_temp_array = { islands=187.id }
+			add_to_temp_array = { islands=182.id }
+			add_to_temp_array = { islands=183.id }
+			add_to_temp_array = { islands=164.id }
+			add_to_temp_array = { islands=187.id }
+			add_to_temp_array = { islands=842.id }
+			any_of_scopes = {
+				array=islands
+				tooltip=making_use_of_our_islands_trig_arr_tt
+				
+				custom_trigger_tooltip = {
+					tooltip=making_use_of_our_islands_trig_tt
+					infrastructure > 3
+					is_owned_and_controlled_by=GRE
+				}
+			}
 		}
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
 			187 = {
 				if = { 
-					limit = {
-						free_building_slots = {
-							building = dockyard
-							size > 0
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = dockyard
-						level = 1
-						instant_build = yes
-					}
-				}	
+					limit = { is_owned_and_controlled_by=GRE infrastructure>3 free_building_slots = { building=dockyard size>0 include_locked=yes }}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = { type=dockyard level=1 instant_build=yes }
+					add_building_construction = { type=naval_base level=1 province=6550 instant_build=yes }
+					add_building_construction = { type=naval_base level=1 province=8435 instant_build=yes }
+					add_building_construction = { type=air_base level=2 instant_build=yes }
+				}
 			}
 			182 = {
 				if = { 
-					limit = {
-						free_building_slots = {
-							building = dockyard
-							size > 1
-							include_locked = yes
-						}
-					}
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = dockyard
-						level = 1
-						instant_build = yes
-					}
+					limit = { is_owned_and_controlled_by=GRE infrastructure>3 free_building_slots = { building=dockyard size>0 include_locked=yes }}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = { type=dockyard level=1 instant_build=yes }
+					add_building_construction = { type=naval_base level=1 province=9940 instant_build=yes }
+					add_building_construction = { type=naval_base level=1 province=12058 instant_build=yes }
+					add_building_construction = { type=air_base level=2 instant_build=yes }
 				}
-			}	
-			if = { 
-				limit = { 
-					owns_state = 183 
-				}		
+			}
+			842 = {
+				if = { 
+					limit = { is_owned_and_controlled_by=GRE infrastructure>3 free_building_slots = { building=dockyard size>0 include_locked=yes }}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = { type=dockyard level=1 instant_build=yes }
+					add_building_construction = { type=naval_base level=1 province=3401 instant_build=yes }
+					add_building_construction = { type=air_base level=1 instant_build=yes }
+				}
+			}
+			837 = {
+				if = { 
+					limit = { is_owned_and_controlled_by=GRE infrastructure>3 free_building_slots = { building=dockyard size>0 include_locked=yes }}
+					add_extra_state_shared_building_slots = 2
+					add_building_construction = { type=dockyard level=1 instant_build=yes }
+					add_building_construction = { type=air_base level=3 instant_build=yes }
+				}
+			}
+			if = {
+				limit = { owns_state=183 }
 				183 = {
-					if = {
-						limit = {
-							free_building_slots = {
-								building = dockyard
-								size > 1
-								include_locked = yes
-							}
-						}
-					}	
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = dockyard
-						level = 1
-						instant_build = yes
+					if = { 
+						limit = { is_owned_and_controlled_by=GRE infrastructure>3 free_building_slots = { building=dockyard size>0 include_locked=yes }}
+						add_extra_state_shared_building_slots = 2
+						add_building_construction = { type=dockyard level=1 instant_build=yes }
+						add_building_construction = { type=naval_base level=1 province=7193 instant_build=yes }
+						add_building_construction = { type=air_base level=2 instant_build=yes }
 					}
 				}
 			}
-			if = { 
-				limit = { 
-					owns_state = 164 
-				}
+			if = {
+				limit = { owns_state=164 }
 				164 = {
-					if = {
-						limit = {
-							free_building_slots = {
-								building = dockyard
-								size > 0
-								include_locked = yes
-							}
-						}
-					}	
-					add_extra_state_shared_building_slots = 1
-					add_building_construction = {
-						type = dockyard
-						level = 1
-						instant_build = yes
+					if = { 
+						limit = { is_owned_and_controlled_by=GRE infrastructure>3 free_building_slots = { building=dockyard size>0 include_locked=yes }}
+						add_extra_state_shared_building_slots = 2
+						add_building_construction = { type=dockyard level=1 instant_build=yes }
+						add_building_construction = { type=naval_base level=1 province=10007 instant_build=yes }
+						add_building_construction = { type=naval_base level=1 province=7003 instant_build=yes }
+						add_building_construction = { type=air_base level=2 instant_build=yes }
 					}
 				}
 			}
 			if = { 
-				limit = { 
-					NOT = { 
-						owns_state = 183
-						owns_state = 164
-					}
-				}
+				limit = { NOT={ owns_state=183 owns_state=164 }}
 				custom_effect_tooltip = GRE_making_use_of_our_islands_tt
 			}	
 			else_if = { 
-				limit = { 
-					NOT = { 
-						owns_state = 164
-					}
-				}
+				limit = { NOT={ owns_state=164 }}
 				custom_effect_tooltip = GRE_making_use_of_our_islands_dodecanese_tt
 			}
 			else_if = { 
-				limit = { 
-					NOT = { 
-						owns_state = 183
-					}
-				}
+				limit = { NOT={ owns_state=183 }}
 				custom_effect_tooltip = GRE_making_use_of_our_islands_cyprus_tt
-			}
-			hidden_effect = { 
-				if = { 
-					limit = { 
-						183 = { is_owned_by = GRE }
-						NOT = { 183 = { is_core_of = GRE } }
-					}
-					add_state_core = 183
-				}
 			}
 		}
 	}			
@@ -2418,7 +2349,7 @@ focus_tree = {
         prerequisite = { focus = GRE_establish_propaganda }
 		available = {
             date > 1936.09.05
-            has_idea = GRE_karaiskaki
+            has_idea = GRE_sitsa_karaiskaki_political_advisor
 		}
         
         relative_position_id = GRE_metaxas_military_affairs
@@ -2984,7 +2915,7 @@ focus_tree = {
 
 		completion_reward = {
             add_stability = 0.01
-            hidden_effect = { add_ideas = GRE_koryzis }
+            hidden_effect = { add_ideas = GRE_alexandros_koryzis_political_advisor }
             custom_effect_tooltip = GRE_laying_out_the_social_wellfare_plan_tt
 		}
 	}
@@ -3935,40 +3866,30 @@ focus_tree = {
 
 		completion_reward = {
             if = {
-				limit = {
-					has_idea = GRE_arms_deal
-				}
-				swap_ideas = {
-					remove_idea = GRE_arms_deal
-					add_idea = GRE_arms_deal_1
-				}
+				limit = { has_idea=GRE_arms_deal }
+				swap_ideas = { remove_idea=GRE_arms_deal add_idea=GRE_arms_deal_1 }
             }
             else_if = {
-				limit = {
-					has_idea = GRE_arms_deal_1
-				}
-				swap_ideas = {
-					remove_idea = GRE_arms_deal_1
-					add_idea = GRE_arms_deal_2
-				}
+				limit = { has_idea=GRE_arms_deal_1 }
+				swap_ideas = { remove_idea=GRE_arms_deal_1 add_idea=GRE_arms_deal_2 }
             }
             else_if = {
-				limit = {
-					has_idea = GRE_arms_deal_2
-				}
+				limit = { has_idea=GRE_arms_deal_2 }
                 remove_ideas = GRE_arms_deal_2
-            } 
-            #subtract_from_variable = { GRE_gold_reserves = 1 }
-            hidden_effect = {            
-                set_variable = { GRE.debt_package = 15 }
-                ENG = { GRE_update_debt_status = yes }
-                set_variable = { GRE.debt_package = 15 }
-                FRA = { GRE_update_debt_status = yes }
-                set_variable = { GRE.debt_package = 15 }
-                ITA = { GRE_update_debt_status = yes }
             }
-            unlock_decision_tooltip = GRE_utilize_gold_reserves_for_further_debt_repayment
+            subtract_from_variable = { GRE_gold_reserves = 1 }
+            #hidden_effect = {            
+            #    set_variable = { GRE.debt_package = 15 }
+            #    ENG = { GRE_update_debt_status = yes }
+            #    set_variable = { GRE.debt_package = 15 }
+            #    FRA = { GRE_update_debt_status = yes }
+            #    set_variable = { GRE.debt_package = 15 }
+            #    ITA = { GRE_update_debt_status = yes }
+            #}
             custom_effect_tooltip = GRE_gold_for_debt_tt
+			#custom_effect_tooltip = axal_nl2_tt
+            unlock_decision_tooltip = GRE_utilize_gold_reserves_for_further_debt_repayment
+            set_variable = { GRE_debt_tokens = 4 }
             custom_effect_tooltip = GRE_spend_gold_for_debt_tt
 		}
 	}
@@ -4079,32 +4000,20 @@ focus_tree = {
 
 		completion_reward = {
             if = {
-				limit = {
-					has_idea = GRE_arms_deal
-				}
-				swap_ideas = {
-					remove_idea = GRE_arms_deal
-					add_idea = GRE_arms_deal_1
-				}
+				limit = { has_idea=GRE_arms_deal }
+				swap_ideas = { remove_idea=GRE_arms_deal add_idea=GRE_arms_deal_1 }
             }
             else_if = {
-				limit = {
-					has_idea = GRE_arms_deal_1
-				}
-				swap_ideas = {
-					remove_idea = GRE_arms_deal_1
-					add_idea = GRE_arms_deal_2
-				}
+				limit = { has_idea=GRE_arms_deal_1}
+				swap_ideas = { remove_idea=GRE_arms_deal_1 add_idea=GRE_arms_deal_2 }
             }
             else_if = {
-				limit = {
-					has_idea = GRE_arms_deal_2
-				}
+				limit = { has_idea=GRE_arms_deal_2 }
                 remove_ideas = GRE_arms_deal_2
             }
-            #subtract_from_variable = { GRE_gold_reserves = 1 }
-            unlock_decision_category_tooltip = GRE_the_resource_storage_plan    
-            custom_effect_tooltip = GRE_spend_gold_for_debt_tt        
+            unlock_decision_category_tooltip = GRE_the_resource_storage_plan
+			add_to_variable = { GRE.resource_tokens=3 }
+            custom_effect_tooltip = GRE_spend_gold_for_debt_tt
 		}
 	}
 
@@ -4143,31 +4052,18 @@ focus_tree = {
 
 		completion_reward = {
             if = {
-				limit = {
-					has_idea = GRE_arms_deal
-				}
-				swap_ideas = {
-					remove_idea = GRE_arms_deal
-					add_idea = GRE_arms_deal_1
-				}
+				limit = { has_idea=GRE_arms_deal }
+				swap_ideas = { remove_idea=GRE_arms_deal add_idea=GRE_arms_deal_1 }
             }
             else_if = {
-				limit = {
-					has_idea = GRE_arms_deal_1
-				}
-				swap_ideas = {
-					remove_idea = GRE_arms_deal_1
-					add_idea = GRE_arms_deal_2
-				}
+				limit = { has_idea=GRE_arms_deal_1}
+				swap_ideas = { remove_idea=GRE_arms_deal_1 add_idea=GRE_arms_deal_2 }
             }
             else_if = {
-				limit = {
-					has_idea = GRE_arms_deal_2
-				}
+				limit = { has_idea=GRE_arms_deal_2 }
                 remove_ideas = GRE_arms_deal_2
             }
-            #subtract_from_variable = { GRE_gold_reserves = 1 }
-            subtract_from_variable  = { GRE_resource_choices = 3 }
+			add_to_variable = { GRE.resource_tokens=3 }
             custom_effect_tooltip = GRE_spend_gold_for_resources_tt 
 		}
 	}    
@@ -4471,75 +4367,34 @@ focus_tree = {
 			}
 		}   
 		cost = 2.15
-		ai_will_do = {
-			base = 1
-		}
+		ai_will_do = { base=1 }
 
-		bypass = {
-            has_global_flag = CHI_warred_with_JAP    
-		}
+		bypass = { has_global_flag=CHI_warred_with_JAP }
 
 		completion_reward = {
             custom_effect_tooltip = GRE_extend_arms_sales_to_the_chinese_tt
-			add_to_variable = { helped_the_chinese_nationalists_magnitude = 1 }
-			ep_calculate_alignment = yes
 			add_to_variable = { GRE.ep_pot@CHI = 2 }
-			if = { 
-				limit = { 
-					check_variable = { var = GRE_eastern_expenditure value = 1 compare = equals } 
-				}
-                add_ideas = GRE_spent_too_much
-			}
-            else_if = {
-                limit = {
-                    check_variable = { var = GRE_eastern_expenditure value = 2 compare = equals } 
-                }
-                swap_ideas = {
-                    remove_idea = GRE_spent_too_much
-                    add_idea = GRE_spent_too_much_2
-                }
-            }
-            army_experience = 2
-			if = {
-				limit = {
-					CHI = { 
-						OR = { 
-							has_government = fascism 
-							has_government = neutrality 
-						}
-					}
-				}			
-				CHI = {
+			add_to_variable = { helped_the_chinese_nationalists_magnitude=1 }
+			ep_calculate_alignment = yes
+			ep_calculate_overpayment = yes
+			set_temp_variable = { tmpCID = CHI.id }
+            army_experience = 8			
+			CHI = {
 				add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 1000 producer = GRE }
 				add_equipment_to_stockpile = { type = support_equipment_1 amount = 100 producer = GRE }
-				}	
 			}
-        	unlock_decision_category_tooltip = GRE_the_eastern_prospect_category
 			every_country = {
-				limit = {
-					has_government = democratic
-					is_major = yes
-				}
-				add_opinion_modifier = {
-					target = GRE
-					modifier = GRE_democratic_accomplish
-				}
+				limit = { OR = { has_government=neutrality has_government=democratic } is_major=yes }
+				add_opinion_modifier = { target=GRE modifier=GRE_chinat_accomplish }
 			}
 			if = {
-				limit = {
-					threat > 0.21
-				}
+				limit = { threat>0.21 }
 				every_country = {
-					limit = {
-						has_government = fascism
-						is_major = yes
-					}
-					add_opinion_modifier = {
-						target = GRE
-						modifier = GRE_helped_the_enemy
-					}
-				}            
+					limit = { has_government=fascism is_major=yes }
+					add_opinion_modifier = { target=GRE modifier=GRE_helped_the_enemy }
+				}
 			}
+        	unlock_decision_category_tooltip = GRE_the_eastern_prospect_category
 			add_to_variable = { GRE_eastern_expenditure = 1 }
 			custom_effect_tooltip = GRE_arm_the_japanese_2_tt
 		}
@@ -4567,57 +4422,83 @@ focus_tree = {
         x = -1
 		y = 1
 		cost = 1
-		ai_will_do = {
-			base = 1
-		}
+		ai_will_do = { base=1 }
 
-		bypass = {
-            has_global_flag = CHI_warred_with_JAP    
-		}
+		bypass = { has_global_flag=CHI_warred_with_JAP }
 
 		completion_reward = {
 			add_to_variable = { GRE.ep_pot@PRC = 1 }
 			add_to_variable = { helped_the_chinese_communists_magnitude = 1 }
 			ep_calculate_alignment = yes
-			if = { 
-				limit = { 
-					check_variable = { var = GRE_eastern_expenditure value = 1 compare = equals } 
-				}
-                add_ideas = GRE_spent_too_much
-			}
-            else_if = {
-                limit = {
-                    check_variable = { var = GRE_eastern_expenditure value = 2 compare = equals } 
-                }
-                swap_ideas = {
-                    remove_idea = GRE_spent_too_much
-                    add_idea = GRE_spent_too_much_2
-                }
-            }
+			ep_calculate_overpayment = yes
+			set_temp_variable = { tmpCID = PRC.id }
+			army_experience = 8
 			custom_effect_tooltip = GRE_arm_the_communists_tt
-			army_experience = 2
-				if = {
-					limit = {
-						PRC = { 
-							OR = { 
-								has_government = communism
-							}
-						}
-					}			
-					PRC = {
-					add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 1000 producer = GRE }
-					add_equipment_to_stockpile = { type = support_equipment_1 amount = 100 producer = GRE }
-					}	
-				}
-			SOV = {
-				add_opinion_modifier = {
-					target = GRE
-					modifier = GRE_communist_accomplish
-				}
-			}            
+			PRC = {
+				add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 1000 producer = GRE }
+				add_equipment_to_stockpile = { type = support_equipment_1 amount = 100 producer = GRE }
+            }
+			every_country = {
+                limit = { has_government=var:tmpCID is_major=yes }
+				add_opinion_modifier = { target=GRE modifier=GRE_chicom_accomplish }
+            }
+        	unlock_decision_category_tooltip = GRE_the_eastern_prospect_category
 			add_to_variable = { GRE_eastern_expenditure = 1 }
 		}
-	} 
+	}
+
+	focus = {
+		id = GRE_arm_the_japanese
+		icon = GFX_goal_JAP_kohoda
+		prerequisite = { focus = GRE_utilize_arms_production }
+		available = {
+            CHI = {
+				exists = yes
+				has_war_with = JAP
+				NOT = { has_war_with = GRE }
+				NOT = { is_in_faction_with = GRE }
+            }
+			JAP = {
+				exists = yes
+				has_war_with = PRC
+				NOT = { has_war_with = GRE }
+			}
+		}
+		relative_position_id = GRE_extend_arms_sales_to_the_chinese
+        x = 1
+		y = 1
+		cost = 2.15
+		ai_will_do = { base = 1 }
+
+		bypass = { has_global_flag=CHI_warred_with_JAP }
+
+		completion_reward = {
+			add_to_variable = { GRE.ep_pot@JAP = 2 }
+			add_to_variable = { helped_the_japanese_magnitude = 1 }
+			ep_calculate_alignment = yes
+			ep_calculate_overpayment = yes
+			set_temp_variable = { tmpCID = JAP.id }
+            army_experience = 8		
+			JAP = {
+				add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 1000 producer = GRE }
+				add_equipment_to_stockpile = { type = support_equipment_1 amount = 100 producer = GRE }
+            }
+            every_country = {
+                limit = { has_government=var:tmpCID is_major=yes }
+                add_opinion_modifier = { target=GRE modifier=GRE_japanese_accomplish }
+            }
+			if = {
+				limit = { threat>0.21 }
+				every_country = {
+					limit = { has_opposing_ideology_from_tmpCID=yes is_major=yes }
+					add_opinion_modifier = { target=GRE modifier=GRE_helped_the_enemy }
+				}
+			}
+			unlock_decision_category_tooltip = GRE_the_eastern_prospect_category
+			add_to_variable = { GRE_eastern_expenditure = 1 }
+			custom_effect_tooltip = GRE_arm_the_japanese_2_tt
+		}
+	}
  
 	focus = {
 		id = GRE_learn_from_the_sino_japanese_war
@@ -4660,102 +4541,6 @@ focus_tree = {
 				uses = 1
 				category = land_doctrine
 			}
-		}
-	} 
- 
-	focus = {
-		id = GRE_arm_the_japanese
-		icon = GFX_goal_JAP_kohoda
-		prerequisite = { focus = GRE_utilize_arms_production }
-		available = {
-            CHI = {
-				exists = yes
-				has_war_with = JAP
-				NOT = { has_war_with = GRE }
-				NOT = { is_in_faction_with = GRE }
-            }
-			JAP = {
-				exists = yes
-				has_war_with = PRC
-				NOT = { has_war_with = GRE }
-
-			}
-		}        
-		relative_position_id = GRE_extend_arms_sales_to_the_chinese
-        x = 1
-		y = 1
-		cost = 2.15
-		ai_will_do = {
-			base = 1
-		}
-
-		bypass = {
-            has_global_flag = CHI_warred_with_JAP    
-		}
-
-		completion_reward = {
-			add_to_variable = { GRE.ep_pot@JAP = 2 }
-			add_to_variable = { helped_the_japanese_magnitude = 1 }
-			ep_calculate_alignment = yes
-			if = { 
-				limit = { 
-					check_variable = { var = GRE_eastern_expenditure value = 1 compare = equals } 
-				}
-                add_ideas = GRE_spent_too_much
-			}
-            else_if = {
-                limit = {
-                    check_variable = { var = GRE_eastern_expenditure value = 2 compare = equals } 
-                }
-                swap_ideas = {
-                    remove_idea = GRE_spent_too_much
-                    add_idea = GRE_spent_too_much_2
-                }
-            }
-            if = { 	
-                limit = { 
-                    country_exists = JAP
-                    JAP = { has_opinion = { target = GRE value > 75 } } 
-                }
-                set_technology = { 
-                    oil_processing = 1
-                    rubber_processing = 1
-                }
-            }
-			custom_effect_tooltip = GRE_arm_the_japanese_1_tt
-            army_experience = 2			
-			JAP = {
-				add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 1000 producer = GRE }
-				add_equipment_to_stockpile = { type = support_equipment_1 amount = 100 producer = GRE }
-            }
-            every_country = {
-                limit = {
-                    has_government = fascism
-                    is_major = yes
-                }
-                add_opinion_modifier = {
-                    target = GRE
-                    modifier = GRE_fascist_accomplish
-                }            
-            }
-        if = {
-            limit = {
-                threat > 0.21
-            }
-            every_country = {
-                limit = {
-                    has_government = democratic
-                    is_major = yes
-                }
-                add_opinion_modifier = {
-                    target = GRE
-                    modifier = GRE_helped_the_enemy
-                }
-            }            
-        }            
-			unlock_decision_category_tooltip = GRE_the_eastern_prospect_category
-			add_to_variable = { GRE_eastern_expenditure = 1 }
-            custom_effect_tooltip = GRE_arm_the_japanese_2_tt
 		}
 	} 
 
@@ -4864,16 +4649,22 @@ focus_tree = {
 	} 
 
 	focus = {
-		id = GRE_expanding_our_railroad_system_across_our_dominions
-		icon = GFX_goal_generic_construct_civ_factory
+		id = GRE_expanding_railroad_system_on_the_backs_of_our_investors
+		icon = GFX_goal_gre_railway_investors
 		prerequisite = { focus = GRE_extortion }
 		x = 2
 		y = 2
 		relative_position_id = GRE_open_foreign_subsidized_factories
-		cost = 17.9
+		cost = 8.6
         
         available = {
-            has_country_flag = GRE_has_occupied_territory
+            has_completed_focus = GRE_open_foreign_subsidized_factories
+			OR = {
+				has_active_mission = mining_rights_ath_timeout_mission
+				has_active_mission = mining_rights_ste_timeout_mission
+				has_active_mission = mining_rights_pel_timeout_mission
+				has_active_mission = mining_rights_epi_timeout_mission
+			}
         }
         
 		ai_will_do = {
@@ -4882,33 +4673,7 @@ focus_tree = {
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			731 = {
-				if = { 
-					limit = {
-						free_building_slots = {
-							building = industrial_complex
-							size > 1
-							include_locked = yes
-						}
-						free_building_slots = {
-							building = arms_factory
-							size > 0
-							include_locked = yes
-						}
-					}
-				}	
-				add_extra_state_shared_building_slots = 6
-				add_building_construction = {
-					type = industrial_complex
-					level = 3
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = arms_factory
-					level = 3
-					instant_build = yes
-				}
-			}			
+			expand_greek_railway_system_generator=yes		
 		}
 	}    
 
@@ -5915,7 +5680,7 @@ focus_tree = {
         available_if_capitulated = yes
 
 		completion_reward = {
-            hidden_effect = { HS_add_angered_greeks = yes }
+            #hidden_effect = { HS_add_angered_greeks = yes }
             custom_effect_tooltip = GRE_resistance_tt
             hidden_effect = { event_target:hellenic_state = { unlock_national_focus = resistance } }
 		}
@@ -5948,20 +5713,20 @@ focus_tree = {
 		}
         available_if_capitulated = yes
 		completion_reward = {
-            hidden_effect = {
-                47 = {
-                    if = {
-                    limit = { has_dynamic_modifier = { modifier = unyielding_greeks_angered } }
-                    remove_dynamic_modifier = { modifier = unyielding_greeks_angered }
-                    add_dynamic_modifier = { modifier = unyielding_greeks_determined }
-                    }
-                    else_if = {
-                        limit = { has_dynamic_modifier = { modifier = unyielding_greeks_determined } }
-                        remove_dynamic_modifier = { modifier = unyielding_greeks_determined }
-                        add_dynamic_modifier = { modifier = unyielding_greeks_ferocious }
-                    }
-                }
-            }
+            #hidden_effect = {
+            #    47 = {
+            #        if = {
+            #        limit = { has_dynamic_modifier = { modifier = unyielding_greeks_angered } }
+            #        remove_dynamic_modifier = { modifier = unyielding_greeks_angered }
+            #        add_dynamic_modifier = { modifier = unyielding_greeks_determined }
+            #        }
+            #        else_if = {
+            #            limit = { has_dynamic_modifier = { modifier = unyielding_greeks_determined } }
+            #            remove_dynamic_modifier = { modifier = unyielding_greeks_determined }
+            #            add_dynamic_modifier = { modifier = unyielding_greeks_ferocious }
+            #        }
+            #    }
+            #}
             custom_effect_tooltip = take_down_the_hakenkreuz_tt
             hidden_effect = { event_target:hellenic_state = { unlock_national_focus = take_down_the_hakenkreuz } }
             #hidden_effect = { gre_hs_xor = yes var:event_sender = { country_event = { id = hellas.xxxx days = 0 } } }
@@ -6071,7 +5836,7 @@ focus_tree = {
         available_if_capitulated = yes
 
 		completion_reward = {
-            HS_increase_unyielding_greeks_by_one = yes 
+            #HS_increase_unyielding_greeks_by_one = yes 
             custom_effect_tooltip = unarmed_resistance_tt
             hidden_effect = { event_target:hellenic_state = { unlock_national_focus = unarmed_resistance } }
         }
@@ -6270,7 +6035,7 @@ focus_tree = {
         available_if_capitulated = yes
 
 		completion_reward = {
-            HS_increase_unyielding_greeks_by_one = yes 
+            #HS_increase_unyielding_greeks_by_one = yes 
             HS_increase_armed_resistance_by_one = yes
             custom_effect_tooltip = light_up_the_fireworks_tt
             hidden_effect = { event_target:hellenic_state = { unlock_national_focus = light_up_the_fireworks } }
@@ -6628,7 +6393,7 @@ focus_tree = {
             effect_tooltip  = { 
                 event_target:hellenic_state = { 
                     add_stability = 0.05
-                    add_ideas = GRE_archbishop_damaskinos  
+                    add_ideas = GRE_archbishop_damaskinos_political_advisor  
                 }
             }
             hidden_effect = { event_target:hellenic_state = { complete_national_focus = oust_chrysanthus_for_damaskinos } }
@@ -8708,7 +8473,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			unlock_decision_category_tooltip = GRE_hellenic_academy_category   
+			unlock_decision_category_tooltip = GRE_hell_acad_category   
             country_event = { id = hellas.404 days = 0 }
             add_dynamic_modifier = { modifier = GRE_military_budget } 
 		}

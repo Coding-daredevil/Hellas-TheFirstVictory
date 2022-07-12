@@ -1,0 +1,170 @@
+calculate_troop_deployment_recall_time_for_THIS_state = {
+    # Calculates Deployment/Recall time for this state
+
+    set_variable={ final_state_manpower_deploy_recall_days=base_state_manpower_deploy_recall_days }
+    set_temp_variable={ tmp_val=100 }
+    subtract_from_temp_variable={ tmp_val=THIS.manpower_redeployment_bonus }
+    divide_temp_variable={ tmp_val=100 }
+    multiply_variable={ final_state_manpower_deploy_recall_days=tmp_val }
+    round_variable = final_state_manpower_deploy_recall_days
+
+    set_variable={ final_state_equipment_deploy_recall_days=base_state_equipment_deploy_recall_days }
+    set_temp_variable={ tmp_val=100 }
+    subtract_from_temp_variable={ tmp_val=THIS.equipment_redeployment_bonus }
+    divide_temp_variable={ tmp_val=100 }
+    multiply_variable={ final_state_equipment_deploy_recall_days=tmp_val }
+    round_variable = final_state_equipment_deploy_recall_days
+}
+
+distribute_daily_new_andartes = {
+    # Distributes new andartes (modifiers/events) by the respective percentages.
+
+    set_temp_variable = { x=THIS.andartes }
+    subtract_from_temp_variable = { x=THIS.available_combatants }
+    subtract_from_temp_variable = { x=THIS.allocated_noncombatants }
+    subtract_from_temp_variable = { x=THIS.available_noncombatants }
+    subtract_from_temp_variable = { x=THIS.available_reservists }
+    set_temp_variable = { x1=combatant_percentage }
+    set_temp_variable = { x2=noncombatant_percentage }
+    set_temp_variable = { x3=reservist_percentage }
+    multiply_temp_variable = { x1=x }
+    multiply_temp_variable = { x2=x }
+    multiply_temp_variable = { x3=x }
+    add_to_variable = { available_combatants=x1 }
+    add_to_variable = { available_noncombatants=x2 }
+    add_to_variable = { available_reservists=x3 }
+}
+
+calculate_base_time_to_deploy_recall = {
+    # Calculates time based off distance for deploying/recalling andartes.
+    
+    set_variable = { THIS.base_state_manpower_deploy_recall_days=THIS.distance_to@GRE.RES_HQ_STATE }
+    round_variable = THIS.base_state_manpower_deploy_recall_days
+    set_variable = { THIS.base_state_equipment_deploy_recall_days=THIS.distance_to@GRE.RES_HQ_STATE }
+    multiply_variable = { THIS.base_state_equipment_deploy_recall_days=1.5 }
+    round_variable = THIS.base_state_equipment_deploy_recall_days
+}
+
+calculate_recallable_andartes = {
+    # Calculates how many andartes can be recalled at the moment (reservists + idle noncombatants)
+    set_temp_variable = { x=available_reservists }
+    add_to_temp_variable = { x=available_noncombatants }
+}
+
+calculate_and_set_deployment_date = {
+    set_variable = { end_date=global.date }
+    set_temp_variable = { x=final_state_manpower_deploy_recall_days }
+    multiply_temp_variable = { x=0.024 }
+    add_to_variable = { end_date=x }
+}
+
+calculate_and_set_troop_reconstruction_date = {
+    set_variable = { end_tc_date=global.date }
+    set_temp_variable = { x=7 }
+    multiply_temp_variable = { x=0.024 }
+    add_to_variable = { end_tc_date=x }
+}
+
+calculate_and_set_equipment_finish_date = {
+    set_variable = { end_eq_date=global.date }
+    set_temp_variable = { x=final_state_equipment_deploy_recall_days }
+    multiply_temp_variable = { x=0.024 }
+    add_to_variable = { end_eq_date=x }
+}
+
+add_andartes_based_off_percentages = {
+    # Splits (th) andartes to state based off percentages set.
+    subtract_from_variable = { GRE.andartes_pool=th }
+    calculate_and_set_deployment_date=yes
+    set_state_flag = { flag=state_deploying_recalling value=1 }
+    GRE = { country_event = { id = hellas.15991 days=PREV.base_state_manpower_deploy_recall_days } }
+}
+
+recall_andartes_based_off_percentages = {
+    # Recalls (th) andartes to andartes pool. First reservists are recalled, then available non combatants.
+    subtract_from_variable = { THIS.andartes=th }
+    if = {
+        limit = { check_variable={ var=THIS.available_reservists value=th compare=greater_than_or_equals }}
+        subtract_from_variable = { THIS.available_reservists=th }
+    }
+    else = {
+        set_temp_variable = { cur=THIS.available_reservists }
+        set_temp_variable = { quota=th }
+        subtract_from_temp_variable = { quota=cur }
+        clear_variable = THIS.available_reservists
+        subtract_from_variable = { THIS.available_noncombatants=quota }
+    }
+    calculate_and_set_deployment_date=yes
+    set_state_flag = { flag=state_deploying_recalling value=2 }
+    GRE = { country_event = { id = hellas.15992 days=PREV.final_state_manpower_deploy_recall_days } }
+}
+
+restructure_troops_in_state = {
+    # Restructures troops based on percentages given by player.
+
+    calculate_and_set_troop_reconstruction_date=yes
+    if = {
+        limit = { set_temp_variable={ xx=gui_noncombatant_percentage } multiply_temp_variable={ xx=THIS.andartes } check_variable={ var=xx value=THIS.allocated_noncombatants compare=greater_than_or_equals } }
+        set_state_flag = { flag=state_restructuring_forces days=7 value=1 }
+    }
+    else = { set_state_flag = { flag=state_restructuring_forces days=7 value=2 } }
+    GRE = { country_event = { id = hellas.15993 days=7 } }
+}
+
+deploy_recall_equipment_in_state = {
+    # Deploys/Recalls equipment from target state.
+
+    calculate_and_set_equipment_finish_date=yes
+    if = {
+        limit = { check_variable = { toggle_eq_return_deploy=0 } }
+        subtract_from_variable={ GRE.andartes_infeq_reserve=gui_infeq }
+        subtract_from_variable={ GRE.andartes_supeq_reserve=gui_supeq }
+        subtract_from_variable={ GRE.andartes_arteq_reserve=gui_arteq }
+        set_state_flag = { flag=state_redeploying_equipment value=1 }
+    }
+    else = {
+        subtract_from_variable={ infeq=gui_infeq }
+        subtract_from_variable={ supeq=gui_supeq }
+        subtract_from_variable={ arteq=gui_arteq }
+        set_state_flag = { flag=state_redeploying_equipment value=2 }
+    }
+    GRE = { country_event = { id = hellas.15994 days=PREV.final_state_equipment_deploy_recall_days } }
+}
+
+reset_entire_state_unarmed_resistance = {
+    # Resets every possible choice the player made in unarmed resistance. Something sort of a flood. To be used either as a halping tool or a gameplay mechanic.
+
+    add_to_variable={ available_noncombatants=allocated_noncombatants}
+    clear_variable = allocated_noncombatants
+    # food
+    clear_variable = state_food_distribution_manpower
+    clear_variable = state_food_distribution_efficiency
+    clear_variable = res_group_state_stb
+    clear_variable = res_group_state_fam
+    # recon
+    clear_variable = state_reconnaissance_manpower
+    clear_variable = state_reconnaissance_efficiency
+    clear_variable = res_group_state_recon
+    # intel gathering
+    clear_variable = state_intel_gathering_manpower
+    clear_variable = state_intel_gathering_efficiency
+    clear_variable = res_group_intel_gathering
+    # route planning
+    clear_variable = state_route_planning_manpower
+    clear_variable = state_route_planning_efficiency
+    clear_variable = res_group_state_dman
+    clear_variable = res_group_state_dequ
+    # fortify position
+    clear_variable = state_fortify_position_manpower
+    clear_variable = state_fortify_position_efficiency
+    clear_variable = res_group_state_fort
+    # inspire populace
+    clear_variable = state_inspire_populace_manpower
+    clear_variable = state_inspire_populace_efficiency
+    clear_variable = res_group_state_and_daily
+    clear_variable = res_group_state_like
+    # seek aid
+    clear_variable = state_seek_aid_manpower
+    clear_variable = state_seek_aid_efficiency
+    clear_variable = res_group_state_fort
+}

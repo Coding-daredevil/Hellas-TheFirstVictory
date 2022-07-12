@@ -1,0 +1,213 @@
+inflmech_clear_region_filters = {
+    clear_variable = infmech_feur
+    clear_variable = infmech_fnam
+    clear_variable = infmech_fsam
+    clear_variable = infmech_foce
+    clear_variable = infmech_fafr
+    clear_variable = infmech_fasi
+    clear_variable = infmech_fmea
+    clear_variable = infmech_fblk
+}
+
+clear_prev_sort = {
+    if = { limit = { NOT = { check_variable={ sort_var=1 }}} clear_variable = infmech_salp }
+    if = { limit = { NOT = { check_variable={ sort_var=2 }}} clear_variable = infmech_sopi }
+    if = { limit = { NOT = { check_variable={ sort_var=3 }}} clear_variable = infmech_swee }
+    if = { limit = { NOT = { check_variable={ sort_var=4 }}} clear_variable = infmech_sinf clear_variable = infmech_sinf2 }
+}
+
+inflmech_apply_filters_and_sort = {
+    # This function will apply all kinds of filters and sort choices picked. We start with an empty, temporary array and gradually apply selected filters.
+
+    #####[Filtering]#####
+    if = {
+        limit = {
+            AND = {
+                check_variable={ infmech_feur=0 }
+                check_variable={ infmech_fnam=0 }
+                check_variable={ infmech_fsam=0 }
+                check_variable={ infmech_foce=0 }
+                check_variable={ infmech_fafr=0 }
+                check_variable={ infmech_fasi=0 }
+                check_variable={ infmech_fmea=0 }
+                check_variable={ infmech_fblk=0 }
+                check_variable={ infmech_fdem=0 }
+                check_variable={ infmech_fcom=0 }
+                check_variable={ infmech_ffas=0 }
+                check_variable={ infmech_fnoa=0 }
+                check_variable={ infmech_faxi=0 }
+                check_variable={ infmech_fall=0 }
+                check_variable={ infmech_fcmn=0 }
+            }
+        }
+        clear_array=global.carr
+        every_country = {
+            limit={
+                NOT={original_tag=ROOT} 
+                if={limit={check_variable={ GRE.infmech_fmaj=2 }} is_major=yes }
+            } 
+            add_to_array={ global.carr=THIS.id }
+        }
+    }
+    else = {
+        if = { limit={ check_variable={ infmech_feur=2 }} for_each_scope_loop={ array=global.bcarr if={limit={var:capital={is_on_continent=europe}}           if={limit={NOT={is_in_array={array=tmpFLTRD value=THIS.id}}} add_to_temp_array={ tmpFLTRD=THIS.id }}}}}
+        if = { limit={ check_variable={ infmech_fnam=2 }} for_each_scope_loop={ array=global.bcarr if={limit={var:capital={is_on_continent=north_america}}    if={limit={NOT={is_in_array={array=tmpFLTRD value=THIS.id}}} add_to_temp_array={ tmpFLTRD=THIS.id }}}}}
+        if = { limit={ check_variable={ infmech_fsam=2 }} for_each_scope_loop={ array=global.bcarr if={limit={var:capital={is_on_continent=south_america}}    if={limit={NOT={is_in_array={array=tmpFLTRD value=THIS.id}}} add_to_temp_array={ tmpFLTRD=THIS.id }}}}}
+        if = { limit={ check_variable={ infmech_foce=2 }} for_each_scope_loop={ array=global.bcarr if={limit={var:capital={is_on_continent=australia}}        if={limit={NOT={is_in_array={array=tmpFLTRD value=THIS.id}}} add_to_temp_array={ tmpFLTRD=THIS.id }}}}}
+        if = { limit={ check_variable={ infmech_fafr=2 }} for_each_scope_loop={ array=global.bcarr if={limit={var:capital={is_on_continent=africa}}           if={limit={NOT={is_in_array={array=tmpFLTRD value=THIS.id}}} add_to_temp_array={ tmpFLTRD=THIS.id }}}}}
+        if = { limit={ check_variable={ infmech_fasi=2 }} for_each_scope_loop={ array=global.bcarr if={limit={var:capital={is_on_continent=asia}}             if={limit={NOT={is_in_array={array=tmpFLTRD value=THIS.id}}} add_to_temp_array={ tmpFLTRD=THIS.id }}}}}
+        if = { limit={ check_variable={ infmech_fmea=2 }} for_each_scope_loop={ array=global.bcarr if={limit={var:capital={is_on_continent=middle_east}}      if={limit={NOT={is_in_array={array=tmpFLTRD value=THIS.id}}} add_to_temp_array={ tmpFLTRD=THIS.id }}}}}
+        if = { limit={ check_variable={ infmech_fblk=2 }} for_each_scope_loop={ array=global.bcarr if={limit={is_balkan_nation=yes}                           if={limit={NOT={is_in_array={array=tmpFLTRD value=THIS.id}}} add_to_temp_array={ tmpFLTRD=THIS.id }}}}}
+        if = { limit={ check_variable={ infmech_fdem=2 }} for_each_scope_loop={ array=global.bcarr if={limit={has_government=democratic}                      if={limit={NOT={is_in_array={array=tmpFLTRD value=THIS.id}}} add_to_temp_array={ tmpFLTRD=THIS.id }}}}}
+        if = { limit={ check_variable={ infmech_fcom=2 }} for_each_scope_loop={ array=global.bcarr if={limit={has_government=communism}                       if={limit={NOT={is_in_array={array=tmpFLTRD value=THIS.id}}} add_to_temp_array={ tmpFLTRD=THIS.id }}}}}
+        if = { limit={ check_variable={ infmech_ffas=2 }} for_each_scope_loop={ array=global.bcarr if={limit={has_government=fascism}                         if={limit={NOT={is_in_array={array=tmpFLTRD value=THIS.id}}} add_to_temp_array={ tmpFLTRD=THIS.id }}}}}
+        if = { limit={ check_variable={ infmech_fnoa=2 }} for_each_scope_loop={ array=global.bcarr if={limit={has_government=neutrality}                      if={limit={NOT={is_in_array={array=tmpFLTRD value=THIS.id}}} add_to_temp_array={ tmpFLTRD=THIS.id }}}}}
+        if = { limit={ check_variable={ infmech_faxi=2 }} for_each_scope_loop={ array=global.bcarr if={limit={is_in_faction_with=GER}                         if={limit={NOT={is_in_array={array=tmpFLTRD value=THIS.id}}} add_to_temp_array={ tmpFLTRD=THIS.id }}}}}
+        if = { limit={ check_variable={ infmech_fall=2 }} for_each_scope_loop={ array=global.bcarr if={limit={is_in_faction_with=ENG}                         if={limit={NOT={is_in_array={array=tmpFLTRD value=THIS.id}}} add_to_temp_array={ tmpFLTRD=THIS.id }}}}}
+        if = { limit={ check_variable={ infmech_fcmn=2 }} for_each_scope_loop={ array=global.bcarr if={limit={is_in_faction_with=SOV}                         if={limit={NOT={is_in_array={array=tmpFLTRD value=THIS.id}}} add_to_temp_array={ tmpFLTRD=THIS.id }}}}}
+        if = { limit={ check_variable={ infmech_fmaj=2 }} for_each_scope_loop={ array=tmpFLTRD     if={limit={is_major=yes}                                   set_temp_variable={ tmpFLTRD^real_index=THIS.id } add_to_temp_variable={ real_index=1 }}} resize_temp_array={ tmpFLTRD=real_index}}
+        clear_array=global.carr
+        for_each_scope_loop = { array=tmpFLTRD add_to_array={ global.carr=THIS.id }}
+    }
+    #####[Sorting]#####
+    if = { 
+        limit={ check_variable={ sort_var>0 }} 
+        
+		set_temp_variable = { ledger_qs_compare = 0 }
+		set_variable = { high = global.carr^num }
+		subtract_from_variable = { high = 1 }
+		set_variable = { low = 0 }
+        quicksort=yes 
+		clear_variable = high
+		clear_variable = low
+    }
+    if = {
+        limit = { OR={ check_variable={ infmech_sopi=3 } check_variable={ infmech_swee=3 } check_variable={ infmech_sinf2=1 }}}
+        set_temp_variable = { high=global.carr^num }
+        subtract_from_temp_variable = { high=1 }
+        set_temp_variable = { lim=high }
+        divide_temp_variable = { lim=2 }
+        round_temp_variable = lim
+        for_each_loop = {
+            array=global.carr 
+
+            log = "limit: [?lim], i: [?i] - h: [?high]"
+            set_temp_variable = { swap_value=global.carr^high }
+            set_variable = { global.carr^high=v }
+            set_variable = { global.carr^i=swap_value }
+            subtract_from_temp_variable={high=1}
+            if = { limit={check_variable={ var=lim value=high compare=greater_than }} set_temp_variable={ break=1 }}
+        }
+    }
+}
+
+
+quicksort = {
+    # The quicksort function. Credits to @Yard1 (https://github.com/Yard1/HoI4-Quicksort)
+
+	set_temp_variable = { stack_size = high }
+	subtract_from_temp_variable = { stack_size = low }
+	add_to_temp_variable = { stack_size = 1 }
+	resize_temp_array = {
+		array = stack
+		value = 0
+		size = stack_size
+	}
+
+	set_temp_variable = { top = 0 }
+	set_temp_variable = { stack^top = low }
+	add_to_temp_variable = { top = 1 }
+	set_temp_variable = { stack^top = high }
+	meta_effect = {
+		text = {
+			while_loop_effect = {
+				limit = { 
+					check_variable = {
+						var = top
+						value = 0
+						compare = greater_than_or_equals
+					}
+				}
+				set_variable = { high = stack^top }
+				subtract_from_temp_variable = { top = 1 }
+				set_variable = { low = stack^top }
+				subtract_from_temp_variable = { top = 1 }
+
+				##### PARTITON #####
+				set_variable = { random_pivot = random }
+				multiply_variable = { random_pivot = high }
+				round_variable = random_pivot
+				add_to_variable = { random_pivot = low }
+				clamp_variable = {
+					var = random_pivot
+					min = low
+					max = high
+				}
+				set_temp_variable = { swap = global.carr^high }
+				set_variable = { global.carr^high = global.carr^random_pivot }
+				set_variable = { global.carr^random_pivot = swap }
+
+				set_temp_variable = { idx = low }
+				subtract_from_temp_variable = { idx = 1 }
+
+				var:global.carr^high = {
+					set_variable = { PREV.min = [VARIABLE] }
+				}
+			
+				for_loop_effect = {
+					start = low
+					end = high
+					var:global.carr^v = {
+						set_variable = { PREV.tmp = [VARIABLE] }
+					}
+					if = {
+						limit = {
+							check_variable = {
+								var = tmp
+								value = min
+								compare = greater_than_or_equals
+							}
+						}
+						add_to_temp_variable = { idx = 1 }
+						set_temp_variable = { swap = global.carr^idx }
+						set_variable = { global.carr^idx = global.carr^v }
+						set_variable = { global.carr^v = swap }
+					}
+				}
+
+				add_to_temp_variable = { idx = 1 }
+				set_temp_variable = { swap = global.carr^idx }
+				set_variable = { global.carr^idx = global.carr^high }
+				set_variable = { global.carr^high = swap }
+
+				set_temp_variable = { qs_partition_return = idx }
+				#####
+				
+				set_temp_variable = { qs_partition_return_plus_1 = qs_partition_return }
+				set_temp_variable = { qs_partition_return_minus_1 = qs_partition_return }
+				add_to_temp_variable = { qs_partition_return_plus_1 = 1 } 
+				subtract_from_temp_variable = { qs_partition_return_minus_1 = 1 } 
+
+				if = {
+					limit = { check_variable = { qs_partition_return_minus_1 > low } }
+					add_to_temp_variable = { top = 1 }
+					set_temp_variable = { stack^top = low }
+					add_to_temp_variable = { top = 1 }
+					set_temp_variable = { stack^top = qs_partition_return_minus_1 }
+				}
+
+				if = {
+					limit = { check_variable = { qs_partition_return_plus_1 < high } }
+					add_to_temp_variable = { top = 1 }
+					set_temp_variable = { stack^top = qs_partition_return_plus_1 }
+					add_to_temp_variable = { top = 1 }
+					set_temp_variable = { stack^top = high }
+				}
+			}
+		}
+		VARIABLE = "[ROOT.LedgerGetVariableToSort]"
+	}
+	clear_variable = min
+	clear_variable = tmp
+	clear_variable = random_pivot
+}

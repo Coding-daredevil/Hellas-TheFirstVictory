@@ -1,0 +1,17 @@
+ecall_calculate_ppcosts = {
+    # This function calculates base and final ppcost to pay debt. 
+
+    set_temp_variable = { b_ppcost=4 }
+    if={ limit={NOT={check_variable={ modifier@base_debt_modifier_token=0 }}} ecall_calculate_debt_modifier_token=yes multiply_temp_variable={ b_ppcost=dmod }}
+    set_temp_variable = { ppcost=b_ppcost }
+    multiply_temp_variable = { ppcost=ecall_payment }
+    multiply_temp_variable = { ppcost=ecall_percent_off }
+}
+
+ecall_calculate_debt_modifier_token = {
+    # Calculates debt modifier % off.
+
+    set_temp_variable = { dmod=1 }
+    subtract_from_temp_variable = { dmod=modifier@base_debt_modifier_token }
+    clamp_temp_variable = { var=dmod min=0 max=1 }
+}

@@ -33,7 +33,7 @@ guiTypes = {
 			name = "state_info_main_window_controller"
 			position = { x = 20 y = 50 }
 			textureFile = ""
-			font = "hoi_26mbs"
+			font = "hoi_18mbs"
 			borderSize = {x = 0 y = 0}
 			text = state_info_gui_state_controller
             pdx_tooltip_delayed = state_info_gui_state_controller_tt
@@ -386,6 +386,7 @@ guiTypes = {
                 position = {x=348 y=44}	
                 spriteType = "GFX_local_resistance_groups"
                 pdx_tooltip = state_info_gui_garrison_local
+                pdx_tooltip_delayed = state_info_gui_garrison_local_composition
                 scale = 1.45                                   
             }
 
@@ -612,7 +613,7 @@ guiTypes = {
                 name = "troop_deployment"
                 position = { x = 5 y = 38 }
                 textureFile = ""
-                font = "vic_20s"
+                font = "hoi_18mbs"
                 borderSize = {x = 0 y = 0}
                 text = state_info_gui_troop_deployment_menu_add_from_reserves
                 maxWidth = 150
@@ -632,6 +633,7 @@ guiTypes = {
                 maxHeight = 20
                 allwaystransparent = no
                 format = center
+                pdx_tooltip = state_info_gui_troop_deployment_menu_add_from_reserves_tt
             }
 
             buttonType = {
@@ -670,6 +672,9 @@ guiTypes = {
                 #shortcut = "RETURN"
                 clicksound = click_default
                 text = "[GetTDeploymentReturnChoiceConfirm]"
+                pdx_tooltip = state_info_gui_tcdep_deployment_menu_days_notice_tt
+                pdx_tooltip_delayed = state_info_gui_tcdep_deployment_menu_days_notice_delayed_tt
+                pdx_disabled_tooltip = state_info_gui_tcdep_deployment_menu_days_notice_disabled_tt
             }
         }
 
@@ -710,7 +715,7 @@ guiTypes = {
                 name = "combatant_percentage"
                 position = { x = 5 y = 33 }
                 textureFile = ""
-                font = "vic_20s"
+                font = "hoi_18mbs"
                 borderSize = {x = 0 y = 0}
                 text = state_info_gui_troop_composition_menu_add_to_combatant_percentage
                 maxWidth = 150
@@ -725,7 +730,7 @@ guiTypes = {
                 textureFile = ""
                 font = "vic_22s"
                 borderSize = {x = 0 y = 0}
-                text = "[?combatant_percentage|0%]"
+                text = "[?gui_combatant_percentage|0%]"
                 maxWidth = 108
                 maxHeight = 20
                 allwaystransparent = no
@@ -759,7 +764,7 @@ guiTypes = {
                 name = "noncombatant_percentage"
                 position = { x = 5 y = 63 }
                 textureFile = ""
-                font = "vic_20s"
+                font = "hoi_18mbs"
                 borderSize = {x = 0 y = 0}
                 text = state_info_gui_troop_composition_menu_add_to_noncombatant_percentage
                 maxWidth = 150
@@ -774,11 +779,12 @@ guiTypes = {
                 textureFile = ""
                 font = "vic_22s"
                 borderSize = {x = 0 y = 0}
-                text = "[?noncombatant_percentage|0%]"
+                text = "[GetTCompositionBoxColor]"
                 maxWidth = 108
                 maxHeight = 20
                 allwaystransparent = no
                 format = center
+                pdx_tooltip = state_info_gui_troop_composition_noncombatant_percentage_box_tt
             }
 
             buttonType = {
@@ -808,7 +814,7 @@ guiTypes = {
                 name = "reservist_percentage"
                 position = { x = 5 y = 93 }
                 textureFile = ""
-                font = "vic_20s"
+                font = "hoi_18mbs"
                 borderSize = {x = 0 y = 0}
                 text = state_info_gui_troop_composition_menu_add_to_reservist_percentage
                 maxWidth = 150
@@ -823,7 +829,7 @@ guiTypes = {
                 textureFile = ""
                 font = "vic_22s"
                 borderSize = {x = 0 y = 0}
-                text = "[?reservist_percentage|0%]"
+                text = "[?gui_reservist_percentage|0%]"
                 maxWidth = 108
                 maxHeight = 20
                 allwaystransparent = no
@@ -867,7 +873,8 @@ guiTypes = {
                 buttonFont = "vic_18"
                 #shortcut = "RETURN"
                 clicksound = click_default
-                text = "Order Restructure"
+                text = "[GetTCompositionReturnChoiceConfirm]"
+                pdx_tooltip = state_info_gui_troop_composition_menu_days_notice_tt
             }
         }
 
@@ -908,7 +915,7 @@ guiTypes = {
                 name = "infeq"
                 position = { x = 5 y = 33 }
                 textureFile = ""
-                font = "vic_20s"
+                font = "hoi_18mbs"
                 borderSize = {x = 0 y = 0}
                 text = state_info_gui_equip_deployment_menu_add_to_infeq
                 maxWidth = 150
@@ -923,11 +930,12 @@ guiTypes = {
                 textureFile = ""
                 font = "vic_22s"
                 borderSize = {x = 0 y = 0}
-                text = "[?infeq|0]"
+                text = "[?gui_infeq|0]"
                 maxWidth = 108
                 maxHeight = 20
                 allwaystransparent = no
                 format = center
+                pdx_tooltip = state_info_gui_infequip_deployment_menu_add_from_reserves_tt
             }
 
             buttonType = {
@@ -957,7 +965,7 @@ guiTypes = {
                 name = "supeq"
                 position = { x = 5 y = 63 }
                 textureFile = ""
-                font = "vic_20s"
+                font = "hoi_18mbs"
                 borderSize = {x = 0 y = 0}
                 text = state_info_gui_equip_deployment_menu_add_to_supeq
                 maxWidth = 150
@@ -972,11 +980,12 @@ guiTypes = {
                 textureFile = ""
                 font = "vic_22s"
                 borderSize = {x = 0 y = 0}
-                text = "[?supeq|0]"
+                text = "[?gui_supeq|0]"
                 maxWidth = 108
                 maxHeight = 20
                 allwaystransparent = no
                 format = center
+                pdx_tooltip = state_info_gui_supequip_deployment_menu_add_from_reserves_tt
             }
 
             buttonType = {
@@ -1006,7 +1015,7 @@ guiTypes = {
                 name = "arteq"
                 position = { x = 5 y = 93 }
                 textureFile = ""
-                font = "vic_20s"
+                font = "hoi_18mbs"
                 borderSize = {x = 0 y = 0}
                 text = state_info_gui_equip_deployment_menu_add_to_arteq
                 maxWidth = 150
@@ -1021,11 +1030,12 @@ guiTypes = {
                 textureFile = ""
                 font = "vic_22s"
                 borderSize = {x = 0 y = 0}
-                text = "[?arteq|0]"
+                text = "[?gui_arteq|0]"
                 maxWidth = 108
                 maxHeight = 20
                 allwaystransparent = no
                 format = center
+                pdx_tooltip = state_info_gui_artequip_deployment_menu_add_from_reserves_tt
             }
 
             buttonType = {
@@ -1063,7 +1073,9 @@ guiTypes = {
                 buttonFont = "vic_18"
                 #shortcut = "RETURN"
                 clicksound = click_default
-                text = "Order Arrangement"
+                text = "[GetEquipDeploymentReturnChoiceConfirm]"
+                pdx_tooltip = state_info_gui_equip_composition_menu_days_notice_tt
+                pdx_tooltip_delayed = state_info_gui_equip_composition_menu_days_notice_tt_delayed
             }
         }
         ########################################################
@@ -1158,7 +1170,7 @@ guiTypes = {
                     name = "x42_avail"
                     position = { x = 5 y = 19 }
                     textureFile = ""
-                    font = "vic_20s"
+                    font = "hoi_18mbs"
                     borderSize = {x = 0 y = 0}
                     text = "[GetStateGuiResPanelAvailable]"
                     maxWidth = 72
@@ -1974,7 +1986,7 @@ guiTypes = {
                     textureFile = ""
                     font = "vic_18s"
                     borderSize = {x = 0 y = 0}
-                    text = state_info_gui_unarmed_sabotage_mid_tt
+                    text = "[GetSabotageBuildingName]"
                     maxWidth = 70
                     maxHeight = 20
                     allwaystransparent = no

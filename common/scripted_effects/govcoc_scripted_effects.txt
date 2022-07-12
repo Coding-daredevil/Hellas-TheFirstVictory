@@ -1,0 +1,526 @@
+####################################
+###############[ GOV ]##############
+####################################
+
+gov_apply_filters = {
+    # This function applies all selected filters, recreating the array as set by the player. 
+
+    clear_array = global.gov_array
+    if = {
+        limit = { check_variable={ gov_reverted_filters=0 }}
+
+        every_character = {
+            limit = {
+                check_variable={ gov_coc=1 }
+                if = { limit={ check_variable={ GRE.gov_available>0 }} set_temp_variable={ v=THIS } targeted_character_is_available_for_hire_as_political_advisor=yes if={limit={is_advisor=yes} has_pp_for_targeted_character=yes} }
+                if = { limit={ check_variable={ GRE.gov_bleader>0  }} can_be_country_leader=THIS }
+                if = { limit={ check_variable={ GRE.gov_badvisor>0 }} is_advisor=yes }
+                if = { limit={ check_variable={ GRE.gov_cdead>0 }} check_variable = { dead=1 } }
+                if = { limit={ check_variable={ GRE.gov_cpurged>0 }} check_variable = { purged=1 } }
+                if = { limit={ check_variable={ GRE.gov_csurrendered>0 }} check_variable = { surrendered=1 } }
+                if = { limit={ check_variable={ GRE.gov_badvisor>0 }} is_advisor=yes }
+                if = {
+                    limit = { gov_no_idelogical_filters_chosen=no }
+                    if = { limit={ check_variable={ GRE.gov_imon=0 }} NOT={check_variable={ ideology=1 }}}
+                    if = { limit={ check_variable={ GRE.gov_idem=0 }} NOT={check_variable={ ideology=2 }}}
+                    if = { limit={ check_variable={ GRE.gov_icom=0 }} NOT={check_variable={ ideology=3 }}}
+                    if = { limit={ check_variable={ GRE.gov_ifas=0 }} NOT={check_variable={ ideology=4 }}}
+                    if = { limit={ check_variable={ GRE.gov_icon=0 }} NOT={check_variable={ ideology=5 }}}
+                    if = { limit={ check_variable={ GRE.gov_isod=0 }} NOT={check_variable={ ideology=6 }}}
+                    if = { limit={ check_variable={ GRE.gov_irev=0 }} NOT={check_variable={ ideology=7 }}}
+                    if = { limit={ check_variable={ GRE.gov_imfa=0 }} NOT={check_variable={ ideology=8 }}}
+                }
+            }
+            add_to_array={ global.gov_array=THIS }
+        }
+    }
+    else = {
+        every_character = {
+            limit = {
+                check_variable={ gov_coc=1 }
+                if = { limit={ check_variable={ GRE.gov_available>0 }} set_temp_variable={ v=THIS } targeted_character_is_available_for_hire_as_political_advisor=no if={limit={is_advisor=yes} has_pp_for_targeted_character=no} }
+                if = { limit={ check_variable={ GRE.gov_bleader>0  }} NOT={ can_be_country_leader=THIS }}
+                if = { limit={ check_variable={ GRE.gov_badvisor>0 }} is_advisor=no }
+                if = { limit={ check_variable={ GRE.gov_cdead>0 }} check_variable = { dead=0 } }
+                if = { limit={ check_variable={ GRE.gov_cpurged>0 }} check_variable = { purged=0 } }
+                if = { limit={ check_variable={ GRE.gov_csurrendered>0 }} check_variable = { surrendered=0 } }
+                if = { limit={ check_variable={ GRE.gov_badvisor>0 }} is_advisor=no }
+                if = {
+                    limit = { gov_no_idelogical_filters_chosen=no }
+                    if = { limit={ check_variable={ GRE.gov_imon=2 }} NOT={check_variable={ ideology=1 }}}
+                    if = { limit={ check_variable={ GRE.gov_idem=2 }} NOT={check_variable={ ideology=2 }}}
+                    if = { limit={ check_variable={ GRE.gov_icom=2 }} NOT={check_variable={ ideology=3 }}}
+                    if = { limit={ check_variable={ GRE.gov_ifas=2 }} NOT={check_variable={ ideology=4 }}}
+                    if = { limit={ check_variable={ GRE.gov_icon=2 }} NOT={check_variable={ ideology=5 }}}
+                    if = { limit={ check_variable={ GRE.gov_isod=2 }} NOT={check_variable={ ideology=6 }}}
+                    if = { limit={ check_variable={ GRE.gov_irev=2 }} NOT={check_variable={ ideology=7 }}}
+                    if = { limit={ check_variable={ GRE.gov_imfa=2 }} NOT={check_variable={ ideology=8 }}}
+                }
+            }
+            add_to_array={ global.gov_array=THIS }
+        }
+    }
+}
+
+gov_reset_all_filters_if_back_to_all = { gov_clean_branch_filters=yes gov_clean_conditional_filters=yes gov_clean_ideological_filters=yes clear_variable=gov_reverted_filters }
+gov_reset_branch_filters_if_zero = { if = { limit={ check_variable={ gov_branch=0 }} gov_clean_branch_filters=yes }}
+gov_reset_conditional_filters_if_zero = { if = { limit={ check_variable={ gov_conditional=0 }} gov_clean_conditional_filters=yes }}
+gov_reset_ideological_filters_if_zero = { if = { limit={ check_variable={ gov_ideological=0 }} gov_clean_ideological_filters=yes }}
+
+gov_clean_branch_filters = {
+    clear_variable = gov_bleader
+    clear_variable = gov_badvisor
+}
+
+gov_clean_conditional_filters = {
+    clear_variable = gov_cdead
+    clear_variable = gov_cpurged
+    clear_variable = gov_csurrendered
+}
+
+gov_clean_ideological_filters = {
+    clear_variable = gov_imon
+    clear_variable = gov_idem
+    clear_variable = gov_icom
+    clear_variable = gov_ifas
+    clear_variable = gov_icon
+    clear_variable = gov_isod
+    clear_variable = gov_irev
+    clear_variable = gov_imfa
+}
+
+hire_targeted_character_as_political_advisor = {
+    # This function is a meta effect that will target character in array (v value) and hire him as a political advisor.
+
+    meta_effect={ text={ if={ limit={ has_pp_for_targeted_character=yes } activate_advisor=[CHARACTER_ID]_political_advisor }} CHARACTER_ID = "[GetCharacterIDfromTOKEN]"}
+}
+
+
+
+####################################
+###############[ COC ]##############
+####################################
+
+
+coc_apply_filters = {
+    # This function applies all selected filters, recreating the array as set by the player. 
+
+    clear_array = global.coc_array
+    clear_array = global.coc_array_ovrl
+    clear_array = global.coc_array_frst
+    clear_array = global.coc_array_scnd
+    clear_array = global.coc_array_thrd
+    clear_array = global.coc_array_frth
+    if = {
+        limit = { check_variable={ coc_reverted_filters=0 }}
+
+        every_character = {
+            limit = {
+                check_variable={ gov_coc=2 }
+                if = { limit={ check_variable={ GRE.coc_available>0 }} set_temp_variable={ v=THIS } targeted_character_is_available_for_hire_as_political_advisor=yes if={limit={is_advisor=yes} has_pp_for_targeted_character=yes }}
+                if = { limit={ check_variable={ GRE.coc_bleader>0  }} OR={ is_high_command=yes is_army_chief=yes is_navy_chief=yes is_air_chief=yes }}
+                if = { limit={ check_variable={ GRE.coc_badvisor>0 }} OR={ is_navy_leader=yes is_army_leader=yes is_unit_leader=yes is_corps_commander=yes }}
+                if = { limit={ check_variable={ GRE.coc_barmy>0 }} check_variable = { mbranch=1 }}
+                if = { limit={ check_variable={ GRE.coc_bnavy>0 }} check_variable = { mbranch=2 }}
+                if = { limit={ check_variable={ GRE.coc_bair>0 }} check_variable = { mbranch=3 }}
+                if = { limit={ check_variable={ GRE.coc_cdead>0 }} check_variable = { dead=1 }}
+                if = { limit={ check_variable={ GRE.coc_cpurged>0 }} check_variable = { purged=1 }}
+                if = { limit={ check_variable={ GRE.coc_csurrendered>0 }} check_variable = { surrendered=1 }}
+                if = { limit={ check_variable={ GRE.coc_cassigned>0 }}  if={limit={check_variable={ GRE.coc_bleader>0 }} NOT={not_already_hired_except_as=theorist}} if={limit={check_variable={ GRE.coc_badvisor>0 }} is_assigned=yes }}
+                if = {
+                    limit = { coc_no_idelogical_filters_chosen=no }
+                    if = { limit={ check_variable={ GRE.coc_imon=0 }} NOT={check_variable={ ideology=1 }}}
+                    if = { limit={ check_variable={ GRE.coc_idem=0 }} NOT={check_variable={ ideology=2 }}}
+                    if = { limit={ check_variable={ GRE.coc_icom=0 }} NOT={check_variable={ ideology=3 }}}
+                    if = { limit={ check_variable={ GRE.coc_ifas=0 }} NOT={check_variable={ ideology=4 }}}
+                    if = { limit={ check_variable={ GRE.coc_icon=0 }} NOT={check_variable={ ideology=5 }}}
+                    if = { limit={ check_variable={ GRE.coc_isod=0 }} NOT={check_variable={ ideology=6 }}}
+                    if = { limit={ check_variable={ GRE.coc_irev=0 }} NOT={check_variable={ ideology=7 }}}
+                    if = { limit={ check_variable={ GRE.coc_imfa=0 }} NOT={check_variable={ ideology=8 }}}
+                }
+            }
+            add_to_array={ global.coc_array=THIS }
+            add_to_array={ global.coc_array_ovrl=THIS.average_stats }
+            add_to_array={ global.coc_array_frst=THIS.attack_level }
+            add_to_array={ global.coc_array_scnd=THIS.defense_level }
+            if = { limit={ is_army_leader=yes } add_to_array={ global.coc_array_thrd=THIS.planning_level }} else_if = { limit={ is_navy_leader=yes } add_to_array={ global.coc_array_thrd=THIS.maneuvering_level }}
+            if = { limit={ is_army_leader=yes } add_to_array={ global.coc_array_frth=THIS.logistics_level }} else_if = { limit={ is_navy_leader=yes } add_to_array={ global.coc_array_frth=THIS.coordination_level }}
+        }
+    }
+    else = {
+        every_character = {
+            limit = {
+                check_variable={ gov_coc=2 }
+                if = { limit={ check_variable={ GRE.coc_available>0 }} set_temp_variable={ v=THIS } targeted_character_is_available_for_hire_as_political_advisor=no if={limit={is_advisor=yes} has_pp_for_targeted_character=no} }
+                if = { limit={ check_variable={ GRE.coc_bleader>0  }} NOT={ OR={ is_high_command=yes is_army_chief=yes is_navy_chief=yes is_air_chief=yes }}}
+                if = { limit={ check_variable={ GRE.coc_badvisor>0 }} NOT={ OR={ is_navy_leader=yes is_army_leader=yes is_unit_leader=yes is_corps_commander=yes }}}
+                if = { limit={ check_variable={ GRE.coc_barmy>0 }} NOT={ check_variable = { mbranch=1 }}}
+                if = { limit={ check_variable={ GRE.coc_bnavy>0 }} NOT={ check_variable = { mbranch=2 }}}
+                if = { limit={ check_variable={ GRE.coc_bair>0 }} NOT={ check_variable = { mbranch=3 }}}
+                if = { limit={ check_variable={ GRE.coc_cdead>0 }} check_variable = { dead=0 } }
+                if = { limit={ check_variable={ GRE.coc_cpurged>0 }} check_variable = { purged=0 } }
+                if = { limit={ check_variable={ GRE.coc_csurrendered>0 }} check_variable = { surrendered=0 } }
+                if = { limit={ check_variable={ GRE.coc_cassigned>0 }} is_assigned=no }
+                if = {
+                    limit = { coc_no_idelogical_filters_chosen=no }
+                    if = { limit={ check_variable={ GRE.coc_imon=2 }} NOT={check_variable={ ideology=1 }}}
+                    if = { limit={ check_variable={ GRE.coc_idem=2 }} NOT={check_variable={ ideology=2 }}}
+                    if = { limit={ check_variable={ GRE.coc_icom=2 }} NOT={check_variable={ ideology=3 }}}
+                    if = { limit={ check_variable={ GRE.coc_ifas=2 }} NOT={check_variable={ ideology=4 }}}
+                    if = { limit={ check_variable={ GRE.coc_icon=2 }} NOT={check_variable={ ideology=5 }}}
+                    if = { limit={ check_variable={ GRE.coc_isod=2 }} NOT={check_variable={ ideology=6 }}}
+                    if = { limit={ check_variable={ GRE.coc_irev=2 }} NOT={check_variable={ ideology=7 }}}
+                    if = { limit={ check_variable={ GRE.coc_imfa=2 }} NOT={check_variable={ ideology=8 }}}
+                }
+            }
+            add_to_array={ global.coc_array=THIS }
+            add_to_array={ global.coc_array_ovrl=THIS.average_stats }
+            add_to_array={ global.coc_array_frst=THIS.attack_level }
+            add_to_array={ global.coc_array_scnd=THIS.defense_level }
+            if = { limit={ is_army_leader=yes } add_to_array={ global.coc_array_thrd=THIS.planning_level }} else_if = { limit={ is_navy_leader=yes } add_to_array={ global.coc_array_thrd=THIS.maneuvering_level }}
+            if = { limit={ is_army_leader=yes } add_to_array={ global.coc_array_frth=THIS.logistics_level }} else_if = { limit={ is_navy_leader=yes } add_to_array={ global.coc_array_frth=THIS.coordination_level }}
+        }
+    }
+    #####[Sorting]#####
+    clear_array = arr
+    if = {
+        limit={ check_variable={ GRE.coc_sort_array>0 }}
+
+        if = { limit={ check_variable={ GRE.coc_sort_array=1 }} for_each_loop={ array=global.coc_array_ovrl add_to_array={ arr=v }}}
+        if = { limit={ check_variable={ GRE.coc_sort_array=2 }} for_each_loop={ array=global.coc_array_frst add_to_array={ arr=v }}}
+        if = { limit={ check_variable={ GRE.coc_sort_array=3 }} for_each_loop={ array=global.coc_array_scnd add_to_array={ arr=v }}}
+        if = { limit={ check_variable={ GRE.coc_sort_array=4 }} for_each_loop={ array=global.coc_array_thrd add_to_array={ arr=v }}}
+        if = { limit={ check_variable={ GRE.coc_sort_array=5 }} for_each_loop={ array=global.coc_array_frth add_to_array={ arr=v }}}
+        set_variable = { low=0 }
+        set_variable = { high=arr^num }
+        subtract_from_variable = { high=1 }
+        coc_quicksort=yes
+        for_each_loop = { array=arr log="[?v|0]"}
+    }
+}
+
+coc_reset_all_filters_if_back_to_all = { coc_clean_branch_filters=yes coc_clean_conditional_filters=yes coc_clean_ideological_filters=yes clear_variable=coc_reverted_filters }
+coc_reset_branch_filters_if_zero = { if = { limit={ check_variable={ coc_branch=0 }} coc_clean_branch_filters=yes }}
+coc_reset_conditional_filters_if_zero = { if = { limit={ check_variable={ coc_conditional=0 }} coc_clean_conditional_filters=yes }}
+coc_reset_ideological_filters_if_zero = { if = { limit={ check_variable={ coc_ideological=0 }} coc_clean_ideological_filters=yes }}
+
+coc_clean_branch_filters = {
+    clear_variable = coc_bleader
+    clear_variable = coc_badvisor
+}
+
+coc_clean_conditional_filters = {
+    clear_variable = coc_cdead
+    clear_variable = coc_cpurged
+    clear_variable = coc_csurrendered
+}
+
+coc_clean_ideological_filters = {
+    clear_variable = coc_imon
+    clear_variable = coc_idem
+    clear_variable = coc_icom
+    clear_variable = coc_ifas
+    clear_variable = coc_icon
+    clear_variable = coc_isod
+    clear_variable = coc_irev
+    clear_variable = coc_imfa
+}
+
+hire_targeted_character_in_high_command = {
+    # This function is a meta effect that will target character in array (v value) and hire him in high command.
+
+    meta_effect={ text={ activate_advisor=[CHARACTER_ID]_hca } CHARACTER_ID = "[GetCharacterIDfromTOKEN]"}
+}
+
+hire_targeted_character_as_chief = {
+    # This function is a meta effect that will target character in array (v value) and hire him as chief of his respective branch.
+
+    meta_effect={ text={ activate_advisor=[CHARACTER_ID]_chief } CHARACTER_ID = "[GetCharacterIDfromTOKEN]"}
+}
+
+deactivate_targeted_character = {
+    # This function works on the top portraits to deactivate characters through just a click.
+
+    meta_effect={
+        debug=yes
+        text={
+            if={ limit={ has_idea=[CHARACTER_ID]_political_advisor } deactivate_advisor=[CHARACTER_ID]_political_advisor }
+            if={ limit={ has_idea=[CHARACTER_ID]_chief } deactivate_advisor=[CHARACTER_ID]_chief }
+            if={ limit={ has_idea=[CHARACTER_ID]_hca } deactivate_advisor=[CHARACTER_ID]_hca }
+        } 
+        CHARACTER_ID = "[GetCharacterIDfromTOKEN]"
+    }
+}
+
+show_targeted_officer_tooltip = {
+    # This function returns the officers respective tooltip directly from token
+
+    meta_effect = {
+        debug=yes
+        text = {
+            custom_effect_tooltip = [CHARACTER_ID]_ledger
+        }
+        CHARACTER_ID = "[GetCharacterIDfromTOKEN]"
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+######[SORTS]######
+
+coc_quicksort = {
+    # The quicksort function. Credits to @Yard1 (https://github.com/Yard1/HoI4-Quicksort)
+
+	set_temp_variable = { stack_size = high }
+	subtract_from_temp_variable = { stack_size = low }
+	add_to_temp_variable = { stack_size = 1 }
+	resize_temp_array = {
+		array = stack
+		value = 0
+		size = stack_size
+	}
+
+	set_temp_variable = { top = 0 }
+	set_temp_variable = { stack^top = low }
+	add_to_temp_variable = { top = 1 }
+	set_temp_variable = { stack^top = high }
+
+	while_loop_effect = {
+		limit = { 
+			check_variable = {
+				var = top
+				value = 0
+				compare = greater_than_or_equals
+			}
+		}
+		set_variable = { high = stack^top }
+		subtract_from_temp_variable = { top = 1 }
+		set_variable = { low = stack^top }
+		subtract_from_temp_variable = { top = 1 }
+
+		coc_quicksort_partition = yes # returns qs_partition_return
+
+		set_temp_variable = { qs_partition_return_plus_1 = qs_partition_return }
+		set_temp_variable = { qs_partition_return_minus_1 = qs_partition_return }
+		add_to_temp_variable = { qs_partition_return_plus_1 = 1 } 
+		subtract_from_temp_variable = { qs_partition_return_minus_1 = 1 } 
+
+		if = {
+			limit = { check_variable = { qs_partition_return_minus_1 > low } }
+			add_to_temp_variable = { top = 1 }
+			set_temp_variable = { stack^top = low }
+			add_to_temp_variable = { top = 1 }
+			set_temp_variable = { stack^top = qs_partition_return_minus_1 }
+		}
+
+		if = {
+			limit = { check_variable = { qs_partition_return_plus_1 < high } }
+			add_to_temp_variable = { top = 1 }
+			set_temp_variable = { stack^top = qs_partition_return_plus_1 }
+			add_to_temp_variable = { top = 1 }
+			set_temp_variable = { stack^top = high }
+		}
+	}
+
+	# clear "temporary" variables
+	clear_variable = qs_partition_return
+	clear_variable = random_pivot
+}
+
+# Partition function (using a random pivot)
+coc_quicksort_partition = {
+	# Get random pivot
+	set_variable = { random_pivot = random }
+	multiply_variable = { random_pivot = high }
+	round_variable = random_pivot
+	add_to_variable = { random_pivot = low }
+	clamp_variable = {
+		var = random_pivot
+		min = low
+		max = high
+	}
+	set_temp_variable = { swap = arr^high }
+    set_temp_variable={ swap0 = global.coc_array^high }
+    set_temp_variable={ swap1 = global.coc_array_ovrl^high }
+    set_temp_variable={ swap2 = global.coc_array_frst^high }
+    set_temp_variable={ swap3 = global.coc_array_scnd^high }
+    set_temp_variable={ swap4 = global.coc_array_thrd^high }
+    set_temp_variable={ swap5 = global.coc_array_frth^high }
+	set_variable = { arr^high = arr^random_pivot }
+    set_variable={ global.coc_array^high = global.coc_array^random_pivot }
+    set_variable={ global.coc_array_ovrl^high = global.coc_array_ovrl^random_pivot }
+    set_variable={ global.coc_array_frst^high = global.coc_array_frst^random_pivot }
+    set_variable={ global.coc_array_scnd^high = global.coc_array_scnd^random_pivot }
+    set_variable={ global.coc_array_thrd^high = global.coc_array_thrd^random_pivot }
+    set_variable={ global.coc_array_frth^high = global.coc_array_frth^random_pivot }
+	set_variable = { arr^random_pivot = swap }
+    set_variable={ global.coc_array^random_pivot = swap0 }
+    set_variable={ global.coc_array_ovrl^random_pivot = swap1 }
+    set_variable={ global.coc_array_frst^random_pivot = swap2 }
+    set_variable={ global.coc_array_scnd^random_pivot = swap3 }
+    set_variable={ global.coc_array_thrd^random_pivot = swap4 }
+    set_variable={ global.coc_array_frth^random_pivot = swap5 }
+
+	set_temp_variable = { idx = low }
+	subtract_from_temp_variable = { idx = 1 }
+
+	set_temp_variable = { min = arr^high }
+    set_temp_variable = { min1 = global.coc_array^high }
+    set_temp_variable = { min1 = global.coc_array_ovrl^high }
+    set_temp_variable = { min2 = global.coc_array_frst^high }
+    set_temp_variable = { min3 = global.coc_array_scnd^high }
+    set_temp_variable = { min4 = global.coc_array_thrd^high }
+    set_temp_variable = { min5 = global.coc_array_frth^high }
+  
+    if = {
+        limit = { check_variable = { GRE.coc_sort_inverted=0 }}
+
+        for_loop_effect = {
+            start = low
+            end = high
+            if = {
+                limit = {
+                    check_variable = {
+                        var = arr^v
+                        value = min
+                        compare = greater_than_or_equals #less_than_or_equals # can be changed to greater_than_or_equals to give reverse order
+                    }
+                }
+                add_to_temp_variable = { idx = 1 }
+                set_temp_variable = { swap = arr^idx }
+                set_temp_variable={ swap0 = global.coc_array^idx }
+                set_temp_variable={ swap1 = global.coc_array_ovrl^idx }
+                set_temp_variable={ swap2 = global.coc_array_frst^idx }
+                set_temp_variable={ swap3 = global.coc_array_scnd^idx }
+                set_temp_variable={ swap4 = global.coc_array_thrd^idx }
+                set_temp_variable={ swap5 = global.coc_array_frth^idx }
+                set_variable = { arr^idx = arr^v }
+                set_variable={ global.coc_array^idx = global.coc_array^v }
+                set_variable={ global.coc_array_ovrl^idx = global.coc_array_ovrl^v }
+                set_variable={ global.coc_array_frst^idx = global.coc_array_frst^v }
+                set_variable={ global.coc_array_scnd^idx = global.coc_array_scnd^v }
+                set_variable={ global.coc_array_thrd^idx = global.coc_array_thrd^v }
+                set_variable={ global.coc_array_frth^idx = global.coc_array_frth^v }
+                set_variable = { arr^v = swap }
+                set_variable={ global.coc_array^v = swap0 }
+                set_variable={ global.coc_array_ovrl^v = swap1 }
+                set_variable={ global.coc_array_frst^v = swap2 }
+                set_variable={ global.coc_array_scnd^v = swap3 }
+                set_variable={ global.coc_array_thrd^v = swap4 }
+                set_variable={ global.coc_array_frth^v = swap5 }
+            }
+        }
+    }
+    else = {
+        for_loop_effect = {
+            start = low
+            end = high
+            if = {
+                limit = {
+                    check_variable = {
+                        var = arr^v
+                        value = min
+                        compare = less_than_or_equals
+                    }
+                }
+                add_to_temp_variable = { idx = 1 }
+                set_temp_variable = { swap = arr^idx }
+                set_temp_variable={ swap0 = global.coc_array^idx }
+                set_temp_variable={ swap1 = global.coc_array_ovrl^idx }
+                set_temp_variable={ swap2 = global.coc_array_frst^idx }
+                set_temp_variable={ swap3 = global.coc_array_scnd^idx }
+                set_temp_variable={ swap4 = global.coc_array_thrd^idx }
+                set_temp_variable={ swap5 = global.coc_array_frth^idx }
+                set_variable = { arr^idx = arr^v }
+                set_variable={ global.coc_array^idx = global.coc_array^v }
+                set_variable={ global.coc_array_ovrl^idx = global.coc_array_ovrl^v }
+                set_variable={ global.coc_array_frst^idx = global.coc_array_frst^v }
+                set_variable={ global.coc_array_scnd^idx = global.coc_array_scnd^v }
+                set_variable={ global.coc_array_thrd^idx = global.coc_array_thrd^v }
+                set_variable={ global.coc_array_frth^idx = global.coc_array_frth^v }
+                set_variable = { arr^v = swap }
+                set_variable={ global.coc_array^v = swap0 }
+                set_variable={ global.coc_array_ovrl^v = swap1 }
+                set_variable={ global.coc_array_frst^v = swap2 }
+                set_variable={ global.coc_array_scnd^v = swap3 }
+                set_variable={ global.coc_array_thrd^v = swap4 }
+                set_variable={ global.coc_array_frth^v = swap5 }
+            }
+        }   
+    }
+
+	add_to_temp_variable = { idx = 1 }
+	set_temp_variable = { swap = arr^idx }
+    set_temp_variable={ swap0 = global.coc_array^idx }
+    set_temp_variable={ swap1 = global.coc_array_ovrl^idx }
+    set_temp_variable={ swap2 = global.coc_array_frst^idx }
+    set_temp_variable={ swap3 = global.coc_array_scnd^idx }
+    set_temp_variable={ swap4 = global.coc_array_thrd^idx }
+    set_temp_variable={ swap5 = global.coc_array_frth^idx }
+	set_variable = { arr^idx = arr^high }
+    set_variable={ global.coc_array^idx = global.coc_array^high }
+    set_variable={ global.coc_array_ovrl^idx = global.coc_array_ovrl^high }
+    set_variable={ global.coc_array_frst^idx = global.coc_array_frst^high }
+    set_variable={ global.coc_array_scnd^idx = global.coc_array_scnd^high }
+    set_variable={ global.coc_array_thrd^idx = global.coc_array_thrd^high }
+    set_variable={ global.coc_array_frth^idx = global.coc_array_frth^high }
+	set_variable = { arr^high = swap }
+    set_variable={ global.coc_array^high = swap0 }
+    set_variable={ global.coc_array_ovrl^high = swap1 }
+    set_variable={ global.coc_array_frst^high = swap2 }
+    set_variable={ global.coc_array_scnd^high = swap3 }
+    set_variable={ global.coc_array_thrd^high = swap4 }
+    set_variable={ global.coc_array_frth^high = swap5 }
+
+	# we return the index
+    set_variable = { qs_partition_return = idx }
+}

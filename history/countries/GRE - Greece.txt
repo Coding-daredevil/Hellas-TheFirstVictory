@@ -97,6 +97,16 @@ if = {
 		add_dynamic_modifier = { modifier = GRE_the_army_dyn }
         #########################[ War Strain Mechanic ]########################
         add_dynamic_modifier = { modifier = GRE_war_strain }
+		######################[ Hidden Economical Policy]#######################
+		add_dynamic_modifier = { modifier = GRE_real_economy_policy }
+		set_variable = { gre_rep_cgf = 0.35 }
+		set_variable = { gre_rep_psic = -0.3 }
+		set_variable = { gre_rep_psaf = -0.3 }
+		set_variable = { gre_rep_cccm = 0.3 }
+		set_variable = { gre_rep_ccmc = 0.3 }
+		set_variable = { gre_rep_mff = -0.25 }
+		set_variable = { gre_rep_fgf = -0.4 }
+		set_variable = { gre_rep_con = 0 }
         ###########################[ Debt to the I.F.C ]########################
         add_dynamic_modifier = { modifier = GRE_debt_to_the_ifc_dyn }
         set_variable = { debt_to_the_ifc_stb = -0.25 }
@@ -116,7 +126,7 @@ if = {
 		add_ideas = {
 			export_focus
 			limited_conscription
-			civilian_economy
+			the_greek_economical_enigma
 			GRE_george_ii
 			GRE_schachtplan
 			#GRE_political_instability
@@ -374,7 +384,7 @@ recruit_character = GRE_alexandros_koryzis
 recruit_character = GRE_prodromos_bodosakis
 recruit_character = GRE_sitsa_karaiskaki
 recruit_character = GRE_nelly
-recruit_character = GRE_alexandros_kanelopoulos
+recruit_character = GRE_alexandros_kanellopoulos
 recruit_character = GRE_achilleas_kyrou
 recruit_character = GRE_aristeidis_dimitratos
 recruit_character = GRE_andreas_apostolidis
@@ -440,13 +450,93 @@ recruit_character = GRE_ioannis_kellas
 recruit_character = GRE_konstantinos_logothetopoulos
 recruit_character = GRE_ioannis_rallis
 
-##[Initialize with Flags]##
+##[Initialize GRE scope variables pointing to characters & add them to array]##
+random_character = { limit={ is_character=GRE_konstantinos_demertzis } 			set_variable={ ideology=5 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=1 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ demertzis=PREV }}}
+random_character = { limit={ is_character=GRE_ioannis_metaxas } 				set_variable={ ideology=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=1 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ metaxas=PREV }}}
+random_character = { limit={ is_character=GRE_konstantinos_maniadakis } 		set_variable={ ideology=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=1 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ maniadakis=PREV }}}
+random_character = { limit={ is_character=GRE_emmanouil_tsouderos } 			set_variable={ ideology=2 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=1 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ tsouderos=PREV }}}
+random_character = { limit={ is_character=GRE_king_george } 					set_variable={ ideology=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=1 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ king_george=PREV }}}
+random_character = { limit={ is_character=GRE_theologos_nikoloudis } 			set_variable={ ideology=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=1 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ nikoloudis=PREV }}}
+random_character = { limit={ is_character=GRE_kostas_kotzias } 					set_variable={ ideology=4 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=1 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ kotzias=PREV }}}
+random_character = { limit={ is_character=GRE_alexandros_koryzis } 				set_variable={ ideology=5 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=1 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ koryzis=PREV }}}
+random_character = { limit={ is_character=GRE_prodromos_bodosakis } 			set_variable={ ideology=5 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=1 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ bodosakis=PREV }}}
+random_character = { limit={ is_character=GRE_sitsa_karaiskaki } 				set_variable={ ideology=4 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=1 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ karaiskaki=PREV }}}
+random_character = { limit={ is_character=GRE_nelly } 							set_variable={ ideology=5 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=1 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ nelly=PREV }}}
+random_character = { limit={ is_character=GRE_alexandros_kanellopoulos } 		set_variable={ ideology=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=1 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ kanellopoulos=PREV }}}
+random_character = { limit={ is_character=GRE_achilleas_kyrou } 				set_variable={ ideology=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=1 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ kyrou=PREV }}}
+random_character = { limit={ is_character=GRE_aristeidis_dimitratos } 			set_variable={ ideology=5 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=1 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ dimitratos=PREV }}}
+random_character = { limit={ is_character=GRE_andreas_apostolidis } 			set_variable={ ideology=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=1 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ apostolidis=PREV }}}
+random_character = { limit={ is_character=GRE_theodoros_tourkovasilis } 		set_variable={ ideology=4 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=1 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ tourkovasilis=PREV }}}
+random_character = { limit={ is_character=GRE_konstantinos_bastias } 			set_variable={ ideology=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=1 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ bastias=PREV }}}
+random_character = { limit={ is_character=GRE_pantelis_prevelakis } 			set_variable={ ideology=5 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=1 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ prevelakis=PREV }}}
+random_character = { limit={ is_character=GRE_archbishop_chrysanthos } 			set_variable={ ideology=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=1 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ chrysanthos=PREV }}}
+random_character = { limit={ is_character=GRE_archbishop_damaskinos } 			set_variable={ ideology=2 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=1 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ damaskinos=PREV }}}
+random_character = { limit={ is_character=GRE_nikos_zachariadis } 				set_variable={ ideology=3 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=1 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ zachariadis=PREV }}}
+random_character = { limit={ is_character=GRE_george_mercouris } 				set_variable={ ideology=4 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=1 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ mercouris=PREV }}}
+random_character = { limit={ is_character=GRE_konstantinos_logothetopoulos } 	set_variable={ ideology=4 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=1 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ logothetopoulos=PREV }}}
+random_character = { limit={ is_character=GRE_ioannis_rallis } 					set_variable={ ideology=8 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=1 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ rallis=PREV }}}
+random_character = { limit={ is_character=GRE_eleftherios_venizelos } 			set_variable={ ideology=2 } set_variable={ dead=0 } set_variable={ purged=1 } set_variable={ surrendered=0 } set_variable={ gov_coc=1 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ venizelos=PREV }}}
+random_character = { limit={ is_character=GRE_themistoklis_sofoulis } 			set_variable={ ideology=2 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=1 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ sofoulis=PREV }}}
+########################################################################################################################################################################################################################################################################################################################
+random_character = { limit={ is_character=GRE_charalambos_katsimitros } 		set_variable={ ideology=1 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ katsimitros=PREV }}}
+random_character = { limit={ is_character=GRE_markos_drakos } 					set_variable={ ideology=5 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ drakos=PREV }}}
+random_character = { limit={ is_character=GRE_alexandros_papagos } 				set_variable={ ideology=1 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ papagos=PREV }}}
+random_character = { limit={ is_character=GRE_dimitrios_psarros } 				set_variable={ ideology=2 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=1 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ psarros=PREV }}}
+random_character = { limit={ is_character=GRE_aris_velouchiotis } 				set_variable={ ideology=3 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ velouchiotis=PREV }}}
+random_character = { limit={ is_character=GRE_georgios_grivas } 				set_variable={ ideology=1 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ grivas=PREV }}}
+random_character = { limit={ is_character=GRE_emmanouil_mantakas } 				set_variable={ ideology=2 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ mantakas=PREV }}}
+random_character = { limit={ is_character=GRE_napoleon_zervas } 				set_variable={ ideology=2 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=1 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ zervas=PREV }}}
+random_character = { limit={ is_character=GRE_nikolaos_plastiras } 				set_variable={ ideology=2 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=1 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ plastiras=PREV }}}
+random_character = { limit={ is_character=GRE_panagiotis_demestichas } 			set_variable={ ideology=8 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ pdemestichas=PREV }}}
+random_character = { limit={ is_character=GRE_georgios_tsolakoglou } 			set_variable={ ideology=1 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ tsolakoglou=PREV }}}
+random_character = { limit={ is_character=GRE_evripidis_bakirtzis } 			set_variable={ ideology=3 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=1 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ bakirtzis=PREV }}}
+random_character = { limit={ is_character=GRE_georgios_kosmas } 				set_variable={ ideology=1 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ kosmas=PREV }}}
+random_character = { limit={ is_character=GRE_georgios_stanotas } 				set_variable={ ideology=5 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ stanotas=PREV }}}
+random_character = { limit={ is_character=GRE_ioannis_kotoulas } 				set_variable={ ideology=5 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ kotoulas=PREV }}}
+random_character = { limit={ is_character=GRE_ioannis_pitsikas } 				set_variable={ ideology=5 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ pitsikas=PREV }}}
+random_character = { limit={ is_character=GRE_konstantinos_bakopoulos } 		set_variable={ ideology=5 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ bakopoulos=PREV }}}
+random_character = { limit={ is_character=GRE_konstantinos_davakis } 			set_variable={ ideology=5 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ davakis=PREV }}}
+random_character = { limit={ is_character=GRE_konstantinos_ventiris } 			set_variable={ ideology=1 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ ventiris=PREV }}}
+random_character = { limit={ is_character=GRE_stefanos_sarafis } 				set_variable={ ideology=6 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ sarafis=PREV }}}
+random_character = { limit={ is_character=GRE_theodoros_makridis } 				set_variable={ ideology=6 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ makridis=PREV }}}
+random_character = { limit={ is_character=GRE_christodoulos_tsigantes } 		set_variable={ ideology=2 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ tsigantes=PREV }}}
+random_character = { limit={ is_character=GRE_odysseas_aggelis } 				set_variable={ ideology=1 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ aggelis=PREV }}}
+random_character = { limit={ is_character=GRE_ioannis_sotiris_alexakis } 		set_variable={ ideology=2 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ alexakis=PREV }}}
+random_character = { limit={ is_character=GRE_konstantinos_dovas } 				set_variable={ ideology=1 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ dovas=PREV }}}
+random_character = { limit={ is_character=GRE_athanasios_frontistis } 			set_variable={ ideology=5 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ frontistis=PREV }}}
+random_character = { limit={ is_character=GRE_dimitrios_giatzis } 				set_variable={ ideology=5 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ giatzis=PREV }}}
+random_character = { limit={ is_character=GRE_solon_gikas } 					set_variable={ ideology=1 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ gikas=PREV }}}
+random_character = { limit={ is_character=GRE_paulos_giparis } 					set_variable={ ideology=2 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ paulos_giparis=PREV }}}
+random_character = { limit={ is_character=GRE_ignatios_kallergis } 				set_variable={ ideology=2 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ kallergis=PREV }}}
+random_character = { limit={ is_character=GRE_pausanias_katsotas } 				set_variable={ ideology=5 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ katsotas=PREV }}}
+random_character = { limit={ is_character=GRE_anastasios_ntalipis } 			set_variable={ ideology=4 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ ntalipis=PREV }}}
+random_character = { limit={ is_character=GRE_ioannis_paparrodou } 				set_variable={ ideology=5 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ paparrodou=PREV }}}
+random_character = { limit={ is_character=GRE_alexandros_rossios } 				set_variable={ ideology=3 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ rossios=PREV }}}
+random_character = { limit={ is_character=GRE_panagiotis_spiliotopoulos } 		set_variable={ ideology=5 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ spiliotopoulos=PREV }}}
+random_character = { limit={ is_character=GRE_thrasivoulos_tsakalotos } 		set_variable={ ideology=5 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ tsakalotos=PREV }}}
+random_character = { limit={ is_character=GRE_konstantinos_versis } 			set_variable={ ideology=5 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ versis=PREV }}}
+random_character = { limit={ is_character=GRE_vasilios_vrachnos } 				set_variable={ ideology=5 } set_variable={ mbranch=1 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ vrachnos=PREV }}}
+random_character = { limit={ is_character=GRE_alexandros_sakellariou } 			set_variable={ ideology=1 } set_variable={ mbranch=2 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ sakellariou=PREV }}}
+random_character = { limit={ is_character=GRE_ioannis_demestichas } 			set_variable={ ideology=2 } set_variable={ mbranch=2 } set_variable={ dead=0 } set_variable={ purged=1 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ idemestichas=PREV }}}
+random_character = { limit={ is_character=GRE_epameinondas_kavvadias } 			set_variable={ ideology=1 } set_variable={ mbranch=2 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ kavvadias=PREV }}}
+random_character = { limit={ is_character=GRE_dimitrios_loundras } 				set_variable={ ideology=5 } set_variable={ mbranch=2 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ loundras=PREV }}}
+random_character = { limit={ is_character=GRE_dimitrios_oikonomou } 			set_variable={ ideology=1 } set_variable={ mbranch=2 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ oikonomou=PREV }}}
+random_character = { limit={ is_character=GRE_ioannis_toubas } 					set_variable={ ideology=2 } set_variable={ mbranch=2 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ toubas=PREV }}}
+random_character = { limit={ is_character=GRE_petros_voulgaris } 				set_variable={ ideology=2 } set_variable={ mbranch=2 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ voulgaris=PREV }}}
+random_character = { limit={ is_character=GRE_spyridon_avgeris } 				set_variable={ ideology=5 } set_variable={ mbranch=2 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ avgeris=PREV }}}
+random_character = { limit={ is_character=GRE_miltiadis_iatridis } 				set_variable={ ideology=5 } set_variable={ mbranch=2 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ iatridis=PREV }}}
+random_character = { limit={ is_character=GRE_pyrros_spyromilios } 				set_variable={ ideology=5 } set_variable={ mbranch=2 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ spyromilios=PREV }}}
+random_character = { limit={ is_character=GRE_marinos_mitralexis } 				set_variable={ ideology=5 } set_variable={ mbranch=3 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ mitralexis=PREV }}}
+random_character = { limit={ is_character=GRE_ioannis_kellas } 					set_variable={ ideology=5 } set_variable={ mbranch=3 } set_variable={ dead=0 } set_variable={ purged=0 } set_variable={ surrendered=0 } set_variable={ gov_coc=2 } add_to_array={ global.greek_characters=THIS } ROOT={ set_variable={ kellas=PREV }}}
+
+
+##[Initialize Flags]##
 ###[Venizelos]###
 GRE_eleftherios_venizelos = { set_character_flag = wanted_for_dead set_character_flag = target_of_the_failed_coup }
 ###[Plastiras]###
-GRE_nikolaos_plastiras = { set_character_flag = wanted_for_dead set_character_flag = target_of_the_failed_coup }
+GRE_nikolaos_plastiras = { set_character_flag = wanted_for_dead set_character_flag = target_of_the_failed_coup set_character_flag = purged_by_regime }
 ###[Demestichas]###
-GRE_ioannis_demestichas = { set_character_flag = wanted_for_dead set_character_flag = target_of_the_failed_coup }
+GRE_ioannis_demestichas = { set_character_flag = wanted_for_dead set_character_flag = target_of_the_failed_coup set_character_flag = purged_by_regime }
 ###[Sarafis]###
 GRE_stefanos_sarafis = { set_character_flag = target_of_the_failed_coup }
 ###[Tsigantes]###
@@ -458,19 +548,19 @@ GRE_petros_voulgaris = { set_character_flag = retired_character }
 ###[Toubas]###
 GRE_ioannis_toubas = { set_character_flag = target_of_the_failed_coup }
 ###[Psarros]###
-GRE_dimitrios_psarros = { set_character_flag = target_of_the_failed_coup }
+GRE_dimitrios_psarros = { set_character_flag = target_of_the_failed_coup set_character_flag = purged_by_regime }
 ###[Ventiris]###
 GRE_konstantinos_ventiris = { set_character_flag = target_of_the_failed_coup }
 ###[Mantakas]###
 GRE_emmanouil_mantakas = { set_character_flag = target_of_the_failed_coup }
 ###[Bakirtzis]###
-GRE_evripidis_bakirtzis = { set_character_flag = target_of_the_failed_coup }
+GRE_evripidis_bakirtzis = { set_character_flag = target_of_the_failed_coup set_character_flag = purged_by_regime }
 ###[Gyparis]###
 GRE_paulos_giparis = { set_character_flag = target_of_the_failed_coup }
 ###[Kallérgis]###
 GRE_ignatios_kallergis = { set_character_flag = target_of_the_failed_coup }
 ###[Zervas]###
-GRE_napoleon_zervas = { set_character_flag = target_of_the_failed_coup }
+GRE_napoleon_zervas = { set_character_flag = target_of_the_failed_coup set_character_flag = purged_by_regime }
 ###[Initialize Purge Variables]###
 set_variable = { hc_plastiras_purged = 1 }
 set_variable = { hc_demestichas_purged = 1 }
@@ -481,6 +571,26 @@ set_variable = { hc_zervas_purged = 1 }
 every_character = {
 	set_character_flag = og_char
 }
+
+####[GOV GUI INITIALIZATION]#####
+add_to_array = { global.gov_head_array=token:GRE_konstantinos_demertzis }
+add_to_array = { global.gov_side_array=5 }
+add_to_array = { global.gov_side_array=6 }
+add_to_array = { global.gov_advisor_first_array=7 }
+add_to_array = { global.gov_advisor_first_array=7 }
+add_to_array = { global.gov_advisor_first_array=7 }
+add_to_array = { global.gov_advisor_second_array=7 }
+add_to_array = { global.gov_advisor_second_array=7 }
+#############################################################################
+add_to_array = { global.coc_head_array=1 }
+add_to_array = { global.coc_side_array=2 }
+add_to_array = { global.coc_side_array=3 }
+add_to_array = { global.coc_advisor_first_array=0 }
+add_to_array = { global.coc_advisor_first_array=0 }
+add_to_array = { global.coc_advisor_first_array=0 }
+add_to_array = { global.coc_advisor_second_array=0 }
+add_to_array = { global.coc_advisor_second_array=0 }
+
 ###################################################################################################
 ####################################[                         ]####################################
 ####################################[        OPERATIVES       ]####################################

@@ -1,4 +1,13 @@
 ﻿l_english:
+hell_acad_title_0:0 "§LHellenic Armed Forces Overview§!"
+hell_acad_title_02:0 "§LOfficer Corp Overview§!"
+hell_acad_army:0 "§gArmy Status:§!\n [Root.GetArmyStatus]\n [Root.GetArmyLeadershipStatus]"
+hell_acad_air:0 "§gAirforce Status:§!\n [Root.GetAirforceStatus]\n [Root.GetAirforceLeadershipStatus]"
+hell_acad_navy:0 "§gNavy Status:§!\n [Root.GetNavyStatus]"
+hell_acad_rest:0 "[Root.GetAdditionalArmyEffects]"
+hell_acad_budget:0 "§gArmed Forces Budget Effects:§! £gre_military_budget \n   §YConsumer Goods:§! [?GRE_budget_consumer|%R0]\n   §YConstruction Speed Factor:§! [?GRE_budget_construction|%R0]\n   §YPolitical Cost:§! [?GRE_budget_pp_cost|R]\n   §YResource Factor:§! [?GRE_budget_resources|%R0]\n   §YBudget Investment Options Left:§!  [?GRE_budget_choices|G0]"
+hell_acad_officer_training:0 "[Root.GetArmyPreparednessLevel]"
+###########################################################################
 hell_acad_title:0 "§LOfficer Affiliation Panel§!"
 hell_acad_below_title:0 "§LCurrently, the §eHellenic Army§! is fielding:§! [?GRE.army_leaders|O0] §OOfficers§!"
 hell_banner:0 "§L          Ideology        Officers    Assigned      Current Relationship§!\n---------------------------------------------------------------------"
@@ -38,7 +47,8 @@ hell_second_banner:0"-----------------------------------------------------------
 hell_overall:0 "§L§!"
 hell_onum_overall:0 "[?GRE.army_leaders|O0]+[?GRE.navy_leaders|O0]"
 hell_anum_overall:0 "[?GRE.army_leaders_assigned|O0]§L+§![?GRE.army_leaders_assigned_fm|O0]§L+§![?GRE.navy_leaders_assigned|O0]"
-hell_crel_overall:0 "[?GRE.overall_friendliness|+3]"
+hell_crel_overall:0 "[ROOT.GetArmyFriendliness]"
+hell_crel_overall_tt:0 "Our friendliness meter is at [?GRE.overall_friendliness|+2%]"
 ######################################################################################################################################################################
 hell_acad_title_2:0 "§LMain Faction Representation in the Military§!"
 hell_banner_2:0 "§LIdeology              Repr.      Army      Navy            Overall§!\n---------------------------------------------------------------------"
@@ -91,9 +101,17 @@ hell_acad_republican_i2o:0 "[?GRE.dem_i2o|-0]"
 hell_acad_communist_i2o:0 "[?GRE.com_i2o|-0]"
 hell_acad_fascist_i2o:0 "[?GRE.fas_i2o|-0]"
 ###[info]###
-hell_acad_officer_num_tt:0 "§OArmy §L+§! Navy§!"
+hell_acad_base_mon_tt:0 "§LBase:§! [?base_monarchist_representation|Y%]"
+hell_acad_base_dem_tt:0 "§LBase:§! [?base_republican_representation|Y%]"
+hell_acad_base_com_tt:0 "§LBase:§! [?base_communist_representation|Y%]"
+hell_acad_base_fas_tt:0 "§LBase:§! [?base_fascist_representation|Y%]"
+hell_acad_officer_num_tt:0 "OArmy §L+§! Navy§!"
 hell_acad_officer_asg_tt:0 "§OArmy §L+§! Field Marshall §L+§! Navy§!"
-hell_academy_info:0 "§LThe position of each officer has certain weights:§!\n §OAssignment Weights:§!\n  §80.10§! - §Lif§! §gUnassigned§!\n  §81.00§! - §Lif§! §gAssigned§!\n  §84.00§! - §Lif§! §gAssigned in High Command§!\n  §86.00§! - §Lif§! §gAssigned as Field Marshall§!\n  §88.00§! - §Lif§! §gAssigned as Army/Navy Chief§!\n  §OVeterancy Weights:§!\n§g  (applies only to Unassigned/Assigned)§!\n   §8x2.0§! - §Lif§! §g2-War Veteran§!\n   §8x3.0§! - §Lif§! §g3-War Veteran§!\n   §8x4.0§! - §Lif§! §g4-War Veteran:§!\n §OBattalions-Under-Command Weights:§!\n  §8Battalion Percentage§!\n  §ge.g. 0.05 if faction controls 5% of battalions.\n §OShips-Under-Command Weights:§!\n  §8Ships Percentage§!\n  §gEach ship has different weight:\n    3.0 - Battleship\n    2.0 - BC/Carrier/HC\n    1.5 - Light Cruiser\n    1.0 - Destroyer\n    0.8 - Submarine§!\n §OFinal Formula per Faction:§!\n  §850%(Faction Assignment Weight/Total) +\n  30%(Battalion-Under-Command Weight) +\n  20%(Ships-Under-Command Weight)§!\n §LThe result of the above equation give the faction's weight in the military.§!\n  §g§8Staunch-type§! Officers are obviously taken into account only on their ideology. However, §g§8Leaning-type§! Officers are taken into account on §8both§! of their ideologies.§!"
+hell_academy_info:0 "§LThe overall loyalty meter will directly impact:§!\n §OFaction-related event probability§!\n §OFaction-related effects§!\n"
+hell_academy_info_delayed:0 "§e(80-100)§! - §GLoyal§!\n§e(70-80)§! - §GFriendly§!\n§e(60-70)§! - §CGrowing§!\n§e(50-60)§! - §CAdequate§!\n§e(40-50)§! - §gInconsequential§!\n§e(30-40)§! - §YUnfavorable§!\n§e(20-30)§! - §YWorsening§!\n§e(9-19)§! - §OHorrible§!\n§e(0-9)§! - §RRebellious§!"
+hell_academy_info_2:0 "§LEffect Weights Breakdown:§!\n §OOverall Military Grip:§!\n  §8WRI§!(§Y++§!)/§8PP§!(§Y++§!)/§8CP§!(§Y+++§!)/§8AC§!(§Y+++§!)/\n  §8I2O§!(§Y+§!)/§8CWE§!(§Y++++§!)/§8PPUE§!(§Y++++§!)\n §OFaction Relationship:§!\n  §8WRI§!(§gnot§!)/§8PP§!(§Y+++§!)/§8CP§!(§Y++§!)/§8AC§!(§Y++§!)/\n  §8I2O§!(§Y++++§!)/§8CWE§!(§Y++§!)/§8PPUE§!(§Gnot§!)\n §OOverall Military Relationship:§!\n  §LScales Positive/Negative results.§!\n §OOverall Effect Multiplier:§!\n  §LMultiplied with everything right at the end to express the magnitude of the political party."
+hell_academy_info_2_delayed:0 "§L§8WRI§! - Weekly Relations Improve\n§8PP/CP§! - Political/Command Power\n§8AC§! - Assignment Cost\n§8I2O§! - Intel to Others\n§8CWE§! - Civil War Events\n§8PPUE§! - Party Power-Up Events§!"
+hell_academy_info_officer:0 "§LFaction Military Representation Mechanic:§!\n §gThe position of each officer has certain weights:§!\n §OAssignment Weights:§!\n  §80.10§! - §Lif§! §gUnassigned§!\n  §81.00§! - §Lif§! §gAssigned§!\n  §84.00§! - §Lif§! §gAssigned in High Command§!\n  §86.00§! - §Lif§! §gAssigned as Field Marshall§!\n  §88.00§! - §Lif§! §gAssigned as Army/Navy Chief§!\n  §OVeterancy Weights:§!\n§g  (applies only to Unassigned/Assigned)§!\n   §8x2.0§! - §Lif§! §g2-War Veteran§!\n   §8x3.0§! - §Lif§! §g3-War Veteran§!\n   §8x4.0§! - §Lif§! §g4-War Veteran:§!\n §OBattalions-Under-Command Weights:§!\n  §8Battalion Percentage§!\n  §ge.g. 0.05 if faction controls 5% of battalions.\n §OShips-Under-Command Weights:§!\n  §8Ships Percentage§!\n  §gEach ship has different weight:\n    3.0 - Battleship\n    2.0 - BC/Carrier/HC\n    1.5 - Light Cruiser\n    1.0 - Destroyer\n    0.8 - Submarine§!\n §OFinal Formula per Faction:§!\n  §850%(Faction Assignment Weight/Total) +\n  30%(Battalion-Under-Command Weight) +\n  20%(Ships-Under-Command Weight)§!\n §LThe result of the above equation give the faction's weight in the military.§!\n  §g§8Staunch-type§! Officers are obviously taken into account only on their ideology. However, §g§8Leaning-type§! Officers are taken into account on §8both§! of their ideologies.§!"
 ###[More active generals, more likeability]###
 ###[More active generals, higher chance to cause civil war progression events]###
 #y=ax+b

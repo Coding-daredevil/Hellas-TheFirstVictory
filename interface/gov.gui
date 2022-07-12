@@ -1,0 +1,474 @@
+
+guiTypes = {
+	containerWindowType = {
+		name = "gov_container"
+		position = { x = 480 y = 447 }
+		
+		buttonType ={
+			name ="gov_open_button"
+			spriteType = "GFX_gov_open_button"
+			position = { x=0 y=0 }
+			clicksound = click_close
+			oversound = ui_menu_over
+			shortcut = "ctrl+q"
+			pdx_tooltip = "GOV_NAME_TOOLTIP"
+		}
+	}
+	
+	### Main Window ###
+	containerWindowType = {
+		name = "gov_main_window_container"
+		position = {x=1540 y=80}
+		size = { width=1380 height=1000 }
+		show_position = { x=540 y =80 }
+		show_animation_type = decelerated
+		hide_animation_type = accelerated
+		animation_time = 600
+
+		fade_time = 300
+		fade_type = linear
+		moveable = no
+		
+		background = {
+			name = "Background"
+			spriteType = "GFX_tiled_plain_bg2"
+		}
+		
+		instantTextboxType = {
+			name = "gov_main_window_title"
+			position = { x = 45 y = 8 }
+			textureFile = ""
+			font = "hoi_36header"
+			borderSize = {x = 0 y = 0}
+			text = "GOV_MAIN_NAME"
+			maxWidth = 1000
+			maxHeight = 20
+			format = left	
+		}
+		
+		buttonType = {
+			name = "gov_main_close"
+			quadTextureSprite = "GFX_closebutton"
+			position = { x= 1337 y = 7 }
+			clicksound = click_close
+			shortcut = "ESCAPE"
+			pdx_tooltip = "GOV_CLOSE_TOOLTIP"
+		}
+		
+		containerWindowType = {
+			name = "gov_primary_container"
+			position = { x=0 y=47 }
+			size = { width = 100%% height = 100%% }
+			margin = { top = 13 left = 13 bottom = 24 right = 25}
+			drag_scroll = { left middle }
+			verticalScrollbar = "right_vertical_slider"
+			horizontalScrollbar = "bottom_horizontal_slider"
+			scroll_wheel_factor = 60
+			smooth_scrolling = yes
+
+			background = {
+                name = "main_background"
+                quadTextureSprite = "GFX_tiled_window_thin_border2"
+            }
+
+		 ##################[Basic Stuff]##################
+
+			iconType = {
+				name ="background_government"
+				spriteType = "GFX_government_background_combined"
+				position = { x = 0  y = 0 }
+				alwaystransparent=yes
+			}
+
+			iconType = {
+				name ="background_military2"
+				spriteType = "GFX_wooden_background"
+				position = { x = 0  y = 1100 }
+				alwaystransparent = yes
+			} 
+			
+			iconType = {
+				name ="armed_forced_badge"
+				spriteType = "GFX_hellenic_armed_forces"
+				position = { x = 587  y = 368 }
+				scale = 0.85
+				alwaystransparent = yes
+			}
+
+		 #####################[Top Panel]#####################
+
+			containerWindowType = {
+				name = "gov_top_head_gridbox"
+				position = {x=544 y=144}
+				size = {width=100%% height=100%%}
+				
+				gridBoxType = {
+					name="gov_top_head_gridbox"
+					format = "UPPER_LEFT"
+					position={ x=0 y=0 }
+					slotsize={ width=350 height=250 }
+					max_slots_horizontal=1
+					add_horizontal=yes 
+				}
+			}
+
+			containerWindowType = {
+				name = "gov_top_side_gridbox"
+				position = {x=206 y=301}
+				size = {width=100%% height=100%%}
+				
+				gridBoxType = {
+					name="gov_top_side_gridbox"
+					format = "UPPER_LEFT"
+					position={ x=0 y=0 }
+					slotsize={ width=674 height=250 }
+					max_slots_horizontal=2
+					add_horizontal=yes 
+				}
+			}
+
+			containerWindowType = {
+				name = "gov_top_advisor_first_gridbox"
+				position = {x=206 y=612}
+				size = {width=100%% height=100%%}
+				
+				gridBoxType = {
+					name="gov_top_advisor_first_gridbox"
+					format = "UPPER_LEFT"
+					position={ x=0 y=0 }
+					slotsize={ width=338 height=250 }
+					max_slots_horizontal=3
+					add_horizontal=yes 
+				}
+			}
+
+			containerWindowType = {
+				name = "gov_top_advisor_second_gridbox"
+				position = {x=361 y=843}
+				size = {width=100%% height=100%%}
+				
+				gridBoxType = {
+					name="gov_top_advisor_second_gridbox"
+					format = "UPPER_LEFT"
+					position={ x=0 y=0 }
+					slotsize={ width=365 height=250 }
+					max_slots_horizontal=3
+					add_horizontal=yes 
+				}
+			}
+
+		 #####################################################
+
+			containerWindowType = {
+				name = "gov_filter_containers"
+				position = { x=11 y=1100 }
+
+				buttonType = {
+					name = "all_conditional_button"
+					position = { x = 0 y = 0 }
+					quadTextureSprite = "GFX_sort_button_171x35"
+					font = "hoi_20b"
+					text = "[MainButtonSwappero]"
+					format = center
+				}
+
+				buttonType = {
+					name = "negative_filters_button"
+					position = { x = 36 y = 33 }
+					quadTextureSprite = "GFX_sort_button_100x29"
+					font = "hoi_18mbs"
+					text = "[MainSecondaryButtonSwappero]"
+					format = center
+					frame=1
+				}
+
+
+				buttonType = {
+					name = "available_button"
+					position = { x = 167 y = 0 }
+					quadTextureSprite = "GFX_sort_button_140x29"
+					font = "hoi_18mbs"
+					text = "Available"
+					format = center
+				}
+
+				buttonType = {
+					name = "branch_button"
+					position = { x = 303 y = 0 }
+					quadTextureSprite = "GFX_sort_button_202x29"
+					font = "hoi_18mbs"
+					text = "Branch"
+					format = center
+					frame=1
+				}
+
+				buttonType = {
+					name = "branch_leader_button"
+					position = { x = 305 y = 27 }
+					quadTextureSprite = "GFX_sort_button_100x29"
+					font = "hoi_18mbs"
+					text = "Leader"
+					format = center
+				}
+			
+				buttonType = {
+					name = "branch_advisor_button"
+					position = { x = 402 y = 27 }
+					quadTextureSprite = "GFX_sort_button_100x29"
+					font = "hoi_18mbs"
+					text = "Advisor"
+					format = center
+				}
+
+				buttonType = {
+					name = "conditional_button"
+					position = { x = 503 y = 0 }
+					quadTextureSprite = "GFX_sort_button_428x29"
+					font = "hoi_18mbs"
+					text = "Character State"
+					format = center
+					frame=1
+				}
+
+				buttonType = {
+					name = "conditional_dead_button"
+					position = { x = 541 y = 27 }
+					quadTextureSprite = "GFX_sort_button_120x29"
+					font = "hoi_18mbs"
+					text = "Dead"
+					format = center
+				}
+
+				buttonType = {
+					name = "conditional_purged_button"
+					position = { x = 657 y = 27 }
+					quadTextureSprite = "GFX_sort_button_120x29"
+					font = "hoi_18mbs"
+					text = "Purged"
+					format = center
+				}
+
+				buttonType = {
+					name = "conditional_surrendered_button"
+					position = { x = 774 y = 27 }
+					quadTextureSprite = "GFX_sort_button_120x29"
+					font = "hoi_18mbs"
+					text = "Surrendered"
+					format = center
+				}
+
+				buttonType = {
+					name = "ideological_button"
+					position = { x = 928 y = 0 }
+					quadTextureSprite = "GFX_sort_button_428x29"
+					font = "hoi_18mbs"
+					text = "Ideological Alignment"
+					format = center
+					frame=1
+				}
+
+				buttonType = {
+					name = "ideological_mon_button"
+					position = { x = 942 y = 27 }
+					quadTextureSprite = "GFX_sort_button_100x29"
+					font = "hoi_18mbs"
+					text = "Monarchist"
+					format = center
+				}
+
+				buttonType = {
+					name = "ideological_dem_button"
+					position = { x = 1039 y = 27 }
+					quadTextureSprite = "GFX_sort_button_100x29"
+					font = "hoi_18mbs"
+					text = "Republican"
+					format = center
+				}
+
+				buttonType = {
+					name = "ideological_com_button"
+					position = { x = 1136 y = 27 }
+					quadTextureSprite = "GFX_sort_button_100x29"
+					font = "hoi_18mbs"
+					text = "Communist"
+					format = center
+				}
+
+				buttonType = {
+					name = "ideological_fas_button"
+					position = { x = 1233 y = 27 }
+					quadTextureSprite = "GFX_sort_button_100x29"
+					font = "hoi_18mbs"
+					text = "Fascist"
+					format = center
+				}
+
+				buttonType = {
+					name = "ideological_con_button"
+					position = { x = 942 y = 53 }
+					quadTextureSprite = "GFX_sort_button_100x29"
+					font = "hoi_18mbs"
+					text = "Conventional"
+					format = center
+				}
+
+				buttonType = {
+					name = "ideological_sod_button"
+					position = { x = 1039 y = 53 }
+					quadTextureSprite = "GFX_sort_button_100x29"
+					font = "hoi_18mbs"
+					text = "Soc/Dem."
+					format = center
+				}
+
+				buttonType = {
+					name = "ideological_rev_button"
+					position = { x = 1136 y = 53 }
+					quadTextureSprite = "GFX_sort_button_100x29"
+					font = "hoi_18mbs"
+					text = "Revolutionary"
+					format = center
+				}
+
+				buttonType = {
+					name = "ideological_mfa_button"
+					position = { x = 1233 y = 53 }
+					quadTextureSprite = "GFX_sort_button_100x29"
+					font = "hoi_18mbs"
+					text = "Mon/Fascist"
+					format = center
+				}
+			}
+
+			# Array Splitters
+			## 1. All (1 array)
+			## 2. Conditional (2 arrays, yes/no in criteria) - FLIP with 1 button (decide which array to show)
+			## 	1. Available
+			## 	2. Condition: Alive/Purged/Surrendered
+			## 	3. Ideological Alignment
+			##   1. Pops secondary arrays with all ideologies/subideologies and threshold.
+			##  4gov. Branch (Political Leader, Political Advisor)
+			##  4arm. Branch (Army/Navy/Airforce/Theorist).
+
+			containerWindowType = {
+				name = "gov_bottom_gridbox"
+				position = {x=1 y=1200}
+				size = {width=100%% height=100%%}
+				
+				gridBoxType = {
+					name="gov_bottom_gridbox"
+					format = "UPPER_LEFT"
+					position={ x=0 y=0 }
+					slotsize={ width=350 height=250 }
+					max_slots_horizontal=4
+					add_horizontal=yes 
+				}
+			}
+        }
+    }
+
+	containerWindowType = {
+		name="gov_top_gridbox_entry"
+		position={ x=0 y=0 }
+		size={ width=0 height=0 }
+
+		buttonType = {
+			name ="gov_top_portrait"
+			spriteType = "GFX_portrait_gre_leader_normal"
+			position = { x=0  y=0 }
+			alwaystransparent = no
+			pdx_tooltip = gov_top_portrait_info
+		}
+
+		instantTextboxType = {
+			name = "gov_top_ledger_name"
+			position = {x=163 y=0}							   #+165
+			font = "hoi_20bs"
+			#font = "hoi_18mbs"
+			text = "[GetCharacterLedgerName]"
+			maxWidth = 156
+			maxHeight = 20
+			format = center
+		}
+
+		instantTextboxType = {
+			name = "gov_top_ledger_rest"
+			position = {x=164 y=35}							   #+165
+			font = "vic_18s"
+			#font = "hoi_18mbs"
+			text = "[GetCharacterLedgerRest]"
+			maxWidth = 154
+			maxHeight = 20
+			format = left
+		}
+	}
+
+	containerWindowType = {
+		name="gov_bottom_gridbox_entry"
+		position={ x=0 y=0 }
+		size={ width=0 height=0 }
+
+		iconType = {
+			name ="gov_portrait_frame"
+			spriteType = "GFX_gov_portraits_solo"
+			position = { x = 0  y = 0 }
+			alwaystransparent = yes
+		}
+
+		buttonType = {
+			name ="gov_portrait"
+			spriteType = "GFX_portrait_gre_leader_normal"
+			position = { x = 9  y = 8 }
+			alwaystransparent = no
+			pdx_tooltip=gov_portrait_info
+			#pdx_tooltip_delayed=
+			pdx_disabled_tooltip=gov_portrait_disabled_info
+		}
+
+		iconType = {
+			name ="gov_portrait_purged"
+			spriteType = "GFX_purged_general"
+			position = { x = 19  y = 45 }					  # +28,30
+			alwaystransparent = no
+			pdx_tooltip = "gov_purged"
+		}
+
+		iconType = {
+			name ="gov_portrait_dead"
+			spriteType = "GFX_dead_general"
+			position = { x = 4  y = 0 }					  # +0,30
+			alwaystransparent = no
+			pdx_tooltip = "high_command_died"
+		}
+		
+		iconType = {
+			name ="gov_portrait_surrendered"
+			spriteType = "GFX_surrendered_general"				  # -4,30
+			position = { x = 0  y = 38 }
+			alwaystransparent = no
+			pdx_tooltip = "high_command_surrendered"
+		}
+
+		instantTextboxType = {
+			name = "gov_portrait_ledger_name"
+			position = {x=172 y=10}							   #+165
+			font = "hoi_20bs"
+			#font = "hoi_18mbs"
+			text = "[GetCharacterLedgerName]"
+			maxWidth = 156
+			maxHeight = 20
+			format = center
+		}
+
+		instantTextboxType = {
+			name = "gov_portrait_ledger_rest"
+			position = {x=174 y=35}							   #+165
+			font = "vic_18s"
+			#font = "hoi_18mbs"
+			text = "[GetCharacterLedgerRest]"
+			maxWidth = 154
+			maxHeight = 20
+			format = left
+		}
+	}
+}

@@ -82,7 +82,7 @@ GRE_high_command_plastiras_dynamic = {
     breakthrough_factor = hc_plastiras_bthr
 }
 
-GRE_high_command_katsimitros_dynamic = {
+GRE_charalambos_katsimitros_hc_dynamic = {
     enable = { always = yes }
     max_dig_in_factor = hc_katsimitros_mentr
     dig_in_speed_factor = hc_katsimitros_sentr
@@ -412,8 +412,8 @@ black_market_obscure_controlled = {
     local_supplies = -0.1
     famine_token = -1
     state_agitation_token = bm_state_agi
-    state_andartes_manpower_redeployment_token = -0.10
-    state_andartes_equipment_redeployment_token = -0.10
+    state_base_manpower_redeployment_token = -0.10
+    state_base_equipment_redeployment_token = -0.10
     state_base_reconnaissance_percentage_token = 10
     #custom_modifier_tooltip = controlled_black_market_tt
 }
@@ -425,8 +425,8 @@ black_market_cemented_controlled = {
     local_supplies = -0.2
     famine_token = -2
     state_agitation_token = 0.04
-    state_andartes_manpower_redeployment_token = -0.20
-    state_andartes_equipment_redeployment_token = -0.20
+    state_base_manpower_redeployment_token = -0.20
+    state_base_equipment_redeployment_token = -0.20
     state_andartes_percentage_token = none_var_yet
     state_base_reconnaissance_percentage_token = 20
     #custom_modifier_tooltip = controlled_black_market_tt
@@ -439,14 +439,19 @@ black_market_ubshakeable_controlled = {
     local_supplies = -0.3
     famine_token = -3
     state_agitation_token = 0.06
-    state_andartes_manpower_redeployment_token = -0.30
-    state_andartes_equipment_redeployment_token = -0.30
+    state_base_manpower_redeployment_token = -0.30
+    state_base_equipment_redeployment_token = -0.30
     state_base_reconnaissance_percentage_token = 30
     #custom_modifier_tooltip = controlled_black_market_tt
 }
 
 unyielding_greeks_angered = {
-    enable = { always = yes }
+    remove_trigger = {
+        OR = {
+            check_variable = { var=THIS.resistance_affinity value=10 compare=less_than }
+            check_variable = { var=THIS.resistance_affinity value=50 compare=greater_than_or_equals }
+        }
+    }
     icon = GFX_modifiers_greeks_angered
 
     state_agitation_token = uny_greeks_agi
@@ -456,7 +461,12 @@ unyielding_greeks_angered = {
     state_base_reconnaissance_percentage_token = 10
 }
 unyielding_greeks_determined = {
-    enable = { always = yes }
+    remove_trigger = {
+        OR = {
+            check_variable = { var=THIS.resistance_affinity value=50 compare=less_than }
+            check_variable = { var=THIS.resistance_affinity value=80 compare=greater_than_or_equals }
+        }
+    }
     icon = GFX_modifiers_greeks_determined
     
     state_agitation_token = uny_greeks_agi
@@ -466,7 +476,9 @@ unyielding_greeks_determined = {
     state_base_reconnaissance_percentage_token = 20
 }
 unyielding_greeks_ferocious = {
-    enable = { always = yes }
+    remove_trigger = {
+        check_variable = { var=THIS.resistance_affinity value=80 compare=less_than }
+    }
     icon = GFX_modifiers_greeks_ferocious
 
     state_agitation_token = uny_greeks_agi
@@ -564,11 +576,14 @@ early_resistance_groups = {
 	
     state_agitation_percentage_token = 0.10
     state_agitation_token = res_group_state_agi
+    state_andartes_token = res_group_state_and_daily
     state_andartes_daily_manpower_redeployment_token = res_group_state_dman
     state_andartes_daily_equipment_redeployment_token = res_group_state_dequ
     state_daily_reconnaissance_percentage_token = res_group_state_recon
     state_stability_weekly_contribution_token = res_group_state_stb
+    state_fortify_weekly_token = res_group_state_fort
     state_intel_gathering_token = res_group_intel_gathering
+    state_resistance_affinity_token = res_group_state_like
     famine_token = res_group_state_fam
 }
 
@@ -578,11 +593,14 @@ strengthened_resistance_groups = {
 	
     state_agitation_percentage_token = 0.20
     state_agitation_token = res_group_state_agi
+    state_andartes_token = res_group_state_and_daily
     state_andartes_daily_manpower_redeployment_token = res_group_state_dman
     state_andartes_daily_equipment_redeployment_token = res_group_state_dequ
     state_daily_reconnaissance_percentage_token = res_group_state_recon
     state_stability_weekly_contribution_token = res_group_state_stb
+    state_fortify_weekly_token = res_group_state_fort
     state_intel_gathering_token = res_group_intel_gathering
+    state_resistance_affinity_token = res_group_state_like
     famine_token = res_group_state_fam
 }
 
@@ -592,11 +610,14 @@ dominant_resistance_groups = {
 
 	state_agitation_percentage_token = 0.30
     state_agitation_token = res_group_state_agi
+    state_andartes_token = res_group_state_and_daily
     state_andartes_daily_manpower_redeployment_token = res_group_state_dman
     state_andartes_daily_equipment_redeployment_token = res_group_state_dequ
     state_daily_reconnaissance_percentage_token = res_group_state_recon
     state_stability_weekly_contribution_token = res_group_state_stb
+    state_fortify_weekly_token = res_group_state_fort
     state_intel_gathering_token = res_group_intel_gathering
+    state_resistance_affinity_token = res_group_state_like
     famine_token = res_group_state_fam
 }
 
@@ -606,11 +627,14 @@ unshakeable_resistance_groups = {
 	
     state_agitation_percentage_token = 0.40
     state_agitation_token = res_group_state_agi
+    state_andartes_token = res_group_state_and_daily
     state_andartes_daily_manpower_redeployment_token = res_group_state_dman
     state_andartes_daily_equipment_redeployment_token = res_group_state_dequ
     state_daily_reconnaissance_percentage_token = res_group_state_recon
     state_stability_weekly_contribution_token = res_group_state_stb
+    state_fortify_weekly_token = res_group_state_fort
     state_intel_gathering_token = res_group_intel_gathering
+    state_resistance_affinity_token = res_group_state_like
     famine_token = res_group_state_fam
 }
 
@@ -702,6 +726,19 @@ GRE_epixeirisi_annivas_dyn = {
 #####################################################
 ################[General Modifiers]##################
 #####################################################
+
+GRE_real_economy_policy = {
+    enable = { always=yes }
+
+    consumer_goods_factor = gre_rep_cgf
+    production_speed_industrial_complex_factor = gre_rep_psic
+    production_speed_arms_factory_factor = gre_rep_psaf
+    conversion_cost_civ_to_mil_factor= gre_rep_cccm
+    conversion_cost_mil_to_civ_factor = gre_rep_ccmc
+    max_fuel_factor = gre_rep_mff
+    fuel_gain_factor = gre_rep_fgf
+    conscription = gre_rep_con
+}
 
 GRE_greek_subsidized_factories_cost = {
     enable = { always = yes }
@@ -830,7 +867,7 @@ GRE_war_strain = {
     army_attack_factor = strain_atk
     army_defence_factor = strain_def
     army_org_factor = strain_org
-    custom_modifier_tooltip = GRE_war_strain_desc
+    #custom_modifier_tooltip = GRE_war_strain_desc
 }
 
 ########################################################

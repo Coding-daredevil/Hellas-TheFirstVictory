@@ -2,13 +2,101 @@ guiTypes = {
     containerWindowType = {
         name = "hell_academy_container"
         position = { x = 0 y = 0 }
-        size = { width = 510 height = 850 }
+        size = { width = 510 height = 1210 }
+
+        containerWindowType = {
+            name = "hell_acad_container_0"
+            position = { x = 0 y = 20 }
+            size = { width = 480 height = 295 }
+            clipping = no
+
+            instantTextBoxType = {
+                name = "hell_acad_title_01"
+                position = { x = 0 y = 0 }
+                font = "hoi_24header"
+                text = hell_acad_title_0
+                maxWidth = 490
+                maxHeight = 24
+                format = center
+            }
+
+            instantTextBoxType = {
+                name = "line01"
+                position = { x = 0 y = 24 }
+                font = "hoi_22tech"
+                text = hell_second_banner
+                maxWidth = 490
+                maxHeight = 24
+                format = center
+            }
+
+            ########################################
+
+            iconType = {
+                name = "AirforceIcon"
+                spriteType = "GFX_goal_airforce_early"
+                position = { x = 70 y = 70 }
+                #clicksound = click_close
+                #oversound = ui_menu_over
+                pdx_tooltip = "hell_acad_air"
+                scale = 1
+            }
+            iconType = {
+                name = "ArmyIcon"
+                spriteType = "GFX_focus_GRE_hellenic_armed_forces"
+                position = { x = 195 y = 55 }
+                #clicksound = click_close
+                #oversound = ui_menu_over
+                pdx_tooltip = "hell_acad_army"
+                scale = 1
+            }
+            iconType = {
+                name = "NavyIcon"
+                spriteType = "GFX_goal_navy_early"
+                position = { x = 320 y = 70 }
+                #clicksound = click_close
+                #oversound = ui_menu_over
+                pdx_tooltip = "hell_acad_navy"
+                scale = 1
+            }
+            iconType = {
+                name = "RestIcon"
+                spriteType = "GFX_goal_conduct_exercises"
+                position = { x = 145 y = 158 }
+                #clicksound = click_close
+                #oversound = ui_menu_over
+                pdx_tooltip = "hell_acad_rest"
+                scale = 1
+            }
+            iconType = {
+                name = "BudgetIcon"
+                spriteType = "GFX_goal_budget"
+                position = { x = 245 y = 152 }
+                #clicksound = click_close
+                #oversound = ui_menu_over
+                pdx_tooltip = "hell_acad_budget"
+                scale = 1
+            }
+            iconType = {
+                name = "OfficerTrainingIcon"
+                spriteType = "GFX_goal_soldier"
+                position = { x = 195 y = 234 }
+                #clicksound = click_close
+                #oversound = ui_menu_over
+                pdx_tooltip = "hell_acad_officer_training"
+                scale = 1
+            }
+
+
+            ########################################
+        }
         
         containerWindowType = {
             name = "hell_acad_container_1"
-            position = { x = 0 y = 0 }
+            position = { x = 0 y = 360 }
             size = { width = 480 height = 295 }
             clipping = no
+            moveable = yes
 
             instantTextBoxType = {
                 name = "hell_acad_title"
@@ -441,6 +529,7 @@ guiTypes = {
                 position = { x = 355 y = 268 }
                 font = "hoi_20b"
                 text = hell_crel_overall
+                pdx_tooltip = hell_crel_overall_tt
                 maxWidth = 140
                 maxHeight = 24
                 format = left
@@ -449,15 +538,16 @@ guiTypes = {
             iconType = {
                 name = "hell_acad_info"
                 spriteType = "GFX_history_report_icon"
-                position = { x = 470 y = 268 }
+                position = { x = 470 y = 264 }
                 alwaystransparent = no
                 pdx_tooltip = hell_academy_info
+                pdx_tooltip_delayed = hell_academy_info_delayed
             }
         }
         #######################[SECOND CONTAINER]########################
         containerWindowType = {
             name = "hell_acad_container_2"
-            position = { x = 0 y = 324 }
+            position = { x = 0 y = 684 }
             size = { width = 480 height = 295 }
             clipping = no
 
@@ -502,7 +592,7 @@ guiTypes = {
                 text = hell_acad_monarchist_representation
                 maxWidth = 60
                 maxHeight = 24
-                #pdx_tooltip = hell_acad_officer_num_tt
+                pdx_tooltip = hell_acad_base_mon_tt
                 format = center
             }
 
@@ -558,7 +648,7 @@ guiTypes = {
                 text = hell_acad_republican_representation
                 maxWidth = 60
                 maxHeight = 24
-                #pdx_tooltip = hell_acad_officer_num_tt
+                pdx_tooltip = hell_acad_base_dem_tt
                 format = center
             }
 
@@ -614,7 +704,7 @@ guiTypes = {
                 text = hell_acad_communist_representation
                 maxWidth = 60
                 maxHeight = 24
-                #pdx_tooltip = hell_acad_officer_num_tt
+                pdx_tooltip = hell_acad_base_com_tt
                 format = center
             }
 
@@ -670,7 +760,7 @@ guiTypes = {
                 text = hell_acad_fascist_representation
                 maxWidth = 60
                 maxHeight = 24
-                #pdx_tooltip = hell_acad_officer_num_tt
+                pdx_tooltip = hell_acad_base_fas_tt
                 format = center
             }
 
@@ -706,11 +796,30 @@ guiTypes = {
                 ##pdx_tooltip = infl_influence_tt
                 format = center
             }
+
+            iconType = {
+                name = "hell_acad_info_officer"
+                spriteType = "GFX_history_report_icon"
+                position = { x = 470 y = 35 }
+                scale = 0.8
+                alwaystransparent = no
+                pdx_tooltip = hell_academy_info_officer
+            }
+
+            iconType = {
+                name = "hell_acad_info_2"
+                spriteType = "GFX_history_report_icon"
+                position = { x = 470 y = 134 }
+                alwaystransparent = no
+                scale = 0.8
+                pdx_tooltip = hell_academy_info_2
+                pdx_tooltip_delayed = hell_academy_info_2_delayed
+            }
         }
         #######################[THIRD CONTAINER]########################
         containerWindowType = {
             name = "hell_acad_container_3"
-            position = { x = 0 y = 522 }
+            position = { x = 0 y = 882 }
             size = { width = 480 height = 295 }
             clipping = no
 
