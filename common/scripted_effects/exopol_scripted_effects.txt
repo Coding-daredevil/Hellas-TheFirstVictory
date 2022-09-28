@@ -1,0 +1,130 @@
+########################################################
+##############[                           ]#############
+##############[      AXIS AND ALLIES      ]#############
+##############[                           ]#############
+########################################################
+
+axal_gui_initial = {
+	# The following scripted effect sets-up the faction at game start.
+
+	GRE = { set_country_flag = axal_gui_initialized }
+	set_variable = { alax = tmpALL }
+	set_variable = { axal = tmpAXI }
+    add_to_array = { faction_axal_p_array = tmpALL }   
+    add_to_array = { faction_axal_p_array = tmpAXI }  
+	add_to_array = { faction_axal_m_array = 1 } 
+	add_to_array = { faction_axal_m_array = 2 }    
+	reload_axal_gui = yes
+}
+
+axal_gui_call = {
+    ####VARIABLE CLAMPING TO NOT EXCEED LIMIT [0,100]####
+    clamp_variable = { 
+        var = axal
+        min = 0
+        max = 100
+    }
+    #####################################################################################
+    #####################################################################################
+    clear_array = faction_axal_p_array
+    ####AXAL####
+    set_temp_variable = { a = 100 }
+    subtract_from_temp_variable = { a = var:axal }
+	set_variable = { alax = a }
+    add_to_array = { faction_axal_p_array = var:alax }
+    add_to_array = { faction_axal_p_array = var:axal }
+    reload_axal_gui = yes
+}
+
+reload_axal_gui = {
+    clear_array = axis_allies_array
+    
+	for_each_loop = {
+		array = faction_axal_p_array
+
+		add_to_array = { tmp = faction_axal_p_array^i }
+	} 
+
+	set_temp_variable = { temp_cindex_1 = 0 }
+	set_temp_variable = { temp_cindex_2 = 1 }
+	set_temp_variable = { temp_csize = tmp^num }
+	subtract_from_temp_variable = { temp_csize = 1 }    
+
+	while_loop_effect = {
+		limit = {
+			check_variable = { temp_cindex_1 < temp_csize }
+		}
+		add_to_variable = { tmp^temp_cindex_2 = tmp^temp_cindex_1 }
+		add_to_temp_variable = { temp_cindex_1 = 1 }
+		add_to_temp_variable = { temp_cindex_2 = 1 }
+	}
+    
+    for_loop_effect = {
+        start = 0
+        end = tmp^num
+        
+        resize_array = { array = axis_allies_array value = faction_axal_m_array^v size = tmp^v }       
+    }
+
+	clear_array = tmp    
+}
+
+########################################################
+##############[                           ]#############
+##############[           REST            ]#############
+##############[                           ]#############
+########################################################
+
+refresh_balkan_pact_desirability_gui_THIS = {
+	# This function works in THIS scope and refreshes balkan pact desirability array.
+
+	clamp_variable={ var=THIS.balkan_pact_desirability min=0 max=100 }
+	#################################################################
+	set_temp_variable={ x=100 }
+	subtract_from_temp_variable={ x=THIS.balkan_pact_desirability }
+	clear_array = THIS.balkan_pact_desirability_array
+	log="THIS: [?THIS.GetName], des: [?balkan_pact_desirability|.2], 1-des: [?x]"
+	resize_array = { array=THIS.balkan_pact_desirability_array value=1 size=x }
+	resize_array = { array=THIS.balkan_pact_desirability_array value=2 size=100 }
+}
+
+apply_on_actions_fluctuations_of_itagg_escalation = {
+	# This functions is meant to be called in 'on actions' every week to reduce acceleration by the specified margin.
+
+	set_temp_variable={ x=0.5 }
+	subtract_from_variable={ italian_escalation_level=x }
+	refresh_italian_escalation_and_acceleration=yes
+}
+
+apply_on_actions_fluctuations_of_itagg_acceleration = {
+	# This functions is meant to be called in 'on actions' every week to reduce acceleration by the specified margin.
+
+	set_temp_variable={ x=2 }
+	subtract_from_variable={ italian_escalation_accelerator=x }
+	refresh_italian_escalation_and_acceleration=yes
+}
+
+apply_italian_aggression_effects_through_tmpESC_tmpACC = {
+	# Quick function to avoid all the line dumps. 
+
+	custom_effect_tooltip=itagg_escalation_header_tt
+	set_temp_variable={ x=tmpESC }
+	add_to_temp_variable={ x=GRE.italian_escalation_accelerator }
+	add_to_variable={ GRE.italian_escalation_level=x tooltip=itagg_escalation_increased_by_tt }
+	add_to_variable={ GRE.italian_escalation_accelerator=tmpACC tooltip=itagg_accelerator_increased_by_tt }
+	refresh_italian_escalation_and_acceleration=yes
+}
+
+refresh_italian_escalation_and_acceleration = {
+	
+	clamp_variable={ var=italian_escalation_level min=0 max=100 }
+	clamp_variable={ var=italian_escalation_accelerator min=0 max=50 }
+	####################################################################
+	clear_array = italian_aggression_main_array
+	resize_array = { array=italian_aggression_main_array value=2 size=italian_escalation_level }
+	resize_array = { array=italian_aggression_main_array value=1 size=100 }
+	########################################################################
+	clear_array = italian_aggression_accelerator_array
+	resize_array = { array=italian_aggression_accelerator_array value=2 size=italian_escalation_accelerator }
+	resize_array = { array=italian_aggression_accelerator_array value=1 size=50 }
+}

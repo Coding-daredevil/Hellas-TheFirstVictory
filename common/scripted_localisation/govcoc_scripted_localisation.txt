@@ -1,4 +1,55 @@
 defined_text = {
+	name = MainButtonSwappero
+
+	text = { trigger = { check_variable={ gov_filters=1 } } localization_key = "Conditional Display" }
+	text = { localization_key= "Display All" }
+}
+
+defined_text = {
+	name = MainSecondaryButtonSwappero
+
+	text = { trigger = { check_variable={ gov_reverted_filters=1 } } localization_key = "Reverted" }
+	text = { localization_key= "Normal" }
+}
+
+defined_text = {
+	name = CocMainButtonSwappero
+
+	text = { trigger = { check_variable={ coc_filters=1 } } localization_key = "Conditional Display" }
+	text = { localization_key= "Display All" }
+}
+
+defined_text = {
+	name = CocMainSecondaryButtonSwappero
+
+	text = { trigger = { check_variable={ coc_reverted_filters=1 } } localization_key = "Reverted" }
+	text = { localization_key= "Normal" }
+}
+
+defined_text = {
+	name = CocSortButtonSwappero
+
+	text = { trigger = { check_variable={ coc_sort_array=1 } } localization_key = "Overall" }
+	text = { trigger = { check_variable={ coc_sort_array=2 } } localization_key = "Attack" }
+	text = { trigger = { check_variable={ coc_sort_array=3 } } localization_key = "Defense" }
+	text = { trigger = { check_variable={ coc_sort_array=4 } } localization_key = "Planning/Maneuver" }
+	text = { trigger = { check_variable={ coc_sort_array=5 } } localization_key = "Logistics/Coord." }
+	text = { localization_key= "Default Sort" }
+}
+
+defined_text = {
+	name = GetCharacterPlanOrManeuv
+	text = { trigger={ meta_trigger={ text={ any_character={ is_character=[CHARACTER_ID] is_army_leader=yes}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}} localization_key=govcoc_plan_tt}
+	text = { trigger={ meta_trigger={ text={ any_character={ is_character=[CHARACTER_ID] is_navy_leader=yes}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}} localization_key=govcoc_manu_tt}
+}
+
+defined_text = {
+	name = GetCharacterLogOrCoord
+	text = { trigger={ meta_trigger={ text={ any_character={ is_character=[CHARACTER_ID] is_army_leader=yes}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}} localization_key=govcoc_logi_tt}
+	text = { trigger={ meta_trigger={ text={ any_character={ is_character=[CHARACTER_ID] is_navy_leader=yes}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}} localization_key=govcoc_coord_tt}
+}
+
+defined_text = {
 	name = GetCharacterPortrait
 	text = { trigger = { check_variable={ v=demertzis        } } localization_key = "GFX_portrait_gre_konstantinos_demertzis" }
 	text = { trigger = { check_variable={ v=metaxas          } } localization_key = "GFX_Portrait_Greece_Ioannis_Metaxas" }
@@ -172,6 +223,7 @@ defined_text = {
 	text = { trigger = { check_variable={ v=kanellopoulos    } } localization_key = "75"  }
 	text = { trigger = { check_variable={ v=kyrou            } } localization_key = "125" }
 	text = { trigger = { check_variable={ v=dimitratos	     } } localization_key = "125" }
+	text = { trigger = { check_variable={ v=tsouderos	     } } localization_key = "150" }
 	text = { trigger = { check_variable={ v=apostolidis	     } } localization_key = "150" }
 	text = { trigger = { check_variable={ v=tourkovasilis    } } localization_key = "75"  }
 	text = { trigger = { check_variable={ v=bastias		     } } localization_key = "100" }
@@ -377,28 +429,28 @@ defined_text = {
 	text = { trigger = { check_variable={ v=metaxas          } } localization_key=""}
 	text = { trigger = { check_variable={ v=king_george      } } localization_key=""}
 	text = { trigger = { check_variable={ v=maniadakis       } } localization_key=""}
+	text = { trigger = { check_variable={ v=nikoloudis       } } localization_key=""}
 	text = { trigger = { check_variable={ v=venizelos        } } localization_key=""}
 	text = { trigger = { check_variable={ v=sofoulis         } } localization_key=""}
 	text = { trigger = { check_variable={ v=zachariadis      } } localization_key=""}
 	text = { trigger = { check_variable={ v=mercouris        } } localization_key=""}
-	text = { trigger = { check_variable={ v=tsouderos        } } localization_key=""}
 	text = { trigger = { check_variable={ v=logothetopoulos  } } localization_key=""}
-	text = { trigger = { check_variable={ v=kotzias          } } localization_key=""}
-	text = { trigger = { check_variable={ v=koryzis          } } localization_key=""}
-	text = { trigger = { check_variable={ v=bodosakis 	     } } localization_key=""}
-	text = { trigger = { check_variable={ v=karaiskaki       } } localization_key=""}
-	text = { trigger = { check_variable={ v=nelly            } } localization_key=""}
-	text = { trigger = { check_variable={ v=kanellopoulos    } } localization_key=""}
-	text = { trigger = { check_variable={ v=kyrou            } } localization_key=""}
-	text = { trigger = { check_variable={ v=dimitratos	     } } localization_key=""}
-	text = { trigger = { check_variable={ v=apostolidis	     } } localization_key=""}
-	text = { trigger = { check_variable={ v=tourkovasilis    } } localization_key=""}
-	text = { trigger = { check_variable={ v=bastias		     } } localization_key=""}
-	text = { trigger = { check_variable={ v=prevelakis       } } localization_key=""}
-	text = { trigger = { check_variable={ v=damaskinos       } } localization_key=""}
-	text = { trigger = { check_variable={ v=chrysanthos      } } localization_key=""}
-	text = { trigger = { check_variable={ v=nikoloudis       } } localization_key=""}
 	text = { trigger = { check_variable={ v=mercouris	     } } localization_key=""}
+	text = { trigger = { check_variable={ v=kotzias          } } localization_key="GRE_kostas_kotzias_ledger"}
+	text = { trigger = { check_variable={ v=koryzis          } } localization_key="GRE_alexandros_koryzis_ledger"}
+	text = { trigger = { check_variable={ v=bodosakis 	     } } localization_key="GRE_prodromos_bodosakis_ledger"}
+	text = { trigger = { check_variable={ v=karaiskaki       } } localization_key="GRE_sitsa_karaiskaki_ledger"}
+	text = { trigger = { check_variable={ v=nelly            } } localization_key="GRE_nelly_nelly_ledger"}
+	text = { trigger = { check_variable={ v=kanellopoulos    } } localization_key="GRE_alexandros_kanellopoulos_ledger"}
+	text = { trigger = { check_variable={ v=kyrou            } } localization_key="GRE_achilleas_kyrou_ledger"}
+	text = { trigger = { check_variable={ v=dimitratos	     } } localization_key="GRE_aristeidis_dimitratos_ledger"}
+	text = { trigger = { check_variable={ v=tsouderos        } } localization_key="GRE_emmanouil_tsouderos_ledger"}
+	text = { trigger = { check_variable={ v=apostolidis	     } } localization_key="GRE_andreas_apostolidis_ledger"}
+	text = { trigger = { check_variable={ v=tourkovasilis    } } localization_key="GRE_theodoros_tourkovasilis_ledger"}
+	text = { trigger = { check_variable={ v=bastias		     } } localization_key="GRE_konstantinos_bastias_ledger"}
+	text = { trigger = { check_variable={ v=prevelakis       } } localization_key="GRE_pantelis_prevelakis_ledger"}
+	text = { trigger = { check_variable={ v=damaskinos       } } localization_key="GRE_archbishop_damaskinos_ledger"}
+	text = { trigger = { check_variable={ v=chrysanthos      } } localization_key="GRE_archbishop_chrysanthos_ledger"}
 	text = { trigger = { check_variable={ v=katsimitros      } } localization_key="GRE_charalambos_katsimitros_ledger"}
 	text = { trigger = { check_variable={ v=drakos		     } } localization_key="GRE_markos_drakos_ledger"}
 	text = { trigger = { check_variable={ v=papagos 		 } } localization_key="GRE_alexandros_papagos_ledger"}
@@ -461,6 +513,87 @@ defined_text = {
 }
 
 defined_text = {
+	name = GetBodosakisCurrentTrait
+
+	text = { trigger={ meta_trigger={ text={ any_character={ is_character=[CHARACTER_ID] check_variable={ trait_level=0 }}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}} localization_key="GRE_prodromos_bodosakis_0_ledger"}
+	text = { trigger={ meta_trigger={ text={ any_character={ is_character=[CHARACTER_ID] check_variable={ trait_level=1 }}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}} localization_key="GRE_prodromos_bodosakis_1_ledger"}
+	text = { trigger={ meta_trigger={ text={ any_character={ is_character=[CHARACTER_ID] check_variable={ trait_level=2 }}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}} localization_key="GRE_prodromos_bodosakis_2_ledger"}
+	text = { trigger={ meta_trigger={ text={ any_character={ is_character=[CHARACTER_ID] check_variable={ trait_level=3 }}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}} localization_key="GRE_prodromos_bodosakis_3_ledger"}
+	text = { trigger={ meta_trigger={ text={ any_character={ is_character=[CHARACTER_ID] check_variable={ trait_level=4 }}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}} localization_key="GRE_prodromos_bodosakis_4_ledger"}
+	text = { trigger={ meta_trigger={ text={ any_character={ is_character=[CHARACTER_ID] check_variable={ trait_level=5 }}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}} localization_key="GRE_prodromos_bodosakis_5_ledger"}
+	text = { trigger={ meta_trigger={ text={ any_character={ is_character=[CHARACTER_ID] check_variable={ trait_level=6 }}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}} localization_key="GRE_prodromos_bodosakis_6_ledger"}
+	text = { trigger={ meta_trigger={ text={ any_character={ is_character=[CHARACTER_ID] check_variable={ trait_level=7 }}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}} localization_key="GRE_prodromos_bodosakis_7_ledger"}
+}
+
+defined_text = {
+	name = GetCharacterChiefPortraitTooltip
+	text = { trigger={ meta_trigger={ text={ any_character={ is_character=[CHARACTER_ID] check_variable={ rank=0 }}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}} localization_key=[GetCHiefPortraitOne]}
+	text = { trigger={ meta_trigger={ text={ any_character={ is_character=[CHARACTER_ID] check_variable={ rank=1 }}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}} localization_key=[GetCHiefPortraitTwo]}
+	text = { trigger={ meta_trigger={ text={ any_character={ is_character=[CHARACTER_ID] check_variable={ rank=2 }}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}} localization_key=[GetCHiefPortraitThree]}
+	text = { trigger={ meta_trigger={ text={ any_character={ is_character=[CHARACTER_ID] check_variable={ rank=3 }}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}} localization_key=[GetCHiefPortraitFour]}
+}
+
+defined_text = {
+	name = GetCHiefPortraitOne
+	text = { trigger = { check_variable={ v=drakos		     } } localization_key="greek_chief_of_army_full_drakos_1_stats"}
+	text = { trigger = { check_variable={ v=papagos 		 } } localization_key="greek_chief_of_army_full_papagos_1_stats"}
+	text = { trigger = { check_variable={ v=zervas           } } localization_key="greek_chief_of_army_full_zervas_1_stats"}
+	text = { trigger = { check_variable={ v=stanotas 		 } } localization_key="greek_chief_of_army_full_stanotas_1_stats"}
+	text = { trigger = { check_variable={ v=davakis 		 } } localization_key="greek_chief_of_army_full_davakis_1_stats"}
+	text = { trigger = { check_variable={ v=sakellariou 	 } } localization_key="navy_chief_sakellariou_full_1_stats"}
+	text = { trigger = { check_variable={ v=idemestichas 	 } } localization_key="navy_chief_demestichas_full_1_stats"}
+	text = { trigger = { check_variable={ v=kavvadias 		 } } localization_key="navy_chief_kavvadias_full_1_stats"}
+	text = { trigger = { check_variable={ v=loundras 		 } } localization_key="navy_chief_loundras_full_1_stats"}
+	text = { trigger = { check_variable={ v=oikonomou 		 } } localization_key="navy_chief_oikonomou_full_1_stats"}
+	text = { trigger = { check_variable={ v=voulgaris 		 } } localization_key="navy_chief_voulgaris_full_1_stats"}
+}
+
+defined_text = {
+	name = GetCHiefPortraitTwo
+	text = { trigger = { check_variable={ v=drakos		     } } localization_key="greek_chief_of_army_full_drakos_2_stats"}
+	text = { trigger = { check_variable={ v=papagos 		 } } localization_key="greek_chief_of_army_full_papagos_2_stats"}
+	text = { trigger = { check_variable={ v=zervas           } } localization_key="greek_chief_of_army_full_zervas_2_stats"}
+	text = { trigger = { check_variable={ v=stanotas 		 } } localization_key="greek_chief_of_army_full_stanotas_2_stats"}
+	text = { trigger = { check_variable={ v=davakis 		 } } localization_key="greek_chief_of_army_full_davakis_2_stats"}
+	text = { trigger = { check_variable={ v=sakellariou 	 } } localization_key="navy_chief_sakellariou_full_2_stats"}
+	text = { trigger = { check_variable={ v=idemestichas 	 } } localization_key="navy_chief_demestichas_full_2_stats"}
+	text = { trigger = { check_variable={ v=kavvadias 		 } } localization_key="navy_chief_kavvadias_full_2_stats"}
+	text = { trigger = { check_variable={ v=loundras 		 } } localization_key="navy_chief_loundras_full_2_stats"}
+	text = { trigger = { check_variable={ v=oikonomou 		 } } localization_key="navy_chief_oikonomou_full_2_stats"}
+	text = { trigger = { check_variable={ v=voulgaris 		 } } localization_key="navy_chief_voulgaris_full_2_stats"}
+}
+
+defined_text = {
+	name = GetCHiefPortraitThree
+	text = { trigger = { check_variable={ v=drakos		     } } localization_key="greek_chief_of_army_full_drakos_3_stats"}
+	text = { trigger = { check_variable={ v=papagos 		 } } localization_key="greek_chief_of_army_full_papagos_3_stats"}
+	text = { trigger = { check_variable={ v=zervas           } } localization_key="greek_chief_of_army_full_zervas_3_stats"}
+	text = { trigger = { check_variable={ v=stanotas 		 } } localization_key="greek_chief_of_army_full_stanotas_3_stats"}
+	text = { trigger = { check_variable={ v=davakis 		 } } localization_key="greek_chief_of_army_full_davakis_3_stats"}
+	text = { trigger = { check_variable={ v=sakellariou 	 } } localization_key="navy_chief_sakellariou_full_3_stats"}
+	text = { trigger = { check_variable={ v=idemestichas 	 } } localization_key="navy_chief_demestichas_full_3_stats"}
+	text = { trigger = { check_variable={ v=kavvadias 		 } } localization_key="navy_chief_kavvadias_full_3_stats"}
+	text = { trigger = { check_variable={ v=loundras 		 } } localization_key="navy_chief_loundras_full_3_stats"}
+	text = { trigger = { check_variable={ v=oikonomou 		 } } localization_key="navy_chief_oikonomou_full_3_stats"}
+	text = { trigger = { check_variable={ v=voulgaris 		 } } localization_key="navy_chief_voulgaris_full_3_stats"}
+}
+
+defined_text = {
+	name = GetCHiefPortraitFour
+	text = { trigger = { check_variable={ v=drakos		     } } localization_key="greek_chief_of_army_full_drakos_4_stats"}
+	text = { trigger = { check_variable={ v=papagos 		 } } localization_key="greek_chief_of_army_full_papagos_4_stats"}
+	text = { trigger = { check_variable={ v=zervas           } } localization_key="greek_chief_of_army_full_zervas_4_stats"}
+	text = { trigger = { check_variable={ v=stanotas 		 } } localization_key="greek_chief_of_army_full_stanotas_4_stats"}
+	text = { trigger = { check_variable={ v=davakis 		 } } localization_key="greek_chief_of_army_full_davakis_4_stats"}
+	text = { trigger = { check_variable={ v=sakellariou 	 } } localization_key="navy_chief_sakellariou_full_4_stats"}
+	text = { trigger = { check_variable={ v=idemestichas 	 } } localization_key="navy_chief_demestichas_full_4_stats"}
+	text = { trigger = { check_variable={ v=kavvadias 		 } } localization_key="navy_chief_kavvadias_full_4_stats"}
+	text = { trigger = { check_variable={ v=loundras 		 } } localization_key="navy_chief_loundras_full_4_stats"}
+	text = { trigger = { check_variable={ v=oikonomou 		 } } localization_key="navy_chief_oikonomou_full_4_stats"}
+	text = { trigger = { check_variable={ v=voulgaris 		 } } localization_key="navy_chief_voulgaris_full_4_stats"}
+}
+
+defined_text = {
 	name = GetCharacterLedgerTitle
 	text = { trigger={ meta_trigger={ text={ any_character={ is_character=[CHARACTER_ID] check_variable={ title=0 }}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}} localization_key=[GetTitleZero]}
 	text = { trigger={ meta_trigger={ text={ any_character={ is_character=[CHARACTER_ID] check_variable={ title=1 }}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}} localization_key=[GetTitleOne]}
@@ -484,19 +617,6 @@ defined_text = {
 	text = { trigger={ meta_trigger={ text={ any_character={ is_character=[CHARACTER_ID] check_variable = { mbranch=3 } check_variable={ rank=1 }}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}} localization_key="GFX_high_command_air_1"}
 	text = { trigger={ meta_trigger={ text={ any_character={ is_character=[CHARACTER_ID] check_variable = { mbranch=3 } check_variable={ rank=2 }}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}} localization_key="GFX_high_command_air_2"}
 	text = { trigger={ meta_trigger={ text={ any_character={ is_character=[CHARACTER_ID] check_variable = { mbranch=3 } check_variable={ rank=3 }}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}} localization_key="GFX_high_command_air_3"}
-}
-
-defined_text = {
-	name = GetCharacterPlanOrManeuv
-	text = { trigger={ meta_trigger={ text={ any_character={ is_character=[CHARACTER_ID] is_army_leader=yes}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}} localization_key=govcoc_plan_tt}
-	text = { trigger={ meta_trigger={ text={ any_character={ is_character=[CHARACTER_ID] is_navy_leader=yes}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}} localization_key=govcoc_manu_tt}
-}
-
-
-defined_text = {
-	name = GetCharacterLogOrCoord
-	text = { trigger={ meta_trigger={ text={ any_character={ is_character=[CHARACTER_ID] is_army_leader=yes}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}} localization_key=govcoc_logi_tt}
-	text = { trigger={ meta_trigger={ text={ any_character={ is_character=[CHARACTER_ID] is_navy_leader=yes}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}} localization_key=govcoc_coord_tt}
 }
 
 defined_text = {
@@ -994,129 +1114,12 @@ defined_text = {
 	text = { trigger = { check_variable={ v=rallis 			 } } localization_key=gov_portrait_title_rallis_5_tt }
 }
 
-
-
-
-
-
-
-#defined_text = {
-#
-#	name = GetCharacterLedgerTitle
-#	text = { trigger = { check_variable={ v=demertzis        } } localization_key=[GetDemertzisRest]}
-#	text = { trigger = { check_variable={ v=metaxas          } } localization_key=[GetMetaxasRest]}
-#	text = { trigger = { check_variable={ v=king_george      } } localization_key=[GetKinggeorgeRest]}
-#	text = { trigger = { check_variable={ v=maniadakis       } } localization_key=[GetManiadakisRest]}
-#	text = { trigger = { check_variable={ v=venizelos        } } localization_key=[GetVenizelosRest]}
-#	text = { trigger = { check_variable={ v=sofoulis         } } localization_key=[GetSofoulisRest]}
-#	text = { trigger = { check_variable={ v=zachariadis      } } localization_key=[GetZachariadisRest]}
-#	text = { trigger = { check_variable={ v=mercouris        } } localization_key=[GetMercourisRest]}
-#	text = { trigger = { check_variable={ v=tsouderos        } } localization_key=[GetTsouderosRest]}
-#	text = { trigger = { check_variable={ v=logothetopoulos  } } localization_key=[GetLogothetopoulosRest]}
-#	text = { trigger = { check_variable={ v=kotzias          } } localization_key=[GetKotziasRest]}
-#	text = { trigger = { check_variable={ v=koryzis          } } localization_key=[GetKoryzisRest]}
-#	text = { trigger = { check_variable={ v=bodosakis 	     } } localization_key=[GetBodosakisRest]}
-#	text = { trigger = { check_variable={ v=karaiskaki       } } localization_key=[GetKaraiskakiRest]}
-#	text = { trigger = { check_variable={ v=nelly            } } localization_key=[GetNellyRest]}
-#	text = { trigger = { check_variable={ v=kanellopoulos    } } localization_key=[GetKanellopoulosRest]}
-#	text = { trigger = { check_variable={ v=kyrou            } } localization_key=[GetKyrouRest]}
-#	text = { trigger = { check_variable={ v=dimitratos	     } } localization_key=[GetDimitratosRest]}
-#	text = { trigger = { check_variable={ v=apostolidis	     } } localization_key=[GetApostolidisRest]}
-#	text = { trigger = { check_variable={ v=tourkovasilis    } } localization_key=[GetTourkovasilisRest]}
-#	text = { trigger = { check_variable={ v=bastias		     } } localization_key=[GetBastiasRest]}
-#	text = { trigger = { check_variable={ v=prevelakis       } } localization_key=[GetPrevelakisRest]}
-#	text = { trigger = { check_variable={ v=damaskinos       } } localization_key=[GetDamaskinosRest]}
-#	text = { trigger = { check_variable={ v=chrysanthos      } } localization_key=[GetChrysanthosRest]}
-#	text = { trigger = { check_variable={ v=nikoloudis       } } localization_key=[GetNikoloudisRest]}
-#	text = { trigger = { check_variable={ v=mercouris	     } } localization_key=[GetMercourisRest]}
-#	text = { trigger = { check_variable={ v=katsimitros      } } localization_key=[GetKatsimitrosRest]}
-#	text = { trigger = { check_variable={ v=drakos		     } } localization_key=[GetDrakosRest]}
-#	text = { trigger = { check_variable={ v=papagos 		 } } localization_key=[GetPapagosRest]}
-#	text = { trigger = { check_variable={ v=psarros 		 } } localization_key=[GetPsarrosRest]}
-#	text = { trigger = { check_variable={ v=velouchiotis 	 } } localization_key=[GetVelouchiotisRest]}
-#	text = { trigger = { check_variable={ v=grivas           } } localization_key=[GetGrivasRest]}
-#	text = { trigger = { check_variable={ v=mantakas         } } localization_key=[GetMantakasRest]}
-#	text = { trigger = { check_variable={ v=zervas           } } localization_key=[GetZervasRest]}
-#	text = { trigger = { check_variable={ v=plastiras        } } localization_key=[GetPlastirasRest]}
-#	text = { trigger = { check_variable={ v=pdemestichas     } } localization_key=[GetPdemestichasRest]}
-#	text = { trigger = { check_variable={ v=tsolakoglou      } } localization_key=[GetTsolakoglouRest]}
-#	text = { trigger = { check_variable={ v=bakirtzis 		 } } localization_key=[GetBakirtzisRest]}
-#	text = { trigger = { check_variable={ v=kosmas 			 } } localization_key=[GetKosmasRest]}
-#	text = { trigger = { check_variable={ v=stanotas 		 } } localization_key=[GetStanotasRest]}
-#	text = { trigger = { check_variable={ v=kotoulas 		 } } localization_key=[GetKotoulasRest]}
-#	text = { trigger = { check_variable={ v=pitsikas 		 } } localization_key=[GetPitsikasRest]}
-#	text = { trigger = { check_variable={ v=bakopoulos 		 } } localization_key=[GetBakopoulosRest]}
-#	text = { trigger = { check_variable={ v=davakis 		 } } localization_key=[GetDavakisRest]}
-#	text = { trigger = { check_variable={ v=ventiris 		 } } localization_key=[GetVentirisRest]}
-#	text = { trigger = { check_variable={ v=sarafis 		 } } localization_key=[GetSarafisRest]}
-#	text = { trigger = { check_variable={ v=makridis 		 } } localization_key=[GetMakridisRest]}
-#	text = { trigger = { check_variable={ v=tsigantes 		 } } localization_key=[GetTsigantesRest]}
-#	text = { trigger = { check_variable={ v=aggelis 		 } } localization_key=[GetAggelisRest]}
-#	text = { trigger = { check_variable={ v=alexakis 		 } } localization_key=[GetAlexakisRest]}
-#	text = { trigger = { check_variable={ v=dovas 			 } } localization_key=[GetDovasRest]}
-#	text = { trigger = { check_variable={ v=frontistis 		 } } localization_key=[GetFrontistisRest]}
-#	text = { trigger = { check_variable={ v=giatzis 		 } } localization_key=[GetGiatzisRest]}
-#	text = { trigger = { check_variable={ v=gikas 			 } } localization_key=[GetGikasRest]}
-#	text = { trigger = { check_variable={ v=paulos_giparis 	 } } localization_key=[GetGiparisRest]}
-#	text = { trigger = { check_variable={ v=kallergis 		 } } localization_key=[GetKallergisRest]}
-#	text = { trigger = { check_variable={ v=katsotas 		 } } localization_key=[GetKatsotasRest]}
-#	text = { trigger = { check_variable={ v=ntalipis 		 } } localization_key=[GetNtalipisRest]}
-#	text = { trigger = { check_variable={ v=paparrodou 		 } } localization_key=[GetPaparrodouRest]}
-#	text = { trigger = { check_variable={ v=rossios 		 } } localization_key=[GetRossiosRest]}
-#	text = { trigger = { check_variable={ v=spiliotopoulos 	 } } localization_key=[GetSpiliotopoulosRest]}
-#	text = { trigger = { check_variable={ v=tsakalotos 		 } } localization_key=[GetTsakalotosRest]}
-#	text = { trigger = { check_variable={ v=versis 			 } } localization_key=[GetVersisRest]}
-#	text = { trigger = { check_variable={ v=vrachnos 		 } } localization_key=[GetVrachnosRest]}
-#	text = { trigger = { check_variable={ v=sakellariou 	 } } localization_key=[GetSakellariouRest]}
-#	text = { trigger = { check_variable={ v=idemestichas 	 } } localization_key=[GetIdemestichasRest]}
-#	text = { trigger = { check_variable={ v=kavvadias 		 } } localization_key=[GetKavvadiasRest]}
-#	text = { trigger = { check_variable={ v=loundras 		 } } localization_key=[GetLoundrasRest]}
-#	text = { trigger = { check_variable={ v=oikonomou 		 } } localization_key=[GetOikonomouRest]}
-#	text = { trigger = { check_variable={ v=toubas 			 } } localization_key=[GetToubasRest]}
-#	text = { trigger = { check_variable={ v=voulgaris 		 } } localization_key=[GetVoulgarisRest]}
-#	text = { trigger = { check_variable={ v=avgeris   		 } } localization_key=[GetAvgerisRest]}
-#	text = { trigger = { check_variable={ v=iatridis 		 } } localization_key=[GetIatridisRest]}
-#	text = { trigger = { check_variable={ v=spyromilios 	 } } localization_key=[GetSpyromiliosRest]}
-#	text = { trigger = { check_variable={ v=mitralexis 		 } } localization_key=[GetMitralexisRest]}
-#	text = { trigger = { check_variable={ v=kellas 			 } } localization_key=[GetKellasRest]}
-#	text = { trigger = { check_variable={ v=rallis 			 } } localization_key=[GetRallisRest]}
-#}
-
 defined_text = {
-	name = MainButtonSwappero
-
-	text = { trigger = { check_variable={ gov_filters=1 } } localization_key = "Conditional Display" }
-	text = { localization_key= "Display All" }
+	name = GetTsou
+	text = { localization_key=GRE_emmanouil_tsouderos_ledger }
 }
 
 defined_text = {
-	name = MainSecondaryButtonSwappero
-
-	text = { trigger = { check_variable={ gov_reverted_filters=1 } } localization_key = "Reverted" }
-	text = { localization_key= "Normal" }
-}
-
-defined_text = {
-	name = CocMainButtonSwappero
-
-	text = { trigger = { check_variable={ coc_filters=1 } } localization_key = "Conditional Display" }
-	text = { localization_key= "Display All" }
-}
-
-defined_text = {
-	name = CocMainSecondaryButtonSwappero
-
-	text = { trigger = { check_variable={ coc_reverted_filters=1 } } localization_key = "Reverted" }
-	text = { localization_key= "Normal" }
-}
-
-defined_text = {
-	name = CocSortButtonSwappero
-
-	text = { trigger = { check_variable={ coc_sort_array=1 } } localization_key = "Overall" }
-	text = { trigger = { check_variable={ coc_sort_array=2 } } localization_key = "Attack" }
-	text = { trigger = { check_variable={ coc_sort_array=3 } } localization_key = "Defense" }
-	text = { trigger = { check_variable={ coc_sort_array=4 } } localization_key = "Planning/Maneuver" }
-	text = { trigger = { check_variable={ coc_sort_array=5 } } localization_key = "Logistics/Coord." }
-	text = { localization_key= "Default Sort" }
+	name = GetApostol
+	text = { localization_key=GRE_andreas_apostolidis_ledger }
 }

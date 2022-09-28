@@ -1,0 +1,144 @@
+##################################
+######[Intel Network Desire]######
+##################################
+
+escalation_desire_for_intel_network_10 = {
+    allowed={ tag=ITA }
+    enable={ mussolini_historical_tensions_with_greece=yes check_variable={ var=GRE.italian_escalation_level value=10 compare=greater_than_or_equals } check_variable={ var=GRE.italian_escalation_level value=50 compare=less_than }}
+    abort_when_not_enabled=yes
+    
+	ai_strategy = {
+		type = operative_mission
+		mission = build_intel_network
+		value = 500
+		mission_target = GRE
+		num_operatives = 1
+		state = 47 # Athens
+	}
+}
+
+escalation_desire_for_intel_network_50 = {
+    allowed={ tag=ITA }
+    enable={ mussolini_historical_tensions_with_greece=yes check_variable={ var=GRE.italian_escalation_level value=50 compare=greater_than_or_equals }}
+    abort_when_not_enabled=yes
+    
+	ai_strategy = {
+		type = operative_mission
+		mission = build_intel_network
+		value = 1000
+		mission_target = GRE
+		num_operatives = 2
+		state = 47 # Athens
+		state = 839 # Thessaloniki
+	}
+}
+
+#################################
+######[ Decryption Desire ]######
+#################################
+
+escalation_desire_for_decryption = {
+    allowed={ tag=ITA }
+    enable={ check_variable={ var=GRE.italian_escalation_level value=25 compare=greater_than_or_equals }}
+    abort_when_not_enabled=yes
+
+    ai_strategy = {
+        type=decrypt_target
+        id=GRE
+        value=100
+    }
+}
+
+#################################
+######[ Collaboration Gov ]######
+#################################
+
+escalation_prepare_collabgov = {
+	allowed={ tag=ITA }
+	
+	enable = {
+        mussolini_historical_tensions_with_greece=yes
+        check_variable={ var=GRE.italian_escalation_level value=25 compare=greater_than_or_equals }
+		GRE = {
+			exists = yes
+			has_capitulated = no
+			NOT={ is_ally_with = ITA }
+		}
+		OR = {
+			date < 1940.1.1
+			is_preparing_operation={ operation=operation_collaboration_government target=GRE }
+			is_running_operation = { operation=operation_collaboration_government target=GRE }
+		}
+		OR = {
+			num_finished_operations = { operation=operation_collaboration_government target=GRE value<1 }
+			AND = {
+                check_variable={ var=GRE.italian_escalation_level value=50 compare=greater_than_or_equals }
+                num_finished_operations={ operation=operation_collaboration_government target=GRE value<2 }
+            }
+		}
+	}
+	abort_when_not_enabled = yes
+	
+	ai_strategy = {
+		type = operative_operation
+		operation = operation_collaboration_government
+		value = 1200
+		operation_target = GRE
+	}
+}
+
+############################################
+#########[ Preparation in Albania ]#########
+############################################
+
+escalation_prepare_albania = {
+    allowed = { tag=ITA }
+    enable = {
+        mussolini_historical_tensions_with_greece = yes
+        annexation_of_albania_has_occurred_one_way_or_another = yes
+    }
+    abort = {
+        44 = { infrastructure>4 air_base>7 9780={ naval_base>4 } 11767={ naval_base>5 }}
+        805 = { infrastructure>4 }
+        if={ limit={ check_variable={ air_intel@GRE>74.99 } GRE={ has_deployed_air_force_size = { size>200 }}} 44={ anti_air_building>1 } 805={ anti_air_building>1 }}
+    }
+    ai_strategy = { type=build_building id=infrastructure target=44 value=4 }
+    ai_strategy = { type=build_building id=infrastructure target=805 value=4 }
+    ai_strategy = { type=build_building id=naval_base target=9780 value=4 }
+    ai_strategy = { type=build_building id=naval_base target=11767 value=4 }
+    ai_strategy = { type=build_building id=air_base target=44 value=4 }
+}
+
+escalation_prepare_aa_in_albania = {
+    allowed = { tag=ITA }
+    enable = {
+        mussolini_historical_tensions_with_greece = yes
+        annexation_of_albania_has_occurred_one_way_or_another = yes
+        check_variable={ air_intel@GRE>49.99 }
+        GRE={ has_deployed_air_force_size = { size>200 }}
+    }
+    abort = {
+        44 = { anti_air_building>2 }
+        805 = { anti_air_building>2 }
+    }
+    ai_strategy = { type=build_building id=anti_air_building target=44 value=2 }
+    ai_strategy = { type=build_building id=anti_air_building target=805 value=2 }
+}
+
+escalation_prepare_forts_in_albania = {
+    allowed = { tag=ITA }
+    enable = {
+        mussolini_historical_tensions_with_greece = yes
+        annexation_of_albania_has_occurred_one_way_or_another = yes
+    }
+    abort = {
+        44 = { 
+            3844 = { bunker>1 }
+            9875 = { bunker>1 }
+            9914 = { bunker>2 }
+        }
+    }
+    ai_strategy = { type=build_building id=bunker  target=3844 value=2 }
+    ai_strategy = { type=build_building id=bunker  target=9875 value=2 }
+    ai_strategy = { type=build_building id=bunker  target=9914 value=3 }
+}

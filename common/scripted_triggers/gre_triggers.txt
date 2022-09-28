@@ -1,4 +1,82 @@
 ####################################
+#######[ Influence Triggers]########
+####################################
+
+is_important_nation_to_add_to_array = {
+    # This trigger calculates whether the current scope is significant enough to add as an important nation.
+
+    var:THIS.capital = { set_temp_variable = { x=distance_to@GRE.capital }}
+    if = {
+        limit = { check_variable={ x<GRE.influence_radius }}                                                                                     # We check whether the capitals' distance is within the influence radius of Greece.
+        set_temp_variable={ main_cond=1 }
+    }
+    else={ set_temp_variable={ main_cond=0 }}
+    ######################
+    if = {
+        limit = { check_variable={ main_cond=0 }}
+        if = {
+            limit = { OR={ is_in_array={ array=GRE.balkan_neighbors value=THIS.id} AND={ is_major=yes var:capital={is_on_continent=europe }}}}       # We always want Balkan Neighbors & European Major Powers.
+            always=yes
+        }
+        else_if = {
+            limit = { is_major=yes var:capital={is_on_continent=north_america }}
+            OR = { has_completed_focus=GRE_bedrock_of_balkan_financial_stability has_completed_focus=GRE_open_foreign_subsidized_factories }         # We add USA (north america majors) once Greece starts becoming important
+        }
+        else_if = {
+            limit = { is_major=yes var:capital={is_on_continent=asia }}
+            OR = { has_completed_focus=GRE_invest_into_the_far_east has_completed_focus=GRE_extend_arms_sales_to_the_chinese has_completed_focus=GRE_arm_the_japanese has_completed_focus=GRE_arm_the_communists }          # We add Asian Majors a bit early if we start invest.
+        }
+        else_if = {                                                                                                                                  # We add asian nations if we have completed the focus.
+            limit = { is_major=no var:capital={is_on_continent=asia }}
+            has_completed_focus = GRE_invest_into_the_far_east
+        }
+        else = { always=no }                                                                                                                         # Otherwise, not an important nation
+    }
+    else = { always=yes }
+}
+
+####################################
+####[ SinoJapanese War Triggers ]###
+####################################
+
+sinojapanese_war_is_ongoing = {
+    custom_trigger_tooltip={
+        tooltip = sinojapanese_war_is_ongoing_tt
+        any_country = {
+            OR = { tag=YUN tag=SIK tag=GXC tag=SHX tag=XSM tag=CHI tag=PRC }
+            has_war_with=JAP
+        }
+    }
+}
+
+####################################
+####[ Spanish Civil War Triggers]###
+####################################
+
+spanish_civil_war_is_ongoing = {
+    custom_trigger_tooltip = {
+        tooltip = GRE_spanish_civil_war_underway_tt
+        has_global_flag = spanish_civil_war
+        any_country_with_original_tag = {
+            original_tag_to_check=SPR
+            has_civil_war = yes
+        }
+    }
+}
+
+is_FROM_involved_in_spain_in_any_manner_possible = {
+    any_country_with_original_tag={
+        original_tag_to_check=SPR
+        OR={
+            has_volunteers_amount_from={ tag=FROM count>0 }
+            FROM={ is_lend_leasing=PREV }
+            FROM={ is_licensing_any_to=PREV}
+            has_attache_from=FROM
+        }
+    }
+}
+
+####################################
 ##########[ COC_GUI TRIGG ]#########
 ####################################
 
@@ -68,8 +146,8 @@ mussolini_historical_tensions_with_greece = {
     custom_trigger_tooltip = {
         tooltip = mussolini_historical_tensions_with_greece_tt
 
-        ITA_benito_mussolini = { is_country_leader=yes }
         ITA = {
+            ITA_benito_mussolini = { is_country_leader=yes }
             NOT = { 
                 OR={ 
                     is_justifying_wargoal_against=GRE 
@@ -82,6 +160,13 @@ mussolini_historical_tensions_with_greece = {
             is_puppet=no 
             is_subject=no 
         }
+    }
+}
+
+forts_in_grecoalbanian_borderline_exist = {
+    OR = {
+        184 = { any_province_building_level={ province={ id=13236 id=13237 } building=bunker level>0 }}
+        838 = { any_province_building_level={ province={ id=841 } building=bunker level>0 }}
     }
 }
 
@@ -467,6 +552,67 @@ is_faction_tmpF_positive = {
     }
 }
 
+
+is_faction_tmpF_at_least_tmpZ = {
+    if = {
+        limit = { check_variable = { tmpF = 0 } }                                           #Monarchists
+        check_variable = { var=GRE.fct_mon value=tmpZ compare=greater_than_or_equals }
+    }
+    else_if = {
+        limit = { check_variable = { tmpF = 1 } }                                           #Republicans
+        check_variable = { var=GRE.fct_dem value=tmpZ compare=greater_than_or_equals }
+    }
+    else_if = {
+        limit = { check_variable = { tmpF = 2 } }                                           #Communists
+        check_variable = { var=GRE.fct_com value=tmpZ compare=greater_than_or_equals }
+    }
+    else_if = {
+        limit = { check_variable = { tmpF = 3 } }                                           #Fascists
+        check_variable = { var=GRE.fct_fas value=tmpZ compare=greater_than_or_equals }
+    }
+}
+
+is_faction_tmpF_below_tmpZ = {
+    if = {
+        limit = { check_variable = { tmpF = 0 } }                      #Monarchists
+        check_variable = { GRE.fct_mon < tmpZ }
+    }
+    else_if = {
+        limit = { check_variable = { tmpF = 1 } }                      #Republicans
+        check_variable = { GRE.fct_dem < tmpZ }
+    }
+    else_if = {
+        limit = { check_variable = { tmpF = 2 } }                      #Communists
+        check_variable = { GRE.fct_com < tmpZ }
+    }
+    else_if = {
+        limit = { check_variable = { tmpF = 3 } }                      #Fascists
+        check_variable = { GRE.fct_fas < tmpZ }
+    }
+}
+
+fctF_is_below_tmpZ = {
+    custom_trigger_tooltip = {
+        tooltip = fct_tmpF_below_tmpZ
+        if = {
+            limit={ check_variable={ tmpF=0 }}
+            check_variable = { fct_mon < tmpZ }
+        }
+        else_if = {
+            limit={ check_variable={ tmpF=1 }}
+            check_variable = { fct_dem < tmpZ }
+        }
+        else_if = {
+            limit={ check_variable={ tmpF=2 }}
+            check_variable = { fct_com < tmpZ }
+        }
+        else_if = {
+            limit={ check_variable={ tmpF=3 }}
+            check_variable = { fct_fas < tmpZ }
+        }
+    }
+}
+
 ####################################
 ###########[Investments]############
 ####################################
@@ -730,6 +876,20 @@ german_stance_in_greco_italian_war_negative = {
 }
 
 ###
+has_paid_at_least_dY_debt = {
+    custom_trigger_tooltip = {
+        tooltip = GRE_at_least_dY_total_debt
+        check_variable = { var=GRE_debt_to_the_ifc_paid_var_cat value=dY compare=greater_than_or_equals }
+    }
+}
+
+has_paid_at_least_dY_debt_to_dX = {
+    custom_trigger_tooltip = {
+        tooltip = GRE_at_least_dY_total_debt_to_dX
+        check_variable = { var=GRE_paid_debt@var:dX value=dY compare=greater_than_or_equals }
+    }
+}
+
 havent_frozen_debt_with_from = {
     check_variable = { GRE.true_debt@THIS = 0 }
 }
@@ -769,7 +929,7 @@ ideologically_tmpZ = {
             current_ruling_monarchists = yes
             custom_trigger_tooltip = {
                 tooltip = fct_at_least_mon_tt
-                check_variable = { GRE.fct_mon > 69 }
+                check_variable = { var=GRE.fct_mon value=tmpZ compare=greater_than_or_equals }
             }
         }
     }
@@ -779,7 +939,7 @@ ideologically_tmpZ = {
             current_ruling_democrats = yes
             custom_trigger_tooltip = {
                 tooltip = fct_at_least_dem_tt
-                check_variable = { GRE.fct_dem > 69 }
+                check_variable = { var=GRE.fct_dem value=tmpZ compare=greater_than_or_equals }
             }
         }
     }
@@ -789,7 +949,7 @@ ideologically_tmpZ = {
             current_ruling_communists = yes
             custom_trigger_tooltip = {
                 tooltip = fct_at_least_com_tt
-                check_variable = { GRE.fct_com > 69 }
+                check_variable = { var=GRE.fct_com value=tmpZ compare=greater_than_or_equals }
             }
         }
     }
@@ -799,7 +959,7 @@ ideologically_tmpZ = {
             current_ruling_fascists = yes
             custom_trigger_tooltip = {
                 tooltip = fct_at_least_fas_tt
-                check_variable = { GRE.fct_fas > 69 }
+                check_variable = { var=GRE.fct_fas value=tmpZ compare=greater_than_or_equals }
             }
         }
     }
@@ -810,11 +970,11 @@ ideologically_tmpZ = {
             current_ruling_democrats = yes
             custom_trigger_tooltip = {
                 tooltip = fct_at_least_mon_tt
-                check_variable = { GRE.fct_mon > 69 }
+                check_variable = { var=GRE.fct_mon value=tmpZ compare=greater_than_or_equals }
             }
             custom_trigger_tooltip = {
                 tooltip = fct_at_least_dem_tt
-                check_variable = { GRE.fct_dem > 69 }
+                check_variable = { var=GRE.fct_dem value=tmpZ compare=greater_than_or_equals }
             }
         }
     }
@@ -825,11 +985,11 @@ ideologically_tmpZ = {
             current_ruling_communists = yes
             custom_trigger_tooltip = {
                 tooltip = fct_at_least_dem_tt
-                check_variable = { GRE.fct_dem > 69 }
+                check_variable = { var=GRE.fct_dem value=tmpZ compare=greater_than_or_equals }
             }
             custom_trigger_tooltip = {
                 tooltip = fct_at_least_com_tt
-                check_variable = { GRE.fct_com > 69 }
+                check_variable = { var=GRE.fct_com value=tmpZ compare=greater_than_or_equals }
             }
         }
     }
@@ -840,11 +1000,11 @@ ideologically_tmpZ = {
             current_ruling_fascists = yes
             custom_trigger_tooltip = {
                 tooltip = fct_at_least_mon_tt
-                check_variable = { GRE.fct_mon > 69 }
+                check_variable = { var=GRE.fct_mon value=tmpZ compare=greater_than_or_equals }
             }
             custom_trigger_tooltip = {
                 tooltip = fct_at_least_fas_tt
-                check_variable = { GRE.fct_fas > 69 }
+                check_variable = { var=GRE.fct_fas value=tmpZ compare=greater_than_or_equals }
             }
         }
     }
@@ -855,11 +1015,11 @@ ideologically_tmpZ = {
             current_ruling_fascists = yes
             custom_trigger_tooltip = {
                 tooltip = fct_at_least_com_tt
-                check_variable = { GRE.fct_com > 69 }
+                check_variable = { var=GRE.fct_com value=tmpZ compare=greater_than_or_equals }
             }
             custom_trigger_tooltip = {
                 tooltip = fct_at_least_fas_tt
-                check_variable = { GRE.fct_fas > 69 }
+                check_variable = { var=GRE.fct_fas value=tmpZ compare=greater_than_or_equals }
             }
         }
     }
@@ -996,6 +1156,7 @@ dem_generals_exist = {
         tooltip = dem_generals_exist_tt
         any_unit_leader = {
             has_trait = trait_GRE_stauch_republican_persona
+            check_variable={ purged=0 }
         }
     }
 }
@@ -1005,6 +1166,7 @@ com_generals_exist = {
         tooltip = com_army_members_exist_tt
         any_unit_leader = {
             has_trait = trait_GRE_stauch_communist_persona
+            check_variable={ purged=0 }
         }
     }
 }
@@ -1017,61 +1179,60 @@ undesired_generals_exist = {
                 is_army_leader = yes
                 is_navy_leader = yes
             }
+            check_variable={ purged=0 }
             is_general_undesired = yes
         }
     }
 }
 
 is_general_undesired = {
-    OR = {
-        if = {
-            limit = { has_trait = trait_GRE_stauch_monarchist_persona }
-            NOT = { GRE = { has_government = neutrality } }
-            check_variable = { var = GRE.fct_mon value = 70 compare = less_than }
-        }
-        else_if = {
-            limit = { has_trait = trait_GRE_stauch_republican_persona }
-            NOT = { GRE = { has_government = democratic } }
-            check_variable = { var = GRE.fct_dem value = 70 compare = less_than }
-        }
-        else_if = {
-            limit = { has_trait = trait_GRE_stauch_communist_persona }
-            NOT = { GRE = { has_government = communism  } }
-            check_variable = { var = GRE.fct_com value = 70 compare = less_than }
-        }
-        else_if = {
-            limit = { has_trait = trait_GRE_stauch_fascist_persona }
-            NOT = { GRE = { has_government = fascism } }
-            check_variable = { var = GRE.fct_fas value = 70 compare = less_than }
-        }
-        else_if = {
-            limit = { has_trait = trait_GRE_conventional_leanings }
-            NOT = { GRE = { has_government = neutrality } }
-            NOT = { GRE = { has_government = democratic } }
-            check_variable = { var = GRE.fct_dem value = 70 compare = less_than }
-            check_variable = { var = GRE.fct_mon value = 70 compare = less_than }
-        }
-        else_if = {
-            limit = { has_trait = trait_GRE_revolutionary_leanings }
-            NOT = { GRE = { has_government = fascism } }
-            NOT = { GRE = { has_government = communism } }
-            check_variable = { var = GRE.fct_fas value = 70 compare = less_than }
-            check_variable = { var = GRE.fct_com value = 70 compare = less_than }
-        }
-        else_if = {
-            limit = { has_trait = trait_GRE_monarchofascism_leanings }
-            NOT = { GRE = { has_government = fascism } }
-            NOT = { GRE = { has_government = neutrality } }
-            check_variable = { var = GRE.fct_fas value = 70 compare = less_than }
-            check_variable = { var = GRE.fct_mon value = 70 compare = less_than }
-        }
-        else_if = {
-            limit = { has_trait = trait_GRE_socialdemocratic_leanings }
-            NOT = { GRE = { has_government = democratic } }
-            NOT = { GRE = { has_government = communism } }
-            check_variable = { var = GRE.fct_dem value = 70 compare = less_than }
-            check_variable = { var = GRE.fct_com value = 70 compare = less_than }
-        }
+    if = {
+        limit = { has_trait = trait_GRE_stauch_monarchist_persona }
+        NOT = { GRE = { has_government = neutrality } }
+        check_variable = { var = GRE.fct_mon value = 70 compare = less_than }
+    }
+    else_if = {
+        limit = { has_trait = trait_GRE_stauch_republican_persona }
+        NOT = { GRE = { has_government = democratic } }
+        check_variable = { var = GRE.fct_dem value = 70 compare = less_than }
+    }
+    else_if = {
+        limit = { has_trait = trait_GRE_stauch_communist_persona }
+        NOT = { GRE = { has_government = communism  } }
+        check_variable = { var = GRE.fct_com value = 70 compare = less_than }
+    }
+    else_if = {
+        limit = { has_trait = trait_GRE_stauch_fascist_persona }
+        NOT = { GRE = { has_government = fascism } }
+        check_variable = { var = GRE.fct_fas value = 70 compare = less_than }
+    }
+    else_if = {
+        limit = { has_trait = trait_GRE_conventional_leanings }
+        NOT = { GRE = { has_government = neutrality } }
+        NOT = { GRE = { has_government = democratic } }
+        check_variable = { var = GRE.fct_dem value = 70 compare = less_than }
+        check_variable = { var = GRE.fct_mon value = 70 compare = less_than }
+    }
+    else_if = {
+        limit = { has_trait = trait_GRE_revolutionary_leanings }
+        NOT = { GRE = { has_government = fascism } }
+        NOT = { GRE = { has_government = communism } }
+        check_variable = { var = GRE.fct_fas value = 70 compare = less_than }
+        check_variable = { var = GRE.fct_com value = 70 compare = less_than }
+    }
+    else_if = {
+        limit = { has_trait = trait_GRE_monarchofascism_leanings }
+        NOT = { GRE = { has_government = fascism } }
+        NOT = { GRE = { has_government = neutrality } }
+        check_variable = { var = GRE.fct_fas value = 70 compare = less_than }
+        check_variable = { var = GRE.fct_mon value = 70 compare = less_than }
+    }
+    else_if = {
+        limit = { has_trait = trait_GRE_socialdemocratic_leanings }
+        NOT = { GRE = { has_government = democratic } }
+        NOT = { GRE = { has_government = communism } }
+        check_variable = { var = GRE.fct_dem value = 70 compare = less_than }
+        check_variable = { var = GRE.fct_com value = 70 compare = less_than }
     }
 }
 
@@ -1506,7 +1667,7 @@ has_friendly_relationship_with_resistance_factions = {
         check_variable = { fct_dem > 74 }
         check_variable = { fct_com > 74 }
     }
-}   
+}
     
 com_is_below_tmpZ = {
     custom_trigger_tooltip = {
@@ -1520,27 +1681,21 @@ com_is_below_tmpZ = {
 com_is_at_least_tmpZ = {
     custom_trigger_tooltip = {
         tooltip = fct_at_least_com_tt
-        set_temp_variable = { y = tmpZ }
-        multiply_temp_variable = { y = 100 }
-        check_variable = { var = fct_com value = y compare = greater_than_or_equals }
+        check_variable = { var = fct_com value = tmpZ compare = greater_than_or_equals }
     }
 }
 
 dem_is_at_least_tmpZ = {
     custom_trigger_tooltip = {
         tooltip = fct_at_least_dem_tt
-        set_temp_variable = { y = tmpZ }
-        multiply_temp_variable = { y = 100 }
-        check_variable = { var = fct_dem value = y compare = greater_than_or_equals }
+        check_variable = { var = fct_dem value = tmpZ compare = greater_than_or_equals }
     }
 }
 
 dem_is_below_tmpZ = {
     custom_trigger_tooltip = {
         tooltip = fct_below_dem_tt
-        set_temp_variable = { y = tmpZ }
-        multiply_temp_variable = { y = 100 }
-        check_variable = { fct_dem < y }
+        check_variable = { fct_dem < tmpZ }
     }
 }
 

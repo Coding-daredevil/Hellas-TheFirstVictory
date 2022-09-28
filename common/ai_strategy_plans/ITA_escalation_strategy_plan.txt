@@ -1,0 +1,29 @@
+ITA_escalation_plan_push_albania_ultimatum = {
+	name = "Italy Escalation Plan"
+	desc = "Escalation behavior for Italy At 25%"
+
+    allowed = { original_tag=ITA }
+    enable = { 
+       mussolini_historical_tensions_with_greece=yes 
+       check_variable={ var=GRE.italian_escalation_level value=80 compare=greater_than_or_equals }
+    }
+
+    focus_factors = { ITA_albania_war_goal=1000 }
+    
+	weight = { factor=2.0 }
+}
+
+ITA_escalation_plan_push_wargoal_with_greece = {
+	name = "Italy Escalation Plan"
+	desc = "Escalation behavior for Italy At 25%"
+
+    allowed = { original_tag=ITA }
+    enable = { 
+       mussolini_historical_tensions_with_greece=yes 
+       check_variable={ var=GRE.italian_escalation_level value=95 compare=greater_than_or_equals }
+    }
+
+    focus_factors = { ITA_greece_war_goal=1000 }
+    
+	weight = { factor=2.0 }
+}

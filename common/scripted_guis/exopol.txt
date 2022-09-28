@@ -1,0 +1,100 @@
+scripted_gui = {
+	exopol_gui = {
+		context_type = decision_category
+		window_name = "exopol_container"
+
+		dynamic_lists = {
+			#######################
+			###[ Axis & Allies ]###
+			#######################
+			axis_allies_grid = {
+				array = axis_allies_array
+				index = axis_allies_main_index
+				change_scope = no
+				entry_container = axis_allies_entry
+			}
+			#############################
+			###[ Balkan Pact Nations ]###
+			#############################
+			balkan_pact_turkey_gridbox = {
+				array = TUR.balkan_pact_desirability_array
+				index = balkan_pact_turkey_main_index
+				change_scope = no
+				entry_container = balkan_pact_turkey_gridbox_entry
+			}
+			balkan_pact_yugoslavia_gridbox = {
+				array = YUG.balkan_pact_desirability_array
+				index = balkan_pact_yugoslavia_main_index
+				change_scope = no
+				entry_container = balkan_pact_yugoslavia_gridbox_entry
+			}
+			balkan_pact_romania_gridbox = {
+				array = ROM.balkan_pact_desirability_array
+				index = balkan_pact_romania_main_index
+				change_scope = no
+				entry_container = balkan_pact_romania_gridbox_entry
+			}
+			balkan_pact_bulgaria_gridbox = {
+				array = BUL.balkan_pact_desirability_array
+				index = balkan_pact_bulgaria_main_index
+				change_scope = no
+				entry_container = balkan_pact_bulgaria_gridbox_entry
+			}
+			balkan_pact_albania_gridbox = {
+				array = ALB.balkan_pact_desirability_array
+				index = balkan_pact_albania_main_index
+				change_scope = no
+				entry_container = balkan_pact_albania_gridbox_entry
+			}
+			#############################
+			###[ Italian Aggression  ]###
+			#############################
+			italian_aggression_gridbox = {
+				array = italian_aggression_main_array
+				index = italian_aggression_main_index
+				change_scope = no
+				entry_container = italian_aggression_escalation_gridbox_entry
+			}
+			italian_aggression_accelerator_gridbox = {
+				array = italian_aggression_accelerator_array
+				index = italian_aggression_accelerator_main_index
+				change_scope = no
+				entry_container = italian_aggression_accelerator_gridbox_entry
+			}
+		}
+
+		properties = {
+			#######################
+			###[ Axis & Allies ]###
+			#######################
+			faction_main_icon = { frame=v }
+			#############################
+			###[ Balkan Pact Nations ]###
+			#############################
+			balkan_pact_turkey_flag 		= { image=[TUR.GetFlag] }
+			balkan_pact_yugoslavia_flag 	= { image=[YUG.GetFlag] }
+			balkan_pact_romania_flag 		= { image=[ROM.GetFlag] }
+			balkan_pact_bulgaria_flag 		= { image=[BUL.GetFlag] }
+			balkan_pact_albania_flag 		= { image=[ALB.GetFlag] }
+			balkan_pact_nation_main_icon = { frame=v }
+			balkan_pact_turkey_main_icon = { frame=v }
+			balkan_pact_yugoslavia_main_icon = { frame=v }
+			balkan_pact_romania_main_icon = { frame=v }
+			balkan_pact_bulgaria_main_icon = { frame=v }
+			balkan_pact_albania_main_icon = { frame=v }
+			#############################
+			###[ Italian Aggression  ]###
+			#############################
+			italian_aggression_main_icon = { frame=v }
+		}
+
+		triggers={
+			balkan_pact_albania_gridbox_visible={ has_political_power>1800 }
+			balkan_pact_bulgaria_flag_frame_visible={ is_in_array={ array=GRE.balkan_pact_members value=BUL.id }}
+			balkan_pact_bulgaria_flag_visible={ is_in_array={ array=GRE.balkan_pact_members value=BUL.id }}
+			balkan_pact_albania_flag_frame_visible={ is_in_array={ array=GRE.balkan_pact_members value=ALB.id }}
+			balkan_pact_albania_flag_visible={ is_in_array={ array=GRE.balkan_pact_members value=ALB.id }}
+		}
+        effects = {}
+	}
+}

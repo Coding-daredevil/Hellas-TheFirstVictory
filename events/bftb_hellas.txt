@@ -50,12 +50,13 @@ country_event = {
             set_variable = { metaxas_pro_axis = 1 }
             faction_gui_call = yes
             if = {
-                limit = { has_decision = workers_entering_factories }
-                add_days_remove  = {
-                    decision = workers_entering_factories
-                    days = -30
-                }
+                limit = { has_active_mission = workers_entering_factories }
+                add_days_mission_timeout  = { mission=workers_entering_factories days=-30 }
             }
+            if = {
+                limit = { has_active_mission = invigorating_hellenic_spirit }
+                add_days_mission_timeout  = { mission=invigorating_hellenic_spirit days=-30 }
+            }            
             custom_effect_tooltip = axal_nl2_tt
             custom_effect_tooltip = axal_h1_shift_axis_heavy_tt
             ###FACTION MECHANICS###
@@ -74,6 +75,7 @@ country_event = {
             set_temp_variable = { CF=1 }
             set_temp_variable = { b1=60 }
             set_temp_variable = { b2=40 }
+            set_temp_variable = { tmpIMP=0.2 }
             potentially_send_report_events_for_actions_tmpREAC1_tmpREAC2_with_args_tmpARRVAL_tmpMAG_and_code = yes
             custom_effect_tooltip = report_event_warning_potential_repercussions_diplomatic_tt
 		}
@@ -97,12 +99,13 @@ country_event = {
             set_variable = { metaxas_pro_axis = 0.5 }
             faction_gui_call = yes
             if = {
-                limit = { has_decision = workers_entering_factories }
-                add_days_remove  = {
-                    decision = workers_entering_factories
-                    days = -45
-                }
+                limit = { has_active_mission = workers_entering_factories }
+                add_days_mission_timeout  = { mission=workers_entering_factories days=-45 }
             }
+            if = {
+                limit = { has_active_mission = invigorating_hellenic_spirit }
+                add_days_mission_timeout  = { mission=invigorating_hellenic_spirit days=-45 }
+            }   
             custom_effect_tooltip = axal_nl2_tt
             custom_effect_tooltip = axal_h1_shift_axis_light_tt
             ###FACTION MECHANICS###
@@ -121,6 +124,7 @@ country_event = {
             set_temp_variable = { CF=1 }
             set_temp_variable = { b1=90 }
             set_temp_variable = { b2=10 }
+            set_temp_variable = { tmpIMP=0.2 }
             potentially_send_report_events_for_actions_tmpREAC1_tmpREAC2_with_args_tmpARRVAL_tmpMAG_and_code = yes
             custom_effect_tooltip = report_event_warning_potential_repercussions_diplomatic_tt
 		}
@@ -138,17 +142,14 @@ country_event = {
             set_variable = { decision_taken = 2 }
             faction_gui_call = yes
             if = {
-                limit = { has_decision = workers_entering_factories }
-                add_days_remove  = {
-                    decision = workers_entering_factories
-                    days = -180
-                }
+                limit = { has_active_mission = workers_entering_factories }
+                add_days_mission_timeout  = { mission=workers_entering_factories days=-180 }
             }
-            swap_ideas = {
-                remove_idea = limited_conscription
-                add_idea = disarmed_nation
-            }
-            #custom_effect_tooltip = axal_nl2_tt
+            if = {
+                limit = { has_active_mission = invigorating_hellenic_spirit }
+                add_days_mission_timeout  = { mission=invigorating_hellenic_spirit days=-180 }
+            }   
+            swap_ideas = { remove_idea=limited_conscription add_idea=disarmed_nation }
             custom_effect_tooltip = axal_h1_shift_allies_light_tt
             ###FACTION MECHANICS###
             set_temp_dem_beneficial = yes
@@ -169,6 +170,7 @@ country_event = {
             set_temp_variable = { CF=2 }
             set_temp_variable = { b1=50 }
             set_temp_variable = { b2=50 }
+            set_temp_variable = { tmpIMP=0.2 }
             potentially_send_report_events_for_actions_tmpREAC1_tmpREAC2_with_args_tmpARRVAL_tmpMAG_and_code = yes
             custom_effect_tooltip = report_event_warning_potential_repercussions_diplomatic_tt
 		}
@@ -198,6 +200,7 @@ country_event = {
 			name = "4h Augoústou"
 		}
         set_country_flag = GRE_kathestos_proclaimed
+        hidden_effect = { random_character={ limit={ is_character=GRE_ioannis_metaxas } add_to_variable={ title=1 }}}
         set_variable = { GRE_ark = 0 }
         if = { 
             limit = { check_variable = { decision_taken = 0 } } 
@@ -303,7 +306,7 @@ country_event = {                                                   ### The issu
 
         add_stability = 0.02
         add_war_support = 0.04
-        custom_effect_tooltip = GREunlock_hell_path_tt
+        custom_effect_tooltip = GRE_unlock_hell_path_tt
         custom_effect_tooltip = axal_nl2_tt
         ######[REPORT EVENTS]######
         set_temp_variable = { tmpREAC1=60 }
@@ -314,6 +317,7 @@ country_event = {                                                   ### The issu
         set_temp_variable = { CF=0 }
         set_temp_variable = { b1=80 }
         set_temp_variable = { b2=20 }
+        set_temp_variable = { tmpIMP=0.6 }
         potentially_send_report_events_for_actions_tmpREAC1_tmpREAC2_with_args_tmpARRVAL_tmpMAG_and_code = yes
         custom_effect_tooltip = report_event_warning_potential_repercussions_diplomatic_tt
     } 
@@ -335,6 +339,7 @@ country_event = {                                                   ### The issu
         set_temp_variable = { CF=1 }
         set_temp_variable = { b1=40 }
         set_temp_variable = { b2=60 }
+        set_temp_variable = { tmpIMP=0.6 }
         potentially_send_report_events_for_actions_tmpREAC1_tmpREAC2_with_args_tmpARRVAL_tmpMAG_and_code = yes
         custom_effect_tooltip = report_event_warning_potential_repercussions_diplomatic_tt
     }  
@@ -718,7 +723,7 @@ unit_leader_event = {               # 1 / 8 / 1936 -> Papagos becomes FeldMarsha
         name = hellas.11.d
         trigger = { check_variable={ GRE.decision_taken > 1 }}
         GRE_napoleon_zervas = { promote_leader=yes promote_officer=yes if={ limit={NOT={has_trait=gre_recently_trained_general}} reduce_unpreparedness = yes }}
-        hidden_effect = { activate_advisor = GRE_napoleon_zervas_chief }
+        hidden_effect = { activate_advisor = GRE_napoleon_zervas_chief random_character = { limit={ is_character=GRE_napoleon_zervas } clear_variable=purged }}
         set_variable = { GRE.decision_taken = 3 }
         custom_effect_tooltip = axal_nl2_tt
         custom_effect_tooltip = GRE_zervas_selection_event_tt
@@ -746,7 +751,8 @@ country_event = {
 	option = {
 		name = hellas.12.a #F
 		hidden_effect = {
-            retire_character = GRE_eleftherios_venizelos
+            random_character = { limit={ is_character=GRE_eleftherios_venizelos } set_variable={dead=1} add_to_variable={title=1}}
+            #retire_character = GRE_eleftherios_venizelos
         }
         #recruit_character = GRE_themistoklis_sofoulis
         promote_character = GRE_themistoklis_sofoulis
@@ -893,6 +899,7 @@ unit_leader_event = {               # Convicted to Death Generals
         set_temp_variable = { CF=2 }
         set_temp_variable = { b1=80 }
         set_temp_variable = { b2=20 }
+        set_temp_variable = { tmpIMP=0.1 }
         potentially_send_report_events_for_actions_tmpREAC1_tmpREAC2_with_args_tmpARRVAL_tmpMAG_and_code = yes
         custom_effect_tooltip = report_event_warning_potential_repercussions_diplomatic_tt
     }
@@ -900,22 +907,11 @@ unit_leader_event = {               # Convicted to Death Generals
         name = hellas.14.b
         hidden_effect = {
             every_character = {
-                limit = { has_character_flag = wanted_for_dead }
-                clr_character_flag = wanted_for_dead
+                if = { limit = { has_character_flag = wanted_for_dead } clr_character_flag = wanted_for_dead }
+                if = { limit = { has_character_flag = target_of_the_failed_coup } clr_character_flag = target_of_the_failed_coup }
+                if = { limit = { has_character_flag = purged_by_regime } clr_character_flag = purged_by_regime }
+                if = { limit = { check_variable={ purged>0 }} clear_variable=purged }
             }
-            every_character = {
-                limit = { has_character_flag = target_of_the_failed_coup }
-                clr_character_flag = target_of_the_failed_coup
-            }
-            every_character = {
-                limit = { has_character_flag = purged_by_regime }
-                clr_character_flag = purged_by_regime
-            }
-            clear_variable = hc_plastiras_purged
-            clear_variable = hc_demestichas_purged
-            clear_variable = hc_psarros_purged
-            clear_variable = hc_bakirtzis_purged
-            clear_variable = hc_zervas_purged
         }
         custom_effect_tooltip = h14_b
         #######################
@@ -944,24 +940,13 @@ unit_leader_event = {               # Convicted to Death Generals
         set_temp_variable = { CF=2 }
         set_temp_variable = { b1=60 }
         set_temp_variable = { b2=40 }
+        set_temp_variable = { tmpIMP=0.25 }
         potentially_send_report_events_for_actions_tmpREAC1_tmpREAC2_with_args_tmpARRVAL_tmpMAG_and_code = yes
         custom_effect_tooltip = report_event_warning_potential_repercussions_diplomatic_tt
     }
     option = {
         name = hellas.14.c
         custom_effect_tooltip = h14_c
-        custom_effect_tooltip = "                        "
-        #######[REPORT EVENTS]######
-        set_temp_variable = { tmpREAC1=60 }
-        set_temp_variable = { tmpREAC2=61 }
-        #set_temp_variable = { CM=1 }
-        #set_temp_variable = { CD=2 }
-        #set_temp_variable = { CC=2 }
-        #set_temp_variable = { CF=1 }
-        #set_temp_variable = { b1=75 }
-        #set_temp_variable = { b2=25 }
-        #potentially_send_report_events_for_actions_tmpREAC1_tmpREAC2_with_args_tmpARRVAL_tmpMAG_and_code = yes
-        #custom_effect_tooltip = report_event_warning_potential_repercussions_diplomatic_tt
     }
     option = {
         name = hellas.14.d
@@ -1025,12 +1010,18 @@ country_event = {
         original_tag = GRE
         check_variable = { fct_mon_effect_multiplier < 4 }
         has_country_flag = GRE_kathestos_proclaimed
-        has_country_flag = GRE_faction_gui_flag
         NOT = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
     }
 
     mean_time_to_happen = {
         days = 120
+        #modifier = {
+        #    set_temp_variable = { x=GRE.final_mon_military_weight }
+        #    set_temp_variable = { tmpTHR=100 }
+        #    calculate_linearly_y_ax_b=yes
+        #    multiply_temp_variable={ y=-100 }
+        #    add=y
+        #}
         modifier = {
             set_temp_variable = { tmp = 1 }
             if = { limit = { check_variable = { GRE.final_mon_military_weight = 0 } } set_temp_variable = { mg = 0.005 } }
@@ -1073,7 +1064,6 @@ country_event = {
             check_variable = { fct_dem > 49.99 }
         }
         has_country_flag = GRE_kathestos_proclaimed
-        has_country_flag = GRE_faction_gui_flag
         NOT = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
     }
 
@@ -1085,8 +1075,11 @@ country_event = {
             if = { limit = { check_variable = { GRE.final_dem_military_weight = 0 } } set_temp_variable = { mg = 0.005 } }
             else = { set_temp_variable = { mg = GRE.final_dem_military_weight } multiply_temp_variable = { mg = 0.04 } }
             divide_temp_variable = { tmp = mg }
-            factor = tmp
-            always = yes
+            factor=tmp
+        }
+        modifier = {
+            has_decision=utterly_crush_the_republicans
+            add=90
         }
 	}
 
@@ -1121,7 +1114,6 @@ country_event = {
             check_variable = { fct_com > 49.99 }
         }
         has_country_flag = GRE_kathestos_proclaimed
-        has_country_flag = GRE_faction_gui_flag
         NOT = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
     }
 
@@ -1135,6 +1127,10 @@ country_event = {
             divide_temp_variable = { tmp = mg }
             factor = tmp
             always = yes
+        }
+        modifier = {
+            has_decision=the_war_on_communism
+            add=90
         }
 	}
 
@@ -1166,7 +1162,6 @@ country_event = {
         check_variable = { fct_fas_effect_multiplier < 4 }
         NOT = { has_country_flag = metaxas_assimilated_fascists }
         has_country_flag = GRE_kathestos_proclaimed
-        has_country_flag = GRE_faction_gui_flag
         NOT = { has_completed_focus = GRE_dreams_of_a_grand_coalition }
     }
 
@@ -1225,7 +1220,7 @@ country_event = {                                                       #[Neutra
         hidden_effect = { set_variable = { axal_event_n = 1 } }
     }
 	
-	option = { 
+	option = {
         name = hellas.21.a  
         ######[REPORT EVENTS]######
         set_temp_variable = { tmpREAC1=64 }
@@ -1236,6 +1231,7 @@ country_event = {                                                       #[Neutra
         set_temp_variable = { CF=0 }
         set_temp_variable = { b1=75 }
         set_temp_variable = { b2=25 }
+        set_temp_variable = { tmpIMP=0.2 }
         potentially_send_report_events_for_actions_tmpREAC1_tmpREAC2_with_args_tmpARRVAL_tmpMAG_and_code = yes
         custom_effect_tooltip = report_event_warning_potential_repercussions_diplomatic_tt
     }
@@ -1511,6 +1507,52 @@ country_event = {                                                       #[Metaxa
     #timeout_days = 1
 	
 	option = { name = hellas.32.a }
+}
+
+state_event = {                                                                                   ## Refresh Invigorating/Working
+	id = hellas.33
+	title = hellas.1012.t
+	desc = hellas.1012.desc
+	picture = GFX_report_event_greek_hs_hungry_kids
+
+    timeout_days=1
+    is_triggered_only=yes
+	fire_only_once = no
+    hidden = yes
+    
+    immediate = {
+        # Here we essentially calculate all factors to reduce base days per iteration in the two missions. For avoiding conflcits, we send this state event
+        # to Athens for invigorating and to Thessaloniki for working. Why we do this here and not right after re-activating the decision? Because it will not
+        # work that way. Essentially you can't both activate a mission and then reduce the amount of days and since you cannot dynamically set mis_days_timeout,
+        # you have a problem. Thus we send an 'event' after 4 hours, during which time the game has activated the mission and now properly understands us telling
+        # it to reduce amount of days by that amount.
+
+        hidden_effect = {
+            GRE = {
+                set_temp_variable = { x=stability }
+                multiply_temp_variable = { x=100 }
+                set_temp_variable = { tmp=amount_of_projects }
+                multiply_temp_variable = { tmp=5 }
+                add_to_temp_variable = { x=tmp }
+                set_temp_variable = { tmp=amount_of_propaganda }
+                multiply_temp_variable = { tmp=10 }
+                add_to_temp_variable = { x=tmp }
+                multiply_temp_variable = { x=-1 }
+                if = {
+                    limit = { PREV = { state=47 }}
+                    add_days_mission_timeout={mission=invigorating_hellenic_spirit days=x}
+                }
+                else = {
+                    add_days_mission_timeout={mission=workers_entering_factories days=x}
+                }
+            }
+        }
+    }
+
+    option = {
+		name = hellas.1012.a
+		ai_chance = { base = 100 }
+    }
 }
 
 ########################################
@@ -2982,6 +3024,552 @@ country_event = {                                                   #BEDROCK EVE
     }
 }
 
+country_event = {               #Equipment to be sent to Spain Introductory
+	id = hellas.247
+	title = [GetHellas247Title]
+	desc = [GetHellas247Desc]
+    picture = GFX_report_event_greek_spanish_civil_war
+
+	is_triggered_only = yes
+	fire_only_once = no
+    immediate = {
+        hidden_effect = {
+            set_temp_variable = { iter=FROM.h247iter }
+            set_temp_variable = { supp=FROM.h247sup }
+            set_temp_variable = { phase=FROM.h247phase }
+        }
+    }
+	
+	option = { 
+        name=hellas.247_0.a 
+        trigger = { check_variable={ FROM.h247iter=0 }}
+
+        activate_targeted_decision = { target=FROM decision=GRE_redirect_equipment }
+        add_to_variable = { FROM.h247iter=1 }
+    }
+    option = {
+        trigger = { check_variable={ FROM.h247phase=0 } check_variable={ FROM.h247iter>0 }}
+        name=hellas.247_1.a
+
+        effect_tooltip={ FROM = { custom_effect_tooltip=axal_nl_tt set_temp_variable={ findX=THIS.id } set_temp_variable_to_random={ var=findY min=8.00 max=10.00 integer=no } add_to_variable={ THIS.favor@GRE = findY tooltip=favor_boost_with_findX_by_findY_no_name_tt }}}
+        set_temp_variable = { CASE=0 }
+        calculate_b1_b2_for_due_in_h247_event=yes
+        if = { limit={ NOT={ has_completed_focus=GRE_a_game_of_shadows }} display_base_chances_for_h247_due=yes }
+        else = { display_actual_chances_for_h247_due=yes }
+        hidden_effect = {
+            random_list = {
+                b1 = { set_variable={ FROM.h247phase=3 tooltip=h247proposal_declined_tt }}
+                b2 = { set_variable={ FROM.h247phase=1 tooltip=h247proposal_accepted_tt } FROM={ custom_effect_tooltip=axal_nl_tt set_temp_variable={ findX=THIS.id } set_temp_variable_to_random={ var=findY min=8.00 max=10.00 integer=no } add_to_variable={ THIS.favor@GRE = findY tooltip=favor_boost_with_findX_by_findY_no_name_tt }}}
+            }
+        }
+        set_variable = { FROM.h247due=0 }
+        custom_effect_tooltip = h247_proposal_declined_explained_tt
+        hidden_effect = { FROM={ country_event={ id=hellas.2470 days=0 }}}
+    }
+    option = {
+        trigger = { check_variable={ FROM.h247phase=0 } check_variable={ FROM.h247iter>0 }}
+        name=hellas.247_1.b
+
+        effect_tooltip={ FROM = { custom_effect_tooltip=axal_nl_tt set_temp_variable={ findX=THIS.id } set_temp_variable_to_random={ var=findY min=2.00 max=4.00 integer=no } add_to_variable={ THIS.favor@GRE = findY tooltip=favor_boost_with_findX_by_findY_no_name_tt }}}
+        set_temp_variable = { CASE=1 }
+        calculate_b1_b2_for_due_in_h247_event=yes
+        if = { limit={ NOT={ has_completed_focus=GRE_a_game_of_shadows }} display_base_chances_for_h247_due=yes }
+        else = { display_actual_chances_for_h247_due=yes }
+        hidden_effect = {
+            random_list = {
+                b1 = { set_variable={ FROM.h247phase=3 tooltip=h247proposal_declined_tt }}
+                b2 = { set_variable={ FROM.h247phase=1 tooltip=h247proposal_accepted_tt } FROM = { custom_effect_tooltip=axal_nl_tt set_temp_variable={ findX=THIS.id } set_temp_variable_to_random={ var=findY min=2.00 max=4.00 integer=no } add_to_variable={ THIS.favor@GRE = findY tooltip=favor_boost_with_findX_by_findY_no_name_tt }}}
+            }
+        }
+        set_variable = { FROM.h247due=0.05 }
+        custom_effect_tooltip = h247_proposal_declined_explained_tt
+        hidden_effect = { FROM={ country_event={ id=hellas.2470 days=0 }}}
+    }
+    option = {
+        trigger = { check_variable={ FROM.h247phase=0 } check_variable={ FROM.h247iter>0 }}
+        name=hellas.247_1.c
+
+        effect_tooltip={ FROM = { custom_effect_tooltip=axal_nl_tt set_temp_variable={ findX=THIS.id } set_temp_variable_to_random={ var=findY min=0.00 max=2.00 integer=no } add_to_variable={ THIS.favor@GRE = findY tooltip=favor_boost_with_findX_by_findY_no_name_tt }}}
+        set_temp_variable = { CASE=2 }
+        calculate_b1_b2_for_due_in_h247_event=yes
+        if = { limit={ NOT={ has_completed_focus=GRE_a_game_of_shadows }} display_base_chances_for_h247_due=yes }
+        else = { display_actual_chances_for_h247_due=yes }
+        hidden_effect = {
+            random_list = {
+                b1 = { set_variable={ FROM.h247phase=3 tooltip=h247proposal_declined_tt }}
+                b2 = { set_variable={ FROM.h247phase=1 tooltip=h247proposal_accepted_tt } FROM = { custom_effect_tooltip=axal_nl_tt set_temp_variable={ findX=THIS.id } set_temp_variable_to_random={ var=findY min=0.00 max=2.00 integer=no } add_to_variable={ THIS.favor@GRE = findY tooltip=favor_boost_with_findX_by_findY_no_name_tt }}}
+            }
+        }
+        set_variable = { FROM.h247due=0.10 }
+        custom_effect_tooltip = h247_proposal_declined_explained_tt
+        hidden_effect = { FROM={ country_event={ id=hellas.2470 days=0 }}}
+    }
+    option = {
+        trigger = { check_variable={ FROM.h247phase=0 } check_variable={ FROM.h247iter>0 }}
+        name=hellas.247_1.d
+
+        set_temp_variable = { CASE=3 }
+        calculate_b1_b2_for_due_in_h247_event=yes
+        if = { limit={ NOT={ has_completed_focus=GRE_a_game_of_shadows }} display_base_chances_for_h247_due=yes }
+        else = { display_actual_chances_for_h247_due=yes }
+        hidden_effect = {
+            random_list = {
+                b1 = { set_variable={ FROM.h247phase=3 tooltip=h247proposal_declined_tt }}
+                b2 = { set_variable={ FROM.h247phase=1 tooltip=h247proposal_accepted_tt }}
+            }
+        }
+        set_variable = { FROM.h247due=0.15 }
+        custom_effect_tooltip = h247_proposal_declined_explained_tt
+        hidden_effect = { FROM={ country_event={ id=hellas.2470 days=0 }}}
+    }
+    option = {
+        trigger = { check_variable={ FROM.h247phase=0 } check_variable={ FROM.h247iter>0 }}
+        name=hellas.247_1.e
+
+        effect_tooltip={ FROM = { custom_effect_tooltip=axal_nl_tt set_temp_variable={ findX=THIS.id } set_temp_variable_to_random={ var=findY min=-4 max=-2 integer=no } add_to_variable={ THIS.favor@GRE = findY tooltip=favor_hit_with_findX_by_findY_no_name_tt }}}
+        set_temp_variable = { CASE=4 }
+        calculate_b1_b2_for_due_in_h247_event=yes
+        if = { limit={ NOT={ has_completed_focus=GRE_a_game_of_shadows }} display_base_chances_for_h247_due=yes }
+        else = { display_actual_chances_for_h247_due=yes }
+        hidden_effect = {
+            random_list = {
+                b1 = { set_variable={ FROM.h247phase=3 tooltip=h247proposal_declined_tt }}
+                b2 = { set_variable={ FROM.h247phase=1 tooltip=h247proposal_accepted_tt } FROM = { custom_effect_tooltip=axal_nl_tt set_temp_variable={ findX=THIS.id } set_temp_variable_to_random={ var=findY min=-4 max=-2 integer=no } add_to_variable={ THIS.favor@GRE = findY tooltip=favor_hit_with_findX_by_findY_no_name_tt }}}
+            }
+        }
+        set_variable = { FROM.h247due=0.20 }
+        custom_effect_tooltip = h247_proposal_declined_explained_tt
+        hidden_effect = { FROM={ country_event={ id=hellas.2470 days=0 }}}
+    }
+    option = {
+        trigger = { check_variable={ FROM.h247phase=0 } check_variable={ FROM.h247iter>0 }}
+        name=hellas.247_1.f
+
+        effect_tooltip={ FROM = { custom_effect_tooltip=axal_nl_tt set_temp_variable={ findX=THIS.id } set_temp_variable_to_random={ var=findY min=-6 max=-4 integer=no } add_to_variable={ THIS.favor@GRE = findY tooltip=favor_hit_with_findX_by_findY_no_name_tt }}}
+        set_temp_variable = { CASE=5 }
+        calculate_b1_b2_for_due_in_h247_event=yes
+        if = { limit={ NOT={ has_completed_focus=GRE_a_game_of_shadows }} display_base_chances_for_h247_due=yes }
+        else = { display_actual_chances_for_h247_due=yes }
+        hidden_effect = {
+            random_list = {
+                b1 = { set_variable={ FROM.h247phase=3 tooltip=h247proposal_declined_tt }}
+                b2 = { set_variable={ FROM.h247phase=1 tooltip=h247proposal_accepted_tt } FROM = { custom_effect_tooltip=axal_nl_tt set_temp_variable={ findX=THIS.id } set_temp_variable_to_random={ var=findY min=-6 max=-4 integer=no } add_to_variable={ THIS.favor@GRE = findY tooltip=favor_hit_with_findX_by_findY_no_name_tt }}}
+            }
+        }
+        set_variable = { FROM.h247due=0.25 }
+        custom_effect_tooltip = h247_proposal_declined_explained_tt
+        hidden_effect = { FROM={ country_event={ id=hellas.2470 days=0 }}}
+    }
+    option = {
+        trigger = { check_variable={ FROM.h247phase=1 } check_variable={ FROM.h247iter>0 }}
+        name=hellas.247_2.a
+        
+        set_variable = { FROM.h247steal=0 }
+        set_variable = { FROM.h247phase=2 }
+        hidden_effect = { FROM={ country_event={ id=hellas.2470 days=0 }}}
+    }
+    option = {
+        trigger = { check_variable={ FROM.h247phase=1 } check_variable={ FROM.h247iter>0 }}
+        name=hellas.247_2.b
+
+        set_variable = { FROM.h247steal=0.05 }
+        set_variable = { FROM.h247phase=2 }
+        hidden_effect = { FROM={ country_event={ id=hellas.2470 days=0 }}}
+        ######[REPORT EVENTS]######
+        add_to_temp_array = { tmpCHANCES=95 }
+        set_temp_variable = { tmpEDIFF=1 }
+        set_temp_variable = { tmpARG1=1 }
+        set_temp_variable = { tmpARG2=1 }
+        calculate_national_intelligence_chance_to_avoid_event = yes
+        ####
+        add_to_temp_array={ tmpENEMIES=FROM.id }
+        add_to_temp_array={ lVARTOK=60 }
+        add_to_temp_array={ lVARTOK=61 }
+        add_to_temp_array={ lVARTOK=62 }
+        set_temp_variable={ tmpSVIA=1 }
+        set_temp_variable={ tmpMODE=1 }
+        set_temp_variable={ tmpLWTHR=25 }
+        set_temp_variable={ tmpUPTHR=50 }
+        set_temp_variable = { tmpMAXDIR=1 }
+        for_each_loop={ array=lVARTOK set_temp_variable={ VARTOK=v } calculate_enemy_bounded_VAR_chance_to_avoid_event=yes }
+        ####
+        add_to_temp_array={ tmpWEIGHT=1 }
+        add_to_temp_array={ tmpWEIGHT=1 }
+        add_to_temp_array={ tmpWEIGHT=0.6 }
+        add_to_temp_array={ tmpWEIGHT=0.6 }
+        add_to_temp_array={ tmpWEIGHT=0.6 }
+        ####
+        set_temp_variable={ tmpMODE=0 }
+        calculate_final_b1_b2_from_temporary_array_tmpCHANCES_with_tmpWEIGHT_and_mode_tmpMODE=yes
+        add_to_temp_array = { tmpRECEIVERS=FROM.id }
+        set_temp_variable = { tmpREAC1=66 }
+        set_temp_variable = { tmpMAG=1.00 }
+        potentially_send_report_events_for_action_tmpREAC1_with_args_tmpARRVAL_tmpMAG_to_targets_tmpRECEIVERS = yes
+        custom_effect_tooltip = report_event_potential_favorable_diplomatic_reaction_due_to_x_tt
+        ######[ TOOLTIP FOR REPORT EVENTS ]######
+        if = {
+            limit={ NOT={ has_completed_focus=GRE_a_game_of_shadows }}
+            custom_effect_tooltip = report_event_no_focus_completed_tt
+        }
+        else = {
+            custom_effect_tooltip=repev_header_tt
+            set_temp_variable={ displayer=3 tooltip=repev_final_selection_tt }
+            set_temp_variable={ displayer=95 tooltip=repev_base_main_av_tt }
+            custom_effect_tooltip=repev_cni_main_tt
+            set_temp_variable={ displayer=1  tooltip=repev_xxxx_weight_tt }
+            set_temp_variable={ displayer=cni_b1  tooltip=repev_cni_aginch_tt }
+            set_temp_variable={ displayer=1 tooltip=repev_cni_tmpEDIFF_tt }
+            set_temp_variable={ displayer=base  tooltip=repev_cni_base_tt }
+            set_temp_variable={ displayer=1  tooltip=repev_cni_tmpARG1_tt }
+            set_temp_variable={ displayer=1  tooltip=repev_cni_tmpARG2_tt }
+            custom_effect_tooltip=repev_civi_main_tt
+            set_temp_variable={ displayer=0.6  tooltip=repev_xxxx_weight_tt }
+            set_temp_variable={ displayer=1  tooltip=repev_xxxx_svia_tt }
+            set_temp_variable={ displayer=1  tooltip=repev_xxxx_svia_mode_tt }
+            set_temp_variable={ displayer=25 tooltip=repev_xxxx_lwthr_tt }
+            set_temp_variable={ displayer=50 tooltip=repev_xxxx_upthr_tt }
+            custom_effect_tooltip=repev_armi_main_tt
+            custom_effect_tooltip=repev_xxxx_likeabove_tt
+            custom_effect_tooltip=repev_navi_main_tt
+            custom_effect_tooltip=repev_xxxx_likeabove_tt
+        }
+    }
+    option = {
+        trigger = { check_variable={ FROM.h247phase=1 } check_variable={ FROM.h247iter>0 }}
+        name=hellas.247_2.c
+
+        set_variable = { FROM.h247steal=0.10 }
+        set_variable = { FROM.h247phase=2 }
+        hidden_effect = { FROM={ country_event={ id=hellas.2470 days=0 }}}
+        ######[REPORT EVENTS]######
+        add_to_temp_array = { tmpCHANCES=85 }
+        set_temp_variable = { tmpEDIFF=2 }
+        set_temp_variable = { tmpARG1=1 }
+        set_temp_variable = { tmpARG2=1 }
+        calculate_national_intelligence_chance_to_avoid_event = yes
+        ####
+        add_to_temp_array={ tmpENEMIES=FROM.id }
+        add_to_temp_array={ lVARTOK=60 }
+        add_to_temp_array={ lVARTOK=61 }
+        add_to_temp_array={ lVARTOK=62 }
+        set_temp_variable={ tmpSVIA=1 }
+        set_temp_variable={ tmpMODE=1 }
+        set_temp_variable={ tmpLWTHR=25 }
+        set_temp_variable={ tmpUPTHR=50 }
+        set_temp_variable = { tmpMAXDIR=1 }
+        for_each_loop={ array=lVARTOK set_temp_variable={ VARTOK=v } calculate_enemy_bounded_VAR_chance_to_avoid_event=yes }
+        ####
+        add_to_temp_array={ tmpWEIGHT=1 }
+        add_to_temp_array={ tmpWEIGHT=1 }
+        add_to_temp_array={ tmpWEIGHT=0.7 }
+        add_to_temp_array={ tmpWEIGHT=0.7 }
+        add_to_temp_array={ tmpWEIGHT=0.7 }
+        ####
+        set_temp_variable={ tmpMODE=0 }
+        calculate_final_b1_b2_from_temporary_array_tmpCHANCES_with_tmpWEIGHT_and_mode_tmpMODE=yes
+        add_to_temp_array = { tmpRECEIVERS=FROM.id }
+        set_temp_variable = { tmpREAC1=66 }
+        set_temp_variable = { tmpMAG=1.00 }
+        potentially_send_report_events_for_action_tmpREAC1_with_args_tmpARRVAL_tmpMAG_to_targets_tmpRECEIVERS = yes
+        custom_effect_tooltip = report_event_potential_favorable_diplomatic_reaction_due_to_x_tt
+        ######[ TOOLTIP FOR REPORT EVENTS ]######
+        if = {
+            limit={ NOT={ has_completed_focus=GRE_a_game_of_shadows }}
+            custom_effect_tooltip = report_event_no_focus_completed_tt
+        }
+        else = {
+            custom_effect_tooltip=repev_header_tt
+            set_temp_variable={ displayer=3 tooltip=repev_final_selection_tt }
+            set_temp_variable={ displayer=85 tooltip=repev_base_main_av_tt }
+            custom_effect_tooltip=repev_cni_main_tt
+            set_temp_variable={ displayer=1  tooltip=repev_xxxx_weight_tt }
+            set_temp_variable={ displayer=cni_b1  tooltip=repev_cni_aginch_tt }
+            set_temp_variable={ displayer=2 tooltip=repev_cni_tmpEDIFF_tt }
+            set_temp_variable={ displayer=base  tooltip=repev_cni_base_tt }
+            set_temp_variable={ displayer=1  tooltip=repev_cni_tmpARG1_tt }
+            set_temp_variable={ displayer=1  tooltip=repev_cni_tmpARG2_tt }
+            custom_effect_tooltip=repev_civi_main_tt
+            set_temp_variable={ displayer=0.7  tooltip=repev_xxxx_weight_tt }
+            set_temp_variable={ displayer=1  tooltip=repev_xxxx_svia_tt }
+            set_temp_variable={ displayer=1  tooltip=repev_xxxx_svia_mode_tt }
+            set_temp_variable={ displayer=25 tooltip=repev_xxxx_lwthr_tt }
+            set_temp_variable={ displayer=50 tooltip=repev_xxxx_upthr_tt }
+            custom_effect_tooltip=repev_armi_main_tt
+            custom_effect_tooltip=repev_xxxx_likeabove_tt
+            custom_effect_tooltip=repev_navi_main_tt
+            custom_effect_tooltip=repev_xxxx_likeabove_tt
+        }
+    }
+    option = {
+        trigger = { check_variable={ FROM.h247phase=1 } check_variable={ FROM.h247iter>0 }}
+        name=hellas.247_2.d
+
+        set_variable = { FROM.h247steal=0.15 }
+        set_variable = { FROM.h247phase=2 }
+        hidden_effect = { FROM={ country_event={ id=hellas.2470 days=0 }}}
+        ######[REPORT EVENTS]######
+        add_to_temp_array = { tmpCHANCES=75 }
+        set_temp_variable = { tmpEDIFF=3 }
+        set_temp_variable = { tmpARG1=1 }
+        set_temp_variable = { tmpARG2=1 }
+        calculate_national_intelligence_chance_to_avoid_event = yes
+        ####
+        add_to_temp_array={ tmpENEMIES=FROM.id }
+        add_to_temp_array={ lVARTOK=60 }
+        add_to_temp_array={ lVARTOK=61 }
+        add_to_temp_array={ lVARTOK=62 }
+        set_temp_variable={ tmpSVIA=1 }
+        set_temp_variable={ tmpMODE=1 }
+        set_temp_variable={ tmpLWTHR=25 }
+        set_temp_variable={ tmpUPTHR=50 }
+        set_temp_variable = { tmpMAXDIR=1 }
+        for_each_loop={ array=lVARTOK set_temp_variable={ VARTOK=v } calculate_enemy_bounded_VAR_chance_to_avoid_event=yes }
+        ####
+        add_to_temp_array={ tmpWEIGHT=1 }
+        add_to_temp_array={ tmpWEIGHT=1 }
+        add_to_temp_array={ tmpWEIGHT=0.8 }
+        add_to_temp_array={ tmpWEIGHT=0.8 }
+        add_to_temp_array={ tmpWEIGHT=0.8 }
+        ####
+        set_temp_variable={ tmpMODE=0 }
+        calculate_final_b1_b2_from_temporary_array_tmpCHANCES_with_tmpWEIGHT_and_mode_tmpMODE=yes
+        add_to_temp_array = { tmpRECEIVERS=FROM.id }
+        set_temp_variable = { tmpREAC1=66 }
+        set_temp_variable = { tmpMAG=1.00 }
+        potentially_send_report_events_for_action_tmpREAC1_with_args_tmpARRVAL_tmpMAG_to_targets_tmpRECEIVERS = yes
+        custom_effect_tooltip = report_event_potential_favorable_diplomatic_reaction_due_to_x_tt
+        ######[ TOOLTIP FOR REPORT EVENTS ]######
+        if = {
+            limit={ NOT={ has_completed_focus=GRE_a_game_of_shadows }}
+            custom_effect_tooltip = report_event_no_focus_completed_tt
+        }
+        else = {
+            custom_effect_tooltip=repev_header_tt
+            set_temp_variable={ displayer=3 tooltip=repev_final_selection_tt }
+            set_temp_variable={ displayer=75 tooltip=repev_base_main_av_tt }
+            custom_effect_tooltip=repev_cni_main_tt
+            set_temp_variable={ displayer=1  tooltip=repev_xxxx_weight_tt }
+            set_temp_variable={ displayer=cni_b1  tooltip=repev_cni_aginch_tt }
+            set_temp_variable={ displayer=3 tooltip=repev_cni_tmpEDIFF_tt }
+            set_temp_variable={ displayer=base  tooltip=repev_cni_base_tt }
+            set_temp_variable={ displayer=1  tooltip=repev_cni_tmpARG1_tt }
+            set_temp_variable={ displayer=1  tooltip=repev_cni_tmpARG2_tt }
+            custom_effect_tooltip=repev_civi_main_tt
+            set_temp_variable={ displayer=0.8  tooltip=repev_xxxx_weight_tt }
+            set_temp_variable={ displayer=1  tooltip=repev_xxxx_svia_tt }
+            set_temp_variable={ displayer=1  tooltip=repev_xxxx_svia_mode_tt }
+            set_temp_variable={ displayer=25 tooltip=repev_xxxx_lwthr_tt }
+            set_temp_variable={ displayer=50 tooltip=repev_xxxx_upthr_tt }
+            custom_effect_tooltip=repev_armi_main_tt
+            custom_effect_tooltip=repev_xxxx_likeabove_tt
+            custom_effect_tooltip=repev_navi_main_tt
+            custom_effect_tooltip=repev_xxxx_likeabove_tt
+        }
+    }
+    option = {
+        trigger = { check_variable={ FROM.h247phase=1 } check_variable={ FROM.h247iter>0 }}
+        name=hellas.247_2.e
+
+        set_variable = { FROM.h247steal=0.20 }
+        set_variable = { FROM.h247phase=2 }
+        hidden_effect = { FROM={ country_event={ id=hellas.2470 days=0 }}}
+        ######[REPORT EVENTS]######
+        add_to_temp_array = { tmpCHANCES=65 }
+        set_temp_variable = { tmpEDIFF=4 }
+        set_temp_variable = { tmpARG1=1 }
+        set_temp_variable = { tmpARG2=1 }
+        calculate_national_intelligence_chance_to_avoid_event = yes
+        ####
+        add_to_temp_array={ tmpENEMIES=FROM.id }
+        add_to_temp_array={ lVARTOK=60 }
+        add_to_temp_array={ lVARTOK=61 }
+        add_to_temp_array={ lVARTOK=62 }
+        set_temp_variable={ tmpSVIA=1 }
+        set_temp_variable={ tmpMODE=1 }
+        set_temp_variable={ tmpLWTHR=25 }
+        set_temp_variable={ tmpUPTHR=50 }
+        set_temp_variable = { tmpMAXDIR=1 }
+        for_each_loop={ array=lVARTOK set_temp_variable={ VARTOK=v } calculate_enemy_bounded_VAR_chance_to_avoid_event=yes }
+        ####
+        add_to_temp_array={ tmpWEIGHT=1 }
+        add_to_temp_array={ tmpWEIGHT=1 }
+        add_to_temp_array={ tmpWEIGHT=0.9 }
+        add_to_temp_array={ tmpWEIGHT=0.9 }
+        add_to_temp_array={ tmpWEIGHT=0.9 }
+        ####
+        set_temp_variable={ tmpMODE=0 }
+        calculate_final_b1_b2_from_temporary_array_tmpCHANCES_with_tmpWEIGHT_and_mode_tmpMODE=yes
+        add_to_temp_array = { tmpRECEIVERS=FROM.id }
+        set_temp_variable = { tmpREAC1=66 }
+        set_temp_variable = { tmpMAG=1.00 }
+        potentially_send_report_events_for_action_tmpREAC1_with_args_tmpARRVAL_tmpMAG_to_targets_tmpRECEIVERS = yes
+        custom_effect_tooltip = report_event_potential_favorable_diplomatic_reaction_due_to_x_tt
+        ######[ TOOLTIP FOR REPORT EVENTS ]######
+        if = {
+            limit={ NOT={ has_completed_focus=GRE_a_game_of_shadows }}
+            custom_effect_tooltip = report_event_no_focus_completed_tt
+        }
+        else = {
+            custom_effect_tooltip=repev_header_tt
+            set_temp_variable={ displayer=3 tooltip=repev_final_selection_tt }
+            set_temp_variable={ displayer=65 tooltip=repev_base_main_av_tt }
+            custom_effect_tooltip=repev_cni_main_tt
+            set_temp_variable={ displayer=1  tooltip=repev_xxxx_weight_tt }
+            set_temp_variable={ displayer=cni_b1  tooltip=repev_cni_aginch_tt }
+            set_temp_variable={ displayer=4 tooltip=repev_cni_tmpEDIFF_tt }
+            set_temp_variable={ displayer=base  tooltip=repev_cni_base_tt }
+            set_temp_variable={ displayer=1  tooltip=repev_cni_tmpARG1_tt }
+            set_temp_variable={ displayer=1  tooltip=repev_cni_tmpARG2_tt }
+            custom_effect_tooltip=repev_civi_main_tt
+            set_temp_variable={ displayer=0.9  tooltip=repev_xxxx_weight_tt }
+            set_temp_variable={ displayer=1  tooltip=repev_xxxx_svia_tt }
+            set_temp_variable={ displayer=1  tooltip=repev_xxxx_svia_mode_tt }
+            set_temp_variable={ displayer=25 tooltip=repev_xxxx_lwthr_tt }
+            set_temp_variable={ displayer=50 tooltip=repev_xxxx_upthr_tt }
+            custom_effect_tooltip=repev_armi_main_tt
+            custom_effect_tooltip=repev_xxxx_likeabove_tt
+            custom_effect_tooltip=repev_navi_main_tt
+            custom_effect_tooltip=repev_xxxx_likeabove_tt
+        }
+    }
+    option = {
+        trigger = { check_variable={ FROM.h247phase=1 } check_variable={ FROM.h247iter>0 }}
+        name=hellas.247_2.f
+
+        set_variable = { FROM.h247steal=0.25 }
+        set_variable = { FROM.h247phase=2 }
+        hidden_effect = { FROM={ country_event={ id=hellas.2470 days=0 }}}
+        ######[REPORT EVENTS]######
+        add_to_temp_array = { tmpCHANCES=65 }
+        set_temp_variable = { tmpEDIFF=5 }
+        set_temp_variable = { tmpARG1=1 }
+        set_temp_variable = { tmpARG2=1 }
+        calculate_national_intelligence_chance_to_avoid_event = yes
+        ####
+        add_to_temp_array={ tmpENEMIES=FROM.id }
+        add_to_temp_array={ lVARTOK=60 }
+        add_to_temp_array={ lVARTOK=61 }
+        add_to_temp_array={ lVARTOK=62 }
+        set_temp_variable={ tmpSVIA=1 }
+        set_temp_variable={ tmpMODE=1 }
+        set_temp_variable={ tmpLWTHR=25 }
+        set_temp_variable={ tmpUPTHR=50 }
+        set_temp_variable = { tmpMAXDIR=1 }
+        for_each_loop={ array=lVARTOK set_temp_variable={ VARTOK=v } calculate_enemy_bounded_VAR_chance_to_avoid_event=yes }
+        ####
+        add_to_temp_array={ tmpWEIGHT=1 }
+        add_to_temp_array={ tmpWEIGHT=1 }
+        add_to_temp_array={ tmpWEIGHT=1 }
+        add_to_temp_array={ tmpWEIGHT=1 }
+        add_to_temp_array={ tmpWEIGHT=1 }
+        ####
+        set_temp_variable={ tmpMODE=0 }
+        calculate_final_b1_b2_from_temporary_array_tmpCHANCES_with_tmpWEIGHT_and_mode_tmpMODE=yes
+        add_to_temp_array = { tmpRECEIVERS=FROM.id }
+        set_temp_variable = { tmpREAC1=66 }
+        set_temp_variable = { tmpMAG=1.00 }
+        potentially_send_report_events_for_action_tmpREAC1_with_args_tmpARRVAL_tmpMAG_to_targets_tmpRECEIVERS = yes
+        custom_effect_tooltip = report_event_potential_favorable_diplomatic_reaction_due_to_x_tt
+        ######[ TOOLTIP FOR REPORT EVENTS ]######
+        if = {
+            limit={ NOT={ has_completed_focus=GRE_a_game_of_shadows }}
+            custom_effect_tooltip = report_event_no_focus_completed_tt
+        }
+        else = {
+            custom_effect_tooltip=repev_header_tt
+            set_temp_variable={ displayer=3 tooltip=repev_final_selection_tt }
+            set_temp_variable={ displayer=55 tooltip=repev_base_main_av_tt }
+            custom_effect_tooltip=repev_cni_main_tt
+            set_temp_variable={ displayer=1  tooltip=repev_xxxx_weight_tt }
+            set_temp_variable={ displayer=cni_b1  tooltip=repev_cni_aginch_tt }
+            set_temp_variable={ displayer=5 tooltip=repev_cni_tmpEDIFF_tt }
+            set_temp_variable={ displayer=base  tooltip=repev_cni_base_tt }
+            set_temp_variable={ displayer=1  tooltip=repev_cni_tmpARG1_tt }
+            set_temp_variable={ displayer=1  tooltip=repev_cni_tmpARG2_tt }
+            custom_effect_tooltip=repev_civi_main_tt
+            set_temp_variable={ displayer=1  tooltip=repev_xxxx_weight_tt }
+            set_temp_variable={ displayer=1  tooltip=repev_xxxx_svia_tt }
+            set_temp_variable={ displayer=1  tooltip=repev_xxxx_svia_mode_tt }
+            set_temp_variable={ displayer=25 tooltip=repev_xxxx_lwthr_tt }
+            set_temp_variable={ displayer=50 tooltip=repev_xxxx_upthr_tt }
+            custom_effect_tooltip=repev_armi_main_tt
+            custom_effect_tooltip=repev_xxxx_likeabove_tt
+            custom_effect_tooltip=repev_navi_main_tt
+            custom_effect_tooltip=repev_xxxx_likeabove_tt
+        }
+    }
+    option = {
+        trigger = { check_variable={ FROM.h247phase=2 } check_variable={ FROM.h247iter>0 }}
+        name=hellas.247_3.a
+
+        FROM = { add_equipment_to_stockpile={ type=infantry_equipment amount=-1000 producer=THIS }}
+        FROM = { add_equipment_to_stockpile={ type=support_equipment_1 amount=-40 producer=THIS }}
+        ###[Due]###
+        set_temp_variable = { xeq=1000 }
+        multiply_temp_variable = { xeq=FROM.h247due }
+        set_temp_variable = { xse=40 }
+        multiply_temp_variable = { xse=FROM.h247due }
+        ###[To be Sent]###
+        set_temp_variable = { sent_xeq=1000 }
+        set_temp_variable = { sent_xse=40 }
+        ###[Stolen]###
+        set_temp_variable = { sxeq=FROM.h247steal }
+        set_temp_variable = { sxse=FROM.h247steal }
+        multiply_temp_variable = { sxeq=sent_xeq }
+        subtract_from_temp_variable = { sent_xeq=sxeq }
+        multiply_temp_variable = { sxse=sent_xse }
+        subtract_from_temp_variable = { sent_xse=sxse }
+        add_to_temp_variable = { xeq=sxeq }
+        add_to_temp_variable = { xse=sxse }
+        #################
+        random_country_with_original_tag = {
+            original_tag_to_check = SPR
+            limit = {
+                exists=yes
+                if = { check_variable={ FROM.h247sup=0 } OR={ has_government=fascism has_government=neutrality }}
+                else_if = { check_variable={ FROM.h247sup=1 } OR={ has_government=democratic has_government=communism }}
+            }
+            add_equipment_to_stockpile={ type=infantry_equipment amount=sent_xeq producer=FROM }
+            add_equipment_to_stockpile={ type=support_equipment_1 amount=sent_xse producer=FROM }
+        }
+        GRE = {
+            add_equipment_to_stockpile={ type=infantry_equipment amount=xeq producer=FROM }
+            add_equipment_to_stockpile={ type=support_equipment_1 amount=xse producer=FROM }
+        }
+        custom_effect_tooltip = axal_nl2_tt
+        random_list = {
+            seed=random
+            70 = { navy_experience=1 }
+            15 = { add_equipment_to_stockpile = { type=convoy_1 amount=-1 producer=GRE } navy_experience=2 }
+            10 = { add_equipment_to_stockpile = { type=convoy_1 amount=-2 producer=GRE } navy_experience=3 }
+            5 = { add_equipment_to_stockpile = { type=convoy_1 amount=-3 producer=GRE } navy_experience=4 }
+        }
+        add_to_variable = { FROM.h247iter=1 }
+        clear_variable = FROM.h247phase
+    }
+    option = {
+        trigger = { check_variable={ FROM.h247phase=3 } check_variable={ FROM.h247iter>0 }}
+        name=hellas.247_3.b
+        clear_variable = FROM.h247phase
+    }
+}
+
+country_event = {               #Equipment to be sent to Spain REDIRECTOR
+	id = hellas.2470
+	title = hellas.2470.t
+	desc = hellas.2470.desc
+    picture = GFX_report_event_greek_spanish_civil_war
+
+    timeout_days=1
+	is_triggered_only = yes
+	fire_only_once = no
+	
+	option = { 
+        name=hellas.2470.a 
+        GRE={ country_event = { id = hellas.247 days=0 }}
+    }
+}
+
 ########################################
 ####                                ####
 ####   EXOTERIKI POLITIKI EVENTS    ####
@@ -3081,22 +3669,74 @@ country_event = {               #THESSALONIKI 1936 EXHIBITION
     picture = GFX_report_event_thess_expo_1936
 
 	is_triggered_only = yes
-
 	fire_only_once = yes
 	
 	option = {
 		name = hellas.303.a
         
+        every_country = {
+            limit = {
+                OR = { check_variable = { THIS=YUG } check_variable = { THIS=ROM } check_variable = { THIS=TUR }}
+            }
+            set_temp_variable = { findX=THIS.id }
+            set_temp_variable = { findY=5 }
+            add_to_variable = { THIS.favor@GRE=findY tooltip=favor_boost_with_findX_by_findY_no_name_tt }
+            set_temp_variable={ tmpAW=2.50 }
+            add_to_variable = { balkan_pact_desirability=tmpAW }
+            refresh_balkan_pact_desirability_gui_THIS=yes
+            custom_effect_tooltip = alliance_weight_increased_tmpAW_tt
+        }
+        every_country = {
+            limit = {
+                OR = { check_variable = { THIS=ITA } check_variable = { THIS=BUL }}
+            }
+            set_temp_variable = { findX=THIS.id }
+            set_temp_variable = { findY=-2 }
+            add_to_variable = { THIS.favor@GRE = findY tooltip=favor_hit_with_findX_by_findY_no_name_tt }
+        }
+        set_temp_variable={ tmpESC=2 }
+        add_to_temp_variable={ tmpACC=7 }
+        apply_italian_aggression_effects_through_tmpESC_tmpACC=yes
+    }
+	
+	option = {
+		name = hellas.303.b
+        
         add_political_power = 50
-        add_to_variable = { YUG.favor@GRE = 2 }
-        add_to_variable = { ROM.favor@GRE = 2 }
-        add_to_variable = { TUR.favor@GRE = 2 }
-        custom_effect_tooltip = GRE_fbs_balkan_tt
-        subtract_from_variable = { BUL.favor@GRE = 1 }
-        subtract_from_variable = { ITA.favor@GRE = 1 }
-        custom_effect_tooltip = GRE_fds_italy_tt
-        custom_effect_tooltip = GRE_fds_bulgaria_tt
-    }  
+        every_country = {
+            limit = { 
+                OR = { check_variable = { THIS=YUG } check_variable = { THIS=ROM } check_variable = { THIS=TUR }}
+            }
+            set_temp_variable = { findX=THIS.id }
+            set_temp_variable = { findY=2 }
+            add_to_variable = { THIS.favor@GRE = findY tooltip=favor_boost_with_findX_by_findY_no_name_tt }
+            set_temp_variable={ tmpAW=1.00 } 
+            add_to_variable = { balkan_pact_desirability=tmpAW } 
+            custom_effect_tooltip = alliance_weight_increased_tmpAW_tt
+        }
+        every_country = {
+            limit = {
+                OR = { check_variable = { THIS=ITA } check_variable = { THIS=BUL }}
+            }
+            set_temp_variable = { findX=THIS.id }
+            set_temp_variable = { findY=-1 }
+            add_to_variable = { THIS.favor@GRE = findY tooltip=favor_hit_with_findX_by_findY_no_name_tt }
+        }
+    }
+	
+	option = {
+		name = hellas.303.c
+        
+        add_political_power = 75
+        every_country = {
+            limit = {
+                OR = { check_variable = { THIS=YUG } check_variable = { THIS=ROM } check_variable = { THIS=TUR } check_variable = { THIS=ITA } check_variable = { THIS=BUL }}
+            }
+            set_temp_variable = { findX=THIS.id }
+            set_temp_variable = { findY=-1.00 }
+            add_to_variable = { THIS.favor@GRE = findY tooltip=favor_hit_with_findX_by_findY_no_name_tt }
+        }
+    }
 }
 
 country_event = {               #INONU VISIT TO ATHENS
@@ -3108,7 +3748,6 @@ country_event = {               #INONU VISIT TO ATHENS
 	is_triggered_only = yes
 
 	fire_only_once = yes
-	
 	option = { ##Support the talks
 		name = hellas.304.a
         
@@ -3116,25 +3755,30 @@ country_event = {               #INONU VISIT TO ATHENS
         add_war_support = 0.01
         add_political_power = -25
         TUR = { 
-            add_opinion_modifier = { 
-                target = GRE
-                modifier = GRE_fears_of_balkan_conflict
-            }
-        }  
-        GRE = {
-            add_opinion_modifier = { 
-                target = TUR
-                modifier = GRE_fears_of_balkan_conflict
-            }
+            add_opinion_modifier={ target=GRE modifier=GRE_fears_of_balkan_conflict }
+            set_temp_variable = { findX=THIS.id }
+            set_temp_variable = { findY=5 }
+            add_to_variable = { THIS.favor@GRE=findY tooltip=favor_boost_with_findX_by_findY_no_name_tt }
+            set_temp_variable={ tmpAW=2.50 }
+            add_to_variable = { balkan_pact_desirability=tmpAW }
+            refresh_balkan_pact_desirability_gui_THIS=yes
+            custom_effect_tooltip = alliance_weight_increased_tmpAW_tt
         }
-        add_to_variable = { TUR.favor@GRE = 5 }
-        custom_effect_tooltip = GRE_fbm_turkey_tt
+        GRE = { add_opinion_modifier={ target=TUR modifier=GRE_fears_of_balkan_conflict }}
     }  
     option = { ## Take some steps back
         name = hellas.304.b
         
-        subtract_from_variable = { TUR.favor@GRE = 5 }
-        custom_effect_tooltip = GRE_fdm_turkey_tt
+        add_political_power=25
+        TUR = {
+            set_temp_variable = { findX=THIS.id }
+            set_temp_variable = { findY=-5 }
+            add_to_variable = { THIS.favor@GRE=findY tooltip=favor_hit_with_findX_by_findY_no_name_tt }
+            set_temp_variable={ tmpAW=-2.50 }
+            add_to_variable = { balkan_pact_desirability=tmpAW }
+            refresh_balkan_pact_desirability_gui_THIS=yes
+            custom_effect_tooltip = alliance_weight_decreased_tmpAW_tt
+        }
     }
 }
 
@@ -3493,7 +4137,7 @@ country_event = {               #BRITISH RESPONSE
             add_stability = 0.05
             add_war_support = 0.05
             set_temp_variable={ tmpAW=1.50 } 
-            add_to_variable = { overall_alliance_weight=tmpAW } 
+            add_to_variable = { balkan_pact_desirability=tmpAW } 
             custom_effect_tooltip = alliance_weight_increased_tmpAW_tt
         }
         set_temp_variable = { findX = ENG.id }
@@ -3515,7 +4159,7 @@ country_event = {               #BRITISH RESPONSE
             add_stability = 0.02
             add_war_support = 0.02
             set_temp_variable={ tmpAW=0.75 } 
-            add_to_variable = { overall_alliance_weight=tmpAW } 
+            add_to_variable = { balkan_pact_desirability=tmpAW } 
             custom_effect_tooltip = alliance_weight_increased_tmpAW_tt
         }
         set_temp_variable = { findX = ENG.id }
@@ -3537,7 +4181,7 @@ country_event = {               #BRITISH RESPONSE
             add_stability = -0.02
             add_war_support = -0.02
             set_temp_variable={ tmpAW=-0.75 } 
-            add_to_variable = { overall_alliance_weight=tmpAW } 
+            add_to_variable = { balkan_pact_desirability=tmpAW } 
             custom_effect_tooltip = alliance_weight_decreased_tmpAW_tt
         }
         set_temp_variable = { findX = ENG.id }
@@ -3559,7 +4203,7 @@ country_event = {               #BRITISH RESPONSE
             add_stability = -0.05
             add_war_support = -0.05
             set_temp_variable={ tmpAW=-1.50 } 
-            add_to_variable = { overall_alliance_weight=tmpAW } 
+            add_to_variable = { balkan_pact_desirability=tmpAW } 
             custom_effect_tooltip = alliance_weight_decreased_tmpAW_tt
         }
         set_temp_variable = { findX = ENG.id }
@@ -4861,6 +5505,50 @@ country_event = {               #GRECOSOVIET TRADE DEAL (METAXAS)
     }
 }
 
+country_event = {                                       # REDIRECTOR FOR DEBT REPORT EVENTS
+	id = hellas.3321
+	title = hellas.332.t
+	desc = hellas.332.desc
+    picture = "[GetEvent332Picture]"
+
+    timeout_days=0
+	is_triggered_only = yes
+    immediate={
+        hidden_effect={
+            if = { limit={ check_variable={ THIS.id=ENG.id }} add_to_temp_array={ receivers_to_check=FRA.id } add_to_temp_array={ receivers_to_check=ITA.id }}
+            else_if = { limit={ check_variable={ THIS.id=FRA.id }} add_to_temp_array={ receivers_to_check=ENG.id } add_to_temp_array={ receivers_to_check=ITA.id }}
+            else_if = { limit={ check_variable={ THIS.id=ITA.id }} add_to_temp_array={ receivers_to_check=FRA.id } add_to_temp_array={ receivers_to_check=ENG.id }}
+            clr_country_flag = debt_check_event_fired
+            for_each_loop={
+                array=receivers_to_check
+                
+                if={
+                    limit={ check_variable={ gre_total_paid@var:v>0 }}
+                
+                    log="SCOPE IS: [?THIS.GetName], checking for: [?v.GetName]"
+                    clear_temp_array = tmpCHANCES
+                    clear_temp_array = tmpRECEIVERS
+                    clear_temp_array = tmpWEIGHT
+                    set_temp_variable = { tmpSCALEMAG=1 }
+                    set_temp_variable = { cred_paid=v }
+                    calculate_THIS_debt_difference_chance_to_avoid_event=yes
+                    calculate_final_b1_b2_from_temporary_array_tmpCHANCES_with_tmpWEIGHT_and_mode_tmpMODE=yes
+                    add_to_temp_array = { tmpRECEIVERS=THIS.id }
+                    set_temp_variable = { tmpREAC1=50 }
+                    potentially_send_report_events_for_action_tmpREAC1_with_args_tmpARRVAL_tmpMAG_to_targets_tmpRECEIVERS=yes
+                    clear_variable = gre_times_paid@THIS
+                    clear_variable = gre_total_paid@THIS
+                }
+            }
+        }
+    }
+	fire_only_once = no
+	
+	option = {
+        name = hellas.332.a
+    }
+}
+
 country_event = {                                       # REACTION TO ACTION EVENT
 	id = hellas.3331
 	title = hellas.332.t
@@ -4883,7 +5571,7 @@ country_event = {                                       # REACTION TO ACTION EVE
 
 country_event = {                                       # REACTION TO ACTION EVENT (#1)
 	id = hellas.3320001
-	title = hellas.332.t
+	title = "[GetEvent332Title]"
     desc = "[GetEvent332Desc]"
     picture = "[GetEvent332Picture]"
 
@@ -4936,6 +5624,11 @@ country_event = {                                       # REACTION TO ACTION EVE
         set_temp_variable = { quantity=FROM.e332_1_MAG@GRE }
         multiply_temp_variable = { quantity=-50 }
         add_political_power = quantity
+        multiply_temp_variable={ base_esc?1.25=FROM.e332_1_MAG@GRE }
+        multiply_temp_variable={ base_acc?5=FROM.e332_1_MAG@GRE }
+        set_temp_variable={ tmpESC=base_esc }
+        add_to_temp_variable={ tmpACC=base_acc }
+        apply_italian_aggression_effects_through_tmpESC_tmpACC=yes
         ###[Clear FROM from Array]###
         remove_from_array = { GRE.e_332_1 = FROM.id }
         clear_variable = FROM.e332_1_t@GRE
@@ -4945,6 +5638,25 @@ country_event = {                                       # REACTION TO ACTION EVE
     option = {
         name=hellas.332.r52_2
         trigger = { check_variable={ FROM.e332_1_t@GRE=52 }}
+        multiply_temp_variable={ base_esc?2.5=FROM.e332_1_MAG@GRE }
+        multiply_temp_variable={ base_acc?10=FROM.e332_1_MAG@GRE }
+        set_temp_variable={ tmpESC=base_esc }
+        add_to_temp_variable={ tmpACC=base_acc }
+        apply_italian_aggression_effects_through_tmpESC_tmpACC=yes
+        ###[Clear FROM from Array]###
+        remove_from_array = { GRE.e_332_1 = FROM.id }
+        clear_variable = FROM.e332_1_t@GRE
+        clear_variable = FROM.e332_1_MAG@GRE
+        clear_array    = FROM.e332_1_ARRVAL@GRE
+    }
+    option = {
+        name=hellas.332.r66_1
+        trigger = { check_variable={ FROM.e332_1_t@GRE=66 }}
+        FROM = { 
+            set_temp_variable={ findX=THIS.id } 
+            set_temp_variable_to_random={ var=findY min=-12 max=-8 integer=no } 
+            add_to_variable={ THIS.favor@GRE = findY tooltip=favor_hit_with_findX_by_findY_no_name_tt }
+        }
         ###[Clear FROM from Array]###
         remove_from_array = { GRE.e_332_1 = FROM.id }
         clear_variable = FROM.e332_1_t@GRE
@@ -4955,7 +5667,7 @@ country_event = {                                       # REACTION TO ACTION EVE
 
 country_event = {                                       # REACTION TO ACTION EVENT (#2)
 	id = hellas.3320002
-	title = hellas.332.t
+	title = "[GetEvent332Title]"
     desc = "[GetEvent332Desc]"
     picture = "[GetEvent332Picture]"
 
@@ -5004,7 +5716,7 @@ country_event = {                                       # REACTION TO ACTION EVE
 
 country_event = {                                       # REACTION TO ACTION EVENT (#3)
 	id = hellas.3320003
-	title = hellas.332.t
+	title = "[GetEvent332Title]"
     desc = "[GetEvent332Desc]"
     picture = "[GetEvent332Picture]"
 
@@ -5053,7 +5765,7 @@ country_event = {                                       # REACTION TO ACTION EVE
 
 country_event = {                                       # REACTION TO ACTION EVENT (#4)
 	id = hellas.3320004
-	title = hellas.332.t
+	title = "[GetEvent332Title]"
     desc = "[GetEvent332Desc]"
     picture = "[GetEvent332Picture]"
 
@@ -5102,7 +5814,7 @@ country_event = {                                       # REACTION TO ACTION EVE
 
 country_event = {                                       # REACTION TO ACTION EVENT (#5)
 	id = hellas.3320005
-	title = hellas.332.t
+	title = "[GetEvent332Title]"
     desc = "[GetEvent332Desc]"
     picture = "[GetEvent332Picture]"
 
@@ -5151,7 +5863,7 @@ country_event = {                                       # REACTION TO ACTION EVE
 
 country_event = {                                       # REACTION TO ACTION EVENT (#6)
 	id = hellas.3320006
-	title = hellas.332.t
+	title = "[GetEvent332Title]"
     desc = "[GetEvent332Desc]"
     picture = "[GetEvent332Picture]"
 
@@ -5200,7 +5912,7 @@ country_event = {                                       # REACTION TO ACTION EVE
 
 country_event = {                                       # REACTION TO ACTION EVENT (#7)
 	id = hellas.3320007
-	title = hellas.332.t
+	title = "[GetEvent332Title]"
     desc = "[GetEvent332Desc]"
     picture = "[GetEvent332Picture]"
 
@@ -5671,7 +6383,7 @@ country_event = {       ## Order AA, AT
             custom_effect_tooltip = favor_boost_with_findX_by_findY
         }
         else_if = {
-            limit = { has_idea = GRE_schachtplan_fascistised }
+            limit = { has_idea = GRE_schachtplan_stabilized }
             if = {
                 limit = { GER = { has_tech = interwar_antitank } }
                 add_equipment_to_stockpile = { type = anti_air_equipment amount = 143 producer = GER }
@@ -5797,7 +6509,7 @@ country_event = {       ## Order Mortars
         }
         else_if = {
             limit = {
-            has_idea = GRE_schachtplan_fascistised
+            has_idea = GRE_schachtplan_stabilized
             }
             add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 1000 producer = GER }
             set_temp_variable = { findX = GER.id }
@@ -5870,7 +6582,7 @@ country_event = {       ## Order Misc
             limit = {
                 has_idea = GRE_schachtplan
             }
-            add_equipment_to_stockpile = { type = support_equipment amount = 200 producer = GER }
+            add_equipment_to_stockpile = { type = support_equipment amount = 160 producer = GER }
             set_temp_variable = { findX = GER.id }
             set_temp_variable = { findY = 2 }
             add_to_variable = { GER.favor@GRE = findY }
@@ -5878,22 +6590,22 @@ country_event = {       ## Order Misc
         }
         else_if = {
             limit = { has_idea = GRE_schachtplan_modified }
-            add_equipment_to_stockpile = { type = support_equipment amount = 230 producer = GER }
+            add_equipment_to_stockpile = { type = support_equipment amount = 180 producer = GER }
             set_temp_variable = { findX = GER.id }
             set_temp_variable = { findY = 3 }
             add_to_variable = { GER.favor@GRE = findY }
             custom_effect_tooltip = favor_boost_with_findX_by_findY
         }
         else_if = {
-            limit = { has_idea = GRE_schachtplan_fascistised }
-            add_equipment_to_stockpile = { type = support_equipment amount = 260 producer = GER }
+            limit = { has_idea = GRE_schachtplan_stabilized }
+            add_equipment_to_stockpile = { type = support_equipment amount = 200 producer = GER }
             set_temp_variable = { findX = GER.id }
             set_temp_variable = { findY = 4 }
             add_to_variable = { GER.favor@GRE = findY }
             custom_effect_tooltip = favor_boost_with_findX_by_findY
         }
         else = {
-            add_equipment_to_stockpile = { type = support_equipment amount = 170 producer = GER }   
+            add_equipment_to_stockpile = { type = support_equipment amount = 120 producer = GER }   
             set_temp_variable = { findX = GER.id }
             set_temp_variable = { findY = 1 }
             add_to_variable = { GER.favor@GRE = findY }
@@ -5904,7 +6616,7 @@ country_event = {       ## Order Misc
 		name = hellas.403.b
 
 		ai_chance = { base = 100 }
-        add_equipment_to_stockpile = { type = support_equipment amount = 175 producer = FRA }
+        add_equipment_to_stockpile = { type = support_equipment amount = 125 producer = FRA }
         set_temp_variable = { findX = FRA.id }
         set_temp_variable = { findY = 3 }
         add_to_variable = { GER.favor@GRE = findY }
@@ -5914,7 +6626,7 @@ country_event = {       ## Order Misc
 		name = hellas.403.c
 
 		ai_chance = { base = 100 }
-        add_equipment_to_stockpile = { type = support_equipment amount = 175 producer = SOV }
+        add_equipment_to_stockpile = { type = support_equipment amount = 125 producer = SOV }
         set_temp_variable = { findX = SOV.id }
         set_temp_variable = { findY = 2 }
         add_to_variable = { GER.favor@GRE = findY }
@@ -5924,7 +6636,7 @@ country_event = {       ## Order Misc
 		name = hellas.403.d
 
 		ai_chance = { base = 100 }
-        add_equipment_to_stockpile = { type = support_equipment amount = 175 producer = USA }
+        add_equipment_to_stockpile = { type = support_equipment amount = 125 producer = USA }
         set_temp_variable = { findX = USA.id }
         set_temp_variable = { findY = 3 }
         add_to_variable = { GER.favor@GRE = findY }
@@ -8604,14 +9316,14 @@ country_event = {                                                               
             }
             else_if = {
                 limit = { has_enacted_alliance_with_turkey=yes }
-                set_temp_variable = { alliance_chance = TUR.overall_alliance_weight }
+                set_temp_variable = { alliance_chance = TUR.balkan_pact_desirability }
                 multiply_temp_variable = { alliance_chance = 10 }
                 set_temp_variable = { positive_chance = 100 }
                 subtract_from_temp_variable = { positive_chance = alliance_chance }
                 set_temp_variable = { alliance_chance = 0 }
             }
             else = {
-                set_temp_variable = { positive_chance = TUR.overall_alliance_weight }
+                set_temp_variable = { positive_chance = TUR.balkan_pact_desirability }
                 multiply_temp_variable = { positive_chance = 10 }
                 set_temp_variable = { neutral_chance = 100 }
                 subtract_from_temp_variable = { neutral_chance = positive_chance }
@@ -8671,7 +9383,7 @@ country_event = {                                                               
             }
             else_if = {
                 limit = { has_enacted_alliance_with_yugoslavia=yes }
-                set_temp_variable = { alliance_chance = YUG.overall_alliance_weight }
+                set_temp_variable = { alliance_chance = YUG.balkan_pact_desirability }
                 multiply_temp_variable = { alliance_chance = 10 }
                 set_temp_variable = { positive_chance = 100 }
                 subtract_from_temp_variable = { positive_chance = alliance_chance }
@@ -8680,7 +9392,7 @@ country_event = {                                                               
             }
             else_if = {
                 limit = { has_enacted_alliance_with_yugoslavia=no check_variable = { YUG.favor@GRE > 0 } }
-                set_temp_variable = { positive_chance = YUG.overall_alliance_weight }
+                set_temp_variable = { positive_chance = YUG.balkan_pact_desirability }
                 multiply_temp_variable = { positive_chance = 10 }
                 set_temp_variable = { neutral_chance = 100 }
                 subtract_from_temp_variable = { neutral_chance = positive_chance }
@@ -8688,7 +9400,7 @@ country_event = {                                                               
                 set_temp_variable = { betrayal_chance = 0 }
             }
             else = {
-                set_temp_variable = { neutral_chance = YUG.overall_alliance_weight }
+                set_temp_variable = { neutral_chance = YUG.balkan_pact_desirability }
                 multiply_temp_variable = { neutral_chance = 10 }
                 set_temp_variable = { betrayal_chance = 100 }
                 subtract_from_temp_variable = { betrayal_chance = neutral_chance }

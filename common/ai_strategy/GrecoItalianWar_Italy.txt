@@ -308,60 +308,6 @@ Italian_strategy_B4_axis_war = {
     }
 }
 
-
-
-#Italian_strategy_B_selfish_war = {
-#    allowed = {
-#        original_tag = ITA                                                                      ## Idea defines Italian desire NOT to call any allies and commit to the conquest of Greece alone.
-#    }                                                                                           ## Only exception is the wish of including Bulgaria (historical), but they were not ready to commit and Turkish guarantees scared them off.
-#    enable = {
-#        has_global_flag = GRE_grecoitalian_start
-#        OR = {
-#            has_idea = GRE_italian_ambition     
-#            has_idea = GRE_italian_ambition_defensive 
-#            has_idea = GRE_italian_ambition_ultra_offensive 
-#        }
-#    }
-#    
-#    abort_when_not_enabled = yes
-#    
-#    ai_strategy = {                                                                             ## However, Italy will commit only to Albania, as historically they desired Bulgaria's help to split Greek forces.
-#        type = dont_defend_ally_borders
-#        id = BUL
-#        value = 1000
-#    }
-#    
-#    ai_strategy = {                                                                            ## Preferably avoid naval invasions (commit on albanian front)
-#		type = invade
-#		id = GRE			
-#		value = -10
-#	}
-#
-#    ai_strategy = {
-#        type = area_priority
-#        id = grecoalbanian_border
-#        value = 4500
-#    }
-#    
-#    ai_strategy = {
-#        type = antagonize
-#        id = GRE
-#        value = 5000
-#    }
-#
-#    ai_strategy = {
-#        type = front_control
-#        #you can define a target in following ways. you can define more than one
-#        tag = GRE
-#        #ratio = 0.0 # the strategy is enabled only if ratio of the front covered by this strat's targets greater than this ratio
-#        priority = 5000 # default 0, higher prio strats will override lower
-#        ordertype = front # front or invasion. if set this strategy will only apply to that specific order type
-#        execution_type = rush # one of careful balanced rush rush_weak. if set will override the execution type of front (only for front orders)
-#        execute_order = yes # yes or no. if set will override execute or not decision of front
-#        manual_attack = yes # default yes. if no ai will not do manual pokes at enemy (only for front orders)
-#    }
-#}
-
 Italian_strategy_C_crete = {
     allowed = {
         original_tag = ITA
@@ -467,71 +413,6 @@ Italy_avoid_manning_Vichy_Swiss_borders = {
         state = 3
         state = 151
         value = -100
-    }
-}
-
-Italians_prioritize_building_infrastructure_and_naval_bases_in_albania = {
-    allowed = {
-        original_tag = ITA
-    }
-    enable = {
-        OR = {
-            AND = {
-                ALB = { exists = no }
-                ITA = { 
-                    controls_state = 44 
-                    controls_state = 805
-                }
-            }
-            AND = {
-                ALB = { exists = yes }
-                OR = {
-                    is_puppet_of = ITA 
-                    is_subject_of = ITA
-                }
-            }
-        }
-    }
-    abort = {
-        44 = {
-            infrastructure > 4
-            air_base > 7
-            9780 = { naval_base > 4 }
-            11767 = { naval_base > 5 }
-        }
-        805 = {
-            infrastructure > 4
-        }
-    }
-    ai_strategy = {
-        type = build_building
-        id = infrastructure
-        target = 44
-        value = 4
-    }
-    ai_strategy = {
-        type = build_building
-        id = infrastructure
-        target = 805
-        value = 4
-    }
-    ai_strategy = {
-        type = build_building
-        id = naval_base
-        target = 9780
-        value = 4
-    }
-    ai_strategy = {
-        type = build_building
-        id = naval_base
-        target = 11767
-        value = 4
-    }
-    ai_strategy = {
-        type = build_building
-        id = air_base
-        target = 44
-        value = 4
     }
 }
 

@@ -12,7 +12,7 @@ gov_apply_filters = {
         every_character = {
             limit = {
                 check_variable={ gov_coc=1 }
-                if = { limit={ check_variable={ GRE.gov_available>0 }} set_temp_variable={ v=THIS } targeted_character_is_available_for_hire_as_political_advisor=yes if={limit={is_advisor=yes} has_pp_for_targeted_character=yes} }
+                if = { limit={ check_variable={ GRE.gov_available>0 }} is_advisor=yes set_temp_variable={ v=THIS } targeted_character_not_psd_cscope=yes GRE={ targeted_character_is_available_for_hire_as_political_advisor=yes set_temp_variable={ type_of_advisor=1 } has_pp_for_targeted_character=yes }}
                 if = { limit={ check_variable={ GRE.gov_bleader>0  }} can_be_country_leader=THIS }
                 if = { limit={ check_variable={ GRE.gov_badvisor>0 }} is_advisor=yes }
                 if = { limit={ check_variable={ GRE.gov_cdead>0 }} check_variable = { dead=1 } }
@@ -38,7 +38,7 @@ gov_apply_filters = {
         every_character = {
             limit = {
                 check_variable={ gov_coc=1 }
-                if = { limit={ check_variable={ GRE.gov_available>0 }} set_temp_variable={ v=THIS } targeted_character_is_available_for_hire_as_political_advisor=no if={limit={is_advisor=yes} has_pp_for_targeted_character=no} }
+                if = { limit={ check_variable={ GRE.gov_available>0 }} is_advisor=yes set_temp_variable={ v=THIS } OR={ targeted_character_not_psd_cscope=no GRE={ targeted_character_is_available_for_hire_as_political_advisor=no set_temp_variable={ type_of_advisor=1 } has_pp_for_targeted_character=no }}}
                 if = { limit={ check_variable={ GRE.gov_bleader>0  }} NOT={ can_be_country_leader=THIS }}
                 if = { limit={ check_variable={ GRE.gov_badvisor>0 }} is_advisor=no }
                 if = { limit={ check_variable={ GRE.gov_cdead>0 }} check_variable = { dead=0 } }
@@ -92,7 +92,10 @@ gov_clean_ideological_filters = {
 hire_targeted_character_as_political_advisor = {
     # This function is a meta effect that will target character in array (v value) and hire him as a political advisor.
 
-    meta_effect={ text={ if={ limit={ has_pp_for_targeted_character=yes } activate_advisor=[CHARACTER_ID]_political_advisor }} CHARACTER_ID = "[GetCharacterIDfromTOKEN]"}
+    meta_effect={ text={ if={ limit={ set_temp_variable={ type_of_advisor=1 } has_pp_for_targeted_character=yes } activate_advisor=[CHARACTER_ID]_political_advisor }} CHARACTER_ID = "[GetCharacterIDfromTOKEN]"}
+    set_temp_variable = { revcost=ppcost }
+    multiply_temp_variable = { revcost=-1 }
+    add_political_power = revcost
 }
 
 
@@ -117,7 +120,7 @@ coc_apply_filters = {
         every_character = {
             limit = {
                 check_variable={ gov_coc=2 }
-                if = { limit={ check_variable={ GRE.coc_available>0 }} set_temp_variable={ v=THIS } targeted_character_is_available_for_hire_as_political_advisor=yes if={limit={is_advisor=yes} has_pp_for_targeted_character=yes }}
+                if = { limit={ check_variable={ GRE.coc_available>0 }} set_temp_variable={ v=THIS } targeted_character_is_available_for_hire_as_political_advisor=yes if={limit={is_advisor=yes} set_temp_variable={ type_of_advisor=2 } has_pp_for_targeted_character=yes }}
                 if = { limit={ check_variable={ GRE.coc_bleader>0  }} OR={ is_high_command=yes is_army_chief=yes is_navy_chief=yes is_air_chief=yes }}
                 if = { limit={ check_variable={ GRE.coc_badvisor>0 }} OR={ is_navy_leader=yes is_army_leader=yes is_unit_leader=yes is_corps_commander=yes }}
                 if = { limit={ check_variable={ GRE.coc_barmy>0 }} check_variable = { mbranch=1 }}
@@ -151,7 +154,7 @@ coc_apply_filters = {
         every_character = {
             limit = {
                 check_variable={ gov_coc=2 }
-                if = { limit={ check_variable={ GRE.coc_available>0 }} set_temp_variable={ v=THIS } targeted_character_is_available_for_hire_as_political_advisor=no if={limit={is_advisor=yes} has_pp_for_targeted_character=no} }
+                if = { limit={ check_variable={ GRE.coc_available>0 }} set_temp_variable={ v=THIS } targeted_character_is_available_for_hire_as_political_advisor=no if={limit={is_advisor=yes} set_temp_variable={ type_of_advisor=2 } has_pp_for_targeted_character=no} }
                 if = { limit={ check_variable={ GRE.coc_bleader>0  }} NOT={ OR={ is_high_command=yes is_army_chief=yes is_navy_chief=yes is_air_chief=yes }}}
                 if = { limit={ check_variable={ GRE.coc_badvisor>0 }} NOT={ OR={ is_navy_leader=yes is_army_leader=yes is_unit_leader=yes is_corps_commander=yes }}}
                 if = { limit={ check_variable={ GRE.coc_barmy>0 }} NOT={ check_variable = { mbranch=1 }}}
@@ -229,7 +232,10 @@ coc_clean_ideological_filters = {
 hire_targeted_character_in_high_command = {
     # This function is a meta effect that will target character in array (v value) and hire him in high command.
 
-    meta_effect={ text={ activate_advisor=[CHARACTER_ID]_hca } CHARACTER_ID = "[GetCharacterIDfromTOKEN]"}
+    meta_effect={ text={ if={ limit={ set_temp_variable={ type_of_advisor=2 } has_pp_for_targeted_character=yes } activate_advisor=[CHARACTER_ID]_hca }} CHARACTER_ID = "[GetCharacterIDfromTOKEN]"}
+    set_temp_variable = { revcost=ppcost }
+    multiply_temp_variable = { revcost=-1 }
+    add_political_power = revcost
 }
 
 hire_targeted_character_as_chief = {
@@ -242,7 +248,6 @@ deactivate_targeted_character = {
     # This function works on the top portraits to deactivate characters through just a click.
 
     meta_effect={
-        debug=yes
         text={
             if={ limit={ has_idea=[CHARACTER_ID]_political_advisor } deactivate_advisor=[CHARACTER_ID]_political_advisor }
             if={ limit={ has_idea=[CHARACTER_ID]_chief } deactivate_advisor=[CHARACTER_ID]_chief }
@@ -256,7 +261,6 @@ show_targeted_officer_tooltip = {
     # This function returns the officers respective tooltip directly from token
 
     meta_effect = {
-        debug=yes
         text = {
             custom_effect_tooltip = [CHARACTER_ID]_ledger
         }

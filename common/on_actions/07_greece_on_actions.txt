@@ -4,54 +4,6 @@ on_actions = {
     ###################################################################################################################################################################################################################################
 	on_startup = {
 		effect = {
-            GRE = {  
-                USA = { set_variable = { favor@PREV = 5 } }
-                GER = { set_variable = { favor@PREV = 5 } }
-                JAP = { set_variable = { favor@PREV = 5 } }
-                ENG = { set_variable = { favor@PREV = 5 } }
-                FRA = { set_variable = { favor@PREV = 5 } }
-                ITA = { set_variable = { favor@PREV = -22 } }
-                CHI = { set_variable = { favor@PREV = 0 } }
-                IRQ = { set_variable = { favor@PREV = 0 } }
-                SAU = { set_variable = { favor@PREV = 0 } }
-                VEN = { set_variable = { favor@PREV = 0 } }
-                SOV = { set_variable = { favor@PREV = -2 }}
-                SPR = { set_variable = { favor@PREV = 0 } }
-                ROM = { set_variable = { favor@PREV = 5 } }
-                BUL = { set_variable = { favor@PREV = -24 } }                    
-                YUG = { set_variable = { favor@PREV = 5 } }
-                ALB = { set_variable = { favor@PREV = 5 } }
-            }
-		}
-	}
-
-    on_startup = {
-        effect = {
-            every_country = {
-                add_to_array = { global.favor_mechanic=THIS.id }
-            }
-            #add_to_array = { global.favor_mechanic = USA.id }            
-            #add_to_array = { global.favor_mechanic = GER.id }            
-            #add_to_array = { global.favor_mechanic = ITA.id }
-            #add_to_array = { global.favor_mechanic = JAP.id }            
-            #add_to_array = { global.favor_mechanic = ENG.id }
-            #add_to_array = { global.favor_mechanic = SOV.id }
-            #add_to_array = { global.favor_mechanic = FRA.id } 
-            #add_to_array = { global.favor_mechanic = VEN.id }            
-            #add_to_array = { global.favor_mechanic = SPR.id }            
-            #add_to_array = { global.favor_mechanic = CHI.id }
-            #add_to_array = { global.favor_mechanic = BUL.id }            
-            #add_to_array = { global.favor_mechanic = YUG.id }            
-            #add_to_array = { global.favor_mechanic = ROM.id }    
-            #add_to_array = { global.favor_mechanic = TUR.id } 
-            #add_to_array = { global.favor_mechanic = IRQ.id }    
-            #add_to_array = { global.favor_mechanic = SAU.id }     
-            #add_to_array = { global.favor_mechanic = ALB.id } 
-        }
-    }
-
-	on_startup = {
-		effect = {
 			GRE = {
 				faction_gui_initial = yes
                 procure_me_generals_bugged = yes
@@ -67,19 +19,6 @@ on_actions = {
     on_startup = {                                                                           ### Setting Up the High Command Variables
         effect = {
             GRE = {
-                #add_dynamic_modifier = { modifier = GRE_high_command_papagos_dynamic }
-                #add_dynamic_modifier = { modifier = GRE_high_command_drakos_dynamic }
-                #add_dynamic_modifier = { modifier = GRE_high_command_stanotas_dynamic }
-                #add_dynamic_modifier = { modifier = GRE_high_command_zervas_dynamic }
-                #add_dynamic_modifier = { modifier = GRE_high_command_plastiras_dynamic }
-                #add_dynamic_modifier = { modifier = GRE_charalambos_katsimitros_hc_dynamic }
-                #add_dynamic_modifier = { modifier = GRE_high_command_kosmas_dynamic }
-                #add_dynamic_modifier = { modifier = GRE_high_command_aggelis_dynamic }
-                #add_dynamic_modifier = { modifier = GRE_high_command_davakis_dynamic }
-                #add_dynamic_modifier = { modifier = GRE_high_command_alexakis_dynamic }
-                #add_dynamic_modifier = { modifier = GRE_high_command_velouchiotis_base_dynamic }
-                #add_dynamic_modifier = { modifier = GRE_high_command_bakirtzis_dynamic }
-                #add_dynamic_modifier = { modifier = GRE_high_command_rossios_dynamic }
                 ###[Papagos]###
                 set_variable = { hc_papagos_mp = 0.02}
                 set_variable = { hc_papagos_mcp = 5}
@@ -217,28 +156,8 @@ on_actions = {
     ################################################################################################[ Part B: On Daily/Weekly/Monthly ]################################################################################################
     ##########################################################################################################[ Non Event ]############################################################################################################
     
-    
-    #on_monthly_GRE = {                                                                                      ### Monthly Favor & Monthly Faction Flunctuations.
-    #    effect = {
-    #        every_country = {
-    #            limit = {
-    #                is_in_array = {
-    #                    array = global.favor_mechanic
-    #                    value = THIS.id
-    #                }
-    #                NOT = { has_global_flag = weekly_favor_mechanic_frozen }
-    #            }
-    #            GRE_add_favor = yes
-    #        }
-    #        #if = {
-    #        #    limit = { GRE = { NOT = { has_completed_focus = GRE_dreams_of_a_grand_coalition } } }
-    #        #    GRE_add_faction_favor = yes 
-    #        #}
-    #    }
-    #}
-
-    on_monthly_GRE = {                                                                                      ### Training Leftovers
-        effect = {
+    on_monthly_GRE = {
+        effect = {                                                                                         ### Training Leftovers
             if = {
                 limit = { check_variable = { GRE.preparedness_level < 1 } }
                 set_temp_variable = { tmpX = GRE.training_leftovers }
@@ -246,57 +165,48 @@ on_actions = {
                 randomly_train_tmpX_officers = yes
             }
         }
-    }
-    
-    on_monthly_GRE = {                                                                                      ### Monthly checks for fortifications in the Albanian border
         effect = {
             if = {
+                limit = { date>1937.8.30 NOT={check_variable={ GRE.gold_reserves=0 }}}
+                if={ limit={ date>1938.6.30 } subtract_from_variable={ GRE.gold_reserves=2 }}
+                else_if={ limit={ date>1937.12.30 } subtract_from_variable={ GRE.gold_reserves=1 }}
+                else_if={ limit={ date>1937.8.30 } subtract_from_variable={ GRE.gold_reserves=0.5 }}
+                clamp_variable = { var=GRE.gold_reserves min=0 }
+                recalculate_gold_reserve_bonuses=yes
+            }
+        }
+        effect = {
+            if = {
+                limit={ mussolini_historical_tensions_with_greece=yes }
+                apply_on_actions_fluctuations_of_itagg_escalation=yes
+            }
+        }
+        effect = {                                                                                          ### Monthly checks for fortifications in the Albanian border
+            if = {
                 limit = {
-                    ITA = { 
-                        has_country_leader = {                                                               ## Make sure the Italians have Mussolini as leader (not ahistorical).
-                            name = "Benito Mussolini" 
-                            ruling_only = yes
-                        }
-                        is_puppet = no                                                                       ## Make sure they are not a puppet.
-                    }
+                    mussolini_historical_tensions_with_greece=yes                                            ## Make sure the Italians have Mussolini as leader (not ahistorical).
                     NOT = { has_country_flag = GRE_stop_checking_fortifications }                            ## This flag is set only when THIS event is triggered (so it doesn't repeat).
                     NOT = { has_country_flag = GRE_safe_from_italian_immediate_action }                      ## This flag is set through various manners. E.g. exoteriki politiki decisions.
-                    OR = {
-                        184 = {
-                            any_province_building_level = {
-                                province = {
-                                    id = 13236
-                                    id = 13237
-                                }
-                                building = bunker
-                                level > 0
-                            }
-                        }
-                        838 = {
-                            any_province_building_level = {
-                                province = {
-                                    id = 841
-                                }
-                                building = bunker
-                                level > 0
-                            }
-                        }
-                    }
+                    forts_in_grecoalbanian_borderline_exist=yes
                 }
                 set_country_flag = GRE_stop_checking_fortifications
-                country_event = { id = hellenic_news.6 days = 0 }
-                ITA = {
-                    if = {                                                                                   ## If Italy not in faction, force her into one and make Albania their puppet.
-                        limit={ ITA={ is_in_faction = no }}                                                   # If they already are, add them to that faction.
-                        create_faction = "Novus Imperium Romanum" 
-                    }                               
-                    add_to_faction = ALB
-                    puppet = ALB
-                    create_wargoal = {                                                                       ## Give Italy wargoal for 30 days.
-						type = puppet_wargoal_focus 
-						target = GRE
-                        expire = 30
-					}
+                country_event={ id=hellenic_news.6 days=0 }
+                if = {
+                    limit={ ALB={ exists=yes } is_puppet=no }
+
+                    ITA = {
+                        if = {                                                                                ## If Italy not in faction, force her into one and make Albania their puppet.
+                            limit={ ITA={ is_in_faction = no }}                                                # If they already are, add them to that faction.
+                            create_faction = "Novus Imperium Romanum"
+                        }
+                        add_to_faction = ALB
+                        puppet = ALB
+                        create_wargoal = {                                                                     ## Give Italy wargoal for 30 days.
+                            type = puppet_wargoal_focus
+                            target = GRE
+                            expire = 30
+                        }
+                    }
                 }
             }
         }
@@ -379,24 +289,28 @@ on_actions = {
             }
         }
         effect = {                                                                                          ## Weekly Influence
-            #############################[ Reset Array ]############################
-            clear_array = global.favor_mechanic
-            every_country = { add_to_array = { global.favor_mechanic=THIS.id }}
-            ########################################################################
-            every_country = {
-                limit = {
-                    is_in_array = {
-                        array = global.favor_mechanic
-                        value = THIS.id
-                    }
-                    NOT = { has_global_flag = weekly_favor_mechanic_frozen }
-                }
-                GRE_add_favor_weekly = yes
+            if = {
+                limit = { NOT={ has_global_flag = weekly_favor_mechanic_frozen }}
+                clear_array = global.favor_mechanic
+                clear_array = GRE.important_nations
+                every_country = { limit={ NOT={ original_tag=GRE }} add_to_array={ global.favor_mechanic=THIS.id } GRE_add_favor_weekly=yes check_to_add_to_important_nations=yes }
+            }
+        }
+        effect = {
+            if = {
+                limit={ spanish_civil_war_is_ongoing=yes }
+                calculate_schachtplan_decision_costs=yes
+            }
+        }
+        effect = {
+            if = {
+                limit={ mussolini_historical_tensions_with_greece=yes }
+                apply_on_actions_fluctuations_of_itagg_acceleration=yes
             }
         }
     }
     
-    on_daily_GRE = {                                                                                        ### This updates war strain when at war
+    on_daily_GRE = {
         effect = {
             if = {
                 limit = { has_country_flag=infl_mech_opened }
@@ -442,6 +356,131 @@ on_actions = {
         }
         effect = {
             if = {
+                limit={ check_variable={ GRE.ecall_bank_internal_steer_remaining_days>0 }}
+
+                set_temp_variable = { days_left=GRE.ecall_bank_internal_steer_end }
+                subtract_from_temp_variable = { days_left=GRE.ecall_bank_internal_steer_at }
+                set_temp_variable = { days_passed=global.num_days }
+                subtract_from_temp_variable = { days_passed=GRE.ecall_bank_internal_steer_at }
+                subtract_from_temp_variable = { days_left=days_passed }
+                set_variable = { GRE.ecall_bank_internal_steer_remaining_days=days_left }
+                set_variable = { GRE.ecall_bank_internal_steer_passed_days=days_passed }
+                set_variable = { GRE.ecall_bank_drift_immediate_cost=10 }
+                multiply_variable={ GRE.ecall_bank_drift_immediate_cost=GRE.ecall_bank_internal_steer_remaining_days }
+                if = {
+                    limit={ check_variable={ GRE.ecall_bank_internal_steer_passed_days=15 }}
+
+				    ecall_set_bank_shift_variables_internal=yes
+                    clear_variable = GRE.ecall_bank_internal_steer_remaining_days
+                    clear_variable = GRE.ecall_bank_internal_steer_passed_days
+                }
+            }
+        }
+        effect = {
+            if = {
+                limit={ check_variable={ GRE.ecall_bank_external_steer_remaining_days>0 }}
+
+                set_temp_variable = { days_left=GRE.ecall_bank_external_steer_end }
+                subtract_from_temp_variable = { days_left=GRE.ecall_bank_external_steer_at }
+                set_temp_variable = { days_passed=global.num_days }
+                subtract_from_temp_variable = { days_passed=GRE.ecall_bank_external_steer_at }
+                subtract_from_temp_variable = { days_left=days_passed }
+                set_variable = { GRE.ecall_bank_external_steer_remaining_days=days_left }
+                set_variable = { GRE.ecall_bank_external_steer_passed_days=days_passed }
+                set_variable = { GRE.ecall_bank_drift_immediate_cost=10 }
+                multiply_variable={ GRE.ecall_bank_drift_immediate_cost=GRE.ecall_bank_external_steer_remaining_days }
+                if = {
+                    limit={ check_variable={ GRE.ecall_bank_external_steer_passed_days=15 }}
+
+				    ecall_set_bank_shift_variables_external=yes
+                    clear_variable = GRE.ecall_bank_external_steer_remaining_days
+                    clear_variable = GRE.ecall_bank_external_steer_passed_days
+                }
+            }
+        }
+        effect = {
+            if = {
+                limit={ check_variable={ GRE.ecall_decrease_exports_remaining_days>0 }}
+
+                set_temp_variable = { days_left=GRE.ecall_decrease_exports_end }
+                subtract_from_temp_variable = { days_left=GRE.ecall_decrease_exports_at }
+                set_temp_variable = { days_passed=global.num_days }
+                subtract_from_temp_variable = { days_passed=GRE.ecall_decrease_exports_at }
+                subtract_from_temp_variable = { days_left=days_passed }
+                set_variable = { GRE.ecall_decrease_exports_remaining_days=days_left }
+                set_variable = { GRE.ecall_decrease_exports_passed_days=days_passed }
+                set_variable = { GRE.ecall_exports_drift_immediate_cost=10 }
+                multiply_variable={ GRE.ecall_exports_drift_immediate_cost=GRE.ecall_decrease_exports_remaining_days }
+                if = {
+                    limit={ check_variable={ GRE.ecall_decrease_exports_passed_days=15 }}
+
+				    ecall_set_ministry_shift_towards_less_exports=yes
+                    clear_variable = GRE.ecall_decrease_exports_remaining_days
+                    clear_variable = GRE.ecall_decrease_exports_passed_days
+                }
+            }
+        }
+        effect = {
+            if = {
+                limit={ check_variable={ GRE.ecall_increase_exports_remaining_days>0 }}
+
+                set_temp_variable = { days_left=GRE.ecall_increase_exports_end }
+                subtract_from_temp_variable = { days_left=GRE.ecall_increase_exports_at }
+                set_temp_variable = { days_passed=global.num_days }
+                subtract_from_temp_variable = { days_passed=GRE.ecall_increase_exports_at }
+                subtract_from_temp_variable = { days_left=days_passed }
+                set_variable = { GRE.ecall_increase_exports_remaining_days=days_left }
+                set_variable = { GRE.ecall_increase_exports_passed_days=days_passed }
+                set_variable = { GRE.ecall_exports_drift_immediate_cost=10 }
+                multiply_variable={ GRE.ecall_exports_drift_immediate_cost=GRE.ecall_increase_exports_remaining_days }
+                if = {
+                    limit={ check_variable={ GRE.ecall_increase_exports_passed_days=15 }}
+
+				    ecall_set_ministry_shift_towards_more_exports=yes
+                    clear_variable = GRE.ecall_increase_exports_remaining_days
+                    clear_variable = GRE.ecall_increase_exports_passed_days
+                }
+            }
+        }
+        effect = {
+            if = {
+                limit={ check_variable={ GRE.ecall_economy_upgrade_remaining_days>0 }}
+
+                set_temp_variable = { days_left=GRE.ecall_economy_upgrade_end }
+                subtract_from_temp_variable = { days_left=GRE.ecall_economy_upgrade_at }
+                set_temp_variable = { days_passed=global.num_days }
+                subtract_from_temp_variable = { days_passed=GRE.ecall_economy_upgrade_at }
+                subtract_from_temp_variable = { days_left=days_passed }
+                set_variable = { GRE.ecall_economy_upgrade_remaining_days=days_left }
+                set_variable = { GRE.ecall_economy_upgrade_passed_days=days_passed }
+                #########################
+                set_temp_variable = { base_days=12 }
+                set_temp_variable = { upg=GRE.ecall_economy_upgrade_passed_days }
+                modulo_temp_variable = { upg=12 }
+                subtract_from_temp_variable = { base_days=upg }
+                set_variable={ GRE.ecall_economy_batch_upgrade_in=base_days }
+                ########################
+                if={ 
+                    limit={ check_variable={ GRE.ecall_economy_upgrade_passed_days>1 } check_variable={ upg=0 }}
+
+                    ecall_upgrade_economy_rate=yes
+                    subtract_from_variable={ GRE.ecall_economy_upgrade_batches_left=1 }
+                }
+                set_variable = { GRE.ecall_economy_immediate_cost=50 }
+                multiply_variable={ GRE.ecall_economy_immediate_cost=GRE.ecall_economy_upgrade_batches_left }
+                if = {
+                    limit={ check_variable={ GRE.ecall_economy_upgrade_passed_days=60 }}
+
+                    add_to_variable = { GRE.economy_level=1 }
+                    clear_variable = GRE.ecall_economy_upgrade_remaining_days
+                    clear_variable = GRE.ecall_economy_upgrade_passed_days
+                    clear_variable = GRE.ecall_economy_upgrade_batches_left
+                    clear_variable = GRE.ecall_economy_batch_upgrade_in
+                }
+            }
+        }
+        effect = {
+            if = {
                 limit = { has_dynamic_modifier = { modifier = GRE_war_strain } }
                 GRE_update_strain_on_industry = yes
             }
@@ -452,7 +491,6 @@ on_actions = {
                     OR = {
                         check_variable = { modifier@axal_modifier_token > 0 }
                         check_variable = { modifier@alax_modifier_token > 0 }
-                        #check_variable = { modifier@neut_modifier_token > 0 }
                     }
                 }
                 add_to_variable = { GRE.axal = modifier@axal_modifier_token }
@@ -464,7 +502,7 @@ on_actions = {
             if = {
                 limit = { check_variable = { modifier@neut_modifier_token > 0 } }
                 if = { 
-                    limit = { check_variable = { GRE.axal < 50 } }
+                    limit = { check_variable={ GRE.axal < 50 }}
                     add_to_variable = { GRE.axal = modifier@neut_modifier_token }
                 }
                 else = {
@@ -478,7 +516,7 @@ on_actions = {
             if = { limit = { date > 1940.10.28 trigger_italian_war_event=yes } ITA = { country_event = { id = hellas.97 days = 0 } } }
         }
         effect = {
-            if = { 
+            if = {
                 limit = { has_country_flag = GRE_faction_gui_flag }
                 find_total_and_faction_weight_of_ideology_characters = yes
                 find_num_weight_of_ideology_characters = yes

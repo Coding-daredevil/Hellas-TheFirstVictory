@@ -15,3 +15,133 @@ ecall_calculate_debt_modifier_token = {
     subtract_from_temp_variable = { dmod=modifier@base_debt_modifier_token }
     clamp_temp_variable = { var=dmod min=0 max=1 }
 }
+
+ecall_set_bank_shift_variables_internal = {
+    add_to_variable={ ecall_bank_shift=1 }
+    add_to_variable={ tsou_cgf=-0.05 } 
+    add_to_variable={ tsou_mon=0.05 } 
+    add_to_variable={ tsou_dem=0.05 } 
+    add_to_variable={ tsou_com=0.05 } 
+    add_to_variable={ tsou_fas=0.05 } 
+    add_to_variable={ tsou_debt=-0.05 } 
+    add_to_variable={ tsou_infl=-0.05 } 
+    add_to_variable={ tsou_opi=-0.05 } 
+}
+
+ecall_set_bank_shift_variables_external = {
+    subtract_from_variable={ ecall_bank_shift=1 }
+    add_to_variable={ tsou_cgf=0.05 } 
+    add_to_variable={ tsou_mon=-0.05 } 
+    add_to_variable={ tsou_dem=-0.05 } 
+    add_to_variable={ tsou_com=-0.05 } 
+    add_to_variable={ tsou_fas=-0.05 } 
+    add_to_variable={ tsou_debt=0.05 } 
+    add_to_variable={ tsou_infl=0.05 } 
+    add_to_variable={ tsou_opi=0.05 } 
+}
+
+ecall_set_ministry_shift_towards_less_exports = {
+    add_to_variable={ ecall_ministry_shift=1 }
+    add_to_variable={ pa_apostolidis_me = -0.05 }
+    add_to_variable={ pa_apostolidis_to = -0.10 }
+}
+
+ecall_set_ministry_shift_towards_more_exports = {
+    subtract_from_variable={ ecall_ministry_shift=1 }
+    add_to_variable={ pa_apostolidis_me = 0.05 }
+    add_to_variable={ pa_apostolidis_to = 0.10 }
+}
+
+ecall_upgrade_economy_rate = {
+    if = {
+        limit={ check_variable={ GRE.economy_level=0 }}
+
+        subtract_from_variable={ gre_rep_cgf = 0.01 }
+        add_to_variable={ gre_rep_psic = 0.04 }
+        add_to_variable={ gre_rep_psaf = 0.04 }
+        add_to_variable={ gre_rep_cccm = 0.06 }
+        add_to_variable={ gre_rep_ccmc = 0.06 }
+        add_to_variable={ gre_rep_mff = 0.05 }
+        add_to_variable={ gre_rep_fgf = 0.015 }
+    }
+    else_if = {
+        limit={ check_variable={ GRE.economy_level=1 }}
+
+        subtract_from_variable={ gre_rep_cgf = 0.01 }
+        add_to_variable={ gre_rep_psic = 0.02 }
+        add_to_variable={ gre_rep_psaf = 0.04 }
+        add_to_variable={ gre_rep_cccm = 0.02 }
+        add_to_variable={ gre_rep_ccmc = 0.02 }
+        add_to_variable={ gre_rep_fgf = 0.015 }
+    }
+    else_if = {
+        limit={ check_variable={ GRE.economy_level=2 }}
+
+        subtract_from_variable={ gre_rep_cgf = 0.01 }
+        add_to_variable={ gre_rep_psaf = 0.02 }
+        add_to_variable={ gre_rep_cccm = 0.02 }
+        add_to_variable={ gre_rep_ccmc = 0.02 }
+        add_to_variable={ gre_rep_fgf = 0.02 }
+    }
+    else_if = {
+        limit={ check_variable={ GRE.economy_level=3 }}
+
+        subtract_from_variable={ gre_rep_cgf = 0.02 }
+        add_to_variable={ gre_rep_psaf = 0.02 }
+        add_to_variable={ gre_rep_cccm = 0.02 }
+        add_to_variable={ gre_rep_ccmc = 0.02 }
+        subtract_from_variable={ gre_rep_con = 0.006 }
+    }
+}
+
+ecall_upgrade_economy_immediate = {
+    if = {
+        limit={ check_variable={ GRE.economy_level=0 }}
+
+        set_variable={ gre_rep_cgf = 0.30 }
+        set_variable={ gre_rep_psic = -0.10 }
+        set_variable={ gre_rep_psaf = -0.10 }
+        set_variable={ gre_rep_cccm = 0.0 }
+        set_variable={ gre_rep_ccmc = 0.0 }
+        set_variable={ gre_rep_mff = 0.0 }
+        set_variable={ gre_rep_fgf = -0.25 }
+        set_variable={ gre_rep_con = 0.0 }
+    }
+    else_if = {
+        limit={ check_variable={ GRE.economy_level=1 }}
+
+        set_variable={ gre_rep_cgf = 0.25 }
+        set_variable={ gre_rep_psic = 0.0 }
+        set_variable={ gre_rep_psaf = 0.10 }
+        set_variable={ gre_rep_cccm = 0.10 }
+        set_variable={ gre_rep_ccmc = 0.10 }
+        set_variable={ gre_rep_mff = 0.0 }
+        set_variable={ gre_rep_fgf = -0.10 }
+        set_variable={ gre_rep_con = 0.0 }
+    }
+    else_if = {
+        limit={ check_variable={ GRE.economy_level=2 }}
+
+        set_variable={ gre_rep_cgf = 0.20 }
+        set_variable={ gre_rep_psic = 0.00 }
+        set_variable={ gre_rep_psaf = 0.20 }
+        set_variable={ gre_rep_cccm = 0.20 }
+        set_variable={ gre_rep_ccmc = 0.20 }
+        set_variable={ gre_rep_mff = 0.0 }
+        set_variable={ gre_rep_fgf = 0.0 }
+        set_variable={ gre_rep_con = 0.0 }
+    }
+    else_if = {
+        limit={ check_variable={ GRE.economy_level=3 }}
+
+        set_variable={ gre_rep_cgf = 0.10 }
+        set_variable={ gre_rep_psic = 0.00 }
+        set_variable={ gre_rep_psaf = 0.30 }
+        set_variable={ gre_rep_cccm = 0.30 }
+        set_variable={ gre_rep_ccmc = 0.30 }
+        set_variable={ gre_rep_mff = 0.0 }
+        set_variable={ gre_rep_fgf = 0.0 }
+        set_variable={ gre_rep_con = -0.03 }
+    }
+    add_to_variable={ GRE.economy_level=1 }
+}

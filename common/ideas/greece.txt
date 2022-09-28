@@ -189,7 +189,7 @@ ideas = {
             modifier = {
                 political_power_gain = 0.25
                 monthly_population = 0.5
-                stability_factor = 0.1
+                stability_factor = 0.05
             }     
         }
         
@@ -737,7 +737,7 @@ ideas = {
             
             on_remove = {
                 add_ideas = GRE_arms_deal_1
-                set_variable = { GRE_gold_reserves = 2 }
+                set_variable = { GRE.gold_reserves = 2 }
             }
             
 			picture = gre_arms_deal
@@ -765,7 +765,7 @@ ideas = {
             
             on_remove = {
                 add_ideas = GRE_arms_deal_2
-                set_variable = { GRE_gold_reserves = 1 }
+                set_variable = { GRE.gold_reserves = 1 }
             }
             
 			picture = gre_arms_deal
@@ -792,7 +792,7 @@ ideas = {
             }
             
             on_remove = {
-                set_variable = { GRE_gold_reserves = 0 }
+                set_variable = { GRE.gold_reserves = 0 }
             }
             
 			picture = gre_arms_deal
@@ -866,7 +866,7 @@ ideas = {
 				stability_weekly = 0.005
 				political_power_gain = 0.25
 			}
-		}        
+		}
 
 		GRE_no_industrilization = {
 				
@@ -908,7 +908,7 @@ ideas = {
 				
 			modifier = {
 				consumer_goods_factor = -0.02
-                monthly_population = 0.25
+                monthly_population = 1.00
 				political_power_gain = 0.25
 			}
 		}
@@ -1032,95 +1032,62 @@ ideas = {
 		}
 
 		GRE_schachtplan = {
-				
-			allowed = {
-				original_tag = GRE
-				NOT = {
-					has_war_with = GER
-				}
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-            
-            cancel = {
-                has_war_with = GER
-            }
-
+			allowed = { original_tag=GRE }
+			allowed_civil_war = { always=yes }
+            cancel = { has_war_with=GER }
 			picture = gre_schachtplan
-				
 			removal_cost = -1
+
+			targeted_modifier = { 
+				tag=GER 
+				extra_trade_to_target_factor=0.50 
+				trade_cost_for_target_factor=-0.25
+			}
 				
 			modifier = {
-				economy_cost_factor = 0.25
-				trade_laws_cost_factor = 0.25
-				min_export = 0.3
-				consumer_goods_factor = -0.1			
+				axal_modifier_token = 0.06
+				consumer_goods_factor = -0.10
 			}
 		}
 
 		GRE_schachtplan_modified = {
-				
-			allowed = {
-				original_tag = GRE
-				NOT = {
-					has_war_with = GER
-				}
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-            
-            cancel = {
-                has_war_with = GER
-            }
-
+			allowed = { original_tag=GRE }
+			allowed_civil_war = { always=yes }
+            cancel = { has_war_with=GER }
 			picture = gre_schachtplan2
-				
 			removal_cost = -1
+
+			targeted_modifier = { 
+				tag=GER 
+				extra_trade_to_target_factor=0.25
+			}
 				
 			modifier = {
+				axal_modifier_token = 0.04
 				consumer_goods_factor = -0.05
-				min_export = 0.1				
 			}
 		}
 
-		GRE_schachtplan_fascistised = {
-				
-			allowed = {
-				original_tag = GRE
-				NOT = {
-					has_war_with = GER
-				}
-			}
-            
-            cancel = {
-                has_war_with = GER
-            }
+		GRE_schachtplan_stabilized = {
+			allowed = { original_tag=GRE }
+			allowed_civil_war = { always=yes }
+            cancel = { has_war_with=GER }
+			picture = gre_schachtplan3
+			removal_cost = -1
             
             on_remove = {
                 if = {
-                    limit = {
-                        has_completed_focus = GRE_tariff
-                    }
-                add_ideas = GRE_schachtplan_incorporated
+                    limit = { has_completed_focus=GRE_tariff } 
+					add_ideas = GRE_schachtplan_incorporated
                 }
             }
-            
-			allowed_civil_war = {
-				always = yes
-			}
 
-			picture = gre_schachtplan3
-				
-			removal_cost = -1
+			targeted_modifier = { tag=GER  extra_trade_to_target_factor=0.10 }
 				
 			modifier = {
-				stability_factor = 0.04
-				min_export = -0.1
-				consumer_goods_factor = -0.05			
+				axal_modifier_token = 0.02
+				stability_factor = 0.025
+				consumer_goods_factor = -0.025
 			}
 		}
         
@@ -1217,9 +1184,8 @@ ideas = {
 			removal_cost = -1
 				
 			modifier = {
-				stability_factor = 0.04
-				min_export = -0.1
-				consumer_goods_factor = -0.05			
+				stability_factor = 0.05
+				consumer_goods_factor = -0.01
 			}
 		}
 
@@ -1342,7 +1308,6 @@ ideas = {
 			removal_cost = -1
 				
 			modifier = {
-				stability_factor = -0.05
 				neutrality_drift = 0.01
 			}
 		}
@@ -1380,16 +1345,15 @@ ideas = {
             
             modifier = {
                 political_power_cost = 0.2
-                party_popularity_stability_factor = -0.4
-                democratic_acceptance = 5
-                communism_acceptance = 5
-                fascism_acceptance = 5 
-                neutrality_acceptance = 5
                 civilian_intel_to_others = 75
                 army_intel_to_others = 50
                 navy_intel_to_others = 50
                 airforce_intel_to_others = 50
-                intelligence_agency_defense = -0.5
+				intelligence_agency_defense = -0.5
+                #democratic_acceptance = 5
+                #communism_acceptance = 5
+                #fascism_acceptance = 5 
+                #neutrality_acceptance = 5
             }   
         }
 
@@ -1409,11 +1373,10 @@ ideas = {
             
             modifier = {
                 political_power_cost = 0.1
-                party_popularity_stability_factor = -0.2
-                democratic_acceptance = 2
-                communism_acceptance = 2
-                fascism_acceptance = 2 
-                neutrality_acceptance = 2
+                #democratic_acceptance = 2
+                #communism_acceptance = 2
+                #fascism_acceptance = 2 
+                #neutrality_acceptance = 2
                 civilian_intel_to_others = 50
                 army_intel_to_others = 25
                 navy_intel_to_others = 25
@@ -1595,13 +1558,12 @@ ideas = {
 			removal_cost = -1
 				
 			modifier = {
-				trade_laws_cost_factor = 1
-				economy_cost_factor	= 1
+				trade_laws_cost_factor = 2
+				economy_cost_factor	= 2
 				consumer_goods_factor = 0.2
                 min_export = 0.5
-                stability_factor = -0.2
-				party_popularity_stability_factor = -0.8
-                state_resources_factor = -0.4
+                stability_factor = -0.25
+				party_popularity_stability_factor = -1
 				trade_opinion_factor = 0.25
 			}
 		}
@@ -1621,13 +1583,12 @@ ideas = {
 			removal_cost = -1
 				
 			modifier = {
-				trade_laws_cost_factor = 0.80
-				economy_cost_factor	= 0.80
-				consumer_goods_factor = 0.15
-                min_export = 0.4
-                stability_factor = -0.15
-				party_popularity_stability_factor = -0.6
-                state_resources_factor = -0.3
+				trade_laws_cost_factor = 1.5
+				economy_cost_factor	= 1.5
+				consumer_goods_factor = 0.20
+                min_export = 0.2
+                stability_factor = -0.20
+				party_popularity_stability_factor = -0.75
 				trade_opinion_factor = 0.25
 			}
 		}
@@ -1647,13 +1608,12 @@ ideas = {
 			removal_cost = -1
 				
 			modifier = {
-				trade_laws_cost_factor = 0.60
-				economy_cost_factor	= 0.60
+				trade_laws_cost_factor = 1.25
+				economy_cost_factor	= 1.25
 				consumer_goods_factor = 0.10
-                min_export = 0.3
-                stability_factor = -0.1
-				party_popularity_stability_factor = -0.4
-                state_resources_factor = -0.2
+                min_export = 0.15
+                stability_factor = -0.15
+				party_popularity_stability_factor = -0.5
 				trade_opinion_factor = 0.25
 			}
 		}
@@ -1673,13 +1633,12 @@ ideas = {
 			removal_cost = -1
 				
 			modifier = {
-				trade_laws_cost_factor = 0.40
-				economy_cost_factor	= 0.40
+				trade_laws_cost_factor = 1
+				economy_cost_factor	= 1
 				consumer_goods_factor = 0.05
-                min_export = 0.2
-                stability_factor = -0.05
-				party_popularity_stability_factor = -0.2
-                state_resources_factor = -0.10
+                min_export = 0.10
+                stability_factor = -0.15
+				party_popularity_stability_factor = -0.25
 				trade_opinion_factor = 0.25
                 research_speed_factor = 0.02
 			}
@@ -1726,7 +1685,7 @@ ideas = {
 			removal_cost = -1
 				
 			modifier = {
-				stability_factor = 0.05	
+				stability_factor = 0.025
                 stability_weekly = 0.002
 				political_power_factor	= 0.05
 				consumer_goods_factor = 0.05
@@ -1753,7 +1712,7 @@ ideas = {
 			removal_cost = -1
 				
 			modifier = {
-				stability_factor = 0.10	
+				stability_factor = 0.05
                 stability_weekly = 0.004
 				political_power_factor	= 0.10
 				consumer_goods_factor = 0.10
@@ -1780,7 +1739,7 @@ ideas = {
 			removal_cost = -1
 				
 			modifier = {
-				stability_factor = 0.10	
+				stability_factor = 0.05
                 stability_weekly = 0.004
 				political_power_factor	= 0.10
                 custom_modifier_tooltip = GRE_booming_tourism_2_tt

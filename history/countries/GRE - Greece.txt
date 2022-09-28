@@ -32,11 +32,11 @@ set_technology = {
 	tech_recon = 1
 	gw_artillery = 1
 	trench_warfare = 1
-	early_fighter = 1
-	early_bomber = 1
-	fuel_silos = 1
-	synth_oil_experiments = 1
-	basic_train = 1
+	#early_fighter = 1
+	#early_bomber = 1
+	#fuel_silos = 1
+	#synth_oil_experiments = 1
+	#basic_train = 1
 }
 if = {
 	limit = { not = { has_dlc = "Man the Guns" } }
@@ -70,113 +70,98 @@ if = {
 	}
 }
 1936.1.1 = {
-	if = {
-		limit = { has_dlc = "Battle for the Bosporus" }
-		add_opinion_modifier = { 
-			target = ROM
-			modifier = BFTB_balkan_pact_ally
-		}
-		add_opinion_modifier = { 
-			target = TUR
-			modifier = BFTB_balkan_pact_ally
-		}
-		add_opinion_modifier = { 
-			target = YUG
-			modifier = BFTB_balkan_pact_ally
-		}
-		add_opinion_modifier = { 
-			target = BUL
-			modifier = BFTB_balkan_pact_enemy
-		}
-		add_opinion_modifier = { 
-			target = HUN
-			modifier = BFTB_balkan_pact_enemy
-		}
-        set_country_flag = GRE_grecoitalian_diplomatic_games_still_relevant
-		###########################[ The Greek Army ]###########################
-		add_dynamic_modifier = { modifier = GRE_the_army_dyn }
-        #########################[ War Strain Mechanic ]########################
-        add_dynamic_modifier = { modifier = GRE_war_strain }
-		######################[ Hidden Economical Policy]#######################
-		add_dynamic_modifier = { modifier = GRE_real_economy_policy }
-		set_variable = { gre_rep_cgf = 0.35 }
-		set_variable = { gre_rep_psic = -0.3 }
-		set_variable = { gre_rep_psaf = -0.3 }
-		set_variable = { gre_rep_cccm = 0.3 }
-		set_variable = { gre_rep_ccmc = 0.3 }
-		set_variable = { gre_rep_mff = -0.25 }
-		set_variable = { gre_rep_fgf = -0.4 }
-		set_variable = { gre_rep_con = 0 }
-        ###########################[ Debt to the I.F.C ]########################
-        add_dynamic_modifier = { modifier = GRE_debt_to_the_ifc_dyn }
-        set_variable = { debt_to_the_ifc_stb = -0.25 }
-        set_variable = { debt_to_the_ifc_cons = 0.2 }
-        ########################[ Inaccessible Regions ]########################
-        184 = { add_dynamic_modifier = { modifier = GRE_inaccessible_region } }
-        841 = { add_dynamic_modifier = { modifier = GRE_inaccessible_region } }
-        185 = { add_dynamic_modifier = { modifier = GRE_inaccessible_region } }
-        805 = { add_dynamic_modifier = { modifier = GRE_inaccessible_region } }
-        838 = { add_dynamic_modifier = { modifier = GRE_inaccessible_region } }
-        ##########################[ Bulgarian Claims ]##########################
-        184 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
-        839 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
-        731 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
-        840 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
-        841 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
-		add_ideas = {
-			export_focus
-			limited_conscription
-			the_greek_economical_enigma
-			GRE_george_ii
-			GRE_schachtplan
-			#GRE_political_instability
-            GRE_tied_to_foreign_investments
-            GRE_domestic_competition_0
-            GRE_domestic_competition_0_hidden
-			GRE_foreign_monopolies
-			GRE_agrarian_society
-            GRE_no_industrilization
-            GRE_neglected_army
-            GRE_debt_to_the_ifc
-            GRE_army_status_0
-            GRE_army_leadership_0
-            GRE_airforce_status_0
-            GRE_airforce_leadership_0
-            GRE_navy_status_0
-            GRE_navy_leadership_0
-            GRE_obsolescent_dogma
-            GRE_complete_lack_of_heavy_equipment
-		}
-
-        country_lock_all_division_template = yes
-		set_variable = { var = GRE.debt@ENG value = 100 }
-		set_variable = { var = GRE.debt@FRA value = 100 }
-		set_variable = { var = GRE.debt@ITA value = 100 }
-		set_variable = { gre_the_army_cp = 0.1 }
-		set_variable = { gre_the_army_cp_cost = 10 }
-		set_variable = { gre_the_army_cp_cost = 10 }
-		set_variable = { var = GRE_debt_to_the_ifc_paid_var value = 0 }
-
-		add_opinion_modifier = { 
-			target = GER
-			modifier = GRE_strong_trading_ties
-		}
-		GER = { 
-			add_opinion_modifier = { 
-				target = GRE
-				modifier = GRE_strong_trading_ties
-			}
-		}
+	add_opinion_modifier = { target=ROM modifier=BFTB_balkan_pact_ally }
+	add_opinion_modifier = { target=TUR modifier=BFTB_balkan_pact_ally }
+	add_opinion_modifier = { target=YUG modifier=BFTB_balkan_pact_ally }
+	add_opinion_modifier = { target=BUL modifier=BFTB_balkan_pact_enemy }
+	add_opinion_modifier = { target=HUN modifier=BFTB_balkan_pact_enemy }
+	set_country_flag = GRE_grecoitalian_diplomatic_games_still_relevant
+	###########################[ The Greek Army ]###########################
+	add_dynamic_modifier = { modifier = GRE_the_army_dyn }
+	##########################[ Agrarian Society ]##########################
+	add_dynamic_modifier = { modifier = GRE_agrarian_society_dyn }
+	set_variable = { gre_agr_mp = -0.50 }
+	set_variable = { gre_agr_cf = -0.50}
+	set_variable = { gre_agr_stbw = 0.005 }
+	set_variable = { gre_agr_ppg = 0.05 }
+	########################[ No Industrialization ]########################
+	add_dynamic_modifier = { modifier = GRE_no_industrilization_dyn }
+	set_variable = { gre_noi_gbs = -0.5 }
+	set_variable = { gre_noi_pfegf = -0.10 }
+	set_variable = { gre_noi_pfmef = -0.05 }
+	set_variable = { gre_noi_icd = -0.75 }
+	set_variable = { gre_noi_icf = -0.75 }
+	set_variable = { gre_noi_irf = -0.5 }
+	#########################[ War Strain Mechanic ]########################
+	add_dynamic_modifier = { modifier = GRE_war_strain }
+	######################[ Hidden Economical Policy]#######################
+	add_dynamic_modifier = { modifier = GRE_emmanouil_tsouderos_pa_dynamic }
+	add_dynamic_modifier = { modifier = GRE_andreas_apostolidis_pa_dynamic }
+	add_dynamic_modifier = { modifier = GRE_real_economy_policy }
+	set_variable = { gre_rep_cgf = 0.35 }
+	set_variable = { gre_rep_psic = -0.3 }
+	set_variable = { gre_rep_psaf = -0.3 }
+	set_variable = { gre_rep_cccm = 0.3 }
+	set_variable = { gre_rep_ccmc = 0.3 }
+	set_variable = { gre_rep_mff = -0.25 }
+	set_variable = { gre_rep_fgf = -0.4 }
+	set_variable = { gre_rep_con = 0 }
+	###########################[ Debt to the I.F.C ]########################
+	add_dynamic_modifier = { modifier = GRE_debt_to_the_ifc_dyn }
+	set_variable = { debt_to_the_ifc_stb = -0.25 }
+	set_variable = { debt_to_the_ifc_cons = 0.2 }
+	########################[ Inaccessible Regions ]########################
+	184 = { add_dynamic_modifier = { modifier = GRE_inaccessible_region } }
+	841 = { add_dynamic_modifier = { modifier = GRE_inaccessible_region } }
+	185 = { add_dynamic_modifier = { modifier = GRE_inaccessible_region } }
+	805 = { add_dynamic_modifier = { modifier = GRE_inaccessible_region } }
+	838 = { add_dynamic_modifier = { modifier = GRE_inaccessible_region } }
+	##########################[ Bulgarian Claims ]##########################
+	184 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
+	839 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
+	731 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
+	840 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
+	841 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
+	#########################[ Initialize EXOPOL ]##########################
+	add_to_array={ array=GRE.balkan_pact_members value=TUR.id }
+	add_to_array={ array=GRE.balkan_pact_members value=YUG.id }
+	add_to_array={ array=GRE.balkan_pact_members value=ROM.id }
+	for_each_scope_loop={ array=GRE.balkan_pact_members refresh_balkan_pact_desirability_gui_THIS=yes }
+	refresh_italian_escalation_and_acceleration = yes
+	########################################################################
+	add_ideas = {
+		export_focus
+		limited_conscription
+		the_greek_economical_enigma
+		GRE_george_ii
+		GRE_schachtplan
+		GRE_tied_to_foreign_investments
+		GRE_domestic_competition_0
+		GRE_domestic_competition_0_hidden
+		GRE_foreign_monopolies
+		GRE_neglected_army
+		GRE_debt_to_the_ifc
+		GRE_army_status_0
+		GRE_army_leadership_0
+		GRE_airforce_status_0
+		GRE_airforce_leadership_0
+		GRE_navy_status_0
+		GRE_navy_leadership_0
+		GRE_obsolescent_dogma
+		GRE_complete_lack_of_heavy_equipment
 	}
+	########################################################################
+	country_lock_all_division_template = yes
+	set_variable = { var = GRE.debt@ENG value = 100 }
+	set_variable = { var = GRE.debt@FRA value = 100 }
+	set_variable = { var = GRE.debt@ITA value = 100 }
+	set_variable = { gre_the_army_cp = 0.1 }
+	set_variable = { gre_the_army_cp_cost = 5 }
+	set_variable = { gre_the_army_cp_cost = 5 }
+	set_variable = { var = GRE_debt_to_the_ifc_paid_var value = 0 }
 
-	if = {
-		limit = { NOT = { has_dlc = "Battle for the Bosporus" } }
-		add_ideas = {
-			export_focus
-			limited_conscription
-			civilian_economy
-		}
-	}
+	add_opinion_modifier = { target=GER modifier=GRE_strong_trading_ties }
+	GER = { add_opinion_modifier={ target=GRE modifier=GRE_strong_trading_ties }}
 }
 
 set_convoys = 10
@@ -261,7 +246,7 @@ set_convoys = 10
 		set_country_flag = GRE_1936_election
 	}
 
-#generic focuses
+	#generic focuses
 	if = { 
 		limit = { NOT = { has_dlc = "Battle for the Bosporus" } } 	
 		complete_national_focus = army_effort
@@ -361,7 +346,7 @@ set_popularities = {
 	neutrality = 47.90
 }
 
-set_stability = 0.6
+set_stability = 1
 set_war_support = 0.25
 set_convoys = 100
 
@@ -591,29 +576,63 @@ add_to_array = { global.coc_advisor_first_array=0 }
 add_to_array = { global.coc_advisor_second_array=0 }
 add_to_array = { global.coc_advisor_second_array=0 }
 
+
+###################################################################################################
+####################################[                         ]####################################
+####################################[        INFLUENCE        ]####################################
+####################################[                         ]####################################
+###################################################################################################
+
+set_variable = { GRE.influence_radius=120 }
+
+GER = { set_variable = { favor@GRE = 2 	 }}
+ENG = { set_variable = { favor@GRE = 2 	 }}
+FRA = { set_variable = { favor@GRE = 1 	 }}
+ITA = { set_variable = { favor@GRE = -22 }}
+SOV = { set_variable = { favor@GRE = -2  }}
+ROM = { set_variable = { favor@GRE = 2 	 }}
+BUL = { set_variable = { favor@GRE = -24 }}                    
+YUG = { set_variable = { favor@GRE = 2   }}
+ALB = { set_variable = { favor@GRE = -2  }}
+
+add_to_array = { GRE.balkan_neighbors=TUR.id }
+add_to_array = { GRE.balkan_neighbors=BUL.id }
+add_to_array = { GRE.balkan_neighbors=ALB.id }
+add_to_array = { GRE.balkan_neighbors=YUG.id }
+add_to_array = { GRE.balkan_neighbors=ROM.id }
+
+###################################################################################################
+####################################[                         ]####################################
+####################################[     ADVISOR - COMMAND   ]####################################
+####################################[                         ]####################################
+###################################################################################################
+
+set_variable = { GRE.available_advisor_slots=3 }
+set_variable = { GRE.available_hc_slots=3 }
+
 ###################################################################################################
 ####################################[                         ]####################################
 ####################################[        OPERATIVES       ]####################################
 ####################################[                         ]####################################
 ###################################################################################################
 
-if = {
-	limit = {
-		AND = {
-			has_dlc = "La Resistance"
-			has_dlc = "Battle for the Bosporus"
-		}
-	}
-	create_operative_leader = {
-		name = "Patrick Leigh Fermor"
-		GFX = GFX_portrait_eng_patrick_fermor
-		traits = { operative_tough operative_commando }
-		bypass_recruitment = no
-		available_to_spy_master = yes
-		female = no
-		nationalities = { ENG GRE }
-	}
-}
+#if = {
+#	limit = {
+#		AND = {
+#			has_dlc = "La Resistance"
+#			has_dlc = "Battle for the Bosporus"
+#		}
+#	}
+#	create_operative_leader = {
+#		name = "Patrick Leigh Fermor"
+#		GFX = GFX_portrait_eng_patrick_fermor
+#		traits = { operative_tough operative_commando }
+#		bypass_recruitment = no
+#		available_to_spy_master = yes
+#		female = no
+#		nationalities = { ENG GRE }
+#	}
+#}			THIS LITTLE CUNT CAUSED ME SO MANY PROBLEMS IT ALMOST BROKE THE ENTIRE INFLUENCE MECHANIC WITH OPERATIVES.
 
 
 ### VARIANTS ###

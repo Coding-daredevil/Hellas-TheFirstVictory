@@ -10,105 +10,96 @@ targeted_character_is_available_for_hire_as_political_advisor = {
     if = {
         limit={ check_variable={ token:GRE_kostas_kotzias=v }}
         has_country_flag = GRE_kathestos_proclaimed
-        targeted_character_not_psd=yes
-        custom_trigger_tooltip = { tooltip=GRE_kotzias_safe_removal_not GRE_kostas_kotzias={NOT={ has_character_flag=GRE_kotzias_safe_removal }}
-        }
+        custom_trigger_tooltip = { tooltip=GRE_kotzias_safe_removal_not GRE_kostas_kotzias={NOT={ has_character_flag=GRE_kotzias_safe_removal }}}
     }
     else_if = {
         limit={ check_variable={ token:GRE_alexandros_koryzis=v }}
         has_country_flag = GRE_kathestos_proclaimed
-        targeted_character_not_psd=yes
         has_completed_focus = GRE_laying_out_the_social_wellfare_plan
         NOT = { has_country_leader={ name="Aléxandros Koryzís" ruling_only=yes}}
     }
     else_if = {
         limit={ check_variable={ token:GRE_sitsa_karaiskaki=v }}
         has_country_flag = GRE_kathestos_proclaimed
-        targeted_character_not_psd=yes
         has_completed_focus = GRE_establish_propaganda
     }
     else_if = {
         limit={ check_variable={ token:GRE_nelly=v }}
         has_country_flag = GRE_kathestos_proclaimed
-        targeted_character_not_psd=yes
     }
     else_if = {
         limit={ check_variable={ token:GRE_alexandros_kanellopoulos=v }}
         has_country_flag = GRE_kathestos_proclaimed
-        targeted_character_not_psd=yes
         has_completed_focus = GRE_eon_2
         custom_trigger_tooltip = { tooltip=GRE_kanellopoulos_reforms_tt NOT={ has_idea=GRE_eon_kanellopoulos_year_2 }}
     }
     else_if = {
         limit={ check_variable={ token:GRE_achilleas_kyrou=v }}
         has_country_flag = GRE_kathestos_proclaimed
-        targeted_character_not_psd=yes
     }
     else_if = {
         limit={ check_variable={ token:GRE_eleftherios_venizelos=v }}
         has_country_flag = GRE_kathestos_proclaimed
-        targeted_character_not_psd=yes
     }
     else_if = {
         limit={ check_variable={ token:GRE_aristeidis_dimitratos=v }}
         has_country_flag = GRE_kathestos_proclaimed
-        targeted_character_not_psd=yes
         has_completed_focus = GRE_public_works
+    }
+    else_if = {
+        limit={ check_variable={ token:GRE_emmanouil_tsouderos=v }}
+        has_country_flag = GRE_kathestos_proclaimed
+        has_completed_focus = GRE_fiscal_responsibility
     }
     else_if = {
         limit={ check_variable={ token:GRE_andreas_apostolidis=v }}
         has_country_flag = GRE_kathestos_proclaimed
-        targeted_character_not_psd=yes
         has_completed_focus = GRE_fiscal_responsibility
     }
     else_if = {
         limit={ check_variable={ token:GRE_theodoros_tourkovasilis=v }}
         has_country_flag = GRE_kathestos_proclaimed
-        targeted_character_not_psd=yes
     }
     else_if = {
         limit={ check_variable={ token:GRE_konstantinos_bastias=v }}
         has_country_flag = GRE_kathestos_proclaimed
-        targeted_character_not_psd=yes
     }
     else_if = {
         limit={ check_variable={ token:GRE_pantelis_prevelakis=v }}
         has_country_flag = GRE_kathestos_proclaimed
-        targeted_character_not_psd=yes
     }
     else_if = {
         limit={ check_variable={ token:GRE_archbishop_chrysanthos=v }}
         has_country_flag = GRE_kathestos_proclaimed
-        targeted_character_not_psd=yes
         has_country_flag = archbishop_chrysanthos_elected
     }
     else_if = {
         limit={ check_variable={ token:GRE_archbishop_damaskinos=v }}
-        targeted_character_not_psd=yes
         GRE = { OR = { AND={ has_axis_occupation=yes has_completed_focus=GRE_oust_chrysanthus_for_damaskinos} has_country_flag=archbishop_damaskinos_elected }}
     }
     else_if = {
         limit={ check_variable={ token:GRE_prodromos_bodosakis=v }}
         has_country_flag = GRE_kathestos_proclaimed
-        targeted_character_not_psd=yes
     }
+    else = { always=no }
+    #targeted_character_not_psd=yes
 }
 
 targeted_character_is_available_for_hire_in_high_command = {
     # Similar to above, I splitted these for future-proof in case I wanted to give some characters multiple roles in alt-hist.
     
     if = {
-        limit={ targeted_character_is_possible_high_command_hire=yes targeted_character_not_hired_in_other_role=yes }
+        limit={ targeted_character_is_possible_high_command_hire=yes }
         has_political_power>100
     }
-    else = { always=yes }
+    else = { always=no }
 }
 
 targeted_character_is_available_for_hire_as_chief = {
     # Similar to above, I splitted these for future-proof in case I wanted to give some characters multiple roles in alt-hist.
     
     if = {
-        limit={ targeted_character_is_possible_chief_hire=yes targeted_character_not_hired_in_other_role=yes if={limit={ targeted_character_is_army=yes } targeted_character_is_field_marshal=yes }}
+        limit={ targeted_character_is_possible_chief_hire=yes if={limit={ targeted_character_is_army=yes } targeted_character_is_field_marshal=yes }}
         has_political_power>100
     }
     else = { always=no }
@@ -117,21 +108,32 @@ targeted_character_is_available_for_hire_as_chief = {
 targeted_character_is_dead = { meta_trigger = { text = { any_character = { is_character=[CHARACTER_ID] check_variable = { dead=1 }}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]" }}
 targeted_character_is_purged = { meta_trigger = { text = { any_character = { is_character=[CHARACTER_ID] check_variable = { purged=1 }}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]" }}
 targeted_character_has_surrendered = { meta_trigger = { text = { any_character = { is_character=[CHARACTER_ID] check_variable = { surrendered=1 }}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}}
+targeted_character_not_psd_cscope = { check_variable={ dead=0 } check_variable={ purged=0 } check_variable={ surrendered=0 }}
+targeted_character_not_psd_cscope_withtt = { custom_trigger_tooltip={ tooltip=not_purged_surrendered_dead check_variable={ dead=0 } check_variable={ purged=0 } check_variable={ surrendered=0 }}}
+targeted_character_is_psd_cscope = { OR={ check_variable={ dead=1 } check_variable={ purged=1 } check_variable={ surrendered=1 }}}
 targeted_character_not_psd = { custom_trigger_tooltip={ tooltip=not_purged_surrendered_dead meta_trigger={ text={ any_character={ is_character=[CHARACTER_ID]  check_variable={ dead=0 } check_variable={ purged=0 } check_variable={ surrendered=0 }}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}}}
 targeted_character_is_army = { meta_trigger = { text = { any_character = { is_character=[CHARACTER_ID] check_variable = { mbranch=1 }}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}}
 targeted_character_is_navy = { meta_trigger = { text = { any_character = { is_character=[CHARACTER_ID] check_variable = { mbranch=2 }}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}}
-targeted_character_is_air  = { meta_trigger = { text = { any_character = { is_character=[CHARACTER_ID] check_variable = { mbranch=3 }}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}}
+targeted_character_is_air = { meta_trigger = { text = { any_character = { is_character=[CHARACTER_ID] check_variable = { mbranch=3 }}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}}
 targeted_character_is_possible_high_command_hire = { meta_trigger = { text = { any_character = { is_character=[CHARACTER_ID] is_high_command=yes }} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}}
 targeted_character_is_possible_chief_hire = { meta_trigger = { text = { any_character = { is_character=[CHARACTER_ID] OR={ is_army_chief=yes is_navy_chief=yes is_air_chief=yes }}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}}
 targeted_character_is_field_marshal = { meta_trigger = { text = { any_character = { is_character=[CHARACTER_ID] is_field_marshal=yes }} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}}
 targeted_character_not_hired_in_other_role = { meta_trigger = { text = { any_character = { is_character=[CHARACTER_ID] NOT={ GRE={ OR={ has_idea=[CHARACTER_ID]_political_advisor  has_idea=[CHARACTER_ID]_hca  has_idea=[CHARACTER_ID]_chief }}}}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}}
-
+targeted_character_hired_in_high_command = { meta_trigger = { text = { any_character = { is_character=[CHARACTER_ID] GRE={ has_idea=[CHARACTER_ID]_hca }}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}}
+targeted_character_hired_as_chief = { meta_trigger = { text = { any_character = { is_character=[CHARACTER_ID] GRE={ has_idea=[CHARACTER_ID]_chief }}} CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]"}}
+##[Alternative Triggers]##
+# Since the game is really weirded out on checking 'activated' ideas that do not exist in its database, we can check if characters are in the arrays instead.
+targeted_character_not_hired_in_other_role_altn = { 
+    hidden_trigger = {
+        NOT={OR={ is_in_array={array=global.coc_advisor_first_array value=v } is_in_array={array=global.coc_advisor_second_array value=v } is_in_array={array=global.coc_side_array value=v } is_in_array={array=global.coc_head_array value=v }}}
+        NOT={OR={ is_in_array={array=global.gov_advisor_first_array value=v } is_in_array={array=global.gov_advisor_second_array value=v } is_in_array={array=global.gov_side_array value=v } is_in_array={array=global.gov_head_array value=v }}}
+    }
+}
 
 
 has_pp_for_targeted_character = { 
     hidden_trigger = {
         meta_trigger = {
-            debug=yes 
             text = {
                 any_character = {
                     is_character=[CHARACTER_ID]
@@ -140,7 +142,37 @@ has_pp_for_targeted_character = {
             } 
             CHARACTER_ID = "[THIS.GetCharacterIDfromTOKEN]" 
             REQ_PP = "[GetCharacterAdvisorCost]" 
-        } 
+        }
+        if = {
+            limit = { check_variable={ type_of_advisor=1 }}
+            set_temp_variable = { reductor=1 }
+            add_to_temp_variable = { reductor=GRE.modifier@political_advisor_cost_factor }
+            multiply_temp_variable = { ppcost=reductor }
+        }
+        else_if = {
+            limit = { check_variable={ type_of_advisor=2 }}
+            set_temp_variable = { reductor=1 }
+            add_to_temp_variable = { reductor=GRE.modifier@high_command_cost_factor }
+            multiply_temp_variable = { ppcost=reductor }
+        }
+        else_if = {
+            limit = { check_variable={ type_of_advisor=3 }}
+            set_temp_variable = { reductor=1 }
+            add_to_temp_variable = { reductor=GRE.modifier@army_chief_cost_factor }
+            multiply_temp_variable = { ppcost=reductor }
+        }
+        else_if = {
+            limit = { check_variable={ type_of_advisor=4 }}
+            set_temp_variable = { reductor=1 }
+            add_to_temp_variable = { reductor=GRE.modifier@navy_chief_cost_factor }
+            multiply_temp_variable = { ppcost=reductor }
+        }
+        else_if = {
+            limit = { check_variable={ type_of_advisor=5 }}
+            set_temp_variable = { reductor=1 }
+            add_to_temp_variable = { reductor=GRE.modifier@air_chief_cost_factor }
+            multiply_temp_variable = { ppcost=reductor }
+        }
     }
     if={limit={check_variable={ ppcost>0}} has_political_power>ppcost}
 }
