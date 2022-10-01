@@ -8,6 +8,17 @@ if = {
 		set_naval_oob = "GRE_1936_naval_legacy"
 	}
 }
+if = {
+	limit = { has_dlc = "By Blood Alone" }
+		set_air_oob = "GRE_1936_air_bba"
+	else = {
+		set_air_oob = "GRE_1936_air_legacy"
+		set_technology = {
+			early_fighter = 1
+			early_bomber = 1
+		}
+	}
+}
 
 ###################
 #### 3D MODELS ####
@@ -20,8 +31,6 @@ if = {
 #GRE_neutrality
 set_cosmetic_tag = GRE_neutrality
 
-
-
 set_research_slots = 3
 
 set_technology = {
@@ -32,11 +41,6 @@ set_technology = {
 	tech_recon = 1
 	gw_artillery = 1
 	trench_warfare = 1
-	#early_fighter = 1
-	#early_bomber = 1
-	#fuel_silos = 1
-	#synth_oil_experiments = 1
-	#basic_train = 1
 }
 if = {
 	limit = { not = { has_dlc = "Man the Guns" } }
@@ -61,7 +65,6 @@ if = {
 		early_ship_hull_cruiser = 1
 		early_ship_hull_heavy = 1
 		basic_battery = 1
-		basic_secondary_battery = 1
 		basic_cruiser_armor_scheme = 1
 		basic_torpedo = 1
 		coastal_defense_ships = 1
@@ -112,16 +115,16 @@ if = {
 	set_variable = { debt_to_the_ifc_cons = 0.2 }
 	########################[ Inaccessible Regions ]########################
 	184 = { add_dynamic_modifier = { modifier = GRE_inaccessible_region } }
-	841 = { add_dynamic_modifier = { modifier = GRE_inaccessible_region } }
+	915 = { add_dynamic_modifier = { modifier = GRE_inaccessible_region } }
 	185 = { add_dynamic_modifier = { modifier = GRE_inaccessible_region } }
 	805 = { add_dynamic_modifier = { modifier = GRE_inaccessible_region } }
-	838 = { add_dynamic_modifier = { modifier = GRE_inaccessible_region } }
+	912 = { add_dynamic_modifier = { modifier = GRE_inaccessible_region } }
 	##########################[ Bulgarian Claims ]##########################
 	184 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
-	839 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
+	913 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
 	731 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
-	840 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
-	841 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
+	914 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
+	915 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
 	#########################[ Initialize EXOPOL ]##########################
 	add_to_array={ array=GRE.balkan_pact_members value=TUR.id }
 	add_to_array={ array=GRE.balkan_pact_members value=YUG.id }

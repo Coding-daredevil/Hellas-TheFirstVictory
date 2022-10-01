@@ -1,4 +1,4 @@
-version="1.10.8"
+version="1.12.1"
 tags={
 	"Balance"
 	"Map"
@@ -7,4 +7,4 @@ tags={
 	"Fixes"
 }
 name="Hellas"
-supported_version="1.10.8"
+supported_version="1.12.1"

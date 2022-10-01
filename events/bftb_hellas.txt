@@ -499,13 +499,13 @@ country_event = {                   ###METAX LINE SMALL
                     }
                 }
             }
-            840 = {
+            914 = {
                 if = {
                     limit = { is_controlled_by = ROOT }
                     add_building_construction = {
                         type = bunker
                         level = 3
-                        province = 13244
+                        province = 13265
                         instant_build = yes
                     }
                     add_building_construction = {
@@ -561,13 +561,13 @@ country_event = {               ###METAX LINE LONG
                     }
                 }
             }
-            840 = {
+            914 = {
                 if = {
                     limit = { is_controlled_by = ROOT }
                     add_building_construction = {
                         type = bunker
                         level = 6
-                        province = 13244
+                        province = 13265
                         instant_build = yes
                     }
                     add_building_construction = {
@@ -585,7 +585,7 @@ country_event = {               ###METAX LINE LONG
                     add_building_construction = {
                         type = bunker
                         level = 3
-                        province = 13243
+                        province = 13264
                         instant_build = yes
                     }
                 }
@@ -602,12 +602,12 @@ country_event = {               ###METAX LINE LONG
                     add_building_construction = {
                         type = bunker
                         level = 3
-                        province = 13242
+                        province = 13263
                         instant_build = yes
                     }
                 }
             }
-            841 = {
+            915 = {
                 if = {
                     limit = { is_controlled_by = ROOT }
                     add_building_construction = {
@@ -618,7 +618,7 @@ country_event = {               ###METAX LINE LONG
                     }
                 }
             }
-            838 = {
+            912 = {
                 if = {
                     limit = { is_controlled_by = ROOT }
                     add_building_construction = {
@@ -1612,7 +1612,7 @@ country_event = {                                                       #WARNING
         divisions_in_border_state = {
             type = infantry
             size > 2
-            state = 838
+            state = 912
             border_state = 805
         }
 		date > 1936.08.04
@@ -6224,7 +6224,7 @@ country_event = {
                 size = x
                 capital = 47
                 states = { 
-                    835 186 187
+                    909 186 187
                 }
                 keep_unit_leaders_trigger = {
                     has_trait = trait_GRE_stauch_monarchist_persona
@@ -6248,7 +6248,7 @@ country_event = {
                 size = x
                 capital = 47
                 states = {
-                    839 731 838 840
+                    913 731 912 914
                 }
                 keep_unit_leaders_trigger = {
                     has_trait = trait_GRE_stauch_republican_persona
@@ -6272,7 +6272,7 @@ country_event = {
                 size = x
                 capital = 47
                 states = {
-                    185 837 838
+                    185 911 912
                 }
                 keep_unit_leaders_trigger = {
                     has_trait = trait_GRE_stauch_communist_persona
@@ -6295,7 +6295,7 @@ country_event = {
                 size = x
                 capital = 47
                 states = {
-                    839 731
+                    913 731
                 }
                 keep_unit_leaders_trigger = {
                     has_trait = trait_GRE_stauch_fascist_persona
@@ -9169,7 +9169,7 @@ country_event = {                                                               
             OR = {
                 is_justifying_wargoal_against = GRE
                 focus_progress = {
-                    focus = ITA_greece_war_goal
+                    focus = ITA_war_with_greece
                     progress > 0.01
                 }
             }
@@ -9246,7 +9246,7 @@ country_event = {                                                               
     }
     option = {
         name = hellas.92.b
-        ITA = { complete_national_focus = ITA_greece_war_goal declare_war_on = { target = GRE type = annex_everything } }
+        ITA = { complete_national_focus = ITA_war_with_greece declare_war_on = { target = GRE type = annex_everything } }
     }
 }
 
@@ -9647,7 +9647,7 @@ country_event = {                                                               
         divisions_in_border_state = {
             type = infantry
             size < 3
-            state = 840
+            state = 914
             border_state = 212
         }     
         divisions_in_border_state = {
@@ -11542,7 +11542,7 @@ country_event = {                                                               
     }
     option = {                                                                                      ## Sterea 
 		name = hellas.11723.c
-        trigger = { check_variable = { mr_mineral_sterea = 0 } NOT = { 835 = { has_state_flag = given_mining_rights } } }
+        trigger = { check_variable = { mr_mineral_sterea = 0 } NOT = { 909 = { has_state_flag = given_mining_rights } } }
         set_variable = { mr_mineral_sterea = 1 }
         GER = { 47 = { calculate_state_resource_importance_PREV = yes } }
         set_variable = { GRE.mr_cost_return_ste_check = total_worth }
@@ -12081,8 +12081,8 @@ country_event = {                                                               
                 }
             }
             if = { limit = { check_variable = { mr_mineral_sterea = 1 } } 
-                GRE = { give_resource_rights = { receiver = GER state = 835 } }
-                835 = {
+                GRE = { give_resource_rights = { receiver = GER state = 909 } }
+                909 = {
                     set_state_flag = given_mining_rights
                     set_variable = { return_owner = GER.id }
                 }
@@ -12858,9 +12858,9 @@ country_event = {                                                               
                             NOT = { state = 182 }                                                            # This doesn't apply for Sterea Ellada / Attika / Peloponnese / Crete / Nisia Aegeou
                             NOT = { state = 47  }
                             NOT = { state = 186 }
-                            NOT = { state = 835 }
+                            NOT = { state = 909 }
                             NOT = { state = 187 }
-                            NOT = { state = 842 }
+                            NOT = { state = 916 }
                         }
                         GRE = {
                             delete_unit = { 
@@ -12953,23 +12953,23 @@ country_event = {
                     }
                     event_target:hellenic_state = { transfer_state = PREV }
                 }
-                GER = { transfer_state = 47 transfer_state = 839 }                                                                   # TEMPORARILY TO NAVAL INVADE CRETE (doesn't work otherwise)
+                GER = { transfer_state = 47 transfer_state = 913 }                                                                   # TEMPORARILY TO NAVAL INVADE CRETE (doesn't work otherwise)
                 set_capital = { state = 47 }
                 add_to_array = { global.axis_occupiers=GER.id }
                 add_to_array = { global.axis_occupiers=ITA.id }
                 #############################[Setup Occupation Zones]############################
-                841 = { add_dynamic_modifier = { modifier = GRE_german_occupation_zone } }
+                915 = { add_dynamic_modifier = { modifier = GRE_german_occupation_zone } }
                 731 = { add_dynamic_modifier = { modifier = GRE_german_occupation_zone } }
-                839 = { add_dynamic_modifier = { modifier = GRE_german_occupation_zone } }
-                838 = { add_dynamic_modifier = { modifier = GRE_german_occupation_zone } }
+                913 = { add_dynamic_modifier = { modifier = GRE_german_occupation_zone } }
+                912 = { add_dynamic_modifier = { modifier = GRE_german_occupation_zone } }
                 47 = { add_dynamic_modifier = { modifier = GRE_german_occupation_zone } }
                 187 = { add_dynamic_modifier = { modifier = GRE_german_occupation_zone } }
-                835 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } }
-                836 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } }
-                837 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } }
+                909 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } }
+                910 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } }
+                911 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } }
                 186 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } }
                 185 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } } 
-                842 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } } 
+                916 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } } 
                 #######################[Bulgarian Direct Annexations (Historical)]###############
                 if = {                                                                                                              # If Bulgaria is alive, in Axis and historical stuff should happen.
                     limit = {
@@ -12984,19 +12984,19 @@ country_event = {
                     731 = { clr_state_flag = BUL_historical_bulgarian_claim_flag }
                     731 = { clr_state_flag = BUL_bulgarian_claim_warranted_flag }
                     731 = { remove_dynamic_modifier = { modifier = bulgarian_territorial_expansion_arranged } }
-                    839 = { clr_state_flag = BUL_historical_bulgarian_claim_flag }
-                    839 = { clr_state_flag = BUL_bulgarian_claim_warranted_flag }
-                    839 = { remove_dynamic_modifier = { modifier = bulgarian_territorial_expansion_arranged } }
-                    841 = { clr_state_flag = BUL_historical_bulgarian_claim_flag }
-                    841 = { clr_state_flag = BUL_bulgarian_claim_warranted_flag }
-                    841 = { remove_dynamic_modifier = { modifier = bulgarian_territorial_expansion_arranged } }
+                    913 = { clr_state_flag = BUL_historical_bulgarian_claim_flag }
+                    913 = { clr_state_flag = BUL_bulgarian_claim_warranted_flag }
+                    913 = { remove_dynamic_modifier = { modifier = bulgarian_territorial_expansion_arranged } }
+                    915 = { clr_state_flag = BUL_historical_bulgarian_claim_flag }
+                    915 = { clr_state_flag = BUL_bulgarian_claim_warranted_flag }
+                    915 = { remove_dynamic_modifier = { modifier = bulgarian_territorial_expansion_arranged } }
                     184 = { BUL = { transfer_state = PREV } }
-                    840 = { BUL = { transfer_state = PREV } }
+                    914 = { BUL = { transfer_state = PREV } }
                     add_to_array = { global.axis_occupiers=BUL.id }
                 }
                 else = {
                     184 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } }                                      # Italians take control of their portion, as this would have happened historically since the Germans only took strategic regions and Italians the mass of land.
-                    840 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } } 
+                    914 = { add_dynamic_modifier = { modifier = GRE_italian_occupation_zone } } 
                 }
                 ################################[Set HS Rules]###################################
                 set_rule = { 
@@ -13010,11 +13010,11 @@ country_event = {
                 set_popularities = { democratic = 15 fascism = 50 neutrality = 20 communism = 15 }
                 set_cosmetic_tag = GRE_HELLENIC_STATE_fascism
                 GRE = {                                                                     ## Disband Units in Aegean Islands and mainland Greece
-                    delete_unit = {state = 835 disband = yes}
+                    delete_unit = {state = 909 disband = yes}
                     delete_unit = {state = 47 disband = yes}
                     delete_unit = {state = 186 disband = yes}
                     delete_unit = {state = 187 disband = yes}
-                    delete_unit = {state = 842 disband = yes}
+                    delete_unit = {state = 916 disband = yes}
                     set_temp_variable = { convoy_num = GRE.convoys_secured }
                     multiply_temp_variable = { convoy_num = -1 }
                     add_equipment_to_stockpile = {
@@ -13091,7 +13091,7 @@ country_event = {
             HS_flag_states = yes 
             HS_shut_down_the_games_resistance_mechanic_in_states = yes
             #######[Resource Rights for Sterea/Pel. go to the Reich]######
-            ITA = { give_resource_rights = { receiver = GER state = 835 } }
+            ITA = { give_resource_rights = { receiver = GER state = 909 } }
             ITA = { give_resource_rights = { receiver = GER state = 186 } }
             ##############################################################
             GRE = { country_event = { id = hellas.1004 days = 10 } }
@@ -13200,7 +13200,7 @@ country_event = {                                                               
             }
             GER = { 
                 transfer_state = 47 
-                transfer_state = 839
+                transfer_state = 913
                 transfer_state = 187
             }
         }
@@ -13226,7 +13226,7 @@ country_event = {                                                               
             set_global_flag = GRE_famine_started
             GRE = { HS_FAM_set_base_state_level = yes }
             47 = { add_dynamic_modifier = { modifier = great_famine } }
-            839 = { add_dynamic_modifier = { modifier = great_famine } }
+            913 = { add_dynamic_modifier = { modifier = great_famine } }
             187 = { add_dynamic_modifier = { modifier = great_famine } }
         }
     }
@@ -13235,7 +13235,7 @@ country_event = {                                                               
 		name = hellas.1010.a 
         effect_tooltip = {
             47 = { add_dynamic_modifier = { modifier = great_famine } }
-            839 = { add_dynamic_modifier = { modifier = great_famine } }
+            913 = { add_dynamic_modifier = { modifier = great_famine } }
             187 = { add_dynamic_modifier = { modifier = great_famine } }
         }
     }
@@ -13379,15 +13379,15 @@ state_event = {                                                                 
         days = 180
         modifier = {
             factor = 0.25
-            OR = { state=47 state=839 }
+            OR = { state=47 state=913 }
         }
         modifier = {
             factor = 0.50
-            OR = { state=836 state=187 }
+            OR = { state=910 state=187 }
         }
         modifier = {
             factor = 0.75
-            OR = { state=182 state=186 state=835 }
+            OR = { state=182 state=186 state=909 }
         }
         modifier = {
             factor = 0.50
@@ -14807,7 +14807,7 @@ country_event = {
 		name = hellas.10000.a
         
         event_target:hellenic_state = { transfer_state = 47 }
-        event_target:hellenic_state = { transfer_state = 839 }
+        event_target:hellenic_state = { transfer_state = 913 }
         GER = { set_province_controller = 11818 }
         GER = { set_province_controller = 4109 }
         GER = { set_province_controller = 11965 }
