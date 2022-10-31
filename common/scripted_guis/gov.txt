@@ -116,10 +116,13 @@ scripted_gui = {
 			ideological_rev_button_visible = { check_variable={ gov_filters>0 } check_variable={ gov_ideological>0 }}
 			ideological_mfa_button_visible = { check_variable={ gov_filters>0 } check_variable={ gov_ideological>0 }}
 			###################################################################################
-			gov_portrait_click_enabled = { targeted_character_not_hired_in_other_role_altn=yes targeted_character_not_psd=yes targeted_character_is_available_for_hire_as_political_advisor=yes hidden_trigger={ set_temp_variable={ type_of_advisor=1 } has_pp_for_targeted_character=yes }}
-			gov_portrait_dead_visible = { targeted_character_is_dead=yes }
-			gov_portrait_purged_visible = { targeted_character_is_purged=yes }
-			gov_portrait_surrendered_visible = { targeted_character_has_surrendered=yes }
+			gov_portrait_click_enabled = {
+				vscope_character_not_psd_withtt=yes
+				if = { limit={ var:v={ is_advisor=yes }} vscope_character_hired=no var:v={ vscope_character_available_as_political_advisor=yes custom_trigger_tooltip={ tooltip=GOVCOC_COST_COVERED set_temp_variable={ type_of_advisor=1 } vscope_sufficient_pp_for_character=yes }}}
+			}
+			gov_portrait_dead_visible = { check_variable={ c_dead@var:v=1 }}
+			gov_portrait_purged_visible = { check_variable={ c_purged@var:v=1 }}
+			gov_portrait_surrendered_visible = { check_variable={ c_surrendered@var:v=1 }}
 		}
 
 		effects = {

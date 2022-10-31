@@ -200,7 +200,8 @@ country_event = {
 			name = "4h Augoústou"
 		}
         set_country_flag = GRE_kathestos_proclaimed
-        hidden_effect = { random_character={ limit={ is_character=GRE_ioannis_metaxas } add_to_variable={ title=1 }}}
+        GRE_ioannis_metaxas = { vscope_from_cscope_root=yes vscope_increase_title=yes }
+        GRE_kostas_kotzias = { vscope_from_cscope_root=yes vscope_increase_title=yes }
         set_variable = { GRE_ark = 0 }
         if = { 
             limit = { check_variable = { decision_taken = 0 } } 
@@ -696,7 +697,7 @@ unit_leader_event = {               # 1 / 8 / 1936 -> Papagos becomes FeldMarsha
     option = {
         ai_chance = { base=100 }
         name = hellas.11.a
-        GRE_alexandros_papagos = { promote_leader=yes promote_officer=yes if={ limit={NOT={has_trait=gre_recently_trained_general}} reduce_unpreparedness = yes }}
+        GRE_alexandros_papagos = { promote_leader=yes increase_officer_rank=yes if={ limit={NOT={has_trait=gre_recently_trained_general}} reduce_unpreparedness = yes }}
         hidden_effect = { activate_advisor = GRE_alexandros_papagos_chief }
         custom_effect_tooltip = axal_nl2_tt
         custom_effect_tooltip = GRE_papagos_selection_event_tt
@@ -704,7 +705,7 @@ unit_leader_event = {               # 1 / 8 / 1936 -> Papagos becomes FeldMarsha
     option = {
         name = hellas.11.b
         trigger = { check_variable= { GRE.decision_taken > 0 }}
-        GRE_markos_drakos = { promote_leader=yes promote_officer=yes if={ limit={NOT={has_trait=gre_recently_trained_general}} reduce_unpreparedness = yes }}
+        GRE_markos_drakos = { promote_leader=yes increase_officer_rank=yes if={ limit={NOT={has_trait=gre_recently_trained_general}} reduce_unpreparedness = yes }}
         hidden_effect = { activate_advisor = GRE_markos_drakos_chief }
         set_variable = { GRE.decision_taken = 1 }
         custom_effect_tooltip = axal_nl2_tt
@@ -713,7 +714,7 @@ unit_leader_event = {               # 1 / 8 / 1936 -> Papagos becomes FeldMarsha
     option = {
         name = hellas.11.c
         trigger = { check_variable={ GRE.decision_taken > 0 }}
-        GRE_georgios_stanotas = { promote_leader=yes promote_officer=yes if={ limit={NOT={has_trait=gre_recently_trained_general}} reduce_unpreparedness = yes }}
+        GRE_georgios_stanotas = { promote_leader=yes increase_officer_rank=yes if={ limit={NOT={has_trait=gre_recently_trained_general}} reduce_unpreparedness = yes }}
         hidden_effect = { activate_advisor = GRE_georgios_stanotas_chief }
         set_variable = { GRE.decision_taken = 2 }
         custom_effect_tooltip = axal_nl2_tt
@@ -722,8 +723,8 @@ unit_leader_event = {               # 1 / 8 / 1936 -> Papagos becomes FeldMarsha
     option = {
         name = hellas.11.d
         trigger = { check_variable={ GRE.decision_taken > 1 }}
-        GRE_napoleon_zervas = { promote_leader=yes promote_officer=yes if={ limit={NOT={has_trait=gre_recently_trained_general}} reduce_unpreparedness = yes }}
-        hidden_effect = { activate_advisor = GRE_napoleon_zervas_chief random_character = { limit={ is_character=GRE_napoleon_zervas } clear_variable=purged }}
+        GRE_napoleon_zervas = { promote_leader=yes increase_officer_rank=yes if={ limit={NOT={has_trait=gre_recently_trained_general}} reduce_unpreparedness = yes }}
+        hidden_effect = { activate_advisor = GRE_napoleon_zervas_chief remove_from_array={ GRE.c_purged=zervas } set_variable={ GRE.c_purged@var:zervas=0}}
         set_variable = { GRE.decision_taken = 3 }
         custom_effect_tooltip = axal_nl2_tt
         custom_effect_tooltip = GRE_zervas_selection_event_tt
@@ -751,8 +752,9 @@ country_event = {
 	option = {
 		name = hellas.12.a #F
 		hidden_effect = {
-            random_character = { limit={ is_character=GRE_eleftherios_venizelos } set_variable={dead=1} add_to_variable={title=1}}
-            #retire_character = GRE_eleftherios_venizelos
+            add_to_array={ GRE.c_dead=var:venizelos }
+            set_variable={ GRE.c_dead@var:venizelos = 1 }
+            GRE_eleftherios_venizelos = { vscope_from_cscope=yes vscope_increase_title=yes }
         }
         #recruit_character = GRE_themistoklis_sofoulis
         promote_character = GRE_themistoklis_sofoulis
@@ -769,7 +771,7 @@ unit_leader_event = {               # 21 / 2 / 1936 -> Navy Promotions
     option = {
         ai_chance = { base = 100 }
         name = hellas.13.a
-        GRE_epameinondas_kavvadias = { promote_officer = yes }
+        GRE_epameinondas_kavvadias = { increase_officer_rank = yes }
         hidden_effect = { activate_advisor = GRE_epameinondas_kavvadias_chief }
         custom_effect_tooltip = h13_chief_selection
         if = {
@@ -783,7 +785,7 @@ unit_leader_event = {               # 21 / 2 / 1936 -> Navy Promotions
     }
     option = {
         name = hellas.13.b
-        GRE_alexandros_sakellariou = { promote_officer = yes }
+        GRE_alexandros_sakellariou = { increase_officer_rank = yes }
         hidden_effect = { activate_advisor = GRE_alexandros_sakellariou_chief }
         custom_effect_tooltip = h13_chief_selection
         if = {
@@ -797,7 +799,7 @@ unit_leader_event = {               # 21 / 2 / 1936 -> Navy Promotions
     }
     option = {
         name = hellas.13.c
-        GRE_dimitrios_oikonomou = { promote_officer = yes }
+        GRE_dimitrios_oikonomou = { increase_officer_rank = yes }
         hidden_effect = { activate_advisor = GRE_dimitrios_oikonomou_chief }
         custom_effect_tooltip = h13_chief_selection
         if = {
@@ -812,7 +814,7 @@ unit_leader_event = {               # 21 / 2 / 1936 -> Navy Promotions
     option = {
         name = hellas.13.d
         trigger = { GRE_petros_voulgaris = { is_not_retired = yes } }
-        GRE_petros_voulgaris = { promote_officer = yes }
+        GRE_petros_voulgaris = { increase_officer_rank = yes }
         hidden_effect = { activate_advisor = GRE_petros_voulgaris }
         custom_effect_tooltip = h13_chief_selection
         if = {
@@ -827,7 +829,7 @@ unit_leader_event = {               # 21 / 2 / 1936 -> Navy Promotions
     option = {
         name = hellas.13.e
         trigger = { GRE_ioannis_demestichas = { not_wanted_for_dead = yes } }
-        GRE_ioannis_demestichas = { promote_officer = yes }
+        GRE_ioannis_demestichas = { increase_officer_rank = yes }
         hidden_effect = { activate_advisor = GRE_ioannis_demestichas_chief }
         custom_effect_tooltip = h13_chief_selection
         if = {
@@ -905,12 +907,14 @@ unit_leader_event = {               # Convicted to Death Generals
     }
     option = {
         name = hellas.14.b
+        set_country_flag=GRE_republican_generals_reinstated
         hidden_effect = {
             every_character = {
+                vscope_from_cscope_root=yes
                 if = { limit = { has_character_flag = wanted_for_dead } clr_character_flag = wanted_for_dead }
                 if = { limit = { has_character_flag = target_of_the_failed_coup } clr_character_flag = target_of_the_failed_coup }
                 if = { limit = { has_character_flag = purged_by_regime } clr_character_flag = purged_by_regime }
-                if = { limit = { check_variable={ purged>0 }} clear_variable=purged }
+                if = { limit = { check_variable={ c_purged@var:v=1} } clear_variable=c_purged@var:v remove_from_array={ c_purged=var:v }}
             }
         }
         custom_effect_tooltip = h14_b
@@ -1591,7 +1595,7 @@ country_event = {               #ITALIANS GET WARGOAL FROM NEGLECTED ARMY IDEA L
     }      
 }
 
-country_event = {                                                       #WARNING EVENT FOR TROOP DEPLOYMENT IN ALBANIAN BORDER
+country_event = {                                                                     #WARNING EVENT FOR TROOP DEPLOYMENT IN ALBANIAN BORDER
 	id = hellas.201
 	title = hellas.201.t
 	desc = hellas.201.desc
@@ -1599,72 +1603,46 @@ country_event = {                                                       #WARNING
 
 	trigger = {
 		tag = GRE
+        has_war=no
         date < 1942.1.1
         NOT = { has_global_flag = GRE_grecoitalian_ended }
         mussolini_historical_tensions_with_greece = yes
-        annexation_of_albania_has_occurred_one_way_or_another = yes
-        divisions_in_border_state = {
-            type = infantry
-            size > 2
-            state = 185
-            border_state = 805
-        }      
-        divisions_in_border_state = {
-            type = infantry
-            size > 2
-            state = 912
-            border_state = 805
-        }
-		date > 1936.08.04
-        has_country_flag = GRE_kathestos_proclaimed
+        has_exceeded_division_limit_on_grecoalbanian_border = yes
+        has_country_leader={ ruling_only=yes character=GRE_ioannis_metaxas}
 	}
 
-	mean_time_to_happen = {
-		days = 0
-	}
-    
+	mean_time_to_happen = { days=0 }
 	fire_only_once = no
 	
 	option = {
 		name = hellas.201.a
-        activate_mission = GRE_activated_mission
+        ###activate_mission = GRE_activated_mission
     }      
 }
 
-country_event = {               #WARNING EVENT FOR TOO MANY DIVISIONS DEPLOYED (BASED ON ITA'S INTEL ON YOU)
+country_event = {                                                                      #WARNING EVENT FOR TOO MANY DIVISIONS DEPLOYED (BASED ON ITA'S INTEL ON YOU)
 	id = hellas.202
 	title = hellas.202.t
 	desc = hellas.202.desc
     picture = GFX_report_event_italian_rise2
 
 	trigger = {
-		tag = GRE
-        has_war = no
+		tag=GRE
+        has_war=no
         date < 1942.1.1
         NOT = { has_global_flag = GRE_grecoitalian_ended }
         mussolini_historical_tensions_with_greece = yes
-        annexation_of_albania_has_occurred_one_way_or_another = yes
-        set_temp_variable = { x = ITA.army_intel@GRE }                              ### FORMULA: y = -0.25x + 30 where y the num of divisions and x the army intel italy has over greece (5,30 min-max)
-        multiply_temp_variable = { x = -0.25 }
-        add_to_temp_variable = { x = 30 }
-        num_divisions > x
-		date > 1936.08.04
-        has_country_leader = {
-            name = "Ioannis Metaxas"
-            ruling_only = yes
-        }
+        has_exceeded_fielded_battalion_limit_based_on_italian_intel = yes
+        has_country_leader={ ruling_only=yes character=GRE_ioannis_metaxas}
 	}
 
-	mean_time_to_happen = {
-		days = 0
-	}
-    
+	mean_time_to_happen = { days=0 }
 	fire_only_once = no
 	
 	option = {
 		name = hellas.202.a
-        activate_mission = GRE_activated_mission_2
-    }      
+        ###activate_mission = GRE_activated_mission_2
+    }
 }
 
 country_event = {                                                                       #Army Equipment Increases, Officer Preparation/Training increases too
@@ -3522,6 +3500,8 @@ country_event = {               #Equipment to be sent to Spain Introductory
         add_to_temp_variable = { xeq=sxeq }
         add_to_temp_variable = { xse=sxse }
         #################
+        # HERE ADD TRIGGERS TO SELECT RECEIVING NATION BASED ON FROM'S IDEOLOGY #
+        #################
         random_country_with_original_tag = {
             original_tag_to_check = SPR
             limit = {
@@ -3567,6 +3547,38 @@ country_event = {               #Equipment to be sent to Spain REDIRECTOR
 	option = { 
         name=hellas.2470.a 
         GRE={ country_event = { id = hellas.247 days=0 }}
+    }
+}
+
+country_event = {               #MUSSOLINI DEFAMATION
+	id = hellas.248
+	title = hellas.248.t
+	desc = hellas.248.desc
+    picture = GFX_report_event_mussolini_diplomacy
+
+	is_triggered_only = yes
+	
+	option = { 
+        name=hellas.248.a
+        for_each_scope_loop={ 
+            tooltip=h248_custom_loop_tt
+            array=GRE.ita_nagging_worked_array
+            
+            add_opinion_modifier={ target=GRE modifier=ITA_nagged_TARGET_against_GRE }
+            set_country_flag={ flag=ita_nagging_in_effect days=29 value=1 }
+        }
+        multiply_temp_variable={ x?-20=GRE.ita_nagging_backfired_array^num }
+        if = {
+            limit={ check_variable={ x<0 }}
+
+            ITA={
+                add_political_power=x 
+                set_temp_variable={ y=14 }
+                multiply_temp_variable={ y=GRE.ita_nagging_backfired_array^num }
+                meta_effect = { text={ set_country_flag={ flag=ita_nagging_backfired days=[DAYS_] value=1 }} DAYS_="[?y|0.]" }
+                custom_effect_tooltip=ita_nagging_backfired_tt
+            }
+        }
     }
 }
 
@@ -3681,7 +3693,7 @@ country_event = {               #THESSALONIKI 1936 EXHIBITION
             set_temp_variable = { findX=THIS.id }
             set_temp_variable = { findY=5 }
             add_to_variable = { THIS.favor@GRE=findY tooltip=favor_boost_with_findX_by_findY_no_name_tt }
-            set_temp_variable={ tmpAW=2.50 }
+            set_temp_variable={ tmpAW=5.00 }
             add_to_variable = { balkan_pact_desirability=tmpAW }
             refresh_balkan_pact_desirability_gui_THIS=yes
             custom_effect_tooltip = alliance_weight_increased_tmpAW_tt
@@ -3710,7 +3722,7 @@ country_event = {               #THESSALONIKI 1936 EXHIBITION
             set_temp_variable = { findX=THIS.id }
             set_temp_variable = { findY=2 }
             add_to_variable = { THIS.favor@GRE = findY tooltip=favor_boost_with_findX_by_findY_no_name_tt }
-            set_temp_variable={ tmpAW=1.00 } 
+            set_temp_variable={ tmpAW=2.50 } 
             add_to_variable = { balkan_pact_desirability=tmpAW } 
             custom_effect_tooltip = alliance_weight_increased_tmpAW_tt
         }
@@ -3719,7 +3731,7 @@ country_event = {               #THESSALONIKI 1936 EXHIBITION
                 OR = { check_variable = { THIS=ITA } check_variable = { THIS=BUL }}
             }
             set_temp_variable = { findX=THIS.id }
-            set_temp_variable = { findY=-1 }
+            set_temp_variable = { findY=-2.5 }
             add_to_variable = { THIS.favor@GRE = findY tooltip=favor_hit_with_findX_by_findY_no_name_tt }
         }
     }
@@ -4136,7 +4148,7 @@ country_event = {               #BRITISH RESPONSE
             add_political_power = 75
             add_stability = 0.05
             add_war_support = 0.05
-            set_temp_variable={ tmpAW=1.50 } 
+            set_temp_variable={ tmpAW=8 } 
             add_to_variable = { balkan_pact_desirability=tmpAW } 
             custom_effect_tooltip = alliance_weight_increased_tmpAW_tt
         }
@@ -4158,7 +4170,7 @@ country_event = {               #BRITISH RESPONSE
             add_political_power = 25
             add_stability = 0.02
             add_war_support = 0.02
-            set_temp_variable={ tmpAW=0.75 } 
+            set_temp_variable={ tmpAW=4 } 
             add_to_variable = { balkan_pact_desirability=tmpAW } 
             custom_effect_tooltip = alliance_weight_increased_tmpAW_tt
         }
@@ -4180,7 +4192,7 @@ country_event = {               #BRITISH RESPONSE
             add_political_power = -25
             add_stability = -0.02
             add_war_support = -0.02
-            set_temp_variable={ tmpAW=-0.75 } 
+            set_temp_variable={ tmpAW=-4 } 
             add_to_variable = { balkan_pact_desirability=tmpAW } 
             custom_effect_tooltip = alliance_weight_decreased_tmpAW_tt
         }
@@ -4202,7 +4214,7 @@ country_event = {               #BRITISH RESPONSE
             add_political_power = -75
             add_stability = -0.05
             add_war_support = -0.05
-            set_temp_variable={ tmpAW=-1.50 } 
+            set_temp_variable={ tmpAW=-8 } 
             add_to_variable = { balkan_pact_desirability=tmpAW } 
             custom_effect_tooltip = alliance_weight_decreased_tmpAW_tt
         }
@@ -6331,6 +6343,7 @@ country_event = {
         add_equipment_to_stockpile = { type = fighter_equipment_0 amount = 5 producer = GRE }
         add_equipment_to_stockpile = { type = infantry_equipment_0 amount = 500 producer = GRE }
         add_equipment_to_stockpile = { type = support_equipment amount = 25 producer = GRE }
+        add_fuel = 5000
         custom_effect_tooltip =  hellas.400.a_tt
     }  
 }

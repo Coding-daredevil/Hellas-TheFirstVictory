@@ -136,6 +136,16 @@ meets_promotion_criteria = {
 ########[ DIPLOMATIC TRIGG ]########
 ####################################
 
+has_required_pp_for_investment={
+    set_temp_variable={ cur_cost=tmpC }
+    #####[ Calculate Display Cost and Reductions on Current Cost ]#####
+    set_temp_variable={ bonus_off=1 }
+    if = { limit={ any_operative_leader={ operative_leader_mission=diplomatic_pressure check_variable={ operation_country = FROM:id }} subtract_from_temp_variable={ bonus_off=0.2 }}}
+    if = { limit={ any_operative_leader={ operative_leader_mission=control_trade check_variable={ operation_country = FROM:id }} subtract_from_temp_variable={ bonus_off=0.1 }}}
+    multiply_temp_variable={ cur_cost=bonus_off }
+    has_political_power>cur_cost
+}
+
 is_balkan_nation = {
     OR={original_tag=TUR original_tag=YUG original_tag=BUL original_tag=ALB original_tag=ROM original_tag=HUN original_tag=AUS original_tag=CZE}
 }
@@ -152,13 +162,14 @@ mussolini_historical_tensions_with_greece = {
                 OR={ 
                     is_justifying_wargoal_against=GRE 
                     has_war_with=GRE 
-                    focus_progress={ focus=ITA_war_with_greece progress>0.01 }}
+                    focus_progress={ focus=ITA_war_with_greece progress>0.01 }
                     has_completed_focus = ITA_war_with_greece
                     has_completed_focus = ITA_befriend_greece
                 }
-            exists=yes 
-            is_puppet=no 
-            is_subject=no 
+            }
+            exists=yes
+            is_puppet=no
+            is_subject=no
         }
     }
 }
@@ -166,7 +177,7 @@ mussolini_historical_tensions_with_greece = {
 forts_in_grecoalbanian_borderline_exist = {
     OR = {
         184 = { any_province_building_level={ province={ id=13257 id=13258 } building=bunker level>0 }}
-        912 = { any_province_building_level={ province={ id=915 } building=bunker level>0 }}
+        912 = { any_province_building_level={ province={ id=841 id=9837 } building=bunker level>0 }}
     }
 }
 
@@ -179,6 +190,52 @@ annexation_of_albania_has_occurred_one_way_or_another = {
         ALB = {
             OR = { exists=no AND={ exists=yes OR={ is_subject_of=ITA is_puppet_of=ITA }}}
         }
+    }
+}
+
+has_exceeded_fielded_battalion_limit_based_on_italian_intel = {
+    # This function checks whether the fielded manpower acceptable by the Italians is surpassed or not.
+
+    ##########[ Linear Calculation ]##########
+    set_temp_variable={ x=ITA.army_intel@GRE }
+    clamp_temp_variable={ var=x min=0.1 max=100 }
+    divide_temp_variable={ x=100 }
+    set_temp_variable={ y=x }
+    ############################################
+    set_temp_variable={ x=150 }
+    divide_temp_variable={ x=y }
+    check_variable={ var=GRE.num_battalions value=x compare=greater_than_or_equals }
+}
+
+has_exceeded_division_limit_on_grecoalbanian_border_decision = {
+    # This function checks whether Greece has more than 2 units in the two states bordering Albania.
+
+    custom_trigger_tooltip={
+        tooltip=no_more_than_two_divisions_on_each_border_state_decision_tt
+
+        divisions_in_border_state = { size>2 state=var:state_ border_state=805 }
+    }
+}
+
+has_exceeded_division_limit_on_grecoalbanian_border = {
+    # This function checks whether Greece has more than 2 units in the two states bordering Albania.
+
+    custom_trigger_tooltip={
+        tooltip=no_more_than_two_divisions_on_each_border_state_tt
+
+        OR={
+            divisions_in_border_state = { size>2 state=185 border_state=805 }
+            divisions_in_border_state = { size>2 state=912 border_state=805 }
+        }
+    }
+}
+
+meets_qualifications_to_peer_into_italian_quotas = {
+    # This function checks whether Greece has sufficient army intel over the italians, or enough network coverage.
+
+    OR={
+        intel_level_over = { target=ITA army_intel>0.25 }
+        check_variable = { var=GRE.network_national_coverage@ITA value=0 compare=greater_than_or_equals }
     }
 }
 
@@ -613,6 +670,42 @@ fctF_is_below_tmpZ = {
     }
 }
 
+at_least_tmpCNT_factions_below_tmpZ = {
+    custom_trigger_tooltip = {
+        tooltip = at_least_tmpCNT_factions_below_tmpZ_tt
+        meta_trigger={
+            text={
+                count_triggers = {
+                    amount = [AMNT]
+                    check_variable={ GRE.fct_mon<tmpZ }
+                    check_variable={ GRE.fct_dem<tmpZ }
+                    check_variable={ GRE.fct_com<tmpZ }
+                    check_variable={ GRE.fct_fas<tmpZ }
+                }
+            }
+            AMNT = "[?tmpCNT|.0]"
+        }
+    }
+}
+
+at_least_tmpCNT_factions_at_least_tmpZ = {
+    custom_trigger_tooltip = {
+        tooltip = at_least_tmpCNT_factions_below_tmpZ_tt
+        meta_trigger={
+            text={
+                count_triggers = {
+                    amount = [AMNT]
+                    check_variable={ var=GRE.fct_mon value=tmpZ compare=greater_than_or_equals }
+                    check_variable={ var=GRE.fct_dem value=tmpZ compare=greater_than_or_equals }
+                    check_variable={ var=GRE.fct_com value=tmpZ compare=greater_than_or_equals }
+                    check_variable={ var=GRE.fct_fas value=tmpZ compare=greater_than_or_equals }
+                }
+            }
+            AMNT = "[?tmpCNT|.0]"
+        }
+    }
+}
+
 ####################################
 ###########[Investments]############
 ####################################
@@ -886,7 +979,7 @@ has_paid_at_least_dY_debt = {
 has_paid_at_least_dY_debt_to_dX = {
     custom_trigger_tooltip = {
         tooltip = GRE_at_least_dY_total_debt_to_dX
-        check_variable = { var=GRE_paid_debt@var:dX value=dY compare=greater_than_or_equals }
+        check_variable = { var=GRE.paid_debt@var:dX value=dY compare=greater_than_or_equals }
     }
 }
 

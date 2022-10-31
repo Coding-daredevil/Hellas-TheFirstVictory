@@ -41,7 +41,7 @@ focus_tree = {
 			add_political_power = 50
 			unlock_decision_category_tooltip = GRE_economic_alleviation_category
 			custom_effect_tooltip = GRE_pay_back_debt_tt
-			set_variable={ GRE.cut_our_ties_cost=75 }
+			set_variable={ GRE.cut_our_ties_cost=25 }
 		}
 	}
 
@@ -1828,10 +1828,10 @@ focus_tree = {
 			set_temp_variable = { ftmpZ=30 }
 			custom_trigger_tooltip = {
 				tooltip = favor_status_with_findX_at_least_ftmpZ_shrt_tt
-				check_variable = { var=FRA.favor@GRE value=ftmpZ compare=greater_than_or_equals }
+				check_variable = { var=ENG.favor@GRE value=ftmpZ compare=greater_than_or_equals }
 			}
 			set_temp_variable = { dX=ENG.id }
-			set_temp_variable = { dY=20 }
+			set_temp_variable = { dY=30 }
 			has_paid_at_least_dY_debt_to_dX=yes
 			custom_trigger_tooltip = {
 				tooltip = GRE_havent_frozen_debt_with_british
@@ -2455,7 +2455,7 @@ focus_tree = {
 			add_stability = 0.02
 			add_war_support = 0.02
 			set_variable = { global.gov_side_array^1=maniadakis tooltip=appoint_maniadakis_tt}
-			hidden_effect = { random_character={ limit={ is_character=GRE_konstantinos_maniadakis } add_to_variable={ title=1 }}}
+			hidden_effect = { GRE_konstantinos_maniadakis = { vscope_from_cscope=yes vscope_increase_title=yes }}
             add_dynamic_modifier = { modifier = GRE_yfipourgeio_asfaleias }
             unlock_decision_category_tooltip = GRE_kathestos_asfaleia
             custom_effect_tooltip = GRE_metaxas_plan_tt 
@@ -2676,6 +2676,22 @@ focus_tree = {
 				limit = { has_idea = GRE_spartan_law_4 }
 				remove_ideas = GRE_spartan_law_4
 			}
+            #######################
+            custom_effect_tooltip=invwork_tt
+            hidden_effect={
+                add_to_variable = { GRE.invigorating_level=0.1 tooltip=invigorating_towards_completion_tt }
+                add_to_variable = { gre_agr_mp = 0.150 }
+                add_to_variable = { gre_agr_cf = 0.050 }
+                add_to_variable = { gre_agr_stbw = 0.001 }
+                add_to_variable = { GRE.working_level=0.1 tooltip=working_towards_completion_tt}
+                add_to_variable = { gre_noi_gbs = 0.075 }
+                add_to_variable = { gre_noi_pfegf = 0.01 }
+                add_to_variable = { gre_noi_pfmef = 0.005 }
+                add_to_variable = { gre_noi_icd = 0.08 }
+                add_to_variable = { gre_noi_icf = 0.08 }
+                add_to_variable = { gre_noi_irf = 0.05 }
+                add_to_variable = { gre_noi_stbw = 0.001 }
+            }
             ######[REPORT EVENTS]######
             set_temp_variable = { tmpEDIFF=7.5 }
             set_temp_variable = { tmpARG1=1 }
@@ -3036,7 +3052,7 @@ focus_tree = {
 			add_stability = 0.02
             add_war_support = 0.02
 			set_variable = { global.gov_side_array^0=nikoloudis tooltip=appoint_nikoloudis_tt}
-			hidden_effect = { random_character={ limit={ is_character=GRE_theologos_nikoloudis } add_to_variable={ title=1 }}}
+			hidden_effect = { GRE_theologos_nikoloudis = { vscope_from_cscope=yes vscope_increase_title=yes }}
             add_dynamic_modifier = { modifier = GRE_yfipourgeio_propagandas }
             unlock_decision_category_tooltip = GRE_kathestos_propaganda
             custom_effect_tooltip = GRE_metaxas_plan_tt  
@@ -3811,6 +3827,22 @@ focus_tree = {
         }
 
 		completion_reward = {
+            #######################
+            custom_effect_tooltip=invwork2_tt
+            hidden_effect={
+                add_to_variable = { GRE.invigorating_level=0.2 tooltip=invigorating_towards_completion_tt }
+                add_to_variable = { gre_agr_mp = 0.300 }
+                add_to_variable = { gre_agr_cf = 0.100 }
+                add_to_variable = { gre_agr_stbw = 0.002 }
+                add_to_variable = { GRE.working_level=0.2 tooltip=working_towards_completion_tt}
+                add_to_variable = { gre_noi_gbs = 0.150 }
+                add_to_variable = { gre_noi_pfegf = 0.02 }
+                add_to_variable = { gre_noi_pfmef = 0.010 }
+                add_to_variable = { gre_noi_icd = 0.16 }
+                add_to_variable = { gre_noi_icf = 0.16 }
+                add_to_variable = { gre_noi_irf = 0.10 }
+                add_to_variable = { gre_noi_stbw = 0.002 }
+            }
 			###[Workers Into Factories]###
             if = {
                 limit = { has_decision = workers_entering_factories }
@@ -4040,6 +4072,7 @@ focus_tree = {
 
 		completion_reward = {
             set_country_flag = gos_default
+			set_variable={ GRE.violations_varflag=2 }
             custom_effect_tooltip = GRE_a_game_of_shadows_tt
             unlock_decision_category_tooltip = GRE_a_game_of_shadows_category
 		}
@@ -8833,7 +8866,7 @@ focus_tree = {
 		}
 
 		completion_reward = {
-			set_technology = { early_fighter=1 early_bomber=1 }
+			set_technology = { iw_small_airframe=1 iw_medium_airframe=1 }
             remove_ideas = GRE_airforce_leadership_0
 		}
 	}    

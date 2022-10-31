@@ -6,7 +6,7 @@ on_actions = {
 		effect = {
 			GRE = {
 				faction_gui_initial = yes
-                procure_me_generals_bugged = yes
+                procure_me_generals_bugged=yes
                 remove_ideas = GRE_debt_to_the_ifc                                          ### Fake idea that was planted on the main menu for display purposes as dynamic modifiers do not appear.
                 set_variable = { fct_mon_effect_multiplier = 1 }
                 set_variable = { fct_dem_effect_multiplier = 1 }
@@ -263,29 +263,27 @@ on_actions = {
                 }
                 GRE_calculate_max_divisions = yes
             }
-            if = { limit = { check_variable = { preparedness_level < 1 } } calculate_unpreparedness = yes }
-            if = { limit = { NOT = {has_completed_focus = GRE_dreams_of_a_grand_coalition } } GRE_faction_refresh = yes }
-        }
-        effect = {                                                                                           ## Faction Mechanics Modifiers (+GUI update)
-            if = {
-                limit = { check_variable = { modifier@fct_mon_modifier_token > 0 } }
-                add_to_variable = { fct_mon = modifier@fct_mon_modifier_token }
-                faction_gui_mon_call = yes
-            }
-            if = {
-                limit = { check_variable = { modifier@fct_com_modifier_token > 0 } }
-                add_to_variable = { fct_com = modifier@fct_com_modifier_token }
-                faction_gui_com_call = yes
-            }
-            if = {
-                limit = { check_variable = { modifier@fct_fas_modifier_token > 0 } }
-                add_to_variable = { fct_fas = modifier@fct_fas_modifier_token }
-                faction_gui_fas_call = yes
-            }
-            if = {
-                limit = { check_variable = { modifier@fct_dem_modifier_token > 0 } }
-                add_to_variable = { fct_dem = modifier@fct_dem_modifier_token }
-                faction_gui_dem_call = yes
+            if = { limit = { check_variable = { preparedness_level < 1 } } calculate_unpreparedness = yes }  ## Officer Preparedness Level
+            if = {                                                                                           ## Faction Mechanics Modifiers (+GUI update)
+                limit = { NOT={has_completed_focus = GRE_dreams_of_a_grand_coalition }}
+
+                if = {
+                    limit = { check_variable = { modifier@fct_mon_modifier_token > 0 } }
+                    add_to_variable = { fct_mon = modifier@fct_mon_modifier_token }
+                }
+                if = {
+                    limit = { check_variable = { modifier@fct_com_modifier_token > 0 } }
+                    add_to_variable = { fct_com = modifier@fct_com_modifier_token }
+                }
+                if = {
+                    limit = { check_variable = { modifier@fct_fas_modifier_token > 0 } }
+                    add_to_variable = { fct_fas = modifier@fct_fas_modifier_token }
+                }
+                if = {
+                    limit = { check_variable = { modifier@fct_dem_modifier_token > 0 } }
+                    add_to_variable = { fct_dem = modifier@fct_dem_modifier_token }
+                }
+                GRE_faction_refresh = yes
             }
         }
         effect = {                                                                                          ## Weekly Influence
@@ -524,6 +522,21 @@ on_actions = {
             }
         }
     }
+
+    on_weekly_ITA = {
+        effect = {
+            check_and_apply_on_weekly_italian_nagging=yes
+        }
+    }
+
+    on_weekly = {
+        effect = {
+            if={
+                limit={ has_opinion_modifier=ITA_nagged_TARGET_against_GRE NOT={ has_country_flag=ita_nagging_in_effect }}
+                remove_opinion_modifier={ target=GRE modifier=ITA_nagged_TARGET_against_GRE }
+            }
+        }
+    }
     
     ###################################################################################################################################################################################################################################
     #######################################################################################################[ Part C: On Action ]#######################################################################################################
@@ -532,7 +545,7 @@ on_actions = {
     on_unit_leader_created = {
 		effect = {
             if = { 
-                limit = { FROM = { original_tag = GRE } }
+                limit={ FROM={ original_tag = GRE }}
                 character = {
                     if = { 
                         limit = { is_operative = no }
@@ -548,6 +561,20 @@ on_actions = {
                                 12.5 = { add_unit_leader_trait = trait_GRE_stauch_republican_persona }
                                 12.5 = { add_unit_leader_trait = trait_GRE_stauch_communist_persona }
                                 12.5 = { add_unit_leader_trait = trait_GRE_stauch_fascist_persona }
+                            }
+                            if={
+                                limit={ date > 1936.1.2 }                                       ## Make sure we do not run this for procured generals.
+
+                                set_temp_variable = { v=THIS }
+                                add_to_array={ GRE.sca_portrait@var:portrait_number=var:v }
+                                add_to_array={ GRE.secondary_characters=var:v }
+                                add_to_array={ GRE.gov_coc@2=var:v }
+                                var:v={
+                                    vscope_add_set_character_mbranch=yes 
+                                    vscope_add_set_character_ideology=yes
+                                }
+                                ###[HERE WE MUST ADD CUSTOM PORTRAITS]###
+                                ###[HERE WE MUST ADD UNPREPARED GENERAL BASED ON OVERALL OR SET IT IMPOSSIBLE TO HIRE IF UNPREPAREDNESS EXISTS]###
                             }
                         }
                     }

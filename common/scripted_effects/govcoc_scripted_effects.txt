@@ -7,64 +7,15 @@ gov_apply_filters = {
 
     clear_array = global.gov_array
     if = {
-        limit = { check_variable={ gov_reverted_filters=0 }}
-
-        every_character = {
-            limit = {
-                check_variable={ gov_coc=1 }
-                if = { limit={ check_variable={ GRE.gov_available>0 }} is_advisor=yes set_temp_variable={ v=THIS } targeted_character_not_psd_cscope=yes GRE={ targeted_character_is_available_for_hire_as_political_advisor=yes set_temp_variable={ type_of_advisor=1 } has_pp_for_targeted_character=yes }}
-                if = { limit={ check_variable={ GRE.gov_bleader>0  }} can_be_country_leader=THIS }
-                if = { limit={ check_variable={ GRE.gov_badvisor>0 }} is_advisor=yes }
-                if = { limit={ check_variable={ GRE.gov_cdead>0 }} check_variable = { dead=1 } }
-                if = { limit={ check_variable={ GRE.gov_cpurged>0 }} check_variable = { purged=1 } }
-                if = { limit={ check_variable={ GRE.gov_csurrendered>0 }} check_variable = { surrendered=1 } }
-                if = { limit={ check_variable={ GRE.gov_badvisor>0 }} is_advisor=yes }
-                if = {
-                    limit = { gov_no_idelogical_filters_chosen=no }
-                    if = { limit={ check_variable={ GRE.gov_imon=0 }} NOT={check_variable={ ideology=1 }}}
-                    if = { limit={ check_variable={ GRE.gov_idem=0 }} NOT={check_variable={ ideology=2 }}}
-                    if = { limit={ check_variable={ GRE.gov_icom=0 }} NOT={check_variable={ ideology=3 }}}
-                    if = { limit={ check_variable={ GRE.gov_ifas=0 }} NOT={check_variable={ ideology=4 }}}
-                    if = { limit={ check_variable={ GRE.gov_icon=0 }} NOT={check_variable={ ideology=5 }}}
-                    if = { limit={ check_variable={ GRE.gov_isod=0 }} NOT={check_variable={ ideology=6 }}}
-                    if = { limit={ check_variable={ GRE.gov_irev=0 }} NOT={check_variable={ ideology=7 }}}
-                    if = { limit={ check_variable={ GRE.gov_imfa=0 }} NOT={check_variable={ ideology=8 }}}
-                }
-            }
-            add_to_array={ global.gov_array=THIS }
-            #ROOT = { set_variable={ THIS_CHARACTER=PREV }}
-            #add_to_array={ global.gov_array=THIS_CHARACTER }
-        }
+        limit={ check_variable={ gov_reverted_filters=0 }}
+        for_each_loop = { array=gov_coc@1 if={ limit={ filters_gov_normal=yes } add_to_array={ global.gov_array=var:v }}}
     }
-    else = {
-        every_character = {
-            limit = {
-                check_variable={ gov_coc=1 }
-                if = { limit={ check_variable={ GRE.gov_available>0 }} is_advisor=yes set_temp_variable={ v=THIS } OR={ targeted_character_not_psd_cscope=no GRE={ targeted_character_is_available_for_hire_as_political_advisor=no set_temp_variable={ type_of_advisor=1 } has_pp_for_targeted_character=no }}}
-                if = { limit={ check_variable={ GRE.gov_bleader>0  }} NOT={ can_be_country_leader=THIS }}
-                if = { limit={ check_variable={ GRE.gov_badvisor>0 }} is_advisor=no }
-                if = { limit={ check_variable={ GRE.gov_cdead>0 }} check_variable = { dead=0 } }
-                if = { limit={ check_variable={ GRE.gov_cpurged>0 }} check_variable = { purged=0 } }
-                if = { limit={ check_variable={ GRE.gov_csurrendered>0 }} check_variable = { surrendered=0 } }
-                if = { limit={ check_variable={ GRE.gov_badvisor>0 }} is_advisor=no }
-                if = {
-                    limit = { gov_no_idelogical_filters_chosen=no }
-                    if = { limit={ check_variable={ GRE.gov_imon=2 }} NOT={check_variable={ ideology=1 }}}
-                    if = { limit={ check_variable={ GRE.gov_idem=2 }} NOT={check_variable={ ideology=2 }}}
-                    if = { limit={ check_variable={ GRE.gov_icom=2 }} NOT={check_variable={ ideology=3 }}}
-                    if = { limit={ check_variable={ GRE.gov_ifas=2 }} NOT={check_variable={ ideology=4 }}}
-                    if = { limit={ check_variable={ GRE.gov_icon=2 }} NOT={check_variable={ ideology=5 }}}
-                    if = { limit={ check_variable={ GRE.gov_isod=2 }} NOT={check_variable={ ideology=6 }}}
-                    if = { limit={ check_variable={ GRE.gov_irev=2 }} NOT={check_variable={ ideology=7 }}}
-                    if = { limit={ check_variable={ GRE.gov_imfa=2 }} NOT={check_variable={ ideology=8 }}}
-                }
-            }
-            add_to_array={ global.gov_array=THIS }
-        }
+    else = { 
+        for_each_loop = { array=gov_coc@1 if={ limit={ filters_gov_reverted=yes } add_to_array={ global.gov_array=var:v }}}
     }
 }
 
-gov_reset_all_filters_if_back_to_all = { gov_clean_branch_filters=yes gov_clean_conditional_filters=yes gov_clean_ideological_filters=yes clear_variable=gov_reverted_filters }
+gov_reset_all_filters_if_back_to_all = { clear_variable=gov_available gov_clean_branch_filters=yes gov_clean_conditional_filters=yes gov_clean_ideological_filters=yes clear_variable=gov_reverted_filters }
 gov_reset_branch_filters_if_zero = { if = { limit={ check_variable={ gov_branch=0 }} gov_clean_branch_filters=yes }}
 gov_reset_conditional_filters_if_zero = { if = { limit={ check_variable={ gov_conditional=0 }} gov_clean_conditional_filters=yes }}
 gov_reset_ideological_filters_if_zero = { if = { limit={ check_variable={ gov_ideological=0 }} gov_clean_ideological_filters=yes }}
@@ -116,81 +67,30 @@ coc_apply_filters = {
     clear_array = global.coc_array_scnd
     clear_array = global.coc_array_thrd
     clear_array = global.coc_array_frth
-    if = {
-        limit = { check_variable={ coc_reverted_filters=0 }}
+    for_each_loop = { 
+        array=gov_coc@2
 
-        every_character = {
-            limit = {
-                check_variable={ gov_coc=2 }
-                if = { limit={ check_variable={ GRE.coc_available>0 }} set_temp_variable={ v=THIS } targeted_character_is_available_for_hire_as_political_advisor=yes if={limit={is_advisor=yes} set_temp_variable={ type_of_advisor=2 } has_pp_for_targeted_character=yes }}
-                if = { limit={ check_variable={ GRE.coc_bleader>0  }} OR={ is_high_command=yes is_army_chief=yes is_navy_chief=yes is_air_chief=yes }}
-                if = { limit={ check_variable={ GRE.coc_badvisor>0 }} OR={ is_navy_leader=yes is_army_leader=yes is_unit_leader=yes is_corps_commander=yes }}
-                if = { limit={ check_variable={ GRE.coc_barmy>0 }} check_variable = { mbranch=1 }}
-                if = { limit={ check_variable={ GRE.coc_bnavy>0 }} check_variable = { mbranch=2 }}
-                if = { limit={ check_variable={ GRE.coc_bair>0 }} check_variable = { mbranch=3 }}
-                if = { limit={ check_variable={ GRE.coc_cdead>0 }} check_variable = { dead=1 }}
-                if = { limit={ check_variable={ GRE.coc_cpurged>0 }} check_variable = { purged=1 }}
-                if = { limit={ check_variable={ GRE.coc_csurrendered>0 }} check_variable = { surrendered=1 }}
-                if = { limit={ check_variable={ GRE.coc_cassigned>0 }}  if={limit={check_variable={ GRE.coc_bleader>0 }} NOT={not_already_hired_except_as=theorist}} if={limit={check_variable={ GRE.coc_badvisor>0 }} is_assigned=yes }}
-                if = {
-                    limit = { coc_no_idelogical_filters_chosen=no }
-                    if = { limit={ check_variable={ GRE.coc_imon=0 }} NOT={check_variable={ ideology=1 }}}
-                    if = { limit={ check_variable={ GRE.coc_idem=0 }} NOT={check_variable={ ideology=2 }}}
-                    if = { limit={ check_variable={ GRE.coc_icom=0 }} NOT={check_variable={ ideology=3 }}}
-                    if = { limit={ check_variable={ GRE.coc_ifas=0 }} NOT={check_variable={ ideology=4 }}}
-                    if = { limit={ check_variable={ GRE.coc_icon=0 }} NOT={check_variable={ ideology=5 }}}
-                    if = { limit={ check_variable={ GRE.coc_isod=0 }} NOT={check_variable={ ideology=6 }}}
-                    if = { limit={ check_variable={ GRE.coc_irev=0 }} NOT={check_variable={ ideology=7 }}}
-                    if = { limit={ check_variable={ GRE.coc_imfa=0 }} NOT={check_variable={ ideology=8 }}}
+        if = {
+            limit={
+                OR={
+                    AND={ check_variable={ coc_reverted_filters=0 } filters_coc_normal=yes } 
+                    AND={ check_variable={ coc_reverted_filters=1 } filters_coc_reverted=yes }
                 }
             }
-            add_to_array={ global.coc_array=THIS }
-            add_to_array={ global.coc_array_ovrl=THIS.average_stats }
-            add_to_array={ global.coc_array_frst=THIS.attack_level }
-            add_to_array={ global.coc_array_scnd=THIS.defense_level }
-            if = { limit={ is_army_leader=yes } add_to_array={ global.coc_array_thrd=THIS.planning_level }} else_if = { limit={ is_navy_leader=yes } add_to_array={ global.coc_array_thrd=THIS.maneuvering_level }}
-            if = { limit={ is_army_leader=yes } add_to_array={ global.coc_array_frth=THIS.logistics_level }} else_if = { limit={ is_navy_leader=yes } add_to_array={ global.coc_array_frth=THIS.coordination_level }}
-        }
-    }
-    else = {
-        every_character = {
-            limit = {
-                check_variable={ gov_coc=2 }
-                if = { limit={ check_variable={ GRE.coc_available>0 }} set_temp_variable={ v=THIS } targeted_character_is_available_for_hire_as_political_advisor=no if={limit={is_advisor=yes} set_temp_variable={ type_of_advisor=2 } has_pp_for_targeted_character=no} }
-                if = { limit={ check_variable={ GRE.coc_bleader>0  }} NOT={ OR={ is_high_command=yes is_army_chief=yes is_navy_chief=yes is_air_chief=yes }}}
-                if = { limit={ check_variable={ GRE.coc_badvisor>0 }} NOT={ OR={ is_navy_leader=yes is_army_leader=yes is_unit_leader=yes is_corps_commander=yes }}}
-                if = { limit={ check_variable={ GRE.coc_barmy>0 }} NOT={ check_variable = { mbranch=1 }}}
-                if = { limit={ check_variable={ GRE.coc_bnavy>0 }} NOT={ check_variable = { mbranch=2 }}}
-                if = { limit={ check_variable={ GRE.coc_bair>0 }} NOT={ check_variable = { mbranch=3 }}}
-                if = { limit={ check_variable={ GRE.coc_cdead>0 }} check_variable = { dead=0 } }
-                if = { limit={ check_variable={ GRE.coc_cpurged>0 }} check_variable = { purged=0 } }
-                if = { limit={ check_variable={ GRE.coc_csurrendered>0 }} check_variable = { surrendered=0 } }
-                if = { limit={ check_variable={ GRE.coc_cassigned>0 }} is_assigned=no }
-                if = {
-                    limit = { coc_no_idelogical_filters_chosen=no }
-                    if = { limit={ check_variable={ GRE.coc_imon=2 }} NOT={check_variable={ ideology=1 }}}
-                    if = { limit={ check_variable={ GRE.coc_idem=2 }} NOT={check_variable={ ideology=2 }}}
-                    if = { limit={ check_variable={ GRE.coc_icom=2 }} NOT={check_variable={ ideology=3 }}}
-                    if = { limit={ check_variable={ GRE.coc_ifas=2 }} NOT={check_variable={ ideology=4 }}}
-                    if = { limit={ check_variable={ GRE.coc_icon=2 }} NOT={check_variable={ ideology=5 }}}
-                    if = { limit={ check_variable={ GRE.coc_isod=2 }} NOT={check_variable={ ideology=6 }}}
-                    if = { limit={ check_variable={ GRE.coc_irev=2 }} NOT={check_variable={ ideology=7 }}}
-                    if = { limit={ check_variable={ GRE.coc_imfa=2 }} NOT={check_variable={ ideology=8 }}}
-                }
+            add_to_array={ global.coc_array=var:v }
+            var:v = {
+                add_to_array={ global.coc_array_ovrl=THIS.average_stats }
+                add_to_array={ global.coc_array_frst=THIS.attack_level }
+                add_to_array={ global.coc_array_scnd=THIS.defense_level }
+                if = { limit={ is_army_leader=yes } add_to_array={ global.coc_array_thrd=THIS.planning_level }} else_if = { limit={ is_navy_leader=yes } add_to_array={ global.coc_array_thrd=THIS.maneuvering_level }}
+                if = { limit={ is_army_leader=yes } add_to_array={ global.coc_array_frth=THIS.logistics_level }} else_if = { limit={ is_navy_leader=yes } add_to_array={ global.coc_array_frth=THIS.coordination_level }}
             }
-            add_to_array={ global.coc_array=THIS }
-            add_to_array={ global.coc_array_ovrl=THIS.average_stats }
-            add_to_array={ global.coc_array_frst=THIS.attack_level }
-            add_to_array={ global.coc_array_scnd=THIS.defense_level }
-            if = { limit={ is_army_leader=yes } add_to_array={ global.coc_array_thrd=THIS.planning_level }} else_if = { limit={ is_navy_leader=yes } add_to_array={ global.coc_array_thrd=THIS.maneuvering_level }}
-            if = { limit={ is_army_leader=yes } add_to_array={ global.coc_array_frth=THIS.logistics_level }} else_if = { limit={ is_navy_leader=yes } add_to_array={ global.coc_array_frth=THIS.coordination_level }}
         }
     }
     #####[Sorting]#####
     clear_array = arr
     if = {
         limit={ check_variable={ GRE.coc_sort_array>0 }}
-
         if = { limit={ check_variable={ GRE.coc_sort_array=1 }} for_each_loop={ array=global.coc_array_ovrl add_to_array={ arr=v }}}
         if = { limit={ check_variable={ GRE.coc_sort_array=2 }} for_each_loop={ array=global.coc_array_frst add_to_array={ arr=v }}}
         if = { limit={ check_variable={ GRE.coc_sort_array=3 }} for_each_loop={ array=global.coc_array_scnd add_to_array={ arr=v }}}

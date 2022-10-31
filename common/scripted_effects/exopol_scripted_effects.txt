@@ -128,3 +128,123 @@ refresh_italian_escalation_and_acceleration = {
 	resize_array = { array=italian_aggression_accelerator_array value=2 size=italian_escalation_accelerator }
 	resize_array = { array=italian_aggression_accelerator_array value=1 size=50 }
 }
+
+check_and_apply_on_weekly_italian_nagging = {
+	# This function aims to check & apply italian nagging opinion modifier on certain nations depending on a variety of circumstances. The goal is to simulate the process
+	# followed by the Italian diplomatic entourage. In that regard, we need to use escalation level, allies & enemies of Italy and so forth.
+
+	if = {
+		limit={ ITA={ NOT={ has_country_flag=ita_nagging_backfired }}}
+
+		if={ limit={ check_variable={ GRE.italian_escalation_level<10 }} set_temp_variable={ fire_event=GRE.italian_escalation_level }}
+		else_if={ limit={ check_variable={ ITA.political_power<25.00 }} set_temp_variable={ fire_event=12.50 }}
+		else_if={ limit={ check_variable={ ITA.political_power<50.00 }} set_temp_variable={ fire_event=25.0 }}
+		else_if={ limit={ check_variable={ ITA.political_power<75.00 }} set_temp_variable={ fire_event=37.5 }}
+		else_if={ limit={ check_variable={ ITA.political_power<100.00 }} set_temp_variable={ fire_event=50.0 }}
+		else_if={ limit={ check_variable={ ITA.political_power<150.00 }} set_temp_variable={ fire_event=62.5 }}
+		else_if={ limit={ check_variable={ ITA.political_power<200.00 }} set_temp_variable={ fire_event=75.0 }}
+		else={ set_temp_variable={ fire_event=90.0 }}
+		subtract_from_temp_variable={ cancel_event?100=fire_event }
+		random_list={
+			seed=random
+			
+			cancel_event={
+				log="Italy decided not to nag"
+			}
+			fire_event={
+				clear_array=GRE.ita_nagging_array
+				clear_array=GRE.ita_nagging_worked_array
+				clear_array=GRE.ita_nagging_failed_array
+				clear_array=GRE.ita_nagging_backfired_array
+				############[ Step I. Decide Number of Recipients ]############
+				set_temp_variable_to_random={ var=recip min=1 max=4 integer=yes }
+				set_temp_variable={ mag=GRE.italian_escalation_level }
+				divide_temp_variable={ mag=20 }
+				multiply_temp_variable={ recip=mag }
+				round_temp_variable=recip
+				############[ Step II. Select Candidates ]############
+				every_country = {
+					limit = {
+						NOT={ original_tag=ITA }
+						OR={
+							is_ally_with=ITA
+							is_guaranteed_by=ITA
+							has_guaranteed=ITA
+							has_military_access_to=ITA
+							gives_military_access_to=ITA
+							has_opinion={ target=ITA value>20 }
+						}
+						NOT = { has_opinion_modifier=ITA_nagged_TARGET_against_GRE }
+					}
+					add_to_array={ array=GRE.ita_nagging_array value=THIS.id }
+				}
+				every_country={
+					limit={
+						NOT={
+							OR={
+								original_tag=ITA
+								has_war_with=ITA
+								has_opinion_modifier=ITA_nagged_TARGET_against_GRE
+								is_embargoing=ITA
+								is_embargoed_by=ITA
+							}
+						}
+						OR={ is_in_array={ array=GRE.important_nations value=THIS.id } is_major=yes }
+					}
+					add_to_array={ array=GRE.ita_nagging_array value=THIS.id }
+				}
+				############[ Step II. Select Recipients from Candidates and Apply ]############
+				resize_array={ array=GRE.ita_nagging_array size=var:recip }
+				for_each_scope_loop={
+					array=GRE.ita_nagging_array
+
+					set_temp_variable={ b2=50 }
+					set_temp_variable={ b2_bonus=0 }
+					###[Italian Success Bonuses]###
+					if={ limit={ is_ally_with=ITA } add_to_temp_variable={ b2=30 }}
+					if={ limit={ is_guaranteed_by=ITA } add_to_temp_variable={ b2=10 }}
+					if={ limit={ has_guaranteed=ITA } add_to_temp_variable={ b2=10 }}
+					if={ limit={ has_military_access_to=ITA } add_to_temp_variable={ b2=15 }}
+					if={ limit={ gives_military_access_to=ITA } add_to_temp_variable={ b2=15 }}
+					if={ limit={ has_opinion={ target=ITA value>20 }} add_to_temp_variable={ b2=5 }}
+					###[Italian Failure Bonuses]###
+					set_temp_variable={ x=THIS.favor@GRE }
+					if={
+						limit={ check_variable={ x<0 }}
+						add_to_temp_variable={ b2=30 }
+					}
+					else={
+						set_temp_variable={ tmpTHR=100 }
+						set_temp_variable={ tmpREV=1 }
+						calculate_linearly_y_ax_b=yes
+						multiply_temp_variable={ y=10 }
+						subtract_from_temp_variable={ b2=y }
+					}
+					clamp_temp_variable={ var=b2 min=0 max=100 }
+					set_temp_variable={ b1=100 }
+					subtract_from_temp_variable={ b1=b2 }
+					random_list={
+						log=yes
+						seed=random
+
+						b1={
+							set_temp_variable={ b22=5 }
+							divide_temp_variable={ y=2.5 }
+							multiply_temp_variable={ b22=y }
+							set_temp_variable={ b11=100 }
+							subtract_from_temp_variable={ b11=b22 }
+							random_list={
+								seed=random
+								
+								b11={ add_to_array={ array=GRE.ita_nagging_failed_array value=THIS.id }}
+								b22={ add_to_array={ array=GRE.ita_nagging_backfired_array value=THIS.id }}
+							}
+						}
+						b2={ add_to_array={ array=GRE.ita_nagging_worked_array value=THIS.id }}
+					}
+				}
+				GRE={ country_event={ id=hellas.248 days=0 }}
+			}
+		}
+	}
+}
