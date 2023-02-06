@@ -1,50 +1,28 @@
-################
-#### GREECE ####
-################
-##################################################################
-#                                                                #
-#                                                                #
-#                           MY MOD                               #
-#                                                                #
-#                                                                #
-##################################################################
-
 GRE_1936_election_category = {
 	priority = 10000
 	icon = generic_crisis
-
 	picture = GFX_decision_cat_picture_1936_election
-
-	allowed = {
-		original_tag = GRE
-		has_dlc = "Battle for the Bosporus"
-	}
+	allowed = { original_tag=GRE }
 }
 
 GRE_grecoitalian_war_category = {
 	priority = 100000
 	picture = GFX_grecoitalian_war_cat
-
-	allowed = {
-		original_tag = GRE
-		has_dlc = "Battle for the Bosporus"
-	}
+	allowed = { original_tag=GRE }
     
     visible = {
-        NOT = { has_global_flag = GRE_grecoitalian_ended }
+        has_global_flag=GRE_grecoitalian_start
+        NOT={ has_global_flag = GRE_grecoitalian_ended }
     }
 }
 
 GRE_faction_gui_decision_category = {
 	icon = usa_congress
-
 	picture = GFX_dec_cat_factions
-
 	priority = 1000
+	allowed = { original_tag=GRE }
 
-    visible = { 
-        has_country_flag = GRE_faction_gui_flag
-    }
+    visible = { has_country_flag=GRE_faction_gui_flag }
 
 	scripted_gui = faction_gui
 	visible_when_empty = yes
@@ -55,15 +33,15 @@ GRE_hell_acad_category  = {
 	priority = 999
 	icon = gre_hellenic_academy
     picture = GFX_dec_cat_army
+	allowed = { original_tag=GRE }
 
-    visible = {
-        OR = {
+    visible = { 
+        OR={
             has_completed_focus = GRE_solidify_the_budget
             has_country_flag = GRE_faction_gui_flag
         }
     }
 
-	allowed = { original_tag=GRE }
     scripted_gui = hell_acad_gui
     visible_when_empty = yes
 }
@@ -71,17 +49,10 @@ GRE_hell_acad_category  = {
 GRE_kathestos_4hs = {
     priority = 15
     picture = GFX_dec_cat_kathestos
+	allowed = { original_tag=GRE }
 
     visible = { 
-        has_completed_focus = GRE_the_4th_of_august_regime
-    }
-    
-    allowed = {
-        original_tag = GRE
-        has_dlc = "Battle for the Bosporus"
-    }
-    
-    visible = {
+        has_completed_focus = GRE_the_4th_of_august_regime 
         NOT = { has_global_flag = GRE_grecoitalian_start }
         NOT = { has_global_flag = GRE_government_in_exile }
     }
@@ -90,11 +61,7 @@ GRE_kathestos_4hs = {
 GRE_kathestos_asfaleia = {
     priority = 14
     picture = GFX_dec_cat_asfaleia
-    
-    allowed = {
-        original_tag = GRE
-        has_dlc = "Battle for the Bosporus"
-    }
+	allowed = { original_tag=GRE }
     
     visible = { 
         has_completed_focus = GRE_establish_asfaleia
@@ -106,11 +73,7 @@ GRE_kathestos_asfaleia = {
 GRE_kathestos_propaganda = {
     priority = 14
     picture = GFX_dec_cat_propaganda
-    
-    allowed = {
-        original_tag = GRE
-        has_dlc = "Battle for the Bosporus"
-    }
+	allowed = { original_tag=GRE }
     
     visible = { 
         has_completed_focus = GRE_establish_propaganda
@@ -122,30 +85,21 @@ GRE_kathestos_propaganda = {
 GRE_kathestos_exoteriki_politiki = {
     priority = 14
     #picture = GFX_dec_cat_exopol
-    
-    allowed = {
-        original_tag = GRE
-        has_dlc = "Battle for the Bosporus"
-    }
-    
+	allowed = { original_tag=GRE }
+
     visible = { 
         has_completed_focus = GRE_foreign_policy
         NOT = { has_global_flag = GRE_grecoitalian_start }
         NOT = { has_global_flag = GRE_government_in_exile }
     }
     visible_when_empty=yes
-
     scripted_gui = exopol_gui
 }
 
 GRE_kathestos_war_preparation = {
     priority = 14
     picture = GFX_dec_cat_reform
-    
-    allowed = {
-        original_tag = GRE
-        has_dlc = "Battle for the Bosporus"
-    }
+	allowed = { original_tag=GRE }
     
     visible = { 
         has_completed_focus = GRE_metaxas_military_affairs
@@ -157,120 +111,64 @@ GRE_kathestos_war_preparation = {
 GRE_economic_alleviation_category = {
 	priority = 13
 	icon = gre_investment_decisions
-
 	picture = GFX_dec_cat_ecall
-
 	allowed = { original_tag=GRE }
+
     visible = { has_completed_focus=GRE_reevaluating_the_drachma }
     visible_when_empty=yes
     scripted_gui = hell_ecall_gui                           
 }
 
-GRE_economic_fluidity = {
-	priority = 12
-	picture = GFX_dec_cat_tariffs
-
-    visible = {
-        has_completed_focus = GRE_economic_fluidity_plans
-    }
-    
-	allowed = {
-		original_tag = GRE
-		has_dlc = "Battle for the Bosporus"
-	}
-}
-
 GRE_investment_decisions_category  = {
-	priority = 10
-	icon = gre_investment_decisions
-    
+	priority = 13
+	icon = gre_investment_decisions    
     picture = GFX_dec_cat_gre_invest
+	allowed = { original_tag=GRE }
 
-	allowed = {
-		original_tag = GRE
-		has_dlc = "Battle for the Bosporus"
-	}
-    
-    visible = {
-        NOT = { has_global_flag = GRE_government_in_exile }
-    }
+    visible = { has_axis_occupation=no }
 }
 
 GRE_faction_management_category = {
 	priority = 9
 	icon = gre_faction_management
-
-	allowed = {
-		original_tag = GRE
-		has_dlc = "Battle for the Bosporus"
-	}
+	allowed = { original_tag=GRE }
 }
 
-#GRE_infl_main_category = {
-#	priority = 13
-#    visible = { has_completed_focus = GRE_a_game_of_shadows }
-#	visible_when_empty = yes
-#    scripted_gui = infl_mech_main_gui
-#}
-
-GRE_infl_majors_category = {
+GRE_infl_category = {
 	priority = 13
 	picture = GFX_dec_cat_earth
-    visible = { has_completed_focus = GRE_a_game_of_shadows }
-	visible_when_empty = no
-    scripted_gui = infl_mech_major_gui
-}
+	allowed = { original_tag=GRE }
 
-GRE_infl_balkans_category = {
-	priority = 13
-	picture = GFX_dec_cat_balkans
-    visible = { has_completed_focus = GRE_a_game_of_shadows }
-	visible_when_empty = no
-    scripted_gui = infl_mech_balkans_gui
-}
-
-GRE_infl_rest_category = {
-	priority = 13
-	picture = GFX_dec_cat_earth
-    visible = { has_completed_focus = GRE_a_game_of_shadows }
-	visible_when_empty = no
-    scripted_gui = infl_mech_rest_gui
+    visible = { 
+        has_completed_focus=GRE_a_game_of_shadows
+        has_country_flag=infl_mech_opened
+    }
+    #scripted_gui = infl_mech_major_gui
 }
 
 GRE_the_eastern_prospect_category = {
 	priority = 12
 	picture = GFX_dec_cat_gre_east_pros
-
-	allowed = {
-		original_tag = GRE
-		has_dlc = "Battle for the Bosporus"
-	}
+	allowed = { original_tag=GRE }
 }
 
 GRE_a_game_of_shadows_category = {
 	priority = 11
 	picture = GFX_dec_cat_gre_shadow
+	allowed = { original_tag=GRE }
 
-	allowed = {
-		original_tag = GRE
-		has_dlc = "Battle for the Bosporus"
-	}
-    visible = { 
-        has_completed_focus = GRE_a_game_of_shadows
-    }
-    
+    visible = { has_completed_focus=GRE_a_game_of_shadows }
     scripted_gui = game_of_shadows_gui
-	visible_when_empty = yes
 }
 
 GRE_the_resource_storage_plan = {
 	priority = 9
 	picture = GFX_dec_cat_gre_resources
+	allowed = { original_tag=GRE }
 
-	allowed = { original_tag = GRE }
-    visible = {
-        has_completed_focus = GRE_spend_gold_for_resources
-        NOT={ has_axis_occupation=yes }
+    visible = { 
+        has_completed_focus=GRE_spend_gold_for_resources
+        has_axis_occupation=no
     }
 }
 
@@ -286,54 +184,39 @@ GRE_the_resource_storage_plan = {
 GRE_government_in_exile_category = {
 	priority = 10000
 	picture = GFX_dec_cat_gov_in_exile
-
-	allowed = {
-		original_tag = GRE
-		has_dlc = "Battle for the Bosporus"
-	}
+	allowed={ original_tag=GRE }
     
-    visible_when_empty = yes
-    
-    visible = {
-        OR = {
-            has_global_flag = GRE_crete_still_holding
-            has_global_flag = GRE_government_in_exile
-        }
-    }
+    visible = { has_axis_occupation=yes }
 }
 
 GRE_resistance_category = {
 	priority = 10000
 	picture = GFX_dec_cat_resistance
-
-	allowed = {
-		original_tag = GRE
-		has_dlc = "Battle for the Bosporus"
-	}
+	allowed={ original_tag=GRE }
     
-    visible_when_empty = yes
-    
-    visible = {
-        #has_completed_focus = GRE_resistance
-        OR = {
-            has_global_flag = GRE_crete_still_holding
-            has_global_flag = GRE_government_in_exile
-        }
-    }
+    visible = { has_axis_occupation=yes }
 }
 
 GRE_hellenic_state_catefory = {
 	priority = 10000
 	picture = GFX_dec_cat_puppet_1
-
-	allowed = {
-		original_tag = GRE
-		has_dlc = "Battle for the Bosporus"
-	}
+	allowed={ original_tag=GRE }
     
-    visible_when_empty = yes
-    
-    visible = {
-        has_global_flag = GRE_hellenic_state_formed
-    }
+    visible = { has_global_flag=GRE_hellenic_state_formed }
 }
+
+
+########## [ Just Eye Candy ] ######
+####
+#### my_see_test_category = {
+#### 	priority = 90000
+#### 	allowed = { tag=GRE }
+#### 
+####     visible={always=yes}
+#### 
+####     highlight_states = {
+####         highlight_provinces={ 13257 13258 841 9837 }
+####         highlight_color_while_active=2
+####         highlight_color_before_active=1
+####     }
+#### }

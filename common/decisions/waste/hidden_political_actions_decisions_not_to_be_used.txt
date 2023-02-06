@@ -1,0 +1,1061 @@
+political_actions = {
+
+    enable_disable_all_debug_decisions = {
+        allowed = { original_tag=GRE }
+        visible = { is_debug=yes }
+        complete_effect = {
+            if = { limit={ has_country_flag=debug_decs } clr_country_flag=debug_decs }
+            else = { set_country_flag=debug_decs }
+        }
+    }
+
+    did_i_set_var_correctly = {
+        allowed = { original_tag=GRE }
+        visible = { is_debug=yes }
+        available = {
+            GRE_ioannis_metaxas={ check_variable={ x=1 }}
+            ###
+        }
+    }
+
+    set_char_var = {
+        allowed = { original_tag=GRE }
+        visible = { is_debug=yes }
+
+        complete_effect = {
+            add_dynamic_modifier={ modifier=GRE_domciv_penalty }
+        }
+    }
+
+    #test_array = {
+    #    allowed = { original_tag=GRE }
+    #    visible = { is_debug=yes }
+    #    available = {
+    #        any_of = {
+    #            array=greek_characters
+    #
+    #            var:v = { is_character=GRE_eleftherios_venizelos }
+    #            check_variable = { c_purged@var:v=1 }
+    #        }
+    #    }
+    #    complete_effect = {
+    #        every_character = { 
+    #            limit={ is_character=GRE_eleftherios_venizelos }
+    #            vscope_from_cscope_root = yes
+    #            log="[?GRE.c_purged@var:v] - [?THIS]"
+    #        }
+    #    }
+    #}
+
+    #check_test_array = {
+    #    allowed = { original_tag=GRE }
+    #    visible = { is_debug=yes }
+    #    available = {
+    #        #var:katsimitros = { check_variable={ num_battalions>0 }}
+    #        any_of_scopes = {
+    #            array=army_leaders
+    #        
+    #            is_character=GRE_charalambos_katsimitros
+    #            check_variable={ num_battalions>0 }
+    #        }
+    #    }
+    #}
+    #
+    #bodosakis_promote = {
+    #    allowed = { original_tag=GRE }
+    #    visible = { is_debug=yes }
+    #    fixed_random_seed=no
+    #    available = { 
+    #       #hidden_trigger={ GRE_prodromos_bodosakis = { vscope_from_cscope_trigger=yes }}
+    #       #custom_trigger_tooltip = {
+    #       #    tooltip = " Bodosakis' trait is not maxed out"
+    #       #    NOT={ is_in_array = { GRE.rank@7=var:v }}
+    #       #}
+    #    }
+    #    complete_effect = { 
+    #        increase_bodosakis_trait=yes
+    #        remove_from_array={ c_purged=zervas }
+    #    }
+    #}
+    #
+    #test_array = {
+    #    allowed = { original_tag=GRE }
+    #    visible = { is_debug=yes }
+    #    complete_effect = {
+    #        #for_each_scope_loop = {
+    #        #    array=c_mbranch@1
+    #        #
+    #        #    set_temp_variable={ q=num_battalions } log="INSIDE: [?v.GetName] - [?q]"
+    #        #}
+    #        every_army_leader = {
+    #            limit={ is_character_slot=high_command }
+    #            set_temp_variable={ q=num_battalions } log="INSIDE: [?THIS.GetName] - [?q]"
+    #        }
+    #    }
+    #}
+
+    #test_array = {
+    #    allowed = { original_tag=GRE }
+    #    visible = { is_debug=yes }
+    #    complete_effect = {
+    #        set_variable={GRE.count=0}
+    #        for_each_scope_loop = {
+    #            array=c_mbranch@1
+    #        
+    #            log="Name: [?THIS.GetName], Battalions: [?num_battalions]"
+    #            if={limit={ cscope_character_not_psd=no } log="Found the Purged Guy with value [?c_purged@var:THIS]" add_to_temp_variable={count=1}}
+    #        }
+    #        set_variable={GRE.count=count}
+    #        log="Final COUNT: [?GRE.count]"
+    #    }
+    #}
+
+    #check_test_array = {
+    #    allowed = { original_tag=GRE }
+    #    visible = { is_debug=yes }
+    #    available = {
+    #        set_temp_variable={ v=kotzias }
+    #        meta_trigger = {
+    #            debug = yes
+    #            text = { set_temp_variable={ ppcost=[REQ_PP] }}
+    #            REQ_PP = "[GetCharacterAdvisorCost]"
+    #        }
+    #        has_political_power > ppcost
+    #        #check_variable={ gov_coc@1^0=demertzis }
+    #        #any_of = {
+    #        #    array=tarray1
+    #        #    value=tmp_v
+    #        #    index=tmp_i
+    #        #
+    #        #    check_variable={ tmp_v=4 }
+    #        #    check_variable={ tarray2^tmp_i = 20 }
+    #        #}
+    #    }
+    #}
+    #
+    #test_array = {
+    #    allowed = { original_tag=GRE }
+    #    visible = { is_debug=yes }
+    #    complete_effect = {
+    #        GRE = {
+    #            every_country = {
+    #                limit = { has_original_tag = GER }
+    #                random_character = {
+    #                    limit = { is_character = GER_rudolf_hess }
+    #                    #set_nationality = PREV.PREV
+    #                    set_temp_variable={y=THIS}
+    #                    log="THIS: [?THIS.GetName60], y: [?y.GetName], PREV: [?PREV.GetName], PREV PREV: [?PREV.PREV.GetName]"
+    #                }
+    #            }
+    #        }
+    #        #clear_array = tarray1
+    #        #clear_array = tarray2
+    #        #add_to_array = { tarray1=2 }
+    #        #add_to_array = { tarray1=4 }
+    #        #add_to_array = { tarray2=10 }
+    #        #add_to_array = { tarray2=20 }
+    #        #add_to_array = { ww=metaxas }
+    #    }
+    #}
+
+    #any_way_to_access_a_inside_metaxas = { # A in country 1, A in Metaxas 2
+    #    allowed = { original_tag=GRE }
+    #    visible = { is_debug=yes }
+    #    available = {
+    #        OR = {
+    #            any_of = {
+    #                array = test_array
+    #                
+    #                OR = {
+    #                    var:v = { 
+    #                        OR = { 
+    #                            check_variable={ a=2 }
+    #                            ROOT = { check_variable={ PREV.a = 2 }}
+    #                        }
+    #                    }
+    #                    check_variable = { v.a = 2 }
+    #                }
+    #            }
+    #            GRE_ioannis_metaxas = { check_variable={ a=2 }}
+    #            var:test_array^0 = { check_variable={ a=2 }}
+    #            for_each_scope_loop = {
+    #                array=test_array
+    #            
+    #                set_temp_variable={ tmpA=a }
+    #            }
+    #            check_variable={ tmpA=2 }
+    #        }
+    #    }
+    #}
+
+    #metaxas_has_purged_flag_set_to_2 = {
+    #    allowed = { original_tag=GRE }
+    #    visible = { is_debug=yes }
+    #    available = { 
+    #        GRE_ioannis_metaxas = { has_character_flag={ flag=purged value=1 }}
+    #    }
+    #    complete_effect = {
+    #    }
+    #}
+    #
+    #set_metaxas_purged_flag = {
+    #    allowed = { original_tag=GRE }
+    #    visible = { is_debug=yes }
+    #    complete_effect = {
+    #        GRE_ioannis_metaxas = { 
+    #            clr_character_flag=purged
+    #            set_character_flag=purged
+    #            modify_character_flag = {
+    #                flag = purged
+    #                value = 0
+    #            }
+    #        }
+    #    }
+    #}
+    #
+    #new_new_scope_trigger = {
+    #    allowed = { original_tag=GRE }
+    #    visible = { is_debug=yes }
+    #    available = { 
+    #        any_of = {
+    #            array = test_array
+    #        
+    #            var:v = { is_character=GRE_ioannis_metaxas }
+    #        }
+    #        #any_of_scopes = {
+    #        #    array = test_array
+    #        #                           DOES NOT WORK
+    #        #    always=no
+    #        #}
+    #    }
+    #    complete_effect = {
+    #        var:test_array^0 = {
+    #            log = "A is: [?THIS.a]"
+    #            set_variable = { GRE.c=THIS.a }
+    #            ROOT={ set_variable = { b=PREV.a }}
+    #        }
+    #        for_each_scope_loop = {
+    #            array = test_array
+    #        
+    #            log = "A is: [?THIS.a]"
+    #            set_variable = { GRE.c=THIS.a }
+    #            ROOT={ set_variable = { b=PREV.a }}
+    #        }
+    #        set_variable={ metaxas.a = 5 }
+    #        log = "MetA: [?metaxas.a]"
+    #    }
+    #}
+    #
+    #new_scope_trigger = {
+    #    allowed = { original_tag=GRE }
+    #    visible = { is_debug=yes }
+    #    available = { 
+    #        var:test_array^0 = { 
+    #            is_character=GRE_ioannis_metaxas
+    #        }
+    #    }
+    #    complete_effect = {
+    #        for_each_scope_loop = {
+    #            array = test_array
+    #
+    #            set_variable = { a=2 }
+    #        }
+    #    }
+    #}
+    #
+    #new_scope_test = {
+    #    allowed = { original_tag=GRE }
+    #    visible = { is_debug=yes }
+    #    complete_effect = {
+    #        #random_character = {
+    #        #    limit = { is_character=GRE_ioannis_metaxas }
+    #        #    #add_to_array = { 1.test_arr = 1 }
+    #        #    #add_to_array = { 2.test_arr = 2 }
+    #        #    #ROOT = { set_variable={ xx=PREV } set_temp_variable={ xy=xx} log="[?xy]"}
+    #        #}
+    #        #random_character = { 
+    #        #    limit = { is_character=GRE_ioannis_metaxas }
+    #        #    ROOT = { set_variable={ xx=PREV } }
+    #        #    log="[?THIS] / [?xx]"
+    #        #}
+    #        #GRE_ioannis_metaxas = { add_to_variable = { xx = THIS }}
+    #    }
+    #}
+    #
+    #add_char_to_test_array = {
+    #    allowed = { original_tag=GRE }
+    #    visible = { is_debug=yes }
+    #    complete_effect = {
+    #        GRE_ioannis_metaxas = { ROOT={ set_variable={tmp=PREV} add_to_array={ GRE.test_array=tmp} }}
+    #        #random_character = {
+    #        #    limit = { is_character=GRE_ioannis_metaxas }
+    #        #    clear_array = test_array
+    #        #    ROOT = { set_variable={ tmp=PREV } add_to_array={ GRE.test_array=tmp }}
+    #        #}
+    #    }
+    #}
+ 
+    ##reset_desirability_array = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    fixed_random_seed=no
+    ##    complete_effect={
+    ##        add_to_array={ array=GRE.balkan_pact_members value=TUR.id }
+    ##        add_to_array={ array=GRE.balkan_pact_members value=YUG.id }
+    ##        add_to_array={ array=GRE.balkan_pact_members value=ROM.id }
+    ##        for_each_scope_loop={ array=GRE.balkan_pact_members refresh_balkan_pact_desirability_gui_THIS=yes }
+    ##    }
+    ##}
+ ##
+    ##mussolini_tensions = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    fixed_random_seed=no
+    ##    available={
+    ##        mussolini_historical_tensions_with_greece=yes
+    ##    }
+    ##}
+##
+    ##setupTHISarray = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    fixed_random_seed=no
+    ##    complete_effect = {
+    ##        TUR={ clear_array=balkan_pact_desirability_array set_variable={ balkan_pact_desirability=45 } refresh_balkan_pact_desirability_gui_THIS=yes }
+    ##        YUG={ clear_array=balkan_pact_desirability_array set_variable={ balkan_pact_desirability=55 } refresh_balkan_pact_desirability_gui_THIS=yes }
+    ##        ROM={ clear_array=balkan_pact_desirability_array set_variable={ balkan_pact_desirability=30 } refresh_balkan_pact_desirability_gui_THIS=yes }
+    ##        set_variable = { GRE.italian_escalation_level=25 }
+    ##        set_variable = { GRE.italian_escalation_accelerator=2 }
+    ##        refresh_italian_escalation_and_acceleration=yes
+    ##        #BUL={ clear_array=balkan_pact_desirability_array set_variable={ balkan_pact_desirability=2 } refresh_balkan_pact_desirability_gui_THIS=yes }
+    ##        #ALB={ clear_array=balkan_pact_desirability_array set_variable={ balkan_pact_desirability=8 } refresh_balkan_pact_desirability_gui_THIS=yes }
+    ##    }
+    ##}
+##
+    ##setturarray = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    fixed_random_seed=no
+    ##    complete_effect = { 
+    ##        clear_array = balkan_pact_turkey_array
+    ##        clear_array = balkan_pact_yugoslavia_array
+    ##        clear_array = balkan_pact_romania_array
+    ##        clear_array = balkan_pact_bulgaria_array
+    ##        clear_array = balkan_pact_albania_array
+    ##        clear_array = italian_aggression_main_array
+    ##        clear_array = italian_aggression_accelerator_array
+    ##        resize_array = { array=balkan_pact_turkey_array value=1 size=50 }
+    ##        resize_array = { array=balkan_pact_turkey_array value=2 size=100 }
+    ##        resize_array = { array=balkan_pact_yugoslavia_array value=1 size=50 }
+    ##        resize_array = { array=balkan_pact_yugoslavia_array value=2 size=100 }
+    ##        resize_array = { array=balkan_pact_romania_array value=1 size=50 }
+    ##        resize_array = { array=balkan_pact_romania_array value=2 size=100 }
+    ##        resize_array = { array=balkan_pact_bulgaria_array value=1 size=50 }
+    ##        resize_array = { array=balkan_pact_bulgaria_array value=2 size=100 }
+    ##        resize_array = { array=balkan_pact_albania_array value=1 size=50 }
+    ##        resize_array = { array=balkan_pact_albania_array value=2 size=100 }
+    ##        resize_array = { array=italian_aggression_main_array value=2 size=50 }
+    ##        resize_array = { array=italian_aggression_main_array value=1 size=100 }
+    ##        resize_array = { array=italian_aggression_accelerator_array value=2 size=50 }
+    ##        resize_array = { array=italian_aggression_accelerator_array value=1 size=100 }
+    ##        clear_array=balkan_pact_bulgaria_array
+    ##        clear_array=balkan_pact_albania_array
+    ##    }
+    ##}
+##
+    ##instantships = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    fixed_random_seed=no
+    ##    complete_effect = { 
+    ##        add_days_remove = { decision=GRE_buy_subs_dec days=-300 }
+    ##        add_days_remove = { decision=GRE_buy_dest_dec days=-300 }
+    ##        add_days_remove = { decision=GRE_buy_batt_dec days=-300 }
+    ##    }
+    ##}
+##
+    ##addcvs = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    fixed_random_seed=no
+    ##    complete_effect = { add_offsite_building={ type=industrial_complex level=13 }}
+    ##}
+##
+    ##refresh_faction = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    fixed_random_seed=no
+    ##    complete_effect = { GRE_faction_refresh=yes }
+    ##}
+    ##         
+    ##send_equipment_while_negative = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    fixed_random_seed=no
+    ##    complete_effect = {
+    ##        add_equipment_to_stockpile = {
+    ##            type = infantry_equipment
+    ##            amount = -1000
+    ##            producer = GRE
+    ##        }
+    ##    }
+    ##}
+##
+    ##form_arrays = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    fixed_random_seed=no
+    ##    complete_effect = {
+    ##        set_variable = { GRE.influence_radius=120 }
+    ##        add_to_array = { GRE.balkan_neighbors=TUR.id }
+    ##        add_to_array = { GRE.balkan_neighbors=BUL.id }
+    ##        add_to_array = { GRE.balkan_neighbors=ALB.id }
+    ##        add_to_array = { GRE.balkan_neighbors=YUG.id }
+    ##        add_to_array = { GRE.balkan_neighbors=ROM.id }
+    ##    }
+    ##}
+    ##        
+    ##distance_to_pp = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    fixed_random_seed=no
+    ##    complete_effect = {
+    ##        var:GER.capital = { set_temp_variable = { x=distance_to@GRE.capital }}
+    ##        add_political_power = x
+    ##    }
+    ##}
+    ##        
+    ##remove_twenty = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    fixed_random_seed=no
+    ##    complete_effect = {
+    ##        add_days_mission_timeout = { mission=workers_entering_factories days=-30 }
+    ##    }
+    ##}
+    ##        
+    ##is_operating_in_Turkey = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    fixed_random_seed=no
+    ##    available = {
+    ##        any_operative_leader = { operative_leader_mission=diplomatic_pressure }
+    ##       #TUR = {
+    ##       #    GRE = {
+    ##       #        
+    ##       #    }
+    ##       #}
+    ##    }
+    ##}
+##
+    ##bodosakis_reset = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    fixed_random_seed=no
+    ##    complete_effect = { add_trait={ character=GRE_prodromos_bodosakis slot=political_advisor trait=business_genius_7 } random_character={ limit={ is_character=GRE_prodromos_bodosakis }} set_variable={ trait_level=7 }}
+    ##}
+##
+    ##bodosakis_seicho = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    fixed_random_seed=no
+    ##    available={
+    ##        any_character={ is_character=GRE_prodromos_bodosakis check_variable={trait_level<7}}
+    ##    }
+    ##    complete_effect = { increase_bodosakis_trait=yes }
+    ##}
+##
+    ##has_kavvadias_rank_1 = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    fixed_random_seed=no
+    ##    available = {
+    ##        any_character = { is_character=GRE_epameinondas_kavvadias check_variable={ rank=1 }}
+    ##    }
+    ##    complete_effect = {
+    ##        add_political_power=250
+    ##    }
+    ##}
+##
+    ##set_char_val2 = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    fixed_random_seed=no
+    ##    complete_effect = {
+    ##        random_character = { limit={ is_character=GRE_epameinondas_kavvadias } set_variable={ rank=1 }}
+    ##    }
+    ##}
+##
+    ##is_character_tagging_working_like_this = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    fixed_random_seed=no
+    ##    available = {
+    ##        any_character = {
+    ##            is_character=GRE_charalambos_katsimitros
+    ##            vscope_from_cscope_trigger=yes
+    ##            vscope_character_hired_in_high_command=yes
+    ##        }
+    ##    }
+    ##}
+##
+    ##is_ntalipis_unit_leader = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    fixed_random_seed=no
+    ##    available = {
+    ##        GRE_anastasios_ntalipis = { is_unit_leader=yes }
+    ##    }
+    ##}
+##
+    ##check_fm_hire = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    fixed_random_seed=no
+    ##    available = {
+    ##        set_temp_variable = { v=papagos }
+    ##        meta_trigger = {
+    ##            text = { 
+    ##                any_character = { 
+    ##                    is_character=[CHARACTER_ID] 
+    ##                    is_field_marshal=yes
+    ##                    NOT={ GRE={ OR={ has_idea=[CHARACTER_ID]_political_advisor  has_idea=[CHARACTER_ID]_hca  has_idea=[CHARACTER_ID]_chief }}}
+    ##                }
+    ##            }
+    ##            CHARACTER_ID = "[GetCharacterIDfromTOKEN]"
+    ##        }
+    ##    }
+    ##}
+##
+    ##make_fm = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    fixed_random_seed=no
+    ##    complete_effect = { GRE_napoleon_zervas = { promote_leader=yes }}
+    ##}
+##
+    ##test_whether_atk_def_etc_access_work = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    fixed_random_seed=no
+    ##    available = {
+    ##        set_temp_variable = { v=token:GRE_alexandros_papagos }
+    ##        check_variable = { v.planning_level=0 }
+    ##    }
+    ##    complete_effect = {
+    ##    }
+    ##}
+##
+    ##test_whether_meta_works = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    fixed_random_seed=no
+    ##    complete_effect = {
+    ##        set_temp_variable = { v=global.gov_array^5 }
+    ##        meta_effect = {
+    ##            text = {
+    ##                random_character = {
+    ##                    limit = { is_character=[CHARACTER_ID] }
+    ##                    set_variable = { purged=1 }
+    ##                }
+    ##            }
+    ##            CHARACTER_ID = "[GetCharacterIDfromTOKEN]"
+    ##        }
+    ##        log = "TK: [?v], CID: [GetCharacterIDfromTOKEN]"
+    ##    }
+    ##}
+##
+    ##is_venizelos_purged = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    fixed_random_seed=no
+    ##    available = {
+    ##        set_temp_variable = { v=token:GRE_eleftherios_venizelos }
+    ##        any_character = {
+    ##            is_character = GRE_eleftherios_venizelos
+    ##            check_variable = { purged=1 }
+    ##        }
+    ##        ####[DO NOT WORK]####
+    ##        #meta_trigger = {
+    ##        #    text = { 
+    ##        #        any_character = { 
+    ##        #            is_character=[CHARACTER_ID] 
+    ##        #            check_variable = { purged=1 }}
+    ##        #        }
+    ##        #    CHARACTER_ID = [THIS.GetCharacterIDfromTOKEN]
+    ##        #}
+    ##        #GRE_eleftherios_venizelos = { check_variable={ THIS.purged=0 }}     # Sees GRE scope.
+    ##    }
+    ##    complete_effect = { }
+    ##}
+##
+    ##deflag_kotzias = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    fixed_random_seed=no
+    ##    available = {
+    ##        GRE_kostas_kotzias = { has_character_flag=GRE_kotzias_xx }
+    ##    }
+    ##    complete_effect = {
+    ##        GRE_kostas_kotzias = { clr_character_flag=GRE_kotzias_xx }
+    ##    }
+    ##}
+##
+    ##flag_kotzias = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    fixed_random_seed=no
+    ##    available = {
+    ##        GRE_kostas_kotzias = { NOT = { has_character_flag=GRE_kotzias_xx } }
+    ##    }
+    ##    complete_effect = {
+    ##        GRE_kostas_kotzias = { set_character_flag=GRE_kotzias_xx }
+    ##    }
+    ##}
+##
+    ##any_char_check = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    fixed_random_seed=no
+    ##    available = {
+    ##        #any_character = {
+    ##            check_variable = { token:GRE_konstantinos_demertzis=global.gov_array^0 }
+    ##        #}
+    ##    }
+    ##    complete_effect = {
+    ##        add_political_power=250
+    ##    }
+    ##}
+##
+    ##kill_through_char_var = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    fixed_random_seed=no
+    ##    available = {
+    ##        any_character = {
+    ##            is_character=GRE_konstantinos_demertzis
+    ##            check_variable = { bd=2 }
+    ##        }
+    ##    }
+    ##    complete_effect = {
+    ##        var:metaxas = { retire=yes }
+    ##    }
+    ##}
+##
+    ##set_char_val = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    fixed_random_seed=no
+    ##    complete_effect = {
+    ##        random_character = { limit={ is_character=GRE_markos_drakos } set_variable={ rank=1 }}
+    ##        #GRE_konstantinos_demertzis = { THIS = { set_variable = { bd=2 }}}
+    ##        #set_variable = { var:demertzis.bd=2 }
+    ##    }
+    ##}
+##
+    ##kill_char_token = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    fixed_random_seed=no
+    ##    complete_effect = {
+    ##        var:metaxas = { retire=yes }
+    ##    }
+    ##}
+    ##
+    ##char_variable = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    fixed_random_seed=no
+    ##    complete_effect = {
+    ##        #set_variable = { metaxas=GRE_ioannis_metaxas }
+    ##        #GRE_ioannis_metaxas = { ROOT={ set_variable = { metaxas=PREV }}
+    ##        random_character = { limit={ is_character=GRE_ioannis_metaxas } ROOT={ set_variable={ metaxas=PREV }}}
+    ##    }
+    ##}
+##
+    ##add_to_targeted_array2 = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    available = { var:GER.capital = { is_on_continent=africa }}
+    ##}
+##
+    ##add_to_targeted_array = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    complete_effect = {
+    ##        add_to_array = { GRE.xxx@GER = 5 }  #hell, it works
+    ##    }
+    ##}
+##
+    ##upgrade_railway_level = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    complete_effect = {
+    ##        expand_greek_railway_system_generator=yes
+    ##    }
+    ##}
+##
+    ##diplomatic_reaction_A = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    complete_effect = {
+    ##        set_variable = { GER.init_e332t@GRE=0 }
+    ##        set_variable = { GER.init_e332d@GRE=2 }
+    ##        set_variable = { ITA.init_e332t@GRE=1 }
+    ##        set_variable = { ITA.init_e332d@GRE=7 }
+    ##        GER = { country_event = { id = hellas.3331 days=0 } }
+    ##        ITA = { country_event = { id = hellas.3331 days=0 } }
+    ##    }
+    ##}
+##
+    ##diplomatic_reaction_B = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    complete_effect = {
+    ##        set_variable = { GER.init_e332t@GRE=1 }
+    ##        set_variable = { GER.init_e332d@GRE=3 }
+    ##        set_variable = { ITA.init_e332t@GRE=0 }
+    ##        set_variable = { ITA.init_e332d@GRE=4 }
+    ##        GER = { country_event = { id = hellas.3331 days=0 } }
+    ##        ITA = { country_event = { id = hellas.3331 days=0 } }
+    ##    }
+    ##}
+##
+##
+    ##diplomatic_reaction_C = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    complete_effect = {
+    ##        set_variable = { GER.init_e332t@GRE=1 }
+    ##        set_variable = { GER.init_e332d@GRE=3 }
+    ##        set_variable = { ITA.init_e332t@GRE=0 }
+    ##        set_variable = { ITA.init_e332d@GRE=4 }
+    ##        GER = { country_event = { id = hellas.3331 days=0 } }
+    ##        ITA = { country_event = { id = hellas.3331 days=0 } }
+    ##    }
+    ##}
+##
+##
+    ##diplomatic_reaction_D = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    complete_effect = {
+    ##        set_variable = { GER.init_e332t@GRE=1 }
+    ##        set_variable = { GER.init_e332d@GRE=2 }
+    ##        set_variable = { ITA.init_e332t@GRE=0 }
+    ##        set_variable = { ITA.init_e332d@GRE=4 }
+    ##        GER = { country_event = { id = hellas.3331 days=12 } }
+    ##        ITA = { country_event = { id = hellas.3331 days=0 } }
+    ##    }
+    ##}
+##
+    ##add_plans_to_array = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    complete_effect = {
+    ##        add_to_array = { GRE.warplans_array=10000 }
+    ##        add_to_array = { GRE.warplans_array=10001 }
+    ##        add_to_array = { GRE.warplans_array=10002 }
+    ##        #add_to_array = { GRE.warplans_array=10003 }
+    ##        #add_to_array = { GRE.warplans_array=10004 }
+    ##        #add_to_array = { GRE.warplans_array=10005 }
+    ##        #add_to_array = { GRE.warplans_array=10006 }
+    ##        #add_to_array = { GRE.warplans_array=10007 }
+    ##        #add_to_array = { GRE.warplans_array=10008 }
+    ##    }
+    ##}
+##
+    ##set_deploy_distance_from_HQ = {
+    ##    allowed = { original_tag=GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    complete_effect = { for_each_scope_loop = { array=global.greek_occupied_states_all calculate_base_time_to_deploy_recall=yes }}
+    ##}
+##
+    ##set_state_bm_event = {
+    ##    allowed = { original_tag = GRE }
+    ##    visible = { is_debug = yes has_country_flag=debug_decs }
+    ##    complete_effect = { 
+    ##        47 = { state_event = { id = hellas.1012 days=0 } }
+    ##    }
+    ##}
+##
+    ##change_personality = {
+    ##    allowed = { original_tag = GRE }
+    ##    visible = { is_debug = yes has_country_flag=debug_decs }
+    ##    complete_effect = { 
+    ##        GER = { HS_GAR_update_personality_THIS=yes } 
+    ##        ITA = { HS_GAR_update_personality_THIS=yes } 
+    ##        BUL = { HS_GAR_update_personality_THIS=yes } 
+    ##    }
+    ##}
+##
+    ##set_behavior_to_patrol = {
+    ##    allowed = { original_tag = GRE }
+    ##    visible = { is_debug = yes has_country_flag=debug_decs }
+    ##    complete_effect = { 
+    ##        GER = { set_variable={GER.GAR_BEH@GRE=1} HS_GAR_behavior_patrol=yes } 
+    ##        ITA = { HS_GAR_behavior_patrol=yes } 
+    ##        BUL = { HS_GAR_behavior_patrol=yes } 
+    ##    }
+    ##}
+##
+    ##set_behavior_to_plunder = {
+    ##    allowed = { original_tag = GRE }
+    ##    visible = { is_debug = yes has_country_flag=debug_decs }
+    ##    complete_effect = { 
+    ##        GER = { HS_GAR_behavior_plunder=yes } 
+    ##        ITA = { HS_GAR_behavior_plunder=yes } 
+    ##        BUL = { HS_GAR_behavior_plunder=yes } 
+    ##    }
+    ##}
+##
+    ##set_behavior_to_binge = {
+    ##    allowed = { original_tag = GRE }
+    ##    visible = { is_debug = yes has_country_flag=debug_decs }
+    ##    complete_effect = { 
+    ##        GER = { HS_GAR_behavior_binge=yes } 
+    ##        ITA = { HS_GAR_behavior_binge=yes } 
+    ##        BUL = { HS_GAR_behavior_binge=yes } 
+    ##    }
+    ##}
+##
+    ##set_behavior_to_alert = {
+    ##    allowed = { original_tag = GRE }
+    ##    visible = { is_debug = yes has_country_flag=debug_decs }
+    ##    complete_effect = {
+    ##        GER = { HS_GAR_behavior_alert=yes }
+    ##        ITA = { HS_GAR_behavior_alert=yes }
+    ##        BUL = { HS_GAR_behavior_alert=yes }
+    ##    }
+    ##}
+##
+    ##initialize_famine = {
+    ##    allowed = { original_tag = GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    complete_effect = {
+    ##        HS_FAM_set_base_state_level=yes
+    ##    }
+    ##}
+    ##
+    ##add_collab = {
+    ##    allowed = { original_tag = GRE }
+    ##    visible = { is_debug = yes has_country_flag=debug_decs }
+    ##    fixed_random_seed = no
+    ##    days_remove = 0
+    ##    complete_effect = {
+    ##        activate_mission=kommandatur
+    ##        activate_mission=commando_piazza
+    ##        activate_mission=bul_pol
+    ##        HS_shut_down_the_games_resistance_mechanic_in_states=yes
+    ##        HS_set_up_areas_of_interest_arrays = yes
+    ##        clear_array = global.greek_mainland_states_all
+    ##        add_to_array = { global.greek_mainland_states_all = 47 }
+    ##        add_to_array = { global.greek_mainland_states_all = 731 }
+    ##        add_to_array = { global.greek_mainland_states_all = 913 }
+    ##        add_to_array = { global.greek_mainland_states_all = 912 }
+    ##        add_to_array = { global.greek_mainland_states_all = 185 }
+    ##        add_to_array = { global.greek_mainland_states_all = 909 }
+    ##        add_to_array = { global.greek_mainland_states_all = 910 }
+    ##        add_to_array = { global.greek_mainland_states_all = 186 }
+    ##        add_to_array = { global.greek_mainland_states_all = 184 }
+    ##        add_to_array = { global.greek_mainland_states_all = 914 }
+    ##        ###################################
+    ##        HS_calculate_initial_anger_level = yes
+    ##        ###################################
+    ##        GER = { HS_GAR_monthly_replenishment_effect_for_THIS=yes HS_GAR_overall_distribution_for_THIS=yes HS_GAR_update_personality_THIS=yes HS_GAR_behavior_plunder=yes }
+    ##        ITA = { HS_GAR_monthly_replenishment_effect_for_THIS=yes HS_GAR_overall_distribution_for_THIS=yes HS_GAR_update_personality_THIS=yes HS_GAR_behavior_plunder=yes }
+    ##        BUL = { HS_GAR_monthly_replenishment_effect_for_THIS=yes HS_GAR_overall_distribution_for_THIS=yes HS_GAR_update_personality_THIS=yes HS_GAR_behavior_plunder=yes }
+    ##        #186 = { add_dynamic_modifier = { modifier = plundered_state days = 30 }  add_dynamic_modifier = { modifier = terrorized_populace days = 30 } add_dynamic_modifier = { modifier = reprisals_massacres days = 30 }}
+    ##    }#
+    ##}
+##
+    ###add_colab_mission= {
+	###	icon = generic_operation
+	###	allowed = { tag = GRE }
+    ###    activation = { always = no }    
+	###	available = { always = no }
+    ###    is_good = yes
+    ###    days_mission_timeout = 1
+    ###    days_remove = 0
+    ###    fixed_random_seed = no
+    ###    timeout_effect = {
+    ###        every_unit_leader = {
+    ###            limit = {
+    ###                is_character = GRE_alexandros_papagos
+    ###            }
+    ###            set_temp_variable = {indATK = 1}
+    ###            increase_indXYZQ_weighted = yes
+    ###        }
+    ###    }
+    ###    
+    ###    complete_effect = {
+    ###        clr_country_flag = training_in_serres
+    ###    }
+    ###}    
+    ##
+    ##check_dec = {
+    ##    allowed = { original_tag = GRE }
+##
+    ##    available = {
+    ##        #set_temp_variable = { tmpPER = 0.1 }
+    ##        #HS_GER_OST_expanding_lvl1_tmpPER=yes
+    ##        #HS_GER_WST_main_westwall_integrity_violated=yes
+    ##        set_temp_variable = { tmpCID = TUR.id }
+    ##        has_opposing_ideology_from_tmpCID=yes
+    ##    }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    days_remove = 10
+    ##    modifier = {
+    ##        assign_army_leader_cp_cost = 10
+    ##    }
+##
+    ##    #available ={
+    ##    #    any_operative_leader = {
+    ##    #        operative_leader_mission = propaganda
+    ##    #        check_variable = { operation_country = ITA:id }
+    ##    #    }
+    ##    #} 
+    ##    complete_effect = {
+    ##        activate_advisor = GRE_alexandros_papagos_chief
+    ##    }
+    ##}
+##
+    ##test_test1 = {
+    ##    allowed = { original_tag = GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    
+    ##    complete_effect = {
+    ##        GRE = {
+    ##            every_army_leader = {
+    ##                set_nationality = AGO
+    ##            }
+    ##        }
+    ##    }
+    ##}
+##
+    ##test_test2 = {
+    ##    allowed = { original_tag = GRE }
+    ##    visible = { is_debug=yes has_country_flag=debug_decs }
+    ##    
+    ##    complete_effect = {
+    ##        AGO = {
+    ##            every_army_leader = {
+    ##                set_nationality = GRE
+    ##            }
+    ##        }
+    ##    }
+    ##}
+##
+##
+    ##test_edes_increase = {
+    ##    allowed = {
+    ##        original_tag = GRE
+    ##    }
+    ##    
+    ##    cost = 10
+    ##    
+    ##    visible = { 
+    ##        is_debug = yes has_country_flag=debug_decs
+    ##    }
+    ##    
+    ##    complete_effect = {
+    ##        set_temp_variable = { edes_manpower_add = 15.3 }
+    ##        set_temp_variable = { edes_equipment_add = 5.1 }
+    ##        HS_resistance_popularity_bonus = yes
+    ##        HS_resistance_growth_potential = yes 
+    ##        multiply_temp_variable = { edes_manpower_add = edes_temp_per }
+    ##        multiply_temp_variable = { edes_equipment_add = edes_temp_per }
+    ##        round_temp_variable = edes_manpower_add
+    ##        round_temp_variable = edes_equipment_add
+    ##        add_to_variable = { GRE.edes_manpower = edes_manpower_add }
+    ##        add_to_variable = { GRE.edes_equipment = edes_equipment_add }
+    ##    }
+    ##}
+##
+    ##test_300_edes = {
+    ##    allowed = {
+    ##        original_tag = GRE
+    ##    }
+    ##    
+    ##    cost = 10
+    ##    
+    ##    visible = { 
+    ##        is_debug = yes has_country_flag=debug_decs
+    ##    }
+    ##    
+    ##    complete_effect = {
+    ##        resize_array = {
+    ##            array = testme
+    ##            value = 1
+    ##            size = 300
+    ##        }
+    ##        for_each_loop = {
+    ##            array = testme
+    ##  
+    ##            GER = { ELAS_resistance_battle_sandbox = yes }
+    ##        }
+    ##    }
+    ##}
+##
+    ##add_res1234 = {
+    ##    allowed = {
+    ##        original_tag = GRE
+    ##    }
+    ##    
+    ##    cost = 10
+    ##    
+    ##    visible = { 
+    ##        is_debug = yes has_country_flag=debug_decs
+    ##    }
+    ##    
+    ##    complete_effect = {
+    ##        GRE = {
+    ##            add_collaboration = {
+    ##                target = ITA
+    ##                value = 0.3
+    ##            }
+    ##        }
+    ##        #GER = { ELAS_resistance_battle_sandbox = yes }
+    ##        #HS_increase_armed_resistance_by_one = yes
+    ##    }
+    ##}
+    ##
+    ##add_stuff3 = {
+    ##    allowed = {
+    ##        original_tag = GER
+    ##    }
+    ##    
+    ##    available = {
+    ##        has_global_flag = {
+    ##            flag = GRE_crete_still_holding
+    ##            days > 14
+    ##        }
+    ##        event_target:hellenic_state = { exists = yes }
+    ##        controls_state = 47
+    ##        GRE = { controls_state = 182 } 
+    ##        check_variable = { wave < 2 }
+    ##        check_variable = { GRE.num_battalions < 120 }
+    ##        has_global_flag = {
+    ##            flag = GRE_crete_still_holding
+    ##            days < 90
+    ##        }
+    ##    }
+    ##    
+    ##    days_remove = 2
+    ##    
+    ##    visible = {
+    ##        is_ai = yes
+    ##    }
+    ##    
+    ##    ai_will_do = {
+	##		factor = 10000
+	##	}
+    ##    
+    ##    cost = 10
+    ##    
+    ##    complete_effect = {
+    ##        add_to_variable = { wave = 1 }
+    ##        GER_pops_in_crete = yes
+    ##    }
+    ##}
+}

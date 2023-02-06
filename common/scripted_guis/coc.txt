@@ -98,7 +98,7 @@ scripted_gui = {
 			}
 		}
 
-		triggers = { 
+		triggers = {
 			coc_top_portrait_army_rank_visible = { vscope_character_is_army=yes vscope_character_hired_as_chief=no }
 			coc_top_portrait_navy_rank_visible = { vscope_character_is_navy=yes vscope_character_hired_as_chief=no }
 			coc_top_portrait_air_rank_visible  = { vscope_character_is_air=yes }
@@ -134,8 +134,8 @@ scripted_gui = {
 			ideological_rev_button_visible = { check_variable={ coc_filters>0 } check_variable={ coc_ideological>0 }}
 			ideological_mfa_button_visible = { check_variable={ coc_filters>0 } check_variable={ coc_ideological>0 }}
 			###################################################################################
-			coc_portrait_click_enabled = { vscope_character_not_psd_withtt=yes vscope_character_hired=no vscope_character_is_available_for_hire_in_high_command=yes }
-			coc_portrait_right_click_enabled = { vscope_character_not_psd_withtt=yes vscope_character_hired=no vscope_character_is_available_for_hire_as_chief=yes }
+			coc_portrait_click_enabled = { vscope_character_not_psd_withtt=yes }
+			coc_portrait_right_click_enabled = { vscope_character_not_psd_withtt=yes }
 			coc_portrait_dead_visible = { check_variable={ c_dead@var:v=1 }}
 			coc_portrait_purged_visible = { check_variable={ c_purged@var:v=1 }}
 			coc_portrait_surrendered_visible = { check_variable={ c_surrendered@var:v=1 }}
@@ -174,8 +174,8 @@ scripted_gui = {
 			#####[Top Portraits]#####
 			coc_top_portrait_click = { deactivate_targeted_character=yes }
 			#####[Bottom Portraits]#####
-			coc_portrait_click = { if={ limit={ vscope_character_is_available_for_hire_in_high_command=yes } hidden_effect={ hire_targeted_character_in_high_command=yes }}}
-			coc_portrait_right_click = { if={ limit={ vscope_character_is_available_for_hire_as_chief=yes } hidden_effect={ hire_targeted_character_as_chief=yes }}}
+			coc_portrait_click = { if={ limit={ vscope_character_is_available_for_hire_in_high_command=yes vscope_character_hired=no } hidden_effect={ hire_targeted_character_in_high_command=yes }}}
+			coc_portrait_right_click = { if={ limit={ vscope_character_is_available_for_hire_as_chief=yes vscope_character_hired=no } hidden_effect={ hire_targeted_character_as_chief=yes }}}
 			coc_portrait_army_rank_click = { var:v={ increase_officer_rank=yes }}
 		}
 	}

@@ -45,7 +45,7 @@ gov_clean_ideological_filters = {
 hire_targeted_character_as_political_advisor = {
     # This function is a meta effect that will target character in array (v value) and hire him as a political advisor.
 
-    meta_effect={ text={ if={ limit={ set_temp_variable={ type_of_advisor=1 } has_pp_for_targeted_character=yes } activate_advisor=[CHARACTER_ID]_political_advisor }} CHARACTER_ID = "[GetCharacterIDfromTOKEN]"}
+    meta_effect={ text={ if={ limit={ set_temp_variable={ type_of_advisor=1 } vscope_has_pp_for_targeted_character=yes } activate_advisor=[CHARACTER_ID]_political_advisor }} CHARACTER_ID = "[GetCharacterIDfromTOKEN]"}
     set_temp_variable = { revcost=ppcost }
     multiply_temp_variable = { revcost=-1 }
     add_political_power = revcost
@@ -100,7 +100,6 @@ coc_apply_filters = {
         set_variable = { high=arr^num }
         subtract_from_variable = { high=1 }
         coc_quicksort=yes
-        for_each_loop = { array=arr log="[?v|0]"}
     }
 }
 
@@ -134,7 +133,7 @@ coc_clean_ideological_filters = {
 hire_targeted_character_in_high_command = {
     # This function is a meta effect that will target character in array (v value) and hire him in high command.
 
-    meta_effect={ text={ if={ limit={ set_temp_variable={ type_of_advisor=2 } has_pp_for_targeted_character=yes } activate_advisor=[CHARACTER_ID]_hca }} CHARACTER_ID = "[GetCharacterIDfromTOKEN]"}
+    meta_effect={ text={ if={ limit={ set_temp_variable={ type_of_advisor=2 } vscope_has_pp_for_targeted_character=yes } activate_advisor=[CHARACTER_ID]_hca }} CHARACTER_ID = "[GetCharacterIDfromTOKEN]"}
     set_temp_variable = { revcost=ppcost }
     multiply_temp_variable = { revcost=-1 }
     add_political_power = revcost

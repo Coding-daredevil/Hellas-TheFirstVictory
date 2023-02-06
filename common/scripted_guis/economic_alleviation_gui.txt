@@ -14,7 +14,8 @@ scripted_gui = {
 			payd_large_icon = { image=[?ecall_selector.GetFlag] }
 			payd_gold_icon  = { image=[?ecall_selector.GetFlag] }
 			payd_icon = { image=[?ecall_selector.GetFlag] }
-			hell_ecall_actual_low = { image=[GetActualLowImage] }
+			hell_ecall_apparent_low = { image=[GetApparentLawImage] }
+			hell_ecall_actual_low = { image=[GetActualLawImage] }
 		}
 
 		triggers = {
@@ -336,6 +337,16 @@ scripted_gui = {
 					set_variable = { GRE.ecall_economy_upgrade_passed_days=0}
 					set_variable={ GRE.ecall_economy_upgrade_batches_left=5 }
 					set_variable = { GRE.ecall_economy_immediate_cost=250 }
+					###############################################################
+					effect_tooltip={ ecall_upgrade_economy_detection_test=yes }
+					hidden_effect={
+						random_list={
+							seed=random
+
+							upgrade_economy_avoidance={ multiply_variable={ upgrade_economy_detection=0.05 }}
+							upgrade_economy_detection={ set_variable={ h50_type=0 } country_event={ id=hellas.50 days=0 }}
+						}
+					}
 				}
 				else = {
 					set_temp_variable = { ppcost=GRE.ecall_economy_immediate_cost }
@@ -347,6 +358,12 @@ scripted_gui = {
                     clear_variable = GRE.ecall_economy_upgrade_batches_left
                     clear_variable = GRE.ecall_economy_batch_upgrade_in
 				}
+			}
+			hell_ecall_announce_economy_click = {
+
+				ecall_announce_economy_backslash_calculation=yes
+				set_variable={ h50_type=1 }
+				country_event={ id=hellas.50 days=0 }
 			}
 			hell_ecall_decrease_exports_click = {
 				if = { 

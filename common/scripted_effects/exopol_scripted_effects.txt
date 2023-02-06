@@ -83,9 +83,15 @@ refresh_balkan_pact_desirability_gui_THIS = {
 	set_temp_variable={ x=100 }
 	subtract_from_temp_variable={ x=THIS.balkan_pact_desirability }
 	clear_array = THIS.balkan_pact_desirability_array
-	log="THIS: [?THIS.GetName], des: [?balkan_pact_desirability|.2], 1-des: [?x]"
+	#log="THIS: [?THIS.GetName], des: [?balkan_pact_desirability|.2], 1-des: [?x]"
 	resize_array = { array=THIS.balkan_pact_desirability_array value=1 size=x }
 	resize_array = { array=THIS.balkan_pact_desirability_array value=2 size=100 }
+}
+
+modify_desiribility_by_tmpAW_of_THIS = {
+	
+	add_to_variable={ balkan_pact_desirability=tmpAW tooltip=alliance_weight_fluctuation_tmpAW_tt }
+    refresh_balkan_pact_desirability_gui_THIS=yes
 }
 
 apply_on_actions_fluctuations_of_itagg_escalation = {
@@ -104,15 +110,50 @@ apply_on_actions_fluctuations_of_itagg_acceleration = {
 	refresh_italian_escalation_and_acceleration=yes
 }
 
-apply_italian_aggression_effects_through_tmpESC_tmpACC = {
-	# Quick function to avoid all the line dumps. 
-
-	custom_effect_tooltip=itagg_escalation_header_tt
-	set_temp_variable={ x=tmpESC }
-	add_to_temp_variable={ x=GRE.italian_escalation_accelerator }
-	add_to_variable={ GRE.italian_escalation_level=x tooltip=itagg_escalation_increased_by_tt }
-	add_to_variable={ GRE.italian_escalation_accelerator=tmpACC tooltip=itagg_accelerator_increased_by_tt }
+shut_down_italian_aggression = {
+	clear_variable=italian_escalation_level
+	clear_variable=italian_escalation_accelerator
 	refresh_italian_escalation_and_acceleration=yes
+}
+
+apply_italian_aggression_effects_through_tmpESC_tmpACC = {
+	# Quick function to avoid all the line dumps.
+
+	if={
+		limit={ NOT={ has_country_flag=GRE_italians_connections_reestablished }}
+
+		custom_effect_tooltip=itagg_escalation_header_tt
+		set_temp_variable={ x=tmpESC }
+		add_to_temp_variable={ x=GRE.italian_escalation_accelerator }
+		add_to_variable={ GRE.italian_escalation_level=x tooltip=itagg_escalation_increased_by_tt }
+		add_to_variable={ GRE.italian_escalation_accelerator=tmpACC tooltip=itagg_accelerator_increased_by_tt }
+		refresh_italian_escalation_and_acceleration=yes
+	}
+}
+
+apply_italian_aggression_effects_through_tmpESC_tmpACC_without_acceleration = {
+	# Quick function to avoid all the line dumps. This will not add accelerator to aggression.
+
+	if={
+		limit={ NOT={ has_country_flag=GRE_italians_connections_reestablished }}
+
+		custom_effect_tooltip=itagg_escalation_header_tt
+		add_to_variable={ GRE.italian_escalation_level=tmpESC tooltip=itagg_escalation_increased_by_tt }
+		add_to_variable={ GRE.italian_escalation_accelerator=tmpACC tooltip=itagg_accelerator_increased_by_tt }
+		refresh_italian_escalation_and_acceleration=yes
+	}
+}
+
+apply_italian_aggression_effects_only_acceleration = {
+	# Quick function to avoid all the line dumps. This will not add accelerator to aggression.
+
+	if={
+		limit={ NOT={ has_country_flag=GRE_italians_connections_reestablished }}
+
+		custom_effect_tooltip=itagg_escalation_header_tt
+		add_to_variable={ GRE.italian_escalation_level=italian_escalation_accelerator tooltip=itagg_escalation_increased_by_tt }
+		refresh_italian_escalation_and_acceleration=yes
+	}
 }
 
 refresh_italian_escalation_and_acceleration = {
@@ -149,7 +190,7 @@ check_and_apply_on_weekly_italian_nagging = {
 			seed=random
 			
 			cancel_event={
-				log="Italy decided not to nag"
+				log="Italy has decided not to nag this week."
 			}
 			fire_event={
 				clear_array=GRE.ita_nagging_array
@@ -224,7 +265,7 @@ check_and_apply_on_weekly_italian_nagging = {
 					set_temp_variable={ b1=100 }
 					subtract_from_temp_variable={ b1=b2 }
 					random_list={
-						log=yes
+						#log=yes
 						seed=random
 
 						b1={

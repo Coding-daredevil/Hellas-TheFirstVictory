@@ -43,9 +43,10 @@ inflmech_apply_filters_and_sort = {
         clear_array=global.carr
         every_country = {
             limit={
-                NOT={original_tag=ROOT} 
+                NOT={ original_tag=ROOT }
                 if={limit={check_variable={ GRE.infmech_fmaj=2 }} is_major=yes }
-            } 
+                if={limit={check_variable={ GRE.infmech_minf=2 }} is_in_array={ GRE.important_nations=THIS.id }}
+            }
             add_to_array={ global.carr=THIS.id }
         }
     }
@@ -65,7 +66,19 @@ inflmech_apply_filters_and_sort = {
         if = { limit={ check_variable={ infmech_faxi=2 }} for_each_scope_loop={ array=global.bcarr if={limit={is_in_faction_with=GER}                         if={limit={NOT={is_in_array={array=tmpFLTRD value=THIS.id}}} add_to_temp_array={ tmpFLTRD=THIS.id }}}}}
         if = { limit={ check_variable={ infmech_fall=2 }} for_each_scope_loop={ array=global.bcarr if={limit={is_in_faction_with=ENG}                         if={limit={NOT={is_in_array={array=tmpFLTRD value=THIS.id}}} add_to_temp_array={ tmpFLTRD=THIS.id }}}}}
         if = { limit={ check_variable={ infmech_fcmn=2 }} for_each_scope_loop={ array=global.bcarr if={limit={is_in_faction_with=SOV}                         if={limit={NOT={is_in_array={array=tmpFLTRD value=THIS.id}}} add_to_temp_array={ tmpFLTRD=THIS.id }}}}}
-        if = { limit={ check_variable={ infmech_fmaj=2 }} for_each_scope_loop={ array=tmpFLTRD     if={limit={is_major=yes}                                   set_temp_variable={ tmpFLTRD^real_index=THIS.id } add_to_temp_variable={ real_index=1 }}} resize_temp_array={ tmpFLTRD=real_index}}
+		for_each_scope_loop={
+			array=tmpFLTRD
+			
+			if={
+				limit={
+					if={limit={check_variable={ GRE.infmech_fmaj=2 }} is_major=yes }
+					if={limit={check_variable={ GRE.infmech_minf=2 }} is_in_array={ GRE.important_nations=THIS.id }}
+				}
+				set_temp_variable={ tmpFLTRD^real_index=THIS.id }
+				add_to_temp_variable={ real_index=1 }
+			}
+		}
+		resize_temp_array={ tmpFLTRD=real_index }
         clear_array=global.carr
         for_each_scope_loop = { array=tmpFLTRD add_to_array={ global.carr=THIS.id }}
     }
@@ -91,7 +104,7 @@ inflmech_apply_filters_and_sort = {
         for_each_loop = {
             array=global.carr 
 
-            log = "limit: [?lim], i: [?i] - h: [?high]"
+            #log = "limit: [?lim], i: [?i] - h: [?high]"
             set_temp_variable = { swap_value=global.carr^high }
             set_variable = { global.carr^high=v }
             set_variable = { global.carr^i=swap_value }

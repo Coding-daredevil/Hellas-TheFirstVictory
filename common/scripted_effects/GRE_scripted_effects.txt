@@ -2,6 +2,43 @@
 ##################################################################################[GENERAL SCRIPTED EFFECTS]#################################################################################
 #############################################################################################################################################################################################
 
+########################################################################################
+##########################[ CIVILIAN DOMESTIC/OFFMAP EFFECTS ]##########################
+########################################################################################
+
+calculate_domciv_ratio={
+    # This function iterates on every owned state and calculates our owned civilian factories.
+
+    clear_variable=GRE.allcivs
+    clear_variable=GRE.domcivs
+    clear_variable=GRE.domciv_ratio
+    set_variable={ GRE.allcivs=GRE.num_of_civilian_factories }
+    every_owned_state={
+        add_to_variable={ GRE.domcivs=building_level@industrial_complex }
+    }
+    divide_variable={ GRE.domciv_ratio?GRE.domcivs=GRE.allcivs }
+}
+
+calculate_construction_penalty={
+    # This function utilizes the domciv ratio to calculate the construction penalty.
+
+    set_temp_variable={ x=GRE.domciv_ratio }
+    set_temp_variable={ tmpLWTHR=0 }
+    set_temp_variable={ tmpUPTHR=0.75 }
+    set_temp_variable={ tmpMAXDIR=0 }
+    calculate_upper_lower_bounded_y_ax_b=yes
+    multiply_temp_variable={ y=GRE.domciv_penalty_max }
+    set_variable={ GRE.cs_all_penalty=y }
+    multiply_temp_variable={ z?y=1.50 }
+    multiply_temp_variable={ q?y=2.00 }
+    set_variable={ GRE.cs_civ_penalty=z }
+    set_variable={ GRE.cs_mil_penalty=q }
+}
+
+###########################################################################################
+##############################[ EVENT BASED SCRIPTED EFFECTS ]#############################
+###########################################################################################
+
 calculate_b1_b2_for_due_in_h247_event = {
     # This function aims to calculate b1, b2 chances based on FROM (nation to redirect their equipment to Spain) on a number of parameters. The CASE tmp
     # variable refers to the base chances already predetermined. Reminder we will be using __ which takes various sub-b1s/b2s and gets us the arg. In that
@@ -130,7 +167,8 @@ calculate_final_b1_b2_from_temporary_array_tmpCHANCES_with_tmpWEIGHT_and_mode_tm
     # This function calculates all distinct b1s & b2s calculated on previous steps to create a final b1, b2 chance for an event. No naming is required, just two arrays in proper order.
     # Chances array contains b1 values and Weight array contains desired weights. Supposedly chances are 50, 75, 80 and our weights are 2, 0.5, 1. Therefore the final outcome will be:
     # 2*50 + 0.5*75 + 1*80 out of 300. 100 + 37.5 + 80 out of 300 => b1 = 217.5/300 = 0.725 which leaves b2 as 0.275. Mode defines function. Mode 0 (default) utilizes weights. Mode 1
-    # will take the highest b1 value (and thus lowest b2 value) and Mode 2 will take the lowest of b1 value (and thus highest b2 value).
+    # will take the highest b1 value (and thus lowest b2 value) and Mode 2 will take the lowest of b1 value (and thus highest b2 value). 
+    # !!((b1 is avoidance chance))!!
 
     ###[Initialization]###
     set_temp_variable = { b1=0 }
@@ -179,72 +217,72 @@ iterate_calculate_bounded_VAR_chance = {
     set_temp_variable={ tmpMAXDIR=ARR_tmpMAXDIR^i }
 }
 
-calculate_bounded_VAR_chance_to_avoid_event = {
-    # REQ: VARTOK, tmpSVIA(opt), tmpMODE(opt), tmpLWTHR(opt), tmpUPTHR(opt), tmpMAXDIR(opt)
-    # This function is a group-up of the below functions with boundaries. Works through meta effects, drawing from scripted loc. Variable token (VARTOK) defines which variable to take into consideration. Enemies (tmpENEMIES) contain all the targets
-    # to search for. Seek Variable In Allies (tmpSVIA) will additionally search their allies so MODE (tmpMODE) selects either the highest/lowest/mean of variables. VAR_BLOW/BHIGH set the boundaries of the variable depending on VARTOK to avoid bad
-    # caps like intel. Subsequently, tmpLWTHR/tmpUPTHR/tmpMAXDIR need to be defined in order to set low/upper thresholds to linearly calculate chances, as well as point which is the maximum direction respectively. For example, 20/40/1 will check
-    # between 20-40 linearly (0-1) and match 0 below 20 and 1 above 40. Finally the chances are transformed into proper percentages and b1 (event not happening) is added to the tmpCHANCES array for further calculations if necessary.
-
-    meta_effect={
-        text={
-            ###[ Initializing ]###
-            set_temp_variable={ tmpvarsum=0 }
-            THIS = { add_to_temp_array={ tmpFINAL=THIS.id } set_temp_variable={ tmpvar=[VAR] } clamp_temp_variable={ var=tmpvar min=[VAR_BLOW] max=[VAR_BHIGH] } add_to_temp_variable={ tmpvarsum=tmpvar } add_to_temp_array = { tmpVARR=[VAR] }}
-            ###[Searching Var Values Amongst Allies]###
-            if={
-                limit={ check_variable={ tmpSVIA=1 }}
-
-                for_each_scope_loop = {
-                    array=tmpENEMIES
-
-                    for_each_scope_loop = {
-                        array=allies
-
-                        if = {
-                            limit = { NOT={ is_in_array={ array=tmpFINAL value=THIS.id }}}
-
-                            add_to_temp_array = { tmpFINAL=THIS.id }
-                            set_temp_variable={ tmpvar=[VAR] } 
-                            clamp_temp_variable={ var=tmpvar min=[VAR_BLOW] max=[VAR_BHIGH] } 
-                            add_to_temp_variable={ tmpvarsum=tmpvar }
-                            add_to_temp_array = { tmpVARR=[VAR] }
-                        }
-                    }
-                }
-            }
-            ###[Selection Mode]###
-            if = {
-                limit = { check_variable={ tmpMODE=1 }}
-                find_highest_in_array = { array=tmpVARR value=x index=junk }
-            }
-            else_if = {
-                limit = { check_variable={ tmpMODE=2 }}
-                find_lowest_in_array = { array=tmpVARR value=x index=junk }
-            }
-            else = {
-                divide_temp_variable={ tmpvarsum=tmpVARR^num }
-                set_temp_variable={ x=tmpvarsum }
-            }
-            log="Calculated Bounded Var Chance (VarName: [VAR])"
-        }
-        VAR = "[GetVarNameFromVARTOK]"
-        VAR_BLOW = "[GetVarUPBOUNDFromVARTOK]"
-        VAR_BHIGH = "[GetVarLWBOUNDFromVARTOK]"
-    }
-    ###[Linear Bounded Calculation]###
-    calculate_upper_lower_bounded_y_ax_b=yes
-    ###[Transform Back to Percentages]###
-    set_temp_variable = { cbv_b2=y }
-    multiply_temp_variable = { cbv_b2=100 }
-    set_temp_variable = { cbv_b1=100 }
-    subtract_from_temp_variable = { cbv_b1=cbv_b2 }
-    ###[Clear, Log & Add to Overall Chance Array]###
-    clear_temp_array = tmpFINAL
-    clear_temp_array = tmpVARR
-    log="  b1=[?cbv_b1|2], b2=[?cbv_b2|2]"
-    add_to_temp_array = { tmpCHANCES=cbv_b1 }
-}
+#### calculate_bounded_VAR_chance_to_avoid_event = {
+####     # REQ: VARTOK, tmpSVIA(opt), tmpMODE(opt), tmpLWTHR(opt), tmpUPTHR(opt), tmpMAXDIR(opt)
+####     # This function is a group-up of the below functions with boundaries. Works through meta effects, drawing from scripted loc. Variable token (VARTOK) defines which variable to take into consideration. Enemies (tmpENEMIES) contain all the targets
+####     # to search for. Seek Variable In Allies (tmpSVIA) will additionally search their allies so MODE (tmpMODE) selects either the highest/lowest/mean of variables. VAR_BLOW/BHIGH set the boundaries of the variable depending on VARTOK to avoid bad
+####     # caps like intel. Subsequently, tmpLWTHR/tmpUPTHR/tmpMAXDIR need to be defined in order to set low/upper thresholds to linearly calculate chances, as well as point which is the maximum direction respectively. For example, 20/40/1 will check
+####     # between 20-40 linearly (0-1) and match 0 below 20 and 1 above 40. Finally the chances are transformed into proper percentages and b1 (event not happening) is added to the tmpCHANCES array for further calculations if necessary.
+#### 
+####     meta_effect={
+####         text={
+####             ###[ Initializing ]###
+####             set_temp_variable={ tmpvarsum=0 }
+####             THIS = { add_to_temp_array={ tmpFINAL=THIS.id } set_temp_variable={ tmpvar=[VAR] } clamp_temp_variable={ var=tmpvar min=[VAR_BLOW] max=[VAR_BHIGH] } add_to_temp_variable={ tmpvarsum=tmpvar } add_to_temp_array = { tmpVARR=[VAR] }}
+####             ###[Searching Var Values Amongst Allies]###
+####             if={
+####                 limit={ check_variable={ tmpSVIA=1 }}
+#### 
+####                 for_each_scope_loop = {
+####                     array=tmpENEMIES
+#### 
+####                     for_each_scope_loop = {
+####                         array=allies
+#### 
+####                         if = {
+####                             limit = { NOT={ is_in_array={ array=tmpFINAL value=THIS.id }}}
+#### 
+####                             add_to_temp_array = { tmpFINAL=THIS.id }
+####                             set_temp_variable={ tmpvar=[VAR] } 
+####                             clamp_temp_variable={ var=tmpvar min=[VAR_BLOW] max=[VAR_BHIGH] } 
+####                             add_to_temp_variable={ tmpvarsum=tmpvar }
+####                             add_to_temp_array = { tmpVARR=[VAR] }
+####                         }
+####                     }
+####                 }
+####             }
+####             ###[Selection Mode]###
+####             if = {
+####                 limit = { check_variable={ tmpMODE=1 }}
+####                 find_highest_in_array = { array=tmpVARR value=x index=junk }
+####             }
+####             else_if = {
+####                 limit = { check_variable={ tmpMODE=2 }}
+####                 find_lowest_in_array = { array=tmpVARR value=x index=junk }
+####             }
+####             else = {
+####                 divide_temp_variable={ tmpvarsum=tmpVARR^num }
+####                 set_temp_variable={ x=tmpvarsum }
+####             }
+####             log="Calculated Bounded Var Chance (VarName: [VAR])"
+####         }
+####         VAR = "[GetVarNameFromVARTOK]"
+####         VAR_BLOW = "[GetVarUPBOUNDFromVARTOK]"
+####         VAR_BHIGH = "[GetVarLWBOUNDFromVARTOK]"
+####     }
+####     ###[Linear Bounded Calculation]###
+####     calculate_upper_lower_bounded_y_ax_b=yes
+####     ###[Transform Back to Percentages]###
+####     set_temp_variable = { cbv_b2=y }
+####     multiply_temp_variable = { cbv_b2=100 }
+####     set_temp_variable = { cbv_b1=100 }
+####     subtract_from_temp_variable = { cbv_b1=cbv_b2 }
+####     ###[Clear, Log & Add to Overall Chance Array]###
+####     clear_temp_array = tmpFINAL
+####     clear_temp_array = tmpVARR
+####     log="  b1=[?cbv_b1|2], b2=[?cbv_b2|2]"
+####     add_to_temp_array = { tmpCHANCES=cbv_b1 }
+#### }
 
 calculate_enemy_bounded_VAR_chance_to_avoid_event = {
     # REQ: VARTOK, tmpENEMIES, tmpSVIA(opt), tmpMODE(opt), tmpLWTHR(opt), tmpUPTHR(opt), tmpMAXDIR(opt)
@@ -591,6 +629,12 @@ calculate_upper_lower_bounded_y_ax_b = {
 ########################################################################################
 
 vscope_from_cscope = {
+    # This command utilizes a character scope to assign the character ID to the v temp variable. Since the .8 patch this has been fixed.
+
+    set_temp_variable={ v=THIS }
+}
+
+vscope_from_cscope_old8 = {
     # This command utilizes a character scope (<name> = {} or every/random_character = {} ) to retrieve the assigned variable in order to check arrays.
     # Assings to temp variable v.
     # BBA forced the need of this, otherwise it should not be needed.
@@ -613,36 +657,12 @@ vscope_increase_hc_rank = {
     # This command utilizes v variable in order to move character from his rank@ array to the next @ level. Note that var: before index (i/crank/nrank) is mandatory.
 
     add_to_variable={ hc_rank@var:v=1 }
-
-    #resize_temp_array = { array=tarray value=0 size=10 }
-    #for_each_loop = {
-    #    array=tarray
-    #    value=omitted
-    #
-    #    log = "Rank [?i] array contains [?GRE.rank@i^num] entries"
-    #    if={ limit={ is_in_array={ GRE.rank@var:i=var:v }} set_temp_variable={ crank=i } set_temp_variable={ nrank=i } add_to_temp_variable={ nrank=1 } set_temp_variable={ break=1 } log=" Character [?v.GetName] found in array" }
-    #}
-    #remove_from_array = { GRE.rank@var:crank=var:v }
-    #add_to_array = { GRE.rank@var:nrank=var:v }
-    #log="NewRank: [?crank]"
 }
 
 vscope_increase_title = {
     # Similar to the above, this effect changes the title of the character shown in gui. 
 
     add_to_variable={ c_title@var:v=1 }
-
-    #resize_temp_array = { array=tarray value=0 size=10 }
-    #for_each_loop = {
-    #    array=tarray
-    #    value=omitted
-    #
-    #    log = "Title [?i] array contains [?title@i^num] entries"
-    #    if={ limit={ is_in_array={ title@var:i=var:v }} set_temp_variable={ ctitle=i } set_temp_variable={ ntitle=i } add_to_temp_variable={ ntitle=1 } set_temp_variable={ break=1 } log=" Character [?v.GetName] found in array" }
-    #}
-    #remove_from_array = { title@var:ctitle=var:v }
-    #add_to_array = { title@var:ntitle=var:v }
-    #log="NewTitle: [?ctitle]"
 }
 
 vscope_add_set_character_mbranch = {
@@ -650,7 +670,7 @@ vscope_add_set_character_mbranch = {
 
     if={ limit={ OR={ is_army_leader=yes is_corps_commander=yes has_army_ledger=yes is_character_slot=army_chief }} add_to_array={ GRE.c_mbranch@1=var:v } set_variable={ GRE.c_mbranch@var:v=1 }}
     if={ limit={ OR={ is_navy_leader=yes has_navy_ledger=yes is_character_slot=navy_chief }}                        add_to_array={ GRE.c_mbranch@2=var:v } set_variable={ GRE.c_mbranch@var:v=2 }}
-    if={ limit={ OR={ has_air_ledger=yes is_character_slot=air_chief }}                                            add_to_array={ GRE.c_mbranch@3=var:v } set_variable={ GRE.c_mbranch@var:v=3 }}
+    if={ limit={ OR={ has_air_ledger=yes is_character_slot=air_chief }}                                             add_to_array={ GRE.c_mbranch@3=var:v } set_variable={ GRE.c_mbranch@var:v=3 }}
 }
 
 vscope_add_set_character_ideology = {
@@ -721,7 +741,7 @@ increase_bodosakis_trait = {
     }
 }
 
-calculate_schachtplan_decision_costs = { 
+calculate_schachtplan_decision_costs = {
     # This function calculates the cost of Schachtplan decision based on certain parameters.
     
     set_temp_variable={ cur_cost=GRE.schachtplan_actual_cost }
@@ -748,7 +768,7 @@ calculate_investment_decision_cost_tmpC_FROM = {
 ##############################[ INFRASTRUCTURE EXPANSION ]##############################
 ########################################################################################
 
-expand_greek_railway_system_generator ={
+expand_greek_railway_system_generator = {
     # As in python, this generator retains state and upgrades the railway system accordingly.
 
     custom_effect_tooltip = railway_system_expansion_level_tt
@@ -987,7 +1007,7 @@ potentially_send_report_events_for_actions_tmpREAC1_tmpREAC2_with_args_tmpARRVAL
 
 potentially_send_report_events_for_action_tmpREAC1_with_args_tmpARRVAL_tmpMAG_to_targets_tmpRECEIVERS = {
     # This function determines whether positive/negative events will be fired by nations when you activate x decisions. Decisions are in X code (meaning you need 
-    # to insert only ONE codes, like 51 for industrial expansion. Receivers are a temp array of nations that a report event will be judged for.
+    # to insert only ONE code, like 51 for industrial expansion. Receivers are a temp array of nations that a report event will be judged for.
     
     calculate_potential_reductor_tmpIMP_outside=yes
     for_each_scope_loop = {
@@ -1000,15 +1020,17 @@ potentially_send_report_events_for_action_tmpREAC1_with_args_tmpARRVAL_tmpMAG_to
             b1 = { }
             b2 = {
                 if = {
-                    limit = {
-                        check_variable = { tmpREAC1=52 }
-                        mussolini_historical_tensions_with_greece = yes
+                    limit={ check_variable={ tmpREAC1=52 }}
+                    
+                    if={
+                        limit={ mussolini_historical_tensions_with_greece = yes }
+                    
+                        set_variable = { THIS.init_e332t@GRE=tmpREAC1 }
+                        set_variable = { THIS.init_e332MAG@GRE=tmpMAG }
+                        set_temp_variable_to_random = { var=tmpX min=0 max=7 integer=yes }
+                        set_variable = { THIS.init_e332d@GRE=tmpX }
+                        country_event = { id = hellas.3331 days=1 }
                     }
-                    set_variable = { THIS.init_e332t@GRE=tmpREAC1 }
-                    set_variable = { THIS.init_e332MAG@GRE=tmpMAG }
-                    set_temp_variable_to_random = { var=tmpX min=0 max=7 integer=yes }
-                    set_variable = { THIS.init_e332d@GRE=tmpX }
-                    country_event = { id = hellas.3331 days=1 }
                 }
                 else = {
                     set_variable = { THIS.init_e332t@GRE=tmpREAC1 }
@@ -1229,6 +1251,16 @@ GRE_debt_flags_check = {
     }
 }
 
+GRE_debt_find_true_total_and_remaining = {
+    add_to_temp_variable={ true_remaining_debt=GRE.debt@ENG }
+    add_to_temp_variable={ true_remaining_debt=GRE.debt@FRA }
+    add_to_temp_variable={ true_remaining_debt=GRE.debt@ITA }
+    add_to_temp_variable={ true_remaining_debt=GRE.true_debt@ENG }
+    add_to_temp_variable={ true_remaining_debt=GRE.true_debt@FRA }
+    add_to_temp_variable={ true_remaining_debt=GRE.true_debt@ITA }
+    subtract_from_temp_variable={ true_paid_debt?100=true_remaining_debt }
+}
+
 ###############################################################################################################################################################
 ################################################################[ CALCULATE FACTORY DONATIONS ]################################################################
 ###############################################################################################################################################################
@@ -1260,8 +1292,8 @@ GRE_subsidized_check = {
                 set_temp_variable = { c_mil_score = 0.050 }                                                                       # Score is 5.0% of country's mil factories.
             }
             else = {
-                set_temp_variable = { c_civ_score = 0.015 }                                                                       # Score is 1.5% of country's civ factories.
-                set_temp_variable = { c_mil_score = 0.015 }                                                                       # Score is 1.5% of country's mil factories.
+                set_temp_variable = { c_civ_score = 0.009 }                                                                       # Score is 0.9% of country's civ factories.
+                set_temp_variable = { c_mil_score = 0.009 }                                                                       # Score is 0.9% of country's mil factories.
             }
             if = {
                 limit = {
@@ -1289,8 +1321,8 @@ GRE_subsidized_check = {
                     add_to_temp_variable = { c_mil_score = 0.010 }
                 }
                 else = {
-                    add_to_temp_variable = { c_civ_score = 0.005 }
-                    add_to_temp_variable = { c_mil_score = 0.005 }
+                    add_to_temp_variable = { c_civ_score = 0.006 }
+                    add_to_temp_variable = { c_mil_score = 0.006 }
                 }
             }
             else_if = {
@@ -1304,8 +1336,8 @@ GRE_subsidized_check = {
                     add_to_temp_variable = { c_mil_score = 0.014 }
                 }
                 else = {
-                    add_to_temp_variable = { c_civ_score = 0.007 }
-                    add_to_temp_variable = { c_mil_score = 0.007 }
+                    add_to_temp_variable = { c_civ_score = 0.009 }
+                    add_to_temp_variable = { c_mil_score = 0.009 }
                 }
             }
             else_if = {
@@ -1319,8 +1351,8 @@ GRE_subsidized_check = {
                     add_to_temp_variable = { c_mil_score = 0.020 }
                 }
                 else = {
-                    add_to_temp_variable = { c_civ_score = 0.010 }
-                    add_to_temp_variable = { c_mil_score = 0.010 }
+                    add_to_temp_variable = { c_civ_score = 0.012 }
+                    add_to_temp_variable = { c_mil_score = 0.012 }
                 }
             }
             else_if = {
@@ -1349,8 +1381,8 @@ GRE_subsidized_check = {
                     add_to_temp_variable = { c_mil_score = 0.040 }
                 }
                 else = {
-                    add_to_temp_variable = { c_civ_score = 0.020 }
-                    add_to_temp_variable = { c_mil_score = 0.020 }
+                    add_to_temp_variable = { c_civ_score = 0.018 }
+                    add_to_temp_variable = { c_mil_score = 0.018 }
                 }
             }
             else_if = {
@@ -1364,8 +1396,8 @@ GRE_subsidized_check = {
                     add_to_temp_variable = { c_mil_score = 0.050 }
                 }
                 else = {
-                    add_to_temp_variable = { c_civ_score = 0.025 }
-                    add_to_temp_variable = { c_mil_score = 0.025 }
+                    add_to_temp_variable = { c_civ_score = 0.021 }
+                    add_to_temp_variable = { c_mil_score = 0.021 }
                 }
             }
             multiply_temp_variable = { c_civ_score = THIS.num_of_civilian_factories }                                         # BalPac: Minimum 5.6%, Maximum 10.0% of factories.
@@ -1399,11 +1431,11 @@ GRE_bedrock_check = {
             }
             if = { 
                 limit = { has_country_flag = balkan_pact_reinforced }
-                set_temp_variable = { inv_score = 0.150 }                                                                         # Score is 15.0% of country's civ factories.
+                set_temp_variable = { inv_score = 0.110 }                                                                         # Score is 11.0% of country's civ factories.
             }
             else_if = {
                 limit = { NOT = { has_country_flag = balkan_pact_reinforced } }
-                set_temp_variable = { inv_score = 0.100 }                                                                         # Score is 10.0% of country's civ factories.
+                set_temp_variable = { inv_score = 0.080 }                                                                         # Score is 08.0% of country's civ factories.
             }
             if = {
                 limit = {
@@ -1441,7 +1473,7 @@ GRE_bedrock_check = {
                     add_to_temp_variable = { inv_score = 0.060 }
                 }
                 else = {
-                    add_to_temp_variable = { inv_score = 0.040 }
+                    add_to_temp_variable = { inv_score = 0.030 }
                 }
             }
             else_if = {
@@ -1454,7 +1486,7 @@ GRE_bedrock_check = {
                     add_to_temp_variable = { inv_score = 0.080 }
                 }
                 else = {
-                    add_to_temp_variable = { inv_score = 0.060 }
+                    add_to_temp_variable = { inv_score = 0.040 }
                 }
             }
             else_if = {
@@ -1467,7 +1499,7 @@ GRE_bedrock_check = {
                     add_to_temp_variable = { inv_score = 0.100 }
                 }
                 else = {
-                    add_to_temp_variable = { inv_score = 0.080 }
+                    add_to_temp_variable = { inv_score = 0.050 }
                 }
             }
             else_if = {
@@ -1480,7 +1512,7 @@ GRE_bedrock_check = {
                     add_to_temp_variable = { inv_score = 0.120 }
                 }
                 else = {
-                    add_to_temp_variable = { inv_score = 0.100 }
+                    add_to_temp_variable = { inv_score = 0.060 }
                 }
             }
             else_if = {
@@ -1490,15 +1522,15 @@ GRE_bedrock_check = {
                 }
                 if = { 
                     limit = { has_country_flag = balkan_pact_reinforced }
-                    add_to_temp_variable = { inv_score = 0.150 }
+                    add_to_temp_variable = { inv_score = 0.140 }
                 }
                 else = {
-                    add_to_temp_variable = { inv_score = 0.120 }
+                    add_to_temp_variable = { inv_score = 0.070 }
                 }
             }
             if = { limit={ tag=GER } divide_temp_variable={ inv_score=6 }}
-            multiply_temp_variable = { inv_score = THIS.num_of_civilian_factories }                                         # BalPac: Minimum 17.0%, Maximum 30.0% of factories.                                       
-            add_to_temp_variable = { total_bed_civs = inv_score }                                                           # Normal: Minimum 12.0%, Maximum 22.0% of factories.
+            multiply_temp_variable = { inv_score = THIS.num_of_civilian_factories }                                         # BalPac: Minimum 13.0%, Maximum 25.0% of factories.                                       
+            add_to_temp_variable = { total_bed_civs = inv_score }                                                           # Normal: Minimum 09.0%, Maximum 15.0% of factories.
             #log="Check This Out: [?inv_score] - [?THIS.num_of_civilian_factories]"
         }
         round_temp_variable = total_bed_civs
@@ -1518,7 +1550,7 @@ GRE_mobilized_check = {
                     array = global.favor_mechanic
                     value = THIS.id
                 }
-                has_opinion = { target = GRE value > 79 }  
+                has_opinion = { target = GRE value > 79 }
                 check_variable = { num_of_military_factories > 14 }
                 check_variable = { var = favor@GRE value = 30 compare = greater_than_or_equals }
             }
@@ -2031,6 +2063,79 @@ reset_axal_events_variables = {
     set_variable = { axal_event_ax5 = 0 }
 }
 
+h405_cleaner = {
+    clear_variable=h405_phase
+    #
+    clear_variable=h405_weapons_level_yes
+    clear_variable=h405_weapons_level_not
+    clear_variable=h405_mobile_level_yes
+    clear_variable=h405_mobile_level_not
+    clear_variable=h405_specops_level_yes
+    clear_variable=h405_specops_level_not
+    clear_variable=h405_companies_level_yes
+    clear_variable=h405_companies_level_not
+    clear_variable=h405_armor_level_yes
+    clear_variable=h405_armor_level_not
+    clear_variable=h405_artillery_level_yes
+    clear_variable=h405_artillery_level_not
+    #
+    clear_variable=h405_weapons_level
+    clear_variable=h405_mobile_level
+    clear_variable=h405_specops_level
+    clear_variable=h405_companies_level
+    clear_variable=h405_armor_level
+    clear_variable=h405_artillery_level
+    #
+    clear_variable=h405_infeq_bonus
+    clear_variable=h405_supeq_bonus
+    clear_variable=h405_motor_bonus
+    clear_variable=h405_armcar_bonus
+    clear_variable=h405_marines_bonus
+    clear_variable=h405_paratroopers_bonus
+    clear_variable=h405_mountaineers_bonus
+    clear_variable=h405_specops_bonus
+    clear_variable=h405_engineers_bonus
+    clear_variable=h405_recon_bonus
+    clear_variable=h405_mp_bonus
+    clear_variable=h405_maintenance_bonus
+    clear_variable=h405_fhospital_bonus
+    clear_variable=h405_logistics_bonus
+    clear_variable=h405_ltank_bonus
+    clear_variable=h405_mtank_bonus
+    clear_variable=h405_htank_bonus
+    clear_variable=h405_aa_bonus
+    clear_variable=h405_art_bonus
+    clear_variable=h405_at_bonus
+    #
+    every_other_country={
+        limit={ is_major=yes }
+
+        clear_variable=h405_infeq_cost
+        clear_variable=h405_supeq_cost
+        clear_variable=h405_motor_cost
+        clear_variable=h405_armcar_cost
+        clear_variable=h405_marines_cost
+        clear_variable=h405_paratroopers_cost
+        clear_variable=h405_mountaineers_cost
+        clear_variable=h405_specops_cost
+        clear_variable=h405_engineers_cost
+        clear_variable=h405_recon_cost
+        clear_variable=h405_mp_cost
+        clear_variable=h405_maintenance_cost
+        clear_variable=h405_fhospital_cost
+        clear_variable=h405_logistics_cost
+        clear_variable=h405_ltank_cost
+        clear_variable=h405_mtank_cost
+        clear_variable=h405_htank_cost
+        clear_variable=h405_aa_cost
+        clear_variable=h405_art_cost
+        clear_variable=h405_at_cost
+        clear_variable=h405_influence_cost
+    }
+    clear_array=GRE.h405_target_array
+    clear_array=GRE.h405_target_value_array
+}
+
 ##########################################################
 ######################[ FAVOR CALC ]######################
 ##########################################################
@@ -2182,6 +2287,16 @@ tmpT_axal_by_tmpQ = {
     axal_gui_call = yes
 }
 
+##########################################################
+#######################[ LOCK AXAL ]######################
+##########################################################
+
+lock_axal_mechanic={
+    # This function completely shuts down AXAL mechanic.
+
+    #TBD
+}
+
 #############################################################################################################################################################################################
 ######################################################################################[ EASTERN PROSPECT ]###################################################################################
 #############################################################################################################################################################################################
@@ -2271,7 +2386,7 @@ find_total_and_faction_weight_of_ideology_characters = {
         array=gov_coc@2
 
         if = {
-            limit={ fscope_character_not_psd=yes NOT={OR={ has_character_flag=wanted_for_dead has_character_flag=target_of_the_failed_coup }}}
+            limit={ cscope_character_not_psd=yes NOT={OR={ has_character_flag=wanted_for_dead has_character_flag=target_of_the_failed_coup }}}
 
             ###[Main Ideologies]###
             if = {
@@ -2483,7 +2598,7 @@ find_num_weight_of_ideology_characters = {
         array=c_mbranch@1
 
         if = {
-            limit={ fscope_character_not_psd=yes NOT={OR={ has_character_flag=wanted_for_dead has_character_flag=target_of_the_failed_coup }}}
+            limit={ cscope_character_not_psd=yes NOT={OR={ has_character_flag=wanted_for_dead has_character_flag=target_of_the_failed_coup }}}
         
             ###[Overall Beliefs]### 
             if = { limit = { has_trait = trait_GRE_stauch_monarchist_persona } add_to_temp_variable = { mcnter = 1 } if = { limit = { is_leading_army = yes } add_to_temp_variable = { mcntera = 1 } } else_if = { limit = { is_leading_army_group = yes } add_to_temp_variable = { mcnterag = 1 } } if = { limit = { has_trait = gre_war_veteran } add_to_temp_variable = { mcnterv2 = 1 } } else_if = { limit = { has_trait = gre_two_war_veteran } add_to_temp_variable = { mcnterv3 = 1 } } else_if = { limit = { has_trait = gre_three_war_veteran } add_to_temp_variable = { mcnterv4 = 1 } } }
@@ -2545,7 +2660,7 @@ find_num_weight_of_ideology_characters = {
         array=c_mbranch@2
 
         if = {
-            limit={ fscope_character_not_psd=yes NOT={OR={ has_character_flag=wanted_for_dead has_character_flag=target_of_the_failed_coup }}}
+            limit={ cscope_character_not_psd=yes NOT={OR={ has_character_flag=wanted_for_dead has_character_flag=target_of_the_failed_coup }}}
 
             ###[Overall Beliefs]###
             if = { limit = { has_trait = trait_GRE_stauch_monarchist_persona } add_to_temp_variable = { mcnter = 1 } if = { limit = { is_assigned = yes } add_to_temp_variable = { mcntera = 1 } } if = { limit = { has_trait = gre_war_veteran } add_to_temp_variable = { mcnterv2 = 1 } } else_if = { limit = { has_trait = gre_two_war_veteran } add_to_temp_variable = { mcnterv3 = 1 } } else_if = { limit = { has_trait = gre_three_war_veteran } add_to_temp_variable = { mcnterv4 = 1 } } }
@@ -2665,7 +2780,7 @@ increase_indXYZQ_weighted = {
         random_list = {
             log = yes
             seed = random
-            var:base_chance = { add_attack=tmpATK vscope_from_cscope_root=yes add_to_variable={ times_trained_in_attack@var:v=tmpATK }}
+            var:base_chance = { add_attack=tmpATK vscope_from_cscope=yes GRE={ add_to_variable={ times_trained_in_attack@var:v=tmpATK }}}
             var:cntr_chance = { }
         }
     }
@@ -2688,7 +2803,7 @@ increase_indXYZQ_weighted = {
         random_list = {
             log = yes
             seed = random
-            var:base_chance = { add_defense=tmpDEF vscope_from_cscope_root=yes add_to_variable={ times_trained_in_defense@var:v=tmpDEF }}
+            var:base_chance = { add_defense=tmpDEF vscope_from_cscope=yes GRE={ add_to_variable={ times_trained_in_defense@var:v=tmpDEF }}}
             var:cntr_chance = { }
         }
     }
@@ -2711,7 +2826,7 @@ increase_indXYZQ_weighted = {
         random_list = {
             log = yes
             seed = random
-            var:base_chance = { add_planning=tmpPLA vscope_from_cscope_root=yes add_to_variable={ times_trained_in_planning@var:v=tmpPLA }}
+            var:base_chance = { add_planning=tmpPLA vscope_from_cscope=yes GRE={ add_to_variable={ times_trained_in_planning@var:v=tmpPLA }}}
             var:cntr_chance = { }
         }
     }
@@ -2734,7 +2849,7 @@ increase_indXYZQ_weighted = {
         random_list = {
             log = yes
             seed = random
-            var:base_chance = { add_logistics=tmpLOG vscope_from_cscope_root=yes add_to_variable={ times_trained_in_logistics@var:v=tmpPLA }}
+            var:base_chance = { add_logistics=tmpLOG vscope_from_cscope=yes GRE={ add_to_variable={ times_trained_in_logistics@var:v=tmpLOG }}}
             var:cntr_chance = { }
         }
     }
@@ -2925,7 +3040,7 @@ unit_leader_preparation_stats_fade = {
         if = {
             limit = { check_variable = { GRE.leader_potency_drop_level < 2 } }
             every_army_leader = {
-                vscope_from_cscope_root=yes
+                vscope_from_cscope=yes
                 if = { limit = { check_variable = { times_trained_in_attack@var:v > 2 } }
                     if = { limit = { check_variable = { times_trained_in_attack@var:v = 3 } } add_attack = -1 subtract_from_variable = { times_trained_in_attack@var:v = 1 } }
                     else_if = { limit = { check_variable = { times_trained_in_attack@var:v > 3 } check_variable = { times_trained_in_attack@var:v < 10 } } add_attack = -2 subtract_from_variable = { times_trained_in_attack@var:v = 2 } }
@@ -4009,24 +4124,24 @@ retrieve_criteria_for_promotion = {
 ### Initialized by tmpX (number), tmpF (ideologyType)
 
 randomly_purge_tmpX_officers = {
+    log="General Purges:"
     resize_temp_array = { purge_factory = tmpX }
     for_each_loop = {
         array=purge_factory
 
         random_character={
-            vscope_from_cscope_root=yes
             limit={
                 OR={ is_character_slot=air_chief is_character_slot=army_chief is_character_slot=navy_chief is_character_slot=high_command is_character_slot=theorist is_army_chief=yes is_army_leader=yes is_navy_chief=yes is_navy_leader=yes is_air_chief=yes is_high_command=yes }
-                vscope_character_is_purged=no
+                cscope_character_is_purged=no
                 if={ limit={ check_variable={ tmpF=1 }} has_trait=trait_GRE_stauch_republican_persona }
                 else_if={ limit={ check_variable={ tmpF=2 }} has_trait=trait_GRE_stauch_communist_persona }
                 else_if={ limit={ check_variable={ tmpF=-9 }} is_general_undesired=yes }
             }
 
-            if = { limit = { is_character = GRE_aris_velouchiotis } GRE_aris_velouchiotis={ unit_leader_event={ id=hellas.16 days=0 }}}
-            set_variable={ GRE.c_purged@var:v=1 }
-            if = { limit={ NOT={ is_in_array={ array=GRE.greek_characters value=var:v }}} set_nationality=AGO log="Purging [THIS.GetName], Unimportant Character."}    # If they are not important characters, in order to hide them, sent them to 'Agion Oros'.
-            else = { log="Purging [THIS.GetName], Important Character!!!" }
+            if = { limit={ is_character=GRE_aris_velouchiotis } GRE_aris_velouchiotis={ unit_leader_event={ id=hellas.16 days=0 }}}
+            set_variable={ GRE.c_purged@var:THIS=1 }
+            if = { limit={ NOT={ is_in_array={ array=GRE.greek_characters value=var:THIS }}} set_nationality=AGO log=" [THIS.GetName], Unimportant Character."}    # If they are not important characters, in order to hide them, sent them to 'Agion Oros'.
+            else = { log=" [THIS.GetName], Important Character!!!" }
         }
     }
 }
@@ -4126,170 +4241,122 @@ set_surrendered_officer_flags = {
     else = { set_character_flag = surrendered_to_the_enemy set_nationality = AGO }
 }
 
-### Is initialized by tmpX, tmpY and tmpZ through focus/dec/event/etc.
-### TmY values:
-###             0: Normal, 1: Ideology Leaning (growing), 2: Higher Officers w/o Ideology, 3: Higher Officers w/ Ideology, 66: Monthly LeftOvers
 randomly_train_tmpX_officers = {
-    
-    resize_temp_array = { general_factory = tmpX }
-    set_temp_variable = { cnt_left = tmpX }
-    if = { 
-        limit = { check_variable = { tmpY = 0 } }   ### Any debuff
-        for_each_loop = {
-            array = general_factory
-        
-            if = { 
-                limit = { any_army_leader = { has_unpreparedness_level = yes not_recently_trained = yes } }
-                random_army_leader = {
-                    limit = { has_unpreparedness_level = yes not_recently_trained = yes }
-                    reduce_unpreparedness = yes
-                    increase_indXYZQ_weighted = yes
-                    add_skill_level = tmpSKL
-                }
-                subtract_from_temp_variable = { cnt_left = 1 }
-            }   
-        }
-    }
-    else_if = {
-        limit = { check_variable = { tmpY = 1 } }   ### Ideologically, any debuff
-        for_each_loop = {
-            array = general_factory
-        
-            if = { 
-                limit = { any_army_leader = { is_ideologically_close_tmpZ = yes has_unpreparedness_level = yes not_recently_trained = yes } }
-                random_army_leader = {
-                    limit = { is_ideologically_close_tmpZ = yes has_unpreparedness_level = yes not_recently_trained = yes }
-                    reduce_unpreparedness = yes
-                    increase_indXYZQ_weighted = yes
-                    add_skill_level = tmpSKL
-                }
-                subtract_from_temp_variable = { cnt_left = 1 }
-            }   
-        }
-    }
-    else_if = {
-        limit = { check_variable = { tmpY = 2 } }   ### Veteran, any debuff
-        for_each_loop = {
-            array = general_factory
-        
-            if = { 
-                limit = { any_army_leader = { general_has_veterancy = yes has_unpreparedness_level = yes not_recently_trained = yes } }
-                random_army_leader = {
-                    limit = { general_has_veterancy = yes has_unpreparedness_level = yes not_recently_trained = yes }
-                    reduce_unpreparedness = yes
-                    increase_indXYZQ_weighted = yes
-                    add_skill_level = tmpSKL
-                }
-                subtract_from_temp_variable = { cnt_left = 1 }
-            }   
-        }
-    }
-    else_if = {
-        limit = { check_variable = { tmpY = 3 } }   ### Ideologically, veteran, any debuff
-        for_each_loop = {
-            array = general_factory
-        
-            if = { 
-                limit = { any_army_leader = { is_ideologically_close_tmpZ = yes general_has_veterancy = yes has_unpreparedness_level = yes not_recently_trained = yes } }
-                random_army_leader = {
-                    limit = { is_ideologically_close_tmpZ = yes general_has_veterancy = yes has_unpreparedness_level = yes not_recently_trained = yes }
-                    reduce_unpreparedness = yes
-                    increase_indXYZQ_weighted = yes
-                    add_skill_level = tmpSKL
-                }
-                subtract_from_temp_variable = { cnt_left = 1 }
-            }   
-        }
-    }
+    # This function trains unprepared (trait) officers depending on various factors.
+    # tmpX: Amount
+    # tmpY: Identifiers (0: Normal Mode, -1: Monthly Clearance Mode)
+    #  tmpY1: Ideologically Alligned (0: None, 1: At least, 2: Below)
+    #  tmpY2: Veterancy (0: None, 1: At least, 2: &Below, 3: Exact)
+    #  tmpY3: Preparation Debuff (0: None, 1: At least, 2: &Below, 3: Exact)
+    # tmpZ: Values (per)
+    #  tmpZ1: (0-100)
+    #  tmpZ2: (0-3)
+    #  tmpZ3: (0-4)
 
-    else_if = {
-        limit = { check_variable = { tmpY = 4 } }    ### Ideologically, 3-4 debuff
-        for_each_loop = {
-            array = general_factory
-        
-            if = { 
-                limit = { any_army_leader = { is_ideologically_close_tmpZ = yes has_very_low_unpreparedness_level = yes not_recently_trained = yes } }
-                random_army_leader = {
-                    limit = { is_ideologically_close_tmpZ = yes general_has_veterancy = yes has_unpreparedness_level = yes not_recently_trained = yes }
-                    reduce_unpreparedness = yes
-                    increase_indXYZQ_weighted = yes
-                    add_skill_level = tmpSKL
+    ###[ Initializing ]###
+    if={ 
+        limit={ check_variable={ tmpY=-1 }}
+
+        set_temp_variable={ tmpX=GRE.training_leftovers }
+        set_temp_variable={ cnt_left=0 }
+    }
+    else={ set_temp_variable = { cnt_left=tmpX }}
+    resize_temp_array = { general_factory=tmpX }
+
+    for_each_loop={
+        array=general_factory
+
+        if={
+            limit={
+                any_army_leader={
+                    has_unpreparedness_level=yes
+                    not_recently_trained=yes
+                    cscope_character_is_purged=no
+                    if={      limit={ check_variable={ tmpY1=1 }} set_temp_variable={ tmpZ=tmpZ1 } is_ideologically_close_tmpZ=yes }
+                    else_if={ limit={ check_variable={ tmpY1=2 }} set_temp_variable={ tmpZ=tmpZ1 } NOT={ is_ideologically_close_tmpZ=yes }}
+                    if={      limit={ check_variable={ tmpY2=1 }} set_temp_variable={ tmpZ=tmpZ2 } has_at_least_tmpZ_veterancy_level=yes }
+                    else_if={ limit={ check_variable={ tmpY2=2 }} set_temp_variable={ tmpZ=tmpZ2 } has_below_tmpZ_veterancy_level=yes }
+                    else_if={ limit={ check_variable={ tmpY2=3 }} set_temp_variable={ tmpZ=tmpZ2 } has_tmpZ_veterancy_level=yes }
+                    if={      limit={ check_variable={ tmpY3=1 }} set_temp_variable={ tmpZ=tmpZ3 } has_at_least_tmpZ_unpreparedness_level=yes }
+                    else_if={ limit={ check_variable={ tmpY3=2 }} set_temp_variable={ tmpZ=tmpZ3 } has_below_tmpZ_unpreparedness_level=yes }
+                    else_if={ limit={ check_variable={ tmpY3=3 }} set_temp_variable={ tmpZ=tmpZ3 } has_tmpZ_unpreparedness_level=yes }
                 }
-                subtract_from_temp_variable = { cnt_left = 1 }
             }
-        }
-    }
-
-    if = {
-        limit = { check_variable = { tmpY = 66 } }   ### Calls from monthly On Actions
-        set_temp_variable = { cnt_left = 0 }
-        for_each_loop = {
-            array = general_factory
-
-            if = {
-                limit = { any_army_leader = { has_unpreparedness_level = yes not_recently_trained = yes } }
-                random_army_leader = {
-                    limit = { has_unpreparedness_level = yes not_recently_trained = yes }
-                    reduce_unpreparedness = yes
-                    increase_indXYZQ_weighted = yes
-                    add_skill_level = tmpSKL
+            random_army_leader = {
+                limit = {
+                    has_unpreparedness_level=yes
+                    not_recently_trained=yes
+                    cscope_character_is_purged=no
+                    if={      limit={ check_variable={ tmpY1=1 }} set_temp_variable={ tmpZ=tmpZ1 } is_ideologically_close_tmpZ=yes }
+                    else_if={ limit={ check_variable={ tmpY1=2 }} set_temp_variable={ tmpZ=tmpZ1 } NOT={ is_ideologically_close_tmpZ=yes }}
+                    if={      limit={ check_variable={ tmpY2=1 }} set_temp_variable={ tmpZ=tmpZ2 } has_at_least_tmpZ_veterancy_level=yes }
+                    else_if={ limit={ check_variable={ tmpY2=2 }} set_temp_variable={ tmpZ=tmpZ2 } has_below_tmpZ_veterancy_level=yes }
+                    else_if={ limit={ check_variable={ tmpY2=3 }} set_temp_variable={ tmpZ=tmpZ2 } has_tmpZ_veterancy_level=yes }
+                    if={      limit={ check_variable={ tmpY3=1 }} set_temp_variable={ tmpZ=tmpZ3 } has_at_least_tmpZ_unpreparedness_level=yes }
+                    else_if={ limit={ check_variable={ tmpY3=2 }} set_temp_variable={ tmpZ=tmpZ3 } has_below_tmpZ_unpreparedness_level=yes }
+                    else_if={ limit={ check_variable={ tmpY3=3 }} set_temp_variable={ tmpZ=tmpZ3 } has_tmpZ_unpreparedness_level=yes } 
                 }
-                subtract_from_temp_variable = { GRE.training_leftovers = 1 }
+
+                reduce_unpreparedness=yes
+                increase_indXYZQ_weighted=yes
+                add_skill_level=tmpSKL
             }
+            if={ limit={ check_variable={ tmpY=-1 }} subtract_from_temp_variable={ GRE.training_leftovers=1 }}
+            else={ subtract_from_temp_variable={ cnt_left=1 }}
         }
     }
 
-    add_to_variable = { GRE.training_leftovers = cnt_left }
+    if={ limit={ check_variable={ tmpTT=0 }} custom_effect_tooltip=officer_preparation_header_tt custom_effect_tooltip=randomly_train_tmpX_officers_tt }
+    else_if={ limit={ check_variable={ tmpTT=1 }} custom_effect_tooltip=randomly_train_tmpX_officers_tt }
+    add_to_variable = { GRE.training_leftovers=cnt_left }
 }
 
 calculate_unpreparedness = {
     
-    set_temp_variable = { tmp_leader_number = GRE.army_leaders }
-    multiply_temp_variable = { tmp_leader_number = 4 }
-    set_temp_variable = { improvements_count = 0 }
+    set_temp_variable = { tmp_leader_number=GRE.army_leaders }
+    multiply_temp_variable = { tmp_leader_number=4 }
+    set_temp_variable = { improvements_count=0 }
     every_army_leader = {
-        if = {
-            limit = { has_trait = gre_unprepared_general_3 }
-            add_to_temp_variable = { improvements_count = 0 }
+        if={
+            limit={ has_trait=gre_unprepared_general_3 }
+            add_to_temp_variable={ improvements_count=0 }
+        }
+        else_if={
+            limit={ has_trait=gre_unprepared_general_2 }
+            add_to_temp_variable={ improvements_count=1 }
         } 
-        else_if = {
-            limit = { has_trait = gre_unprepared_general_2 }
-            add_to_temp_variable = { improvements_count = 1 }
-        } 
-        else_if = {
-            limit = { has_trait = gre_unprepared_general_1 }
-            add_to_temp_variable = { improvements_count = 2 }
+        else_if={
+            limit={ has_trait=gre_unprepared_general_1 }
+            add_to_temp_variable={ improvements_count=2 }
         }
-        else_if = {
-            limit = { has_trait = gre_unprepared_general_0 }
-            add_to_temp_variable = { improvements_count = 3 }
+        else_if={
+            limit={ has_trait=gre_unprepared_general_0 }
+            add_to_temp_variable={ improvements_count=3 }
         }
-        else = {
-            add_to_temp_variable = { improvements_count = 4 }
-        }
+        else={ add_to_temp_variable={ improvements_count=4 }}
     }
-    divide_temp_variable = { improvements_count = tmp_leader_number }
-    set_variable = { GRE.preparedness_level = improvements_count }
+    divide_temp_variable={ improvements_count=tmp_leader_number }
+    set_variable={ GRE.preparedness_level=improvements_count }
 }
 
 reduce_unpreparedness = {
-    custom_effect_tooltip = increase_preparation_level_tt
-    if = {
-        limit = { has_trait = gre_unprepared_general_3 }
-        remove_unit_leader_trait  = gre_unprepared_general_3
+    custom_effect_tooltip=increase_preparation_level_tt
+    if={
+        limit={ has_trait=gre_unprepared_general_3 }
+        remove_unit_leader_trait=gre_unprepared_general_3
     } 
-    else_if = {
-        limit = { has_trait = gre_unprepared_general_2 }
-        remove_unit_leader_trait  = gre_unprepared_general_2 
+    else_if={
+        limit={ has_trait=gre_unprepared_general_2 }
+        remove_unit_leader_trait=gre_unprepared_general_2 
     } 
-    else_if = {
-        limit = { has_trait = gre_unprepared_general_1 }
-        remove_unit_leader_trait  = gre_unprepared_general_1
+    else_if={
+        limit={ has_trait=gre_unprepared_general_1 }
+        remove_unit_leader_trait=gre_unprepared_general_1
     } 
-    else_if = {
-        limit = { has_trait = gre_unprepared_general_0 }
-        remove_unit_leader_trait  = gre_unprepared_general_0 
-    } 
+    else_if={
+        limit={ has_trait=gre_unprepared_general_0 }
+        remove_unit_leader_trait=gre_unprepared_general_0 
+    }
 }
 
 procure_me_generals_bugged = {
@@ -4320,13 +4387,12 @@ procure_me_generals_bugged = {
                 }
                 random_army_leader = {
                     limit={ has_id=[CID] }
-                    GRE = { set_variable={ tmp=PREV }}
-                    set_temp_variable = { v=tmp }
+                    set_temp_variable={ v=THIS }
                     add_to_array={ GRE.sca_portrait@var:portrait_number=var:v }
                     add_to_array={ GRE.secondary_characters=var:v }
 	                add_to_array={ GRE.gov_coc@2=var:v }
 	                var:v={
-                        vscope_add_set_character_mbranch=yes 
+                        vscope_add_set_character_mbranch=yes
 	                    vscope_add_set_character_ideology=yes
                     }
                 }
@@ -4363,8 +4429,7 @@ procure_me_generals_bugged = {
                 }
                 random_navy_leader = {
                     limit={ has_id=[CID] }
-                    GRE = { set_variable={ tmp=PREV }}
-                    set_temp_variable = { v=tmp }
+                    set_temp_variable={ v=THIS }
                     add_to_array={ GRE.scn_portrait@var:portrait_number=var:v }
                     add_to_array={ GRE.secondary_characters=var:v }
 	                add_to_array={ GRE.gov_coc@2=var:v }
@@ -4385,6 +4450,30 @@ procure_me_generals_bugged = {
         else_if = { limit = { check_variable = { GRE.portrait_number = 17 } } set_temp_variable = { GRE.portrait_number = 1 } }
     }
     clear_variable = GRE.name_index
+}
+
+reset_gov_pa_arrays = {
+    # This function resets the two GOV political advisor arrays for display purposes.
+    
+    clear_array=global.gov_advisor_first_array
+    clear_array=global.gov_advisor_second_array
+    add_to_array={ global.gov_advisor_first_array=GRE.political_advisor^0 }
+    add_to_array={ global.gov_advisor_first_array=GRE.political_advisor^1 }
+    add_to_array={ global.gov_advisor_first_array=GRE.political_advisor^2 }
+    add_to_array={ global.gov_advisor_second_array=GRE.political_advisor^3 }
+    add_to_array={ global.gov_advisor_second_array=GRE.political_advisor^4 }
+}
+
+reset_coc_hc_arrays = {
+    # This function resets the two COC high command arrays for display purposes.
+    
+    clear_array=global.coc_advisor_first_array
+    clear_array=global.coc_advisor_second_array
+    add_to_array={ global.coc_advisor_first_array=GRE.high_command^0 }
+    add_to_array={ global.coc_advisor_first_array=GRE.high_command^1 }
+    add_to_array={ global.coc_advisor_first_array=GRE.high_command^2 }
+    add_to_array={ global.coc_advisor_second_array=GRE.high_command^3 }
+    add_to_array={ global.coc_advisor_second_array=GRE.high_command^4 }
 }
 
 
@@ -4490,7 +4579,7 @@ MR_clear_variables = {
 }
 
 #########################################################
-####################[ GERMAN STANCE ]####################
+####################[ NATION STANCE ]####################
 #########################################################
 
 german_stance_in_greco_italian_war = {
@@ -4502,6 +4591,34 @@ german_stance_in_greco_italian_war = {
     if = { limit = { check_variable = { GRE.alax > 79.99 } } set_temp_variable = { final = 0 } }
     else_if = { limit = { check_variable = { GRE.alax < 20 } } add_to_temp_variable = { final = 2 } }
     else_if = { limit = { check_variable = { GRE.alax < 5 } } add_to_temp_variable = { final = 5 } }            ### Min 0, max 7
+    ###[ Declaration ]###
+    if={ limit={ check_variable={ var=final value=6.00 compare=greater_than }} set_variable={ GER.stance_in_grecoitalian_war=3 }}
+    else_if={ limit={ check_variable={ var=final value=1.59 compare=greater_than }} set_variable={ GER.stance_in_grecoitalian_war=2 }}
+    else_if={ limit={ check_variable={ var=final value=0.00 compare=greater_than }} set_variable={ GER.stance_in_grecoitalian_war=1 }}
+    else={ set_variable={ GER.stance_in_grecoitalian_war=0 }}
+}
+
+bulgarian_stance_in_greco_italian_war = {
+    if={ 
+        limit={ check_variable={ var=GER.stance_in_grecoitalian_war value=2 compare=greater_than_or_equals }} 
+        
+        set_variable={ BUL.stance_in_grecoitalian_war=3 }
+    }
+    else_if={
+        limit={ always=no }
+        
+        set_variable={ BUL.stance_in_grecoitalian_war=2 }
+    }
+    else_if={
+        limit={ check_variable={ var=TUR.balkan_pact_desirability value=30 compare=greater_than_or_equals }}
+        
+        set_variable={ BUL.stance_in_grecoitalian_war=1 }
+    }
+    else={ set_variable={ BUL.stance_in_grecoitalian_war=0 }}
+}
+
+turkish_stance_in_greco_italian_war = {
+    #@!#
 }
 
 #########################################################
@@ -10002,16 +10119,16 @@ update_gre_the_army_dyn = {
     add_to_temp_variable = { adder = GRE.dem_dpp }
     add_to_temp_variable = { adder = GRE.com_dpp }
     add_to_temp_variable = { adder = GRE.fas_dpp }
-    set_variable = { gre_the_army_pp = adder }
     clamp_temp_variable  = { var=adder min=-0.4 max=0.2 }
+    set_variable = { gre_the_army_pp = adder }
     ##[CP]##
     set_temp_variable = { adder = 0.10 }
     add_to_temp_variable = { adder = GRE.mon_dcp }
     add_to_temp_variable = { adder = GRE.dem_dcp }
     add_to_temp_variable = { adder = GRE.com_dcp }
     add_to_temp_variable = { adder = GRE.fas_dcp }
-    set_variable = { gre_the_army_cp = adder }
     clamp_temp_variable  = { var=adder min=-0.2 max=0.4 }
+    set_variable = { gre_the_army_cp = adder }
     ##[AC]##
     set_temp_variable = { adder = 10 }
     add_to_temp_variable = { adder = GRE.mon_ac }
@@ -10400,7 +10517,7 @@ calculate_tmpF_faction_effects_due_to_military_status = {
                     set_temp_variable={ tmpUPTHR=lfg_UPPER }
                     set_temp_variable={ tmpMAXDIR=1 }
                     calculate_upper_lower_bounded_y_ax_b=yes
-                    multiply_temp_variable={ y=-10 }
+                    multiply_temp_variable={ y=-5 }
                     set_variable = { GRE.[TOKEN]_ac = y }
                     #[I2O]#
                     set_variable = { GRE.[TOKEN]_i2o = -2.5 }
@@ -10435,7 +10552,8 @@ calculate_tmpF_faction_effects_due_to_military_status = {
                     set_temp_variable={ tmpUPTHR=lfg_UPPER }
                     set_temp_variable={ tmpMAXDIR=1 }
                     calculate_upper_lower_bounded_y_ax_b=yes
-                    multiply_temp_variable={ y=0.50 }
+                    multiply_temp_variable={ y=0.25 }
+                    add_to_temp_variable={ y=0.25 }
                     set_variable = { GRE.[TOKEN]_dpp = y }
                     #[CP Calculation]#
                     set_temp_variable={ x=flctd_mg }
@@ -10443,7 +10561,8 @@ calculate_tmpF_faction_effects_due_to_military_status = {
                     set_temp_variable={ tmpUPTHR=lfg_UPPER }
                     set_temp_variable={ tmpMAXDIR=1 }
                     calculate_upper_lower_bounded_y_ax_b=yes
-                    multiply_temp_variable={ y=0.60 }
+                    multiply_temp_variable={ y=0.30 }
+                    add_to_temp_variable={ y=0.3 }
                     set_variable = { GRE.[TOKEN]_dcp = y }
                     #[AC]#
                     set_temp_variable={ x=flctd_mg }
@@ -10451,7 +10570,8 @@ calculate_tmpF_faction_effects_due_to_military_status = {
                     set_temp_variable={ tmpUPTHR=lfg_UPPER }
                     set_temp_variable={ tmpMAXDIR=1 }
                     calculate_upper_lower_bounded_y_ax_b=yes
-                    multiply_temp_variable={ y=-10 }
+                    multiply_temp_variable={ y=-5 }
+                    add_to_temp_variable={ y=-5 }
                     set_variable = { GRE.[TOKEN]_ac = y }
                     #[I2O]#
                     set_variable = { GRE.[TOKEN]_i2o = -5.0 }
@@ -12435,7 +12555,84 @@ GRE_add_favor = {
 ####################################[ Army Reforms ]##################################
 ######################################################################################
 
+add_base_template_division={
+    if={ limit={ check_variable={ template_division_manpower_requirement>0 }} add_to_variable={ reforms_template_allocated_manpower=template_division_manpower_requirement tooltip=reforms_template_allocated_manpower_tt }}
+    if={ limit={ check_variable={ template_division_infequip_requirement>0 }} add_to_variable={ reforms_template_allocated_infequip=template_division_infequip_requirement tooltip=reforms_template_allocated_infequip_tt }}
+    if={ limit={ check_variable={ template_division_supequip_requirement>0 }} add_to_variable={ reforms_template_allocated_manpower=template_division_supequip_requirement tooltip=reforms_template_allocated_supequip_tt }}
+    if={ limit={ check_variable={ template_division_artequip_requirement>0 }} add_to_variable={ reforms_template_allocated_infequip=template_division_artequip_requirement tooltip=reforms_template_allocated_artequip_tt }}
+    hidden_effect={
+        multiply_temp_variable={ manc?template_division_manpower_requirement=-1 }
+        add_manpower=manc
+        multiply_temp_variable={ rifc?template_division_infequip_requirement=-1 }
+        add_equipment_to_stockpile={ type=infantry_equipment amount=var:rifc }
+        multiply_temp_variable={ supc?template_division_supequip_requirement=-1 }
+        add_equipment_to_stockpile={ type=support_equipment amount=var:supc }
+        multiply_temp_variable={ artc?template_division_artequip_requirement=-1 }
+        add_equipment_to_stockpile={ type=artillery_equipment amount=var:artc }
+    }
+    add_to_variable={ reforms_template_current=1 }
+}
 
+remove_base_template_division={
+    if={ limit={ check_variable={ template_division_manpower_requirement>0 }} subtract_from_variable={ reforms_template_allocated_manpower=template_division_manpower_requirement tooltip=reforms_template_allocated_manpower_2_tt }}
+    if={ limit={ check_variable={ template_division_infequip_requirement>0 }} subtract_from_variable={ reforms_template_allocated_infequip=template_division_infequip_requirement tooltip=reforms_template_allocated_infequip_2_tt }}
+    if={ limit={ check_variable={ template_division_supequip_requirement>0 }} subtract_from_variable={ reforms_template_allocated_manpower=template_division_supequip_requirement tooltip=reforms_template_allocated_supequip_2_tt }}
+    if={ limit={ check_variable={ template_division_artequip_requirement>0 }} subtract_from_variable={ reforms_template_allocated_infequip=template_division_artequip_requirement tooltip=reforms_template_allocated_artequip_2_tt }}
+    hidden_effect={
+        add_manpower=template_division_manpower_requirement
+        add_equipment_to_stockpile={ type=infantry_equipment amount=var:template_division_infequip_requirement }
+        add_equipment_to_stockpile={ type=support_equipment amount=var:template_division_supequip_requirement }
+        add_equipment_to_stockpile={ type=artillery_equipment amount=var:template_division_artequip_requirement }
+    }
+    add_to_variable={ reforms_template_current=-1 }
+}
+
+add_base_template_infantry_battalion={
+    add_to_variable={ template_division_manpower_requirement=1000 }
+    add_to_variable={ template_division_infequip_requirement=100 }
+    modulo_temp_variable={ slt?reforms_template_line_bat=5 }
+    hidden_effect={ meta_effect={ text={ add_units_to_division_template={ template_name="(Merarchía-XX) Ekpaídeusis" regiments={ infantry=[SLOT] }}} SLOT="[?slt|.0]" }}
+    add_to_variable={ reforms_template_inf=1 }
+    add_to_variable={ reforms_template_line_bat=1 }
+    multiply_temp_variable={ rifles?100=reforms_template_current }
+    multiply_temp_variable={ manpow?1000=reforms_template_current }
+    if={ limit={ check_variable={ rifles>0 }} add_to_variable={ reforms_template_allocated_infequip=rifles tooltip=reforms_template_allocated_infequip_tt }}
+    if={ limit={ check_variable={ manpow>0 }} add_to_variable={ reforms_template_allocated_manpower=manpow tooltip=reforms_template_allocated_manpower_tt }}
+    hidden_effect={
+        multiply_temp_variable={ manc?manpow=-1 }
+        add_manpower=manc
+        multiply_temp_variable={ rifc?rifles=-1 }
+        add_equipment_to_stockpile={ type=infantry_equipment amount=var:rifc }
+    }
+}
+
+add_base_template_artillery_battalion={
+    add_to_variable={ template_division_manpower_requirement=500 }
+    add_to_variable={ template_division_artequip_requirement=36 }
+    modulo_temp_variable={ slt?reforms_template_line_bat=5 }
+    hidden_effect={ meta_effect={ text={ add_units_to_division_template={ template_name="(Merarchía-XX) Ekpaídeusis" regiments={ artillery_brigade=[SLOT] }}} SLOT="[?slt|.0]" }}
+    add_to_variable={ reforms_template_art=1 }
+    add_to_variable={ reforms_template_line_bat=1 }
+    multiply_temp_variable={ artill?100=reforms_template_current }
+    multiply_temp_variable={ manpow?1000=reforms_template_current }
+    if={ limit={ check_variable={ artill>0 }} add_to_variable={ reforms_template_allocated_artequip=artill tooltip=reforms_template_allocated_artequip_tt }}
+    if={ limit={ check_variable={ manpow>0 }} add_to_variable={ reforms_template_allocated_manpower=manpow tooltip=reforms_template_allocated_manpower_tt }}
+    hidden_effect={
+        multiply_temp_variable={ manc?manpow=-1 }
+        add_manpower=manc
+        multiply_temp_variable={ artc?artill=-1 }
+        add_equipment_to_stockpile={ type=artillery_equipment amount=var:artc }
+    }
+}
+
+calculate_base_template_unlock_cost={
+    multiply_temp_variable={ x?reforms_template_line_bat=12 }
+    multiply_temp_variable={ y?reforms_template_sup_bat=24 }
+    multiply_temp_variable={ z?land_doctrine_level=50 }
+    subtract_from_temp_variable={ tmpCOST?300=x }
+    subtract_from_temp_variable={ tmpCOST=y }
+    subtract_from_temp_variable={ tmpCOST=z }
+}
 
 GRE_army_reform_tr = {
     if = {

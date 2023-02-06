@@ -18,17 +18,17 @@ is_important_nation_to_add_to_array = {
             limit = { OR={ is_in_array={ array=GRE.balkan_neighbors value=THIS.id} AND={ is_major=yes var:capital={is_on_continent=europe }}}}       # We always want Balkan Neighbors & European Major Powers.
             always=yes
         }
-        else_if = {
-            limit = { is_major=yes var:capital={is_on_continent=north_america }}
-            OR = { has_completed_focus=GRE_bedrock_of_balkan_financial_stability has_completed_focus=GRE_open_foreign_subsidized_factories }         # We add USA (north america majors) once Greece starts becoming important
+        else_if = {                                                                                                                                  # We add USA (north america majors) once Greece starts becoming important
+            limit = { is_major=yes var:THIS.capital={ is_on_continent=north_america }}
+            GRE={ OR={ has_completed_focus=GRE_american_influencers has_completed_focus=GRE_bedrock_of_balkan_financial_stability has_completed_focus=GRE_open_foreign_subsidized_factories}}
         }
         else_if = {
-            limit = { is_major=yes var:capital={is_on_continent=asia }}
-            OR = { has_completed_focus=GRE_invest_into_the_far_east has_completed_focus=GRE_extend_arms_sales_to_the_chinese has_completed_focus=GRE_arm_the_japanese has_completed_focus=GRE_arm_the_communists }          # We add Asian Majors a bit early if we start invest.
+            limit = { OR={ is_major=yes tag=PRC } var:capital={is_on_continent=asia }}                                                               # We add Asian Majors a bit early if we start invest.
+            GRE={ has_made_any_opening_in_the_eastern_theater=yes }
         }
         else_if = {                                                                                                                                  # We add asian nations if we have completed the focus.
             limit = { is_major=no var:capital={is_on_continent=asia }}
-            has_completed_focus = GRE_invest_into_the_far_east
+            GRE={ has_completed_focus=GRE_invest_into_the_far_east }
         }
         else = { always=no }                                                                                                                         # Otherwise, not an important nation
     }
@@ -187,9 +187,7 @@ annexation_of_albania_has_occurred_one_way_or_another = {
     custom_trigger_tooltip = {
         tooltip = annexation_of_albania_has_occurred_one_way_or_another_tt
 
-        ALB = {
-            OR = { exists=no AND={ exists=yes OR={ is_subject_of=ITA is_puppet_of=ITA }}}
-        }
+        ALB={ OR={ exists=no AND={ exists=yes OR={ is_subject_of=ITA is_puppet_of=ITA }}}}
     }
 }
 
@@ -253,6 +251,14 @@ has_opposing_ideology_from_tmpCID = {
 ####################################
 ########[ Eastern Prospect ]########
 ####################################
+
+has_made_any_opening_in_the_eastern_theater = {
+    OR={
+        has_completed_focus=GRE_extend_arms_sales_to_the_chinese
+        has_completed_focus=GRE_arm_the_japanese
+        has_completed_focus=GRE_arm_the_communists
+    }
+}
 
 has_completed_appropriate_ep_focuses_FROM = {
     if = {
@@ -814,6 +820,10 @@ has_no_guarantees_from_majors = {
 ####################################
 ####[Greco Italian War Triggers]####
 ####################################
+
+has_greco_italian_war_occured = {
+    OR={ has_global_flag=GRE_grecoitalian_start has_global_flag=GRE_grecoitalian_ended }
+}
 
 trigger_italian_war_event = {
     ITA = { has_completed_focus = ITA_war_with_greece }
@@ -1418,8 +1428,51 @@ general_has_veterancy = {
     }
 }
 
+has_tmpZ_veterancy_level={
+    if={ limit={ check_variable={ tmpZ=0 }} general_has_veterancy=no }
+    else_if={ limit={ check_variable={ tmpZ=1 }} has_trait=gre_war_veteran }
+    else_if={ limit={ check_variable={ tmpZ=2 }} has_trait=gre_two_war_veteran }
+    else_if={ limit={ check_variable={ tmpZ=3 }} has_trait=gre_three_war_veteran }
+}
+
+has_at_least_tmpZ_veterancy_level={
+    if={ limit={ check_variable={ tmpZ=0 }} always=yes }
+    else_if={ limit={ check_variable={ tmpZ=1 }} general_has_veterancy=yes }
+    else_if={ limit={ check_variable={ tmpZ=2 }} OR={ has_trait=gre_three_war_veteran has_trait=gre_two_war_veteran }}
+    else_if={ limit={ check_variable={ tmpZ=3 }} has_trait=gre_three_war_veteran }
+}
+
+has_below_tmpZ_veterancy_level={
+    if={ limit={ check_variable={ tmpZ=0 }} general_has_veterancy=no }
+    else_if={ limit={ check_variable={ tmpZ=1 }} OR={ has_trait=gre_war_veteran general_has_veterancy=no }}
+    else_if={ limit={ check_variable={ tmpZ=2 }} OR={ has_trait=gre_war_veteran has_trait=gre_two_war_veteran general_has_veterancy=no }}
+    else_if={ limit={ check_variable={ tmpZ=3 }} always=yes }
+}
+
 not_recently_trained = {
     NOT = { has_trait = gre_recently_trained_general }
+}
+
+has_tmpZ_unpreparedness_level={
+    if={ limit={ check_variable={ tmpZ=0 }} is_fully_reintegrated=yes }
+    else_if={ limit={ check_variable={ tmpZ=1 }} has_trait=gre_unprepared_general_0 }
+    else_if={ limit={ check_variable={ tmpZ=2 }} has_trait=gre_unprepared_general_1 }
+    else_if={ limit={ check_variable={ tmpZ=3 }} has_trait=gre_unprepared_general_2 }
+    else_if={ limit={ check_variable={ tmpZ=4 }} has_trait=gre_unprepared_general_3 }
+}
+
+has_at_least_tmpZ_unpreparedness_level={
+    if={ limit={ check_variable={ tmpZ=0 }} is_fully_reintegrated=yes }
+    else_if={ limit={ check_variable={ tmpZ=1 }} OR={ has_trait=gre_unprepared_general_0 is_fully_reintegrated=yes }}
+    else_if={ limit={ check_variable={ tmpZ=2 }} OR={ has_trait=gre_unprepared_general_0 has_trait=gre_unprepared_general_1 is_fully_reintegrated=yes }}
+    else_if={ limit={ check_variable={ tmpZ=3 }} OR={ has_trait=gre_unprepared_general_0 has_trait=gre_unprepared_general_1 has_trait=gre_unprepared_general_2 is_fully_reintegrated=yes }}
+}
+
+has_below_tmpZ_unpreparedness_level={
+    if={ limit={ check_variable={ tmpZ=0 }} is_fully_reintegrated=no }
+    else_if={ limit={ check_variable={ tmpZ=1 }} OR={ has_trait=gre_unprepared_general_3 has_trait=gre_unprepared_general_2 has_trait=gre_unprepared_general_1 }}
+    else_if={ limit={ check_variable={ tmpZ=2 }} OR={ has_trait=gre_unprepared_general_3 has_trait=gre_unprepared_general_2 }}
+    else_if={ limit={ check_variable={ tmpZ=3 }} has_trait=gre_unprepared_general_3 }
 }
 
 has_very_low_unpreparedness_level = {
@@ -1798,14 +1851,40 @@ is_influencable = {
         value = THIS.id
     }
 }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+has_base_template_unlock_cost={
+    multiply_temp_variable={ x?reforms_template_line_bat=12 }
+    multiply_temp_variable={ y?reforms_template_sup_bat=24 }
+    multiply_temp_variable={ z?land_doctrine_level=50 }
+    subtract_from_temp_variable={ tmpCOST?300=x }
+    subtract_from_temp_variable={ tmpCOST=y }
+    subtract_from_temp_variable={ tmpCOST=z }
+    has_army_experience>var:tmpCOST
+}
+
+can_add_manpow_to_base_template={
+    multiply_temp_variable={ manpow=reforms_template_current }
+    add_to_temp_variable={ new_sum?reforms_template_allocated_manpower=manpow }
+    custom_trigger_tooltip={
+        tooltip=GRE_hidden_rearm_template_manpower_cap
+        check_variable={ var=new_sum value=reforms_template_max_allocated_manpower compare=less_than_or_equals }
+    }
+}
+
+can_increase_division_count={
+    set_temp_variable={ manpow=template_division_manpower_requirement }
+    set_temp_variable={ new_sum=template_division_manpower_requirement }
+    add_to_temp_variable={ new_sum=reforms_template_allocated_manpower }
+    custom_trigger_tooltip={
+        tooltip=GRE_hidden_rearm_template_manpower_cap
+        check_variable={ var=new_sum value=reforms_template_max_allocated_manpower compare=less_than_or_equals }
+    }
+    has_manpower>manpow
+    subtract_from_temp_variable={ x1?template_division_infequip_requirement=1 }
+    subtract_from_temp_variable={ x2?template_division_supequip_requirement=1 }
+    subtract_from_temp_variable={ x3?template_division_artequip_requirement=1 }
+    if={ limit={ check_variable={ template_division_infequip_requirement>0 }} has_equipment={ infantry_equipment>x1 }}
+    if={ limit={ check_variable={ template_division_supequip_requirement>0 }} has_equipment={ support_equipment>x2 }}
+    if={ limit={ check_variable={ template_division_artequip_requirement>0 }} has_equipment={ artillery_equipment>x3 }}
+}

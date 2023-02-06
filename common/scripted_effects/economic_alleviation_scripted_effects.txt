@@ -145,3 +145,201 @@ ecall_upgrade_economy_immediate = {
     }
     add_to_variable={ GRE.economy_level=1 }
 }
+
+ecall_upgrade_economy_detection_test_variable_initialization = {
+    subtract_from_temp_variable={ economy_level_difference?economy_level=apparent_economy_level }           # diff: 1 2 3 4
+    add_to_temp_variable={ looper_cnt?1=economy_level }
+    resize_temp_array={ looper=looper_cnt }
+    for_each_loop={ array=looper multiply_temp_variable={ economy_difficulty?1=2 }}                         # diff: 1 2 4 8 16
+}
+
+ecall_upgrade_economy_detection_test_add_variable_to_tmpCHANCES = {
+    ######################################################################
+    ######################################################################
+    set_temp_variable={ cim_b2=economy_level_difference }
+    multiply_temp_variable={ cim_b2=25 }
+    clamp_temp_variable={ var=cim_b2 min=0 max=100 }
+    subtract_from_temp_variable={ cim_b1?100=cim_b2 }
+    add_to_temp_array = { tmpCHANCES=cim_b1 }
+    ######################################################################
+    ######################################################################
+    set_variable={ ecall_upgrade_level_difference_avoidance=cim_b1 }
+    set_temp_variable={ cbt_b2=economy_difficulty }
+    multiply_temp_variable={ cbt_b2=4 }
+    add_to_temp_variable={ cbt_b2=25 }
+    clamp_temp_variable={ var=cbt_b2 min=0 max=100 }
+    subtract_from_temp_variable={ cbt_b1?100=cbt_b2 }
+    add_to_temp_array = { tmpCHANCES=cbt_b1 }
+    ######################################################################
+    ######################################################################
+    set_variable={ ecall_upgrade_level_difficulty_avoidance=cbt_b1 }
+    log="[?cim_b1] --- [?cbt_b1]"
+}
+
+ecall_upgrade_economy_detection_test={
+    
+    ######[REPORT EVENTS]######
+    set_temp_variable = { tmpEDIFF=5 }
+    set_temp_variable = { tmpARG1=1 }
+    set_temp_variable = { tmpARG2=1 }
+    calculate_national_intelligence_chance_to_avoid_event = yes
+    for_each_scope_loop={ array=global.majors if={ limit={ is_in_array={ GRE.important_nations=THIS.id }} add_to_temp_array={ tmpENEMIES=THIS.id }}}
+    set_temp_variable={ VARTOK=60 }
+    set_temp_variable={ tmpMODE=1 }
+    set_temp_variable={ tmpLWTHR=25 }
+    set_temp_variable={ tmpUPTHR=80 }
+    set_temp_variable={ tmpMAXDIR=1 }
+    calculate_enemy_bounded_VAR_chance_to_avoid_event=yes
+    set_temp_variable={ VARTOK=61 }
+    calculate_enemy_bounded_VAR_chance_to_avoid_event=yes
+    set_temp_variable={ VARTOK=62 }
+    calculate_enemy_bounded_VAR_chance_to_avoid_event=yes
+    set_temp_variable={ VARTOK=63 }
+    calculate_enemy_bounded_VAR_chance_to_avoid_event=yes
+    #######################################################################
+    ecall_upgrade_economy_detection_test_variable_initialization=yes
+    ecall_upgrade_economy_detection_test_add_variable_to_tmpCHANCES=yes
+    #######################################################################
+    add_to_temp_array = { tmpWEIGHT=1 }
+    add_to_temp_array = { tmpWEIGHT=1 }
+    add_to_temp_array = { tmpWEIGHT=0.3334 }
+    add_to_temp_array = { tmpWEIGHT=0.3333 }
+    add_to_temp_array = { tmpWEIGHT=0.3333 }
+    add_to_temp_array = { tmpWEIGHT=1 }
+    add_to_temp_array = { tmpWEIGHT=1 }
+    set_temp_variable={ tmpMODE=0 }
+    calculate_final_b1_b2_from_temporary_array_tmpCHANCES_with_tmpWEIGHT_and_mode_tmpMODE=yes
+    set_variable={ upgrade_economy_avoidance=b1 }
+    set_variable={ upgrade_economy_detection=b2 }
+    set_variable={ upgrade_economy_overall_detection=b2 }
+    multiply_variable={ upgrade_economy_overall_detection=1.25 }
+    #######################################################################
+    #######################################################################
+    if = {
+        limit={ NOT={ has_completed_focus=GRE_a_game_of_shadows }}
+        custom_effect_tooltip = report_event_no_focus_completed_tt
+    }
+    else = {
+        custom_effect_tooltip=repev_economy_header_tt
+        custom_effect_tooltip=repev_cni_main_tt
+        set_temp_variable={ displayer=1  tooltip=repev_xxxx_weight_tt }
+        set_temp_variable={ displayer=cni_b1  tooltip=repev_cni_aginch_tt }
+        set_temp_variable={ displayer=5 tooltip=repev_cni_tmpEDIFF_tt }
+        set_temp_variable={ displayer=base  tooltip=repev_cni_base_tt }
+        set_temp_variable={ displayer=1  tooltip=repev_cni_tmpARG1_tt }
+        set_temp_variable={ displayer=1  tooltip=repev_cni_tmpARG2_tt }
+        custom_effect_tooltip=repev_civi_main_tt
+        set_temp_variable={ displayer=1  tooltip=repev_xxxx_weight_tt }
+        set_temp_variable={ displayer=25 tooltip=repev_xxxx_lwthr_tt }
+        set_temp_variable={ displayer=80 tooltip=repev_xxxx_upthr_tt }
+        custom_effect_tooltip=repev_armi_main_tt
+        set_temp_variable={ displayer=0.34  tooltip=repev_xxxx_weight_tt }
+        custom_effect_tooltip=repev_xxxx_likeabove_tt
+        custom_effect_tooltip=repev_navi_main_tt
+        set_temp_variable={ displayer=0.33  tooltip=repev_xxxx_weight_tt }
+        custom_effect_tooltip=repev_xxxx_likeabove_tt
+        custom_effect_tooltip=repev_airf_main_tt
+        set_temp_variable={ displayer=0.33  tooltip=repev_xxxx_weight_tt }
+        custom_effect_tooltip=repev_xxxx_likeabove_tt
+        custom_effect_tooltip=repev_economy_level_difference
+        set_temp_variable={ displayer=1  tooltip=repev_xxxx_weight_tt }
+        set_temp_variable={ displayer=GRE.ecall_upgrade_level_difference_avoidance  tooltip=repev_cni_aginch_tt }
+        custom_effect_tooltip=repev_economy_level
+        set_temp_variable={ displayer=1  tooltip=repev_xxxx_weight_tt }
+        set_temp_variable={ displayer=GRE.ecall_upgrade_level_difficulty_avoidance  tooltip=repev_cni_aginch_tt }
+    }
+}
+
+
+ecall_announce_economy_set_difficulty_thresholds = {
+
+    if={
+        limit={ check_variable={ GRE.economy_level=0 }}
+
+        set_temp_variable={ announce_base_difficulty=2 }
+        set_temp_variable={ overall_debt_tmpLWTHR=50 }
+        set_temp_variable={ overall_debt_tmpUPTHR=100 }
+        set_temp_variable={ world_tension_tmpLWTHR=0 }
+        set_temp_variable={ world_tension_tmpUPTHR=10 }
+    }
+    else_if={
+        limit={ check_variable={ GRE.economy_level=1 }}
+
+        set_temp_variable={ announce_base_difficulty=4 }
+        set_temp_variable={ overall_debt_tmpLWTHR=15 }
+        set_temp_variable={ overall_debt_tmpUPTHR=40 }
+        set_temp_variable={ world_tension_tmpLWTHR=0 }
+        set_temp_variable={ world_tension_tmpUPTHR=25 }
+    }
+    else_if={
+        limit={ check_variable={ GRE.economy_level=2 }}
+
+        set_temp_variable={ announce_base_difficulty=8 }
+        set_temp_variable={ overall_debt_tmpLWTHR=0 }
+        set_temp_variable={ overall_debt_tmpUPTHR=15 }
+        set_temp_variable={ world_tension_tmpLWTHR=0 }
+        set_temp_variable={ world_tension_tmpUPTHR=70 }
+    }
+    else_if={
+        limit={ check_variable={ GRE.economy_level=3 }}
+
+        set_temp_variable={ announce_base_difficulty=16 }
+        set_temp_variable={ overall_debt_tmpLWTHR=0 }
+        set_temp_variable={ overall_debt_tmpUPTHR=0 }
+        set_temp_variable={ world_tension_tmpLWTHR=0 }
+        set_temp_variable={ world_tension_tmpUPTHR=100 }
+    }
+}
+
+ecall_announce_economy_backslash_calculation = {
+
+    ecall_announce_economy_set_difficulty_thresholds=yes
+    
+    ###[ Debt Level ]###
+    
+    GRE_debt_find_true_total_and_remaining=yes
+    set_temp_variable={ x=true_remaining_debt }
+    set_temp_variable={ tmpLWTHR=overall_debt_tmpLWTHR }
+    set_temp_variable={ tmpUPTHR=overall_debt_tmpUPTHR }
+    set_temp_variable={ tmpMAXDIR=1 }
+    calculate_upper_lower_bounded_y_ax_b=yes
+    set_variable={ debt_backslash_factor=y }
+
+    ###[ World Tension ]###
+    
+    set_temp_variable={ x=global.threat }
+    multiply_temp_variable={ x=100 }
+    set_temp_variable={ tmpLWTHR=world_tension_tmpLWTHR }
+    set_temp_variable={ tmpUPTHR=world_tension_tmpUPTHR }
+    set_temp_variable={ tmpMAXDIR=0 }
+    calculate_upper_lower_bounded_y_ax_b=yes
+    set_variable={ tension_backslash_factor=y }
+
+    ###[ Summarization ]###
+    clear_variable=total_backslash_factor
+    add_to_variable={ total_backslash_factor=debt_backslash_factor }
+    add_to_variable={ total_backslash_factor=tension_backslash_factor }
+    divide_variable={ total_backslash_factor=2 }
+    multiply_variable={ total_backslash_factor=100 }
+    #######################################################################
+    #######################################################################
+    if = {
+        limit={ NOT={ has_completed_focus=GRE_a_game_of_shadows }}
+        custom_effect_tooltip = report_event_no_focus_completed_tt
+    }
+    else = {
+        custom_effect_tooltip=repev_economy_backslash_header_tt
+        custom_effect_tooltip=repev_economy_cwt_main_tt
+        set_temp_variable={ displayer=tension_backslash_factor  tooltip=repev_economy_backslash_tt }
+        set_temp_variable={ displayer=1  tooltip=repev_xxxx_weight_tt }
+        set_temp_variable={ displayer=world_tension_tmpLWTHR tooltip=repev_xxxx_lwthr_tt }
+        set_temp_variable={ displayer=world_tension_tmpUPTHR tooltip=repev_xxxx_upthr_tt }
+        set_temp_variable={ displayer=1  tooltip=repev_xxxx_maxdir_tt }
+        custom_effect_tooltip=repev_economy_tdb_main_tt
+        set_temp_variable={ displayer=debt_backslash_factor  tooltip=repev_economy_backslash_tt }
+        set_temp_variable={ displayer=1  tooltip=repev_xxxx_weight_tt }
+        set_temp_variable={ displayer=overall_debt_tmpLWTHR tooltip=repev_xxxx_lwthr_tt }
+        set_temp_variable={ displayer=overall_debt_tmpUPTHR tooltip=repev_xxxx_upthr_tt }
+        set_temp_variable={ displayer=0  tooltip=repev_xxxx_maxdir_tt }
+    }
+}

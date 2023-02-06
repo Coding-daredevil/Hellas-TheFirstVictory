@@ -1,178 +1,82 @@
 pursuing_the_balkan_pact = {                                        ## Greece pursues the Balkan pact by completing the focus.
-    allowed = {
-        OR = {
-            original_tag = YUG
-            original_tag = ROM
-            original_tag = TUR
-            original_tag = BUL
-            original_tag = ALB
-        }
+    allowed={
+        OR={ tag=YUG tag=ROM tag=TUR tag=BUL tag=ALB }
     }
-    enable = {
-        GRE = { has_completed_focus = GRE_the_balkan_pact }
-        if = { limit = { tag = BUL } BUL = { has_country_flag = joined_the_balkan_pact } }
-        if = { limit = { tag = ALB } ALB = { has_country_flag = joined_the_balkan_pact } }
+    enable={
+        GRE={ has_completed_focus=GRE_the_balkan_pact }
+        if = { limit={ tag=BUL } BUL={ has_country_flag=joined_the_balkan_pact }}
+        if = { limit={ tag=ALB } ALB={ has_country_flag=joined_the_balkan_pact }}
     }
     abort_when_not_enabled = yes
     
-    ai_strategy = {
-        type = befriend
-        id = GRE
-        value = 5
-    }
+    ai_strategy={ type=befriend id=GRE value=5 }
 }
 
 establishing_additional_communications = {
     allowed = {
-        OR = {
-            original_tag = YUG
-            original_tag = ROM
-            original_tag = TUR
-        }
+        OR={ tag=YUG tag=ROM tag=TUR }
     }
-    enable = {
-        has_country_flag = channels_established
-    }
+    enable={ check_variable={ exoteriki_politiki_relations_level=1 }}
     abort_when_not_enabled = yes
     
-    ai_strategy = {
-        type = befriend
-        id = GRE
-        value = 5
-    }
+    ai_strategy={ type=befriend id=GRE value=5 }
 }
 
 establishing_common_strategy = { 
     allowed = {
-        OR = {
-            original_tag = YUG
-            original_tag = ROM
-            original_tag = TUR
-        }
+        OR={ tag=YUG tag=ROM tag=TUR }
     }
-    enable = {
-        has_country_flag = common_strategy_with_greece_defined
-    }
+    enable={ check_variable={ exoteriki_politiki_relations_level=2 }}
     abort_when_not_enabled = yes
     
-    ai_strategy = {
-        type = befriend
-        id = GRE
-        value = 10
-    }
+    ai_strategy={ type=befriend id=GRE value=10 }
 }
 
 balkan_pact_reinforced_befriendment = {
     allowed = {
-        OR = {
-            original_tag = YUG
-            original_tag = ROM
-            original_tag = TUR
-            original_tag = BUL
-            original_tag = ALB
-        }
+        OR={ tag=YUG tag=ROM tag=TUR tag=BUL tag=ALB }
     }
-    enable = {
-        has_country_flag = balkan_pact_reinforced
-    }
-    abort_when_not_enabled = yes
+    enable={ has_country_flag=balkan_pact_reinforced }
+    abort_when_not_enabled=yes
     
-    ai_strategy = {
-        type = befriend
-        id = GRE
-        value = 25
-    }
-    ai_strategy = {
-        type = befriend
-        id = ROM
-        value = 25
-    }
-    ai_strategy = {
-        type = befriend
-        id = TUR
-        value = 25
-    }
-    ai_strategy = {
-        type = befriend
-        id = YUG
-        value = 25
-    }
-    ai_strategy = {
-		type = support
-		id = GRE
-		value = 50
-	}
-    ai_strategy = {
-		type = send_lend_lease_desire
-		id = GRE
-		value = 50
-	}
+    ai_strategy={ type=befriend id=GRE value=25 }
+    ai_strategy={ type=befriend id=ROM value=25 }
+    ai_strategy={ type=befriend id=TUR value=25 }
+    ai_strategy={ type=befriend id=YUG value=25 }
+    ai_strategy={ type=befriend id=GRE value=50 }
+    ai_strategy={ type=befriend id=GRE value=50 }
 }
 
 balkan_pact_reinforced_wanted_buildings = {
     allowed = {
-        OR = {
-            original_tag = YUG
-            original_tag = ROM
-            original_tag = TUR
-            original_tag = BUL
-            original_tag = ALB
-        }
+        OR={ tag=YUG tag=ROM tag=TUR tag=BUL tag=ALB }
     }
     enable = {
-        has_country_flag = balkan_pact_reinforced
-        num_of_civilian_factories < 20
-        num_of_military_factories < 10
+        has_country_flag=balkan_pact_reinforced
+        num_of_civilian_factories<20
+        num_of_military_factories<10
     }
-    abort_when_not_enabled = yes
+    abort_when_not_enabled=yes
 
-    ai_strategy = {
-		type = building_target
-		id = industrial_complex
-		value = 20
-	}
-    ai_strategy = {
-		type = building_target
-		id = arms_factory
-		value = 10
-	}
+    ai_strategy={ type=building_target id=industrial_complex value=20 }
+    ai_strategy={ type=building_target id=arms_factory value=10 }
 }
 
 move_units_to_bulgarian_border_if_greece_prepares_ultimatum = {
     allowed = {
-        OR = {
-            original_tag = YUG
-            original_tag = ROM
-            original_tag = TUR
-        }
+        OR={ tag=YUG tag=ROM tag=TUR tag=ALB }
     }
     enable = {
-        has_country_flag = balkan_pact_reinforced
-        GRE = { has_decision = push_for_bulgarian_entry_in_the_balkan_pact }
+        has_country_flag=balkan_pact_reinforced
+        GRE={ has_decision=push_for_bulgarian_entry_in_the_balkan_pact }
     }
     abort_when_not_enabled = yes
 
-    ai_strategy = {
-        type = befriend
-        id = GRE
-        value = 25
-    }
-    
-    ai_strategy = {
-        type = prepare_for_war
-        id = BUL
-        value = 10000
-    }
-
-    ai_strategy = {
-        type = antagonize
-        id = BUL
-        value = 10000
-    }
-
+    ai_strategy={ type=befriend id=GRE value=25 }
+    ai_strategy={ type=prepare_for_war id=BUL value=10000 }
+    ai_strategy={ type=antagonize id=BUL value=10000 }
     ai_strategy = {
         type = front_control
-        #you can define a target in following ways. you can define more than one
         tag = BUL
         state = 48 
         state = 212 
@@ -201,35 +105,18 @@ move_units_to_bulgarian_border_if_greece_prepares_ultimatum = {
 
 balkan_pact_reinforced_bulgaria = {
     allowed = {
-        OR = {
-            original_tag = YUG
-            original_tag = ROM
-            original_tag = TUR
-            original_tag = GRE
-        }
+        OR={ tag=YUG tag=ROM tag=TUR tag=ALB tag=GRE }
     }
-    enable = {
-        has_country_flag = balkan_pact_reinforced
-    }
-    abort_when_not_enabled = yes
+    enable={ has_country_flag=balkan_pact_reinforced }
+    abort_when_not_enabled=yes
     
-    ai_strategy = {
-        type = befriend
-        id = BUL
-        value = 25
-    }
+    ai_strategy={ type=befriend id=BUL value=25 }
 }
 
 balkan_pact_reinforced_bulgaria_2 = {
-    allowed = {
-        OR = {
-            original_tag = BUL
-        }
-    }
-    enable = {
-        has_country_flag = shackled_to_the_balkan_pact
-    }
-    abort_when_not_enabled = yes
+    allowed={ tag=BUL }
+    enable={ has_country_flag=shackled_to_the_balkan_pact }
+    abort_when_not_enabled=yes
     
     ai_strategy = { type = befriend id = GRE value = 25 }
     ai_strategy = { type = alliance id = GRE value = 10 }

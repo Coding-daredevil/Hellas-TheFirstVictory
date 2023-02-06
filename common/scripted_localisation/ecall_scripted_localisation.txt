@@ -27,7 +27,39 @@ defined_text = {
 }
 
 defined_text = {
-	name = GetActualLowImage
+	name = GetApparentLawName
+
+	text = { trigger = { check_variable={ GRE.apparent_economy_level=-1 }} localization_key="[GetActualLawName]"}
+	text = { trigger = { has_dynamic_modifier={ modifier=GRE_real_economy_policy } check_variable={ GRE.apparent_economy_level=0  }} localization_key=civilian_economy }
+	text = { trigger = { has_dynamic_modifier={ modifier=GRE_real_economy_policy } check_variable={ GRE.apparent_economy_level=1  }} localization_key=low_economic_mobilisation }
+	text = { trigger = { has_dynamic_modifier={ modifier=GRE_real_economy_policy } check_variable={ GRE.apparent_economy_level=2  }} localization_key=partial_economic_mobilisation }
+	text = { trigger = { has_dynamic_modifier={ modifier=GRE_real_economy_policy } check_variable={ GRE.apparent_economy_level=3  }} localization_key=war_economy }
+	text = { trigger = { has_dynamic_modifier={ modifier=GRE_real_economy_policy } check_variable={ GRE.apparent_economy_level=4  }} localization_key=tot_economic_mobilisation }
+}
+
+defined_text = {
+	name = GetApparentLawImage
+
+	text = { trigger = { check_variable={ GRE.apparent_economy_level=-1 }} localization_key="[GetActualLawImage]"}
+	text = { trigger = { has_dynamic_modifier={ modifier=GRE_real_economy_policy } check_variable={ GRE.apparent_economy_level=0  }} localization_key="GFX_idea_civilian_economy" }
+	text = { trigger = { has_dynamic_modifier={ modifier=GRE_real_economy_policy } check_variable={ GRE.apparent_economy_level=1  }} localization_key="GFX_idea_low_economic_mobilisation" }
+	text = { trigger = { has_dynamic_modifier={ modifier=GRE_real_economy_policy } check_variable={ GRE.apparent_economy_level=2  }} localization_key="GFX_idea_partial_economic_mobilisation" }
+	text = { trigger = { has_dynamic_modifier={ modifier=GRE_real_economy_policy } check_variable={ GRE.apparent_economy_level=3  }} localization_key="GFX_idea_war_economy" }
+	text = { trigger = { has_dynamic_modifier={ modifier=GRE_real_economy_policy } check_variable={ GRE.apparent_economy_level=4  }} localization_key="GFX_idea_tot_economic_mobilisation" }
+}
+
+defined_text = {
+	name = GetActualLawName
+
+	text = { trigger = { OR={ AND={ has_dynamic_modifier={ modifier=GRE_real_economy_policy } check_variable={ GRE.economy_level=0  }} has_idea=civilian_economy              }} localization_key=civilian_economy }
+	text = { trigger = { OR={ AND={ has_dynamic_modifier={ modifier=GRE_real_economy_policy } check_variable={ GRE.economy_level=1  }} has_idea=low_economic_mobilisation     }} localization_key=low_economic_mobilisation }
+	text = { trigger = { OR={ AND={ has_dynamic_modifier={ modifier=GRE_real_economy_policy } check_variable={ GRE.economy_level=2  }} has_idea=partial_economic_mobilisation }} localization_key=partial_economic_mobilisation }
+	text = { trigger = { OR={ AND={ has_dynamic_modifier={ modifier=GRE_real_economy_policy } check_variable={ GRE.economy_level=3  }} has_idea=war_economy                   }} localization_key=war_economy }
+	text = { trigger = { OR={ AND={ has_dynamic_modifier={ modifier=GRE_real_economy_policy } check_variable={ GRE.economy_level=4  }} has_idea=tot_economic_mobilisation     }} localization_key=tot_economic_mobilisation }
+}
+
+defined_text = {
+	name = GetActualLawImage
 
 	text = { trigger = { OR={ AND={ has_dynamic_modifier={ modifier=GRE_real_economy_policy } check_variable={ GRE.economy_level=0  }} has_idea=civilian_economy              }} localization_key="GFX_idea_civilian_economy" }
 	text = { trigger = { OR={ AND={ has_dynamic_modifier={ modifier=GRE_real_economy_policy } check_variable={ GRE.economy_level=1  }} has_idea=low_economic_mobilisation     }} localization_key="GFX_idea_low_economic_mobilisation" }
@@ -47,26 +79,76 @@ defined_text = {
 	name = GetDriftInternalBreakdown
 
 	text = { trigger = { check_variable={ GRE.ecall_bank_internal_steer_remaining_days>0  }} localization_key=hell_ecall_steering_economy_internally }
-	text = { localization_key="" }
+	text = { localization_key=hell_ecall_bank_int_effects_tt }
 }
 
 defined_text = {
 	name = GetDriftExternalBreakdown
 
 	text = { trigger = { check_variable={ GRE.ecall_bank_external_steer_remaining_days>0  }} localization_key=hell_ecall_steering_economy_externally }
-	text = { localization_key="" }
+	text = { localization_key=hell_ecall_bank_ext_effects_tt }
 }
 
 defined_text = {
 	name = GetDriftDecExportsBreakdown
 
 	text = { trigger = { check_variable={ GRE.ecall_decrease_exports_remaining_days>0  }} localization_key=hell_ecall_decreasing_exports }
-	text = { localization_key="" }
+	text = { localization_key=hell_ecall_ministry_dec_effects_tt }
 }
 
 defined_text = {
 	name = GetDriftIncExportsBreakdown
 
 	text = { trigger = { check_variable={ GRE.ecall_increase_exports_remaining_days>0  }} localization_key=hell_ecall_increasing_exports }
-	text = { localization_key="" }
+	text = { localization_key=hell_ecall_ministry_inc_effects_tt }
+}
+
+defined_text = {
+	name = GetEcallDangerAssessment
+
+	text = { trigger = { NOT={ has_completed_focus=GRE_a_game_of_shadows }} localization_key= hell_ecall_danger_assessment_x_tt }
+	text = { trigger = { check_variable={ GRE.ecall_economy_upgrade_remaining_days>0                        }} localization_key=hell_ecall_danger_assessment_r_tt }
+	text = { trigger = { check_variable={ var=upgrade_economy_overall_detection value=5 compare=less_than   }} localization_key=hell_ecall_danger_assessment_0_tt }
+	text = { trigger = { check_variable={ var=upgrade_economy_overall_detection value=10 compare=less_than  }} localization_key=hell_ecall_danger_assessment_1_tt }
+	text = { trigger = { check_variable={ var=upgrade_economy_overall_detection value=15 compare=less_than  }} localization_key=hell_ecall_danger_assessment_2_tt }
+	text = { trigger = { check_variable={ var=upgrade_economy_overall_detection value=20 compare=less_than  }} localization_key=hell_ecall_danger_assessment_3_tt }
+	text = { trigger = { check_variable={ var=upgrade_economy_overall_detection value=25 compare=less_than  }} localization_key=hell_ecall_danger_assessment_4_tt }
+	text = { trigger = { check_variable={ var=upgrade_economy_overall_detection value=40 compare=less_than  }} localization_key=hell_ecall_danger_assessment_5_tt }
+	text = { trigger = { check_variable={ var=upgrade_economy_overall_detection value=50 compare=less_than  }} localization_key=hell_ecall_danger_assessment_6_tt }
+	text = { trigger = { check_variable={ var=upgrade_economy_overall_detection value=60 compare=less_than  }} localization_key=hell_ecall_danger_assessment_7_tt }
+	text = { trigger = { check_variable={ var=upgrade_economy_overall_detection value=80 compare=less_than  }} localization_key=hell_ecall_danger_assessment_8_tt }
+	text = { trigger = { check_variable={ var=upgrade_economy_overall_detection value=90 compare=less_than  }} localization_key=hell_ecall_danger_assessment_9_tt }
+	text = { trigger = { check_variable={ var=upgrade_economy_overall_detection value=100 compare=less_than_or_equals }} localization_key=hell_ecall_danger_assessment_10_tt }
+}
+
+defined_text = {
+	name = GetEcallSeverityAssessment
+
+	text = { trigger = { NOT={ has_completed_focus=GRE_a_game_of_shadows }} localization_key= hell_ecall_severity_assessment_x_tt }
+	text = { trigger = { check_variable={ GRE.economy_level=GRE.apparent_economy_level           }} localization_key=hell_ecall_severity_assessment_r_tt }
+	text = { trigger = { check_variable={ var=total_backslash_factor value=5 compare=less_than   }} localization_key=hell_ecall_severity_assessment_0_tt }
+	text = { trigger = { check_variable={ var=total_backslash_factor value=10 compare=less_than  }} localization_key=hell_ecall_severity_assessment_1_tt }
+	text = { trigger = { check_variable={ var=total_backslash_factor value=20 compare=less_than  }} localization_key=hell_ecall_severity_assessment_2_tt }
+	text = { trigger = { check_variable={ var=total_backslash_factor value=30 compare=less_than  }} localization_key=hell_ecall_severity_assessment_3_tt }
+	text = { trigger = { check_variable={ var=total_backslash_factor value=40 compare=less_than  }} localization_key=hell_ecall_severity_assessment_4_tt }
+	text = { trigger = { check_variable={ var=total_backslash_factor value=50 compare=less_than  }} localization_key=hell_ecall_severity_assessment_5_tt }
+	text = { trigger = { check_variable={ var=total_backslash_factor value=60 compare=less_than  }} localization_key=hell_ecall_severity_assessment_6_tt }
+	text = { trigger = { check_variable={ var=total_backslash_factor value=70 compare=less_than  }} localization_key=hell_ecall_severity_assessment_7_tt }
+	text = { trigger = { check_variable={ var=total_backslash_factor value=80 compare=less_than  }} localization_key=hell_ecall_severity_assessment_8_tt }
+	text = { trigger = { check_variable={ var=total_backslash_factor value=90 compare=less_than  }} localization_key=hell_ecall_severity_assessment_9_tt }
+	text = { trigger = { check_variable={ var=total_backslash_factor value=100 compare=less_than_or_equals }} localization_key=hell_ecall_severity_assessment_10_tt }
+}
+
+defined_text = {
+	name = GetH50Title
+
+	text = { trigger = { check_variable={ h50_type=0 }} localization_key=hellas.50.t_0 }
+	text = { trigger = { check_variable={ h50_type=1 }} localization_key=hellas.50.t_1 }
+}
+
+defined_text = {
+	name = GetH50Desc
+
+	text = { trigger = { check_variable={ h50_type=0 }} localization_key=hellas.50.desc_0 }
+	text = { trigger = { check_variable={ h50_type=1 }} localization_key=hellas.50.desc_1 }
 }

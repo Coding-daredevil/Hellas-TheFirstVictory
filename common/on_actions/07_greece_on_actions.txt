@@ -159,15 +159,15 @@ on_actions = {
     on_monthly_GRE = {
         effect = {                                                                                         ### Training Leftovers
             if = {
-                limit = { check_variable = { GRE.preparedness_level < 1 } }
-                set_temp_variable = { tmpX = GRE.training_leftovers }
-                set_temp_variable = { tmpY = 66 }
+                limit = { check_variable = { GRE.preparedness_level<1 }}
+                set_temp_variable = { tmpY=-1 }
                 randomly_train_tmpX_officers = yes
             }
         }
         effect = {
             if = {
-                limit = { date>1937.8.30 NOT={check_variable={ GRE.gold_reserves=0 }}}
+                limit={ date>1937.8.30 NOT={ check_variable={ GRE.gold_reserves=0 }}}
+
                 if={ limit={ date>1938.6.30 } subtract_from_variable={ GRE.gold_reserves=2 }}
                 else_if={ limit={ date>1937.12.30 } subtract_from_variable={ GRE.gold_reserves=1 }}
                 else_if={ limit={ date>1937.8.30 } subtract_from_variable={ GRE.gold_reserves=0.5 }}
@@ -178,6 +178,7 @@ on_actions = {
         effect = {
             if = {
                 limit={ mussolini_historical_tensions_with_greece=yes }
+
                 apply_on_actions_fluctuations_of_itagg_escalation=yes
             }
         }
@@ -215,18 +216,10 @@ on_actions = {
     on_monthly_AGO = {                                                                                       ## Monthly trains officers purged, incase they are brought back
         effect = {
             if = {
-                limit = {
-                    check_variable = { AGO.army_leaders > 0 }
-                    any_army_leader = {
-                        has_unpreparedness_level = yes
-                        not_recently_trained = yes
-                    }
-                }
+                limit = { check_variable={ AGO.army_leaders>0 } any_army_leader={ has_unpreparedness_level=yes not_recently_trained=yes }}
+
                 every_army_leader = {
-                    limit = {
-                        has_unpreparedness_level = yes
-                        not_recently_trained = yes
-                    }
+                    limit = { has_unpreparedness_level=yes not_recently_trained=yes }
                     reduce_unpreparedness = yes
                 }
             }
@@ -236,62 +229,68 @@ on_actions = {
     on_weekly_GRE = {                                                                                       ### Main Weekly Effects for Greece
         effect = {                                                                                           ## Checks for amount of factories certain focuses will grant
             if = {                                                                                            # "Bedrock of..."
-                limit = { 
-                    NOT = { has_completed_focus = GRE_bedrock_of_balkan_financial_stability }
-                    has_completed_focus = GRE_a_game_of_shadows
+                limit={ 
+                    NOT={ has_completed_focus=GRE_bedrock_of_balkan_financial_stability }
+                    has_completed_focus=GRE_a_game_of_shadows
                 }
                 GRE_bedrock_check = yes
             }
             if = {                                                                                            # "Open Foreign..."
-                limit = { 
-                    NOT = { has_completed_focus = GRE_open_foreign_subsidized_factories }                   
-                    has_completed_focus = GRE_a_game_of_shadows
+                limit={ 
+                    NOT={ has_completed_focus=GRE_open_foreign_subsidized_factories }                   
+                    has_completed_focus=GRE_a_game_of_shadows
                 }
                 GRE_subsidized_check = yes
             }
             if = {                                                                                            # "Mobilise Economy..."
                 limit = { 
-                    NOT = { has_completed_focus = GRE_mobilise_our_economy }                                
-                    has_completed_focus = GRE_a_game_of_shadows
+                    NOT={ has_completed_focus=GRE_mobilise_our_economy }                                
+                    has_completed_focus=GRE_a_game_of_shadows
                 }
                 GRE_mobilized_check = yes
             }
+        }
+        effect={
             if = {
                 limit = {
-                    GRE = { NOT = { has_war_with = ITA } }
-                    NOT = { has_global_flag = GRE_grecoitalian_start }
+                    NOT={ has_war_with=ITA }
+                    has_greco_italian_war_occured=no
                 }
                 GRE_calculate_max_divisions = yes
             }
-            if = { limit = { check_variable = { preparedness_level < 1 } } calculate_unpreparedness = yes }  ## Officer Preparedness Level
-            if = {                                                                                           ## Faction Mechanics Modifiers (+GUI update)
-                limit = { NOT={has_completed_focus = GRE_dreams_of_a_grand_coalition }}
+        }
+        effect={                                                                                             ## Officer Preparedness Level
+            if = { limit={ check_variable={ preparedness_level<1 }} calculate_unpreparedness=yes }
+        }
+        effect={                                                                                             ## Faction Mechanics Modifiers (+GUI update)
+            if = {
+                limit={ NOT={ has_completed_focus=GRE_dreams_of_a_grand_coalition }}
 
                 if = {
-                    limit = { check_variable = { modifier@fct_mon_modifier_token > 0 } }
-                    add_to_variable = { fct_mon = modifier@fct_mon_modifier_token }
+                    limit={ check_variable={ modifier@fct_mon_modifier_token>0 }}
+                    add_to_variable={ fct_mon=modifier@fct_mon_modifier_token }
                 }
                 if = {
-                    limit = { check_variable = { modifier@fct_com_modifier_token > 0 } }
-                    add_to_variable = { fct_com = modifier@fct_com_modifier_token }
+                    limit={ check_variable={ modifier@fct_com_modifier_token>0 } }
+                    add_to_variable={ fct_com=modifier@fct_com_modifier_token }
                 }
                 if = {
-                    limit = { check_variable = { modifier@fct_fas_modifier_token > 0 } }
-                    add_to_variable = { fct_fas = modifier@fct_fas_modifier_token }
+                    limit={ check_variable={ modifier@fct_fas_modifier_token>0 } }
+                    add_to_variable={ fct_fas=modifier@fct_fas_modifier_token }
                 }
                 if = {
-                    limit = { check_variable = { modifier@fct_dem_modifier_token > 0 } }
-                    add_to_variable = { fct_dem = modifier@fct_dem_modifier_token }
+                    limit={ check_variable={ modifier@fct_dem_modifier_token>0 } }
+                    add_to_variable={ fct_dem=modifier@fct_dem_modifier_token }
                 }
-                GRE_faction_refresh = yes
+                GRE_faction_refresh=yes
             }
         }
         effect = {                                                                                          ## Weekly Influence
             if = {
-                limit = { NOT={ has_global_flag = weekly_favor_mechanic_frozen }}
+                limit={ NOT={ has_global_flag=weekly_favor_mechanic_frozen }}
                 clear_array = global.favor_mechanic
                 clear_array = GRE.important_nations
-                every_country = { limit={ NOT={ original_tag=GRE }} add_to_array={ global.favor_mechanic=THIS.id } GRE_add_favor_weekly=yes check_to_add_to_important_nations=yes }
+                every_country = { limit={ NOT={ original_tag=GRE }} add_to_array={ global.favor_mechanic=THIS.id } check_to_add_to_important_nations=yes GRE_add_favor_weekly=yes }
             }
         }
         effect = {
@@ -311,7 +310,16 @@ on_actions = {
     on_daily_GRE = {
         effect = {
             if = {
+                limit = { NOT={ check_variable={ GRE.allcivs=GRE.num_of_civilian_factories }}}
+
+                calculate_domciv_ratio=yes
+                calculate_construction_penalty=yes
+            }
+        }
+        effect = {
+            if = {
                 limit = { has_country_flag=infl_mech_opened }
+
                 inflmech_apply_filters_and_sort=yes
             }
         }
@@ -463,6 +471,13 @@ on_actions = {
 
                     ecall_upgrade_economy_rate=yes
                     subtract_from_variable={ GRE.ecall_economy_upgrade_batches_left=1 }
+                    subtract_from_temp_variable={ avoidance_chance?100=upgrade_economy_detection }
+                    random_list={
+                        seed=random
+
+                        avoidance_chance={}
+                        upgrade_economy_detection={ set_variable={ h50_type=0 } country_event={ id=hellas.50 days=0 }}
+                    }
                 }
                 set_variable = { GRE.ecall_economy_immediate_cost=50 }
                 multiply_variable={ GRE.ecall_economy_immediate_cost=GRE.ecall_economy_upgrade_batches_left }
@@ -476,10 +491,19 @@ on_actions = {
                     clear_variable = GRE.ecall_economy_batch_upgrade_in
                 }
             }
+            else= { ecall_upgrade_economy_detection_test=yes }
         }
         effect = {
             if = {
-                limit = { has_dynamic_modifier = { modifier = GRE_war_strain } }
+                limit = { NOT={ check_variable={ GRE.economy_level=GRE.apparent_economy_level }}}
+
+                ecall_announce_economy_backslash_calculation=yes
+            }
+        }
+        effect = {
+            if = {
+                limit = { has_dynamic_modifier = { modifier = GRE_war_strain }}
+
                 GRE_update_strain_on_industry = yes
             }
         }
@@ -498,13 +522,13 @@ on_actions = {
         }
         effect = {
             if = {
-                limit = { check_variable = { modifier@neut_modifier_token > 0 } }
-                if = { 
+                limit = { check_variable={ modifier@neut_modifier_token>0 }}
+                if = {
                     limit = { check_variable={ GRE.axal < 50 }}
-                    add_to_variable = { GRE.axal = modifier@neut_modifier_token }
+                    add_to_variable = { GRE.axal=modifier@neut_modifier_token }
                 }
                 else = {
-                    subtract_from_variable = { GRE.axal = modifier@neut_modifier_token }
+                    subtract_from_variable = { GRE.axal=modifier@neut_modifier_token }
                 }
                 axal_gui_call = yes
             }
@@ -534,6 +558,7 @@ on_actions = {
             if={
                 limit={ has_opinion_modifier=ITA_nagged_TARGET_against_GRE NOT={ has_country_flag=ita_nagging_in_effect }}
                 remove_opinion_modifier={ target=GRE modifier=ITA_nagged_TARGET_against_GRE }
+                if={ limit={ is_embargoing=GRE } break_embargo=GRE }
             }
         }
     }
@@ -551,7 +576,6 @@ on_actions = {
                         limit = { is_operative = no }
                         root = {
                             random_list = {
-                                log = yes
                                 seed = random
                                 12.5 = { add_unit_leader_trait = trait_GRE_conventional_leanings }
                                 12.5 = { add_unit_leader_trait = trait_GRE_revolutionary_leanings }
@@ -582,7 +606,6 @@ on_actions = {
             }
         }
     }
-
 
     on_capitulation_immediate = {
         effect = {
@@ -1112,7 +1135,8 @@ on_actions = {
                 if = {
                     limit = {
                         NOT = { has_global_flag = Metaxas_Ribbentrop_Pact }
-                        date = 1941.04.06
+                        #date = 1941.04.06
+                        date > 1941.04.05
                     }
                     set_variable = { date_of_directive_date = global.date }
                     GER = { country_event = { id = hellas.104 days = 0 } }                                   ## Fuhrer Directive event sent to Germans.
@@ -1223,14 +1247,16 @@ on_actions = {
                 }
                 if = {                                                                                                                                 ## Hellenic State has formed AND exists (flag clears later)
                     limit = { 
-                        date = 1941.9.1                                                                                                                
+                        #date = 1941.9.1
+                        date > 1941.9.1
                     }
                     country_event = { id = hellas.1010 days = 14 }                                                                                      # Event to warn about famine (event takes on and procs famine later)
                     event_target:hellenic_state = { country_event = { id = hellas.1010 days = 14 } }
                 }
                 if = {                                                                                                                                 ## Start of the Famine 
                     limit = { 
-                        date = 1941.11.1                                                                                                                
+                        #date = 1941.11.1
+                        date > 1941.9.1 
                     }
                     set_variable = { global.famine_start_date = global.num_days }
                     country_event = { id = hellas.1011 days = 0 }                                                                                           

@@ -11,14 +11,10 @@ country_event = {
 	desc = hellenic_news.1.desc
 	picture = GFX_report_event_gre_george_ii_victorious
 	
-	major = no
-	
+	major = no	
 	is_triggered_only = yes
 	
-	option = {
-		name = hellenic_news.1.a
-		remove_country_leader_trait = premier_in_crisis        
-	}
+	option = { name=hellenic_news.1.a }
 }
 
 ###George's Dictat
@@ -45,36 +41,39 @@ country_event = {
 	desc = hellenic_news.3.desc
 	picture = GFX_report_event_gre_george_ii_victorious
 	
-	major = no
-	
+	major = no	
     is_triggered_only = yes
+	immediate={
+		hidden_effect={
+			remove_country_leader_role={ character=GRE_konstantinos_demertzis ideology=centrism }
+			GRE_konstantinos_demertzis={ vscope_from_cscope=yes GRE={ vscope_increase_title=yes add_to_array={ c_dead=var:v } set_variable={ c_dead@var:v=1 }}}
+			GRE_ioannis_metaxas={ vscope_from_cscope=yes GRE={ vscope_increase_title=yes }}
+			set_variable={ global.gov_head_array^0=metaxas }
+			GRE_ioannis_metaxas={ promote_leader=yes }
+			set_party_name={ ideology=neutrality long_name="Metavatikí Kyvérnisi" name="Metavatikí Kyvérnisi" }
+			set_variable = { GRE_var_st_fct = 0.02 }
+			set_variable = { GRE_var_war_ten = 1 }
+			set_variable = { GRE_var_fact_ten = 1 }
+			set_variable = { GRE_var_ll_ten = 0.5 }
+			set_variable = { GRE_var_volun_ten = 0.5 }
+			set_variable = { GRE_var_guar_ten = 1 }
+			set_variable = { GRE_var_badass_fct = -0.01 }
+			set_variable = { GRE_var_get_ally_fact = -100 }
+			add_dynamic_modifier = { modifier = GRE_metaxism_dynamic }
+			custom_effect_tooltip = GRE_metaxism_warning_tt
+			country_event={ id=hellenic_news.4 days=12 }
+		}
+	}
     
 	option = {
-		name = hellenic_news.3.a   
-		#retire_character = GRE_konstantinos_demertzis
-		custom_effect_tooltip = death_of_demertzis_tt
-		hidden_effect = {
-			remove_country_leader_role = { character=GRE_konstantinos_demertzis ideology=centrism }
-			GRE_konstantinos_demertzis = { vscope_from_cscope=yes vscope_increase_title=yes add_to_array={ c_dead=var:v } set_variable={ c_dead@var:v=1 }}
-			GRE_ioannis_metaxas = { vscope_from_cscope=yes vscope_increase_title=yes }
-			set_variable = { global.gov_head_array^0=metaxas }
+		name = hellenic_news.3.a
+
+        custom_effect_tooltip = death_of_demertzis_tt
+		effect_tooltip={
+			GRE_ioannis_metaxas={ promote_leader=yes }
+			set_party_name={ ideology=neutrality long_name="Metavatikí Kyvérnisi" name="Metavatikí Kyvérnisi" }
+			custom_effect_tooltip = GRE_metaxism_warning_tt
 		}
-		GRE_ioannis_metaxas = { promote_leader=yes }
-		set_party_name = {
-			ideology = neutrality
-			long_name = "Metavatikí Kyvérnisi"
-			name = "Metavatikí Kyvérnisi"
-		}
-        set_variable = { GRE_var_st_fct = 0.02 }
-        set_variable = { GRE_var_war_ten = 1 }
-        set_variable = { GRE_var_fact_ten = 1 }
-        set_variable = { GRE_var_ll_ten = 0.5 }
-        set_variable = { GRE_var_volun_ten = 0.5 }
-        set_variable = { GRE_var_guar_ten = 1 }
-        set_variable = { GRE_var_badass_fct = -0.01 }
-        set_variable = { GRE_var_get_ally_fact = -100 }
-        add_dynamic_modifier = { modifier = GRE_metaxism_dynamic }
-        custom_effect_tooltip = GRE_metaxism_warning_tt    
 	}
 }
 
@@ -86,14 +85,11 @@ country_event = {
 	picture = GFX_report_event_gre_george_ii_victorious
 	
 	major = no
-	
 	is_triggered_only = yes
-
     fire_only_once = yes
+	immediate={ hidden_effect={ country_event={ id=hellenic_news.5 days=5 }}}
     
-	option = {
-		name = hellenic_news.4.a       
-	}
+	option={ name=hellenic_news.4.a }
 }
 
 ###STRIKES

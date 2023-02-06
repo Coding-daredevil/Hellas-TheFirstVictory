@@ -1,19 +1,72 @@
 guiTypes = {
     containerWindowType = {
 		name = "infl_mech_open_container"
-		position = { x = 1650 y = 604 }
+		position = { x = 643 y = 660 }
 		
 		buttonType ={
 			name ="infl_mech_button"
-			spriteType = "GFX_war_cabinet_button"
+			spriteType = "GFX_gov_open_button"
 			position = { x=0 y=0 }
 			clicksound = click_close
 			oversound = ui_menu_over
 			shortcut = "ctrl+e"
-			pdx_tooltip = WPLAN_NAME_TOOLTIP
-			scale=0.45
+			pdx_tooltip = INFLW_NAME_TOOLTIP
+            pdx_disabled_tooltip = INFLW_NAME_DISABLED_TOOLTIP
 		}
 	}
+
+    containerWindowType = {
+        name = "infl_mech_to_container"
+        position = { x=339 y=87}
+    
+        containerWindowType = {
+            name = "infl_mech_to_flag"
+            position = { x=0 y=0 }
+            size = { width = 50 height = 35 }
+            
+            background = {
+                name = "infl_mech_influence_bg"
+                quadTextureSprite = "GFX_tiled_plain_bg_small"
+            }
+
+            iconType = {
+                name = "infl_mech_to_flag_icon"
+                position = { x = 3 y = 3 }
+                spriteType = "GFX_flag_small2"
+                alwaystransparent=no
+                pdx_tooltip=infl_mech_to_flag_icon_tt
+            }
+
+            iconType = {
+                name = "infl_mech_to_flag_frame"
+                quadTextureSprite ="GFX_small_flag_frame_thin2"
+                position = { x= 0 y = 0 }
+                alwaystransparent = yes
+            }
+        }
+        
+        containerWindowType = {
+            name = "infl_mech_to_infl"
+            position = { x=51 y=2 }
+            size = { width = 100 height = 30 }
+            
+            background = {
+                name = "infl_mech_influence_bg"
+                quadTextureSprite = "GFX_tiled_plain_bg_small"
+            }
+        
+            instantTextboxType = {
+                name = "infl_mech_influence_radius"
+                position = { x=0 y=6 }
+                font = "hoi_18mbs"
+                text = "[?capital:distance_to@47|Y2]"
+                maxWidth = 100
+                maxHeight = 20
+                format = center
+                pdx_tooltip=infl_mech_to_flag_icon_tt
+            }
+        }
+    }
 
     containerWindowType = {
         name = "infl_mech_main_container"
@@ -45,17 +98,81 @@ guiTypes = {
                 position = { x= 5 y = 07 }
                 Orientation = "UPPER_LEFT"
             }
-            
-            instantTextboxType = {
-                name = "infl_mech_diplomacy_title"
-                position = { x = 45 y = 8 }
-                textureFile = ""
+
+            buttonType = {
+                name = "filter_influence_button"
+                quadTextureSprite ="GFX_sort_button_171x35"
                 font = "hoi_36header"
-                borderSize = {x = 0 y = 0}
-                text = "Influence"
-                maxWidth = 240
-                maxHeight = 20
-                format = left
+                text = "Influence"					
+                position = { x = 30 y = 10 }
+                pdx_tooltip = filter_influence_button_tt
+                pdx_tooltip_delayed = filter_influence_button_delayed_tt
+            }
+
+            iconType = {
+                name = "infl_mech__info"
+                spriteType = "GFX_history_report_icon"
+                position = { x = 15 y = 11 }
+                alwaystransparent = no
+                pdx_tooltip = infl_info_tt
+            }
+            
+            #instantTextboxType = {
+            #    name = "infl_mech_diplomacy_title"
+            #    position = { x = 45 y = 8 }
+            #    font = "hoi_36header"
+            #    borderSize = {x = 0 y = 0}
+            #    text = "Influence"
+            #    maxWidth = 150
+            #    maxHeight = 20
+            #    format = left
+            #}
+            
+            containerWindowType = {
+                name = "infl_mech_greek_flag"
+                position = { x=195 y=9 }
+                size = { width = 50 height = 35 }
+                
+                background = {
+                    name = "infl_mech_influence_bg"
+                    quadTextureSprite = "GFX_tiled_plain_bg_small"
+                }
+
+                iconType = {
+                    name = "infl_mech_greek_flag"
+                    position = { x = 3 y = 3 }
+                    spriteType = "GFX_flag_small2"
+                    alwaystransparent=no
+                }
+
+                iconType = {
+                    name = "infl_mech_greek_flag_frame"
+                    quadTextureSprite ="GFX_small_flag_frame_thin2"
+                    position = { x= 0 y = 0 }
+                    alwaystransparent = yes
+                }
+            }
+            
+            containerWindowType = {
+                name = "infl_mech_infl"
+                position = { x=241 y=11 }
+                size = { width = 100 height = 30 }
+                
+                background = {
+                    name = "infl_mech_influence_bg"
+                    quadTextureSprite = "GFX_tiled_plain_bg_small"
+                }
+            
+                instantTextboxType = {
+                    name = "infl_mech_influence_radius"
+                    position = { x=0 y=6 }
+                    font = "hoi_18mbs"
+                    text = "[?GRE.influence_radius|Y2]"
+                    maxWidth = 100
+                    maxHeight = 20
+                    format = center
+                    pdx_tooltip=infl_mech_influence_radius_tt
+                }
             }
             
             containerWindowType = {

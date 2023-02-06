@@ -198,19 +198,21 @@ characters={
 			#modifier = {
 			#	fct_fas_modifier_token = 0.35
 			#}
-			on_add = { 
-				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=token:GRE_kostas_kotzias }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=token:GRE_kostas_kotzias }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=7 }} set_variable={ global.gov_advisor_first_array^2=token:GRE_kostas_kotzias }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>3 } check_variable={ global.gov_advisor_second_array^0=7 }} set_variable={ global.gov_advisor_second_array^0=token:GRE_kostas_kotzias }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>4 } check_variable={ global.gov_advisor_second_array^1=7 }} set_variable={ global.gov_advisor_second_array^1=token:GRE_kostas_kotzias }}
+			on_add = {
+				set_temp_variable={ tmp=THIS }
+				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=7 }} set_variable={ global.gov_advisor_first_array^2=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^0=7 }} set_variable={ global.gov_advisor_second_array^0=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^1=7 }} set_variable={ global.gov_advisor_second_array^1=tmp }}
 			}
 			on_remove = {
-				if = { limit={ check_variable={ global.gov_advisor_first_array^0=token:GRE_kostas_kotzias }} set_variable={ global.gov_advisor_first_array^0=7 }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=token:GRE_kostas_kotzias }} set_variable={ global.gov_advisor_first_array^1=7 }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=token:GRE_kostas_kotzias }} set_variable={ global.gov_advisor_first_array^2=7 }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>3 } check_variable={ global.gov_advisor_second_array^0=token:GRE_kostas_kotzias }} set_variable={ global.gov_advisor_second_array^0=7 }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>4 } check_variable={ global.gov_advisor_second_array^1=token:GRE_kostas_kotzias }} set_variable={ global.gov_advisor_second_array^1=7 }}
+				set_temp_variable={ tmp=THIS }
+				if = { limit={ check_variable={ global.gov_advisor_first_array^0=tmp }} set_variable={ global.gov_advisor_first_array^0=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=tmp }} set_variable={ global.gov_advisor_first_array^1=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=tmp }} set_variable={ global.gov_advisor_first_array^2=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^0=tmp }} set_variable={ global.gov_advisor_second_array^0=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^1=tmp }} set_variable={ global.gov_advisor_second_array^1=7 }}
 				if = {
 					limit = { NOT={ GRE_kostas_kotzias = { has_character_flag = kotzias_safe_removal }}}
 					add_to_variable = { GER.favor@GRE = -20 }
@@ -250,18 +252,20 @@ characters={
 				has_country_flag = GRE_kathestos_proclaimed
 			}
 			on_add = { 
-				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=token:GRE_alexandros_koryzis }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=token:GRE_alexandros_koryzis }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=7 }} set_variable={ global.gov_advisor_first_array^2=token:GRE_alexandros_koryzis }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>3 } check_variable={ global.gov_advisor_second_array^0=7 }} set_variable={ global.gov_advisor_second_array^0=token:GRE_alexandros_koryzis }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>4 } check_variable={ global.gov_advisor_second_array^1=7 }} set_variable={ global.gov_advisor_second_array^1=token:GRE_alexandros_koryzis }}
+				set_temp_variable={ tmp=THIS }
+				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=7 }} set_variable={ global.gov_advisor_first_array^2=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^0=7 }} set_variable={ global.gov_advisor_second_array^0=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^1=7 }} set_variable={ global.gov_advisor_second_array^1=tmp }}
 			}
 			on_remove = {
-				if = { limit={ check_variable={ global.gov_advisor_first_array^0=token:GRE_alexandros_koryzis }} set_variable={ global.gov_advisor_first_array^0=7 }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=token:GRE_alexandros_koryzis }} set_variable={ global.gov_advisor_first_array^1=7 }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=token:GRE_alexandros_koryzis }} set_variable={ global.gov_advisor_first_array^2=7 }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>3 } check_variable={ global.gov_advisor_second_array^0=token:GRE_alexandros_koryzis }} set_variable={ global.gov_advisor_second_array^0=7 }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>4 } check_variable={ global.gov_advisor_second_array^1=token:GRE_alexandros_koryzis }} set_variable={ global.gov_advisor_second_array^1=7 }}
+				set_temp_variable={ tmp=THIS }
+				if = { limit={ check_variable={ global.gov_advisor_first_array^0=tmp }} set_variable={ global.gov_advisor_first_array^0=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=tmp }} set_variable={ global.gov_advisor_first_array^1=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=tmp }} set_variable={ global.gov_advisor_first_array^2=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^0=tmp }} set_variable={ global.gov_advisor_second_array^0=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^1=tmp }} set_variable={ global.gov_advisor_second_array^1=7 }}
 			}
 			#modifier = {
 			#	fct_dem_modifier_token = 0.2
@@ -283,18 +287,20 @@ characters={
 			cost = 200
 			available = { has_country_flag = GRE_kathestos_proclaimed }
 			on_add = { 
-				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=token:GRE_prodromos_bodosakis }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=token:GRE_prodromos_bodosakis }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=7 }} set_variable={ global.gov_advisor_first_array^2=token:GRE_prodromos_bodosakis }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>3 } check_variable={ global.gov_advisor_second_array^0=7 }} set_variable={ global.gov_advisor_second_array^0=token:GRE_prodromos_bodosakis }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>4 } check_variable={ global.gov_advisor_second_array^1=7 }} set_variable={ global.gov_advisor_second_array^1=token:GRE_prodromos_bodosakis }}
+				set_temp_variable={ tmp=THIS }
+				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=7 }} set_variable={ global.gov_advisor_first_array^2=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^0=7 }} set_variable={ global.gov_advisor_second_array^0=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^1=7 }} set_variable={ global.gov_advisor_second_array^1=tmp }}
 			}
 			on_remove = {
-				if = { limit={ check_variable={ global.gov_advisor_first_array^0=token:GRE_prodromos_bodosakis }} set_variable={ global.gov_advisor_first_array^0=7 }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=token:GRE_prodromos_bodosakis }} set_variable={ global.gov_advisor_first_array^1=7 }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=token:GRE_prodromos_bodosakis }} set_variable={ global.gov_advisor_first_array^2=7 }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>3 } check_variable={ global.gov_advisor_second_array^0=token:GRE_prodromos_bodosakis }} set_variable={ global.gov_advisor_second_array^0=7 }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>4 } check_variable={ global.gov_advisor_second_array^1=token:GRE_prodromos_bodosakis }} set_variable={ global.gov_advisor_second_array^1=7 }}
+				set_temp_variable={ tmp=THIS }
+				if = { limit={ check_variable={ global.gov_advisor_first_array^0=tmp }} set_variable={ global.gov_advisor_first_array^0=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=tmp }} set_variable={ global.gov_advisor_first_array^1=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=tmp }} set_variable={ global.gov_advisor_first_array^2=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^0=tmp }} set_variable={ global.gov_advisor_second_array^0=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^1=tmp }} set_variable={ global.gov_advisor_second_array^1=7 }}
 			}
 			traits = { business_genius_0 }
 		}
@@ -313,19 +319,21 @@ characters={
 				has_completed_focus = GRE_establish_propaganda
 			}
 			on_add = { 
-				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=token:GRE_sitsa_karaiskaki }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=token:GRE_sitsa_karaiskaki }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=7 }} set_variable={ global.gov_advisor_first_array^2=token:GRE_sitsa_karaiskaki }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>3 } check_variable={ global.gov_advisor_second_array^0=7 }} set_variable={ global.gov_advisor_second_array^0=token:GRE_sitsa_karaiskaki }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>4 } check_variable={ global.gov_advisor_second_array^1=7 }} set_variable={ global.gov_advisor_second_array^1=token:GRE_sitsa_karaiskaki }}
+				set_temp_variable={ tmp=THIS }
+				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=7 }} set_variable={ global.gov_advisor_first_array^2=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^0=7 }} set_variable={ global.gov_advisor_second_array^0=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^1=7 }} set_variable={ global.gov_advisor_second_array^1=tmp }}
 				GRE = { hidden_effect={ if = { limit={ NOT={ has_completed_focus=GRE_eon_2 }} complete_national_focus = GRE_eon_2 }}}
 			}
 			on_remove = {
-				if = { limit={ check_variable={ global.gov_advisor_first_array^0=token:GRE_sitsa_karaiskaki }} set_variable={ global.gov_advisor_first_array^0=7 }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=token:GRE_sitsa_karaiskaki }} set_variable={ global.gov_advisor_first_array^1=7 }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=token:GRE_sitsa_karaiskaki }} set_variable={ global.gov_advisor_first_array^2=7 }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>3 } check_variable={ global.gov_advisor_second_array^0=token:GRE_sitsa_karaiskaki }} set_variable={ global.gov_advisor_second_array^0=7 }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>4 } check_variable={ global.gov_advisor_second_array^1=token:GRE_sitsa_karaiskaki }} set_variable={ global.gov_advisor_second_array^1=7 }}
+				set_temp_variable={ tmp=THIS }
+				if = { limit={ check_variable={ global.gov_advisor_first_array^0=tmp }} set_variable={ global.gov_advisor_first_array^0=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=tmp }} set_variable={ global.gov_advisor_first_array^1=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=tmp }} set_variable={ global.gov_advisor_first_array^2=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^0=tmp }} set_variable={ global.gov_advisor_second_array^0=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^1=tmp }} set_variable={ global.gov_advisor_second_array^1=7 }}
 			}
 			traits = { bonefied_national_socialist }
 		}
@@ -341,19 +349,21 @@ characters={
 			cost = 75
 			available = { has_country_flag=GRE_kathestos_proclaimed }
 			on_add = {
-				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=token:GRE_nelly }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=token:GRE_nelly }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=7 }} set_variable={ global.gov_advisor_first_array^2=token:GRE_nelly }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>3 } check_variable={ global.gov_advisor_second_array^0=7 }} set_variable={ global.gov_advisor_second_array^0=token:GRE_nelly }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>4 } check_variable={ global.gov_advisor_second_array^1=7 }} set_variable={ global.gov_advisor_second_array^1=token:GRE_nelly }}
+				set_temp_variable={ tmp=THIS }
+				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=7 }} set_variable={ global.gov_advisor_first_array^2=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^0=7 }} set_variable={ global.gov_advisor_second_array^0=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^1=7 }} set_variable={ global.gov_advisor_second_array^1=tmp }}
 				GRE = { hidden_effect={ if = { limit={ NOT={ has_completed_focus=GRE_american_influencers }} complete_national_focus = GRE_american_influencers }}}
 			}
 			on_remove = {
-				if = { limit={ check_variable={ global.gov_advisor_first_array^0=token:GRE_nelly }} set_variable={ global.gov_advisor_first_array^0=7 }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=token:GRE_nelly }} set_variable={ global.gov_advisor_first_array^1=7 }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=token:GRE_nelly }} set_variable={ global.gov_advisor_first_array^2=7 }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>3 } check_variable={ global.gov_advisor_second_array^0=token:GRE_nelly }} set_variable={ global.gov_advisor_second_array^0=7 }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>4 } check_variable={ global.gov_advisor_second_array^1=token:GRE_nelly }} set_variable={ global.gov_advisor_second_array^1=7 }}
+				set_temp_variable={ tmp=THIS }
+				if = { limit={ check_variable={ global.gov_advisor_first_array^0=tmp }} set_variable={ global.gov_advisor_first_array^0=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=tmp }} set_variable={ global.gov_advisor_first_array^1=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=tmp }} set_variable={ global.gov_advisor_first_array^2=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^0=tmp }} set_variable={ global.gov_advisor_second_array^0=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^1=tmp }} set_variable={ global.gov_advisor_second_array^1=7 }}
 			}
 			traits = { national_photographer }
 		}
@@ -376,19 +386,21 @@ characters={
 				}
 			}
 			on_add = { 
-				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=token:GRE_alexandros_kanellopoulos }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=token:GRE_alexandros_kanellopoulos }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=7 }} set_variable={ global.gov_advisor_first_array^2=token:GRE_alexandros_kanellopoulos }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>3 } check_variable={ global.gov_advisor_second_array^0=7 }} set_variable={ global.gov_advisor_second_array^0=token:GRE_alexandros_kanellopoulos }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>4 } check_variable={ global.gov_advisor_second_array^1=7 }} set_variable={ global.gov_advisor_second_array^1=token:GRE_alexandros_kanellopoulos }}
+				set_temp_variable={ tmp=THIS }
+				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=7 }} set_variable={ global.gov_advisor_first_array^2=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^0=7 }} set_variable={ global.gov_advisor_second_array^0=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^1=7 }} set_variable={ global.gov_advisor_second_array^1=tmp }}
 				GRE={ activate_mission=GRE_kanellopoulos_mission }
 			}
 			on_remove = {
-				if = { limit={ check_variable={ global.gov_advisor_first_array^0=token:GRE_alexandros_kanellopoulos }} set_variable={ global.gov_advisor_first_array^0=7 }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=token:GRE_alexandros_kanellopoulos }} set_variable={ global.gov_advisor_first_array^1=7 }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=token:GRE_alexandros_kanellopoulos }} set_variable={ global.gov_advisor_first_array^2=7 }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>3 } check_variable={ global.gov_advisor_second_array^0=token:GRE_alexandros_kanellopoulos }} set_variable={ global.gov_advisor_second_array^0=7 }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>4 } check_variable={ global.gov_advisor_second_array^1=token:GRE_alexandros_kanellopoulos }} set_variable={ global.gov_advisor_second_array^1=7 }}
+				set_temp_variable={ tmp=THIS }
+				if = { limit={ check_variable={ global.gov_advisor_first_array^0=tmp }} set_variable={ global.gov_advisor_first_array^0=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=tmp }} set_variable={ global.gov_advisor_first_array^1=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=tmp }} set_variable={ global.gov_advisor_first_array^2=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^0=tmp }} set_variable={ global.gov_advisor_second_array^0=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^1=tmp }} set_variable={ global.gov_advisor_second_array^1=7 }}
 				GRE={ remove_mission=GRE_kanellopoulos_mission }
 			}
 			traits = { leader_of_eon }
@@ -405,18 +417,20 @@ characters={
 			cost = 125
 			available = { has_country_flag=GRE_kathestos_proclaimed }			
 			on_add = { 
-				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=token:GRE_achilleas_kyrou }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=token:GRE_achilleas_kyrou }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=7 }} set_variable={ global.gov_advisor_first_array^2=token:GRE_achilleas_kyrou }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>3 } check_variable={ global.gov_advisor_second_array^0=7 }} set_variable={ global.gov_advisor_second_array^0=token:GRE_achilleas_kyrou }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>4 } check_variable={ global.gov_advisor_second_array^1=7 }} set_variable={ global.gov_advisor_second_array^1=token:GRE_achilleas_kyrou }}
+				set_temp_variable={ tmp=THIS }
+				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=7 }} set_variable={ global.gov_advisor_first_array^2=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^0=7 }} set_variable={ global.gov_advisor_second_array^0=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^1=7 }} set_variable={ global.gov_advisor_second_array^1=tmp }}
 			}
 			on_remove = {
-				if = { limit={ check_variable={ global.gov_advisor_first_array^0=token:GRE_achilleas_kyrou }} set_variable={ global.gov_advisor_first_array^0=7 }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=token:GRE_achilleas_kyrou }} set_variable={ global.gov_advisor_first_array^1=7 }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=token:GRE_achilleas_kyrou }} set_variable={ global.gov_advisor_first_array^2=7 }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>3 } check_variable={ global.gov_advisor_second_array^0=token:GRE_achilleas_kyrou }} set_variable={ global.gov_advisor_second_array^0=7 }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>4 } check_variable={ global.gov_advisor_second_array^1=token:GRE_achilleas_kyrou }} set_variable={ global.gov_advisor_second_array^1=7 }}
+				set_temp_variable={ tmp=THIS }
+				if = { limit={ check_variable={ global.gov_advisor_first_array^0=tmp }} set_variable={ global.gov_advisor_first_array^0=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=tmp }} set_variable={ global.gov_advisor_first_array^1=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=tmp }} set_variable={ global.gov_advisor_first_array^2=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^0=tmp }} set_variable={ global.gov_advisor_second_array^0=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^1=tmp }} set_variable={ global.gov_advisor_second_array^1=7 }}
 			}
 			traits = { nationalist_editor }
 		}
@@ -432,18 +446,20 @@ characters={
 			cost = 125
 			available = { has_country_flag=GRE_kathestos_proclaimed has_completed_focus=GRE_public_works }
 			on_add = { 
-				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=token:GRE_aristeidis_dimitratos }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=token:GRE_aristeidis_dimitratos }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=7 }} set_variable={ global.gov_advisor_first_array^2=token:GRE_aristeidis_dimitratos }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>3 } check_variable={ global.gov_advisor_second_array^0=7 }} set_variable={ global.gov_advisor_second_array^0=token:GRE_aristeidis_dimitratos }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>4 } check_variable={ global.gov_advisor_second_array^1=7 }} set_variable={ global.gov_advisor_second_array^1=token:GRE_aristeidis_dimitratos }}
+				set_temp_variable={ tmp=THIS }
+				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=7 }} set_variable={ global.gov_advisor_first_array^2=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^0=7 }} set_variable={ global.gov_advisor_second_array^0=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^1=7 }} set_variable={ global.gov_advisor_second_array^1=tmp }}
 			}
 			on_remove = {
-				if = { limit={ check_variable={ global.gov_advisor_first_array^0=token:GRE_aristeidis_dimitratos }} set_variable={ global.gov_advisor_first_array^0=7 }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=token:GRE_aristeidis_dimitratos }} set_variable={ global.gov_advisor_first_array^1=7 }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=token:GRE_aristeidis_dimitratos }} set_variable={ global.gov_advisor_first_array^2=7 }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>3 } check_variable={ global.gov_advisor_second_array^0=token:GRE_aristeidis_dimitratos }} set_variable={ global.gov_advisor_second_array^0=7 }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>4 } check_variable={ global.gov_advisor_second_array^1=token:GRE_aristeidis_dimitratos }} set_variable={ global.gov_advisor_second_array^1=7 }}
+				set_temp_variable={ tmp=THIS }
+				if = { limit={ check_variable={ global.gov_advisor_first_array^0=tmp }} set_variable={ global.gov_advisor_first_array^0=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=tmp }} set_variable={ global.gov_advisor_first_array^1=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=tmp }} set_variable={ global.gov_advisor_first_array^2=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^0=tmp }} set_variable={ global.gov_advisor_second_array^0=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^1=tmp }} set_variable={ global.gov_advisor_second_array^1=7 }}
 			}
 			traits = { subminister_of_labour }
 		}
@@ -468,18 +484,20 @@ characters={
 			cost = 150
 			available = { has_country_flag=GRE_kathestos_proclaimed has_completed_focus=GRE_fiscal_responsibility }
 			on_add = { 
-				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=token:GRE_emmanouil_tsouderos }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=token:GRE_emmanouil_tsouderos }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=7 }} set_variable={ global.gov_advisor_first_array^2=token:GRE_emmanouil_tsouderos }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>3 } check_variable={ global.gov_advisor_second_array^0=7 }} set_variable={ global.gov_advisor_second_array^0=token:GRE_emmanouil_tsouderos }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>4 } check_variable={ global.gov_advisor_second_array^1=7 }} set_variable={ global.gov_advisor_second_array^1=token:GRE_emmanouil_tsouderos }}
+				set_temp_variable={ tmp=THIS }
+				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=7 }} set_variable={ global.gov_advisor_first_array^2=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^0=7 }} set_variable={ global.gov_advisor_second_array^0=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^1=7 }} set_variable={ global.gov_advisor_second_array^1=tmp }}
 			}
 			on_remove = {
-				if = { limit={ check_variable={ global.gov_advisor_first_array^0=token:GRE_emmanouil_tsouderos }} set_variable={ global.gov_advisor_first_array^0=7 }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=token:GRE_emmanouil_tsouderos }} set_variable={ global.gov_advisor_first_array^1=7 }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=token:GRE_emmanouil_tsouderos }} set_variable={ global.gov_advisor_first_array^2=7 }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>3 } check_variable={ global.gov_advisor_second_array^0=token:GRE_emmanouil_tsouderos }} set_variable={ global.gov_advisor_second_array^0=7 }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>4 } check_variable={ global.gov_advisor_second_array^1=token:GRE_emmanouil_tsouderos }} set_variable={ global.gov_advisor_second_array^1=7 }}
+				set_temp_variable={ tmp=THIS }
+				if = { limit={ check_variable={ global.gov_advisor_first_array^0=tmp }} set_variable={ global.gov_advisor_first_array^0=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=tmp }} set_variable={ global.gov_advisor_first_array^1=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=tmp }} set_variable={ global.gov_advisor_first_array^2=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^0=tmp }} set_variable={ global.gov_advisor_second_array^0=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^1=tmp }} set_variable={ global.gov_advisor_second_array^1=7 }}
 			}
 			traits = { governor_of_national_bank }
 		}
@@ -495,18 +513,20 @@ characters={
 			cost = 150
 			available = { has_country_flag=GRE_kathestos_proclaimed has_completed_focus=GRE_fiscal_responsibility }
 			on_add = { 
-				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=token:GRE_andreas_apostolidis }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=token:GRE_andreas_apostolidis }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=7 }} set_variable={ global.gov_advisor_first_array^2=token:GRE_andreas_apostolidis }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>3 } check_variable={ global.gov_advisor_second_array^0=7 }} set_variable={ global.gov_advisor_second_array^0=token:GRE_andreas_apostolidis }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>4 } check_variable={ global.gov_advisor_second_array^1=7 }} set_variable={ global.gov_advisor_second_array^1=token:GRE_andreas_apostolidis }}
+				set_temp_variable={ tmp=THIS }
+				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=7 }} set_variable={ global.gov_advisor_first_array^2=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^0=7 }} set_variable={ global.gov_advisor_second_array^0=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^1=7 }} set_variable={ global.gov_advisor_second_array^1=tmp }}
 			}
 			on_remove = {
-				if = { limit={ check_variable={ global.gov_advisor_first_array^0=token:GRE_andreas_apostolidis }} set_variable={ global.gov_advisor_first_array^0=7 }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=token:GRE_andreas_apostolidis }} set_variable={ global.gov_advisor_first_array^1=7 }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=token:GRE_andreas_apostolidis }} set_variable={ global.gov_advisor_first_array^2=7 }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>3 } check_variable={ global.gov_advisor_second_array^0=token:GRE_andreas_apostolidis }} set_variable={ global.gov_advisor_second_array^0=7 }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>4 } check_variable={ global.gov_advisor_second_array^1=token:GRE_andreas_apostolidis }} set_variable={ global.gov_advisor_second_array^1=7 }}
+				set_temp_variable={ tmp=THIS }
+				if = { limit={ check_variable={ global.gov_advisor_first_array^0=tmp }} set_variable={ global.gov_advisor_first_array^0=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=tmp }} set_variable={ global.gov_advisor_first_array^1=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=tmp }} set_variable={ global.gov_advisor_first_array^2=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^0=tmp }} set_variable={ global.gov_advisor_second_array^0=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^1=tmp }} set_variable={ global.gov_advisor_second_array^1=7 }}
 			}
 			traits = { minister_of_economics }
 		}
@@ -522,18 +542,20 @@ characters={
 			cost = 75
 			available = { has_country_flag=GRE_kathestos_proclaimed }
 			on_add = { 
-				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=token:GRE_theodoros_tourkovasilis }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=token:GRE_theodoros_tourkovasilis }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=7 }} set_variable={ global.gov_advisor_first_array^2=token:GRE_theodoros_tourkovasilis }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>3 } check_variable={ global.gov_advisor_second_array^0=7 }} set_variable={ global.gov_advisor_second_array^0=token:GRE_theodoros_tourkovasilis }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>4 } check_variable={ global.gov_advisor_second_array^1=7 }} set_variable={ global.gov_advisor_second_array^1=token:GRE_theodoros_tourkovasilis }}
+				set_temp_variable={ tmp=THIS }
+				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=7 }} set_variable={ global.gov_advisor_first_array^2=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^0=7 }} set_variable={ global.gov_advisor_second_array^0=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^1=7 }} set_variable={ global.gov_advisor_second_array^1=tmp }}
 			}
 			on_remove = {
-				if = { limit={ check_variable={ global.gov_advisor_first_array^0=token:GRE_theodoros_tourkovasilis }} set_variable={ global.gov_advisor_first_array^0=7 }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=token:GRE_theodoros_tourkovasilis }} set_variable={ global.gov_advisor_first_array^1=7 }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=token:GRE_theodoros_tourkovasilis }} set_variable={ global.gov_advisor_first_array^2=7 }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>3 } check_variable={ global.gov_advisor_second_array^0=token:GRE_theodoros_tourkovasilis }} set_variable={ global.gov_advisor_second_array^0=7 }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>4 } check_variable={ global.gov_advisor_second_array^1=token:GRE_theodoros_tourkovasilis }} set_variable={ global.gov_advisor_second_array^1=7 }}
+				set_temp_variable={ tmp=THIS }
+				if = { limit={ check_variable={ global.gov_advisor_first_array^0=tmp }} set_variable={ global.gov_advisor_first_array^0=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=tmp }} set_variable={ global.gov_advisor_first_array^1=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=tmp }} set_variable={ global.gov_advisor_first_array^2=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^0=tmp }} set_variable={ global.gov_advisor_second_array^0=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^1=tmp }} set_variable={ global.gov_advisor_second_array^1=7 }}
 			}
 			traits = { dubious_personality }
 		}
@@ -549,18 +571,20 @@ characters={
 			cost = 100
 			available = { has_country_flag=GRE_kathestos_proclaimed }
 			on_add = { 
-				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=token:GRE_konstantinos_bastias }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=token:GRE_konstantinos_bastias }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=7 }} set_variable={ global.gov_advisor_first_array^2=token:GRE_konstantinos_bastias }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>3 } check_variable={ global.gov_advisor_second_array^0=7 }} set_variable={ global.gov_advisor_second_array^0=token:GRE_konstantinos_bastias }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>4 } check_variable={ global.gov_advisor_second_array^1=7 }} set_variable={ global.gov_advisor_second_array^1=token:GRE_konstantinos_bastias }}
+				set_temp_variable={ tmp=THIS }
+				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=7 }} set_variable={ global.gov_advisor_first_array^2=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^0=7 }} set_variable={ global.gov_advisor_second_array^0=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^1=7 }} set_variable={ global.gov_advisor_second_array^1=tmp }}
 			}
 			on_remove = {
-				if = { limit={ check_variable={ global.gov_advisor_first_array^0=token:GRE_konstantinos_bastias }} set_variable={ global.gov_advisor_first_array^0=7 }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=token:GRE_konstantinos_bastias }} set_variable={ global.gov_advisor_first_array^1=7 }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=token:GRE_konstantinos_bastias }} set_variable={ global.gov_advisor_first_array^2=7 }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>3 } check_variable={ global.gov_advisor_second_array^0=token:GRE_konstantinos_bastias }} set_variable={ global.gov_advisor_second_array^0=7 }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>4 } check_variable={ global.gov_advisor_second_array^1=token:GRE_konstantinos_bastias }} set_variable={ global.gov_advisor_second_array^1=7 }}
+				set_temp_variable={ tmp=THIS }
+				if = { limit={ check_variable={ global.gov_advisor_first_array^0=tmp }} set_variable={ global.gov_advisor_first_array^0=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=tmp }} set_variable={ global.gov_advisor_first_array^1=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=tmp }} set_variable={ global.gov_advisor_first_array^2=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^0=tmp }} set_variable={ global.gov_advisor_second_array^0=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^1=tmp }} set_variable={ global.gov_advisor_second_array^1=7 }}
 			}
 			traits = { director_of_arts_and_letters }
 		}
@@ -576,18 +600,20 @@ characters={
 			cost = 75
 			available = { has_country_flag=GRE_kathestos_proclaimed }
 			on_add = { 
-				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=token:GRE_pantelis_prevelakis }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=token:GRE_pantelis_prevelakis }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=7 }} set_variable={ global.gov_advisor_first_array^2=token:GRE_pantelis_prevelakis }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>3 } check_variable={ global.gov_advisor_second_array^0=7 }} set_variable={ global.gov_advisor_second_array^0=token:GRE_pantelis_prevelakis }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>4 } check_variable={ global.gov_advisor_second_array^1=7 }} set_variable={ global.gov_advisor_second_array^1=token:GRE_pantelis_prevelakis }}
+				set_temp_variable={ tmp=THIS }
+				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=7 }} set_variable={ global.gov_advisor_first_array^2=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^0=7 }} set_variable={ global.gov_advisor_second_array^0=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^1=7 }} set_variable={ global.gov_advisor_second_array^1=tmp }}
 			}
 			on_remove = {
-				if = { limit={ check_variable={ global.gov_advisor_first_array^0=token:GRE_pantelis_prevelakis }} set_variable={ global.gov_advisor_first_array^0=7 }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=token:GRE_pantelis_prevelakis }} set_variable={ global.gov_advisor_first_array^1=7 }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=token:GRE_pantelis_prevelakis }} set_variable={ global.gov_advisor_first_array^2=7 }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>3 } check_variable={ global.gov_advisor_second_array^0=token:GRE_pantelis_prevelakis }} set_variable={ global.gov_advisor_second_array^0=7 }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>4 } check_variable={ global.gov_advisor_second_array^1=token:GRE_pantelis_prevelakis }} set_variable={ global.gov_advisor_second_array^1=7 }}
+				set_temp_variable={ tmp=THIS }
+				if = { limit={ check_variable={ global.gov_advisor_first_array^0=tmp }} set_variable={ global.gov_advisor_first_array^0=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=tmp }} set_variable={ global.gov_advisor_first_array^1=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=tmp }} set_variable={ global.gov_advisor_first_array^2=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^0=tmp }} set_variable={ global.gov_advisor_second_array^0=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^1=tmp }} set_variable={ global.gov_advisor_second_array^1=7 }}
 			}
 			traits = { director_of_good_arts }
 		}
@@ -603,18 +629,20 @@ characters={
 			cost = 75
 			available = { has_country_flag=archbishop_chrysanthos_elected }
 			on_add = { 
-				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=token:GRE_archbishop_chrysanthos }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=token:GRE_archbishop_chrysanthos }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=7 }} set_variable={ global.gov_advisor_first_array^2=token:GRE_archbishop_chrysanthos }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>3 } check_variable={ global.gov_advisor_second_array^0=7 }} set_variable={ global.gov_advisor_second_array^0=token:GRE_archbishop_chrysanthos }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>4 } check_variable={ global.gov_advisor_second_array^1=7 }} set_variable={ global.gov_advisor_second_array^1=token:GRE_archbishop_chrysanthos }}
+				set_temp_variable={ tmp=THIS }
+				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=7 }} set_variable={ global.gov_advisor_first_array^2=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^0=7 }} set_variable={ global.gov_advisor_second_array^0=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^1=7 }} set_variable={ global.gov_advisor_second_array^1=tmp }}
 			}
 			on_remove = {
-				if = { limit={ check_variable={ global.gov_advisor_first_array^0=token:GRE_archbishop_chrysanthos }} set_variable={ global.gov_advisor_first_array^0=7 }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=token:GRE_archbishop_chrysanthos }} set_variable={ global.gov_advisor_first_array^1=7 }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=token:GRE_archbishop_chrysanthos }} set_variable={ global.gov_advisor_first_array^2=7 }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>3 } check_variable={ global.gov_advisor_second_array^0=token:GRE_archbishop_chrysanthos }} set_variable={ global.gov_advisor_second_array^0=7 }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>4 } check_variable={ global.gov_advisor_second_array^1=token:GRE_archbishop_chrysanthos }} set_variable={ global.gov_advisor_second_array^1=7 }}
+				set_temp_variable={ tmp=THIS }
+				if = { limit={ check_variable={ global.gov_advisor_first_array^0=tmp }} set_variable={ global.gov_advisor_first_array^0=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=tmp }} set_variable={ global.gov_advisor_first_array^1=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=tmp }} set_variable={ global.gov_advisor_first_array^2=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^0=tmp }} set_variable={ global.gov_advisor_second_array^0=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^1=tmp }} set_variable={ global.gov_advisor_second_array^1=7 }}
 			}
 			traits = { technocrat }
 		}
@@ -630,18 +658,20 @@ characters={
 			cost = 75
 			available = { GRE = { OR={ AND={ has_axis_occupation=yes has_completed_focus=GRE_oust_chrysanthus_for_damaskinos } has_country_flag=archbishop_damaskinos_elected }}}
 			on_add = { 
-				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=token:GRE_archbishop_damaskinos }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=token:GRE_archbishop_damaskinos }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=7 }} set_variable={ global.gov_advisor_first_array^2=token:GRE_archbishop_damaskinos }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>3 } check_variable={ global.gov_advisor_second_array^0=7 }} set_variable={ global.gov_advisor_second_array^0=token:GRE_archbishop_damaskinos }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>4 } check_variable={ global.gov_advisor_second_array^1=7 }} set_variable={ global.gov_advisor_second_array^1=token:GRE_archbishop_damaskinos }}
+				set_temp_variable={ tmp=THIS }
+				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=7 }} set_variable={ global.gov_advisor_first_array^2=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^0=7 }} set_variable={ global.gov_advisor_second_array^0=tmp }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^1=7 }} set_variable={ global.gov_advisor_second_array^1=tmp }}
 			}
 			on_remove = {
-				if = { limit={ check_variable={ global.gov_advisor_first_array^0=token:GRE_archbishop_damaskinos }} set_variable={ global.gov_advisor_first_array^0=7 }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=token:GRE_archbishop_damaskinos }} set_variable={ global.gov_advisor_first_array^1=7 }}
-				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=token:GRE_archbishop_damaskinos }} set_variable={ global.gov_advisor_first_array^2=7 }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>3 } check_variable={ global.gov_advisor_second_array^0=token:GRE_archbishop_damaskinos }} set_variable={ global.gov_advisor_second_array^0=7 }}
-				else_if = { limit={ check_variable={ GRE.available_advisor_slots>4 } check_variable={ global.gov_advisor_second_array^1=token:GRE_archbishop_damaskinos }} set_variable={ global.gov_advisor_second_array^1=7 }}
+				set_temp_variable={ tmp=THIS }
+				if = { limit={ check_variable={ global.gov_advisor_first_array^0=tmp }} set_variable={ global.gov_advisor_first_array^0=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=tmp }} set_variable={ global.gov_advisor_first_array^1=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_first_array^2=tmp }} set_variable={ global.gov_advisor_first_array^2=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^0=tmp }} set_variable={ global.gov_advisor_second_array^0=7 }}
+				else_if = { limit={ check_variable={ global.gov_advisor_second_array^1=tmp }} set_variable={ global.gov_advisor_second_array^1=7 }}
 			}
 			traits = { appointed_bishop }
 		}
@@ -675,16 +705,16 @@ characters={
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=0 }} set_variable={ global.coc_advisor_first_array^0=katsimitros }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=0 }} set_variable={ global.coc_advisor_first_array^1=katsimitros }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=0 }} set_variable={ global.coc_advisor_first_array^2=katsimitros }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=katsimitros }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=katsimitros }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=katsimitros }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=katsimitros }}
 			}
 			on_remove = {
 				GRE = { remove_dynamic_modifier = { modifier = GRE_charalambos_katsimitros_hc_dynamic }}
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=katsimitros }} set_variable={ global.coc_advisor_first_array^0=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=katsimitros }} set_variable={ global.coc_advisor_first_array^1=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=katsimitros }} set_variable={ global.coc_advisor_first_array^2=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=katsimitros }} set_variable={ global.coc_advisor_second_array^0=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=katsimitros }} set_variable={ global.coc_advisor_second_array^1=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=katsimitros }} set_variable={ global.coc_advisor_second_array^0=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=katsimitros }} set_variable={ global.coc_advisor_second_array^1=0 }}
 			}
 			traits = { greek_high_command_katsimitros_trait }
 			cost = 100
@@ -732,16 +762,16 @@ characters={
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=0 }} set_variable={ global.coc_advisor_first_array^0=drakos }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=0 }} set_variable={ global.coc_advisor_first_array^1=drakos }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=0 }} set_variable={ global.coc_advisor_first_array^2=drakos }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=drakos }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=drakos }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=drakos }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=drakos }}
 			}
 			on_remove = {
                 GRE = { remove_dynamic_modifier = { modifier = GRE_markos_drakos_hc_dynamic }}
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=drakos }} set_variable={ global.coc_advisor_first_array^0=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=drakos }} set_variable={ global.coc_advisor_first_array^1=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=drakos }} set_variable={ global.coc_advisor_first_array^2=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=drakos }} set_variable={ global.coc_advisor_second_array^0=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=drakos }} set_variable={ global.coc_advisor_second_array^1=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=drakos }} set_variable={ global.coc_advisor_second_array^0=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=drakos }} set_variable={ global.coc_advisor_second_array^1=0 }}
 			}
 			traits = { greek_high_command_drakos_trait	}
 			cost = 100
@@ -785,16 +815,16 @@ characters={
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=0 }} set_variable={ global.coc_advisor_first_array^0=papagos }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=0 }} set_variable={ global.coc_advisor_first_array^1=papagos }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=0 }} set_variable={ global.coc_advisor_first_array^2=papagos }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=papagos }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=papagos }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=papagos }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=papagos }}
 			}
 			on_remove = {
                 GRE = { remove_dynamic_modifier = { modifier = GRE_alexandros_papagos_hc_dynamic }}
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=papagos }} set_variable={ global.coc_advisor_first_array^0=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=papagos }} set_variable={ global.coc_advisor_first_array^1=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=papagos }} set_variable={ global.coc_advisor_first_array^2=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=papagos }} set_variable={ global.coc_advisor_second_array^0=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=papagos }} set_variable={ global.coc_advisor_second_array^1=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=papagos }} set_variable={ global.coc_advisor_second_array^0=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=papagos }} set_variable={ global.coc_advisor_second_array^1=0 }}
 			}
 			traits = { greek_high_command_papagos_trait	}
 			cost = 100
@@ -847,16 +877,16 @@ characters={
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=0 }} set_variable={ global.coc_advisor_first_array^0=velouchiotis }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=0 }} set_variable={ global.coc_advisor_first_array^1=velouchiotis }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=0 }} set_variable={ global.coc_advisor_first_array^2=velouchiotis }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=velouchiotis }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=velouchiotis }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=velouchiotis }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=velouchiotis }}
 			}
 			on_remove = {
                 GRE = { remove_dynamic_modifier = { modifier = GRE_aris_velouchiotis_base_hc_dynamic }}
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=velouchiotis }} set_variable={ global.coc_advisor_first_array^0=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=velouchiotis }} set_variable={ global.coc_advisor_first_array^1=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=velouchiotis }} set_variable={ global.coc_advisor_first_array^2=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=velouchiotis }} set_variable={ global.coc_advisor_second_array^0=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=velouchiotis }} set_variable={ global.coc_advisor_second_array^1=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=velouchiotis }} set_variable={ global.coc_advisor_second_array^0=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=velouchiotis }} set_variable={ global.coc_advisor_second_array^1=0 }}
 			}
 			traits = { greek_high_command_velouchiotis_trait }
 			cost = 100
@@ -947,16 +977,16 @@ characters={
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=0 }} set_variable={ global.coc_advisor_first_array^0=zervas }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=0 }} set_variable={ global.coc_advisor_first_array^1=zervas }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=0 }} set_variable={ global.coc_advisor_first_array^2=zervas }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=zervas }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=zervas }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=zervas }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=zervas }}
 			}
 			on_remove = {
                 GRE = { remove_dynamic_modifier = { modifier = GRE_napoleon_zervas_hc_dynamic }}
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=zervas }} set_variable={ global.coc_advisor_first_array^0=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=zervas }} set_variable={ global.coc_advisor_first_array^1=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=zervas }} set_variable={ global.coc_advisor_first_array^2=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=zervas }} set_variable={ global.coc_advisor_second_array^0=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=zervas }} set_variable={ global.coc_advisor_second_array^1=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=zervas }} set_variable={ global.coc_advisor_second_array^0=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=zervas }} set_variable={ global.coc_advisor_second_array^1=0 }}
 			}
 			traits = { greek_high_command_zervas_trait }
 			cost = 100
@@ -1018,16 +1048,16 @@ characters={
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=0 }} set_variable={ global.coc_advisor_first_array^0=plastiras }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=0 }} set_variable={ global.coc_advisor_first_array^1=plastiras }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=0 }} set_variable={ global.coc_advisor_first_array^2=plastiras }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=plastiras }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=plastiras }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=plastiras }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=plastiras }}
 			}
 			on_remove = {
                 GRE = { remove_dynamic_modifier = { modifier = GRE_nikolaos_plastiras_hc_dynamic }}
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=plastiras }} set_variable={ global.coc_advisor_first_array^0=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=plastiras }} set_variable={ global.coc_advisor_first_array^1=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=plastiras }} set_variable={ global.coc_advisor_first_array^2=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=plastiras }} set_variable={ global.coc_advisor_second_array^0=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=plastiras }} set_variable={ global.coc_advisor_second_array^1=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=plastiras }} set_variable={ global.coc_advisor_second_array^0=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=plastiras }} set_variable={ global.coc_advisor_second_array^1=0 }}
 			}
 			traits = { greek_high_command_plastiras_trait }
 			cost = 100
@@ -1112,16 +1142,16 @@ characters={
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=0 }} set_variable={ global.coc_advisor_first_array^0=bakirtzis }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=0 }} set_variable={ global.coc_advisor_first_array^1=bakirtzis }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=0 }} set_variable={ global.coc_advisor_first_array^2=bakirtzis }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=bakirtzis }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=bakirtzis }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=bakirtzis }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=bakirtzis }}
 			}
 			on_remove = {
                 GRE = { remove_dynamic_modifier = { modifier = GRE_evripidis_bakirtzis_hc_dynamic }}
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=bakirtzis }} set_variable={ global.coc_advisor_first_array^0=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=bakirtzis }} set_variable={ global.coc_advisor_first_array^1=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=bakirtzis }} set_variable={ global.coc_advisor_first_array^2=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=bakirtzis }} set_variable={ global.coc_advisor_second_array^0=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=bakirtzis }} set_variable={ global.coc_advisor_second_array^1=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=bakirtzis }} set_variable={ global.coc_advisor_second_array^0=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=bakirtzis }} set_variable={ global.coc_advisor_second_array^1=0 }}
 			}
 			traits = { greek_high_command_bakirtzis_trait }
 			cost = 100
@@ -1157,16 +1187,16 @@ characters={
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=0 }} set_variable={ global.coc_advisor_first_array^0=kosmas }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=0 }} set_variable={ global.coc_advisor_first_array^1=kosmas }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=0 }} set_variable={ global.coc_advisor_first_array^2=kosmas }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=kosmas }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=kosmas }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=kosmas }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=kosmas }}
 			}
 			on_remove = {
                 GRE = { remove_dynamic_modifier = { modifier = GRE_georgios_kosmas_hc_dynamic }}
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=kosmas }} set_variable={ global.coc_advisor_first_array^0=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=kosmas }} set_variable={ global.coc_advisor_first_array^1=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=kosmas }} set_variable={ global.coc_advisor_first_array^2=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=kosmas }} set_variable={ global.coc_advisor_second_array^0=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=kosmas }} set_variable={ global.coc_advisor_second_array^1=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=kosmas }} set_variable={ global.coc_advisor_second_array^0=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=kosmas }} set_variable={ global.coc_advisor_second_array^1=0 }}
 			}
 			traits = { greek_high_command_kosmas_trait }
 			cost = 100
@@ -1214,16 +1244,16 @@ characters={
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=0 }} set_variable={ global.coc_advisor_first_array^0=stanotas }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=0 }} set_variable={ global.coc_advisor_first_array^1=stanotas }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=0 }} set_variable={ global.coc_advisor_first_array^2=stanotas }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=stanotas }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=stanotas }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=stanotas }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=stanotas }}
 			}
 			on_remove = {
                 GRE = { remove_dynamic_modifier = { modifier = GRE_georgios_stanotas_hc_dynamic }}
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=stanotas }} set_variable={ global.coc_advisor_first_array^0=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=stanotas }} set_variable={ global.coc_advisor_first_array^1=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=stanotas }} set_variable={ global.coc_advisor_first_array^2=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=stanotas }} set_variable={ global.coc_advisor_second_array^0=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=stanotas }} set_variable={ global.coc_advisor_second_array^1=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=stanotas }} set_variable={ global.coc_advisor_second_array^0=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=stanotas }} set_variable={ global.coc_advisor_second_array^1=0 }}
 			}
 			traits = { greek_high_command_stanotas_trait }
 			cost = 100
@@ -1330,16 +1360,16 @@ characters={
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=0 }} set_variable={ global.coc_advisor_first_array^0=davakis }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=0 }} set_variable={ global.coc_advisor_first_array^1=davakis }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=0 }} set_variable={ global.coc_advisor_first_array^2=davakis }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=davakis }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=davakis }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=davakis }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=davakis }}
 			}
 			on_remove = {
                 GRE = { remove_dynamic_modifier = { modifier = GRE_konstantinos_davakis_hc_dynamic }}
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=davakis }} set_variable={ global.coc_advisor_first_array^0=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=davakis }} set_variable={ global.coc_advisor_first_array^1=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=davakis }} set_variable={ global.coc_advisor_first_array^2=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=davakis }} set_variable={ global.coc_advisor_second_array^0=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=davakis }} set_variable={ global.coc_advisor_second_array^1=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=davakis }} set_variable={ global.coc_advisor_second_array^0=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=davakis }} set_variable={ global.coc_advisor_second_array^1=0 }}
 			}
 			traits = { greek_high_command_davakis_trait }
 			cost = 100
@@ -1459,16 +1489,16 @@ characters={
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=0 }} set_variable={ global.coc_advisor_first_array^0=aggelis }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=0 }} set_variable={ global.coc_advisor_first_array^1=aggelis }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=0 }} set_variable={ global.coc_advisor_first_array^2=aggelis }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=aggelis }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=aggelis }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=aggelis }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=aggelis }}
 			}
 			on_remove = {
                 GRE = { remove_dynamic_modifier = { modifier = GRE_odysseas_aggelis_hc_dynamic }}
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=aggelis }} set_variable={ global.coc_advisor_first_array^0=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=aggelis }} set_variable={ global.coc_advisor_first_array^1=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=aggelis }} set_variable={ global.coc_advisor_first_array^2=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=aggelis }} set_variable={ global.coc_advisor_second_array^0=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=aggelis }} set_variable={ global.coc_advisor_second_array^1=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=aggelis }} set_variable={ global.coc_advisor_second_array^0=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=aggelis }} set_variable={ global.coc_advisor_second_array^1=0 }}
 			}
 			traits = { greek_high_command_aggelis_trait }
 			cost = 100
@@ -1496,7 +1526,7 @@ characters={
 		}
 		advisor = {
 			slot = high_command
-			idea_token = GRE_alexakis_hca
+			idea_token = GRE_ioannis_sotiris_alexakis_hca
 			ledger = army
 			available = { custom_trigger_tooltip={ tooltip=not_purged_surrendered_dead any_character={ is_character=GRE_ioannis_sotiris_alexakis cscope_character_not_psd=yes }} GRE_ioannis_sotiris_alexakis = { set_temp_variable = { tmpZ=70 } ideologically_tmpZ=yes } }
 			on_add = { 
@@ -1504,16 +1534,16 @@ characters={
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=0 }} set_variable={ global.coc_advisor_first_array^0=alexakis }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=0 }} set_variable={ global.coc_advisor_first_array^1=alexakis }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=0 }} set_variable={ global.coc_advisor_first_array^2=alexakis }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=alexakis }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=alexakis }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=alexakis }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=alexakis }}
 			}
 			on_remove = {
                 GRE = { remove_dynamic_modifier = { modifier = GRE_ioannis_sotiris_alexakis_hc_dynamic }}
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=alexakis }} set_variable={ global.coc_advisor_first_array^0=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=alexakis }} set_variable={ global.coc_advisor_first_array^1=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=alexakis }} set_variable={ global.coc_advisor_first_array^2=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=alexakis }} set_variable={ global.coc_advisor_second_array^0=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=alexakis }} set_variable={ global.coc_advisor_second_array^1=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=alexakis }} set_variable={ global.coc_advisor_second_array^0=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=alexakis }} set_variable={ global.coc_advisor_second_array^1=0 }}
 			}
 			traits = { greek_high_command_alexakis_trait }
 			cost = 100
@@ -1738,16 +1768,16 @@ characters={
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=0 }} set_variable={ global.coc_advisor_first_array^0=rossios }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=0 }} set_variable={ global.coc_advisor_first_array^1=rossios }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=0 }} set_variable={ global.coc_advisor_first_array^2=rossios }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=rossios }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=rossios }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=rossios }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=rossios }}
 			}
 			on_remove = {
                 GRE = { remove_dynamic_modifier = { modifier = GRE_alexandros_rossios_hc_dynamic }}
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=rossios }} set_variable={ global.coc_advisor_first_array^0=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=rossios }} set_variable={ global.coc_advisor_first_array^1=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=rossios }} set_variable={ global.coc_advisor_first_array^2=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=rossios }} set_variable={ global.coc_advisor_second_array^0=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=rossios }} set_variable={ global.coc_advisor_second_array^1=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=rossios }} set_variable={ global.coc_advisor_second_array^0=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=rossios }} set_variable={ global.coc_advisor_second_array^1=0 }}
 			}
 			traits = { greek_high_command_rossios_trait }
 			cost = 100
@@ -1882,16 +1912,16 @@ characters={
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=0 }} set_variable={ global.coc_advisor_first_array^0=sakellariou }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=0 }} set_variable={ global.coc_advisor_first_array^1=sakellariou }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=0 }} set_variable={ global.coc_advisor_first_array^2=sakellariou }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=sakellariou }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=sakellariou }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=sakellariou }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=sakellariou }}
 			}
 			on_remove = {
                 GRE = { remove_dynamic_modifier = { modifier = GRE_alexandros_sakellariou_hc_dynamic }}
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=sakellariou }} set_variable={ global.coc_advisor_first_array^0=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=sakellariou }} set_variable={ global.coc_advisor_first_array^1=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=sakellariou }} set_variable={ global.coc_advisor_first_array^2=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=sakellariou }} set_variable={ global.coc_advisor_second_array^0=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=sakellariou }} set_variable={ global.coc_advisor_second_array^1=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=sakellariou }} set_variable={ global.coc_advisor_second_array^0=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=sakellariou }} set_variable={ global.coc_advisor_second_array^1=0 }}
 			}
 			traits = { greek_high_command_sakellariou_trait }
 			cost = 100
@@ -1938,16 +1968,16 @@ characters={
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=0 }} set_variable={ global.coc_advisor_first_array^0=idemestichas }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=0 }} set_variable={ global.coc_advisor_first_array^1=idemestichas }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=0 }} set_variable={ global.coc_advisor_first_array^2=idemestichas }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=idemestichas }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=idemestichas }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=idemestichas }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=idemestichas }}
 			}
 			on_remove = {
                 GRE = { remove_dynamic_modifier = { modifier = GRE_ioannis_demestichas_hc_dynamic }}
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=idemestichas }} set_variable={ global.coc_advisor_first_array^0=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=idemestichas }} set_variable={ global.coc_advisor_first_array^1=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=idemestichas }} set_variable={ global.coc_advisor_first_array^2=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=idemestichas }} set_variable={ global.coc_advisor_second_array^0=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=idemestichas }} set_variable={ global.coc_advisor_second_array^1=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=idemestichas }} set_variable={ global.coc_advisor_second_array^0=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=idemestichas }} set_variable={ global.coc_advisor_second_array^1=0 }}
 			}
 			traits = { greek_high_command_demestichas_trait }
 			cost = 100
@@ -1994,16 +2024,16 @@ characters={
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=0 }} set_variable={ global.coc_advisor_first_array^0=kavvadias }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=0 }} set_variable={ global.coc_advisor_first_array^1=kavvadias }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=0 }} set_variable={ global.coc_advisor_first_array^2=kavvadias }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=kavvadias }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=kavvadias }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=kavvadias }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=kavvadias }}
 			}
 			on_remove = {
                 GRE = { remove_dynamic_modifier = { modifier = GRE_epameinondas_kavvadias_hc_dynamic }}
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=kavvadias }} set_variable={ global.coc_advisor_first_array^0=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=kavvadias }} set_variable={ global.coc_advisor_first_array^1=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=kavvadias }} set_variable={ global.coc_advisor_first_array^2=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=kavvadias }} set_variable={ global.coc_advisor_second_array^0=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=kavvadias }} set_variable={ global.coc_advisor_second_array^1=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=kavvadias }} set_variable={ global.coc_advisor_second_array^0=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=kavvadias }} set_variable={ global.coc_advisor_second_array^1=0 }}
 			}
 			traits = { greek_high_command_kavvadias_trait }
 			cost = 100
@@ -2038,16 +2068,16 @@ characters={
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=0 }} set_variable={ global.coc_advisor_first_array^0=loundras }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=0 }} set_variable={ global.coc_advisor_first_array^1=loundras }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=0 }} set_variable={ global.coc_advisor_first_array^2=loundras }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=loundras }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=loundras }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=loundras }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=loundras }}
 			}
 			on_remove = {
                 GRE = { remove_dynamic_modifier = { modifier = GRE_dimitrios_loundras_hc_dynamic }}
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=loundras }} set_variable={ global.coc_advisor_first_array^0=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=loundras }} set_variable={ global.coc_advisor_first_array^1=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=loundras }} set_variable={ global.coc_advisor_first_array^2=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=loundras }} set_variable={ global.coc_advisor_second_array^0=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=loundras }} set_variable={ global.coc_advisor_second_array^1=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=loundras }} set_variable={ global.coc_advisor_second_array^0=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=loundras }} set_variable={ global.coc_advisor_second_array^1=0 }}
 			}
 			traits = { greek_high_command_loundras_trait }
 			cost = 50
@@ -2094,16 +2124,16 @@ characters={
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=0 }} set_variable={ global.coc_advisor_first_array^0=oikonomou }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=0 }} set_variable={ global.coc_advisor_first_array^1=oikonomou }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=0 }} set_variable={ global.coc_advisor_first_array^2=oikonomou }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=oikonomou }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=oikonomou }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=oikonomou }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=oikonomou }}
 			}
 			on_remove = {
                 GRE = { remove_dynamic_modifier = { modifier = GRE_dimitrios_oikonomou_hc_dynamic }}
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=oikonomou }} set_variable={ global.coc_advisor_first_array^0=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=oikonomou }} set_variable={ global.coc_advisor_first_array^1=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=oikonomou }} set_variable={ global.coc_advisor_first_array^2=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=oikonomou }} set_variable={ global.coc_advisor_second_array^0=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=oikonomou }} set_variable={ global.coc_advisor_second_array^1=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=oikonomou }} set_variable={ global.coc_advisor_second_array^0=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=oikonomou }} set_variable={ global.coc_advisor_second_array^1=0 }}
 			}
 			traits = { greek_high_command_oikonomou_trait }
 			cost = 100
@@ -2138,16 +2168,16 @@ characters={
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=0 }} set_variable={ global.coc_advisor_first_array^0=toubas }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=0 }} set_variable={ global.coc_advisor_first_array^1=toubas }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=0 }} set_variable={ global.coc_advisor_first_array^2=toubas }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=toubas }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=toubas }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=toubas }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=toubas }}
 			}
 			on_remove = {
                 GRE = { remove_dynamic_modifier = { modifier = GRE_ioannis_toubas_hc_dynamic }}
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=toubas }} set_variable={ global.coc_advisor_first_array^0=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=toubas }} set_variable={ global.coc_advisor_first_array^1=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=toubas }} set_variable={ global.coc_advisor_first_array^2=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=toubas }} set_variable={ global.coc_advisor_second_array^0=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=toubas }} set_variable={ global.coc_advisor_second_array^1=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=toubas }} set_variable={ global.coc_advisor_second_array^0=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=toubas }} set_variable={ global.coc_advisor_second_array^1=0 }}
 			}
 			traits = { greek_high_command_toubas_trait }
 			cost = 100
@@ -2194,16 +2224,16 @@ characters={
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=0 }} set_variable={ global.coc_advisor_first_array^0=voulgaris }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=0 }} set_variable={ global.coc_advisor_first_array^1=voulgaris }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=0 }} set_variable={ global.coc_advisor_first_array^2=voulgaris }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=voulgaris }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=voulgaris }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=voulgaris }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=voulgaris }}
 			}
 			on_remove = {
                 GRE = { remove_dynamic_modifier = { modifier = GRE_petros_voulgaris_hc_dynamic }}
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=voulgaris }} set_variable={ global.coc_advisor_first_array^0=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=voulgaris }} set_variable={ global.coc_advisor_first_array^1=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=voulgaris }} set_variable={ global.coc_advisor_first_array^2=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=voulgaris }} set_variable={ global.coc_advisor_second_array^0=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=voulgaris }} set_variable={ global.coc_advisor_second_array^1=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=voulgaris }} set_variable={ global.coc_advisor_second_array^0=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=voulgaris }} set_variable={ global.coc_advisor_second_array^1=0 }}
 			}
 			traits = { greek_high_command_voulgaris_trait }
 			cost = 100
@@ -2238,16 +2268,16 @@ characters={
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=0 }} set_variable={ global.coc_advisor_first_array^0=avgeris }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=0 }} set_variable={ global.coc_advisor_first_array^1=avgeris }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=0 }} set_variable={ global.coc_advisor_first_array^2=avgeris }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=avgeris }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=avgeris }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=avgeris }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=avgeris }}
 			}
 			on_remove = {
                 GRE = { remove_dynamic_modifier = { modifier = GRE_spyridon_avgeris_hc_dynamic }}
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=avgeris }} set_variable={ global.coc_advisor_first_array^0=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=avgeris }} set_variable={ global.coc_advisor_first_array^1=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=avgeris }} set_variable={ global.coc_advisor_first_array^2=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=avgeris }} set_variable={ global.coc_advisor_second_array^0=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=avgeris }} set_variable={ global.coc_advisor_second_array^1=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=avgeris }} set_variable={ global.coc_advisor_second_array^0=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=avgeris }} set_variable={ global.coc_advisor_second_array^1=0 }}
 			}
 			traits = { greek_high_command_avgeris_trait }
 			cost = 100
@@ -2282,16 +2312,16 @@ characters={
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=0 }} set_variable={ global.coc_advisor_first_array^0=iatridis }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=0 }} set_variable={ global.coc_advisor_first_array^1=iatridis }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=0 }} set_variable={ global.coc_advisor_first_array^2=iatridis }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=iatridis }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=iatridis }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=iatridis }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=iatridis }}
 			}
 			on_remove = {
                 GRE = { remove_dynamic_modifier = { modifier = GRE_miltiadis_iatridis_hc_dynamic }}
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=iatridis }} set_variable={ global.coc_advisor_first_array^0=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=iatridis }} set_variable={ global.coc_advisor_first_array^1=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=iatridis }} set_variable={ global.coc_advisor_first_array^2=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=iatridis }} set_variable={ global.coc_advisor_second_array^0=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=iatridis }} set_variable={ global.coc_advisor_second_array^1=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=iatridis }} set_variable={ global.coc_advisor_second_array^0=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=iatridis }} set_variable={ global.coc_advisor_second_array^1=0 }}
 			}
 			traits = { greek_high_command_iatridis_trait }
 			cost = 100
@@ -2326,16 +2356,16 @@ characters={
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=0 }} set_variable={ global.coc_advisor_first_array^0=spyromilios }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=0 }} set_variable={ global.coc_advisor_first_array^1=spyromilios }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=0 }} set_variable={ global.coc_advisor_first_array^2=spyromilios }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=spyromilios }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=spyromilios }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=spyromilios }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=spyromilios }}
 			}
 			on_remove = {
                 GRE = { remove_dynamic_modifier = { modifier = GRE_pyrros_spyromilios_hc_dynamic }}
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=spyromilios }} set_variable={ global.coc_advisor_first_array^0=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=spyromilios }} set_variable={ global.coc_advisor_first_array^1=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=spyromilios }} set_variable={ global.coc_advisor_first_array^2=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=spyromilios }} set_variable={ global.coc_advisor_second_array^0=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=spyromilios }} set_variable={ global.coc_advisor_second_array^1=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=spyromilios }} set_variable={ global.coc_advisor_second_array^0=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=spyromilios }} set_variable={ global.coc_advisor_second_array^1=0 }}
 			}
 			traits = { greek_high_command_spyromilios_trait }
 			cost = 100
@@ -2373,15 +2403,15 @@ characters={
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=0 }} set_variable={ global.coc_advisor_first_array^0=mitralexis }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=0 }} set_variable={ global.coc_advisor_first_array^1=mitralexis }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=0 }} set_variable={ global.coc_advisor_first_array^2=mitralexis }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=mitralexis }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=mitralexis }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=mitralexis }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=mitralexis }}
 			}
 			on_remove = {
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=mitralexis }} set_variable={ global.coc_advisor_first_array^0=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=mitralexis }} set_variable={ global.coc_advisor_first_array^1=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=mitralexis }} set_variable={ global.coc_advisor_first_array^2=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=mitralexis }} set_variable={ global.coc_advisor_second_array^0=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=mitralexis }} set_variable={ global.coc_advisor_second_array^1=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=mitralexis }} set_variable={ global.coc_advisor_second_array^0=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=mitralexis }} set_variable={ global.coc_advisor_second_array^1=0 }}
 			}
 			traits = { greek_high_command_mitralexis_trait }
 			cost = 100
@@ -2405,15 +2435,15 @@ characters={
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=0 }} set_variable={ global.coc_advisor_first_array^0=kellas }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=0 }} set_variable={ global.coc_advisor_first_array^1=kellas }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=0 }} set_variable={ global.coc_advisor_first_array^2=kellas }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=kellas }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=kellas }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=0 }} set_variable={ global.coc_advisor_second_array^0=kellas }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=0 }} set_variable={ global.coc_advisor_second_array^1=kellas }}
 			}
 			on_remove = {
 				if = { limit={ check_variable={ global.coc_advisor_first_array^0=kellas }} set_variable={ global.coc_advisor_first_array^0=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^1=kellas }} set_variable={ global.coc_advisor_first_array^1=0 }}
 				else_if = { limit={ check_variable={ global.coc_advisor_first_array^2=kellas }} set_variable={ global.coc_advisor_first_array^2=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>3 } check_variable={ global.coc_advisor_second_array^0=kellas }} set_variable={ global.coc_advisor_second_array^0=0 }}
-				else_if = { limit={ check_variable={ GRE.available_hc_slots>4 } check_variable={ global.coc_advisor_second_array^1=kellas }} set_variable={ global.coc_advisor_second_array^1=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^0=kellas }} set_variable={ global.coc_advisor_second_array^0=0 }}
+				else_if = { limit={ check_variable={ global.coc_advisor_second_array^1=kellas }} set_variable={ global.coc_advisor_second_array^1=0 }}
 			}
 			traits = { greek_high_command_kellas_trait }
 			cost = 100

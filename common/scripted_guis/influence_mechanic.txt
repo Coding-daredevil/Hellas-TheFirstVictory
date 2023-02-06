@@ -6,6 +6,7 @@ scripted_gui = {
         parent_window_token = top_bar
 
 		visible = { original_tag=GRE always=yes }
+		triggers = { infl_mech_button_click_enabled={ has_completed_focus=GRE_a_game_of_shadows }}
 		
 		effects = {
 			infl_mech_button_click = {
@@ -35,7 +36,9 @@ scripted_gui = {
 		visible = { has_country_flag=infl_mech_opened }
 
 		properties = {
+			infl_mech_greek_flag 		= { image=[GRE.GetFlag] }
 			infl_mech_main_flag 		= { image=[THIS.GetFlag] }
+			filter_influence_button 	= { frame=infmech_minf }
 			filter_europe_button 		= { frame=infmech_feur }
 			filter_na_button 			= { frame=infmech_fnam }
 			filter_sa_button 			= { frame=infmech_fsam }
@@ -82,6 +85,7 @@ scripted_gui = {
 			filter_fascist_button_click = { if = { limit = { check_variable={ infmech_ffas=0 }} set_variable={ infmech_ffas=2 }} else = { clear_variable=infmech_ffas } inflmech_apply_filters_and_sort=yes }
 			filter_non_aligned_button_click = { if = { limit = { check_variable={ infmech_fnoa=0 }} set_variable={ infmech_fnoa=2 }} else = { clear_variable=infmech_fnoa } inflmech_apply_filters_and_sort=yes }
 			filter_major_button_click = { if = { limit = { check_variable={ infmech_fmaj=0 }} set_variable={ infmech_fmaj=2 }} else = { clear_variable=infmech_fmaj } inflmech_apply_filters_and_sort=yes }
+			filter_influence_button_click = { if = { limit = { check_variable={ infmech_minf=0 }} set_variable={ infmech_minf=2 }} else = { clear_variable=infmech_minf } inflmech_apply_filters_and_sort=yes }
 			filter_axis_button_click = { if = { limit = { check_variable={ infmech_faxi=0 }} set_variable={ infmech_faxi=2 }} else = { clear_variable=infmech_faxi } inflmech_apply_filters_and_sort=yes }
 			filter_allies_button_click = { if = { limit = { check_variable={ infmech_fall=0 }} set_variable={ infmech_fall=2 }} else = { clear_variable=infmech_fall } inflmech_apply_filters_and_sort=yes }
 			filter_commitern_button_click = { if = { limit = { check_variable={ infmech_fcmn=0 }} set_variable={ infmech_fcmn=2 }} else = { clear_variable=infmech_fcmn } inflmech_apply_filters_and_sort=yes }	
@@ -96,66 +100,49 @@ scripted_gui = {
 		}
 	}
 
+	infl_mech_to_gui={
+		context_type = selected_country_context
+		window_name = "infl_mech_to_container"
+
+		visible = { GRE={ has_country_flag=infl_mech_opened }}
+
+		properties = {
+			infl_mech_to_flag_icon = { image=[THIS.GetFlag] }
+		}
+	}
+
 	#win_favor_gui = {
 	#	context_type = country_mapicon
 	#	window_name = "win_favor_container"
-	#	#parent_window_token = top_bar
-	#	#parent_scripted_gui = "infl_mech_main_gui"
 	#
 	#	mapicon_targets = {
 	#		target_array = global.favor_mechanic
 	#		target_trigger = {
-	#			FROM = { NOT = { has_war_with=GRE }}
+	#			FROM={ NOT={ has_war_with=GRE }}
 	#		}
 	#	}
 	#
 	#	visible = { 
-	#		has_country_flag=infl_mech_opened 
+	#		GRE={ has_country_flag=infl_mech_opened }
 	#		#has_completed_focus = GRE_a_game_of_shadows
     #        #NOT = { has_axis_occupation = yes }
 	#	}
 	#
 	#	triggers = {
-	#		win_favor_button_click_enabled = { FROM={ NOT={has_country_flag=is_influenced_by_decision }}}
+	#		win_favor_button_click_enabled = {
+	#			THIS={ NOT={ has_country_flag=is_influenced_by_decision }}
+	#		}
 	#	}
 	#
 	#	effects = {
 	#		win_favor_button_click = {
 	#			GRE = { log="HIT" }
-	#			custom_effect_tooltip = GRE_win_favor_FROM
-	#            FROM = { set_country_flag={ flag=is_influenced_by_decision days=70 }}
-	#			ROOT = { add_political_power = 50 }
-	#			add_political_power = 50
+	#			THIS = { 
+	#				add_political_power=50 log="[?THIS.GetName] - [?political_power]"
+	#				set_country_flag={ flag=is_influenced_by_decision days=70 value=1 }
+	#			}
+	#			custom_effect_tooltip = GRE_win_favor_THIS
 	#		}
 	#	}
 	#}
 }
-
-
-
-
-
-
-
-
-
-#infl_mech_major_gui = {
-#	context_type = player_context
-#
-#	context_type = decision_category
-#	window_name = "infl_mech_major_container"
-#}
-#
-#infl_mech_balkans_gui = {
-#	context_type = player_context
-#
-#	context_type = decision_category
-#	window_name = "infl_mech_balkans_container"
-#}
-#
-#infl_mech_rest_gui = {
-#	context_type = player_context
-#
-#	context_type = decision_category
-#	window_name = "infl_mech_rest_container"
-#}

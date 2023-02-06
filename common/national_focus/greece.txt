@@ -53,9 +53,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = GRE_reevaluating_the_drachma
 		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
+		available={ num_of_owned_factories>4 }
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {	
@@ -90,9 +88,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = GRE_lignite_liquefaction
 		cost = 5.8
-		ai_will_do = {
-			base = 1
-		}
+		available={ num_of_owned_factories>8 }
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
@@ -123,9 +119,7 @@ focus_tree = {
 		y = 1
 		relative_position_id = GRE_extracting_more_from_our_soil
 		cost = 8.7
-		ai_will_do = {
-			base = 1
-		}
+		available={ num_of_owned_factories>16 }
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
@@ -266,8 +260,8 @@ focus_tree = {
 						set_temp_variable = { c_mil_score = 0.050 }                                                                       # Score is 5.0% of country's mil factories.
 					}
 					else = {
-						set_temp_variable = { c_civ_score = 0.015 }                                                                       # Score is 1.5% of country's civ factories.
-						set_temp_variable = { c_mil_score = 0.015 }                                                                       # Score is 1.5% of country's mil factories.
+						set_temp_variable = { c_civ_score = 0.009 }                                                                       # Score is 0.9% of country's civ factories.
+						set_temp_variable = { c_mil_score = 0.009 }                                                                       # Score is 0.9% of country's mil factories.
 					}
 					if = {
 						limit = {
@@ -295,8 +289,8 @@ focus_tree = {
 							add_to_temp_variable = { c_mil_score = 0.010 }
 						}
 						else = {
-							add_to_temp_variable = { c_civ_score = 0.005 }
-							add_to_temp_variable = { c_mil_score = 0.005 }
+							add_to_temp_variable = { c_civ_score = 0.006 }
+							add_to_temp_variable = { c_mil_score = 0.006 }
 						}
 					}
 					else_if = {
@@ -310,8 +304,8 @@ focus_tree = {
 							add_to_temp_variable = { c_mil_score = 0.014 }
 						}
 						else = {
-							add_to_temp_variable = { c_civ_score = 0.007 }
-							add_to_temp_variable = { c_mil_score = 0.007 }
+							add_to_temp_variable = { c_civ_score = 0.009 }
+							add_to_temp_variable = { c_mil_score = 0.009 }
 						}
 					}
 					else_if = {
@@ -325,8 +319,8 @@ focus_tree = {
 							add_to_temp_variable = { c_mil_score = 0.020 }
 						}
 						else = {
-							add_to_temp_variable = { c_civ_score = 0.010 }
-							add_to_temp_variable = { c_mil_score = 0.010 }
+							add_to_temp_variable = { c_civ_score = 0.012 }
+							add_to_temp_variable = { c_mil_score = 0.012 }
 						}
 					}
 					else_if = {
@@ -355,8 +349,8 @@ focus_tree = {
 							add_to_temp_variable = { c_mil_score = 0.040 }
 						}
 						else = {
-							add_to_temp_variable = { c_civ_score = 0.020 }
-							add_to_temp_variable = { c_mil_score = 0.020 }
+							add_to_temp_variable = { c_civ_score = 0.018 }
+							add_to_temp_variable = { c_mil_score = 0.018 }
 						}
 					}
 					else_if = {
@@ -370,8 +364,8 @@ focus_tree = {
 							add_to_temp_variable = { c_mil_score = 0.050 }
 						}
 						else = {
-							add_to_temp_variable = { c_civ_score = 0.025 }
-							add_to_temp_variable = { c_mil_score = 0.025 }
+							add_to_temp_variable = { c_civ_score = 0.021 }
+							add_to_temp_variable = { c_mil_score = 0.021 }
 						}
 					}
 					multiply_temp_variable = { c_civ_score = THIS.num_of_civilian_factories }                                         # BalPac: Minimum 5.6%, Maximum 10.0% of factories.
@@ -568,16 +562,16 @@ focus_tree = {
 					limit = {
 						OR = { tag=TUR tag=BUL tag=YUG tag=ALB tag=ROM tag=HUN tag=CZE tag=AUS AND={ tag=GER AUS={ exists=no }}}
 						exists=yes
-						has_opinion = { target = GRE value > 79 }
+						has_opinion={ target=GRE value> 79 }
 						check_variable = { var=favor@GRE value=30 compare=greater_than_or_equals }
 					}
-					if = { 
+					if = {
 						limit = { has_country_flag = balkan_pact_reinforced }
-						set_temp_variable = { inv_score = 0.150 }                                                                         # Score is 15.0% of country's civ factories.
+						set_temp_variable = { inv_score = 0.110 }                                                                         # Score is 11.0% of country's civ factories.
 					}
 					else_if = {
 						limit = { NOT = { has_country_flag = balkan_pact_reinforced } }
-						set_temp_variable = { inv_score = 0.100 }                                                                         # Score is 10.0% of country's civ factories.
+						set_temp_variable = { inv_score = 0.080 }                                                                         # Score is 08.0% of country's civ factories.
 					}
 					if = {
 						limit = {
@@ -615,7 +609,7 @@ focus_tree = {
 							add_to_temp_variable = { inv_score = 0.060 }
 						}
 						else = {
-							add_to_temp_variable = { inv_score = 0.040 }
+							add_to_temp_variable = { inv_score = 0.030 }
 						}
 					}
 					else_if = {
@@ -628,7 +622,7 @@ focus_tree = {
 							add_to_temp_variable = { inv_score = 0.080 }
 						}
 						else = {
-							add_to_temp_variable = { inv_score = 0.060 }
+							add_to_temp_variable = { inv_score = 0.040 }
 						}
 					}
 					else_if = {
@@ -641,7 +635,7 @@ focus_tree = {
 							add_to_temp_variable = { inv_score = 0.100 }
 						}
 						else = {
-							add_to_temp_variable = { inv_score = 0.080 }
+							add_to_temp_variable = { inv_score = 0.050 }
 						}
 					}
 					else_if = {
@@ -654,7 +648,7 @@ focus_tree = {
 							add_to_temp_variable = { inv_score = 0.120 }
 						}
 						else = {
-							add_to_temp_variable = { inv_score = 0.100 }
+							add_to_temp_variable = { inv_score = 0.060 }
 						}
 					}
 					else_if = {
@@ -665,10 +659,10 @@ focus_tree = {
 						set_country_flag = bed_gave_max
 						if = { 
 							limit = { has_country_flag = balkan_pact_reinforced }
-							add_to_temp_variable = { inv_score = 0.150 }
+							add_to_temp_variable = { inv_score = 0.140 }
 						}
 						else = {
-							add_to_temp_variable = { inv_score = 0.120 }
+							add_to_temp_variable = { inv_score = 0.070 }
 						}
 					}
             		if = { limit={ tag=GER } divide_temp_variable={ inv_score=6 }}
@@ -695,25 +689,16 @@ focus_tree = {
 			hidden_effect = {
 				if = {
 					limit = { has_country_flag = chose_investments }
-					set_variable = { GRE.bedrock_back_investment = 9 }
+					set_variable = { GRE.bedrock_back_investment = 6 }
 					add_to_variable = { TUR.favor@GRE = 30 }
 					add_to_variable = { YUG.favor@GRE = 30 }
 					add_to_variable = { ROM.favor@GRE = 30 }
-					if = { 
-						limit = { 
-							ALB = { has_country_flag = bed_gave_max }
-						}	
-						add_to_variable = { GRE.bedrock_back_investment = 3 }
-						add_to_variable = { ALB.favor@GRE = 20 }
+					every_country = {
+						limit={ OR={ tag=ALB tag=BUL tag=HUN tag=CZE tag=CZE tag=AUS } has_country_flag=bed_gave_max }
+
+						add_to_variable = { GRE.bedrock_back_investment = 2 }
+						add_to_variable = { THIS.favor@GRE = 20 }
 					}
-					if = { 
-						limit = {
-							BUL = { has_country_flag = bed_gave_max }
-						}	
-						add_to_variable = { GRE.bedrock_back_investment = 3 }
-						add_to_variable = { BUL.favor@GRE = 20 }
-					}
-					#clr_country_flag = chose_investments
 					activate_decision = greek_counter_investments
 				}
 			}
@@ -739,7 +724,8 @@ focus_tree = {
 			}
             add_stability = 0.02
 			add_political_power = 80
-			add_ideas = free_trade
+			hidden_effect={ add_ideas=free_trade }
+			custom_effect_tooltip=GRE_exporting_more_luxury_commodoties_tt
             every_country = {
                 limit = {
                     is_in_array = {
@@ -770,13 +756,13 @@ focus_tree = {
 		x = 4
 		y = 1
 		relative_position_id = GRE_connecting_our_prefectures
-		cost = 2.15
+		cost = 1
 		ai_will_do = {
 			base = 1
 		}
 
 		completion_reward = {
-			unlock_decision_category_tooltip = GRE_economic_fluidity
+			custom_effect_tooltip=GRE_economic_fluidity_plans_tt
 		}
 	}
 
@@ -812,13 +798,12 @@ focus_tree = {
 		ai_will_do = {
 			base = 1
 		}
-		#available = { 
-		#	has_country_flag = GRE_kathestos_proclaimed
-		#	OR = {
-		#		has_idea = GRE_emmanouil_tsouderos_political_advisor
-		#		has_idea = GRE_andreas_apostolidis_political_advisor
-		#	}
-		#}
+		available = {
+			if = {
+				limit={ GRE_ioannis_metaxas={ is_country_leader=yes }}
+				has_country_flag=GRE_kathestos_proclaimed
+			}
+		}
 
 		search_filters = { FOCUS_FILTER_STABILITY }
 		completion_reward = {
@@ -826,74 +811,79 @@ focus_tree = {
 			add_stability = 0.04
 			add_war_support = 0.06
 			custom_effect_tooltip = GRE_greek_autarky_tt
-			every_country = {
-				limit = { 
-					is_in_array = {
-						array = global.favor_mechanic
-						value = THIS.id
+			if = {
+				limit={ GRE_ioannis_metaxas={ is_country_leader=yes }}
+
+				######[Favor Loss]######
+				every_country = {
+					limit = { 
+						is_in_array = {
+							array = global.favor_mechanic
+							value = THIS.id
+						}
 					}
+					set_temp_variable = { findX=THIS.id }
+					set_temp_variable = { findY=-1.00 }
+					add_to_variable = { THIS.favor@GRE = findY tooltip=favor_hit_with_findX_by_findY_no_name_tt }
 				}
-				set_temp_variable = { findX=THIS.id }
-				set_temp_variable = { findY=-1.00 }
-				add_to_variable = { THIS.favor@GRE = findY tooltip=favor_hit_with_findX_by_findY_no_name_tt }
+				######[REPORT EVENTS]######
+				set_temp_variable = { tmpEDIFF=2.5 }
+				set_temp_variable = { tmpARG1=1 }
+				set_temp_variable = { tmpARG2=1 }
+				calculate_national_intelligence_chance_to_avoid_event = yes
+				set_temp_variable = { tmpLWTHR=10 }
+				set_temp_variable = { tmpUPTHR=25 }
+				set_temp_variable = { tmpMAXDIR=0 }
+				calculate_bounded_world_tension_chance_to_avoid_event = yes
+				add_to_temp_array={ tmpENEMIES=ITA.id }
+				set_temp_variable={ VARTOK=60 }
+				set_temp_variable={ tmpSVIA=1 }
+				set_temp_variable={ tmpMODE=1 }
+				set_temp_variable={ tmpLWTHR=10 }
+				set_temp_variable={ tmpUPTHR=25 }
+				set_temp_variable = { tmpMAXDIR=1 }
+				calculate_enemy_bounded_VAR_chance_to_avoid_event=yes
+				add_to_temp_array = { tmpWEIGHT=1 }
+				add_to_temp_array = { tmpWEIGHT=1 }
+				add_to_temp_array = { tmpWEIGHT=1 }
+				set_temp_variable={ tmpMODE=1 }
+				calculate_final_b1_b2_from_temporary_array_tmpCHANCES_with_tmpWEIGHT_and_mode_tmpMODE=yes
+				add_to_temp_array = { tmpRECEIVERS=ITA.id }
+				set_temp_variable = { tmpREAC1=52 }
+				set_temp_variable = { tmpMAG=2.50 }
+				potentially_send_report_events_for_action_tmpREAC1_with_args_tmpARRVAL_tmpMAG_to_targets_tmpRECEIVERS = yes
+				custom_effect_tooltip = report_event_potential_favorable_diplomatic_reaction_due_to_x_tt
+				######[ TOOLTIP FOR REPORT EVENTS ]######
+				if = {
+					limit={ NOT={ has_completed_focus=GRE_a_game_of_shadows }}
+					custom_effect_tooltip = report_event_no_focus_completed_tt
+				}
+				else = {
+					custom_effect_tooltip=repev_header_tt
+					set_temp_variable={ display=1 tooltip=repev_final_selection_tt }
+					custom_effect_tooltip=repev_cni_main_tt
+					set_temp_variable={ displayer=1  tooltip=repev_xxxx_weight_tt }
+					set_temp_variable={ displayer=cni_b1  tooltip=repev_cni_aginch_tt }
+					set_temp_variable={ displayer=2.5 tooltip=repev_cni_tmpEDIFF_tt }
+					set_temp_variable={ displayer=base  tooltip=repev_cni_base_tt }
+					set_temp_variable={ displayer=1  tooltip=repev_cni_tmpARG1_tt }
+					set_temp_variable={ displayer=1  tooltip=repev_cni_tmpARG2_tt }
+					custom_effect_tooltip=repev_cwt_main_tt
+					set_temp_variable={ displayer=1  tooltip=repev_xxxx_weight_tt }
+					set_temp_variable={ displayer=cwt_b1  tooltip=repev_cwt_aginch_tt }
+					set_temp_variable={ displayer=10  tooltip=repev_cwt_lwthr_tt }
+					set_temp_variable={ displayer=25  tooltip=repev_cwt_upthr_tt }
+					set_temp_variable={ displayer=1  tooltip=repev_cwt_maxdir_tt }
+					custom_effect_tooltip=repev_civi_main_tt
+					set_temp_variable={ displayer=1  tooltip=repev_xxxx_weight_tt }
+					set_temp_variable={ displayer=1  tooltip=repev_xxxx_svia_tt }
+					set_temp_variable={ displayer=1  tooltip=repev_xxxx_svia_mode_tt }
+					set_temp_variable={ displayer=10  tooltip=repev_xxxx_lwthr_tt }
+					set_temp_variable={ displayer=25  tooltip=repev_xxxx_upthr_tt }
+				}
 			}
-            ######[REPORT EVENTS]######
-            set_temp_variable = { tmpEDIFF=2.5 }
-            set_temp_variable = { tmpARG1=1 }
-            set_temp_variable = { tmpARG2=1 }
-            calculate_national_intelligence_chance_to_avoid_event = yes
-            set_temp_variable = { tmpLWTHR=10 }
-            set_temp_variable = { tmpUPTHR=25 }
-            set_temp_variable = { tmpMAXDIR=0 }
-            calculate_bounded_world_tension_chance_to_avoid_event = yes
-            add_to_temp_array={ tmpENEMIES=ITA.id }
-            set_temp_variable={ VARTOK=60 }
-            set_temp_variable={ tmpSVIA=1 }
-            set_temp_variable={ tmpMODE=1 }
-            set_temp_variable={ tmpLWTHR=10 }
-            set_temp_variable={ tmpUPTHR=25 }
-            set_temp_variable = { tmpMAXDIR=1 }
-            calculate_enemy_bounded_VAR_chance_to_avoid_event=yes
-            add_to_temp_array = { tmpWEIGHT=1 }
-            add_to_temp_array = { tmpWEIGHT=1 }
-            add_to_temp_array = { tmpWEIGHT=1 }
-            set_temp_variable={ tmpMODE=1 }
-            calculate_final_b1_b2_from_temporary_array_tmpCHANCES_with_tmpWEIGHT_and_mode_tmpMODE=yes
-            add_to_temp_array = { tmpRECEIVERS=ITA.id }
-            set_temp_variable = { tmpREAC1=52 }
-            set_temp_variable = { tmpMAG=2.50 }
-            potentially_send_report_events_for_action_tmpREAC1_with_args_tmpARRVAL_tmpMAG_to_targets_tmpRECEIVERS = yes
-            custom_effect_tooltip = report_event_potential_favorable_diplomatic_reaction_due_to_x_tt
-            ######[ TOOLTIP FOR REPORT EVENTS ]######
-            if = {
-                limit={ NOT={ has_completed_focus=GRE_a_game_of_shadows }}
-                custom_effect_tooltip = report_event_no_focus_completed_tt
-            }
-            else = {
-                custom_effect_tooltip=repev_header_tt
-				set_temp_variable={ display=1 tooltip=repev_final_selection_tt }
-                custom_effect_tooltip=repev_cni_main_tt
-                set_temp_variable={ displayer=1  tooltip=repev_xxxx_weight_tt }
-                set_temp_variable={ displayer=cni_b1  tooltip=repev_cni_aginch_tt }
-                set_temp_variable={ displayer=2.5 tooltip=repev_cni_tmpEDIFF_tt }
-                set_temp_variable={ displayer=base  tooltip=repev_cni_base_tt }
-                set_temp_variable={ displayer=1  tooltip=repev_cni_tmpARG1_tt }
-                set_temp_variable={ displayer=1  tooltip=repev_cni_tmpARG2_tt }
-                custom_effect_tooltip=repev_cwt_main_tt
-                set_temp_variable={ displayer=1  tooltip=repev_xxxx_weight_tt }
-                set_temp_variable={ displayer=cwt_b1  tooltip=repev_cwt_aginch_tt }
-                set_temp_variable={ displayer=10  tooltip=repev_cwt_lwthr_tt }
-                set_temp_variable={ displayer=25  tooltip=repev_cwt_upthr_tt }
-                set_temp_variable={ displayer=1  tooltip=repev_cwt_maxdir_tt }
-                custom_effect_tooltip=repev_civi_main_tt
-                set_temp_variable={ displayer=1  tooltip=repev_xxxx_weight_tt }
-                set_temp_variable={ displayer=1  tooltip=repev_xxxx_svia_tt }
-                set_temp_variable={ displayer=1  tooltip=repev_xxxx_svia_mode_tt }
-                set_temp_variable={ displayer=10  tooltip=repev_xxxx_lwthr_tt }
-                set_temp_variable={ displayer=25  tooltip=repev_xxxx_upthr_tt }
-            }
 		}
-	}		
+	}
 
 	focus = {
 		id = GRE_expand_our_tobacco_industry
@@ -1279,159 +1269,53 @@ focus_tree = {
     }
 
 	focus = {
-		id = GRE_rejuvenating_athens
-		icon = GFX_goal_generic_construct_civ_factory
-		prerequisite = { focus = GRE_extortion }
+		id=GRE_rejuvenating_mainland
+		icon=GFX_goal_generic_construct_civ_factory
+		prerequisite={ focus = GRE_extortion }
 		x = 0
 		y = 2
 		relative_position_id = GRE_open_foreign_subsidized_factories
 		cost = 11.5
-        
-        available = {
-            has_country_flag = GRE_has_occupied_territory
-        }
-        
-		ai_will_do = {
-			base = 1
+
+		available={
+			any_core_state = {
+				infrastructure>1
+				free_building_slots={ building=industrial_complex size>1 include_locked=yes }
+			}
+			any_country={
+				set_temp_variable={ findY=1 }
+				custom_trigger_tooltip={
+					tooltip=at_least_findY_lentcivs_tt
+
+					check_variable={ THIS.civslent@GRE>1 }
+				}
+			}
 		}
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			47 = {
-				if = { 
-					limit = {
-						free_building_slots = {
-							building = industrial_complex
-							size > 1
-							include_locked = yes
-						}
-						free_building_slots = {
-							building = arms_factory
-							size > 0
-							include_locked = yes
+			custom_effect_tooltip=GRE_rejuvenating_mainland_tt
+			hidden_effect={
+				every_owned_state={
+					limit={ infrastructure>1 free_building_slots={ building=industrial_complex size>1 include_locked=yes }}
+
+					if={
+						limit={ any_country={ check_variable={ THIS.civslent@GRE>1 }}}
+					
+						log="Rejuvenating Mainland factory conversion:"
+						random_country={
+							limit={ check_variable={ THIS.civslent@GRE>1 }}
+
+							subtract_from_variable={ THIS.civslent@GRE=1 }
+            				GRE={ add_offsite_building={ type=industrial_complex level=-1 }}
+							PREV={ add_building_construction={ type=industrial_complex level=1 instant_build=yes }}
+							log="  [?THIS.GetAdjective] leased-factory built in [?PREV.GetName].  (remaining: [?THIS.civslent@GRE|2])"
 						}
 					}
-				}	
-				add_extra_state_shared_building_slots = 6
-				add_building_construction = {
-					type = industrial_complex
-					level = 3
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = arms_factory
-					level = 3
-					instant_build = yes
 				}
 			}
-			731 = {
-				if = { 
-					limit = {
-						free_building_slots = {
-							building = industrial_complex
-							size > 1
-							include_locked = yes
-						}
-						free_building_slots = {
-							building = arms_factory
-							size > 0
-							include_locked = yes
-						}
-					}
-				}	
-				add_extra_state_shared_building_slots = 3
-				add_building_construction = {
-					type = industrial_complex
-					level = 3
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = arms_factory
-					level = 3
-					instant_build = yes
-				}
-			}	
-			185 = {
-				if = { 
-					limit = {
-						free_building_slots = {
-							building = industrial_complex
-							size > 1
-							include_locked = yes
-						}
-						free_building_slots = {
-							building = arms_factory
-							size > 0
-							include_locked = yes
-						}
-					}
-				}	
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
-			}
-			186 = {
-				if = { 
-					limit = {
-						free_building_slots = {
-							building = industrial_complex
-							size > 1
-							include_locked = yes
-						}
-						free_building_slots = {
-							building = arms_factory
-							size > 0
-							include_locked = yes
-						}
-					}
-				}	
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
-			}	
-			184 = {
-				if = { 
-					limit = {
-						free_building_slots = {
-							building = industrial_complex
-							size > 1
-							include_locked = yes
-						}
-						free_building_slots = {
-							building = arms_factory
-							size > 0
-							include_locked = yes
-						}
-					}
-				}	
-				add_extra_state_shared_building_slots = 2
-				add_building_construction = {
-					type = industrial_complex
-					level = 2
-					instant_build = yes
-				}
-				add_building_construction = {
-					type = arms_factory
-					level = 2
-					instant_build = yes
-				}
-			}			
+			custom_effect_tooltip=mutually_uncomplete_focuses_tt
+			hidden_effect={ uncomplete_national_focus={ focus=GRE_rejuvenating_mainland }}
 		}
 	}
 
@@ -1764,28 +1648,33 @@ focus_tree = {
 		icon = GFX_focus_chi_mission_to_germany
 		prerequisite = { focus = GRE_open_up_the_country }
 		available = {
-			has_idea = GRE_schachtplan
-			NOT = {
-				has_country_flag = GRE_germany_rebuffed
+			has_idea=GRE_schachtplan 
+			set_temp_variable = { findX=GER }
+			set_temp_variable = { ftmpZ=30 }
+			custom_trigger_tooltip = {
+				tooltip = favor_status_with_findX_at_least_ftmpZ_shrt_tt
+				check_variable = { var=GER.favor@GRE value=ftmpZ compare=greater_than_or_equals }
 			}
 		}
-		bypass = {
-			has_country_flag = GRE_germany_rebuffed
-		}
+		bypass={ has_country_flag=GRE_germany_rebuffed }
 		x = 0
 		y = 1
 		relative_position_id = GRE_open_up_the_country
-		cost = 2.9
+		cost=1
 
 		completion_reward = {
 			unlock_decision_tooltip = GRE_exploit_errata_in_schachtplan
 			swap_ideas = { remove_idea=GRE_schachtplan add_idea=GRE_schachtplan_modified }
-            ###FACTION MECHANICS###
-			set_temp_variable_to_random= { var=tmp_fas min=2 max=4 integer=no }
-            add_to_variable = { fct_fas=tmp_fas }
-			custom_effect_tooltip = fact_inf_tt
-            custom_effect_tooltip = fas_fct_imp_tt
-            faction_gui_call = yes
+            ###[ FACTION MECHANICS ]###
+            if={
+                limit={ has_country_flag=GRE_faction_gui_flag }
+					
+				set_temp_variable_to_random= { var=tmp_fas min=2 max=4 integer=no }
+				add_to_variable = { fct_fas=tmp_fas }
+				custom_effect_tooltip = fact_inf_tt
+				custom_effect_tooltip = fas_fct_imp_tt
+				faction_gui_call = yes
+			}
 		}
 	}
 
@@ -1806,16 +1695,20 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = GRE_bolster_the_schachtplan
-		cost = 2.15
+		cost = 1
 
 		completion_reward = {
 			#unlock_decision_tooltip = GRE_request_italian_assistance_with_industrialisation
-            ###FACTION MECHANICS###
-			set_temp_variable_to_random= { var=tmp_fas min=2 max=4 integer=no }
-            add_to_variable = { fct_fas=tmp_fas }
-			custom_effect_tooltip = fact_inf_tt
-            custom_effect_tooltip = fas_fct_imp_tt
-            faction_gui_call = yes
+            ###[ FACTION MECHANICS ]###
+            if={
+                limit={ has_country_flag=GRE_faction_gui_flag }
+
+				set_temp_variable_to_random= { var=tmp_fas min=2 max=4 integer=no }
+				add_to_variable = { fct_fas=tmp_fas }
+				custom_effect_tooltip = fact_inf_tt
+				custom_effect_tooltip = fas_fct_imp_tt
+				faction_gui_call = yes
+			}
 		}
 	}	
 
@@ -1852,12 +1745,16 @@ focus_tree = {
 				relation = docking_rights
 				active = yes
             }
-            ###FACTION MECHANICS###
-			set_temp_variable_to_random= { var=tmp_dem min=4 max=6 integer=no }
-            add_to_variable = { fct_dem=tmp_dem }
-			custom_effect_tooltip = fact_inf_tt
-            custom_effect_tooltip = dem_fct_imp_tt
-            faction_gui_call = yes
+            ###[ FACTION MECHANICS ]###
+            if={
+                limit={ has_country_flag=GRE_faction_gui_flag }
+				
+				set_temp_variable_to_random= { var=tmp_dem min=4 max=6 integer=no }
+				add_to_variable = { fct_dem=tmp_dem }
+				custom_effect_tooltip = fact_inf_tt
+				custom_effect_tooltip = dem_fct_imp_tt
+				faction_gui_call = yes
+			}
 		}
 	}	
 
@@ -1894,12 +1791,16 @@ focus_tree = {
                 set_variable = { GRE.debt_package = 25 }
                 FRA = { GRE_update_debt_status = yes }
 			}
-            ###FACTION MECHANICS###
-			set_temp_variable_to_random= { var=tmp_dem min=4 max=6 integer=no }
-            add_to_variable = { fct_dem=tmp_dem }
-			custom_effect_tooltip = fact_inf_tt
-            custom_effect_tooltip = dem_fct_imp_tt
-            faction_gui_call = yes
+            ###[ FACTION MECHANICS ]###
+            if={
+                limit={ has_country_flag=GRE_faction_gui_flag }
+				
+				set_temp_variable_to_random= { var=tmp_dem min=4 max=6 integer=no }
+				add_to_variable = { fct_dem=tmp_dem }
+				custom_effect_tooltip = fact_inf_tt
+				custom_effect_tooltip = dem_fct_imp_tt
+				faction_gui_call = yes
+			}
 		}
 	}	
 
@@ -1922,12 +1823,16 @@ focus_tree = {
 
 		completion_reward = {
 			add_stability = -0.10
-            ###FACTION MECHANICS###
-			set_temp_variable_to_random= { var=tmp_com min=8 max=12 integer=no }
-            add_to_variable = { fct_com=tmp_com }
-			custom_effect_tooltip = fact_inf_tt
-            custom_effect_tooltip = com_fct_imp_tt
-            faction_gui_call = yes
+            ###[ FACTION MECHANICS ]###
+            if={
+                limit={ has_country_flag=GRE_faction_gui_flag }
+				
+				set_temp_variable_to_random= { var=tmp_com min=8 max=12 integer=no }
+				add_to_variable = { fct_com=tmp_com }
+				custom_effect_tooltip = fact_inf_tt
+				custom_effect_tooltip = com_fct_imp_tt
+				faction_gui_call = yes
+			}
 		}
 	}
 
@@ -2376,9 +2281,6 @@ focus_tree = {
 	}
 
 
-
-
-
 ###############################################################################
 #########################[ MILITARY AFFAIRS SUBTREE ]##########################
 
@@ -2402,7 +2304,8 @@ focus_tree = {
 
 		completion_reward = {
 			add_war_support = 0.02
-            country_event = { id = hellas.3 }
+			add_command_power = 100
+            #country_event = { id = hellas.3 }
 		}
 	} 
 
@@ -2455,7 +2358,7 @@ focus_tree = {
 			add_stability = 0.02
 			add_war_support = 0.02
 			set_variable = { global.gov_side_array^1=maniadakis tooltip=appoint_maniadakis_tt}
-			hidden_effect = { GRE_konstantinos_maniadakis = { vscope_from_cscope=yes vscope_increase_title=yes }}
+			hidden_effect = { GRE_konstantinos_maniadakis = { vscope_from_cscope=yes GRE={ vscope_increase_title=yes }}}
             add_dynamic_modifier = { modifier = GRE_yfipourgeio_asfaleias }
             unlock_decision_category_tooltip = GRE_kathestos_asfaleia
             custom_effect_tooltip = GRE_metaxas_plan_tt 
@@ -2469,7 +2372,7 @@ focus_tree = {
             set_variable = { GRE_var_enc_asf = 0.03 }
             set_variable = { GRE_var_local_intel_enemies = -0.025 }                       
 		}
-	}  
+	}
 
 
 	focus = {
@@ -2628,6 +2531,12 @@ focus_tree = {
 				limit = { has_idea = GRE_communists_utterly_crushed }
 				remove_ideas = GRE_communists_utterly_crushed
 			}
+            set_temp_variable = { tmpX = 12 }
+            set_temp_variable = { tmpY1 = 1 }
+            set_temp_variable = { tmpZ1 = 70 }
+            set_temp_variable = { tmpY3 = 2 }
+            set_temp_variable = { tmpZ3 = 3 }
+            randomly_train_tmpX_officers = yes
 		}
 	}
 
@@ -2692,16 +2601,22 @@ focus_tree = {
                 add_to_variable = { gre_noi_irf = 0.05 }
                 add_to_variable = { gre_noi_stbw = 0.001 }
             }
+			#######################
+            set_temp_variable = { tmpX = 20 }
+            set_temp_variable = { tmpY1 = 1 }
+            set_temp_variable = { tmpZ1 = 70 }
+            randomly_train_tmpX_officers = yes
+			###########################
             ######[REPORT EVENTS]######
             set_temp_variable = { tmpEDIFF=7.5 }
             set_temp_variable = { tmpARG1=1 }
             set_temp_variable = { tmpARG2=1 }
             calculate_national_intelligence_chance_to_avoid_event = yes
             add_to_temp_array={ tmpENEMIES=ITA.id }
-            set_temp_variable={ VARTOK=60 }
+            set_temp_variable={ VARTOK=61 }
             set_temp_variable={ tmpSVIA=1 }
             set_temp_variable={ tmpMODE=1 }
-            set_temp_variable={ tmpLWTHR=40 }
+            set_temp_variable={ tmpLWTHR=25 }
             set_temp_variable={ tmpUPTHR=75 }
             set_temp_variable = { tmpMAXDIR=1 }
             calculate_enemy_bounded_VAR_chance_to_avoid_event=yes
@@ -2847,10 +2762,8 @@ focus_tree = {
 
 		completion_reward = {
             custom_effect_tooltip = GRE_rearmament_tt
+            set_variable={ reforms_template_max_allocated_manpower=10000 }
             set_variable = { GRE_army_reform_cnt = 0 }
-            #add_dynamic_modifier = { modifier = GRE_army_reform_hellenic_staff }
-            #add_dynamic_modifier = { modifier = GRE_army_reform_hellenic_army }
-            #add_dynamic_modifier = { modifier = GRE_army_reform_hellenic_people }
 		}
 	}
 
@@ -2862,7 +2775,7 @@ focus_tree = {
 		x = 1
 		y = 1
 		relative_position_id = GRE_rearmament
-		cost = 2.15
+		cost = 1.43
 		ai_will_do = {
 			base = 1
 		}
@@ -2884,7 +2797,7 @@ focus_tree = {
 		x = -1
 		y = 1
 		relative_position_id = GRE_rearmament
-		cost = 2.15
+		cost = 1.43
 		ai_will_do = {
 			base = 1
 		}
@@ -2921,7 +2834,7 @@ focus_tree = {
 		x = 3
 		y = 1
 		relative_position_id = GRE_rearmament
-		cost = 2.15
+		cost = 1.43
 		ai_will_do = {
 			base = 1
 		}
@@ -2987,7 +2900,7 @@ focus_tree = {
 
 		completion_reward = {
 			add_stability = 0.02
-			add_to_variable = { GRE.available_advisor_slots=1 tooltip=increase_advisor_slots_tt }
+			#add_to_variable = { GRE.available_advisor_slots=1 tooltip=increase_advisor_slots_tt }
             if = {
                 limit = { check_variable={ var=GRE_ark value=0 compare=equals }}
 
@@ -3024,7 +2937,7 @@ focus_tree = {
 
 		completion_reward = {
             add_stability = 0.01
-            hidden_effect = { add_ideas = GRE_alexandros_koryzis_political_advisor }
+			activate_advisor = GRE_alexandros_koryzis_political_advisor
             custom_effect_tooltip = GRE_laying_out_the_social_wellfare_plan_tt
 		}
 	}
@@ -3052,7 +2965,7 @@ focus_tree = {
 			add_stability = 0.02
             add_war_support = 0.02
 			set_variable = { global.gov_side_array^0=nikoloudis tooltip=appoint_nikoloudis_tt}
-			hidden_effect = { GRE_theologos_nikoloudis = { vscope_from_cscope=yes vscope_increase_title=yes }}
+			hidden_effect = { GRE_theologos_nikoloudis = { vscope_from_cscope=yes GRE={ vscope_increase_title=yes }}}
             add_dynamic_modifier = { modifier = GRE_yfipourgeio_propagandas }
             unlock_decision_category_tooltip = GRE_kathestos_propaganda
             custom_effect_tooltip = GRE_metaxas_plan_tt  
@@ -3096,12 +3009,17 @@ focus_tree = {
         prerequisite = { focus = GRE_public_works }
 		available = {
             date > 1937.12.01
+            set_temp_variable = { tmpPR=6 }
+            custom_trigger_tooltip = {
+                tooltip=more_than_tmpPR_projects
+                check_variable = { var=amount_of_projects value=tmpPR compare=greater_than_or_equals }
+            }
 		}
         
         relative_position_id = GRE_laying_out_the_social_wellfare_plan
 		x = -1
 		y = 1
-		cost = 2.9
+		cost = 1
 		ai_will_do = {
 			base = 1
 		}
@@ -3111,40 +3029,44 @@ focus_tree = {
 
 		completion_reward = {
             add_ideas = GRE_IKA
-            ###FACTION MECHANICS###
-            set_temp_variable = { tmp_dem = 3.5 }
-            set_temp_variable = { tmp_com = 3.5 }
-			set_temp_variable = { tmp_fas = 3.5 }
-			set_temp_variable = { tmp_mon = 3.5 }
-            randomize_temp_variable = {
-                var = tmp_dem
-                distribution = uniform
-                min = 2
-                max = 5
-            }  
-            randomize_temp_variable = {
-                var = tmp_com
-                distribution = uniform
-                min = 2
-                max = 5
-            }   
-            randomize_temp_variable = {
-                var = tmp_fas
-                distribution = uniform
-                min = 2
-                max = 5
-            }   
-            randomize_temp_variable = {
-                var = tmp_mon
-                distribution = uniform
-                min = 2
-                max = 5
-            }
-            add_to_variable = { fct_dem = tmp_dem}
-            add_to_variable = { fct_com = tmp_com}
-            add_to_variable = { fct_fas = tmp_fas}  
-            add_to_variable = { fct_mon = tmp_mon}   
-            faction_gui_call = yes
+            ###[ FACTION MECHANICS ]###
+            if={
+                limit={ has_country_flag=GRE_faction_gui_flag }
+				
+				set_temp_variable = { tmp_dem = 3.5 }
+				set_temp_variable = { tmp_com = 3.5 }
+				set_temp_variable = { tmp_fas = 3.5 }
+				set_temp_variable = { tmp_mon = 3.5 }
+				randomize_temp_variable = {
+					var = tmp_dem
+					distribution = uniform
+					min = 2
+					max = 5
+				}  
+				randomize_temp_variable = {
+					var = tmp_com
+					distribution = uniform
+					min = 2
+					max = 5
+				}   
+				randomize_temp_variable = {
+					var = tmp_fas
+					distribution = uniform
+					min = 2
+					max = 5
+				}   
+				randomize_temp_variable = {
+					var = tmp_mon
+					distribution = uniform
+					min = 2
+					max = 5
+				}
+				add_to_variable = { fct_dem = tmp_dem}
+				add_to_variable = { fct_com = tmp_com}
+				add_to_variable = { fct_fas = tmp_fas}  
+				add_to_variable = { fct_mon = tmp_mon}   
+				faction_gui_call = yes
+			}
 			###[Workers Into Factories]###
             if = {
                 limit = { has_decision = workers_entering_factories }
@@ -3174,7 +3096,7 @@ focus_tree = {
         relative_position_id = GRE_laying_out_the_social_wellfare_plan
 		x = -3
 		y = 1
-		cost = 2.15
+		cost = 1
 		ai_will_do = {
 			base = 1
 		}
@@ -3195,6 +3117,11 @@ focus_tree = {
         prerequisite = { focus = GRE_launch_IKA }
         prerequisite = { focus = GRE_four_year_plan_2 }
 		available = {
+            set_temp_variable = { tmpPR=8 }
+            custom_trigger_tooltip = {
+                tooltip=more_than_tmpPR_projects
+                check_variable = { var=amount_of_projects value=tmpPR compare=greater_than_or_equals }
+            }
 		}
         
         relative_position_id = GRE_launch_IKA
@@ -3211,6 +3138,7 @@ focus_tree = {
 		completion_reward = {
 			add_stability = 0.04
             add_ideas = GRE_new_corporatism
+			custom_effect_tooltip = GRE_new_corporatism_tt
 		}
 	}    
     
@@ -3411,6 +3339,8 @@ focus_tree = {
 
 		completion_reward = {
 			custom_effect_tooltip = GRE_the_italian_question_tt
+			set_variable={ approach_the_italians_cost=25 }
+			set_variable={ approach_the_italians_days=7 }
 		}
 	}    
     
@@ -3430,7 +3360,7 @@ focus_tree = {
         relative_position_id = GRE_the_balkan_pact
 		x = 0
 		y = 2
-		cost = 2.15
+		cost = 1
 		ai_will_do = {
 			base = 1
 		}
@@ -3817,13 +3747,16 @@ focus_tree = {
         relative_position_id = GRE_new_corporatism
 		x = 0
 		y = 3
-		cost = 2.15
+		cost = 4.29
 		ai_will_do = {
 			base = 1
 		}
 
 		bypass = {
-            check_variable = { var = GRE_metaxas_army_prepared_level value = 0 compare = greater_than } 
+			OR={
+	            check_variable={ var=GRE_metaxas_army_prepared_level value=0 compare=greater_than }
+				AND={ check_variable={ invigorating_level=1 } check_variable={ working_level=1 }}
+			}
         }
 
 		completion_reward = {
@@ -4038,17 +3971,24 @@ focus_tree = {
 
 		completion_reward = {
 			USA = {
-				custom_effect_tooltip=axal_nl_tt 
+				custom_effect_tooltip=axal_nl_tt
 				set_temp_variable={ findX=THIS.id } 
 				set_temp_variable_to_random={ var=findY min=8.00 max=12.00 integer=no } 
 				add_to_variable={ THIS.favor@GRE = findY tooltip=favor_boost_with_findX_by_findY_no_name_tt }
+				custom_effect_tooltip=axal_nl_tt
+				custom_effect_tooltip="     "
+				custom_effect_tooltip=added_as_significant_nation_tt
 			}
-            ###FACTION MECHANICS###
-			set_temp_variable_to_random= { var=tmp_dem min=4 max=6 integer=no }
-            add_to_variable = { fct_dem=tmp_dem }
-			custom_effect_tooltip = fact_inf_tt
-            custom_effect_tooltip = dem_fct_imp_tt
-            faction_gui_call = yes
+            ###[ FACTION MECHANICS ]###
+            if={
+                limit={ has_country_flag=GRE_faction_gui_flag }
+				
+				set_temp_variable_to_random= { var=tmp_dem min=4 max=6 integer=no }
+				add_to_variable = { fct_dem=tmp_dem }
+				custom_effect_tooltip = fact_inf_tt
+				custom_effect_tooltip = dem_fct_imp_tt
+				faction_gui_call = yes
+			}
             custom_effect_tooltip = GRE_american_influencers_tt
 		}
 	}
@@ -4059,13 +3999,14 @@ focus_tree = {
 		prerequisite = { focus = GRE_american_influencers focus = GRE_cooperate_with_foreign_monopolies }
         
         available = {
-            has_intelligence_agency = yes
+            has_intelligence_agency=yes
+			OR={ agency_upgrade_number>4 num_of_operatives>2 }
         }
        
 		relative_position_id = GRE_american_influencers
         x = 1
 		y = 2
-		cost = 2.15
+		cost = 1
 		ai_will_do = {
 			base = 1
 		}
@@ -4433,22 +4374,17 @@ focus_tree = {
 	focus = {
 		id = GRE_learn_from_the_sino_japanese_war
 		icon = GFX_goal_gre_chi_cont
-		prerequisite = { focus = GRE_arm_the_communists }
-        prerequisite = { focus = GRE_extend_arms_sales_to_the_chinese } 
-        prerequisite = { focus = GRE_arm_the_japanese } 
+		prerequisite = { focus=GRE_arm_the_communists focus=GRE_extend_arms_sales_to_the_chinese focus=GRE_arm_the_japanese }
+		#prerequisite = { focus = GRE_arm_the_communists }
+        #prerequisite = { focus = GRE_extend_arms_sales_to_the_chinese } 
+        #prerequisite = { focus = GRE_arm_the_japanese } 
 		available = {
             date > 1940.01.01
-			custom_trigger_tooltip = {
-				tooltip = has_jap_tokens_1_tt
-				check_variable = { GRE.ep_pot@JAP > 0 }
-			}
-			custom_trigger_tooltip = {
-				tooltip = has_chn_tokens_1_tt
-				check_variable = { GRE.ep_pot@CHI > 0 }
-			}
-			custom_trigger_tooltip = {
-				tooltip = has_prc_tokens_1_tt
-				check_variable = { GRE.ep_pot@PRC > 0 }
+			set_temp_variable = { tmpQ = 50 }
+			OR={
+    	        AND={ set_temp_variable={ EPQ=JAP } custom_trigger_tooltip={ tooltip=ep_from_leading_alignment_by_EPQ_tmpQ_tt check_variable={ var=ep_perc@JAP value=tmpQ compare=greater_than_or_equals }} custom_trigger_tooltip={ tooltip=has_jap_tokens_1_tt check_variable={ GRE.ep_pot@JAP > 0 }}}
+    	        AND={ set_temp_variable={ EPQ=CHI } custom_trigger_tooltip={ tooltip=ep_from_leading_alignment_by_EPQ_tmpQ_tt check_variable={ var=ep_perc@CHI value=tmpQ compare=greater_than_or_equals }} custom_trigger_tooltip={ tooltip=has_chn_tokens_1_tt check_variable={ GRE.ep_pot@CHI > 0 }}}
+    	        AND={ set_temp_variable={ EPQ=PRC } custom_trigger_tooltip={ tooltip=ep_from_leading_alignment_by_EPQ_tmpQ_tt check_variable={ var=ep_perc@PRC value=tmpQ compare=greater_than_or_equals }} custom_trigger_tooltip={ tooltip=has_prc_tokens_1_tt check_variable={ GRE.ep_pot@PRC > 0 }}}
 			}
 		}        
 		relative_position_id = GRE_arm_the_communists
@@ -4484,26 +4420,21 @@ focus_tree = {
 				check_variable = { GRE.ep_pot@JAP > 0 }
 			}
 		}
+		bypass={ JAP={ exists=no }}
       
 		relative_position_id = GRE_arm_the_japanese
         x = 0
 		y = 2
 		cost = 1
-		ai_will_do = {
-			base = 1
-		}
 
 		completion_reward = {
 			subtract_from_variable = { GRE.ep_pot@JAP = 1 }
-            if = { 	
-                limit = { 
-                    country_exists = JAP
-                }
-                set_technology = { 
-                    naval_bomber1 = 1 
-                }
-            }
-            air_experience = 15			
+            air_experience = 15
+			add_tech_bonus={ name=japanese_air_aid bonus=0.35 uses=1 category=cat_air_engine }
+			add_tech_bonus={ name=japanese_air_aid bonus=0.20 uses=1 category=plane_modules_tech }
+			add_tech_bonus={ name=japanese_air_aid bonus=0.30 uses=1 category=cat_air_guns }
+			add_equipment_to_stockpile={ type=small_plane_naval_bomber_airframe_0 amount=100 producer=GRE }
+            subtract_from_variable = { GRE_budget_choices = 1 }
 		}
 	} 
 
@@ -4576,7 +4507,7 @@ focus_tree = {
 		completion_reward = {
         custom_effect_tooltip = GRE_arm_the_japanese_tt
 		}
-	} 
+	}
 
 	focus = {
 		id = GRE_expanding_railroad_system_on_the_backs_of_our_investors
@@ -4589,6 +4520,11 @@ focus_tree = {
         
         available = {
             has_completed_focus = GRE_open_foreign_subsidized_factories
+			custom_trigger_tooltip = {
+				tooltip=railway_system_expansion_level_req_tt
+				
+				check_variable={ GRE.railway_expansion_level<5 }
+			}
 			OR = {
 				has_active_mission = mining_rights_ath_timeout_mission
 				has_active_mission = mining_rights_ste_timeout_mission
@@ -4596,16 +4532,14 @@ focus_tree = {
 				has_active_mission = mining_rights_epi_timeout_mission
 			}
         }
-        
-		ai_will_do = {
-			base = 1
-		}
 
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 		completion_reward = {
-			expand_greek_railway_system_generator=yes		
+			expand_greek_railway_system_generator=yes
+			custom_effect_tooltip=mutually_uncomplete_focuses_tt
+			hidden_effect={ uncomplete_national_focus={ focus=GRE_expanding_railroad_system_on_the_backs_of_our_investors }}
 		}
-	}    
+	}
 
 	focus = {
 		id = GRE_colonian_subsidies
@@ -8450,9 +8384,10 @@ focus_tree = {
                 tooltip = GRE_budget_left_tt
                 check_variable = { var = GRE_budget_choices value = 0 compare = greater_than } 
             }
+			set_temp_variable={ tmpZQ=0.10 }
             custom_trigger_tooltip = {
-                tooltip = prepared_at_least_10_tt
-                check_variable = { var = preparedness_level value = 0.10 compare = greater_than_or_equals }
+                tooltip = prepared_at_least_tmpZQ_tt
+                check_variable = { var=preparedness_level value=0.10 compare=greater_than_or_equals }
             }
         }
         relative_position_id = GRE_the_army
@@ -8466,7 +8401,7 @@ focus_tree = {
 		completion_reward = {
             subtract_from_variable = { GRE_budget_choices = 1 } 
             army_experience = 8
-            air_experience = 5
+            air_experience = 6
             navy_experience = 5
 			hidden_effect = {
 				every_army_leader = {
@@ -8874,142 +8809,209 @@ focus_tree = {
 	focus = {
 		id = GRE_fighters
 		icon = GFX_goal_fighters
-        prerequisite = { focus = GRE_the_airforce }
+        prerequisite = { focus=GRE_the_airforce }
         available = {
-            has_tech = fighter1
             custom_trigger_tooltip = {
                 tooltip = GRE_budget_left_tt
-                check_variable = { var = GRE_budget_choices value = 0 compare = greater_than } 
+                check_variable = { var = GRE_budget_choices value = 0 compare = greater_than }
             }
-            custom_trigger_tooltip = {
-                tooltip = GRE_favor_french_at_least_mediocre_tt
-                check_variable = { var = FRA.favor@GRE value = 29 compare = greater_than } 
-            }
+			set_temp_variable={ findX=ENG.id }
+			set_temp_variable={ ftmpZ=30 }
+			custom_trigger_tooltip = {
+				tooltip = favor_status_with_findX_at_least_ftmpZ_shrt_tt
+				check_variable = { var=ENG.favor@GRE value=ftmpZ compare=greater_than_or_equals }
+			}
+			set_temp_variable={ findX=POL.id }
+			set_temp_variable={ ftmpZ=30 }
+			custom_trigger_tooltip = {
+				tooltip = favor_status_with_findX_at_least_ftmpZ_shrt_tt
+				check_variable = { var=POL.favor@GRE value=ftmpZ compare=greater_than_or_equals }
+			}
         }
         relative_position_id = GRE_the_airforce
 		x = 1
 		y = 1
 		cost = 1
-		ai_will_do = {
-			base = 1
-		}
 
 		completion_reward = {
-            add_equipment_to_stockpile = { type = fighter_equipment_1 amount = 48 producer = GRE }
-            add_tech_bonus = {
-				name = greek_fighters
-				bonus = 0.75
-				uses = 1
-				category = light_fighter
+            add_tech_bonus = { name=greek_fighters bonus=0.75 uses=1 category=light_fighter }
+			if = {
+				limit = { has_dlc="By Blood Alone" }
+				create_equipment_variant = {
+					name = "PZL P.24"
+					type = small_plane_airframe_0
+					parent_version = 0
+					modules = {
+						fixed_main_weapon_slot = aircraft_cannon_1_2x
+						fixed_auxiliary_weapon_slot_1 = light_mg_2x
+						engine_type_slot = engine_2_1x
+						special_type_slot_1 = empty
+					}
+				}
+				create_equipment_variant = {
+					name = "Gloster Gladiator" 
+					type = small_plane_airframe_0
+					parent_version = 0
+					modules = {
+						fixed_main_weapon_slot = light_mg_4x
+						engine_type_slot = engine_1_1x
+						special_type_slot_1 = empty
+					}
+				}
+			}
+			effect_tooltip={ add_equipment_to_stockpile={ type=small_plane_airframe_0 amount=52 producer=GRE }}
+			hidden_effect={
+				add_equipment_to_stockpile = { type=small_plane_airframe_0 amount=28 producer=GRE variant_name="PZL P.24" }
+				add_equipment_to_stockpile = { type=small_plane_airframe_0 amount=24 producer=GRE variant_name="Gloster Gladiator" }
 			}
             subtract_from_variable = { GRE_budget_choices = 1 }
 		}
-	}  
+	}
 
 	focus = {
 		id = GRE_heavy_fighters
 		icon = GFX_goal_heavy_fighters
         prerequisite = { focus = GRE_fighters }
         available = {
-            has_tech = heavy_fighter1
             custom_trigger_tooltip = {
                 tooltip = GRE_budget_left_tt
                 check_variable = { var = GRE_budget_choices value = 0 compare = greater_than } 
             }
-            custom_trigger_tooltip = {
-                tooltip = GRE_favor_french_at_least_mediocre_tt
-                check_variable = { var = FRA.favor@GRE value = 29 compare = greater_than } 
-            }
-            custom_trigger_tooltip = {
-                tooltip = GRE_favor_british_at_least_mediocre_tt
-                check_variable = { var = ENG.favor@GRE value = 29 compare = greater_than }  
-            }
+			set_temp_variable={ findX=ENG.id }
+			set_temp_variable={ ftmpZ=30 }
+			custom_trigger_tooltip = {
+				tooltip = favor_status_with_findX_at_least_ftmpZ_shrt_tt
+				check_variable = { var=ENG.favor@GRE value=ftmpZ compare=greater_than_or_equals }
+			}
+			set_temp_variable={ findX=FRA.id }
+			set_temp_variable={ ftmpZ=30 }
+			custom_trigger_tooltip = {
+				tooltip = favor_status_with_findX_at_least_ftmpZ_shrt_tt
+				check_variable = { var=FRA.favor@GRE value=ftmpZ compare=greater_than_or_equals }
+			}
         }
         relative_position_id = GRE_fighters
 		x = 1
 		y = 1
 		cost = 1
-		ai_will_do = {
-			base = 1
-		}
 
 		completion_reward = {
-            add_equipment_to_stockpile = { type = heavy_fighter_equipment_1 amount = 48 producer = GRE }
-            add_tech_bonus = {
-				name = greek_heavy_fighters
-				bonus = 0.75
-				uses = 1
-				category = cat_heavy_fighter
+			if = {
+				limit = { has_dlc="By Blood Alone" }
+
+				create_equipment_variant = {
+					name = "Aetos"
+					type = medium_plane_fighter_airframe_0
+					modules = {
+						fixed_main_weapon_slot = light_mg_4x
+						fixed_auxiliary_weapon_slot_1 = aircraft_cannon_1_2x
+						fixed_auxiliary_weapon_slot_2 = empty
+						engine_type_slot = engine_2_2x
+						special_type_slot_1 = empty
+						special_type_slot_2 = empty	
+					}
+				}
 			}
+			effect_tooltip={ add_equipment_to_stockpile = { type=medium_plane_airframe_0 amount=64 producer=GRE }}
+			hidden_effect={ add_equipment_to_stockpile = { type=medium_plane_fighter_airframe_0 amount=64 producer=GRE variant_name="Aetos" }}
             subtract_from_variable = { GRE_budget_choices = 1 }
 		}
-	} 
+	}
 
 	focus = {
 		id = GRE_bombers
 		icon = GFX_goal_bombers
         prerequisite = { focus = GRE_the_airforce }
         available = {
-            has_tech = tactical_bomber1
             custom_trigger_tooltip = {
                 tooltip = GRE_budget_left_tt
                 check_variable = { var = GRE_budget_choices value = 0 compare = greater_than } 
             }
+			set_temp_variable={ findX=FRA.id }
+			set_temp_variable={ ftmpZ=30 }
+			custom_trigger_tooltip = {
+				tooltip = favor_status_with_findX_at_least_ftmpZ_shrt_tt
+				check_variable = { var=FRA.favor@GRE value=ftmpZ compare=greater_than_or_equals }
+			}
         }
         relative_position_id = GRE_the_airforce
 		x = -1
 		y = 1
 		cost = 1
-		ai_will_do = {
-			base = 1
-		}
 
 		completion_reward = {
-            add_equipment_to_stockpile = { type = tac_bomber_equipment_1 amount = 48 producer = GRE }
-            add_tech_bonus = {
-				name = greek_bombers
-				bonus = 0.75
-				uses = 1
-				category = tactical_bomber
+            add_tech_bonus = { name=greek_bombers bonus=0.25 uses=1 category=tactical_bomber }
+            add_tech_bonus = { name=greek_bombers bonus=0.50 uses=1 category=cat_strategic_bomber }
+			create_equipment_variant = {
+				name = "Br. 19" 
+				type = small_plane_cas_airframe_0
+				parent_version = 0
+				modules = {
+					fixed_main_weapon_slot = small_bomb_bay
+					engine_type_slot = engine_1_1x
+					special_type_slot_1 = empty
+				}
+			}
+			create_equipment_variant = {
+				name = "Bristol Blenheim" 
+				type = medium_plane_airframe_1
+				allow_without_tech=yes
+				modules = {
+					fixed_main_weapon_slot = medium_bomb_bay
+					engine_type_slot = engine_2_2x
+					special_type_slot_1 = lmg_defense_turret
+				}
+				icon = "GFX_ENG_heavy_fighter1_medium"
+			}
+			effect_tooltip={ 
+				add_equipment_to_stockpile={ type=small_plane_airframe_0 amount=32 producer=GRE }
+				add_equipment_to_stockpile={ type=medium_plane_airframe_1 amount=12 producer=GRE }
+			}
+			hidden_effect={ 
+				add_equipment_to_stockpile={ type=small_plane_cas_airframe_0 amount=32 producer=GRE variant_name="Br. 19" }
+				add_equipment_to_stockpile={ type=medium_plane_airframe_1 amount=12 producer=GRE variant_name="Bristol Blenheim" }
 			}
             subtract_from_variable = { GRE_budget_choices = 1 }
 		}
-	}   
+	}
 
 	focus = {
 		id = GRE_naval_bombers
 		icon = GFX_goal_naval_bombers
         prerequisite = { focus = GRE_bombers }
         available = {
-            has_tech = naval_bomber2
             custom_trigger_tooltip = {
                 tooltip = GRE_budget_left_tt
                 check_variable = { var = GRE_budget_choices value = 0 compare = greater_than } 
             }
-            custom_trigger_tooltip = {
-                tooltip = GRE_favor_british_at_least_mediocre_tt
-                check_variable = { var = ENG.favor@GRE value = 29 compare = greater_than }  
-            }
+			set_temp_variable={ findX=ENG.id }
+			set_temp_variable={ ftmpZ=30 }
+			custom_trigger_tooltip = {
+				tooltip = favor_status_with_findX_at_least_ftmpZ_shrt_tt
+				check_variable = { var=ENG.favor@GRE value=ftmpZ compare=greater_than_or_equals }
+			}
         }
         relative_position_id = GRE_bombers
 		x = -1
 		y = 1
 		cost = 1
-		ai_will_do = {
-			base = 1
-		}
 
 		completion_reward = {
-            add_equipment_to_stockpile = { type = nav_bomber_equipment_2 amount = 48 producer = GRE }
-            add_tech_bonus = {
-				name = greek_naval_bombers
-				bonus = 0.75
-				uses = 1
-				category = naval_bomber
+			create_equipment_variant = {
+				name = "Vickers Vildebeest" 
+				type = small_plane_naval_bomber_airframe_0
+				parent_version = 0
+				modules = {
+					fixed_main_weapon_slot = torpedo_mounting
+					engine_type_slot = engine_2_1x
+					special_type_slot_1 = empty
+				}
 			}
+			effect_tooltip={ add_equipment_to_stockpile={ type=small_plane_airframe_0 amount=48 producer=GRE }}
+			hidden_effect={ add_equipment_to_stockpile = { type=small_plane_naval_bomber_airframe_0 amount=48 producer=GRE variant_name="Vickers Vildebeest" }}
             subtract_from_variable = { GRE_budget_choices = 1 }
 		}
-	}    
+	}
 
 	focus = {
 		id = GRE_fundraising_an_airforce
@@ -9019,9 +9021,6 @@ focus_tree = {
 		x = 0
 		y = 2
 		cost = 1
-		ai_will_do = {
-			base = 1
-		}
 
 		completion_reward = {
             custom_effect_tooltip = GRE_fundraising_an_airforce_focus_tt
@@ -9045,9 +9044,6 @@ focus_tree = {
 		x = 0
 		y = 3
 		cost = 1
-		ai_will_do = {
-			base = 1
-		}
 
 		completion_reward = {
 			add_to_variable = { GRE_budget_choices = 1 }
@@ -9070,7 +9066,7 @@ focus_tree = {
         relative_position_id = GRE_extend_budget
         available = {
             date > 1941.1.1
-			has_axis_occupation = no
+			NOT={ has_axis_occupation=yes }
             OR = {
                 has_country_flag = GRE_victor_in_a_big_war
                 custom_trigger_tooltip = {
@@ -9098,12 +9094,8 @@ focus_tree = {
 		x = 0
 		y = 1
 		cost = 2.9
-		ai_will_do = {
-			base = 1
-		}
 
-		completion_reward = {
-		}
+		completion_reward={}
 	}
 
 	focus = {

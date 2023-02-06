@@ -34,36 +34,60 @@ country_event = {
 	option = {
 		name = hellas.1.a
 
-		ai_chance = {
-			base = 100
-        }
+		ai_chance = { base=100 }
 
 		GRE = {
             add_stability = 0.5
             add_war_support = 0.5
-            activate_decision = political_stabilization
-            add_days_remove  = {
-                decision = political_stabilization
-                days = 60
-            }
             set_variable = { decision_taken = 0 }
             set_variable = { metaxas_pro_axis = 1 }
             faction_gui_call = yes
+            #######################
             if = {
-                limit = { has_active_mission = workers_entering_factories }
-                add_days_mission_timeout  = { mission=workers_entering_factories days=-30 }
+                limit = { OR={ has_active_mission=workers_entering_factories has_active_mission=invigorating_hellenic_spirit }}
+                
+                custom_effect_tooltip = mis_impacts_header
             }
             if = {
-                limit = { has_active_mission = invigorating_hellenic_spirit }
-                add_days_mission_timeout  = { mission=invigorating_hellenic_spirit days=-30 }
-            }            
-            custom_effect_tooltip = axal_nl2_tt
+                limit = { has_active_mission=workers_entering_factories }
+
+                set_temp_variable={ tmpMISS=2 }
+                set_temp_variable={ tmpSIGN=0 }
+                set_temp_variable={ tmpARD=-30 }
+                set_temp_variable={ tmpDIS=30 }
+                custom_effect_tooltip = "        "
+                custom_effect_tooltip = mis_impact
+                hidden_effect={ add_days_mission_timeout={ mission=workers_entering_factories days=tmpARD }}
+            }
+            if = {
+                limit = { has_active_mission=invigorating_hellenic_spirit }
+
+                set_temp_variable={ tmpMISS=3 }
+                set_temp_variable={ tmpSIGN=0 }
+                set_temp_variable={ tmpARD=-30 }
+                set_temp_variable={ tmpDIS=30 }
+                custom_effect_tooltip = "        "
+                custom_effect_tooltip = mis_impact
+                hidden_effect={ add_days_mission_timeout={ mission=invigorating_hellenic_spirit days=tmpARD }}
+            }
+            set_temp_variable={ tmpMISS=5 }
+            set_temp_variable={ tmpSIGN=0 }
+            set_temp_variable={ tmpARD=60 }
+            set_temp_variable={ tmpDIS=60 }
+            custom_effect_tooltip = "        "
+            custom_effect_tooltip = mis_impact
+            hidden_effect={ activate_decision=political_stabilization add_days_remove={ decision=political_stabilization days=59 }}
+            #######################
             custom_effect_tooltip = axal_h1_shift_axis_heavy_tt
-            ###FACTION MECHANICS###
-            set_temp_dem_adverse = yes
-            set_temp_com_catastrophic = yes
-            set_temp_fas_favourable = yes
-            set_temp_mon_favourable = yes
+            ###[ FACTION MECHANICS ]###
+            if={
+                limit={ has_country_flag=GRE_faction_gui_flag }
+				
+                set_temp_dem_adverse = yes
+                set_temp_com_catastrophic = yes
+                set_temp_fas_favourable = yes
+                set_temp_mon_favourable = yes
+            }
             #######################
             hidden_effect = { complete_national_focus = GRE_escalating_strikes }
             ######[REPORT EVENTS]######
@@ -83,36 +107,57 @@ country_event = {
 	option = {
 		name = hellas.1.b
 
-		ai_chance = {
-			base = 1
-        }
-
 		GRE = {
             add_stability = 0.25
             add_war_support = 0.25
-            activate_decision = political_stabilization
-            add_days_remove  = {
-                decision = political_stabilization
-                days = 150
-            }
             set_variable = { decision_taken = 1 }
             set_variable = { metaxas_pro_axis = 0.5 }
-            faction_gui_call = yes
+            #######################
             if = {
-                limit = { has_active_mission = workers_entering_factories }
-                add_days_mission_timeout  = { mission=workers_entering_factories days=-45 }
+                limit = { OR={ has_active_mission=workers_entering_factories has_active_mission=invigorating_hellenic_spirit }}
+                
+                custom_effect_tooltip = mis_impacts_header
             }
             if = {
-                limit = { has_active_mission = invigorating_hellenic_spirit }
-                add_days_mission_timeout  = { mission=invigorating_hellenic_spirit days=-45 }
-            }   
-            custom_effect_tooltip = axal_nl2_tt
+                limit = { has_active_mission=workers_entering_factories }
+
+                set_temp_variable={ tmpMISS=2 }
+                set_temp_variable={ tmpSIGN=0 }
+                set_temp_variable={ tmpARD=-45 }
+                set_temp_variable={ tmpDIS=45 }
+                custom_effect_tooltip = "        "
+                custom_effect_tooltip = mis_impact
+                hidden_effect={ add_days_mission_timeout={ mission=workers_entering_factories days=tmpARD }}
+            }
+            if = {
+                limit = { has_active_mission=invigorating_hellenic_spirit }
+
+                set_temp_variable={ tmpMISS=3 }
+                set_temp_variable={ tmpSIGN=0 }
+                set_temp_variable={ tmpARD=-45 }
+                set_temp_variable={ tmpDIS=45 }
+                custom_effect_tooltip = "        "
+                custom_effect_tooltip = mis_impact
+                hidden_effect={ add_days_mission_timeout={ mission=invigorating_hellenic_spirit days=tmpARD }}
+            }
+            set_temp_variable={ tmpMISS=5 }
+            set_temp_variable={ tmpSIGN=0 }
+            set_temp_variable={ tmpARD=150 }
+            set_temp_variable={ tmpDIS=150 }
+            custom_effect_tooltip = "        "
+            custom_effect_tooltip = mis_impact
+            hidden_effect={ activate_decision=political_stabilization add_days_remove={ decision=political_stabilization days=149 }}
+            #######################
             custom_effect_tooltip = axal_h1_shift_axis_light_tt
-            ###FACTION MECHANICS###
-            set_temp_dem_insignificant_negative = yes
-            set_temp_com_slightly_detrimental = yes
-            set_temp_fas_beneficial = yes
-            set_temp_mon_beneficial = yes
+            ###[ FACTION MECHANICS ]###
+            if={
+                limit={ has_country_flag=GRE_faction_gui_flag }
+				
+                set_temp_dem_insignificant_negative = yes
+                set_temp_com_slightly_detrimental = yes
+                set_temp_fas_beneficial = yes
+                set_temp_mon_beneficial = yes
+            }
             #######################
             hidden_effect = { complete_national_focus = GRE_escalating_strikes }
             ######[REPORT EVENTS]######
@@ -132,30 +177,50 @@ country_event = {
 	option = {
 		name = hellas.1.c
 
-		ai_chance = {
-			base = 1
-        }
-
 		GRE = {
             add_stability = -0.2
             add_war_support = -0.2
             set_variable = { decision_taken = 2 }
             faction_gui_call = yes
+            #######################
             if = {
-                limit = { has_active_mission = workers_entering_factories }
-                add_days_mission_timeout  = { mission=workers_entering_factories days=-180 }
+                limit = { OR={ has_active_mission=workers_entering_factories has_active_mission=invigorating_hellenic_spirit }}
+                
+                custom_effect_tooltip = mis_impacts_header
             }
             if = {
-                limit = { has_active_mission = invigorating_hellenic_spirit }
-                add_days_mission_timeout  = { mission=invigorating_hellenic_spirit days=-180 }
-            }   
-            swap_ideas = { remove_idea=limited_conscription add_idea=disarmed_nation }
+                limit = { has_active_mission=workers_entering_factories }
+
+                set_temp_variable={ tmpMISS=2 }
+                set_temp_variable={ tmpSIGN=0 }
+                set_temp_variable={ tmpARD=-180 }
+                set_temp_variable={ tmpDIS=180 }
+                custom_effect_tooltip = "        "
+                custom_effect_tooltip = mis_impact
+                hidden_effect={ add_days_mission_timeout={ mission=workers_entering_factories days=tmpARD }}
+            }
+            if = {
+                limit = { has_active_mission=invigorating_hellenic_spirit }
+
+                set_temp_variable={ tmpMISS=3 }
+                set_temp_variable={ tmpSIGN=0 }
+                set_temp_variable={ tmpARD=-180 }
+                set_temp_variable={ tmpDIS=180 }
+                custom_effect_tooltip = "        "
+                custom_effect_tooltip = mis_impact
+                hidden_effect={ add_days_mission_timeout={ mission=invigorating_hellenic_spirit days=tmpARD }}
+            }
+            #######################
             custom_effect_tooltip = axal_h1_shift_allies_light_tt
-            ###FACTION MECHANICS###
-            set_temp_dem_beneficial = yes
-            set_temp_com_favourable = yes
-            set_temp_fas_detrimental = yes
-            set_temp_mon_detrimental = yes
+            ###[ FACTION MECHANICS ]###
+            if={
+                limit={ has_country_flag=GRE_faction_gui_flag }
+				
+                set_temp_dem_beneficial = yes
+                set_temp_com_favourable = yes
+                set_temp_fas_detrimental = yes
+                set_temp_mon_detrimental = yes
+            }
             #######################
             hidden_effect = { complete_national_focus = GRE_escalating_strikes }
             ######[REPORT EVENTS]######
@@ -173,8 +238,11 @@ country_event = {
             set_temp_variable = { tmpIMP=0.2 }
             potentially_send_report_events_for_actions_tmpREAC1_tmpREAC2_with_args_tmpARRVAL_tmpMAG_and_code = yes
             custom_effect_tooltip = report_event_warning_potential_repercussions_diplomatic_tt
+            ###########################
+            custom_effect_tooltip = axal_nl2_tt
+            swap_ideas = { remove_idea=limited_conscription add_idea=disarmed_nation }
 		}
-    }    
+    }
 }
 
 country_event = {
@@ -200,92 +268,108 @@ country_event = {
 			name = "4h Augoústou"
 		}
         set_country_flag = GRE_kathestos_proclaimed
-        GRE_ioannis_metaxas = { vscope_from_cscope_root=yes vscope_increase_title=yes }
-        GRE_kostas_kotzias = { vscope_from_cscope_root=yes vscope_increase_title=yes }
+        GRE_ioannis_metaxas = { vscope_from_cscope=yes GRE={ vscope_increase_title=yes }}
+        GRE_kostas_kotzias = { vscope_from_cscope=yes GRE={ vscope_increase_title=yes }}
         set_variable = { GRE_ark = 0 }
         if = { 
             limit = { check_variable = { decision_taken = 0 } } 
             custom_effect_tooltip = GRE_papagos_selection_tt
-            #######################
-            set_temp_variable = { tmp_mon_effect_increase = 0.10 }
-            set_temp_variable = { tmp_mon_effect = fct_mon_effect_multiplier }
-            add_to_temp_variable = { tmp_mon_effect = tmp_mon_effect_increase }
-            set_variable = { fct_mon_effect_multiplier = tmp_mon_effect }
-            #########  ############
-            custom_effect_tooltip = GRE_fct_effect_multiplier_change_shrt_title
-            custom_effect_tooltip = GRE_fct_effect_multiplier_change_shrt_up_mon
-            ###FACTION MECHANICS###
-            set_temp_dem_adverse = yes
-            set_temp_com_adverse = yes
-            set_temp_fas_beneficial = yes
-            set_temp_mon_favourable = yes 
+            ###[ FACTION MECHANICS ]###
+            if={
+                limit={ has_country_flag=GRE_faction_gui_flag }
+                    
+                set_temp_variable = { tmp_mon_effect_increase = 0.10 }
+                set_temp_variable = { tmp_mon_effect = fct_mon_effect_multiplier }
+                add_to_temp_variable = { tmp_mon_effect = tmp_mon_effect_increase }
+                set_variable = { fct_mon_effect_multiplier = tmp_mon_effect }
+                #########  ############
+                custom_effect_tooltip = GRE_fct_effect_multiplier_change_shrt_title
+                custom_effect_tooltip = GRE_fct_effect_multiplier_change_shrt_up_mon
+                ########
+                set_temp_dem_adverse = yes
+                set_temp_com_adverse = yes
+                set_temp_fas_beneficial = yes
+                set_temp_mon_favourable = yes
+            }
         }
         else_if = {
             limit = { check_variable = { decision_taken = 1 } }
-            custom_effect_tooltip = GRE_drakos_selection_tt            
-            #######################
-            set_temp_variable = { tmp_mon_effect_increase = 0.06 }
-            set_temp_variable = { tmp_mon_effect = fct_mon_effect_multiplier }
-            add_to_temp_variable = { tmp_mon_effect = tmp_mon_effect_increase }
-            set_variable = { fct_mon_effect_multiplier = tmp_mon_effect }
-            set_temp_variable = { tmp_dem_effect_increase = 0.04 }
-            set_temp_variable = { tmp_dem_effect = fct_dem_effect_multiplier }
-            add_to_temp_variable = { tmp_dem_effect = tmp_dem_effect_increase }
-            set_variable = { fct_dem_effect_multiplier = tmp_dem_effect }
-            #########  ############
-            custom_effect_tooltip = GRE_fct_effect_multiplier_change_shrt_title
-            custom_effect_tooltip = GRE_fct_effect_multiplier_change_shrt_up_mon
-            custom_effect_tooltip = GRE_fct_effect_multiplier_change_shrt_up_dem
-            ###FACTION MECHANICS###
-            set_temp_com_catastrophic = yes
-            set_temp_fas_insignificant_positive = yes
-            set_temp_mon_favourable = yes
+            custom_effect_tooltip = GRE_drakos_selection_tt
+            ###[ FACTION MECHANICS ]###
+            if={
+                limit={ has_country_flag=GRE_faction_gui_flag }
+                    
+                set_temp_variable = { tmp_mon_effect_increase = 0.06 }
+                set_temp_variable = { tmp_mon_effect = fct_mon_effect_multiplier }
+                add_to_temp_variable = { tmp_mon_effect = tmp_mon_effect_increase }
+                set_variable = { fct_mon_effect_multiplier = tmp_mon_effect }
+                set_temp_variable = { tmp_dem_effect_increase = 0.04 }
+                set_temp_variable = { tmp_dem_effect = fct_dem_effect_multiplier }
+                add_to_temp_variable = { tmp_dem_effect = tmp_dem_effect_increase }
+                set_variable = { fct_dem_effect_multiplier = tmp_dem_effect }
+                #########  ############
+                custom_effect_tooltip = GRE_fct_effect_multiplier_change_shrt_title
+                custom_effect_tooltip = GRE_fct_effect_multiplier_change_shrt_up_mon
+                custom_effect_tooltip = GRE_fct_effect_multiplier_change_shrt_up_dem
+                ########
+                set_temp_com_catastrophic = yes
+                set_temp_fas_insignificant_positive = yes
+                set_temp_mon_favourable = yes
+            }
         }
         else_if = {
             limit = { check_variable = { decision_taken = 2 } }
             custom_effect_tooltip = GRE_stanotas_selection_tt
-            #######################
-            set_temp_variable = { tmp_mon_effect_increase = 0.06 }
-            set_temp_variable = { tmp_mon_effect = fct_mon_effect_multiplier }
-            add_to_temp_variable = { tmp_mon_effect = tmp_mon_effect_increase }
-            set_variable = { fct_mon_effect_multiplier = tmp_mon_effect }
-            set_temp_variable = { tmp_dem_effect_increase = 0.04 }
-            set_temp_variable = { tmp_dem_effect = fct_dem_effect_multiplier }
-            add_to_temp_variable = { tmp_dem_effect = tmp_dem_effect_increase }
-            set_variable = { fct_dem_effect_multiplier = tmp_dem_effect }
-            #########  ############
-            custom_effect_tooltip = GRE_fct_effect_multiplier_change_shrt_title
-            custom_effect_tooltip = GRE_fct_effect_multiplier_change_shrt_up_mon
-            custom_effect_tooltip = GRE_fct_effect_multiplier_change_shrt_up_dem
-            ###FACTION MECHANICS###
-            set_temp_dem_slightly_detrimental = yes
-            set_temp_com_slightly_detrimental = yes
-            set_temp_fas_insignificant_positive = yes
-            set_temp_mon_slightly_beneficial = yes
+            ###[ FACTION MECHANICS ]###
+            if={
+                limit={ has_country_flag=GRE_faction_gui_flag }
+				
+                set_temp_variable = { tmp_mon_effect_increase = 0.06 }
+                set_temp_variable = { tmp_mon_effect = fct_mon_effect_multiplier }
+                add_to_temp_variable = { tmp_mon_effect = tmp_mon_effect_increase }
+                set_variable = { fct_mon_effect_multiplier = tmp_mon_effect }
+                set_temp_variable = { tmp_dem_effect_increase = 0.04 }
+                set_temp_variable = { tmp_dem_effect = fct_dem_effect_multiplier }
+                add_to_temp_variable = { tmp_dem_effect = tmp_dem_effect_increase }
+                set_variable = { fct_dem_effect_multiplier = tmp_dem_effect }
+                #########  ############
+                custom_effect_tooltip = GRE_fct_effect_multiplier_change_shrt_title
+                custom_effect_tooltip = GRE_fct_effect_multiplier_change_shrt_up_mon
+                custom_effect_tooltip = GRE_fct_effect_multiplier_change_shrt_up_dem
+                ########
+                set_temp_dem_slightly_detrimental = yes
+                set_temp_com_slightly_detrimental = yes
+                set_temp_fas_insignificant_positive = yes
+                set_temp_mon_slightly_beneficial = yes
+            }
         }
         else_if = {
             limit = { check_variable = { decision_taken = 3 } }
             custom_effect_tooltip = GRE_zervas_selection_tt
-            #######################
-            set_temp_variable = { tmp_mon_effect_decrease = 0.05 }
-            set_temp_variable = { tmp_mon_effect = fct_mon_effect_multiplier }
-            add_to_temp_variable = { tmp_mon_effect = tmp_mon_effect_decrease }
-            set_variable = { fct_mon_effect_multiplier = tmp_mon_effect }
-            set_temp_variable = { tmp_dem_effect_increase = 0.05 }
-            set_temp_variable = { tmp_dem_effect = fct_dem_effect_multiplier }
-            add_to_temp_variable = { tmp_dem_effect = tmp_dem_effect_increase }
-            set_variable = { fct_dem_effect_multiplier = tmp_dem_effect }
-            #########  ############
-            custom_effect_tooltip = GRE_fct_effect_multiplier_change_shrt_title
-            custom_effect_tooltip = GRE_fct_effect_multiplier_change_shrt_up_dem
-            custom_effect_tooltip = GRE_fct_effect_multiplier_change_shrt_down_mon
-            ###FACTION MECHANICS###
-            set_temp_dem_slightly_beneficial = yes
-            set_temp_mon_slightly_detrimental = yes
-            subtract_from_variable = { fct_mon = 2.5}   
-            add_to_variable = { fct_dem = 2.5}
-            set_temp_variable = { tmp_mon = -2.5}
-            set_temp_variable = { tmp_dem = 2.5}
+            ###[ FACTION MECHANICS ]###
+            if={
+                limit={ has_country_flag=GRE_faction_gui_flag }
+				
+                set_temp_variable = { tmp_mon_effect_decrease = 0.05 }
+                set_temp_variable = { tmp_mon_effect = fct_mon_effect_multiplier }
+                add_to_temp_variable = { tmp_mon_effect = tmp_mon_effect_decrease }
+                set_variable = { fct_mon_effect_multiplier = tmp_mon_effect }
+                set_temp_variable = { tmp_dem_effect_increase = 0.05 }
+                set_temp_variable = { tmp_dem_effect = fct_dem_effect_multiplier }
+                add_to_temp_variable = { tmp_dem_effect = tmp_dem_effect_increase }
+                set_variable = { fct_dem_effect_multiplier = tmp_dem_effect }
+                #########  ############
+                custom_effect_tooltip = GRE_fct_effect_multiplier_change_shrt_title
+                custom_effect_tooltip = GRE_fct_effect_multiplier_change_shrt_up_dem
+                custom_effect_tooltip = GRE_fct_effect_multiplier_change_shrt_down_mon
+                ########
+                set_temp_dem_slightly_beneficial = yes
+                set_temp_mon_slightly_detrimental = yes
+                subtract_from_variable = { fct_mon = 2.5}   
+                add_to_variable = { fct_dem = 2.5}
+                set_temp_variable = { tmp_mon = -2.5}
+                set_temp_variable = { tmp_dem = 2.5}
+            }
         }
         faction_gui_call = yes
         hidden_effect = { add_ideas=GRE_kostas_kotzias_political_advisor add_ideas=GRE_diakos }
@@ -754,9 +838,8 @@ country_event = {
 		hidden_effect = {
             add_to_array={ GRE.c_dead=var:venizelos }
             set_variable={ GRE.c_dead@var:venizelos = 1 }
-            GRE_eleftherios_venizelos = { vscope_from_cscope=yes vscope_increase_title=yes }
+            GRE_eleftherios_venizelos = { vscope_from_cscope=yes GRE={ vscope_increase_title=yes }}
         }
-        #recruit_character = GRE_themistoklis_sofoulis
         promote_character = GRE_themistoklis_sofoulis
 	}
 }
@@ -889,9 +972,13 @@ unit_leader_event = {               # Convicted to Death Generals
         custom_effect_tooltip = GRE_fct_effect_multiplier_change_shrt_title
         custom_effect_tooltip = GRE_fct_effect_multiplier_change_shrt_up_dem
         custom_effect_tooltip = GRE_fct_effect_multiplier_change_shrt_up_com
-        ###FACTION MECHANICS###
-        set_temp_dem_beneficial = yes
-        set_temp_com_slightly_beneficial = yes
+        ###[ FACTION MECHANICS ]###
+            if={
+                limit={ has_country_flag=GRE_faction_gui_flag }
+				
+            set_temp_dem_beneficial = yes
+            set_temp_com_slightly_beneficial = yes
+        }
         ######[REPORT EVENTS]######
         set_temp_variable = { tmpREAC1=62 }
         set_temp_variable = { tmpREAC2=63 }
@@ -910,11 +997,11 @@ unit_leader_event = {               # Convicted to Death Generals
         set_country_flag=GRE_republican_generals_reinstated
         hidden_effect = {
             every_character = {
-                vscope_from_cscope_root=yes
+                vscope_from_cscope=yes
                 if = { limit = { has_character_flag = wanted_for_dead } clr_character_flag = wanted_for_dead }
                 if = { limit = { has_character_flag = target_of_the_failed_coup } clr_character_flag = target_of_the_failed_coup }
                 if = { limit = { has_character_flag = purged_by_regime } clr_character_flag = purged_by_regime }
-                if = { limit = { check_variable={ c_purged@var:v=1} } clear_variable=c_purged@var:v remove_from_array={ c_purged=var:v }}
+                GRE={ if = { limit = { check_variable={ c_purged@var:v=1} } clear_variable=c_purged@var:v remove_from_array={ c_purged=var:v }}}
             }
         }
         custom_effect_tooltip = h14_b
@@ -932,9 +1019,13 @@ unit_leader_event = {               # Convicted to Death Generals
         custom_effect_tooltip = GRE_fct_effect_multiplier_change_shrt_title
         custom_effect_tooltip = GRE_fct_effect_multiplier_change_shrt_up_dem
         custom_effect_tooltip = GRE_fct_effect_multiplier_change_shrt_up_com
-        ###FACTION MECHANICS###
-        set_temp_dem_beneficial = yes
-        set_temp_com_slightly_beneficial = yes
+        ###[ FACTION MECHANICS ]###
+        if={
+            limit={ has_country_flag=GRE_faction_gui_flag }
+            
+            set_temp_dem_beneficial = yes
+            set_temp_com_slightly_beneficial = yes
+        }
         ######[REPORT EVENTS]######
         set_temp_variable = { tmpREAC1=62 }
         set_temp_variable = { tmpREAC2=63 }
@@ -1556,6 +1647,20 @@ state_event = {                                                                 
     option = {
 		name = hellas.1012.a
 		ai_chance = { base = 100 }
+    }
+}
+
+country_event = {                                                       #Economy [Detection/Announcement]#
+	id = hellas.50
+	title = hellas.50.t
+	desc = hellas.50.desc
+    picture = GFX_report_event_metaxas_diplomacy
+
+	fire_only_once = yes
+    is_triggered_only = yes
+	
+	option = {
+        name = hellas.50.a
     }
 }
 
@@ -3565,6 +3670,7 @@ country_event = {               #MUSSOLINI DEFAMATION
             array=GRE.ita_nagging_worked_array
             
             add_opinion_modifier={ target=GRE modifier=ITA_nagged_TARGET_against_GRE }
+            if={ limit={ check_variable={ var=GRE.italian_escalation_level value=50 compare=greater_than_or_equals }} send_embargo=GRE }
             set_country_flag={ flag=ita_nagging_in_effect days=29 value=1 }
         }
         multiply_temp_variable={ x?-20=GRE.ita_nagging_backfired_array^num }
@@ -4106,7 +4212,6 @@ country_event = {               #BRITISH RESPONSE
                 multiply_temp_variable = { b2 = 1.50 }   #50%higher
                 multiply_temp_variable = { b3 = 0.50 }   #50%lower
                 multiply_temp_variable = { b4 = 0.10 }   #90%lower
-                log="DID IT"
             }
             else_if = { 
                 limit = { check_variable = { GRE.protest_level = 3 } }
@@ -4122,10 +4227,10 @@ country_event = {               #BRITISH RESPONSE
                 multiply_temp_variable = { b3 = 0.75 }   #25%lower
                 multiply_temp_variable = { b4 = 0.50 }   #50%lower
             }
-            log="[?b1]"
-            log="[?b2]"
-            log="[?b3]"
-            log="[?b4]"
+            #log="[?b1]"
+            #log="[?b2]"
+            #log="[?b3]"
+            #log="[?b4]"
             ###[FINAL]###
             random_list = {
                 seed = random
@@ -4599,8 +4704,7 @@ country_event = {                                                               
 			}
 		}
         BUL = {
-            clr_country_flag = channels_established
-            set_country_flag = common_strategy_with_greece_defined 
+            set_variable={ exoteriki_politiki_relations_level=2 }
             add_opinion_modifier = { 
                 target = GRE
                 modifier = GRE_common_balkan_strategy
@@ -5537,7 +5641,7 @@ country_event = {                                       # REDIRECTOR FOR DEBT RE
                 if={
                     limit={ check_variable={ gre_total_paid@var:v>0 }}
                 
-                    log="SCOPE IS: [?THIS.GetName], checking for: [?v.GetName]"
+                    #log="SCOPE IS: [?THIS.GetName], checking for: [?v.GetName]"
                     clear_temp_array = tmpCHANCES
                     clear_temp_array = tmpRECEIVERS
                     clear_temp_array = tmpWEIGHT
@@ -5603,6 +5707,7 @@ country_event = {                                       # REACTION TO ACTION EVE
 	
 	option = {
         name=hellas.332.a
+        trigger={ NOT={ check_variable={ FROM.e332_1_t@GRE=66 } check_variable={ FROM.e332_1_t@GRE=52 }}}
         if = {
             limit = {check_variable={ FROM.e332_1_t@GRE=50 }}
             set_temp_variable = { findX=FROM.id }
@@ -5633,6 +5738,7 @@ country_event = {                                       # REACTION TO ACTION EVE
     option = {
         name=hellas.332.r52_1
         trigger = { check_variable={ FROM.e332_1_t@GRE=52 }}
+
         set_temp_variable = { quantity=FROM.e332_1_MAG@GRE }
         multiply_temp_variable = { quantity=-50 }
         add_political_power = quantity
@@ -5650,6 +5756,7 @@ country_event = {                                       # REACTION TO ACTION EVE
     option = {
         name=hellas.332.r52_2
         trigger = { check_variable={ FROM.e332_1_t@GRE=52 }}
+
         multiply_temp_variable={ base_esc?2.5=FROM.e332_1_MAG@GRE }
         multiply_temp_variable={ base_acc?10=FROM.e332_1_MAG@GRE }
         set_temp_variable={ tmpESC=base_esc }
@@ -5665,12 +5772,23 @@ country_event = {                                       # REACTION TO ACTION EVE
         name=hellas.332.r66_1
         trigger = { check_variable={ FROM.e332_1_t@GRE=66 }}
         FROM = { 
-            set_temp_variable={ findX=THIS.id } 
-            set_temp_variable_to_random={ var=findY min=-12 max=-8 integer=no } 
-            add_to_variable={ THIS.favor@GRE = findY tooltip=favor_hit_with_findX_by_findY_no_name_tt }
+            set_temp_variable={ findX=THIS.id }
+            set_temp_variable={ findY=h247steal }
+            multiply_temp_variable={ findY=-40 }
+            custom_effect_tooltip=" "
+            add_to_variable={ favor@GRE=findY tooltip=favor_hit_with_findX_by_findY_no_name_tt }
+        }
+        if={
+            limit={ FROM={ tag=ITA } mussolini_historical_tensions_with_greece=yes }
+            
+            multiply_temp_variable={ base_esc?10=FROM.h247steal }
+            multiply_temp_variable={ base_acc?40=FROM.h247steal }
+            set_temp_variable={ tmpESC=base_esc }
+            add_to_temp_variable={ tmpACC=base_acc }
+            apply_italian_aggression_effects_through_tmpESC_tmpACC=yes
         }
         ###[Clear FROM from Array]###
-        remove_from_array = { GRE.e_332_1 = FROM.id }
+        remove_from_array = { GRE.e_332_1=FROM.id }
         clear_variable = FROM.e332_1_t@GRE
         clear_variable = FROM.e332_1_MAG@GRE
         clear_array    = FROM.e332_1_ARRVAL@GRE
@@ -5697,6 +5815,7 @@ country_event = {                                       # REACTION TO ACTION EVE
 	
 	option = {
         name=hellas.332.a
+        trigger = { NOT={ check_variable={ FROM.e332_1_t@GRE=66 }}}
         if = {
             limit = {check_variable={ FROM.e332_2_t@GRE=50 }}
             set_temp_variable = { findX=FROM.id }
@@ -5746,6 +5865,7 @@ country_event = {                                       # REACTION TO ACTION EVE
 	
 	option = {
         name=hellas.332.a
+        trigger = { NOT={ check_variable={ FROM.e332_1_t@GRE=66 }}}
         if = {
             limit = {check_variable={ FROM.e332_3_t@GRE=50 }}
             set_temp_variable = { findX=FROM.id }
@@ -5795,6 +5915,7 @@ country_event = {                                       # REACTION TO ACTION EVE
 	
 	option = {
         name=hellas.332.a
+        trigger = { NOT={ check_variable={ FROM.e332_1_t@GRE=66 }}}
         if = {
             limit = {check_variable={ FROM.e332_4_t@GRE=50 }}
             set_temp_variable = { findX=FROM.id }
@@ -5844,6 +5965,7 @@ country_event = {                                       # REACTION TO ACTION EVE
 	
 	option = {
         name=hellas.332.a
+        trigger = { NOT={ check_variable={ FROM.e332_1_t@GRE=66 }}}
         if = {
             limit = {check_variable={ FROM.e332_5_t@GRE=50 }}
             set_temp_variable = { findX=FROM.id }
@@ -5893,6 +6015,7 @@ country_event = {                                       # REACTION TO ACTION EVE
 	
 	option = {
         name=hellas.332.a
+        trigger = { NOT={ check_variable={ FROM.e332_1_t@GRE=66 }}}
         if = {
             limit = {check_variable={ FROM.e332_6_t@GRE=50 }}
             set_temp_variable = { findX=FROM.id }
@@ -5942,6 +6065,7 @@ country_event = {                                       # REACTION TO ACTION EVE
 	
 	option = {
         name=hellas.332.a
+        trigger = { NOT={ check_variable={ FROM.e332_1_t@GRE=66 }}}
         if = {
             limit = {check_variable={ FROM.e332_7_t@GRE=50 }}
             set_temp_variable = { findX=FROM.id }
@@ -6068,35 +6192,52 @@ country_event = {
 
 country_event = {
 	id = hellas.352
-	title = hellas.352.t
-	desc = hellas.352.desc
+	title = {
+        text=hellas.352a.t
+        trigger={ check_variable = { fct_dem < 40 }}
+    }
+	title = {
+        text=hellas.352b.t
+        trigger={ check_variable={ var=fct_dem value=40 compare=greater_than_or_equals }}
+    }
+	desc = {
+        text=hellas.352a.desc
+        trigger={ check_variable = { fct_dem < 40 }}
+    }
+	desc = {
+        text=hellas.352b.desc
+        trigger={ check_variable={ var=fct_dem value=40 compare=greater_than_or_equals }}
+    }
     picture = GFX_report_event_republicans_rebellious
 
 	trigger = {
         original_tag = GRE
         has_active_mission = GRE_repub_upr
+        NOT = { has_country_flag = republicans_rebellious_initiated }
         NOT = { has_country_flag = republican_uprising_utterly_crushed }
         NOT = { has_country_flag = dem_civilwar_started }
         check_variable = { fct_dem < 40 }
     }
-
-    mean_time_to_happen = {
-        days = 240
-        modifier = {
-            set_temp_variable = { x = fct_dem }
-            divide_temp_variable = { x = 40 }
-            if = { limit = { check_variable = { fct_dem < 20 } } divide_temp_variable = { x = 2 } }
-            factor = x
-        }
-	}
+    mean_time_to_happen={ days=14 }
 
 	fire_only_once = no
     timeout_days = 5
+
+    immediate = {
+        hidden_effect={
+            ###[Trigger Next Event]###
+            GRE={ country_event = { id=hellas.352 days=14 }}
+        }
+    }
 	
 	option = {
 		name = hellas.352.a
+        trigger={ check_variable={ fct_dem < 40 }}
 
-		ai_chance = {base = 100}
+        if = { 
+            limit={ NOT={ has_country_flag=republicans_rebellious_initiated }} 
+            set_country_flag=republicans_rebellious_initiated 
+        }
         ###[Increase Overall Effect Multiplier]###
         set_temp_variable_to_random = { var = tmp_dem_effect_increase min = 0.06 max = 0.14 }
         set_temp_variable = { tmp_dem_effect = fct_dem_effect_multiplier }
@@ -6119,41 +6260,64 @@ country_event = {
         custom_effect_tooltip = h352_dem_additional_days_lost_tt
         GRE_faction_refresh = yes
     }
+
+    option = {
+        name = hellas.352.b
+        trigger={ check_variable={ var=fct_dem value=40 compare=greater_than_or_equals }}
+
+        add_political_power=25
+        add_stability=0.05
+        ###[Increase Overall Effect Multiplier]###
+        set_temp_variable_to_random = { var = tmp_mon_effect_increase min = 0.06 max = 0.14 }
+        set_temp_variable = { tmp_mon_effect = fct_mon_effect_multiplier }
+        add_to_temp_variable = { tmp_mon_effect = tmp_mon_effect_increase }
+        set_variable = { fct_mon_effect_multiplier = tmp_mon_effect }
+        #########  ############
+        custom_effect_tooltip = GRE_fct_effect_multiplier_change_shrt_title
+        custom_effect_tooltip = GRE_fct_effect_multiplier_change_shrt_up_mon
+        #######################
+        clr_country_flag=republicans_rebellious_initiated
+    }
 }
 
 country_event = {
 	id = hellas.353
-	title = hellas.353.t
-	desc = hellas.353.desc
+	title = { text=hellas.353a.t trigger={ check_variable = { fct_com < 40 }}}
+	title = { text=hellas.353b.t trigger={ check_variable={ var=fct_com value=40 compare=greater_than_or_equals }}}
+	desc = { text=hellas.353a.desc trigger={ check_variable = { fct_com < 40 }}}
+	desc = { text=hellas.353b.desc trigger={ check_variable={ var=fct_com value=40 compare=greater_than_or_equals }}}
     picture = GFX_report_event_communists_rebellious
 
 	trigger = {
         original_tag = GRE
-        NOT = { has_country_flag = communist_uprising_utterly_crushed }
         has_active_mission = GRE_comm_upr
+        NOT = { has_country_flag = communist_rebellious_initiated }
+        NOT = { has_country_flag = communist_uprising_utterly_crushed }
         NOT = { has_country_flag = com_civilwar_started }
         check_variable = { fct_com < 40 }
     }
-
-    mean_time_to_happen = {
-        days = 240
-        modifier = {
-            set_temp_variable = { x = fct_com }
-            divide_temp_variable = { x = 40 }
-            if = { limit = { check_variable = { fct_com < 20 } } divide_temp_variable = { x = 2 } }
-            factor = x
-        }
-	}
+    mean_time_to_happen={ days=14 }
 
 	fire_only_once = no
     timeout_days = 5
+
+    immediate = {
+        hidden_effect={
+            ###[Trigger Next Event]###
+            GRE={ country_event = { id=hellas.353 days=14 }}
+        }
+    }
 	
 	option = {
 		name = hellas.353.a
+        trigger={ check_variable={ fct_com < 40 }}
 
-		ai_chance = {base = 100}
+        if = { 
+            limit={ NOT={ has_country_flag=communist_rebellious_initiated }} 
+            set_country_flag=communist_rebellious_initiated 
+        }
         ###[Increase Overall Effect Multiplier]###
-        set_temp_variable_to_random = { var = tmp_com_effect_increase min = 0.06 max = 0.14}
+        set_temp_variable_to_random = { var = tmp_com_effect_increase min = 0.06 max = 0.14 }
         set_temp_variable = { tmp_com_effect = fct_com_effect_multiplier }
         add_to_temp_variable = { tmp_com_effect = tmp_com_effect_increase }
         set_variable = { fct_com_effect_multiplier = tmp_com_effect }
@@ -6173,6 +6337,24 @@ country_event = {
         custom_effect_tooltip = GRE_fct_effect_multiplier_over_200_danger_tt
         custom_effect_tooltip = h352_com_additional_days_lost_tt
         GRE_faction_refresh = yes
+    }
+
+    option = {
+        name = hellas.353.b
+        trigger={ check_variable={ var=fct_com value=40 compare=greater_than_or_equals }}
+
+        add_political_power=25
+        add_stability=0.05
+        ###[Increase Overall Effect Multiplier]###
+        set_temp_variable_to_random = { var = tmp_mon_effect_increase min = 0.06 max = 0.14 }
+        set_temp_variable = { tmp_mon_effect = fct_mon_effect_multiplier }
+        add_to_temp_variable = { tmp_mon_effect = tmp_mon_effect_increase }
+        set_variable = { fct_mon_effect_multiplier = tmp_mon_effect }
+        #########  ############
+        custom_effect_tooltip = GRE_fct_effect_multiplier_change_shrt_title
+        custom_effect_tooltip = GRE_fct_effect_multiplier_change_shrt_up_mon
+        #######################
+        clr_country_flag=communist_rebellious_initiated
     }
 }
 
@@ -6688,881 +6870,271 @@ country_event = {       ## Solidify Budget
 
 country_event = {       ## Choose Partner to Modernize the army
 	id = hellas.405
-	title = hellas.405.t
-	desc = hellas.405.desc
-    picture = GFX_report_event_greek_hold_on
+	title = { trigger={ check_variable={ h405_phase=0 }} text=hellas.405_0.t }
+	title = { trigger={ check_variable={ h405_phase=1 }} text=hellas.405_1.t }
+	title = { trigger={ check_variable={ h405_phase=2 }} text=hellas.405_2.t }
+	title = { trigger={ check_variable={ h405_phase=3 }} text=hellas.405_3.t }
+	title = { trigger={ check_variable={ h405_phase=4 }} text=hellas.405_4.t }
+	title = { trigger={ check_variable={ h405_phase=5 }} text=hellas.405_5.t }
+	title = { trigger={ check_variable={ h405_phase=6 }} text=hellas.405_6.t }
+	title = { trigger={ check_variable={ h405_phase=7 }} text=hellas.405_7.t }
+	desc = { trigger={ check_variable={ h405_phase=0 }} text=hellas.405_0.desc }
+	desc = { trigger={ check_variable={ h405_phase=1 }} text=hellas.405_1.desc }
+	desc = { trigger={ check_variable={ h405_phase=2 }} text=hellas.405_2.desc }
+	desc = { trigger={ check_variable={ h405_phase=3 }} text=hellas.405_3.desc }
+	desc = { trigger={ check_variable={ h405_phase=4 }} text=hellas.405_4.desc }
+	desc = { trigger={ check_variable={ h405_phase=5 }} text=hellas.405_5.desc }
+	desc = { trigger={ check_variable={ h405_phase=6 }} text=hellas.405_6.desc }
+	desc = { trigger={ check_variable={ h405_phase=7 } check_variable={ h405_target_array^num=0 }} text=hellas.405_7_0.desc }
+	desc = { trigger={ check_variable={ h405_phase=7 } check_variable={ h405_target_array^num=1 }} text=hellas.405_7_1.desc }
+	desc = { trigger={ check_variable={ h405_phase=7 } check_variable={ h405_target_array^num=2 }} text=hellas.405_7_2.desc }
+	desc = { trigger={ check_variable={ h405_phase=7 } check_variable={ h405_target_array^num=3 }} text=hellas.405_7_3.desc }
+	desc = { trigger={ check_variable={ h405_phase=7 } check_variable={ h405_target_array^num=4 }} text=hellas.405_7_4.desc }
+	desc = { trigger={ check_variable={ h405_phase=7 } check_variable={ h405_target_array^num=5 }} text=hellas.405_7_5.desc }
+	desc = { trigger={ check_variable={ h405_phase=7 } check_variable={ h405_target_array^num=6 }} text=hellas.405_7_6.desc }
+	desc = { trigger={ check_variable={ h405_phase=7 } check_variable={ h405_target_array^num=7 }} text=hellas.405_7_7.desc }
+	desc = { trigger={ check_variable={ h405_phase=7 } check_variable={ h405_target_array^num=8 }} text=hellas.405_7_8.desc }
+    picture = "[GetEvent405Picture]"
 
 	is_triggered_only = yes
 
-	fire_only_once = yes
-	
-	option = {  ##ENG/FRA
-		name = hellas.405.a
-        trigger = {
-            OR = {
-                check_variable = { var = ENG.favor@GRE value = 50 compare = greater_than_or_equals }
-                check_variable = { var = FRA.favor@GRE value = 50 compare = greater_than_or_equals }
+    immediate={
+        hidden_effect={
+            #####[Final Phase Calculations]#####
+            if={
+                limit={ check_variable={ h405_phase=7 }}
+            
+                ###[ Initialize Variables ]###
+                multiply_variable={ h405_weapons_level_yes?0.25=h405_weapons_level }
+                multiply_variable={ h405_weapons_level_not?0.025=h405_weapons_level }
+                multiply_variable={ h405_mobile_level_yes?0.25=h405_mobile_level }
+                multiply_variable={ h405_mobile_level_not?0.025=h405_mobile_level }
+                multiply_variable={ h405_specops_level_yes?0.25=h405_specops_level }
+                multiply_variable={ h405_specops_level_not?0.025=h405_specops_level }
+                multiply_variable={ h405_companies_level_yes?0.25=h405_companies_level }
+                multiply_variable={ h405_companies_level_not?0.025=h405_companies_level }
+                multiply_variable={ h405_armor_level_yes?0.25=h405_armor_level }
+                multiply_variable={ h405_armor_level_not?0.025=h405_armor_level }
+                multiply_variable={ h405_artillery_level_yes?0.25=h405_artillery_level }
+                multiply_variable={ h405_artillery_level_not?0.025=h405_artillery_level }
+                
+                ###[ Calculations ]###
+
+                every_other_country={
+                    limit={ is_major=yes check_variable={ favor@GRE>49.99 }}
+
+                    ###[Weapons - Infantry Weapons]###
+                    if = { limit={ meta_trigger={ text={ has_tech=[ITEM] } ITEM="[GRE.GetNextInfEq]" }} add_to_variable={ GRE.h405_infeq_bonus=GRE.h405_weapons_level_yes } multiply_variable={ h405_infeq_cost?GRE.h405_weapons_level=1.25 }}
+                    else={ add_to_variable={ GRE.h405_infeq_bonus=GRE.h405_weapons_level_not } multiply_variable={ h405_infeq_cost?GRE.h405_weapons_level=0.15 }}
+                    add_to_variable={ h405_influence_cost=h405_infeq_cost }
+                    ###[Weapons - Support Weapons]###
+                    if = { limit={ meta_trigger={ text={ has_tech=[ITEM] } ITEM="[GRE.GetNextSupEq]" }} add_to_variable={ GRE.h405_supeq_bonus=GRE.h405_weapons_level_yes } multiply_variable={ h405_supeq_cost?GRE.h405_weapons_level=1.25 }}
+                    else={ add_to_variable={ GRE.h405_supeq_bonus=GRE.h405_weapons_level_not } multiply_variable={ h405_supeq_cost?GRE.h405_weapons_level=0.15 }}
+                    add_to_variable={ h405_influence_cost=h405_supeq_cost }
+                    ###[Mobile - Motorized]###
+                    if = { limit={ meta_trigger={ text={ has_tech=[ITEM] } ITEM="[GRE.GetNextTruck]" }} add_to_variable={ GRE.h405_motor_bonus=GRE.h405_mobile_level_yes } multiply_variable={ h405_motor_cost?GRE.h405_mobile_level=1.25 }}
+                    else={ add_to_variable={ GRE.h405_motor_bonus=GRE.h405_mobile_level_not } multiply_variable={ h405_motor_cost?GRE.h405_mobile_level=0.15 }}
+                    add_to_variable={ h405_influence_cost=h405_motor_cost }
+                    ###[Mobile - Armored Car]###
+                    if = { limit={ meta_trigger={ text={ has_tech=[ITEM] } ITEM="[GRE.GetNextArmCar]" }} add_to_variable={ GRE.h405_armcar_bonus=GRE.h405_mobile_level_yes } multiply_variable={ h405_armcar_cost?GRE.h405_mobile_level=1.25 }}
+                    else={ add_to_variable={ GRE.h405_armcar_bonus=GRE.h405_mobile_level_not } multiply_variable={ h405_armcar_cost?GRE.h405_mobile_level=0.15 }}
+                    add_to_variable={ h405_influence_cost=h405_armcar_cost }
+                    ###[SpecOps - Marines]###
+                    if = { limit={ meta_trigger={ text={ has_tech=[ITEM] } ITEM="[GRE.GetNextMarines]" }} add_to_variable={ GRE.h405_marines_bonus=GRE.h405_specops_level_yes } multiply_variable={ h405_marines_cost?GRE.h405_specops_level=1.25 }}
+                    else={ add_to_variable={ GRE.h405_marines_bonus=GRE.h405_specops_level_not } multiply_variable={ h405_marines_cost?GRE.h405_specops_level=0.15 }}
+                    add_to_variable={ h405_influence_cost=h405_marines_cost }
+                    ###[SpecOps - Paratroopers]###
+                    if = { limit={ meta_trigger={ text={ has_tech=[ITEM] } ITEM="[GRE.GetNextParatroopers]" }} add_to_variable={ GRE.h405_paratroopers_bonus=GRE.h405_specops_level_yes } multiply_variable={ h405_paratroopers_cost?GRE.h405_specops_level=1.25 }}
+                    else={ add_to_variable={ GRE.h405_paratroopers_bonus=GRE.h405_specops_level_not } multiply_variable={ h405_paratroopers_cost?GRE.h405_specops_level=0.15 }}
+                    add_to_variable={ h405_influence_cost=h405_paratroopers_cost }
+                    ###[SpecOps - Mountaineers]###
+                    if = { limit={ meta_trigger={ text={ has_tech=[ITEM] } ITEM="[GRE.GetNextMountaineers]" }} add_to_variable={ GRE.h405_mountaineers_bonus=GRE.h405_specops_level_yes } multiply_variable={ h405_mountaineers_cost?GRE.h405_specops_level=1.25 }}
+                    else={ add_to_variable={ GRE.h405_mountaineers_bonus=GRE.h405_specops_level_not } multiply_variable={ h405_mountaineers_cost?GRE.h405_specops_level=0.15 }}
+                    add_to_variable={ h405_influence_cost=h405_mountaineers_cost }
+                    ###[SpecOps - Doctrine]###
+                    if = { limit={ meta_trigger={ text={ has_tech=[ITEM] } ITEM="[GRE.GetNextSpecOpsDoctr]" }} add_to_variable={ GRE.h405_specops_bonus=GRE.h405_specops_level_yes } multiply_variable={ h405_specops_cost?GRE.h405_specops_level=1.25 }}
+                    else={ add_to_variable={ GRE.h405_specops_bonus=GRE.h405_specops_level_not } multiply_variable={ h405_specops_cost?GRE.h405_specops_level=0.15 }}
+                    add_to_variable={ h405_influence_cost=h405_specops_cost }
+                    ###[Companies - Engineers]###
+                    if = { limit={ meta_trigger={ text={ has_tech=[ITEM] } ITEM="[GRE.GetNextEngineers]" }} add_to_variable={ GRE.h405_engineers_bonus=GRE.h405_companies_level_yes } multiply_variable={ h405_engineers_cost?GRE.h405_companies_level=1.25 }}
+                    else={ add_to_variable={ GRE.h405_engineers_bonus=GRE.h405_companies_level_not } multiply_variable={ h405_engineers_cost?GRE.h405_companies_level=0.15 }}
+                    add_to_variable={ h405_influence_cost=h405_engineers_cost }
+                    ###[Companies - Recon]###
+                    if = { limit={ meta_trigger={ text={ has_tech=[ITEM] } ITEM="[GRE.GetNextRecon]" }} add_to_variable={ GRE.h405_recon_bonus=GRE.h405_companies_level_yes } multiply_variable={ h405_recon_cost?GRE.h405_companies_level=1.25 }}
+                    else={ add_to_variable={ GRE.h405_recon_bonus=GRE.h405_companies_level_not } multiply_variable={ h405_recon_cost?GRE.h405_companies_level=0.15 }}
+                    add_to_variable={ h405_influence_cost=h405_recon_cost }
+                    ###[Companies - MP]###
+                    if = { limit={ meta_trigger={ text={ has_tech=[ITEM] } ITEM="[GRE.GetNextMP]" }} add_to_variable={ GRE.h405_mp_bonus=GRE.h405_companies_level_yes } multiply_variable={ h405_mp_cost?GRE.h405_companies_level=1.25 }}
+                    else={ add_to_variable={ GRE.h405_mp_bonus=GRE.h405_companies_level_not } multiply_variable={ h405_mp_cost?GRE.h405_companies_level=0.152 }}
+                    add_to_variable={ h405_influence_cost=h405_mp_cost }
+                    ###[Companies - Maintenance]###
+                    if = { limit={ meta_trigger={ text={ has_tech=[ITEM] } ITEM="[GRE.GetNextMaintenance]" }} add_to_variable={ GRE.h405_maintenance_bonus=GRE.h405_companies_level_yes } multiply_variable={ h405_maintenance_cost?GRE.h405_companies_level=1.25 }}
+                    else={ add_to_variable={ GRE.h405_maintenance_bonus=GRE.h405_companies_level_not } multiply_variable={ h405_maintenance_cost?GRE.h405_companies_level=0.15 }}
+                    add_to_variable={ h405_influence_cost=h405_maintenance_cost }
+                    ###[Companies - FHospital]###
+                    if = { limit={ meta_trigger={ text={ has_tech=[ITEM] } ITEM="[GRE.GetNextFHospital]" }} add_to_variable={ GRE.h405_fhospital_bonus=GRE.h405_companies_level_yes } multiply_variable={ h405_fhospital_cost?GRE.h405_companies_level=1.25 }}
+                    else={ add_to_variable={ GRE.h405_fhospital_bonus=GRE.h405_companies_level_not } multiply_variable={ h405_fhospital_cost?GRE.h405_companies_level=0.15 }}
+                    add_to_variable={ h405_influence_cost=h405_fhospital_cost }
+                    ###[Companies - Logistics]###
+                    if = { limit={ meta_trigger={ text={ has_tech=[ITEM] } ITEM="[GRE.GetNextLogistics]" }} add_to_variable={ GRE.h405_logistics_bonus=GRE.h405_companies_level_yes } multiply_variable={ h405_logistics_cost?GRE.h405_companies_level=1.25 }}
+                    else={ add_to_variable={ GRE.h405_logistics_bonus=GRE.h405_companies_level_not } multiply_variable={ h405_logistics_cost?GRE.h405_companies_level=0.15 }}
+                    add_to_variable={ h405_influence_cost=h405_logistics_cost }
+                    ###[Armor - Light]###
+                    if = { limit={ meta_trigger={ text={ has_tech=[ITEM] } ITEM="[GRE.GetNextLightTank]" }} add_to_variable={ GRE.h405_ltank_bonus=GRE.h405_armor_level_yes } multiply_variable={ h405_ltank_cost?GRE.h405_armor_level=1.25 }}
+                    else={ add_to_variable={ GRE.h405_ltank_bonus=GRE.h405_armor_level_not } multiply_variable={ h405_ltank_cost?GRE.h405_armor_level=0.15 }}
+                    add_to_variable={ h405_influence_cost=h405_ltank_cost }
+                    ###[Armor - Medium]###
+                    if = { limit={ meta_trigger={ text={ has_tech=[ITEM] } ITEM="[GRE.GetNextMediumTank]" }} add_to_variable={ GRE.h405_mtank_bonus=GRE.h405_armor_level_yes } multiply_variable={ h405_mtank_cost?GRE.h405_armor_level=1.25 }}
+                    else={ add_to_variable={ GRE.h405_mtank_bonus=GRE.h405_armor_level_not } multiply_variable={ h405_mtank_cost?GRE.h405_armor_level=0.15 }}
+                    add_to_variable={ h405_influence_cost=h405_mtank_cost }
+                    ###[Armor - Heavy]###
+                    if = { limit={ meta_trigger={ text={ has_tech=[ITEM] } ITEM="[GRE.GetNextHeavyTank]" }} add_to_variable={ GRE.h405_htank_bonus=GRE.h405_armor_level_yes } multiply_variable={ h405_htank_cost?GRE.h405_armor_level=1.25 }}
+                    else={ add_to_variable={ GRE.h405_htank_bonus=GRE.h405_armor_level_not } multiply_variable={ h405_htank_cost?GRE.h405_armor_level=0.15 }}
+                    add_to_variable={ h405_influence_cost=h405_htank_cost }
+                    ###[Artillery - AA]###
+                    if = { limit={ meta_trigger={ text={ has_tech=[ITEM] } ITEM="[GRE.GetNextAA]" }} add_to_variable={ GRE.h405_aa_bonus=GRE.h405_artillery_level_yes } multiply_variable={ h405_aa_cost?GRE.h405_artillery_level=1.25 }}
+                    else={ add_to_variable={ GRE.h405_aa_bonus=GRE.h405_artillery_level_not } multiply_variable={ h405_aa_cost?GRE.h405_artillery_level=0.15 }}
+                    add_to_variable={ h405_influence_cost=h405_aa_cost }
+                    ###[Artillery - Art]###
+                    if = { limit={ meta_trigger={ text={ has_tech=[ITEM] } ITEM="[GRE.GetNextArt]" }} add_to_variable={ GRE.h405_art_bonus=GRE.h405_artillery_level_yes } multiply_variable={ h405_art_cost?GRE.h405_artillery_level=1.25 }}
+                    else={ add_to_variable={ GRE.h405_art_bonus=GRE.h405_artillery_level_not } multiply_variable={ h405_art_cost?GRE.h405_artillery_level=0.15 }}
+                    add_to_variable={ h405_influence_cost=h405_art_cost }
+                    ###[Artillery - AT]###
+                    if = { limit={ meta_trigger={ text={ has_tech=[ITEM] } ITEM="[GRE.GetNextAT]" }} add_to_variable={ GRE.h405_at_bonus=GRE.h405_artillery_level_yes } multiply_variable={ h405_at_cost?GRE.h405_artillery_level=1.25 }}
+                    else={ add_to_variable={ GRE.h405_at_bonus=GRE.h405_artillery_level_not } multiply_variable={ h405_at_cost?GRE.h405_artillery_level=0.15 }}
+                    add_to_variable={ h405_influence_cost=h405_at_cost }
+                    add_to_array={ GRE.h405_target_array=THIS.id }
+                    add_to_array={ GRE.h405_target_value_array=h405_influence_cost }
+                }
             }
-        }     
-        #hidden_effect = {
-            ### MOTORIZED / MECH1 ###
-            if = {
-                limit = { NOT = { has_tech = motorised_infantry } }
-                set_technology = { motorised_infantry = 1 }
-            }
-            ########################
-            ###       TANKS      ###
-            set_technology = { gwtank_chassis = 1 }
-            if = { limit = { NOT = { has_tech = basic_heavy_tank_chassis } OR = { ENG = { has_tech = basic_heavy_tank_chassis } FRA = { has_tech = basic_heavy_tank_chassis } } } add_tech_bonus = { bonus = 3.0 uses = 1 category = cat_heavy_armor } }
-            else_if = { limit = { NOT = { has_tech = basic_medium_tank_chassis } OR = { ENG = { has_tech = basic_medium_tank_chassis } FRA = { has_tech = basic_medium_tank_chassis } } } add_tech_bonus = { bonus = 3.0 uses = 1 category = cat_medium_armor } }
-            else_if = { limit = { NOT = { has_tech = basic_light_tank_chassis } OR = { ENG = { has_tech = basic_light_tank_chassis } FRA = { has_tech = basic_light_tank_chassis } } } add_tech_bonus = { bonus = 3.0 uses = 1 category = cat_light_armor } }
-            ########################
-            ###      SUPPORT     ###
-            set_temp_variable = { x = 0 }
-            set_temp_variable = { limit = 2 }
-            custom_effect_tooltip = support_picked_in_order_tt
-            if = {
-                limit = { NOT = { has_tech = tech_engineers2 } OR = { ENG = { has_tech = tech_engineers2 } FRA = { has_tech = tech_engineers2 } } check_variable = { x < limit } }
-                set_technology = { tech_engineers2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_recon2 } OR = { ENG = { has_tech = tech_recon2 } FRA = { has_tech = tech_recon2 } } check_variable = { x < limit } }
-                set_technology = { tech_recon2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_maintenance_company } OR = { ENG = { has_tech = tech_maintenance_company } FRA = { has_tech = tech_maintenance_company } } }
-                set_technology = { tech_maintenance_company = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_maintenance_company2 } OR = { ENG = { has_tech = tech_maintenance_company2 } FRA = { has_tech = tech_maintenance_company2 } } check_variable = { x < limit } }
-                set_technology = { tech_maintenance_company2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_field_hospital } OR = { ENG = { has_tech = tech_field_hospital } FRA = { has_tech = tech_field_hospital } } }
-                set_technology = { tech_field_hospital = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_field_hospital2 } OR = { ENG = { has_tech = tech_field_hospital2 } FRA = { has_tech = tech_field_hospital2 } } check_variable = { x < limit } }
-                set_technology = { tech_field_hospital2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_logistics_company } OR = { ENG = { has_tech = tech_logistics_company } FRA = { has_tech = tech_logistics_company } } }
-                set_technology = { tech_logistics_company = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_logistics_company2 } OR = { ENG = { has_tech = tech_logistics_company2 } FRA = { has_tech = tech_logistics_company2 } } check_variable = { x < limit } }
-                set_technology = { tech_logistics_company2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_signal_company } OR = { ENG = { has_tech = tech_signal_company } FRA = { has_tech = tech_signal_company } } }
-                set_technology = { tech_signal_company = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_signal_company2 } OR = { ENG = { has_tech = tech_signal_company2 } FRA = { has_tech = tech_signal_company2 } } check_variable = { x < limit } }
-                set_technology = { tech_signal_company2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_military_police } OR = { ENG = { has_tech = tech_military_police } FRA = { has_tech = tech_military_police } } }
-                set_technology = { tech_military_police = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_military_police2 } OR = { ENG = { has_tech = tech_military_police2 } FRA = { has_tech = tech_military_police2 } } check_variable = { x < limit } }
-                set_technology = { tech_military_police2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            ########################
-            ###      WEAPONS     ###
-            if = {
-                limit = { NOT = { has_tech = infantry_weapons1 } OR = { ENG = { has_tech = infantry_weapons1 } FRA = { has_tech = infantry_weapons1 } } }
-                set_technology = { infantry_weapons1 = 1 }
-            }
-            else_if = {
-                limit = { NOT = { has_tech = infantry_weapons2 } OR = { ENG = { has_tech = infantry_weapons2 } FRA = { has_tech = infantry_weapons2 } } }
-                set_technology = { infantry_weapons2 = 1 }
-            }
-            else_if = {
-                limit = { NOT = { has_tech = improved_infantry_weapons } OR = { ENG = { has_tech = improved_infantry_weapons } FRA = { has_tech = improved_infantry_weapons } } }
-                set_technology = { improved_infantry_weapons = 1 }
-            }
-            ########################
-            ###     ARTILLERY    ###
-            #ART
-            if = {
-                limit = { NOT = { has_tech = interwar_artillery } OR = { ENG = { has_tech = interwar_artillery } FRA = { has_tech = interwar_artillery } } }
-                set_technology = { interwar_artillery = 1 }
-            }
-            else_if = {
-                limit = { NOT = { has_tech = artillery1 } OR = { ENG = { has_tech = artillery1 } FRA = { has_tech = artillery1 } } }
-                set_technology = { artillery1 = 1 }
-            }  
-            else_if = {
-                limit = { NOT = { has_tech = artillery2 } OR = { ENG = { has_tech = artillery2 } FRA = { has_tech = artillery2 } } }
-                set_technology = { artillery2 = 1 }
-            } 
-            #AA
-            if = {
-                limit = { NOT = { has_tech = antiair1 } OR = { ENG = { has_tech = antiair1 } FRA = { has_tech = antiair1 } } }
-                set_technology = { antiair1 = 1 }
-            }
-            else_if = {
-                limit = { NOT = { has_tech = antiair2 } OR = { ENG = { has_tech = antiair2 } FRA = { has_tech = antiair2 } } }
-                set_technology = { antiair2 = 1 }
-            }  
-            else_if = {
-                limit = { NOT = { has_tech = antiair3 } OR = { ENG = { has_tech = antiair3 } FRA = { has_tech = antiair3 } } }
-                set_technology = { antiair3 = 1 }
-            }  
-            #AT
-            if = {
-                limit = { NOT = { has_tech = antitank1 } OR = { ENG = { has_tech = antitank1 } FRA = { has_tech = antitank1 } } }
-                set_technology = { antitank1 = 1 }
-            }
-            else_if = {
-                limit = { NOT = { has_tech = antitank2 } OR = { ENG = { has_tech = antitank2 } FRA = { has_tech = antitank2 } } }
-                set_technology = { antitank2 = 1 }
-            }  
-            else_if = {
-                limit = { NOT = { has_tech = antitank3 } OR = { ENG = { has_tech = antitank3 } FRA = { has_tech = antitank3 } } }
-                set_technology = { antitank3 = 1 }
-            }            
-            ########################
-            ###     DOCTRINE     ###
-            add_doctrine_cost_reduction = {
-				name = GRE_modernize_the_army
-				cost_reduction = 0.5
-				uses = 1
-				category = cat_grand_battle_plan
-			}
-        #}        
+        }
     }
-	option = {  ##GER
-		name = hellas.405.b
-        trigger = {
-            check_variable = { var = GER.favor@GRE value = 50 compare = greater_than_or_equals }
+
+    #####[ Explanation Phase ]#####
+    option={ trigger={ check_variable={ h405_phase=0 }} name="Understood" hidden_effect={ country_event={ id=hellas.4050 days=0 }}}
+    #####[ Selection Phase ]#####
+    ###[ Weapons ]###
+    option={ trigger={ check_variable={ h405_phase=1 }} name=hellas.405_sel_0 set_variable={ h405_weapons_level=1 } hidden_effect={ country_event={ id=hellas.4050 days=0 }}}
+    option={ trigger={ check_variable={ h405_phase=1 }} name=hellas.405_sel_1 set_variable={ h405_weapons_level=2 } hidden_effect={ country_event={ id=hellas.4050 days=0 }}}
+    option={ trigger={ check_variable={ h405_phase=1 }} name=hellas.405_sel_2 set_variable={ h405_weapons_level=3 } hidden_effect={ country_event={ id=hellas.4050 days=0 }}}
+    option={ trigger={ check_variable={ h405_phase=1 }} name=hellas.405_sel_3 set_variable={ h405_weapons_level=4 } hidden_effect={ country_event={ id=hellas.4050 days=0 }}}
+    ###[ Mobile ]###
+    option={ trigger={ check_variable={ h405_phase=2 }} name=hellas.405_sel_0 set_variable={ h405_mobile_level=1 } hidden_effect={ country_event={ id=hellas.4050 days=0 }}}
+    option={ trigger={ check_variable={ h405_phase=2 }} name=hellas.405_sel_1 set_variable={ h405_mobile_level=2 } hidden_effect={ country_event={ id=hellas.4050 days=0 }}}
+    option={ trigger={ check_variable={ h405_phase=2 }} name=hellas.405_sel_2 set_variable={ h405_mobile_level=3 } hidden_effect={ country_event={ id=hellas.4050 days=0 }}}
+    option={ trigger={ check_variable={ h405_phase=2 }} name=hellas.405_sel_3 set_variable={ h405_mobile_level=4 } hidden_effect={ country_event={ id=hellas.4050 days=0 }}}
+    ###[ Special Forces ]###
+    option={ trigger={ check_variable={ h405_phase=3 }} name=hellas.405_sel_0 set_variable={ h405_specops_level=1 } hidden_effect={ country_event={ id=hellas.4050 days=0 }}}
+    option={ trigger={ check_variable={ h405_phase=3 }} name=hellas.405_sel_1 set_variable={ h405_specops_level=2 } hidden_effect={ country_event={ id=hellas.4050 days=0 }}}
+    option={ trigger={ check_variable={ h405_phase=3 }} name=hellas.405_sel_2 set_variable={ h405_specops_level=3 } hidden_effect={ country_event={ id=hellas.4050 days=0 }}}
+    option={ trigger={ check_variable={ h405_phase=3 }} name=hellas.405_sel_3 set_variable={ h405_specops_level=4 } hidden_effect={ country_event={ id=hellas.4050 days=0 }}}
+    ###[ Companies ]###
+    option={ trigger={ check_variable={ h405_phase=4 }} name=hellas.405_sel_0 set_variable={ h405_companies_level=1 } hidden_effect={ country_event={ id=hellas.4050 days=0 }}}
+    option={ trigger={ check_variable={ h405_phase=4 }} name=hellas.405_sel_1 set_variable={ h405_companies_level=2 } hidden_effect={ country_event={ id=hellas.4050 days=0 }}}
+    option={ trigger={ check_variable={ h405_phase=4 }} name=hellas.405_sel_2 set_variable={ h405_companies_level=3 } hidden_effect={ country_event={ id=hellas.4050 days=0 }}}
+    option={ trigger={ check_variable={ h405_phase=4 }} name=hellas.405_sel_3 set_variable={ h405_companies_level=4 } hidden_effect={ country_event={ id=hellas.4050 days=0 }}}
+    ###[ Armor ]###
+    option={ trigger={ check_variable={ h405_phase=5 }} name=hellas.405_sel_0 set_variable={ h405_armor_level=1 } hidden_effect={ country_event={ id=hellas.4050 days=0 }}}
+    option={ trigger={ check_variable={ h405_phase=5 }} name=hellas.405_sel_1 set_variable={ h405_armor_level=2 } hidden_effect={ country_event={ id=hellas.4050 days=0 }}}
+    option={ trigger={ check_variable={ h405_phase=5 }} name=hellas.405_sel_2 set_variable={ h405_armor_level=3 } hidden_effect={ country_event={ id=hellas.4050 days=0 }}}
+    option={ trigger={ check_variable={ h405_phase=5 }} name=hellas.405_sel_3 set_variable={ h405_armor_level=4 } hidden_effect={ country_event={ id=hellas.4050 days=0 }}}
+    ###[ Artillery ]###
+    option={ trigger={ check_variable={ h405_phase=6 }} name=hellas.405_sel_0 set_variable={ h405_artillery_level=1 } hidden_effect={ country_event={ id=hellas.4050 days=0 }}}
+    option={ trigger={ check_variable={ h405_phase=6 }} name=hellas.405_sel_1 set_variable={ h405_artillery_level=2 } hidden_effect={ country_event={ id=hellas.4050 days=0 }}}
+    option={ trigger={ check_variable={ h405_phase=6 }} name=hellas.405_sel_2 set_variable={ h405_artillery_level=3 } hidden_effect={ country_event={ id=hellas.4050 days=0 }}}
+    option={ trigger={ check_variable={ h405_phase=6 }} name=hellas.405_sel_3 set_variable={ h405_artillery_level=4 } hidden_effect={ country_event={ id=hellas.4050 days=0 }}}
+    #####[ Conclusion Phase ]#####
+    option = {
+        name = "Conclude"
+        trigger={ check_variable={ h405_phase=7 }}
+
+        ###[Weapons - Infantry Weapons]###
+        if={ limit={ check_variable={ var=h405_infeq_bonus value=1 compare=greater_than_or_equals }} meta_effect={ text={ set_technology={ [ITEM]=1 } } ITEM="[GRE.GetNextInfEq]" }}
+        else={ meta_effect={ text={ add_tech_bonus={ name=GRE_MD_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] }} BONUS_SUM="[?h405_infeq_bonus|.3]" ITEM="[GRE.GetNextInfEq]" }}
+        ###[Weapons - Support Weapons]###
+        if={ limit={ check_variable={ var=h405_supeq_bonus value=1 compare=greater_than_or_equals }} meta_effect={ text={ set_technology={ [ITEM]=1 } } ITEM="[GRE.GetNextSupEq]" }}
+        else={ meta_effect={ text={ add_tech_bonus={ name=GRE_MD_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] }} BONUS_SUM="[?h405_supeq_bonus|.3]" ITEM="[GRE.GetNextSupEq]" }}
+        ###[Mobile - Motorized]###
+        if={ limit={ check_variable={ var=h405_motor_bonus value=1 compare=greater_than_or_equals }} meta_effect={ text={ set_technology={ [ITEM]=1 } } ITEM="[GRE.GetNextTruck]" }}
+        else={ meta_effect={ text={ add_tech_bonus={ name=GRE_MD_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] }} BONUS_SUM="[?h405_motor_bonus|.3]" ITEM="[GRE.GetNextTruck]" }}
+        ###[Mobile - Armored Car]###
+        if={ limit={ check_variable={ var=h405_armcar_bonus value=1 compare=greater_than_or_equals }} meta_effect={ text={ set_technology={ [ITEM]=1 } } ITEM="[GRE.GetNextArmCar]" }}
+        else={ meta_effect={ text={ add_tech_bonus={ name=GRE_MD_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] }} BONUS_SUM="[?h405_armcar_bonus|.3]" ITEM="[GRE.GetNextArmCar]" }}
+        ###[SpecOps - Marines]###
+        if={ limit={ check_variable={ var=h405_marines_bonus value=1 compare=greater_than_or_equals }} meta_effect={ text={ set_technology={ [ITEM]=1 } } ITEM="[GRE.GetNextMarines]" }}
+        else={ meta_effect={ text={ add_tech_bonus={ name=GRE_MD_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] }} BONUS_SUM="[?h405_marines_bonus|.3]" ITEM="[GRE.GetNextMarines]" }}
+        ###[SpecOps - Paratroopers]###
+        if={ limit={ check_variable={ var=h405_paratroopers_bonus value=1 compare=greater_than_or_equals }} meta_effect={ text={ set_technology={ [ITEM]=1 } } ITEM="[GRE.GetNextParatroopers]" }}
+        else={ meta_effect={ text={ add_tech_bonus={ name=GRE_MD_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] }} BONUS_SUM="[?h405_paratroopers_bonus|.3]" ITEM="[GRE.GetNextParatroopers]" }}
+        ###[SpecOps - Mountaineers]###
+        if={ limit={ check_variable={ var=h405_mountaineers_bonus value=1 compare=greater_than_or_equals }} meta_effect={ text={ set_technology={ [ITEM]=1 } } ITEM="[GRE.GetNextMountaineers]" }}
+        else={ meta_effect={ text={ add_tech_bonus={ name=GRE_MD_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] }} BONUS_SUM="[?h405_mountaineers_bonus|.3]" ITEM="[GRE.GetNextMountaineers]" }}
+        ###[SpecOps - Doctrine]###
+        if={ limit={ check_variable={ var=h405_specops_bonus value=1 compare=greater_than_or_equals }} meta_effect={ text={ set_technology={ [ITEM]=1 } } ITEM="[GRE.GetNextSpecOpsDoctr]" }}
+        else={ meta_effect={ text={ add_tech_bonus={ name=GRE_MD_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] }} BONUS_SUM="[?h405_specops_bonus|.3]" ITEM="[GRE.GetNextSpecOpsDoctr]" }}
+        ###[Companies - Engineers]###
+        if={ limit={ check_variable={ var=h405_engineers_bonus value=1 compare=greater_than_or_equals }} meta_effect={ text={ set_technology={ [ITEM]=1 } } ITEM="[GRE.GetNextEngineers]" }}
+        else={ meta_effect={ text={ add_tech_bonus={ name=GRE_MD_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] }} BONUS_SUM="[?h405_engineers_bonus|.3]" ITEM="[GRE.GetNextEngineers]" }}
+        ###[Companies - Recon]###
+        if={ limit={ check_variable={ var=h405_recon_bonus value=1 compare=greater_than_or_equals }} meta_effect={ text={ set_technology={ [ITEM]=1 } } ITEM="[GRE.GetNextRecon]" }}
+        else={ meta_effect={ text={ add_tech_bonus={ name=GRE_MD_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] }} BONUS_SUM="[?h405_recon_bonus|.3]" ITEM="[GRE.GetNextRecon]" }}
+        ###[Companies - MP]###
+        if={ limit={ check_variable={ var=h405_mp_bonus value=1 compare=greater_than_or_equals }} meta_effect={ text={ set_technology={ [ITEM]=1 } } ITEM="[GRE.GetNextMP]" }}
+        else={ meta_effect={ text={ add_tech_bonus={ name=GRE_MD_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] }} BONUS_SUM="[?h405_mp_bonus|.3]" ITEM="[GRE.GetNextMP]" }}
+        ###[Companies - Maintenance]###
+        if={ limit={ check_variable={ var=h405_maintenance_bonus value=1 compare=greater_than_or_equals }} meta_effect={ text={ set_technology={ [ITEM]=1 } } ITEM="[GRE.GetNextMaintenance]" }}
+        else={ meta_effect={ text={ add_tech_bonus={ name=GRE_MD_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] }} BONUS_SUM="[?h405_maintenance_bonus|.3]" ITEM="[GRE.GetNextMaintenance]" }}
+        ###[Companies - FHospital]###
+        if={ limit={ check_variable={ var=h405_fhospital_bonus value=1 compare=greater_than_or_equals }} meta_effect={ text={ set_technology={ [ITEM]=1 } } ITEM="[GRE.GetNextFHospital]" }}
+        else={ meta_effect={ text={ add_tech_bonus={ name=GRE_MD_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] }} BONUS_SUM="[?h405_fhospital_bonus|.3]" ITEM="[GRE.GetNextFHospital]" }}
+        ###[Companies - Logistics]###
+        if={ limit={ check_variable={ var=h405_logistics_bonus value=1 compare=greater_than_or_equals }} meta_effect={ text={ set_technology={ [ITEM]=1 } } ITEM="[GRE.GetNextLogistics]" }}
+        else={ meta_effect={ text={ add_tech_bonus={ name=GRE_MD_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] }} BONUS_SUM="[?h405_logistics_bonus|.3]" ITEM="[GRE.GetNextLogistics]" }}
+        ###[Armor - Light]###
+        if={ limit={ check_variable={ var=h405_ltank_bonus value=1 compare=greater_than_or_equals }} meta_effect={ text={ set_technology={ [ITEM]=1 } } ITEM="[GRE.GetNextLightTank]" }}
+        else={ meta_effect={ text={ add_tech_bonus={ name=GRE_MD_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] }} BONUS_SUM="[?h405_ltank_bonus|.3]" ITEM="[GRE.GetNextLightTank]" }}
+        ###[Armor - Medium]###
+        if={ limit={ check_variable={ var=h405_mtank_bonus value=1 compare=greater_than_or_equals }} meta_effect={ text={ set_technology={ [ITEM]=1 } } ITEM="[GRE.GetNextMediumTank]" }}
+        else={ meta_effect={ text={ add_tech_bonus={ name=GRE_MD_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] }} BONUS_SUM="[?h405_mtank_bonus|.3]" ITEM="[GRE.GetNextMediumTank]" }}
+        ###[Armor - Heavy]###
+        if={ limit={ check_variable={ var=h405_htank_bonus value=1 compare=greater_than_or_equals }} meta_effect={ text={ set_technology={ [ITEM]=1 } } ITEM="[GRE.GetNextHeavyTank]" }}
+        else={ meta_effect={ text={ add_tech_bonus={ name=GRE_MD_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] }} BONUS_SUM="[?h405_htank_bonus|.3]" ITEM="[GRE.GetNextHeavyTank]" }}
+        ###[Artillery - AA]###
+        if={ limit={ check_variable={ var=h405_aa_bonus value=1 compare=greater_than_or_equals }} meta_effect={ text={ set_technology={ [ITEM]=1 } } ITEM="[GRE.GetNextAA]" }}
+        else={ meta_effect={ text={ add_tech_bonus={ name=GRE_MD_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] }} BONUS_SUM="[?h405_aa_bonus|.3]" ITEM="[GRE.GetNextAA]" }}
+        ###[Artillery - Art]###
+        if={ limit={ check_variable={ var=h405_art_bonus value=1 compare=greater_than_or_equals }} meta_effect={ text={ set_technology={ [ITEM]=1 } } ITEM="[GRE.GetNextArt]" }}
+        else={ meta_effect={ text={ add_tech_bonus={ name=GRE_MD_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] }} BONUS_SUM="[?h405_art_bonus|.3]" ITEM="[GRE.GetNextArt]" }}
+        ###[Artillery - AT]###
+        if={ limit={ check_variable={ var=h405_at_bonus value=1 compare=greater_than_or_equals }} meta_effect={ text={ set_technology={ [ITEM]=1 } } ITEM="[GRE.GetNextAT]" }}
+        else={ meta_effect={ text={ add_tech_bonus={ name=GRE_MD_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] }} BONUS_SUM="[?h405_at_bonus|.3]" ITEM="[GRE.GetNextAT]" }}
+        ###[Deduct Influence Cost]###
+        hidden_effect={
+            every_other_country={
+                limit={ is_major=yes check_variable={ favor@GRE>49.99 }}
+
+                subtract_from_variable={ favor@GRE=h405_influence_cost }
+            }
         }
-        #hidden_effect = {
-            ### MOTORIZED / MECH1 ###
-            if = {
-                limit = { NOT = { has_tech = motorised_infantry } }
-                set_technology = { motorised_infantry = 1 }
-            }
-            else_if = {
-                limit = { NOT = { has_tech = mechanised_infantry } GER = { has_tech = mechanised_infantry } }
-                set_technology = { mechanised_infantry = 1 }        
-            }
-            ########################
-            ### ARMORED CAR 1/2  ###
-            if = {
-                limit = { NOT = { has_tech = armored_car1 } GER = { has_tech = armored_car1 } }
-                set_technology = { armored_car1 = 1 }
-            }
-            else_if = {
-                limit = { NOT = { has_tech = armored_car2 } GER = { has_tech = armored_car2 } }
-                set_technology = { armored_car2 = 1 }
-            }
-            ########################
-            ###       TANKS      ###
-            if = {
-                limit = {
-                    GER = { has_tech = gwtank_chassis }
-                }
-                set_technology = { gwtank_chassis = 1 }
-            }
-            if = {
-                limit = {
-                    GER = { has_tech = basic_light_tank_chassis }
-                }
-                set_technology = { basic_light_tank_chassis = 1 }
-            }
-            if = {
-                limit = {
-                    GER = { has_tech = basic_medium_tank_chassis }
-                }
-                set_technology = { basic_medium_tank_chassis = 1 }
-            }
-            if = {
-                limit = {
-                    GER = { has_tech = basic_heavy_tank_chassis }
-                }
-                set_technology = { basic_heavy_tank_chassis = 1 }
-            } 
-            if = {
-                limit = {
-                    GER = { has_tech = engine_tech_1 }
-                }
-                set_technology = { engine_tech_1 = 1 }
-            } 
-            if = {
-                limit = {
-                    GER = { has_tech = armor_tech_1 }
-                }
-                set_technology = { armor_tech_1 = 1 }
-            }
-            ########################
-            ###      SUPPORT     ###
-            set_temp_variable = { x = 0 }
-            set_temp_variable = { limit = 3 }
-            custom_effect_tooltip = support_picked_in_order_tt
-            if = {
-                limit = { NOT = { has_tech = tech_engineers2 } GER = { has_tech = tech_engineers2 } check_variable = { x < limit }  }
-                set_technology = { tech_engineers2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_recon2 } GER = { has_tech = tech_recon2 } check_variable = { x < limit }  }
-                set_technology = { tech_recon2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_maintenance_company } GER = { has_tech = tech_maintenance_company }  }
-                set_technology = { tech_maintenance_company = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_maintenance_company2 } GER = { has_tech = tech_maintenance_company2 } check_variable = { x < limit }  }
-                set_technology = { tech_maintenance_company2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_signal_company } GER = { has_tech = tech_signal_company }  }
-                set_technology = { tech_signal_company = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_signal_company2 } GER = { has_tech = tech_signal_company2 } check_variable = { x < limit }  }
-                set_technology = { tech_signal_company2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_military_police } GER = { has_tech = tech_military_police }  }
-                set_technology = { tech_military_police = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_military_police2 } GER = { has_tech = tech_military_police2 } check_variable = { x < limit }  }
-                set_technology = { tech_military_police2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_field_hospital } GER = { has_tech = tech_field_hospital }  }
-                set_technology = { tech_field_hospital = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_field_hospital2 } GER = { has_tech = tech_field_hospital2 } check_variable = { x < limit }  }
-                set_technology = { tech_field_hospital2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_logistics_company } GER = { has_tech = tech_logistics_company }  }
-                set_technology = { tech_logistics_company = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_logistics_company2 } GER = { has_tech = tech_logistics_company2 } check_variable = { x < limit }  }
-                set_technology = { tech_logistics_company2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            ########################
-            ###      WEAPONS     ###
-            if = {
-                limit = { NOT = { has_tech = infantry_weapons1 } GER = { has_tech = infantry_weapons1 } }
-                set_technology = { infantry_weapons1 = 1 }
-            }
-            else_if = {
-                limit = { NOT = { has_tech = infantry_weapons2 } GER = { has_tech = infantry_weapons2 } }
-                set_technology = { infantry_weapons2 = 1 }
-            }  
-            else_if = {
-                limit = { NOT = { has_tech = improved_infantry_weapons } GER = { has_tech = improved_infantry_weapons } }
-                set_technology = { improved_infantry_weapons = 1 }
-            }            
-            ########################
-            ###     DOCTRINE     ###   
-            add_doctrine_cost_reduction = {
-				name = GRE_modernize_the_army
-				cost_reduction = 0.5
-				uses = 2
-				category = cat_mobile_warfare
-			}
-        #}
+        ###[Clean Event Variables]###
+        hidden_effect={ h405_cleaner=yes }
     }
-	option = {  ##SOV
-		name = hellas.405.c
-        trigger = {
-            check_variable = { var = SOV.favor@GRE value = 50 compare = greater_than_or_equals }
-        }
-        #hidden_effect = {
-            ###     MOTORIZED    ###
-            if = {
-                limit = { NOT = { has_tech = motorised_infantry } }
-                set_technology = { motorised_infantry = 1 }
-            }
-            ########################
-            ###       TANKS      ###
-            if = {
-                limit = {
-                    SOV = { has_tech = gwtank_chassis }
-                }
-                set_technology = { gwtank_chassis = 1 }
-            }
-            if = {
-                limit = {
-                    SOV = { has_tech = basic_heavy_tank_chassis }
-                }
-                set_technology = { basic_heavy_tank_chassis = 1 }
-                add_tech_bonus = {
-                    name = GRE_hellenic_armoured_corp
-                    bonus = 0.25
-                    uses = 1
-                    category = cat_heavy_armor
-                }
-            } 
-            else_if = {
-                limit = {
-                    SOV = { has_tech = basic_medium_tank_chassis }
-                }
-                set_technology = { basic_medium_tank_chassis = 1 }
-                add_tech_bonus = {
-                    name = GRE_hellenic_armoured_corp
-                    bonus = 0.25
-                    uses = 1
-                    category = cat_medium_armor
-                }
-            } 
-            else_if = {
-                limit = {
-                    SOV = { has_tech = basic_light_tank_chassis }
-                }
-                set_technology = { basic_light_tank_chassis = 1 }
-                add_tech_bonus = {
-                    name = GRE_hellenic_armoured_corp
-                    bonus = 0.25
-                    uses = 1
-                    category = cat_light_armor
-                }
-            }
-            if = {
-                limit = {
-                    SOV = { has_tech = armor_tech_1 }
-                }
-                set_technology = { armor_tech_1 = 1 }
-            }
-            else_if = {
-                limit = {
-                    SOV = { has_tech = engine_tech_1 }
-                }
-                set_technology = { engine_tech_1 = 1 }
-            }			
-            ########################
-            ###      SUPPORT     ###
-            set_temp_variable = { x = 0 }
-            set_temp_variable = { limit = 1 }
-            custom_effect_tooltip = support_picked_in_order_tt
-            if = {
-                limit = { NOT = { has_tech = tech_engineers2 } SOV = { has_tech = tech_engineers2 } check_variable = { x < limit }  }
-                set_technology = { tech_engineers2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_recon2 } SOV = { has_tech = tech_recon2 } check_variable = { x < limit }  }
-                set_technology = { tech_recon2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_maintenance_company } SOV = { has_tech = tech_maintenance_company }  }
-                set_technology = { tech_maintenance_company = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_maintenance_company2 } SOV = { has_tech = tech_maintenance_company2 } check_variable = { x < limit }  }
-                set_technology = { tech_maintenance_company2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_signal_company } SOV = { has_tech = tech_signal_company }  }
-                set_technology = { tech_signal_company = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_signal_company2 } SOV = { has_tech = tech_signal_company2 } check_variable = { x < limit }  }
-                set_technology = { tech_signal_company2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_military_police } SOV = { has_tech = tech_military_police }  }
-                set_technology = { tech_military_police = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_military_police2 } SOV = { has_tech = tech_military_police2 } check_variable = { x < limit }  }
-                set_technology = { tech_military_police2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_field_hospital } SOV = { has_tech = tech_field_hospital }  }
-                set_technology = { tech_field_hospital = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_field_hospital2 } SOV = { has_tech = tech_field_hospital2 } check_variable = { x < limit }  }
-                set_technology = { tech_field_hospital2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_logistics_company } SOV = { has_tech = tech_logistics_company }  }
-                set_technology = { tech_logistics_company = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_logistics_company2 } SOV = { has_tech = tech_logistics_company2 } check_variable = { x < limit }  }
-                set_technology = { tech_logistics_company2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            ########################
-            ###      WEAPONS     ###
-            if = {
-                limit = { NOT = { has_tech = infantry_weapons1 } SOV = { has_tech = infantry_weapons1 } }
-                set_technology = { infantry_weapons1 = 1 }
-            }
-            else_if = {
-                limit = { NOT = { has_tech = infantry_weapons2 } SOV = { has_tech = infantry_weapons2 } }
-                set_technology = { infantry_weapons2 = 1 }
-            }  
-            else_if = {
-                limit = { NOT = { has_tech = improved_infantry_weapons } SOV = { has_tech = improved_infantry_weapons } }
-                set_technology = { improved_infantry_weapons = 1 }
-            }  
-            ########################
-            ###     ARTILLERY    ###
-            #ART
-            if = {
-                limit = { NOT = { has_tech = interwar_artillery } SOV = { has_tech = interwar_artillery } }
-                set_technology = { interwar_artillery = 1 }
-            }
-            else_if = {
-                limit = { NOT = { has_tech = artillery1 } SOV = { has_tech = artillery1 } }
-                set_technology = { artillery1 = 1 }
-            }  
-            else_if = {
-                limit = { NOT = { has_tech = artillery2 } SOV = { has_tech = artillery2 } }
-                set_technology = { artillery2 = 1 }
-            } 
-            #AA
-            if = {
-                limit = { NOT = { has_tech = antiair1 } SOV = { has_tech = antiair1 } }
-                set_technology = { antiair1 = 1 }
-            }
-            else_if = {
-                limit = { NOT = { has_tech = antiair2 } SOV = { has_tech = antiair2 } }
-                set_technology = { antiair2 = 1 }
-            }  
-            else_if = {
-                limit = { NOT = { has_tech = antiair3 } SOV = { has_tech = antiair3 } }
-                set_technology = { antiair3 = 1 }
-            }  
-            #AT
-            if = {
-                limit = { NOT = { has_tech = antitank1 } SOV = { has_tech = antitank1 } }
-                set_technology = { antitank1 = 1 }
-            }
-            else_if = {
-                limit = { NOT = { has_tech = antitank2 } SOV = { has_tech = antitank2 } }
-                set_technology = { antitank2 = 1 }
-            }  
-            else_if = {
-                limit = { NOT = { has_tech = antitank3 } SOV = { has_tech = antitank3 } }
-                set_technology = { antitank3 = 1 }
-            }                
-            ########################
-            ###     DOCTRINE     ###
-            add_doctrine_cost_reduction = {
-                name = GRE_modernize_the_army
-                cost_reduction = 0.5
-                uses = 1
-                category = cat_mass_assault
-            }        
-        #}            
-    }   
-	option = {  ##USA
-		name = hellas.405.d
-        trigger = {
-            check_variable = { var = USA.favor@GRE value = 50 compare = greater_than_or_equals }
-        }
-        #hidden_effect = {
-            ### MOTORIZED / MECH1 ###
-            if = {
-                limit = { NOT = { has_tech = motorised_infantry } }
-                set_technology = { motorised_infantry = 1 }
-            }
-            ########################
-            ###       TANKS      ###
-			if = {
-                limit = {
-                    USA = { has_tech = gwtank_chassis }
-                }
-                set_technology = { gwtank_chassis = 1 }
-            }
-            if = {
-                limit = {
-                    USA = { has_tech = basic_heavy_tank_chassis }
-                }
-                set_technology = { basic_heavy_tank_chassis = 1 }
-            } 
-            else_if = {
-                limit = {
-                    USA = { has_tech = basic_medium_tank_chassis }
-                }
-                set_technology = { basic_medium_tank_chassis = 1 }
-            } 
-            else_if = {
-                limit = {
-                    USA = { has_tech = basic_light_tank_chassis }
-                }
-                set_technology = { basic_light_tank_chassis = 1 }
-            }
-            if = {
-                limit = {
-                    USA = { has_tech = engine_tech_1 }
-                }
-                set_technology = { armor_tech_1 = 1 }
-            }
-            else_if = {
-                limit = {
-                    USA = { has_tech = armor_tech_1 }
-                }
-                set_technology = { engine_tech_1 = 1 }
-            }	
-            ########################
-            ###      SUPPORT     ###
-            set_temp_variable = { x = 0 }
-            set_temp_variable = { limit = 3 }
-            custom_effect_tooltip = support_picked_in_order_tt
-            if = {
-                limit = { NOT = { has_tech = tech_engineers2 } USA = { has_tech = tech_engineers2 } check_variable = { x < limit }  }
-                set_technology = { tech_engineers2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_recon2 } USA = { has_tech = tech_recon2 } check_variable = { x < limit }  }
-                set_technology = { tech_recon2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_maintenance_company } USA = { has_tech = tech_maintenance_company }  }
-                set_technology = { tech_maintenance_company = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_maintenance_company2 } USA = { has_tech = tech_maintenance_company2 } check_variable = { x < limit }  }
-                set_technology = { tech_maintenance_company2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_field_hospital } USA = { has_tech = tech_field_hospital }  }
-                set_technology = { tech_field_hospital = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_field_hospital2 } USA = { has_tech = tech_field_hospital2 } check_variable = { x < limit }  }
-                set_technology = { tech_field_hospital2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_logistics_company } USA = { has_tech = tech_logistics_company }  }
-                set_technology = { tech_logistics_company = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_logistics_company2 } USA = { has_tech = tech_logistics_company2 } check_variable = { x < limit }  }
-                set_technology = { tech_logistics_company2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_signal_company } USA = { has_tech = tech_signal_company }  }
-                set_technology = { tech_signal_company = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_signal_company2 } USA = { has_tech = tech_signal_company2 } check_variable = { x < limit }  }
-                set_technology = { tech_signal_company2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_military_police } USA = { has_tech = tech_military_police }  }
-                set_technology = { tech_military_police = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_military_police2 } USA = { has_tech = tech_military_police2 } check_variable = { x < limit }  }
-                set_technology = { tech_military_police2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            ########################
-            ###      WEAPONS     ###
-            if = {
-                limit = { NOT = { has_tech = infantry_weapons1 } USA = { has_tech = infantry_weapons1 } }
-                set_technology = { infantry_weapons1 = 1 }
-            }
-            else_if = {
-                limit = { NOT = { has_tech = infantry_weapons2 } USA = { has_tech = infantry_weapons2 } }
-                set_technology = { infantry_weapons2 = 1 }
-            }  
-            else_if = {
-                limit = { NOT = { has_tech = improved_infantry_weapons } USA = { has_tech = improved_infantry_weapons } }
-                set_technology = { improved_infantry_weapons = 1 }
-            }  
-            ########################
-            ###     ARTILLERY    ###
-            #ART
-            if = {
-                limit = { NOT = { has_tech = interwar_artillery } USA = { has_tech = interwar_artillery } }
-                set_technology = { interwar_artillery = 1 }
-            }
-            else_if = {
-                limit = { NOT = { has_tech = artillery1 } USA = { has_tech = artillery1 } }
-                set_technology = { artillery1 = 1 }
-            }  
-            else_if = {
-                limit = { NOT = { has_tech = artillery2 } USA = { has_tech = artillery2 } }
-                set_technology = { artillery2 = 1 }
-            } 
-            #AA
-            if = {
-                limit = { NOT = { has_tech = antiair1 } USA = { has_tech = antiair1 } }
-                set_technology = { antiair1 = 1 }
-            }
-            else_if = {
-                limit = { NOT = { has_tech = antiair2 } USA = { has_tech = antiair2 } }
-                set_technology = { antiair2 = 1 }
-            }  
-            else_if = {
-                limit = { NOT = { has_tech = antiair3 } USA = { has_tech = antiair3 } }
-                set_technology = { antiair3 = 1 }
-            }  
-            #AT
-            if = {
-                limit = { NOT = { has_tech = antitank1 } USA = { has_tech = antitank1 } }
-                set_technology = { antitank1 = 1 }
-            }
-            else_if = {
-                limit = { NOT = { has_tech = antitank2 } USA = { has_tech = antitank2 } }
-                set_technology = { antitank2 = 1 }
-            }  
-            else_if = {
-                limit = { NOT = { has_tech = antitank3 } USA = { has_tech = antitank3 } }
-                set_technology = { antitank3 = 1 }
-            }    
-            ########################
-            ###     SPECOPS      ###
-            if = {
-                limit = { NOT = { has_tech = marines } USA = { has_tech = marines } }
-                set_technology = { marines = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = paratroopers } USA = { has_tech = paratroopers } }
-                set_technology = { paratroopers = 1 }
-            }     
-            if = {
-                limit = { NOT = { has_tech = tech_special_forces } USA = { has_tech = tech_special_forces } }
-                set_technology = { tech_special_forces = 1 }
-            }             
-            ########################
-            ###     DOCTRINE     ###
-            add_doctrine_cost_reduction = {
-                name = GRE_modernize_the_army
-                cost_reduction = 0.5
-                uses = 1
-                category = cat_superior_firepower
-            }        
-        #}              
-    }  
-	option = {  ##JAP
-		name = hellas.405.e
-        trigger = {
-            check_variable = { var = JAP.favor@GRE value = 50 compare = greater_than_or_equals }
-            check_variable = { GRE.ep_pot@JAP > 0 }
-        }
-        #hidden_effect = {
-            custom_effect_tooltip = has_jap_tokens_1_tt
-            subtract_from_variable = { GRE.ep_pot@JAP = 1 }
-            ### MOROTRIZED & BICYCLE INFANTRY & AC ###
-            if = {
-                limit = { NOT = { has_tech = motorised_infantry } JAP = { has_tech = motorised_infantry } }
-                set_technology = { motorised_infantry = 1 }
-            }            
-            if = {
-                limit = { NOT = { has_tech = bicycle_infantry } JAP = { has_tech = bicycle_infantry } }
-                set_technology = { bicycle_infantry = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = armored_car1 } JAP = { has_tech = armored_car1 } }
-                set_technology = { armored_car1 = 1 }
-            }            
-            ########################
-            ###       TANKS      ###
-            if = {
-                limit = {
-                    JAP = { has_tech = gwtank_chassis }
-                }
-                set_technology = { gwtank_chassis = 1 }
-            } 
-            if = {
-                limit = {
-                    JAP = { has_tech = basic_light_tank_chassis }
-                }
-                set_technology = { basic_light_tank_chassis = 1 }
-            }
-            else_if = {
-                limit = {
-                    JAP = { has_tech = basic_medium_tank_chassis }
-                }
-                set_technology = { basic_medium_tank_chassis = 1 }
-            }
-            else_if = {
-                limit = {
-                    JAP = { has_tech = basic_heavy_tank_chassis }
-                }
-                set_technology = { basic_heavy_tank_chassis = 1 }
-            } 
-            if = {
-                limit = {
-                    JAP = { has_tech = engine_tech_1 }
-                }
-                set_technology = { armor_tech_1 = 1 }
-            }
-            else_if = {
-                limit = {
-                    JAP = { has_tech = armor_tech_1 }
-                }
-                set_technology = { engine_tech_1 = 1 }
-            }
-            ########################
-            ###      SUPPORT     ###
-            set_temp_variable = { x = 0 }
-            set_temp_variable = { limit = 3 }
-            custom_effect_tooltip = support_picked_in_order_tt
-            if = {
-                limit = { NOT = { has_tech = tech_engineers2 } JAP = { has_tech = tech_engineers2 } check_variable = { x < limit }  }
-                set_technology = { tech_engineers2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_recon2 } JAP = { has_tech = tech_recon2 } check_variable = { x < limit }  }
-                set_technology = { tech_recon2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_maintenance_company } JAP = { has_tech = tech_maintenance_company }  }
-                set_technology = { tech_maintenance_company = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_maintenance_company2 } JAP = { has_tech = tech_maintenance_company2 } check_variable = { x < limit }  }
-                set_technology = { tech_maintenance_company2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_field_hospital } JAP = { has_tech = tech_field_hospital }  }
-                set_technology = { tech_field_hospital = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_field_hospital2 } JAP = { has_tech = tech_field_hospital2 } check_variable = { x < limit }  }
-                set_technology = { tech_field_hospital2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_logistics_company } JAP = { has_tech = tech_logistics_company }  }
-                set_technology = { tech_logistics_company = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_logistics_company2 } JAP = { has_tech = tech_logistics_company2 } check_variable = { x < limit }  }
-                set_technology = { tech_logistics_company2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_signal_company } JAP = { has_tech = tech_signal_company }  }
-                set_technology = { tech_signal_company = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_signal_company2 } JAP = { has_tech = tech_signal_company2 } check_variable = { x < limit }  }
-                set_technology = { tech_signal_company2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_military_police } JAP = { has_tech = tech_military_police }  }
-                set_technology = { tech_military_police = 1 }
-            }
-            if = {
-                limit = { NOT = { has_tech = tech_military_police2 } JAP = { has_tech = tech_military_police2 } check_variable = { x < limit }  }
-                set_technology = { tech_military_police2 = 1 }
-                add_to_temp_variable = { x = 1 }
-            }
-            ########################
-            ###      WEAPONS     ###
-            if = {
-                limit = { NOT = { has_tech = infantry_weapons1 } JAP = { has_tech = infantry_weapons1 } }
-                set_technology = { infantry_weapons1 = 1 }
-            }
-            else_if = {
-                limit = { NOT = { has_tech = infantry_weapons2 } JAP = { has_tech = infantry_weapons2 } }
-                set_technology = { infantry_weapons2 = 1 }
-            }  
-            else_if = {
-                limit = { NOT = { has_tech = improved_infantry_weapons } JAP = { has_tech = improved_infantry_weapons } }
-                set_technology = { improved_infantry_weapons = 1 }
-            }  
-            ########################
-            ###     ARTILLERY    ###
-            #ART
-            if = {
-                limit = { NOT = { has_tech = interwar_artillery } JAP = { has_tech = interwar_artillery } }
-                set_technology = { interwar_artillery = 1 }
-            }
-            else_if = {
-                limit = { NOT = { has_tech = artillery1 } JAP = { has_tech = artillery1 } }
-                set_technology = { artillery1 = 1 }
-            }  
-            else_if = {
-                limit = { NOT = { has_tech = artillery2 } JAP = { has_tech = artillery2 } }
-                set_technology = { artillery2 = 1 }
-            } 
-            #AA
-            if = {
-                limit = { NOT = { has_tech = antiair1 } JAP = { has_tech = antiair1 } }
-                set_technology = { antiair1 = 1 }
-            }
-            else_if = {
-                limit = { NOT = { has_tech = antiair2 } JAP = { has_tech = antiair2 } }
-                set_technology = { antiair2 = 1 }
-            }  
-            else_if = {
-                limit = { NOT = { has_tech = antiair3 } JAP = { has_tech = antiair3 } }
-                set_technology = { antiair3 = 1 }
-            }  
-            #AT
-            if = {
-                limit = { NOT = { has_tech = antitank1 } JAP = { has_tech = antitank1 } }
-                set_technology = { antitank1 = 1 }
-            }
-            else_if = {
-                limit = { NOT = { has_tech = antitank2 } JAP = { has_tech = antitank2 } }
-                set_technology = { antitank2 = 1 }
-            }  
-            else_if = {
-                limit = { NOT = { has_tech = antitank3 } JAP = { has_tech = antitank3 } }
-                set_technology = { antitank3 = 1 }
-            }      
-            ########################
-            ###     SPECOPS      ###
-            if = {
-                limit = { NOT = { has_tech = marines } JAP = { has_tech = marines } }
-                set_technology = { marines = 1 }
-            }   
-            if = {
-                limit = { NOT = { has_tech = tech_special_forces } JAP = { has_tech = tech_special_forces } }
-                set_technology = { tech_special_forces = 1 }
-            }              
-            ########################
-            ###     DOCTRINE     ###
-            add_doctrine_cost_reduction = {
-                name = GRE_modernize_the_army
-                cost_reduction = 0.5
-                uses = 2
-                category = cat_grand_battle_plan
-            }
-        #}       
-    }
+    option={ name="Restart" trigger={ check_variable={ h405_phase=7 } } hidden_effect={ h405_cleaner=yes set_variable={ h405_phase=-1 } country_event={ id=hellas.4050 days=0 }}}
+}
+
+country_event = {               #REDIRECTOR
+	id = hellas.4050
+	title = hellas.405.t
+	desc = hellas.405.desc
+    picture = GFX_report_event_greek_hold_on
+    hidden=yes
+
+    timeout_days=0
+	is_triggered_only = yes
+	fire_only_once = no
+
+    immediate={ hidden_effect={ add_to_variable={ h405_phase=1 }}}
+	option={ name=hellas.405.a GRE={ country_event={ id=hellas.405 days=0 }}}
 }
 
 country_event = {
@@ -7737,66 +7309,9 @@ country_event = {
 	
 	option = {
 		name = hellas.500.a #small investment
-		ai_chance = {
-			base = 10
-            modifier = {
-                factor = 0
-                check_variable = { var = THIS.favor@GRE value = 30 compare = less_than }
-            }
-            modifier = {
-                factor = 0.75
-                check_variable = { var = THIS.favor@GRE value = 40 compare = greater_than_or_equals }
-                check_variable = { var = THIS.favor@GRE value = 50 compare = less_than }
-            }
-            modifier = {
-                factor = 1.5
-                check_variable = { var = THIS.favor@GRE value = 50 compare = greater_than_or_equals }
-                check_variable = { var = THIS.favor@GRE value = 60 compare = less_than }
-            }
-            modifier = {
-                factor = 2
-                check_variable = { var = THIS.favor@GRE value = 60 compare = greater_than_or_equals }
-                check_variable = { var = THIS.favor@GRE value = 70 compare = less_than }
-            }
-            modifier = {
-                factor = 4
-                check_variable = { var = THIS.favor@GRE value = 70 compare = greater_than_or_equals }
-                check_variable = { var = THIS.favor@GRE value = 80 compare = less_than }
-            }
-            modifier = {
-                factor = 8
-                check_variable = { var = THIS.favor@GRE value = 80 compare = greater_than_or_equals }
-                check_variable = { var = THIS.favor@GRE value = 90 compare = less_than }
-            }
-            modifier = {
-                factor = 14
-                check_variable = { var = THIS.favor@GRE value = 90 compare = greater_than_or_equals }
-                check_variable = { var = THIS.favor@GRE value = 95 compare = less_than }
-            }
-            modifier = {
-                factor = 20
-                check_variable = { var = THIS.favor@GRE value = 95 compare = greater_than_or_equals }
-            }
-		}
-		add_timed_idea = {
-			idea = GRE_small_investment
-			days = 30
-		}
-		hidden_effect = {
-			GRE = {
-				country_event = { id = hellas.501 days = 2 }
-			}
-		}
+		add_timed_idea = { idea=GRE_small_investment days=30 }
+		hidden_effect = { GRE={ country_event={ id=hellas.501 days=2 }}}
 	}
-	option = {
-		name = hellas.500.b #no investment
-		ai_chance = {
-			base = 10
-		}
-		GRE = { 
-			country_event = { id = hellas.502 days = 2 }
-		}
-	}	
 }
 
 country_event = {
@@ -7809,911 +7324,69 @@ country_event = {
     
 	option = {
 		name = hellas.501.a #small investment
-        if = {                                                                              ### - Germany weighted investments
-            limit = {
-                FROM = {
-                    original_tag = GER
-                }
-            }
-            random_list = {
-                25 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = arms_factory       
-                                size > 1
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = arms_factory       
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }
-                20 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = industrial_complex        
-                                size > 1
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = industrial_complex        
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }
-                15 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = dockyard        
-                                size > 1
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = dockyard        
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }                
-                10 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = infrastructure
-                                size > 1
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = infrastructure
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }
-                10 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = air_base
-                                size > 2
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = air_base
-                            level = 2
-                            instant_build = yes
-                        }
-                    }
-                }
-                10 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE                   
-                            free_building_slots = {
-                                building = naval_base
-                                size < 7
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = naval_base
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }
-                10 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = anti_air_building  
-                                size > 1
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = anti_air_building  
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }
-            }    
-        }
-        else_if = {                                                                         ### - French weighted investments
-            limit = {
-                FROM = {
-                    original_tag = FRA
-                }
-            }
-            random_list = {
-                5 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = arms_factory       
-                                size > 1
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = arms_factory       
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }
-                45 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = industrial_complex        
-                                size > 1
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = industrial_complex        
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }
-                10 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = dockyard        
-                                size > 1
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = dockyard        
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }                
-                10 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = infrastructure
-                                size > 1
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = infrastructure
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }
-                10 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = air_base
-                                size > 2
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = air_base
-                            level = 2
-                            instant_build = yes
-                        }
-                    }
-                }
-                10 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE                        
-                            free_building_slots = {
-                                building = naval_base
-                                size < 7
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = naval_base
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }
-                10 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = anti_air_building  
-                                size > 1
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = anti_air_building  
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }
-            }    
-        }
-        else_if = {                                                                         ### - British weighted investments
-            limit = {
-                FROM = {
-                    original_tag = ENG
-                }
-            }
-            random_list = {
-                5 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = arms_factory       
-                                size > 1
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = arms_factory       
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }
-                25 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = industrial_complex        
-                                size > 1
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = industrial_complex        
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }
-                30 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = dockyard        
-                                size > 2
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = dockyard        
-                            level = 2
-                            instant_build = yes
-                        }
-                    }
-                }                
-                10 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = infrastructure
-                                size > 1
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = infrastructure
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }
-                10 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = air_base
-                                size > 2
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = air_base
-                            level = 2
-                            instant_build = yes
-                        }
-                    }
-                }
-                10 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE                          
-                            free_building_slots = {
-                                building = naval_base
-                                size < 7
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = naval_base
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }
-                10 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = anti_air_building  
-                                size > 1
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = anti_air_building  
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }
-            }    
-        }
-        else_if = {                                                                         ### - American weighted investments
-            limit = {
-                FROM = {
-                    original_tag = USA
-                }
-            }
-            random_list = {
-                20 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = arms_factory       
-                                size > 2
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = arms_factory       
-                            level = 2
-                            instant_build = yes
-                        }
-                    }
-                }
-                20 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = industrial_complex        
-                                size > 2
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = industrial_complex        
-                            level = 2
-                            instant_build = yes
-                        }
-                    }
-                }
-                20 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = dockyard        
-                                size > 2
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = dockyard        
-                            level = 2
-                            instant_build = yes
-                        }
-                    }
-                }                
-                10 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = infrastructure
-                                size > 1
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = infrastructure
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }
-                10 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = air_base
-                                size > 2
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = air_base
-                            level = 2
-                            instant_build = yes
-                        }
-                    }
-                }
-                10 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE                      
-                            free_building_slots = {
-                                building = naval_base
-                                size < 7
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = naval_base
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }
-                10 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = anti_air_building  
-                                size > 1
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = anti_air_building  
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }
-            }    
-        }
-        else_if = {                                                                         ### - Soviet weighted investments
-            limit = {
-                FROM = {
-                    original_tag = SOV
-                }
-            }
-            random_list = {
-                30 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = arms_factory       
-                                size > 1
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = arms_factory       
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }
-                30 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = industrial_complex        
-                                size > 1
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = industrial_complex        
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }                
-                10 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = infrastructure
-                                size > 1
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = infrastructure
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }
-                10 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = air_base
-                                size > 2
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = air_base
-                            level = 2
-                            instant_build = yes
-                        }
-                    }
-                }
-                10 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE                          
-                            free_building_slots = {
-                                building = naval_base
-                                size < 7
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = naval_base
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }
-                10 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = anti_air_building  
-                                size > 1
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = anti_air_building  
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }
-            }    
-        }
-        else_if = {                                                                         ### - Japanese weighted investments
-            limit = {
-                FROM = {
-                    original_tag = JAP
-                }
-            }
-            random_list = {
-                15 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = fuel_silo       
-                                size > 1
-                                include_locked = yes
-                            }    
-                            free_building_slots = {
-                                building = synthetic_refinery       
-                                size > 1
-                                include_locked = yes
-                            }                               
-                        }
-                        add_building_construction = {
-                            type = fuel_silo       
-                            level = 1
-                            instant_build = yes
-                        }
-                        add_building_construction = {
-                            type = synthetic_refinery       
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }
-                15 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = arms_factory       
-                                size > 1
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = arms_factory       
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }
-                15 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = industrial_complex        
-                                size > 1
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = industrial_complex        
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }
-                15 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = dockyard        
-                                size > 1
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = dockyard        
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }                
-                10 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = infrastructure
-                                size > 1
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = infrastructure
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }
-                10 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = air_base
-                                size > 2
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = air_base
-                            level = 2
-                            instant_build = yes
-                        }
-                    }
-                }
-                10 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE                          
-                            free_building_slots = {
-                                building = naval_base
-                                size < 7
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = naval_base
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }
-                10 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = anti_air_building  
-                                size > 1
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = anti_air_building  
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }
-            }    
-        }
-        else = {                                                                         ### - Rest
-            random_list = {
-                20 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = arms_factory       
-                                size > 1
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = arms_factory       
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }
-                20 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = industrial_complex        
-                                size > 1
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = industrial_complex        
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }
-                20 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = dockyard        
-                                size > 1
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = dockyard        
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }                
-                10 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = infrastructure
-                                size > 1
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = infrastructure
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }
-                10 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = air_base
-                                size > 2
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = air_base
-                            level = 2
-                            instant_build = yes
-                        }
-                    }
-                }
-                10 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE                          
-                            free_building_slots = {
-                                building = naval_base
-                                size < 7
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = naval_base
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }
-                10 = {
-                    random_owned_controlled_state = {
-                        limit = {
-                            is_core_of = GRE
-                            free_building_slots = {
-                                building = anti_air_building  
-                                size > 1
-                                include_locked = yes
-                            }                           
-                        }
-                        add_building_construction = {
-                            type = anti_air_building  
-                            level = 1
-                            instant_build = yes
-                        }
-                    }
-                }
-            }    
-        }
+
         set_temp_variable = { findX = FROM.id }
         set_temp_variable = { findY = -4 }
         subtract_from_variable = { FROM.favor@GRE = 4 }
-        custom_effect_tooltip = favor_hit_with_findX_by_findY
+        custom_effect_tooltip = favor_hit_with_findX_by_findY_shrt
+        ##########################################################
+        divide_temp_variable={ civ_chance?FROM.num_of_civilian_factories=FROM.num_of_factories }
+        divide_temp_variable={ mil_chance?FROM.num_of_military_factories=FROM.num_of_factories }
+        divide_temp_variable={ dck_chance?FROM.num_of_naval_factories=FROM.num_of_factories }
+        set_temp_variable={ factory_gain_chance=35 }
+        if={ limit={ check_variable={ FROM.num_of_factories>100 }} add_to_temp_variable={ factory_gain_chance=15 }}
+        multiply_temp_variable={ civ_chance=factory_gain_chance }
+        multiply_temp_variable={ mil_chance=factory_gain_chance }
+        multiply_temp_variable={ dck_chance=factory_gain_chance }
+        subtract_from_temp_variable={ misc_gain_chance?100=factory_gain_chance }
+        divide_temp_variable={ infr_chance?misc_gain_chance=4 }
+        divide_temp_variable={ anta_chance?misc_gain_chance=4 }
+        divide_temp_variable={ airb_chance?misc_gain_chance=4 }
+        divide_temp_variable={ fuel_chance?misc_gain_chance=4 }
+        random_list={
+            civ_chance={
+                random_owned_controlled_state={ 
+                    limit={ is_core_of=GRE free_building_slots={ building=industrial_complex size>1 include_locked=yes }}
+                    add_building_construction={ type=industrial_complex level=1 instant_build=yes }
+                }
+            }
+            mil_chance={
+                random_owned_controlled_state={ 
+                    limit={ is_core_of=GRE free_building_slots={ building=arms_factory size>1 include_locked=yes }}
+                    add_building_construction={ type=arms_factory level=1 instant_build=yes }
+                }
+            }
+            dck_chance={
+                random_owned_controlled_state={ 
+                    limit={ is_core_of=GRE free_building_slots={ building=dockyard size>1 include_locked=yes }}
+                    add_building_construction={ type=dockyard level=1 instant_build=yes }
+                }
+            }
+            infr_chance={
+                random_owned_controlled_state={ 
+                    limit={ is_core_of=GRE free_building_slots={ building=infrastructure size>1 include_locked=yes }}
+                    add_building_construction={ type=infrastructure level=1 instant_build=yes }
+                }
+            }
+            anta_chance={
+                random_owned_controlled_state={ 
+                    limit={ is_core_of=GRE free_building_slots={ building=anti_air_building size>1 include_locked=yes }}
+                    add_building_construction={ type=anti_air_building level=1 instant_build=yes }
+                }
+            }
+            airb_chance={
+                random_owned_controlled_state={ 
+                    limit={ is_core_of=GRE free_building_slots={ building=air_base size>2 include_locked=yes }}
+                    add_building_construction={ type=air_base level=2 instant_build=yes }
+                }
+            }
+            fuel_chance={
+                random_owned_controlled_state={ 
+                    limit={ is_core_of=GRE OR={ has_state_category=megalopolis has_state_category=metropolis } free_building_slots={ building=fuel_silo size>1 include_locked=yes }}
+                    add_building_construction={ type=fuel_silo level=1 instant_build=yes }
+                }
+            }
+        }
 	}
 }
 
@@ -8741,65 +7414,8 @@ country_event = {                                                               
     
 	option = {
 		name = hellas.503.a #medium investment
-		ai_chance = {
-			base = 10
-            modifier = {
-                factor = 0
-                check_variable = { var = THIS.favor@GRE value = 30 compare = less_than }
-            }
-            modifier = {
-                factor = 0.75
-                check_variable = { var = THIS.favor@GRE value = 40 compare = greater_than_or_equals }
-                check_variable = { var = THIS.favor@GRE value = 50 compare = less_than }
-            }
-            modifier = {
-                factor = 1.5
-                check_variable = { var = THIS.favor@GRE value = 50 compare = greater_than_or_equals }
-                check_variable = { var = THIS.favor@GRE value = 60 compare = less_than }
-            }
-            modifier = {
-                factor = 2
-                check_variable = { var = THIS.favor@GRE value = 60 compare = greater_than_or_equals }
-                check_variable = { var = THIS.favor@GRE value = 70 compare = less_than }
-            }
-            modifier = {
-                factor = 4
-                check_variable = { var = THIS.favor@GRE value = 70 compare = greater_than_or_equals }
-                check_variable = { var = THIS.favor@GRE value = 80 compare = less_than }
-            }
-            modifier = {
-                factor = 8
-                check_variable = { var = THIS.favor@GRE value = 80 compare = greater_than_or_equals }
-                check_variable = { var = THIS.favor@GRE value = 90 compare = less_than }
-            }
-            modifier = {
-                factor = 14
-                check_variable = { var = THIS.favor@GRE value = 90 compare = greater_than_or_equals }
-                check_variable = { var = THIS.favor@GRE value = 95 compare = less_than }
-            }
-            modifier = {
-                factor = 20
-                check_variable = { var = THIS.favor@GRE value = 95 compare = greater_than_or_equals }
-            }
-		}
-		add_timed_idea = {
-			idea = GRE_moderate_investment
-			days = 30
-		}
-		hidden_effect = {
-			GRE = {
-				country_event = { id = hellas.504 days = 2 }
-			}
-		}
-	}
-	option = {
-		name = hellas.503.b #no investment
-		ai_chance = {
-			base = 10
-		}
-		GRE = { 
-			country_event = { id = hellas.502 days = 2 }
-		}
+		add_timed_idea = { idea=GRE_moderate_investment days=30 }
+		hidden_effect={ GRE={ country_event={ id = hellas.504 days = 2 }}}
 	}
 }
 
@@ -8820,252 +7436,133 @@ country_event = {                                                               
 	option = {                                                                                  ### Opening up the Land
 		name = hellas.504.a #medium investment
         if = {                                                                              
-            limit = {
-                FROM = {
-                    OR = {
-                        original_tag = ENG
-                        original_tag = USA
-                        original_tag = FRA
-                    }
-                }
-            }
+            limit={ FROM={ OR={ original_tag=ENG original_tag=USA original_tag=FRA }}}
+
             custom_effect_tooltip = GRE_extra_slots_per_manpower_better_tt
             hidden_effect = {
-                every_owned_state = {   
-                    if = {
-                        limit = {
-                            state_population_k < 400
-                        }
-                        add_extra_state_shared_building_slots = 1
-                    }
-                    else_if = {
-                        limit = {
-                            state_population_k < 800
-                        }
-                        add_extra_state_shared_building_slots = 2
-                    } 
-                    else_if = {
-                        limit = {
-                            state_population_k < 1200
-                        }
-                        add_extra_state_shared_building_slots = 3
-                    }   
-                    else_if = {
-                        limit = {
-                            state_population_k < 2000
-                        }
-                        add_extra_state_shared_building_slots = 4
-                    }  
-                    else = {
-                        add_extra_state_shared_building_slots = 5
-                    }            
+                every_owned_state = {
+                    if = { limit={ state_population_k<400 } add_extra_state_shared_building_slots=1 }
+                    else_if = { limit={ state_population_k<800 } add_extra_state_shared_building_slots=2 }
+                    else_if = { limit={ state_population_k<1200 } add_extra_state_shared_building_slots=3 }
+                    else_if = { limit={ state_population_k<2000 } add_extra_state_shared_building_slots=4 }
+                    else = { add_extra_state_shared_building_slots=5 }
                 }
             }
-            set_temp_variable = { findX = FROM.id }
-            set_temp_variable = { findY = -6.5 }
-            subtract_from_variable = { FROM.favor@GRE = 6.5 }
-            custom_effect_tooltip = favor_hit_with_findX_by_findY
+            set_temp_variable={ findX=FROM.id }
+            set_temp_variable={ findY=-6.5 }
+            subtract_from_variable={ FROM.favor@GRE=6.5 }
+            custom_effect_tooltip=favor_hit_with_findX_by_findY_shrt
         }
         else = {
             custom_effect_tooltip = GRE_extra_slots_per_manpower_tt
             hidden_effect = {
-                every_owned_state = {   
-                    if = {
-                        limit = {
-                            state_population_k < 400
-                        }
-                        add_extra_state_shared_building_slots = 0
-                    }
-                    else_if = {
-                        limit = {
-                            state_population_k < 800
-                        }
-                        add_extra_state_shared_building_slots = 1
-                    } 
-                    else_if = {
-                        limit = {
-                            state_population_k < 1200
-                        }
-                        add_extra_state_shared_building_slots = 2
-                    }   
-                    else_if = {
-                        limit = {
-                            state_population_k < 2000
-                        }
-                        add_extra_state_shared_building_slots = 3
-                    }  
-                    else = {
-                        add_extra_state_shared_building_slots = 4
-                    }            
-                }    
+                every_owned_state = {
+                    if = { limit={ state_population_k<400 } add_extra_state_shared_building_slots=0 }
+                    else_if = { limit={ state_population_k<800 } add_extra_state_shared_building_slots=1 }
+                    else_if = { limit={ state_population_k<1200 } add_extra_state_shared_building_slots=2 }
+                    else_if = { limit={ state_population_k<2000 } add_extra_state_shared_building_slots=3 }
+                    else = { add_extra_state_shared_building_slots=4 }
+                }
             }
-            set_temp_variable = { findX = FROM.id }
-            set_temp_variable = { findY = -5 }
-            subtract_from_variable = { FROM.favor@GRE = 5 }
-            custom_effect_tooltip = favor_hit_with_findX_by_findY
+            set_temp_variable={ findX=FROM.id }
+            set_temp_variable={ findY=-5 }
+            subtract_from_variable={ FROM.favor@GRE=5 }
+            custom_effect_tooltip=favor_hit_with_findX_by_findY_shrt
         }
     }
 	option = {                                                                                  ### Outsourcing -> Leads to event below
 		name = hellas.504.b #medium investment
-        trigger = { 
-            factories_within_investment_limit_FROM_to_GRE = yes
-        }
-        custom_effect_tooltip = GRE_outsourcing_tt
-        country_event = { id = hellas.505 days = 0 }
+        trigger = { factories_within_investment_limit_FROM_to_GRE=yes }
+
+        custom_effect_tooltip=GRE_outsourcing_tt
+        country_event={ id=hellas.505 days=0 }
     }
-    
 	option = {                                                                                  ### Oil Drilling
 		name = hellas.504.c #medium investment
-        trigger = {
-            check_variable = { var = GRE_drilled_for_oil value = 0 compare = equals }
-        }
-        if = {                                                                              
-            limit = {
-                check_variable = { var = GRE_drilled_for_oil value = 0 compare = equals }
-                FROM = {
-                    OR = {
-                        original_tag = SOV
-                        original_tag = USA
-                    }
-                }
+        trigger = { check_variable={ var=GRE_drilled_for_oil value=0 compare=equals }}
+        if = {      
+            limit={ 
+                check_variable={ var=GRE_drilled_for_oil value=0 compare=equals }
+                FROM={ OR={ original_tag=SOV original_tag=USA }}
             }
-            187 = { 
-                add_resource = { 
-                    type = oil
-                    amount = 12
-                }
-            } 
-            custom_effect_tooltip = GRE_drilling_for_oil_tt
-            add_to_variable = { GRE_drilled_for_oil = 1 }
-            set_temp_variable = { findX = FROM.id }
-            set_temp_variable = { findY = -10 }
-            subtract_from_variable = { FROM.favor@GRE = 10 }
-            custom_effect_tooltip = favor_hit_with_findX_by_findY
+            187={ add_resource={ type=oil amount=12 }}
+            custom_effect_tooltip=GRE_drilling_for_oil_tt
+            add_to_variable={ GRE_drilled_for_oil=1 }
+            set_temp_variable={ findX=FROM.id }
+            set_temp_variable={ findY=-10 }
+            subtract_from_variable={ FROM.favor@GRE=10 }
+            custom_effect_tooltip = favor_hit_with_findX_by_findY_shrt
         }
         else_if = {
-            limit = {
-                check_variable = { var = GRE_drilled_for_oil value = 0 compare = equals }
-            }
-            187 = { 
-                add_resource = { 
-                    type = oil
-                    amount = 8
-                }
-            }
-            custom_effect_tooltip = GRE_drilling_for_oil_tt
-            add_to_variable = { GRE_drilled_for_oil = 1 }  
-            set_temp_variable = { findX = FROM.id }
-            set_temp_variable = { findY = -8 }
-            subtract_from_variable = { FROM.favor@GRE = 8 }
-            custom_effect_tooltip = favor_hit_with_findX_by_findY
+            limit={ check_variable={ var = GRE_drilled_for_oil value=0 compare=equals }}
+            187 = { add_resource={ type=oil amount=8 }}
+            custom_effect_tooltip=GRE_drilling_for_oil_tt
+            add_to_variable={ GRE_drilled_for_oil=1 }
+            set_temp_variable={ findX=FROM.id }
+            set_temp_variable={ findY=-8 }
+            subtract_from_variable={ FROM.favor@GRE=8 }
+            custom_effect_tooltip=favor_hit_with_findX_by_findY_shrt
         }
     }
 	option = {                                                                                  ### Expand Mines
 		name = hellas.504.d #medium investment
-        trigger = {
-            check_variable = { var = GRE_mine_expansion value = 2 compare = less_than_or_equals }
-        }
+        trigger = { check_variable={ var=GRE_mine_expansion value=2 compare=less_than_or_equals }}
+
         if = {
-            limit = {
-                check_variable = { var = GRE_mine_expansion value = 0 compare = equals }
-            }
+            limit={ check_variable={ var=GRE_mine_expansion value=0 compare=equals }}
             186 = { 
-                add_resource = { 
-                    type = steel
-                    amount = 3
-                }
-                add_resource = { 
-                    type = chromium
-                    amount = 8
-                }
+                add_resource={ type=steel amount=3 }
+                add_resource={ type=chromium amount=8 }
             }
             47 = { 
-                add_resource = { 
-                    type = steel
-                    amount = 4
-                }
-                add_resource = { 
-                    type = tungsten
-                    amount = 2
-                }
+                add_resource={ type=steel amount=4 }
+                add_resource={ type=tungsten amount=2 }
             }
-            add_to_variable = { FROM.favor@GRE = 5 }
-            custom_effect_tooltip = GRE_favor_boost_mediocre_from_tt
-            add_to_variable = { GRE_mine_expansion = 1 }
-            set_temp_variable = { findX = FROM.id }
-            set_temp_variable = { findY = -5 }
-            subtract_from_variable = { FROM.favor@GRE = 5 }
-            custom_effect_tooltip = favor_hit_with_findX_by_findY
+            add_to_variable={ GRE_mine_expansion = 1 }
+            set_temp_variable={ findX = FROM.id }
+            set_temp_variable={ findY = -5 }
+            subtract_from_variable={ FROM.favor@GRE = 5 }
+            custom_effect_tooltip=favor_hit_with_findX_by_findY_shrt
         }
         else_if = {
-            limit = {
-                check_variable = { var = GRE_mine_expansion value = 1 compare = equals }
-            }
+            limit={ check_variable={ var=GRE_mine_expansion value=1 compare=equals }}
             186 = { 
-                add_resource = { 
-                    type = steel
-                    amount = 3
-                }
-                add_resource = { 
-                    type = chromium
-                    amount = 4
-                }
+                add_resource={ type=steel amount=3 }
+                add_resource={ type=chromium amount=4 }
             }
             47 = { 
-                add_resource = { 
-                    type = steel
-                    amount = 2
-                }
-                add_resource = { 
-                    type = tungsten
-                    amount = 4
-                }
+                add_resource={ type=steel amount=2 }
+                add_resource={ type=tungsten amount=4 }
             }
-            add_to_variable = { FROM.favor@GRE = 5 }
-            custom_effect_tooltip = GRE_favor_boost_mediocre_from_tt
-            add_to_variable = { GRE_mine_expansion = 1 }
-            set_temp_variable = { findX = FROM.id }
-            set_temp_variable = { findY = -5 }
-            subtract_from_variable = { FROM.favor@GRE = 5 }
-            custom_effect_tooltip = favor_hit_with_findX_by_findY
+            add_to_variable={ GRE_mine_expansion = 1 }
+            set_temp_variable={ findX = FROM.id }
+            set_temp_variable={ findY = -5 }
+            subtract_from_variable={ FROM.favor@GRE = 5 }
+            custom_effect_tooltip=favor_hit_with_findX_by_findY_shrt
         }
         else_if = {
-            limit = {
-                check_variable = { var = GRE_mine_expansion value = 2 compare = equals }
-            }
+            limit={ check_variable={ var=GRE_mine_expansion value=2 compare=equals }}
             186 = { 
-                add_resource = { 
-                    type = steel
-                    amount = 6
-                }
-                add_resource = { 
-                    type = chromium
-                    amount = 8
-                }
+                add_resource={ type=steel amount=6 }
+                add_resource={ type=chromium amount=8 }
             }
             47 = { 
-                add_resource = { 
-                    type = steel
-                    amount = 6
-                }
-                add_resource = { 
-                    type = tungsten
-                    amount = 4
-                }
+                add_resource={ type=steel amount=6 }
+                add_resource={ type=tungsten amount=4 }
             }
-            add_to_variable = { FROM.favor@GRE = 5 }
-            custom_effect_tooltip = GRE_favor_boost_mediocre_from_tt
-            add_to_variable = { GRE_mine_expansion = 1 }
-            set_temp_variable = { findX = FROM.id }
-            set_temp_variable = { findY = -5 }
-            subtract_from_variable = { FROM.favor@GRE = 5 }
-            custom_effect_tooltip = favor_hit_with_findX_by_findY
+            add_to_variable={ GRE_mine_expansion = 1 }
+            set_temp_variable={ findX = FROM.id }
+            set_temp_variable={ findY = -5 }
+            subtract_from_variable={ FROM.favor@GRE = 5 }
+            custom_effect_tooltip=favor_hit_with_findX_by_findY_shrt
         }        
     }  
     option = {                                                                                  ### Go Back
 		name = hellas.504.e
 
-        add_political_power = 125
+        multiply_temp_variable={ xret?FROM.icost@GRE=0.7 }
+        add_political_power=var:xret
+        FROM={ remove_ideas=GRE_moderate_investment }
     }
 }
 
@@ -9080,82 +7577,64 @@ country_event = {                                                               
 	option = {                                                                                  ### Civs
 		name = hellas.505.a 
         if = {
-            limit = {
-                FROM.FROM = {
-                    OR = {
-                        original_tag = ENG
-                        original_tag = USA
-                    }
-                }
-            }
-            add_offsite_building = { type = industrial_complex level = 2 }
-            add_to_variable = { FROM.FROM.civslent@GRE = 2 }
-            set_temp_variable = { findX = FROM.FROM.id }
-            set_temp_variable = { findY = -8 }
-            subtract_from_variable = { FROM.FROM.favor@GRE = 8 }
-            custom_effect_tooltip = favor_hit_with_findX_by_findY
+            limit = { FROM.FROM={ OR={ original_tag=ENG original_tag=USA }}}
+
+            add_offsite_building={ type=industrial_complex level=2 }
+            add_to_variable={ FROM.FROM.civslent@GRE=2 }
+            set_temp_variable={ findX=FROM.FROM.id }
+            set_temp_variable={ findY=-8 }
+            subtract_from_variable={ FROM.FROM.favor@GRE=8 }
+            custom_effect_tooltip=favor_hit_with_findX_by_findY_shrt
         }
         else = {
-            add_offsite_building = { type = industrial_complex level = 1 }
-            add_to_variable = { FROM.FROM.civslent@GRE = 1 }
-            set_temp_variable = { findX = FROM.FROM.id }
-            set_temp_variable = { findY = -6 }
-            subtract_from_variable = { FROM.FROM.favor@GRE = 6 }
-            custom_effect_tooltip = favor_hit_with_findX_by_findY
+            add_offsite_building={ type=industrial_complex level=1 }
+            add_to_variable={ FROM.FROM.civslent@GRE=1 }
+            set_temp_variable={ findX=FROM.FROM.id }
+            set_temp_variable={ findY=-5 }
+            subtract_from_variable={ FROM.FROM.favor@GRE=5 }
+            custom_effect_tooltip=favor_hit_with_findX_by_findY_shrt
         }
     }
     option = {                                                                                  ### Mils
 		name = hellas.505.b
         if = {
-            limit = {
-                FROM.FROM = {
-                    OR = {
-                        original_tag = GER
-                        original_tag = SOV
-                    }
-                }
-            }
-            add_offsite_building = { type = arms_factory level = 2 }
-            add_to_variable = { FROM.FROM.milslent@GRE = 2 }
-            set_temp_variable = { findX = FROM.FROM.id }
-            set_temp_variable = { findY = -8 }
-            subtract_from_variable = { FROM.FROM.favor@GRE = 8 }
-            custom_effect_tooltip = favor_hit_with_findX_by_findY
+            limit = { FROM.FROM={ OR={ original_tag=GER original_tag=SOV }}}
+
+            add_offsite_building={ type=arms_factory level=2 }
+            add_to_variable={ FROM.FROM.milslent@GRE=2 }
+            set_temp_variable={ findX=FROM.FROM.id }
+            set_temp_variable={ findY=-8 }
+            subtract_from_variable={ FROM.FROM.favor@GRE=8 }
+            custom_effect_tooltip=favor_hit_with_findX_by_findY_shrt
         }
         else = {
-            add_offsite_building = { type = arms_factory level = 1 }
-            add_to_variable = { FROM.FROM.milslent@GRE = 1 }
-            set_temp_variable = { findX = FROM.FROM.id }
-            set_temp_variable = { findY = -6 }
-            subtract_from_variable = { FROM.FROM.favor@GRE = 6 }
-            custom_effect_tooltip = favor_hit_with_findX_by_findY
+            add_offsite_building={ type=arms_factory level=1 }
+            add_to_variable={ FROM.FROM.milslent@GRE=1 }
+            set_temp_variable={ findX=FROM.FROM.id }
+            set_temp_variable={ findY=-5 }
+            subtract_from_variable={ FROM.FROM.favor@GRE=5 }
+            custom_effect_tooltip=favor_hit_with_findX_by_findY_shrt
         }
     }
     option = {                                                                                  ### Docs
 		name = hellas.505.c
         if = {
-            limit = {
-                FROM.FROM = {
-                    OR = {
-                        original_tag = ENG
-                        original_tag = USA
-                    }
-                }
-            }
-            add_offsite_building = { type = dockyard level = 2 }
-            add_to_variable = { FROM.FROM.dockslent@GRE = 2 }
-            set_temp_variable = { findX = FROM.FROM.id }
-            set_temp_variable = { findY = -8 }
-            subtract_from_variable = { FROM.FROM.favor@GRE = 8 }
-            custom_effect_tooltip = favor_hit_with_findX_by_findY
+            limit = { FROM.FROM={ OR={ original_tag=ENG original_tag=USA }}}
+            
+            add_offsite_building={ type=dockyard level=2 }
+            add_to_variable={ FROM.FROM.dockslent@GRE=2 }
+            set_temp_variable={ findX=FROM.FROM.id }
+            set_temp_variable={ findY=-8 }
+            subtract_from_variable={ FROM.FROM.favor@GRE=8 }
+            custom_effect_tooltip=favor_hit_with_findX_by_findY
         }
         else = {
-            add_offsite_building = { type = dockyard level = 1 }
-            add_to_variable = { FROM.FROM.dockslent@GRE = 1 }
-            set_temp_variable = { findX = FROM.FROM.id }
-            set_temp_variable = { findY = -6 }
-            subtract_from_variable = { FROM.FROM.favor@GRE = 6 }
-            custom_effect_tooltip = favor_hit_with_findX_by_findY
+            add_offsite_building={ type=dockyard level=1 }
+            add_to_variable={ FROM.FROM.dockslent@GRE=1 }
+            set_temp_variable={ findX=FROM.FROM.id }
+            set_temp_variable={ findY=-5 }
+            subtract_from_variable={ FROM.FROM.favor@GRE=5 }
+            custom_effect_tooltip=favor_hit_with_findX_by_findY
         }
     }
 }
@@ -9191,54 +7670,48 @@ country_event = {                                                               
 
 	fire_only_once = yes
 
-	option = { name = hellas.90.a hidden_effect = { country_event = { id = hellas.91 days=3 } } }
+    immediate={
+        hidden_effect={ 
+            country_event={ id = hellas.91 days=3 }
+        }
+    }
+
+	option={ name=hellas.90.a }
 }
 
 country_event = {                                                                               ### German Stance
 	id = hellas.91
 	title = hellas.91.t
-	desc = {
-        text = hellas.91_positive.desc
-        trigger = { german_stance_in_greco_italian_war_positive = yes }
-    }
-    desc = {
-        text = hellas.91_neutral.desc
-        trigger = { german_stance_in_greco_italian_war_neutral = yes }
-    }
-    desc = {
-        text = hellas.91_devious.desc
-        trigger = { german_stance_in_greco_italian_war_devious = yes }
-    }
-    desc = {
-        text = hellas.91_hostile.desc
-        trigger = { german_stance_in_greco_italian_war_negative = yes }
-    }
+	desc = { text=hellas.91_positive.desc trigger={ german_stance_in_greco_italian_war_positive=yes }}
+    desc = { text=hellas.91_neutral.desc  trigger={ german_stance_in_greco_italian_war_neutral=yes }}
+    desc = { text=hellas.91_devious.desc  trigger={ german_stance_in_greco_italian_war_devious=yes }}
+    desc = { text=hellas.91_hostile.desc  trigger={ german_stance_in_greco_italian_war_negative=yes }}
 	picture = GFX_report_event_hitler_diplomacy
-
-    immediate = {
-        hidden_effect = {
-            german_stance_in_greco_italian_war = yes
-        }
-    }
 
     is_triggered_only = yes
 	fire_only_once = yes
+
+    immediate={ hidden_effect={ german_stance_in_greco_italian_war=yes lock_axal_mechanic=yes }}
 	
-	option = { 
-        name = hellas.91.a 
-        german_stance_in_greco_italian_war = yes
+	option = {
+        name = hellas.91.a
+
+        german_stance_in_greco_italian_war=yes
         if = {
-            limit = { check_variable = { final > 0 } }
-            ITA = { set_rule = { can_not_declare_war = yes } }
+            limit={ NOT={ check_variable={ GER.stance_in_grecoitalian_war=0 }}}
+            ITA = { 
+                set_relation_rule={ target=GRE desc=GER_pressure_no_war_rule can_not_declare_war=yes }
+                #set_rule={ can_not_declare_war=yes }
+            }
             custom_effect_tooltip = explain_temporary_na_pact_tt
         }
-        hidden_effect = { 
+        hidden_effect = {
             country_event = { id = hellas.93 days = 8 } 
             country_event = { id = hellas.94 days = 6 } 
             country_event = { id = hellas.95 days = 7 } 
             country_event = { id = hellas.96 days = 2 } 
             country_event = { id = hellas.98 days = 1 }
-        } 
+        }
     }
 }
 
@@ -9259,44 +7732,34 @@ country_event = {                                                               
     }
     option = {
         name = hellas.92.b
-        ITA = { complete_national_focus = ITA_war_with_greece declare_war_on = { target = GRE type = annex_everything } }
+
+        ITA = { complete_national_focus=ITA_war_with_greece declare_war_on={ target=GRE type=annex_everything }}
     }
 }
 
 country_event = {                                                                               ### Bulgarian Stance
 	id = hellas.93
 	title = hellas.93.t
-	desc = {
-        text = hellas.93_early.desc
-        trigger = { german_stance_in_greco_italian_war_positive = yes }
-    }
-    desc = {
-        text = hellas.93_lurking.desc
-        trigger = { bulgarian_stance_in_greco_italian_war_lurking = yes }
-    }
-    desc = {
-        text = hellas.93_denied.desc
-        trigger = { bulgarian_stance_in_greco_italian_war_denied_by_germans = yes }
-    }
+	desc = { text=hellas.93_early.desc   trigger={ german_stance_in_greco_italian_war_positive=yes }}
+    desc = { text=hellas.93_lurking.desc trigger={ bulgarian_stance_in_greco_italian_war_lurking=yes }}
+    desc = { text=hellas.93_denied.desc  trigger={ bulgarian_stance_in_greco_italian_war_denied_by_germans=yes }}
 	picture = GFX_report_event_boris_diplomacy
-
-    immediate = {
-        hidden_effect = {
-            german_stance_in_greco_italian_war = yes
-        }
-        #set_variable = { BUL.grecoitalian_stance=result }
-    }
 
     is_triggered_only = yes
 	fire_only_once = yes
+
+    immediate={ hidden_effect={ bulgarian_stance_in_greco_italian_war=yes }}
 	
-	option = { 
+	option = {
         name = hellas.93.a 
-        german_stance_in_greco_italian_war = yes
+
         if = {
-            limit = { check_variable = { final > 0 } }
-            BUL = { set_rule = { can_not_declare_war = yes } }
-            custom_effect_tooltip = explain_temporary_na_pact_bul_tt
+            limit={ check_variable={ BUL.stance_in_grecoitalian_war=3 }}
+            BUL={
+                set_relation_rule={ target=GRE desc=GER_pressure_no_war_rule can_not_declare_war=yes }
+                #set_rule={ can_not_declare_war=yes }
+            }
+            custom_effect_tooltip=explain_temporary_na_pact_bul_tt
         }
     }
 }
@@ -9304,18 +7767,9 @@ country_event = {                                                               
 country_event = {                                                                               ### Turkish Stance
 	id = hellas.94
 	title = hellas.94.t
-	desc = {
-        text = hellas.94_alliance.desc
-        trigger = { check_variable = { result = 2 } }
-    }
-    desc = {
-        text = hellas.94_positive.desc
-        trigger = { check_variable = { result = 1 } }
-    }
-    desc = {
-        text = hellas.94_neutral.desc
-        trigger = { check_variable = { result = 0 } }
-    }
+	desc = { text=hellas.94_alliance.desc trigger={ check_variable={ result=2 }}}
+    desc = { text=hellas.94_positive.desc trigger={ check_variable={ result=1 }}}
+    desc = { text=hellas.94_neutral.desc  trigger={ check_variable={ result=0 }}}
 	picture = GFX_report_event_ismet_inonu
 
     immediate = {
@@ -9343,14 +7797,14 @@ country_event = {                                                               
                 set_temp_variable = { alliance_chance = 0 }
             }
             random_list = {
-                log = yes
+                #log = yes
                 seed = random
-                var:alliance_chance = { set_temp_variable = { result = 2 } }
-                var:positive_chance = { set_temp_variable = { result = 1 } }
-                var:neutral_chance = { set_temp_variable = { result = 0 } }
+                var:alliance_chance={ set_temp_variable = { result = 2 }}
+                var:positive_chance={ set_temp_variable = { result = 1 }}
+                var:neutral_chance={ set_temp_variable = { result = 0 }}
             }
             if = {
-                limit = { check_variable = { result > 0 } }
+                limit = { check_variable = { result > 0 }}
                 GRE = { complete_national_focus = GRE_turkic_guarantees_against_bulgarians }
             }
             set_variable = { TUR.grecoitalian_stance=result }
@@ -9421,7 +7875,7 @@ country_event = {                                                               
                 set_temp_variable = { positive_chance = 0 }
             }
             random_list = {
-                log = yes
+                #log = yes
                 seed = random
                 var:alliance_chance = { set_temp_variable = { result = 2 } }
                 var:positive_chance = { set_temp_variable = { result = 1 } }
@@ -12008,7 +10462,7 @@ country_event = {                                                               
             set_temp_variable = { cnter_chance = 100 }
             subtract_from_temp_variable = { cnter_chance = adjusted_total }
             random_list = {
-                log = yes
+                #log = yes
                 seed = random
                 var:adjusted_total = { set_temp_variable = { mr_success = 1 } }
                 var:cnter_chance = { set_temp_variable = { mr_success = 0 } }
@@ -14055,7 +12509,7 @@ country_event = {                                                               
 
     immediate = {
         hidden_effect = {
-            log="Received from [FROM.FROM.GetName]"
+            #log="Received from [FROM.FROM.GetName]"
             FROM.FROM = { state_event={ id=hellas.1600 days=0 } }
         }
     }
@@ -14071,7 +12525,7 @@ country_event = {                                                               
 
     immediate = {
         hidden_effect = {
-            log="Received from [FROM.FROM.GetName]"
+            #log="Received from [FROM.FROM.GetName]"
             FROM.FROM = { state_event={ id=hellas.1601 days=0 } }
         }
     }
@@ -14087,7 +12541,7 @@ country_event = {                                                               
 
     immediate = {
         hidden_effect = {
-            log="Received from [FROM.FROM.GetName]"
+            #log="Received from [FROM.FROM.GetName]"
             FROM.FROM = { state_event={ id=hellas.1602 days=0 } }
         }
     }
@@ -14103,7 +12557,7 @@ country_event = {                                                               
 
     immediate = {
         hidden_effect = {
-            log="Received from [FROM.FROM.GetName]"
+            #log="Received from [FROM.FROM.GetName]"
             FROM.FROM = { state_event={ id=hellas.1603 days=0 } }
         }
     }
