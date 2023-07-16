@@ -1,0 +1,148 @@
+########################################################################################################################################################################################################
+################################################################[																	   ]################################################################
+################################################################[				                CHAPTER XX     						   ]################################################################
+################################################################[                           EVENT RELATED INFO                         ]################################################################
+################################################################[																	   ]################################################################
+################################################################[																	   ]################################################################
+########################################################################################################################################################################################################
+
+defined_text = {
+	name=GetEventInfoIndexTextTitle
+
+	text={ trigger={ check_variable={ event_info_array^event_info_index=82  }} localization_key=event_info_loc_h082_t }
+	text={ trigger={ check_variable={ event_info_array^event_info_index=100 }} localization_key=event_info_loc_h100_t }
+	text={ trigger={ check_variable={ event_info_array^event_info_index=241 }} localization_key=event_info_loc_h241_t }
+	text={ trigger={ check_variable={ event_info_array^event_info_index=248 }} localization_key=event_info_loc_h248_t }
+	text={ trigger={ check_variable={ event_info_array^event_info_index=416 }} localization_key=event_info_loc_h416_t }
+	text={ localization_key="" }
+}
+
+defined_text = {
+	name=GetEventInfoIndexTextBody
+
+	text={ trigger={ check_variable={ event_info_array^event_info_index=82  }} localization_key=event_info_loc_h082_b }
+	text={ trigger={ check_variable={ event_info_array^event_info_index=241 }} localization_key=event_info_loc_h241_b }
+	text={ trigger={ check_variable={ event_info_array^event_info_index=248 }} localization_key=event_info_loc_h248_b }
+	text={ localization_key="" }
+}
+
+defined_text={
+	name=GetEventInfoIconSprite
+
+	text={ trigger={ check_variable={ event_info_array^event_info_index=100 }} localization_key="GFX_report_info_italian_ultimatum" }
+	text={ trigger={ check_variable={ event_info_array^event_info_index=416 }} localization_key="GFX_report_info_EPK_AR" }
+	text={ localization_key="" }
+}
+
+
+defined_text = {
+	name=GetHIDOPTO
+	text={ trigger={ check_variable={ vv=1 }} localization_key="token_civilian" }
+	text={ trigger={ check_variable={ vv=2 }} localization_key="token_bribed_contractors" }
+}
+
+defined_text = {
+	name=GetEventInfoSuccessChance
+	text={
+		trigger={ NOT={ has_completed_focus=GRE_a_game_of_shadows }}
+		localization_key=hxxx_success_chance_hidden_tt
+	}
+	text={
+		trigger={
+			meta_trigger={
+				text={ check_variable={ var=GRE.h[EID]_total_ratings value=GRE.h[EID]_localization_threshold_0 compare=less_than }}
+				EID="[?tmpID|.0]"
+			}
+		}
+		localization_key=deal_none
+	}
+	text={
+		trigger={
+			meta_trigger={
+				text={ check_variable={ var=GRE.h[EID]_total_ratings value=GRE.h[EID]_localization_threshold_1 compare=less_than }}
+				EID="[?tmpID|.0]"
+			}
+		}
+		localization_key=deal_low
+	}
+	text={
+		trigger={
+			meta_trigger={
+				text={ check_variable={ var=GRE.h[EID]_total_ratings value=GRE.h[EID]_localization_threshold_2 compare=less_than }}
+				EID="[?tmpID|.0]"
+			}
+		}
+		localization_key=deal_mediocre
+	}
+	text={
+		trigger={
+			meta_trigger={
+				text={ check_variable={ var=GRE.h[EID]_total_ratings value=GRE.h[EID]_localization_threshold_3 compare=less_than }}
+				EID="[?tmpID|.0]"
+			}
+		}
+		localization_key=deal_high
+	}
+	text={
+		trigger={
+			meta_trigger={
+				text={ check_variable={ var=GRE.h[EID]_total_ratings value=GRE.h[EID]_localization_threshold_3 compare=greater_than_or_equals }}
+				EID="[?tmpID|.0]"
+			}
+		}
+		localization_key=deal_certain
+	}
+}
+
+defined_text = {
+	name=GetEventInfoSuccessChanceBreakdownINFO
+	text={
+		trigger={ NOT={ has_completed_focus=GRE_a_game_of_shadows }}
+		localization_key="" #hxxx_success_chance_hidden_tt
+	}
+	text={ localization_key=hxxx_outcome_breakdown }
+}
+
+defined_text={
+	name=GetEventInfoFocusCompletionID
+
+	text={ trigger={ check_variable={ tmpID=80 }} localization_key="SOV_claim_on_bessarabia" }
+	text={ trigger={ check_variable={ tmpID=82 }} localization_key="GER_second_vienna_award" }
+}
+
+defined_text={
+	name=GetEventInfoFocusCompletionSCOPE
+
+	text={ trigger={ check_variable={ tmpID=80 }} localization_key="SOV" }
+	text={ trigger={ check_variable={ tmpID=82 }} localization_key="GER" }
+}
+
+defined_text={
+	name=GetEventInfoFocusCompletionText
+
+	text={ trigger={ meta_trigger={ text={ [SCP]={ focus_progress={ focus=[FCS] progress<0.001 }}} SCP="[GetEventInfoFocusCompletionSCOPE]" FCS="[GetEventInfoFocusCompletionID]" }} localization_key=focus_completed_lt_00 }
+	text={ trigger={ meta_trigger={ text={ [SCP]={ focus_progress={ focus=[FCS] progress<0.100 }}} SCP="[GetEventInfoFocusCompletionSCOPE]" FCS="[GetEventInfoFocusCompletionID]" }} localization_key=focus_completed_lt_10 }
+	text={ trigger={ meta_trigger={ text={ [SCP]={ focus_progress={ focus=[FCS] progress<0.200 }}} SCP="[GetEventInfoFocusCompletionSCOPE]" FCS="[GetEventInfoFocusCompletionID]" }} localization_key=focus_completed_lt_20 }
+	text={ trigger={ meta_trigger={ text={ [SCP]={ focus_progress={ focus=[FCS] progress<0.300 }}} SCP="[GetEventInfoFocusCompletionSCOPE]" FCS="[GetEventInfoFocusCompletionID]" }} localization_key=focus_completed_lt_30 }
+	text={ trigger={ meta_trigger={ text={ [SCP]={ focus_progress={ focus=[FCS] progress<0.400 }}} SCP="[GetEventInfoFocusCompletionSCOPE]" FCS="[GetEventInfoFocusCompletionID]" }} localization_key=focus_completed_lt_40 }
+	text={ trigger={ meta_trigger={ text={ [SCP]={ focus_progress={ focus=[FCS] progress<0.500 }}} SCP="[GetEventInfoFocusCompletionSCOPE]" FCS="[GetEventInfoFocusCompletionID]" }} localization_key=focus_completed_lt_50 }
+	text={ trigger={ meta_trigger={ text={ [SCP]={ focus_progress={ focus=[FCS] progress<0.600 }}} SCP="[GetEventInfoFocusCompletionSCOPE]" FCS="[GetEventInfoFocusCompletionID]" }} localization_key=focus_completed_lt_60 }
+	text={ trigger={ meta_trigger={ text={ [SCP]={ focus_progress={ focus=[FCS] progress<0.700 }}} SCP="[GetEventInfoFocusCompletionSCOPE]" FCS="[GetEventInfoFocusCompletionID]" }} localization_key=focus_completed_lt_70 }
+	text={ trigger={ meta_trigger={ text={ [SCP]={ focus_progress={ focus=[FCS] progress<0.800 }}} SCP="[GetEventInfoFocusCompletionSCOPE]" FCS="[GetEventInfoFocusCompletionID]" }} localization_key=focus_completed_lt_80 }
+	text={ trigger={ meta_trigger={ text={ [SCP]={ focus_progress={ focus=[FCS] progress<0.900 }}} SCP="[GetEventInfoFocusCompletionSCOPE]" FCS="[GetEventInfoFocusCompletionID]" }} localization_key=focus_completed_lt_90 }
+	text={ trigger={ meta_trigger={ text={ [SCP]={ focus_progress={ focus=[FCS] progress<0.999 }}} SCP="[GetEventInfoFocusCompletionSCOPE]" FCS="[GetEventInfoFocusCompletionID]" }} localization_key=focus_completed_lt_99 }
+}
+
+defined_text = {
+	name = GetEventInfoNegotiationInfo
+
+	text={ trigger={ meta_trigger={ text={ GRE={ has_completed_focus=GRE_a_game_of_shadows }}}} localization_key=[GRE.GetHIDNegotiationInfo] }
+	text={ localization_key=hxxx_game_of_shadows_not_completed_tt }
+}
+
+defined_text = {
+	name = GetHIDNegotiationInfo
+
+	text={ trigger={ check_variable={ tmpID=80 }} localization_key=h80_negotiation_info_tt }
+	text={ trigger={ check_variable={ tmpID=82 }} localization_key=h82_negotiation_info_tt }
+}

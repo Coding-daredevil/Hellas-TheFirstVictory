@@ -35,6 +35,10 @@ is_important_nation_to_add_to_array = {
     else = { always=yes }
 }
 
+favor_with_findX_at_least_ftmpZ_ntt={ var:findX={ check_variable={ var=favor@GRE value=ftmpZ compare=greater_than_or_equals }}}
+favor_with_findX_at_least_ftmpZ_ltt={ custom_trigger_tooltip={ tooltip=favor_status_with_findX_at_least_ftmpZ_long_tt var:findX={ check_variable={ var=favor@GRE value=ftmpZ compare=greater_than_or_equals }}}}
+favor_with_findX_at_least_ftmpZ_stt={ custom_trigger_tooltip={ tooltip=favor_status_with_findX_at_least_ftmpZ_shrt_tt var:findX={ check_variable={ var=favor@GRE value=ftmpZ compare=greater_than_or_equals }}}}
+
 ####################################
 ####[ SinoJapanese War Triggers ]###
 ####################################
@@ -676,6 +680,28 @@ fctF_is_below_tmpZ = {
     }
 }
 
+fctF_is_at_least_tmpZ={
+    custom_trigger_tooltip={
+        tooltip = fct_tmpF_at_least_tmpZ
+        if = {
+            limit={ check_variable={ tmpF=0 }}
+            check_variable = { var=fct_mon value=tmpZ compare=greater_than_or_equals }
+        }
+        else_if = {
+            limit={ check_variable={ tmpF=1 }}
+            check_variable = { var=fct_dem value=tmpZ compare=greater_than_or_equals }
+        }
+        else_if = {
+            limit={ check_variable={ tmpF=2 }}
+            check_variable = { var=fct_com value=tmpZ compare=greater_than_or_equals }
+        }
+        else_if = {
+            limit={ check_variable={ tmpF=3 }}
+            check_variable = { var=fct_fas value=tmpZ compare=greater_than_or_equals }
+        }
+    }
+}
+
 at_least_tmpCNT_factions_below_tmpZ = {
     custom_trigger_tooltip = {
         tooltip = at_least_tmpCNT_factions_below_tmpZ_tt
@@ -821,7 +847,11 @@ has_no_guarantees_from_majors = {
 ####[Greco Italian War Triggers]####
 ####################################
 
-has_greco_italian_war_occured = {
+is_greco_italian_war_ongoing={
+    OR={ has_global_flag=GRE_grecoitalian_start has_global_flag=GRE_crete_still_holding }
+}
+
+has_greco_italian_war_occured={
     OR={ has_global_flag=GRE_grecoitalian_start has_global_flag=GRE_grecoitalian_ended }
 }
 
@@ -993,9 +1023,16 @@ has_paid_at_least_dY_debt_to_dX = {
     }
 }
 
-havent_frozen_debt_with_from = {
-    check_variable = { GRE.true_debt@THIS = 0 }
+has_not_frozen_debt_with_dX={ custom_trigger_tooltip={ tooltip=GRE_havent_frozen_debt_with_dX check_variable={ GRE.true_debt@var:dX=0 }}}
+
+has_paid_at_least_dY_debt_to_target={
+    custom_trigger_tooltip = {
+        tooltip = GRE_at_least_dY_total_debt_to_target
+        check_variable = { var=GRE.paid_debt@var:THIS value=dY compare=greater_than_or_equals }
+    }
 }
+
+has_not_frozen_debt_with_target={ custom_trigger_tooltip={ tooltip=GRE_havent_frozen_debt_with_target check_variable={ GRE.true_debt@var:THIS=0 }}}
 
 ##########################################################################
 current_ruling_monarchists = {
@@ -1132,6 +1169,7 @@ is_not_retired = { custom_trigger_tooltip = { tooltip = retired_tt NOT = { has_c
 no_longer_target_of_the_failed_coup = { custom_trigger_tooltip = { tooltip = humiliation_reverted_tt NOT = { has_character_flag = target_of_the_failed_coup } } }
 not_wanted_for_dead = { custom_trigger_tooltip = { tooltip = not_wanted_for_dead_tt NOT = { has_character_flag = wanted_for_dead } } }
 ##[Purged/Surrendered/Dead]##
+has_not_purged_zachariadis={ custom_trigger_tooltip={ tooltip=zachariadis_not_purged_tt GRE_nikos_zachariadis={ check_variable={ GRE.c_purged@var:THIS=0 }}}}
 not_psd = { custom_trigger_tooltip = { tooltip = not_purged_surrendered_dead NOT = { has_character_flag = purged_by_regime } NOT = { has_character_flag = surrendered_to_the_enemy } NOT = { has_character_flag = killed_in_action } } }
 does_not_have_known_army_chief_of_staff = {
     amount_taken_ideas = { amount > 0 slots = { army_chief } }
@@ -1539,6 +1577,32 @@ has_neither_inf_leader_eng_trickster = {
     }
 }
 
+on_officer_effects_requirements_met = {
+
+    cscope_character_is_purged=no
+    if={      limit={ check_variable={ tmpY0=1 }} has_unpreparedness_level=yes not_recently_trained=yes }
+    else_if={ limit={ check_variable={ tmpY0=2 }} has_unpreparedness_level=yes }
+    else_if={ limit={ check_variable={ tmpY0=3 }} not_recently_trained=yes }
+    else_if={ limit={ check_variable={ tmpY0=4 }} is_fully_reintegrated=yes }
+    if={      limit={ check_variable={ tmpY1=1 }} set_temp_variable={ tmpZ=tmpZ1 } is_ideologically_close_tmpZ=yes }
+    else_if={ limit={ check_variable={ tmpY1=2 }} set_temp_variable={ tmpZ=tmpZ1 } NOT={ is_ideologically_close_tmpZ=yes }}
+    if={      limit={ check_variable={ tmpY2=1 }} set_temp_variable={ tmpZ=tmpZ2 } has_at_least_tmpZ_veterancy_level=yes }
+    else_if={ limit={ check_variable={ tmpY2=2 }} set_temp_variable={ tmpZ=tmpZ2 } has_below_tmpZ_veterancy_level=yes }
+    else_if={ limit={ check_variable={ tmpY2=3 }} set_temp_variable={ tmpZ=tmpZ2 } has_tmpZ_veterancy_level=yes }
+    if={      limit={ check_variable={ tmpY3=1 }} set_temp_variable={ tmpZ=tmpZ3 } has_at_least_tmpZ_unpreparedness_level=yes }
+    else_if={ limit={ check_variable={ tmpY3=2 }} set_temp_variable={ tmpZ=tmpZ3 } has_below_tmpZ_unpreparedness_level=yes }
+    else_if={ limit={ check_variable={ tmpY3=3 }} set_temp_variable={ tmpZ=tmpZ3 } has_tmpZ_unpreparedness_level=yes }
+    if={      limit={ check_variable={ tmpY4=1 }} check_variable={ var=num_units value=tmpZ4 compare=greater_than_or_equals }}
+    else_if={ limit={ check_variable={ tmpY4=2 }} check_variable={ var=num_units value=tmpZ4 compare=less_than }}
+    else_if={ limit={ check_variable={ tmpY4=3 }} check_variable={ var=num_units value=tmpZ4 compare=equals }}
+    if={      limit={ check_variable={ tmpY5=1 }} check_variable={ var=num_units_in_state@var:tmpZ5_S value=tmpZ5_V compare=greater_than_or_equals }}
+    else_if={ limit={ check_variable={ tmpY5=2 }} check_variable={ var=num_units_in_state@var:tmpZ5_S value=tmpZ5_V compare=less_than }}
+    else_if={ limit={ check_variable={ tmpY5=3 }} check_variable={ var=num_units_in_state@var:tmpZ5_S value=tmpZ5_V compare=equals }}
+    if={      limit={ check_variable={ tmpY6=1 }} check_variable={ var=num_battalions value=tmpZ6 compare=greater_than_or_equals }}
+    else_if={ limit={ check_variable={ tmpY6=2 }} check_variable={ var=num_battalions value=tmpZ6 compare=less_than }}
+    else_if={ limit={ check_variable={ tmpY6=3 }} check_variable={ var=num_battalions value=tmpZ6 compare=equals }}
+}
+
 
 #####################################################
 
@@ -1860,12 +1924,13 @@ has_base_template_unlock_cost={
     subtract_from_temp_variable={ tmpCOST?300=x }
     subtract_from_temp_variable={ tmpCOST=y }
     subtract_from_temp_variable={ tmpCOST=z }
+    clamp_temp_variable={ var=tmpCOST min=0 }
     has_army_experience>var:tmpCOST
 }
 
 can_add_manpow_to_base_template={
-    multiply_temp_variable={ manpow=reforms_template_current }
-    add_to_temp_variable={ new_sum?reforms_template_allocated_manpower=manpow }
+    multiply_temp_variable={ manpow=total_allocated_units }
+    add_to_temp_variable={ new_sum?GRE.bdiv_allocated_manpower=manpow }
     custom_trigger_tooltip={
         tooltip=GRE_hidden_rearm_template_manpower_cap
         check_variable={ var=new_sum value=reforms_template_max_allocated_manpower compare=less_than_or_equals }
@@ -1873,18 +1938,63 @@ can_add_manpow_to_base_template={
 }
 
 can_increase_division_count={
-    set_temp_variable={ manpow=template_division_manpower_requirement }
-    set_temp_variable={ new_sum=template_division_manpower_requirement }
-    add_to_temp_variable={ new_sum=reforms_template_allocated_manpower }
-    custom_trigger_tooltip={
-        tooltip=GRE_hidden_rearm_template_manpower_cap
-        check_variable={ var=new_sum value=reforms_template_max_allocated_manpower compare=less_than_or_equals }
+    has_manpower>GRE.bdiv_manpower@var:divtype
+    all_of={
+        array=GRE.bdiv_equipment@var:divtype
+        
+        #if={ limit={ check_variable={ v>0 }} log="[?i] -- [?v] ---- [?GRE.GetEquipmentNames]" }
+        meta_trigger={ 
+            text={ if={ limit={ check_variable={ v>0 }} has_equipment={ [EQUIPMENT_NAME]>v }}}
+            EQUIPMENT_NAME="[?GRE.GetEquipmentNames]" 
+        }
     }
-    has_manpower>manpow
-    subtract_from_temp_variable={ x1?template_division_infequip_requirement=1 }
-    subtract_from_temp_variable={ x2?template_division_supequip_requirement=1 }
-    subtract_from_temp_variable={ x3?template_division_artequip_requirement=1 }
-    if={ limit={ check_variable={ template_division_infequip_requirement>0 }} has_equipment={ infantry_equipment>x1 }}
-    if={ limit={ check_variable={ template_division_supequip_requirement>0 }} has_equipment={ support_equipment>x2 }}
-    if={ limit={ check_variable={ template_division_artequip_requirement>0 }} has_equipment={ artillery_equipment>x3 }}
+}
+
+in_trigger_calculate_upper_lower_bounded_y_ax_b = {
+    if={
+        limit={ check_variable={ var=x value=tmpLWTHR?0 compare=less_than_or_equals }}
+        if={ limit={ check_variable={ tmpMAXDIR?1=0 }} set_temp_variable={ y=1 }}
+        else={ set_temp_variable={ y=0 }}
+    }
+    else_if={
+        limit={ check_variable={ var=x value=tmpUPTHR?100 compare=greater_than_or_equals }}
+        if={ limit={ check_variable={ tmpMAXDIR?1=0 }} set_temp_variable={ y=0 }}
+        else={ set_temp_variable={ y=1 }}
+    }
+    else={                                                                    # y = (x-tmpLWTHR)/(tmpUPTHR-tmpLWTHR)
+        set_temp_variable={ y=x }
+        subtract_from_temp_variable={ y=tmpLWTHR }
+        set_temp_variable={ divider=tmpUPTHR?100 }
+        subtract_from_temp_variable={ divider=tmpLWTHR }
+        divide_temp_variable={ y=divider }
+        if={ limit={ check_variable={ tmpMAXDIR?1=0 }} set_temp_variable={ swp=1 } subtract_from_temp_variable={ swp=y } set_temp_variable={ y=swp }}
+    }
+}
+
+has_any_tied_economy_spirit={
+    OR={
+        has_idea=GRE_tied_to_foreign_investments
+        has_idea=GRE_tied_to_foreign_investments_1
+    }
+}
+
+in_trigger_kathestos_projects_calculate_extra_pp_cost={
+    set_temp_variable={ extra_cost=1 }
+    add_to_temp_variable={ extra_cost=modifier@kathestos_project_extra_pp_modifier_token }
+    multiply_temp_variable={ extra_cost=var:kathestos_dynamic_ppcost }
+    add_to_temp_variable={ base=extra_cost }
+}
+
+in_trigger_kathestos_army_reforms_calculate_extra_cost_and_conditions={
+    add_to_temp_variable={ base_cp=var:kathestos_reforms_extra_cp_cost }
+    if={ limit={ check_variable={ base_pp>0 }} has_political_power>base_pp }
+    if={ limit={ check_variable={ base_cp>0 }} command_power>base_cp }
+    if={ limit={ check_variable={ base_xp>0 }} has_army_experience>base_xp }
+}
+
+v_has_OPTOK_token={
+    meta_trigger={
+        text={ has_operation_token={ tag=var:v token=[TID] }}
+        TID="[?vv.GetTokenKey]"
+    }
 }

@@ -2668,6 +2668,220 @@ defined_text = {
 ################################################################[																	   ]################################################################
 ########################################################################################################################################################################################################
 
+defined_text={ name=GetMetRefPPCost text={ trigger={ check_variable={ base_pp>0 }} localization_key=met_ref_pp_cost } text={ localization_key="1" }}
+defined_text={ name=GetMetRefCPCost text={ trigger={ check_variable={ base_cp>0 }} localization_key=met_ref_cp_cost } text={ localization_key="2" }}
+defined_text={ name=GetMetRefXPCost text={ trigger={ check_variable={ base_xp>0 }} localization_key=met_ref_xp_cost } text={ localization_key="3" }}
+defined_text={ name=GetMetRefPPCostBlocked text={ trigger={ check_variable={ base_pp>0 }} localization_key=met_ref_pp_cost_blocked } text={ localization_key="" }}
+defined_text={ name=GetMetRefCPCostBlocked text={ trigger={ check_variable={ base_cp>0 }} localization_key=met_ref_cp_cost_blocked } text={ localization_key="" }}
+defined_text={ name=GetMetRefXPCostBlocked text={ trigger={ check_variable={ base_xp>0 }} localization_key=met_ref_xp_cost_blocked } text={ localization_key="" }}
+
+defined_text = {
+	name=GetInvestmentType
+
+	text={ trigger={ NOT={ has_country_flag=toggle_investment_type }} localization_key=GRE_toggle_investment_type_1 }
+	text={ localization_key=GRE_toggle_investment_type_2 }
+}
+
+defined_text = {
+	name=GetExerciseTypeTraitExplanation
+
+	text={ trigger={ check_variable={ type=0 }} localization_key=state_exercises_explanation_naval_tt }
+	text={ trigger={ check_variable={ type=1 }} localization_key=state_exercises_explanation_mountain_tt }
+	text={ trigger={ check_variable={ type=2 }} localization_key=state_exercises_explanation_maneuver_tt }
+	text={ trigger={ check_variable={ type=3 }} localization_key=state_exercises_explanation_staticw_tt }
+	text={ trigger={ check_variable={ type=4 }} localization_key=state_exercises_explanation_inf_tt }
+	text={ trigger={ check_variable={ type=5 }} localization_key=state_exercises_explanation_urban_tt }
+	text={ localization_key="Conventional Exercises" }
+}
+
+defined_text = {
+	name=GetExerciseTypeName
+
+	text={ trigger={ FROM={ OR={ state=911 state=182 state=916 state=187 }}} localization_key=state_exercises_naval_tt }
+	text={ trigger={ FROM={ OR={ state=186 state=909 state=185 state=912 state=184 state=915 }}} localization_key=state_exercises_mountain_tt }
+	text={ trigger={ FROM={ state=731 }} localization_key=state_exercises_maneuver_tt }
+	text={ trigger={ FROM={ state=914 }} localization_key=state_exercises_staticw_tt }
+	text={ trigger={ FROM={ state=910 }} localization_key=state_exercises_inf_tt }
+	text={ trigger={ FROM={ OR={ state=47 state=913 }}} localization_key=state_exercises_urban_tt }
+	text={ localization_key="Conventional Exercises" }
+}
+
+defined_text = {
+	name=GetExercisesType
+
+	text={ trigger={ has_country_flag=toggle_med2 } localization_key=GRE_expand_collapse_military_exercises_decisions_1 }
+	text={ localization_key=GRE_expand_collapse_military_exercises_decisions_2 }
+}
+
+defined_text = {
+	name=GetEmergencyPowersRecipient
+
+	text={ trigger={ GRE_ioannis_metaxas={ is_country_leader=yes }} localization_key=GRE_take_emergency_powers_early_metaxas_tt }
+	text={ localization_key=GRE_take_emergency_powers_early_demertzis_tt }
+}
+
+defined_text = {
+	name = GetH243StateWorth
+
+	text={ localization_key="[?total_worth]" }
+}
+
+defined_text = {
+	name = GetH243RecipientThresholds
+
+	text={ trigger={ GRE={ has_completed_focus=GRE_a_game_of_shadows }} localization_key=h241_negotiation_info_tt }
+	text={ localization_key=hxxx_game_of_shadows_not_completed_tt }
+}
+
+defined_text = {
+	name = GetDivisionTypeName
+
+	text={ trigger={ check_variable={ divtype=0 }} localization_key="(Merarchía-XX) Epístraton" }
+	text={ trigger={ check_variable={ divtype=1 }} localization_key="(Taxiarchía-X) Ethnofrourás" }
+}
+
+defined_text = {
+	name = GetBatTypeName
+
+	text={ trigger={ check_variable={ batype=0 }} localization_key="infantry" }
+	text={ trigger={ check_variable={ batype=1 }} localization_key="artillery_brigade" }
+}
+
+defined_text = {
+	name = GetRelocationTargetName
+
+	text={ trigger={ check_variable={ hidden_template_allocation_pointer=0 }}  localization_key=hidden_base_template_allocate_name_conscripts }
+	text={ trigger={ check_variable={ hidden_template_allocation_pointer=1 }}  localization_key=hidden_base_template_allocate_name_nationguard }
+}
+
+defined_text = {
+	name = GetRetractionTargetName
+
+	text={ trigger={ check_variable={ hidden_template_allocation_pointer=0 }}  localization_key=hidden_base_template_retract_name_conscripts }
+	text={ trigger={ check_variable={ hidden_template_allocation_pointer=1 }}  localization_key=hidden_base_template_retract_name_nationguard }
+}
+
+defined_text = {
+	name = GetStateAllocatedDivs
+
+	text={ trigger={ check_variable={ GRE.hidden_template_allocation_pointer=0 }}  localization_key=hidden_base_template_allocate_name_conscripts_desc }
+	text={ trigger={ check_variable={ GRE.hidden_template_allocation_pointer=1 }}  localization_key=hidden_base_template_allocate_name_nationguard_desc }
+}
+
+defined_text = {
+	name = GetRelocationTargetDecisionName
+
+	text={ trigger={ check_variable={ hidden_template_allocation_pointer=0 }}  localization_key=hidden_base_template_allocate_decision_name_conscripts }
+	text={ trigger={ check_variable={ hidden_template_allocation_pointer=1 }}  localization_key=hidden_base_template_allocate_decision_name_nationguard }
+}
+
+defined_text = {
+	name = GetEquipmentNames
+
+	text={ trigger={ check_variable={ i=0 }}  localization_key="infantry_equipment"}
+	text={ trigger={ check_variable={ i=1 }}  localization_key="support_equipment"}
+	text={ trigger={ check_variable={ i=2 }}  localization_key="artillery_equipment"}
+	text={ trigger={ check_variable={ i=3 }}  localization_key="rocket_artillery_equipment"}
+	text={ trigger={ check_variable={ i=4 }}  localization_key="anti_tank_equipment"}
+	text={ trigger={ check_variable={ i=5 }}  localization_key="anti_air_equipment"}
+	text={ trigger={ check_variable={ i=6 }}  localization_key="amphibious_mechanized_equipment"}
+	text={ trigger={ check_variable={ i=7 }}  localization_key="armored_car_equipment"}
+	text={ trigger={ check_variable={ i=8 }}  localization_key="mechanized_equipment"}
+	text={ trigger={ check_variable={ i=9 }}  localization_key="motorized_equipment"}
+	text={ trigger={ check_variable={ i=10 }} localization_key="motorized_rocket_equipment"}
+	text={ trigger={ check_variable={ i=11 }} localization_key="light_tank_chassis"}
+	text={ trigger={ check_variable={ i=12 }} localization_key="medium_tank_chassis"}
+	text={ trigger={ check_variable={ i=13 }} localization_key="heavy_tank_chassis"}
+	text={ trigger={ check_variable={ i=14 }} localization_key="super_heavy_tank_chassis"}
+	text={ trigger={ check_variable={ i=15 }} localization_key="modern_tank_chassis"}
+	text={ trigger={ check_variable={ i=16 }} localization_key="amphibious_tank_chassis"}
+	text={ trigger={ check_variable={ i=17 }} localization_key="light_tank_artillery_chassis"}
+	text={ trigger={ check_variable={ i=18 }} localization_key="medium_tank_artillery_chassis"}
+	text={ trigger={ check_variable={ i=19 }} localization_key="heavy_tank_artillery_chassis"}
+	text={ trigger={ check_variable={ i=20 }} localization_key="light_tank_destroyer_chassis"}
+	text={ trigger={ check_variable={ i=21 }} localization_key="medium_tank_destroyer_chassis"}
+	text={ trigger={ check_variable={ i=22 }} localization_key="heavy_tank_destroyer_chassis"}
+}
+
+defined_text = {
+	name = GetEquipmentProductionValue
+
+	text={ trigger={ check_variable={ i=0 }}  localization_key="0.5"}
+	text={ trigger={ check_variable={ i=1 }}  localization_key="4.0"}
+	text={ trigger={ check_variable={ i=2 }}  localization_key="4.0"}
+	text={ trigger={ check_variable={ i=3 }}  localization_key="4.0"}
+	text={ trigger={ check_variable={ i=4 }}  localization_key="4.0"}
+	text={ trigger={ check_variable={ i=5 }}  localization_key="4.0"}
+	text={ trigger={ check_variable={ i=6 }}  localization_key="8.0"}
+	text={ trigger={ check_variable={ i=7 }}  localization_key="4.0"}
+	text={ trigger={ check_variable={ i=8 }}  localization_key="8.0"}
+	text={ trigger={ check_variable={ i=9 }}  localization_key="2.5"}
+	text={ trigger={ check_variable={ i=10 }} localization_key="12.0"}
+	text={ trigger={ check_variable={ i=11 }} localization_key="2.5"}
+	text={ trigger={ check_variable={ i=12 }} localization_key="3.6"}
+	text={ trigger={ check_variable={ i=13 }} localization_key="12.8"}
+	text={ trigger={ check_variable={ i=14 }} localization_key="28.0"}
+	text={ trigger={ check_variable={ i=15 }} localization_key="12.0"}
+	text={ trigger={ check_variable={ i=16 }} localization_key="4.8"}
+	text={ trigger={ check_variable={ i=17 }} localization_key="2.5"}
+	text={ trigger={ check_variable={ i=18 }} localization_key="3.6"}
+	text={ trigger={ check_variable={ i=19 }} localization_key="12.8"}
+	text={ trigger={ check_variable={ i=20 }} localization_key="2.5"}
+	text={ trigger={ check_variable={ i=21 }} localization_key="3.6"}
+	text={ trigger={ check_variable={ i=22 }} localization_key="12.8"}
+}
+
+defined_text = {
+	name = GetEquipmentNamesRECURSE
+
+	text={ trigger={ check_variable={ j=0 }}  localization_key="infantry_equipment"}
+	text={ trigger={ check_variable={ j=1 }}  localization_key="support_equipment"}
+	text={ trigger={ check_variable={ j=2 }}  localization_key="artillery_equipment"}
+	text={ trigger={ check_variable={ j=3 }}  localization_key="rocket_artillery_equipment"}
+	text={ trigger={ check_variable={ j=4 }}  localization_key="anti_tank_equipment"}
+	text={ trigger={ check_variable={ j=5 }}  localization_key="anti_air_equipment"}
+	text={ trigger={ check_variable={ j=6 }}  localization_key="amphibious_mechanized_equipment"}
+	text={ trigger={ check_variable={ j=7 }}  localization_key="armored_car_equipment"}
+	text={ trigger={ check_variable={ j=8 }}  localization_key="mechanized_equipment"}
+	text={ trigger={ check_variable={ j=9 }}  localization_key="motorized_equipment"}
+	text={ trigger={ check_variable={ j=10 }} localization_key="motorized_rocket_equipment"}
+	text={ trigger={ check_variable={ j=11 }} localization_key="light_tank_chassis"}
+	text={ trigger={ check_variable={ j=12 }} localization_key="medium_tank_chassis"}
+	text={ trigger={ check_variable={ j=13 }} localization_key="heavy_tank_chassis"}
+	text={ trigger={ check_variable={ j=14 }} localization_key="super_heavy_tank_chassis"}
+	text={ trigger={ check_variable={ j=15 }} localization_key="modern_tank_chassis"}
+	text={ trigger={ check_variable={ j=16 }} localization_key="amphibious_tank_chassis"}
+	text={ trigger={ check_variable={ j=17 }} localization_key="light_tank_artillery_chassis"}
+	text={ trigger={ check_variable={ j=18 }} localization_key="medium_tank_artillery_chassis"}
+	text={ trigger={ check_variable={ j=19 }} localization_key="heavy_tank_artillery_chassis"}
+	text={ trigger={ check_variable={ j=20 }} localization_key="light_tank_destroyer_chassis"}
+	text={ trigger={ check_variable={ j=21 }} localization_key="medium_tank_destroyer_chassis"}
+	text={ trigger={ check_variable={ j=22 }} localization_key="heavy_tank_destroyer_chassis"}
+}
+
+defined_text = {
+	name = GetEquimentRequirementsRecursive
+
+	text={
+		trigger={
+			check_variable={ var=i value=GRE.bdiv_equipment@var:divtype^num compare=less_than_or_equals }
+			check_variable={ GRE.bdiv_equipment@var:divtype^i>0 }
+			set_temp_variable={ j=i }
+			add_to_temp_variable={ i=1 }
+		}
+		localization_key=hidden_base_template_requirements_tt
+	}
+	text={
+		trigger={
+			check_variable={ GRE.bdiv_equipment@var:divtype^i=0 }
+			check_variable={ var=i value=GRE.bdiv_equipment@var:divtype^num compare=less_than_or_equals }
+			add_to_temp_variable={ i=1 }
+		}
+		localization_key=hidden_base_template_requirements_none_tt
+	}
+	text={ localization_key="" }
+}
+
 defined_text = {
 	name = GetGeneralVeterancyStatus
 
@@ -2688,83 +2902,135 @@ defined_text = {
 }
 
 defined_text = {
-	name = GetRandomTrainingTmpY
+	name = GetOnOfficerTarget
 
-	text={ trigger={ check_variable={ tmpY1=0 } check_variable={ tmpY2=0 } check_variable={ tmpY3=0 }} localization_key=randomly_train_tmpX_officers_Y_none_tt }
-	text={ localization_key=randomly_train_tmpX_officers_Y_some_tt }
+	text={ trigger={ check_variable={ tmpX>0 }} localization_key=on_officer_effects_target_number }
+	text={ localization_key=on_officer_effects_target_alloff }
+}
+
+defined_text = {
+	name = OnOfficerEffectsTmpY
+
+	text={ trigger={ check_variable={ tmpY0=0 } check_variable={ tmpY1=0 } check_variable={ tmpY2=0 } check_variable={ tmpY3=0 }} localization_key=on_officer_effects_Y_none_tt }
+	text={ localization_key=on_officer_effects_Y_some_tt }
 }
 defined_text = {
-	name = GetRandomTrainingTmpY1
+	name = OnOfficerEffectsTmpY0
+
+	text={ trigger={ check_variable={ tmpY0=0 }} localization_key="" }
+	text={ trigger={ check_variable={ tmpY0=1 }} localization_key=on_officer_effects_Y0_1_tt }
+	text={ trigger={ check_variable={ tmpY0=2 }} localization_key=on_officer_effects_Y0_2_tt }
+	text={ trigger={ check_variable={ tmpY0=3 }} localization_key=on_officer_effects_Y0_3_tt }
+	text={ trigger={ check_variable={ tmpY0=4 }} localization_key=on_officer_effects_Y0_4_tt }
+}
+defined_text = {
+	name = OnOfficerEffectsTmpY1
 
 	text={ trigger={ check_variable={ tmpY1=0 }} localization_key="" }
-	text={ trigger={ check_variable={ tmpY1=1 }} localization_key=randomly_train_tmpX_officers_Y1_1_tt }
-	text={ trigger={ check_variable={ tmpY1=2 }} localization_key=randomly_train_tmpX_officers_Y1_2_tt }
+	text={ trigger={ check_variable={ tmpY1=1 }} localization_key=on_officer_effects_Y1_1_tt }
+	text={ trigger={ check_variable={ tmpY1=2 }} localization_key=on_officer_effects_Y1_2_tt }
 }
 defined_text = {
-	name = GetRandomTrainingTmpY2
+	name = OnOfficerEffectsTmpY2
 
 	text={ trigger={ check_variable={ tmpY2=0 }} localization_key="" }
-	text={ trigger={ check_variable={ tmpY2=1 }} localization_key=randomly_train_tmpX_officers_Y2_1_tt }
-	text={ trigger={ check_variable={ tmpY2=2 }} localization_key=randomly_train_tmpX_officers_Y2_2_tt }
-	text={ trigger={ check_variable={ tmpY2=3 }} localization_key=randomly_train_tmpX_officers_Y2_3_tt }
+	text={ trigger={ check_variable={ tmpY2=1 }} localization_key=on_officer_effects_Y2_1_tt }
+	text={ trigger={ check_variable={ tmpY2=2 }} localization_key=on_officer_effects_Y2_2_tt }
+	text={ trigger={ check_variable={ tmpY2=3 }} localization_key=on_officer_effects_Y2_3_tt }
 }
 defined_text = {
-	name = GetRandomTrainingTmpY3
+	name = OnOfficerEffectsTmpY3
 
 	text={ trigger={ check_variable={ tmpY3=0 }} localization_key="" }
-	text={ trigger={ check_variable={ tmpY3=1 }} localization_key=randomly_train_tmpX_officers_Y3_1_tt }
-	text={ trigger={ check_variable={ tmpY3=2 }} localization_key=randomly_train_tmpX_officers_Y3_2_tt }
-	text={ trigger={ check_variable={ tmpY3=3 }} localization_key=randomly_train_tmpX_officers_Y3_3_tt }
+	text={ trigger={ check_variable={ tmpY3=1 }} localization_key=on_officer_effects_Y3_1_tt }
+	text={ trigger={ check_variable={ tmpY3=2 }} localization_key=on_officer_effects_Y3_2_tt }
+	text={ trigger={ check_variable={ tmpY3=3 }} localization_key=on_officer_effects_Y3_3_tt }
 }
 defined_text = {
-	name = GetRandomTrainingExtra
+	name = OnOfficerEffectsTmpY4
 
-	text={ trigger={ check_variable={ indATK=0 } check_variable={ indDEF=0 } check_variable={ indPLA=0 } check_variable={ indLOG=0 } check_variable={ tmpSKL=0 }} localization_key="" }
-	text={ localization_key=randomly_train_tmpX_officers_XYZQ_some_tt }
+	text={ trigger={ check_variable={ tmpY4=0 }} localization_key="" }
+	text={ trigger={ check_variable={ tmpY4=1 }} localization_key=on_officer_effects_Y4_1_tt }
+	text={ trigger={ check_variable={ tmpY4=2 }} localization_key=on_officer_effects_Y4_2_tt }
+	text={ trigger={ check_variable={ tmpY4=3 }} localization_key=on_officer_effects_Y4_3_tt }
 }
 defined_text = {
-	name = GetRandomTrainingExtraAttack
+	name = OnOfficerEffectsTmpY5
+
+	text={ trigger={ check_variable={ tmpY5=0 }} localization_key="" }
+	text={ trigger={ check_variable={ tmpY5=1 }} localization_key=on_officer_effects_Y5_1_tt }
+	text={ trigger={ check_variable={ tmpY5=2 }} localization_key=on_officer_effects_Y5_2_tt }
+	text={ trigger={ check_variable={ tmpY5=3 }} localization_key=on_officer_effects_Y5_3_tt }
+}
+defined_text = {
+	name = OnOfficerEffectsTmpY6
+
+	text={ trigger={ check_variable={ tmpY6=0 }} localization_key="" }
+	text={ trigger={ check_variable={ tmpY6=1 }} localization_key=on_officer_effects_Y6_1_tt }
+	text={ trigger={ check_variable={ tmpY6=2 }} localization_key=on_officer_effects_Y6_2_tt }
+	text={ trigger={ check_variable={ tmpY6=3 }} localization_key=on_officer_effects_Y6_3_tt }
+}
+defined_text = {
+	name = OnOfficerEffectsExtra
+
+	text={ trigger={ check_variable={ tmpPREP=0 } check_variable={ indATK=0 } check_variable={ indDEF=0 } check_variable={ indPLA=0 } check_variable={ indLOG=0 } check_variable={ tmpSKL=0 } check_variable={ tmpPSK=0 }} localization_key="" }
+	text={ localization_key=on_officer_effects_XYZQ_some_tt }
+}
+defined_text = {
+	name = OnOfficerEffectsExtraTraining
+
+	text={ trigger={ check_variable={ tmpPREP=0 }} localization_key="" }
+	text={ localization_key=on_officer_effects_tmpPREP_tt }
+}
+defined_text = {
+	name = OnOfficerEffectsExtraAttack
 
 	text={ trigger={ check_variable={ indATK=0 }} localization_key="" }
-	text={ localization_key=randomly_train_tmpX_officers_X_tt }
+	text={ localization_key=on_officer_effects_X_tt }
 }
 defined_text = {
-	name = GetRandomTrainingExtraDefence
+	name = OnOfficerEffectsExtraDefence
 
 	text={ trigger={ check_variable={ indDEF=0 }} localization_key="" }
-	text={ localization_key=randomly_train_tmpX_officers_Y_tt }
+	text={ localization_key=on_officer_effects_Y_tt }
 }
 defined_text = {
-	name = GetRandomTrainingExtraPlanning
+	name = OnOfficerEffectsExtraPlanning
 
 	text={ trigger={ check_variable={ indPLA=0 }} localization_key="" }
-	text={ localization_key=randomly_train_tmpX_officers_Z_tt }
+	text={ localization_key=on_officer_effects_Z_tt }
 }
 defined_text = {
-	name = GetRandomTrainingExtraLogistics
+	name = OnOfficerEffectsExtraLogistics
 
 	text={ trigger={ check_variable={ indLOG=0 }} localization_key="" }
-	text={ localization_key=randomly_train_tmpX_officers_Q_tt }
+	text={ localization_key=on_officer_effects_Q_tt }
 }
 defined_text = {
-	name = GetRandomTrainingExtraSkill
+	name = OnOfficerEffectsExtraSkill
 
 	text={ trigger={ check_variable={ tmpSKL=0 }} localization_key="" }
-	text={ localization_key=randomly_train_tmpX_officers_SKL_tt }
+	text={ localization_key=on_officer_effects_SKL_tt }
+} 
+defined_text = {
+	name = OnOfficerEffectsPrepTrait
+
+	text={ trigger={ check_variable={ tmpPSK=0 }} localization_key="" }
+	text={ localization_key=on_officer_effects_PSK_tt }
 }
 
 
 defined_text = {
-	name = GetRandomTrainingTypeByTmpY
+	name = OnOfficerEffectsTypeByTmpY
 
-	text={ trigger={ check_variable={ tmpY=1 }} localization_key=randomly_train_tmpX_officers_1_tt }
-	text={ trigger={ check_variable={ tmpY=2 }} localization_key=randomly_train_tmpX_officers_2_tt }
-	text={ trigger={ check_variable={ tmpY=3 }} localization_key=randomly_train_tmpX_officers_3_tt }
-	text={ trigger={ check_variable={ tmpY=4 }} localization_key=randomly_train_tmpX_officers_4_tt }
+	text={ trigger={ check_variable={ tmpY=1 }} localization_key=on_officer_effects_1_tt }
+	text={ trigger={ check_variable={ tmpY=2 }} localization_key=on_officer_effects_2_tt }
+	text={ trigger={ check_variable={ tmpY=3 }} localization_key=on_officer_effects_3_tt }
+	text={ trigger={ check_variable={ tmpY=4 }} localization_key=on_officer_effects_4_tt }
 }
 
 defined_text = {
-	name = GetRandomTrainingTypeByTmpZ
+	name = OnOfficerEffectsTypeByTmpZ
 
 	text={ trigger={ check_variable={ tmpZ=0 }} localization_key="" }
 	text={ trigger={ check_variable={ tmpZ=1 }} localization_key="[GetArmyFriendliness]" }
@@ -2809,6 +3075,24 @@ defined_text = {
 	text={ trigger={ check_variable={ tmpF=1 }} localization_key="dem" }
 	text={ trigger={ check_variable={ tmpF=2 }} localization_key="com" }
 	text={ trigger={ check_variable={ tmpF=3 }} localization_key="fas" }
+}
+
+defined_text = {
+	name = GetTokenFromF1
+
+	text={ trigger={ check_variable={ tmpF1=0 }} localization_key="mon" }
+	text={ trigger={ check_variable={ tmpF1=1 }} localization_key="dem" }
+	text={ trigger={ check_variable={ tmpF1=2 }} localization_key="com" }
+	text={ trigger={ check_variable={ tmpF1=3 }} localization_key="fas" }
+}
+
+defined_text = {
+	name = GetTokenFromF2
+
+	text={ trigger={ check_variable={ tmpF2=0 }} localization_key="mon" }
+	text={ trigger={ check_variable={ tmpF2=1 }} localization_key="dem" }
+	text={ trigger={ check_variable={ tmpF2=2 }} localization_key="com" }
+	text={ trigger={ check_variable={ tmpF2=3 }} localization_key="fas" }
 }
 
 defined_text = {
@@ -2873,6 +3157,7 @@ defined_text = {
 	text={ trigger={ check_variable={ tmpMISS=3 }} localization_key=invigorating_hellenic_spirit }
 	text={ trigger={ check_variable={ tmpMISS=4 }} localization_key=GRE_kanellopoulos_mission }
 	text={ trigger={ check_variable={ tmpMISS=5 }} localization_key=political_stabilization }
+	text={ trigger={ check_variable={ tmpMISS=6 }} localization_key=GRE_budget_stabilization }
 }
 
 defined_text = {
@@ -3213,26 +3498,54 @@ defined_text = {
 #####################################################################################################
 
 defined_text = {
-	name = GetMRStateText
-	text = {
-		trigger = { check_variable = { var = GRE.mr_total_ratings value = GRE.mr_localization_threshold_none compare = less_than } }
-		localization_key = deal_none
+	name=GetMiningRightsStateText
+	text={
+		trigger={ NOT={ has_completed_focus=GRE_a_game_of_shadows }}
+		localization_key=hxxx_success_chance_hidden_tt
 	}
-	text = {
-		trigger = { check_variable = { var = GRE.mr_total_ratings value = GRE.mr_localization_threshold_low compare = less_than } }
-		localization_key = deal_low
+	text={
+		trigger={ check_variable={ var=GRE.h241_total_ratings value=GRE.h241_localization_threshold_none compare=less_than }}
+		localization_key=deal_none
 	}
-	text = {
-		trigger = { check_variable = { var = GRE.mr_total_ratings value = GRE.mr_localization_threshold_medium compare = less_than } }
-		localization_key = deal_mediocre
+	text={
+		trigger={ check_variable={ var=GRE.h241_total_ratings value=GRE.h241_localization_threshold_low compare=less_than }}
+		localization_key=deal_low
 	}
-	text = {
-		trigger = { check_variable = { var = GRE.mr_total_ratings value = GRE.mr_localization_threshold_high compare = less_than } }
-		localization_key = deal_high
+	text={
+		trigger={ check_variable={ var=GRE.h241_total_ratings value=GRE.h241_localization_threshold_medium compare=less_than }}
+		localization_key=deal_mediocre
 	}
-	text = {
-		trigger = { check_variable = { var = GRE.mr_total_ratings value = GRE.mr_localization_threshold_high compare = greater_than_or_equals } }
-		localization_key = deal_certain
+	text={
+		trigger={ check_variable={ var=GRE.h241_total_ratings value=GRE.h241_localization_threshold_high compare=less_than }}
+		localization_key=deal_high
+	}
+	text={
+		trigger={ check_variable={ var=GRE.h241_total_ratings value=GRE.h241_localization_threshold_high compare=greater_than_or_equals }}
+		localization_key=deal_certain
+	}
+}
+
+defined_text = {
+	name=GetMRStateText
+	text={
+		trigger={ check_variable={ var=GRE.mr_total_ratings value=GRE.mr_localization_threshold_none compare=less_than }}
+		localization_key=deal_none
+	}
+	text={
+		trigger={ check_variable={ var=GRE.mr_total_ratings value=GRE.mr_localization_threshold_low compare=less_than }}
+		localization_key=deal_low
+	}
+	text={
+		trigger={ check_variable={ var=GRE.mr_total_ratings value=GRE.mr_localization_threshold_medium compare=less_than }}
+		localization_key=deal_mediocre
+	}
+	text={
+		trigger={ check_variable={ var=GRE.mr_total_ratings value=GRE.mr_localization_threshold_high compare=less_than }}
+		localization_key=deal_high
+	}
+	text={
+		trigger={ check_variable={ var=GRE.mr_total_ratings value=GRE.mr_localization_threshold_high compare=greater_than_or_equals }}
+		localization_key=deal_certain
 	}
 }
 	
@@ -3926,6 +4239,12 @@ defined_text = {
 ################################################################[																	   ]################################################################
 ########################################################################################################################################################################################################
 
+defined_text={
+	name=GetFindYInfluenceFluctText
+
+	text={ trigger={ check_variable={ findY<0 }} localization_key="decrease" }
+	text={ localization_key="increase" }
+}
 
 defined_text = {
     name = GetAllianceWeightTmpAW

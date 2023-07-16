@@ -53,6 +53,97 @@
 leader_traits = {
 
 ##################################
+# Preparation Traits
+##################################
+
+    preparation_trait_inf_planning_logistics={
+        type=all
+        trait_type=personality_trait
+
+        trait_xp_factor={
+            trickster=3
+            organizer=3
+        }
+
+        modifier={
+            initiative_factor=0.02
+            coordination_bonus=0.04
+            no_supply_grace=12
+            out_of_supply_factor=-0.05
+        }
+
+		new_commander_weight={ factor=0 }
+    }
+
+    preparation_trait_mountainous_warfare={
+        type=all
+        trait_type=personality_trait
+
+        trait_xp_factor={
+            trait_mountaineer=2
+            hill_fighter=2
+            commando=2
+            winter_specialist=2
+        }
+
+        modifier={
+            winter_attrition_factor=-0.05
+            acclimatization_cold_climate_gain_factor=0.05
+        }
+
+		new_commander_weight={ factor=0 }
+    }
+
+    preparation_trait_naval={
+        type=all
+        trait_type=personality_trait
+
+        trait_xp_factor={ naval_invader=3 }
+
+        modifier={
+            invasion_preparation=-0.15
+            naval_invasion_penalty=-0.05
+        }
+
+		new_commander_weight={ factor=0 }
+    }
+
+    preparation_trait_maneuver={
+        type=all
+        trait_type=personality_trait
+
+        trait_xp_factor={
+            cavalry_leader=3
+            panzer_leader=3
+        }
+
+        modifier={
+            army_attack_speed_factor=0.05
+            org_loss_when_moving=-0.05
+        }
+
+		new_commander_weight={ factor=0 }
+    }
+
+    preparation_trait_static_warfare={
+        type=all
+        trait_type=personality_trait
+
+        trait_xp_factor={
+            trait_engineer=3
+            organizer=3
+        }
+
+        modifier={
+            dig_in_speed_factor=0.08
+            cas_damage_reduction=0.06
+            experience_loss_factor=-0.25
+        }
+
+		new_commander_weight={ factor=0 }
+    }
+
+##################################
 # Political Belief Traits
 ##################################
     
@@ -193,6 +284,10 @@ leader_traits = {
             army_artillery_attack_factor = 0.05
             army_artillery_defence_factor = 0.02
         }
+
+        new_commander_weight = {
+			factor = 0
+		}
         
         attack_skill_factor = 1
         planning_skill_factor = 1
@@ -322,7 +417,7 @@ leader_traits = {
 # WW1
 # Greco-Turkish War
 	
-    gre_three_war_veteran = { 
+    gre_three_war_veteran = {
 		type = land
 		trait_type = status_trait
         
@@ -360,7 +455,7 @@ leader_traits = {
 		}
 
         new_commander_weight = {
-            factor = 0
+            factor = 0.05
         }
 	}
     
@@ -377,7 +472,7 @@ leader_traits = {
         }
 
         new_commander_weight = {
-            factor = 0
+            factor = 0.15
         }
 	}
     
@@ -413,7 +508,7 @@ leader_traits = {
 		}
 
         new_commander_weight = {
-            factor = 0
+            factor = 0.05
         }
 	}
     
@@ -430,7 +525,7 @@ leader_traits = {
 		}
 
         new_commander_weight = {
-            factor = 0
+            factor = 0.15
         }
 	}
 
@@ -470,172 +565,172 @@ leader_traits = {
         
         custom_effect_tooltip = gre_recently_trained_general_tt
         
-        on_remove = {
-            if = {
-                limit = { has_trait = gre_unprepared_general_2 }
-                random_list = {
-                    10 = {
-                        modifier = { factor = 0.10 average_stats > 5}
-                        random_list = {
-                            25 = { set_temp_variable = {indATK = 1} increase_indXYZQ_weighted = yes }
-                            25 = { set_temp_variable = {indDEF = 1} increase_indXYZQ_weighted = yes }
-                            25 = { set_temp_variable = {indPLA = 1} increase_indXYZQ_weighted = yes }
-                            25 = { set_temp_variable = {indLOG = 1} increase_indXYZQ_weighted = yes }
-                        }
-                    }
-                    1 = {
-                        add_skill_level = 1
-                    }
-                    1 = {
-                        modifier = { factor = 0.1 set_temp_variable = { tmpQ = 3 } has_at_least_tmpQ_combat_traits = yes }
-                        modifier = { factor = 0.25 set_temp_variable = { tmpQ = 2 } has_at_least_tmpQ_combat_traits = yes }
-                        modifier = { factor = 0.5 set_temp_variable = { tmpQ = 1 } has_at_least_tmpQ_combat_traits = yes }
-                        add_random_trait = { organizer commando trickster guerilla_fighter }
-                    }
-                    3 = {
-                        modifier = { factor = 2 has_trait = gre_three_war_veteran }
-                        modifier = { factor = 1.5 has_trait = gre_two_war_veteran }
-                        modifier = { factor = 1.25 has_trait = gre_war_veteran }
-                        add_max_trait = 1
-                    }
-                    85 = { }
-                }
-            }
-            else_if = {
-                limit = { has_trait = gre_unprepared_general_1 }
-                random_list = {
-                    20 = {
-                        modifier = { factor = 0.25 average_stats > 5}
-                        random_list = {
-                            25 = { set_temp_variable = {indATK = 1} increase_indXYZQ_weighted = yes }
-                            25 = { set_temp_variable = {indDEF = 1} increase_indXYZQ_weighted = yes }
-                            25 = { set_temp_variable = {indPLA = 1} increase_indXYZQ_weighted = yes }
-                            25 = { set_temp_variable = {indLOG = 1} increase_indXYZQ_weighted = yes }
-                        }
-                    }
-                    2 = {
-                        modifier = { factor = 2 has_trait = gre_three_war_veteran }
-                        modifier = { factor = 1.5 has_trait = gre_two_war_veteran }
-                        modifier = { factor = 1.25 has_trait = gre_war_veteran }
-                        add_skill_level = 1
-                    }
-                    2 = {
-                        modifier = { factor = 0.1 set_temp_variable = { tmpQ = 3 } has_at_least_tmpQ_combat_traits = yes }
-                        modifier = { factor = 0.25 set_temp_variable = { tmpQ = 2 } has_at_least_tmpQ_combat_traits = yes }
-                        modifier = { factor = 0.5 set_temp_variable = { tmpQ = 1 } has_at_least_tmpQ_combat_traits = yes }
-                        add_random_trait = { organizer commando trickster guerilla_fighter }
-                    }
-                    2 = {
-                        modifier = { factor = 2 has_trait = gre_three_war_veteran }
-                        modifier = { factor = 1.5 has_trait = gre_two_war_veteran }
-                        modifier = { factor = 1.25 has_trait = gre_war_veteran }
-                        random_list = {
-                            25 = { add_unit_leader_trait = brilliant_strategist }
-                            25 = { add_unit_leader_trait = inflexible_strategist }
-                            25 = { modifier = { factor = 0 NOT = { has_trait = gre_artillery_officer } } add_unit_leader_trait = bearer_of_artillery }
-                            25 = { add_unit_leader_trait = armor_officer }
-                        }
-                    }
-                    4 = {
-                        modifier = { factor = 2 has_trait = gre_three_war_veteran }
-                        modifier = { factor = 1.5 has_trait = gre_two_war_veteran }
-                        modifier = { factor = 1.25 has_trait = gre_war_veteran }
-                        add_max_trait = 1
-                    }
-                    70 = { }
-                }
-            }
-            else_if = {
-                if = { limit = { has_trait = gre_three_war_veteran } add_skill_level = 1 }
-                limit = { has_trait = gre_unprepared_general_0 }
-                random_list = {
-                    30 = {
-                        modifier = { factor = 0.25 average_stats > 5}
-                        random_list = {
-                            25 = { set_temp_variable = {indATK = 1} increase_indXYZQ_weighted = yes }
-                            25 = { set_temp_variable = {indDEF = 1} increase_indXYZQ_weighted = yes }
-                            25 = { set_temp_variable = {indPLA = 1} increase_indXYZQ_weighted = yes }
-                            25 = { set_temp_variable = {indLOG = 1} increase_indXYZQ_weighted = yes }
-                        }
-                    }
-                    3 = {
-                        modifier = { factor = 2 has_trait = gre_three_war_veteran }
-                        modifier = { factor = 1.5 has_trait = gre_two_war_veteran }
-                        modifier = { factor = 1.25 has_trait = gre_war_veteran }
-                        add_skill_level = 1
-                    }
-                    7 = {
-                        modifier = { factor = 0.1 set_temp_variable = { tmpQ = 3 } has_at_least_tmpQ_combat_traits = yes }
-                        modifier = { factor = 0.25 set_temp_variable = { tmpQ = 2 } has_at_least_tmpQ_combat_traits = yes }
-                        modifier = { factor = 0.5 set_temp_variable = { tmpQ = 1 } has_at_least_tmpQ_combat_traits = yes }
-                        add_random_trait = { organizer commando trickster guerilla_fighter }
-                    }
-                    5 = {
-                        modifier = { factor = 3 has_trait = gre_three_war_veteran }
-                        modifier = { factor = 2 has_trait = gre_two_war_veteran }
-                        modifier = { factor = 1.5 has_trait = gre_war_veteran }
-                        random_list = {
-                            25 = { add_unit_leader_trait = brilliant_strategist }
-                            25 = { add_unit_leader_trait = inflexible_strategist }
-                            25 = { modifier = { factor = 0 NOT = { has_trait = gre_artillery_officer } } add_unit_leader_trait = bearer_of_artillery }
-                            25 = { add_unit_leader_trait = armor_officer }
-                        }
-                    }
-                    5 = {
-                        modifier = { factor = 2 has_trait = gre_three_war_veteran }
-                        modifier = { factor = 1.5 has_trait = gre_two_war_veteran }
-                        modifier = { factor = 1.25 has_trait = gre_war_veteran }
-                        add_max_trait = 1
-                    }
-                    50 = { }
-                }
-            }
-            else = {
-                if = { limit = { has_trait = gre_three_war_veteran } add_skill_level = 1 }
-                if = { limit = { has_trait = gre_two_war_veteran } add_skill_level = 1 }
-                random_list = {
-                    35 = {
-                        modifier = { factor = 0.25 average_stats > 5}
-                        random_list = {
-                            25 = { set_temp_variable = {indATK = 1} increase_indXYZQ_weighted = yes }
-                            25 = { set_temp_variable = {indDEF = 1} increase_indXYZQ_weighted = yes }
-                            25 = { set_temp_variable = {indPLA = 1} increase_indXYZQ_weighted = yes }
-                            25 = { set_temp_variable = {indLOG = 1} increase_indXYZQ_weighted = yes }
-                        }
-                    }
-                    4 = {
-                        modifier = { factor = 2 has_trait = gre_three_war_veteran }
-                        modifier = { factor = 1.5 has_trait = gre_two_war_veteran }
-                        modifier = { factor = 1.25 has_trait = gre_war_veteran }
-                        add_skill_level = 1
-                    }
-                    10 = {
-                        modifier = { factor = 0.1 set_temp_variable = { tmpQ = 3 } has_at_least_tmpQ_combat_traits = yes }
-                        modifier = { factor = 0.25 set_temp_variable = { tmpQ = 2 } has_at_least_tmpQ_combat_traits = yes }
-                        modifier = { factor = 0.5 set_temp_variable = { tmpQ = 1 } has_at_least_tmpQ_combat_traits = yes }
-                        add_random_trait = { organizer commando trickster guerilla_fighter }
-                    }
-                    10 = {
-                        modifier = { factor = 3 has_trait = gre_three_war_veteran }
-                        modifier = { factor = 2 has_trait = gre_two_war_veteran }
-                        modifier = { factor = 1.5 has_trait = gre_war_veteran }
-                        random_list = {
-                            25 = { add_unit_leader_trait = brilliant_strategist }
-                            25 = { add_unit_leader_trait = inflexible_strategist }
-                            25 = { modifier = { factor = 0 NOT = { has_trait = gre_artillery_officer } } add_unit_leader_trait = bearer_of_artillery }
-                            25 = { add_unit_leader_trait = armor_officer }
-                        }
-                    }
-                    16 = {
-                        modifier = { factor = 2 has_trait = gre_three_war_veteran }
-                        modifier = { factor = 1.5 has_trait = gre_two_war_veteran }
-                        modifier = { factor = 1.25 has_trait = gre_war_veteran }
-                        add_max_trait = 1
-                    }
-                    25 = { }
-                }
-            }
-        }
+        #### on_remove = {
+        ####     if = {
+        ####         limit = { has_trait = gre_unprepared_general_2 }
+        ####         random_list = {
+        ####             10 = {
+        ####                 modifier = { factor = 0.10 average_stats > 5}
+        ####                 random_list = {
+        ####                     25 = { set_temp_variable = {indATK = 1} increase_indXYZQ_weighted = yes }
+        ####                     25 = { set_temp_variable = {indDEF = 1} increase_indXYZQ_weighted = yes }
+        ####                     25 = { set_temp_variable = {indPLA = 1} increase_indXYZQ_weighted = yes }
+        ####                     25 = { set_temp_variable = {indLOG = 1} increase_indXYZQ_weighted = yes }
+        ####                 }
+        ####             }
+        ####             1 = {
+        ####                 add_skill_level = 1
+        ####             }
+        ####             1 = {
+        ####                 modifier = { factor = 0.1 set_temp_variable = { tmpQ = 3 } has_at_least_tmpQ_combat_traits = yes }
+        ####                 modifier = { factor = 0.25 set_temp_variable = { tmpQ = 2 } has_at_least_tmpQ_combat_traits = yes }
+        ####                 modifier = { factor = 0.5 set_temp_variable = { tmpQ = 1 } has_at_least_tmpQ_combat_traits = yes }
+        ####                 add_random_trait = { organizer commando trickster guerilla_fighter }
+        ####             }
+        ####             3 = {
+        ####                 modifier = { factor = 2 has_trait = gre_three_war_veteran }
+        ####                 modifier = { factor = 1.5 has_trait = gre_two_war_veteran }
+        ####                 modifier = { factor = 1.25 has_trait = gre_war_veteran }
+        ####                 add_max_trait = 1
+        ####             }
+        ####             85 = { }
+        ####         }
+        ####     }
+        ####     else_if = {
+        ####         limit = { has_trait = gre_unprepared_general_1 }
+        ####         random_list = {
+        ####             20 = {
+        ####                 modifier = { factor = 0.25 average_stats > 5}
+        ####                 random_list = {
+        ####                     25 = { set_temp_variable = {indATK = 1} increase_indXYZQ_weighted = yes }
+        ####                     25 = { set_temp_variable = {indDEF = 1} increase_indXYZQ_weighted = yes }
+        ####                     25 = { set_temp_variable = {indPLA = 1} increase_indXYZQ_weighted = yes }
+        ####                     25 = { set_temp_variable = {indLOG = 1} increase_indXYZQ_weighted = yes }
+        ####                 }
+        ####             }
+        ####             2 = {
+        ####                 modifier = { factor = 2 has_trait = gre_three_war_veteran }
+        ####                 modifier = { factor = 1.5 has_trait = gre_two_war_veteran }
+        ####                 modifier = { factor = 1.25 has_trait = gre_war_veteran }
+        ####                 add_skill_level = 1
+        ####             }
+        ####             2 = {
+        ####                 modifier = { factor = 0.1 set_temp_variable = { tmpQ = 3 } has_at_least_tmpQ_combat_traits = yes }
+        ####                 modifier = { factor = 0.25 set_temp_variable = { tmpQ = 2 } has_at_least_tmpQ_combat_traits = yes }
+        ####                 modifier = { factor = 0.5 set_temp_variable = { tmpQ = 1 } has_at_least_tmpQ_combat_traits = yes }
+        ####                 add_random_trait = { organizer commando trickster guerilla_fighter }
+        ####             }
+        ####             2 = {
+        ####                 modifier = { factor = 2 has_trait = gre_three_war_veteran }
+        ####                 modifier = { factor = 1.5 has_trait = gre_two_war_veteran }
+        ####                 modifier = { factor = 1.25 has_trait = gre_war_veteran }
+        ####                 random_list = {
+        ####                     25 = { add_unit_leader_trait = brilliant_strategist }
+        ####                     25 = { add_unit_leader_trait = inflexible_strategist }
+        ####                     25 = { modifier = { factor = 0 NOT = { has_trait = gre_artillery_officer } } add_unit_leader_trait = bearer_of_artillery }
+        ####                     25 = { add_unit_leader_trait = armor_officer }
+        ####                 }
+        ####             }
+        ####             4 = {
+        ####                 modifier = { factor = 2 has_trait = gre_three_war_veteran }
+        ####                 modifier = { factor = 1.5 has_trait = gre_two_war_veteran }
+        ####                 modifier = { factor = 1.25 has_trait = gre_war_veteran }
+        ####                 add_max_trait = 1
+        ####             }
+        ####             70 = { }
+        ####         }
+        ####     }
+        ####     else_if = {
+        ####         if = { limit = { has_trait = gre_three_war_veteran } add_skill_level = 1 }
+        ####         limit = { has_trait = gre_unprepared_general_0 }
+        ####         random_list = {
+        ####             30 = {
+        ####                 modifier = { factor = 0.25 average_stats > 5}
+        ####                 random_list = {
+        ####                     25 = { set_temp_variable = {indATK = 1} increase_indXYZQ_weighted = yes }
+        ####                     25 = { set_temp_variable = {indDEF = 1} increase_indXYZQ_weighted = yes }
+        ####                     25 = { set_temp_variable = {indPLA = 1} increase_indXYZQ_weighted = yes }
+        ####                     25 = { set_temp_variable = {indLOG = 1} increase_indXYZQ_weighted = yes }
+        ####                 }
+        ####             }
+        ####             3 = {
+        ####                 modifier = { factor = 2 has_trait = gre_three_war_veteran }
+        ####                 modifier = { factor = 1.5 has_trait = gre_two_war_veteran }
+        ####                 modifier = { factor = 1.25 has_trait = gre_war_veteran }
+        ####                 add_skill_level = 1
+        ####             }
+        ####             7 = {
+        ####                 modifier = { factor = 0.1 set_temp_variable = { tmpQ = 3 } has_at_least_tmpQ_combat_traits = yes }
+        ####                 modifier = { factor = 0.25 set_temp_variable = { tmpQ = 2 } has_at_least_tmpQ_combat_traits = yes }
+        ####                 modifier = { factor = 0.5 set_temp_variable = { tmpQ = 1 } has_at_least_tmpQ_combat_traits = yes }
+        ####                 add_random_trait = { organizer commando trickster guerilla_fighter }
+        ####             }
+        ####             5 = {
+        ####                 modifier = { factor = 3 has_trait = gre_three_war_veteran }
+        ####                 modifier = { factor = 2 has_trait = gre_two_war_veteran }
+        ####                 modifier = { factor = 1.5 has_trait = gre_war_veteran }
+        ####                 random_list = {
+        ####                     25 = { add_unit_leader_trait = brilliant_strategist }
+        ####                     25 = { add_unit_leader_trait = inflexible_strategist }
+        ####                     25 = { modifier = { factor = 0 NOT = { has_trait = gre_artillery_officer } } add_unit_leader_trait = bearer_of_artillery }
+        ####                     25 = { add_unit_leader_trait = armor_officer }
+        ####                 }
+        ####             }
+        ####             5 = {
+        ####                 modifier = { factor = 2 has_trait = gre_three_war_veteran }
+        ####                 modifier = { factor = 1.5 has_trait = gre_two_war_veteran }
+        ####                 modifier = { factor = 1.25 has_trait = gre_war_veteran }
+        ####                 add_max_trait = 1
+        ####             }
+        ####             50 = { }
+        ####         }
+        ####     }
+        ####     else = {
+        ####         if = { limit = { has_trait = gre_three_war_veteran } add_skill_level = 1 }
+        ####         if = { limit = { has_trait = gre_two_war_veteran } add_skill_level = 1 }
+        ####         random_list = {
+        ####             35 = {
+        ####                 modifier = { factor = 0.25 average_stats > 5}
+        ####                 random_list = {
+        ####                     25 = { set_temp_variable = {indATK = 1} increase_indXYZQ_weighted = yes }
+        ####                     25 = { set_temp_variable = {indDEF = 1} increase_indXYZQ_weighted = yes }
+        ####                     25 = { set_temp_variable = {indPLA = 1} increase_indXYZQ_weighted = yes }
+        ####                     25 = { set_temp_variable = {indLOG = 1} increase_indXYZQ_weighted = yes }
+        ####                 }
+        ####             }
+        ####             4 = {
+        ####                 modifier = { factor = 2 has_trait = gre_three_war_veteran }
+        ####                 modifier = { factor = 1.5 has_trait = gre_two_war_veteran }
+        ####                 modifier = { factor = 1.25 has_trait = gre_war_veteran }
+        ####                 add_skill_level = 1
+        ####             }
+        ####             10 = {
+        ####                 modifier = { factor = 0.1 set_temp_variable = { tmpQ = 3 } has_at_least_tmpQ_combat_traits = yes }
+        ####                 modifier = { factor = 0.25 set_temp_variable = { tmpQ = 2 } has_at_least_tmpQ_combat_traits = yes }
+        ####                 modifier = { factor = 0.5 set_temp_variable = { tmpQ = 1 } has_at_least_tmpQ_combat_traits = yes }
+        ####                 add_random_trait = { organizer commando trickster guerilla_fighter }
+        ####             }
+        ####             10 = {
+        ####                 modifier = { factor = 3 has_trait = gre_three_war_veteran }
+        ####                 modifier = { factor = 2 has_trait = gre_two_war_veteran }
+        ####                 modifier = { factor = 1.5 has_trait = gre_war_veteran }
+        ####                 random_list = {
+        ####                     25 = { add_unit_leader_trait = brilliant_strategist }
+        ####                     25 = { add_unit_leader_trait = inflexible_strategist }
+        ####                     25 = { modifier = { factor = 0 NOT = { has_trait = gre_artillery_officer } } add_unit_leader_trait = bearer_of_artillery }
+        ####                     25 = { add_unit_leader_trait = armor_officer }
+        ####                 }
+        ####             }
+        ####             16 = {
+        ####                 modifier = { factor = 2 has_trait = gre_three_war_veteran }
+        ####                 modifier = { factor = 1.5 has_trait = gre_two_war_veteran }
+        ####                 modifier = { factor = 1.25 has_trait = gre_war_veteran }
+        ####                 add_max_trait = 1
+        ####             }
+        ####             25 = { }
+        ####         }
+        ####     }
+        #### }
         
 		non_shared_modifier = {
 			skill_bonus_factor = -0.5

@@ -95,6 +95,11 @@ scripted_gui = {
 			balkan_pact_albania_flag_frame_visible={ is_in_array={ array=GRE.balkan_pact_members value=ALB.id }}
 			balkan_pact_albania_flag_visible={ is_in_array={ array=GRE.balkan_pact_members value=ALB.id }}
 		}
-        effects = {}
+        effects = {			
+			exopol_decisions_balkans_click={   hidden_effect={ if={ limit={ NOT={ has_country_flag=toggle_ebl }} set_country_flag=toggle_ebl } else={ clr_country_flag=toggle_ebl }}}
+			exopol_decisions_allies_click={    hidden_effect={ if={ limit={ NOT={ has_country_flag=toggle_eal }} set_country_flag=toggle_eal } else={ clr_country_flag=toggle_eal }}}
+			exopol_decisions_axis_click={ 	   hidden_effect={ if={ limit={ NOT={ has_country_flag=toggle_eax }} set_country_flag=toggle_eax } else={ clr_country_flag=toggle_eax }}}
+			exopol_decisions_commitern_click={ hidden_effect={ if={ limit={ NOT={ has_country_flag=toggle_ecm }} set_country_flag=toggle_ecm } else={ clr_country_flag=toggle_ecm }}}
+		}
 	}
 }

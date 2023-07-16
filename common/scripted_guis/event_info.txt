@@ -1,0 +1,35 @@
+scripted_gui = {
+
+	containerWindowType = {
+		context_type = player_context
+		window_name = "event_info_button"
+        parent_window_token = top_bar
+
+        visible={ check_variable={ event_info_array^num>0 }}
+
+        effects={
+            event_info_entry_btn_click={
+                if={ limit={ has_country_flag=event_info_flag } clr_country_flag=event_info_flag }
+                else={ set_country_flag=event_info_flag }
+            }
+            event_info_entry_btn_right_click={
+                add_to_variable={ event_info_index=1 }
+                modulo_variable={ event_info_index=event_info_array^num }
+            }
+        }
+    }
+
+	containerWindowType = {
+		context_type = player_context
+		window_name = "event_info_gui"        
+
+		properties = {
+			event_info_explanatory_icon={ image=[GetEventInfoIconSprite] }
+		}
+
+        visible={ 
+            has_country_flag=event_info_flag
+            check_variable={ event_info_array^num>0 }
+        }
+    }
+}

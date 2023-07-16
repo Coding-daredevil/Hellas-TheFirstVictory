@@ -40,16 +40,14 @@ ecall_set_bank_shift_variables_external = {
     add_to_variable={ tsou_opi=0.05 } 
 }
 
-ecall_set_ministry_shift_towards_less_exports = {
-    add_to_variable={ ecall_ministry_shift=1 }
-    add_to_variable={ pa_apostolidis_me = -0.05 }
-    add_to_variable={ pa_apostolidis_to = -0.10 }
-}
-
-ecall_set_ministry_shift_towards_more_exports = {
-    subtract_from_variable={ ecall_ministry_shift=1 }
-    add_to_variable={ pa_apostolidis_me = 0.05 }
-    add_to_variable={ pa_apostolidis_to = 0.10 }
+ecall_shift_ministry_exports = {
+    if={ limit={ check_variable={ ecall_exports_shift_type=0 }} subtract_from_variable={ gre_tra_minimum_exports=ecall_exports_shift_volume }}
+    else={ add_to_variable={ gre_tra_minimum_exports=ecall_exports_shift_volume }}
+    ###
+    clear_variable = GRE.ecall_exports_shift_volume
+    clear_variable = GRE.ecall_exports_shift_type
+    clear_variable = GRE.ecall_fluctuate_exports_remaining_days
+    clear_variable = GRE.ecall_fluctuate_exports_passed_days
 }
 
 ecall_upgrade_economy_rate = {
@@ -173,7 +171,7 @@ ecall_upgrade_economy_detection_test_add_variable_to_tmpCHANCES = {
     ######################################################################
     ######################################################################
     set_variable={ ecall_upgrade_level_difficulty_avoidance=cbt_b1 }
-    log="[?cim_b1] --- [?cbt_b1]"
+    #log="[?cim_b1] --- [?cbt_b1]"
 }
 
 ecall_upgrade_economy_detection_test={
@@ -341,5 +339,39 @@ ecall_announce_economy_backslash_calculation = {
         set_temp_variable={ displayer=overall_debt_tmpLWTHR tooltip=repev_xxxx_lwthr_tt }
         set_temp_variable={ displayer=overall_debt_tmpUPTHR tooltip=repev_xxxx_upthr_tt }
         set_temp_variable={ displayer=0  tooltip=repev_xxxx_maxdir_tt }
+        custom_effect_tooltip=repev_economy_aop_main_tt
+        set_temp_variable={ displayer=0  tooltip=repev_economy_backslash_tt }
+        set_temp_variable={ displayer=1  tooltip=repev_xxxx_weight_tt }
+        set_temp_variable={ displayer=overall_debt_tmpLWTHR tooltip=repev_xxxx_lwthr_tt }
+        set_temp_variable={ displayer=overall_debt_tmpUPTHR tooltip=repev_xxxx_upthr_tt }
+        set_temp_variable={ displayer=0  tooltip=repev_xxxx_maxdir_tt }
     }
+}
+
+ecall_calculate_convoys_and_days = {
+    set_temp_variable={ convoy_inc=25 }
+    set_temp_variable={ convoy_cur=convoys_secured }
+    while_loop_effect = {
+        limit={ always=yes }
+
+        add_to_temp_variable={ convoy_cur=convoy_inc }
+        if={
+            limit={ NOT={ has_equipment={ convoy_1>convoy_cur }}}
+
+            subtract_from_temp_variable={ convoy_cur=convoy_inc }
+            set_temp_variable={ break=1 }
+        }
+    }
+    set_variable={ GRE.convoys_to_be_secured_num=convoy_cur }
+    subtract_from_variable={ GRE.convoys_to_be_secured_num=GRE.convoys_secured }
+    set_variable={ GRE.convoys_to_be_secured_days=GRE.convoys_to_be_secured_num }
+    multiply_variable={ GRE.convoys_to_be_secured_days=0.2 }
+    clamp_variable={ var=GRE.convoys_to_be_secured_days min=30 }
+    round_variable=GRE.convoys_to_be_secured_days
+}
+
+ecall_secure_convoys = {
+    add_to_variable={ GRE.convoys_secured=GRE.convoys_to_be_secured_num }
+    clear_variable=GRE.convoys_to_be_secured_num
+    clear_variable=GRE.convoys_to_be_secured_days
 }

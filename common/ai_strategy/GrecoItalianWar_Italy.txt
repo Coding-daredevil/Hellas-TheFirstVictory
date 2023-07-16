@@ -39,6 +39,7 @@ Italian_strategy_A_preparing_war = {                                            
             has_wargoal_against = GRE
             has_global_flag = GRE_grecoitalian_start
         }
+        NOT={ has_completed_focus=ITA_war_with_greece }
     }
     abort_when_not_enabled = yes
     
@@ -85,6 +86,20 @@ Italian_strategy_A_preparing_war = {                                            
         state = 912 
         state = 185
     	value = 15
+    }
+}
+
+Italian_strategy_A2_avoid_bulgarian_border_during_buildup = {
+    allowed={ original_tag=ITA }
+    enable = {
+        focus_progress={ focus=ITA_war_with_greece progress>0.01 }
+        check_variable={ BUL.stance_in_grecoitalian_war>0 }
+    }
+    
+    ai_strategy = {
+        type = dont_defend_ally_borders
+        id = BUL
+        value = 1000
     }
 }
 

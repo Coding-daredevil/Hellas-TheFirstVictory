@@ -1,0 +1,20 @@
+export_change_within_limits = {
+    custom_trigger_tooltip={
+        tooltip=hell_ecall_apply_export_changes_trig_tt
+
+        check_variable={ var=ecall_exports_shift_volume value=0 compare=not_equals }
+        set_temp_variable={ x=gre_tra_minimum_exports }
+        if={ limit={ check_variable={ ecall_exports_shift_type=0 }} subtract_from_temp_variable={ x=ecall_exports_shift_volume }}
+        else={ add_to_temp_variable={ x=ecall_exports_shift_volume }}
+        check_variable={ var=x value=modifier@gre_trade_minimum_exports_possible compare=greater_than_or_equals }
+        check_variable={ var=x value=1 compare=less_than_or_equals }
+    }
+}
+
+not_steering_exports = {
+    custom_trigger_tooltip={
+        tooltip=hell_ecall_not_steering_exports_trig_tt
+        
+        check_variable={ GRE.ecall_fluctuate_exports_remaining_days=0 }
+    }
+}

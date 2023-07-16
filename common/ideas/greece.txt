@@ -2,17 +2,13 @@ ideas = {
 
 	country = {
 
-        #############################################
-        #                 My MOD                    #
         #############################################   
         #############[  METAXAS IDEAS  ]#############
         #############################################
 		
 		GRE_communists_utterly_crushed = {
-        
-            allowed = {
-                original_tag = GRE
-            }
+			allowed={ original_tag=GRE }
+            picture=gre_communists_crushed
 
 			cancel = {
 				has_country_flag = {
@@ -23,14 +19,11 @@ ideas = {
 					flag = republican_uprising_utterly_crushed
 					days > 120
 				}
-            }
+            }            
             
-            picture = gre_communists_crushed
-            
-            removal_cost = -1
+            removal_cost=-1
             
             modifier = {
-				#custom_modifier_tooltip = GRE_communists_crushed_tt
 				political_power_factor = -0.15
 				stability_weekly = -0.004
 				war_support_weekly = -0.002
@@ -39,55 +32,30 @@ ideas = {
         }
 
 		GRE_republicans_utterly_crushed = {
-        
-            allowed = {
-                original_tag = GRE
-            }
-            
-            picture = gre_republicans_crushed
+            allowed={ original_tag=GRE }
+            picture=gre_republicans_crushed
 
 			cancel = {
-				has_country_flag = {
-					flag = communist_uprising_utterly_crushed
-					days > 120
-				}
-				has_country_flag = {
-					flag = republican_uprising_utterly_crushed
-					days > 120
-				}
+				has_country_flag={ flag=communist_uprising_utterly_crushed days>120 }
+				has_country_flag={ flag=republican_uprising_utterly_crushed days>120 }
             }
             
             on_remove = {
-				if = {
-					limit = {
-						has_country_flag = {
-							flag = communist_uprising_utterly_crushed
-							days > 120
-						}
-						has_country_flag = {
-							flag = republican_uprising_utterly_crushed
-							days > 120
-						}
-						NOT = { has_completed_focus = GRE_defending_our_kingdom }
+				if={
+					limit={
+						has_country_flag={ flag=communist_uprising_utterly_crushed days>120 }
+						has_country_flag={ flag=republican_uprising_utterly_crushed days>120 }
+						NOT={ has_completed_focus=GRE_defending_our_kingdom }
 					} 
-					if = {
-						limit = { has_completed_focus = GRE_third_hellenic_civilization }
-                		add_ideas = GRE_spartan_law_3
-					}
-					else_if = {
-						limit = { has_completed_focus = GRE_an_orthodox_state }
-                		add_ideas = GRE_spartan_law_2
-					}
-					else = {
-						add_ideas = GRE_spartan_law
-					}
+					if={ limit={ has_completed_focus=GRE_third_hellenic_civilization } add_ideas=GRE_spartan_law_3 }
+					else_if={ limit={ has_completed_focus=GRE_an_orthodox_state } add_ideas=GRE_spartan_law_2 }
+					else={ add_ideas=GRE_spartan_law }
 				}
             }
             
-            removal_cost = -1
+            removal_cost=-1
             
             modifier = {
-                #custom_modifier_tooltip = GRE_republicans_crushed_tt
 				political_power_factor = -0.15
 				stability_weekly = -0.004
 				war_support_weekly = -0.002
@@ -96,14 +64,10 @@ ideas = {
         }
 
 		GRE_spartan_law = {
-        
-            allowed = {
-                original_tag = GRE
-            }
-            
-            picture = gre_crushed_opponents
+            allowed={ original_tag=GRE }
+            picture=gre_crushed_opponents
 
-            removal_cost = -1
+            removal_cost=-1
             
             modifier = {
 				political_power_factor = -0.25
@@ -115,14 +79,10 @@ ideas = {
         }
 
 		GRE_spartan_law_2 = {
-        
-            allowed = {
-                original_tag = GRE
-            }
+            allowed={ original_tag=GRE }
+            picture=gre_crushed_opponents
             
-            picture = gre_crushed_opponents
-            
-            removal_cost = -1
+            removal_cost=-1
             
             modifier = {
 				political_power_factor = -0.2
@@ -134,14 +94,10 @@ ideas = {
         }
 
 		GRE_spartan_law_3 = {
-        
-            allowed = {
-                original_tag = GRE
-            }
+            allowed={ original_tag=GRE }
+            picture=gre_crushed_opponents
             
-            picture = gre_crushed_opponents
-            
-            removal_cost = -1
+            removal_cost=-1
             
             modifier = {
 				political_power_factor = -0.15
@@ -153,18 +109,15 @@ ideas = {
         }
 
 		GRE_spartan_law_4 = {
-        
-            allowed = {
-                original_tag = GRE
-            }
+            allowed={ original_tag=GRE }
 
 			cancel = {
 				has_completed_focus = GRE_reviving_the_spartan_warrior_spirit
 			}
             
-            picture = gre_crushed_opponents
+            picture=gre_crushed_opponents
             
-            removal_cost = -1
+            removal_cost=-1
             
             modifier = {
 				political_power_factor = -0.10
@@ -177,96 +130,72 @@ ideas = {
 
 		#####
         GRE_IKA = {
-        
-            allowed = {
-                original_tag = GRE
-            }
+            allowed={ original_tag=GRE }
+            picture=gre_ika
             
-            picture = gre_ika
-            
-            removal_cost = -1
+            removal_cost=-1
             
             modifier = {
+                political_power_gain = 0.25
+                monthly_population = 0.5
+                stability_factor = 0.025
+            }     
+        }
+        
+        GRE_new_corporatism = {
+            allowed={ original_tag=GRE }
+            picture=gre_new_corp
+
+            modifier = {
+                global_building_slots_factor = 0.4
+                consumer_goods_factor = -0.02
                 political_power_gain = 0.25
                 monthly_population = 0.5
                 stability_factor = 0.05
             }     
         }
         
-        GRE_new_corporatism = {
-        
-            allowed = {
-                original_tag = GRE
-            }
-            
-            picture = gre_new_corp
-
-            modifier = {
-                global_building_slots_factor = 0.4
-                consumer_goods_factor = -0.02
-            }     
-        }
-        
         GRE_new_corporatism_combined = {
-        
-            allowed = {
-                original_tag = GRE
-            }
-            
-            picture = gre_new_corp
+            allowed={ original_tag=GRE }
+            picture=gre_new_corp
 
             modifier = {
-                political_power_factor	= 0.1
-                political_power_gain = 0.25
+				stability_factor = 0.1
+                political_power_factor = 0.1
+                political_power_gain = 0.50
 				research_speed_factor = 0.05
                 global_building_slots_factor = 0.8
                 consumer_goods_factor = -0.05
                 production_speed_buildings_factor = 0.10
-                monthly_population = 0.75
+                monthly_population = 1.50
                 industrial_capacity_factory = 0.05
                 industrial_capacity_dockyard = 0.05
             }     
         }
         
         GRE_met_line = {
-        
-            allowed = {
-                original_tag = GRE 
-            }
-            
-            picture = gre_metaxas_line
+            allowed={ original_tag=GRE }            
+            picture=gre_metaxas_line
             	
-			removal_cost = -1
+			removal_cost=-1
             
-            modifier = {
-                enemy_justify_war_goal_time = 0.20
-            }     
+            modifier={ enemy_justify_war_goal_time=0.20 }     
         }
-
-        GRE_met_line_2 = {
         
-            allowed = {
-                original_tag = GRE 
-            }
-            
-            picture = gre_metaxas_line
+        GRE_met_line_2 = {
+            allowed={ original_tag=GRE }            
+            picture=gre_metaxas_line
             	
-			removal_cost = -1
-
-            modifier = {
-                enemy_justify_war_goal_time = 0.25 
-            }            
-        }    
+			removal_cost=-1
+            
+            modifier={ enemy_justify_war_goal_time=0.25 }     
+        } 
 
         GRE_redirection = {
-        
-            allowed = {
-                original_tag = GRE 
-            }
-            
-            picture = gre_ochi
+            allowed={ original_tag=GRE }            
+            picture=gre_metaxas_line_trashed
             	
-			removal_cost = -1
+			removal_cost=-1
             
             modifier = {
                 consumer_goods_factor = -0.05
@@ -277,12 +206,10 @@ ideas = {
         } 
 
         GRE_grecogerman_trade_gre = {
-            picture = can_wartime_prices_and_trade_board
-            removal_cost = -1
+            picture=can_wartime_prices_and_trade_board
+            removal_cost=-1
             
-            cancel = {
-                has_war_with = GER 
-            }
+            cancel={ has_war_with=GER }
             
             targeted_modifier = {
                 tag = GER
@@ -291,12 +218,11 @@ ideas = {
         }
 
         GRE_grecogerman_trade_ger = {
-            picture = can_wartime_prices_and_trade_board
-            removal_cost = -1
+            picture=can_wartime_prices_and_trade_board
+
+            removal_cost=-1
             
-            cancel = {
-                has_war_with = GRE 
-            }
+            cancel={ has_war_with=GRE }
             
             targeted_modifier = {
                 tag = GRE
@@ -305,8 +231,8 @@ ideas = {
         }
 
         GRE_grecosoviet_trade_gre = {
-            picture = gre_grecosoviet_trade
-            removal_cost = -1
+            picture=gre_grecosoviet_trade
+            removal_cost=-1
             
             cancel = {
                 has_war_with = SOV 
@@ -319,8 +245,8 @@ ideas = {
         }
 
         GRE_grecosoviet_trade_sov = {
-            picture = gre_grecosoviet_trade
-            removal_cost = -1
+            picture=gre_grecosoviet_trade
+            removal_cost=-1
             
             cancel = {
                 has_war_with = GRE 
@@ -333,34 +259,25 @@ ideas = {
         }
         
         GRE_prod_growth_timed = {
-        
-            allowed = {
-                original_tag = GRE 
-            }
+            allowed={ original_tag=GRE }
             
-            picture = gre_eff_boost
+            picture=gre_eff_boost
             	
-			removal_cost = -1
+			removal_cost=-1
 
             modifier = {
-                production_factory_efficiency_gain_factor = 2
-            }    
+                production_factory_efficiency_gain_factor = 3
+            }
         }
         
         GRE_diakos = {
     
-            picture = gre_min_diakos
-        
-            allowed = {
-                original_tag = GRE 
-            }
+            picture=gre_min_diakos
+            allowed={ original_tag=GRE }
             
-            cancel = {
-				GRE_ioannis_metaxas = { is_country_leader = no }
-            }
+            cancel={ GRE_ioannis_metaxas={ is_country_leader = no }}
             
             modifier = {
-                political_power_factor = 0.05
                 operation_cost = -0.25
                 operative_slot = 1
             }
@@ -371,14 +288,10 @@ ideas = {
       ############### OCHI IDEAS ##################
       
         GRE_ochi_timed = {
-        
-            allowed = {
-                original_tag = GRE 
-            }
-            
-            picture = gre_reju
-            	
-			removal_cost = -1
+            allowed={ original_tag=GRE }            
+            picture=gre_reju
+
+			removal_cost=-1
 
             modifier = {
                 stability_weekly = 0.07
@@ -387,14 +300,10 @@ ideas = {
         }
         
         GRE_mobilization_timed = {
-        
-            allowed = {
-                original_tag = GRE 
-            }
-            
-            picture = gre_mob
+            allowed={ original_tag=GRE }            
+            picture=gre_mob
             	
-			removal_cost = -1
+			removal_cost=-1
 
             modifier = {
                 army_speed_factor = 0.2
@@ -404,14 +313,10 @@ ideas = {
         }
 
         GRE_fifth_phalanx_crushed = {
-        
-            allowed = {
-                original_tag = GRE 
-            }
-            
-            picture = generic_spy_political
+            allowed={ original_tag=GRE }            
+            picture=generic_spy_political
             	
-			removal_cost = -1
+			removal_cost=-1
 
             modifier = {
                 drift_defence_factor = 0.5
@@ -421,14 +326,10 @@ ideas = {
         }
 
         GRE_exhausted = {
-        
-            allowed = {
-                original_tag = GRE 
-            }
-            
-            picture = prc_the_long_march2
+            allowed={ original_tag=GRE }            
+            picture=prc_the_long_march2
             	
-			removal_cost = -1
+			removal_cost=-1
 
             modifier = {
                 army_attack_factor = -0.15
@@ -440,22 +341,13 @@ ideas = {
         }
         
         GRE_german_ambition = {
-        
-            allowed = {
-                original_tag = GER 
-            }
+			allowed={ original_tag=GER }
+            picture=ger_ambitions
             
             cancel = {
-                NOT = { 
-                    OR = {
-                        has_global_flag = GRE_grecoitalian_start 
-                        has_global_flag = GRE_crete_still_holding
-                    }
-                }
+                is_greco_italian_war_ongoing=no
                 has_war_with = SOV
-            }
-        
-            picture = ger_ambitions
+            }        
         
             modifier = {
                 ai_focus_aggressive_factor = 10000
@@ -476,17 +368,15 @@ ideas = {
         }  
 
         GRE_german_ambition_crete = {
-        
-            allowed = {
-                original_tag = GER 
-            }
+			allowed={ original_tag=GER }
+            picture=ger_ambitions
             
             cancel = {
-                has_global_flag = GRE_crete_still_holding
-                has_war_with = SOV
+				OR={
+	                has_global_flag=GRE_government_in_exile
+    	            has_war_with = SOV
+				}
             }
-        
-            picture = ger_ambitions
         
             modifier = {
                 invasion_preparation = -0.75
@@ -498,55 +388,44 @@ ideas = {
         }
         
         GRE_italian_ambition = {
-        
-            allowed = {
-                original_tag = ITA 
-            }
+            allowed={ original_tag=ITA }
+            picture=ita_ambitions
             
             cancel = {
-                NOT = { has_global_flag = GRE_grecoitalian_start }
-                GRE = {
-                    OR = {
-                        AND = {
-                            is_in_faction = yes
-                            num_faction_members > 2
-                        }
-                        has_war_with = GER
-                    }
-                }
+				OR={
+	                is_greco_italian_war_ongoing=no
+					GRE = {
+						OR={
+							AND={ is_in_faction=yes num_faction_members>2 }
+							has_war_with=GER
+						}
+					}
+				}
             }
-        
-            picture = ita_ambitions
         
             modifier = {
                 ai_focus_aggressive_factor = 10
                 ai_call_ally_desire_factor = -100000
                 ai_get_ally_desire_factor = -100000
             }
-        
         }
         
         
         GRE_italian_ambition_defensive = {
-        
-            allowed = {
-                original_tag = ITA 
-            }
+            allowed={ original_tag=ITA }
+            picture=ita_ambitions
             
             cancel = {
-                NOT = { has_global_flag = GRE_grecoitalian_start }
-                GRE = {
-                    OR = {
-                        AND = {
-                            is_in_faction = yes
-                            num_faction_members > 2
-                        }
-                        has_war_with = GER
-                    }
-                }
+				OR={
+	                is_greco_italian_war_ongoing=no
+					GRE = {
+						OR={
+							AND={ is_in_faction=yes num_faction_members>2 }
+							has_war_with=GER
+						}
+					}
+				}
             }
-        
-            picture = ita_ambitions
         
             modifier = {
                 ai_focus_defense_factor = 10
@@ -557,25 +436,20 @@ ideas = {
         }
         
         GRE_italian_ambition_ultra_offensive = {
-        
-            allowed = {
-                original_tag = ITA 
-            }
+            allowed={ original_tag=ITA }
+            picture=ita_ambitions
             
             cancel = {
-                NOT = { has_global_flag = GRE_grecoitalian_start }
-                GRE = {
-                    OR = {
-                        AND = {
-                            is_in_faction = yes
-                            num_faction_members > 2
-                        }
-                        has_war_with = GER
-                    }
-                }
+				OR={
+	                is_greco_italian_war_ongoing=no
+					GRE = {
+						OR={
+							AND={ is_in_faction=yes num_faction_members>2 }
+							has_war_with=GER
+						}
+					}
+				}
             }
-        
-            picture = ita_ambitions
         
             modifier = {
                 ai_focus_aggressive_factor = 1000
@@ -586,12 +460,8 @@ ideas = {
         }
         
         ITA_spring_offensive = {
-        
-            allowed = {
-                original_tag = ITA 
-            }
-        
-            picture = ita_spring_off
+            allowed={ original_tag=ITA }        
+            picture=ita_spring_off
             
             cancel = {
                 NOT = { has_global_flag = GRE_grecoitalian_start }
@@ -611,62 +481,44 @@ ideas = {
         }
         
         GRE_bulgarian_ambition = {
-        
-            allowed = {
-                original_tag = ITA 
-            }
-        
-            cancel = {
-                NOT = { has_global_flag = GRE_grecoitalian_start }
-                GRE = {
-                    OR = {
-                        AND = {
-                            is_in_faction = yes
-                            num_faction_members > 2
-                        }
-                        has_war_with = GER
-                    }
-                }
-            }
+            allowed={ original_tag=BUL }
+            picture=bul_ambitions
             
-            picture = bul_ambitions
+            cancel = {
+				OR={
+	                is_greco_italian_war_ongoing=no
+					GRE = {
+						OR={
+							AND={ is_in_faction=yes num_faction_members>2 }
+							has_war_with=GER
+						}
+					}
+				}
+            }       
         
             modifier = {
                 ai_focus_aggressive_factor = 10
                 ai_call_ally_desire_factor = -1000
                 ai_get_ally_desire_factor = -1000
             }
-        
         }
 
         GRE_tur_guar = {
-        
-            allowed = {
-                original_tag = GRE 
-            }
-            
-            picture = gre_ochi
+            allowed={ original_tag=GRE }            
+            picture=gre_ochi
             	
-			removal_cost = -1
+			removal_cost=-1
             
             modifier = {
                 enemy_justify_war_goal_time = 0.25 
             }
-        }        
+        }
 
         GRE_bad_weather = {
-        
-			allowed = {
-				original_tag = GRE
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-            
-			picture = gre_bad_weather
+			allowed={ original_tag=GRE }
+			picture=gre_bad_weather
 				
-			removal_cost = -1
+			removal_cost=-1
 				
 			modifier = {
                 enemy_army_bonus_air_superiority_factor = -0.5
@@ -684,18 +536,10 @@ ideas = {
         ###################[ INDUSTRIAL TREE ]####################
 
         GRE_spent_too_much = {
-        
-			allowed = {
-				original_tag = GRE
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-            
-			picture = gre_sptm
+			allowed={ original_tag=GRE }            
+			picture=gre_sptm
 				
-			removal_cost = -1
+			removal_cost=-1
 				
 			modifier = {
                 industrial_capacity_factory = -0.1
@@ -703,116 +547,19 @@ ideas = {
         } 
 
         GRE_spent_too_much_2 = {
-        
-			allowed = {
-				original_tag = GRE
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-            
-			picture = gre_sptm
+			allowed={ original_tag=GRE }            
+			picture=gre_sptm
 				
-			removal_cost = -1
+			removal_cost=-1
 				
 			modifier = {
                 industrial_capacity_factory = -0.3
 			}
-        } 
-    
-        GRE_arms_deal = {
-        
-			allowed = {
-				original_tag = GRE
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-            
-            cancel = {
-                date > 1939.1.1
-            }
-            
-            on_remove = {
-                add_ideas = GRE_arms_deal_1
-                set_variable = { GRE.gold_reserves = 2 }
-            }
-            
-			picture = gre_arms_deal
-				
-			removal_cost = -1
-				
-			modifier = {
-                political_power_factor = 0.15
-			}
-        }
-
-        GRE_arms_deal_1 = {
-        
-			allowed = {
-				original_tag = GRE
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-            
-            cancel = {
-                date > 1939.6.1
-            }
-            
-            on_remove = {
-                add_ideas = GRE_arms_deal_2
-                set_variable = { GRE.gold_reserves = 1 }
-            }
-            
-			picture = gre_arms_deal
-				
-			removal_cost = -1
-				
-			modifier = {
-                political_power_factor = 0.10
-			}
-        }
-
-        GRE_arms_deal_2 = {
-        
-			allowed = {
-				original_tag = GRE
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-            
-            cancel = {
-                date > 1939.12.1
-            }
-            
-            on_remove = {
-                set_variable = { GRE.gold_reserves = 0 }
-            }
-            
-			picture = gre_arms_deal
-				
-			removal_cost = -1
-				
-			modifier = {
-                political_power_factor = 0.05
-			}
         }
 
         GRE_spend_for_growth = {
-        
-			allowed = {
-				original_tag = GRE
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
+			allowed={ original_tag=GRE }
+			picture=gre_ind_grow
             
             cancel = {
                 has_idea = GRE_sophistry_and_science_idea
@@ -827,11 +574,9 @@ ideas = {
                 remove_ideas = GRE_industrializing_society
                 remove_ideas = GRE_farmer_culture
                 add_ideas = GRE_new_corporatism_combined
-            }
-            
-			picture = gre_ind_grow
+            }            
 				
-			removal_cost = -1
+			removal_cost=-1
 				
 			modifier = {
                 consumer_goods_factor = -0.01
@@ -844,66 +589,12 @@ ideas = {
 
         ##########################################################
         ##########################################################
-        
-		GRE_agrarian_society  = {
-				
-			allowed = {
-				original_tag = GRE
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-
-			picture = gre_agr_bad
-				
-			removal_cost = -1
-				
-			modifier = {
-                industrial_factory_donations = -2
-                MONTHLY_POPULATION = -0.5
-				conscription_factor = -0.45
-				political_power_gain = 0.25
-			}
-		}
-
-		GRE_no_industrilization = {
-				
-			allowed = {
-				original_tag = GRE
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-
-			picture = gre_ind_bad
-				
-			removal_cost = -1
-				
-			modifier = {                
-                global_building_slots_factor = -0.2
-                production_factory_efficiency_gain_factor = -0.05
-                production_factory_max_efficiency_factor = -0.025
-                industrial_capacity_dockyard = -0.3
-				industrial_capacity_factory = -0.3
-                industry_repair_factor = -0.25
-			}
-		}
 
 		GRE_farmer_culture = {
+			allowed={ original_tag=GRE }
+			picture=gre_agr_good
 				
-			allowed = {
-				original_tag = GRE
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-
-			picture = gre_agr_good
-				
-			removal_cost = -1
+			removal_cost=-1
 				
 			modifier = {
 				consumer_goods_factor = -0.02
@@ -913,18 +604,10 @@ ideas = {
 		}
 
 		GRE_industrializing_society	= {
+			allowed={ original_tag=GRE }
+			picture=gre_ind_good
 				
-			allowed = {
-				original_tag = GRE
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-
-			picture = gre_ind_good
-				
-			removal_cost = -1
+			removal_cost=-1
 				
 			modifier = {              
                 global_building_slots_factor = 0.25 
@@ -932,101 +615,15 @@ ideas = {
 				industrial_capacity_factory = 0.05
 			}
 		}
-	
-		GRE_command_economy = {
-				
-			allowed = {
-				original_tag = GRE
-				NOT = {
-					has_war_with = GER
-				}
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-
-			picture = generic_central_management
-				
-			removal_cost = -1
-				
-			modifier = {
-				min_export = -0.15
-				consumer_goods_factor = -0.05
-			}
-		}	
 
 		GRE_debt_to_the_ifc = {
+			allowed={ original_tag=GRE }
+			picture=gre_debt_to_the_ifc
 				
-			allowed = {
-				original_tag = GRE
-			}
+			removal_cost=-1
 
-			allowed_civil_war = {
-				NOT = {
-					OR = { 
-						has_government = communism
-						has_government = fascism 
-					}
-				}
-			}
-
-			picture = gre_debt_to_the_ifc
-				
-			removal_cost = -1
-				
 			modifier = {
                 custom_modifier_tooltip = GRE_debt_to_the_ifc_fake_tt
-			}
-		}
-
-		GRE_debt_to_the_ifc_2 = {
-				
-			allowed = {
-				original_tag = GRE
-			}
-
-			allowed_civil_war = {
-				NOT = {
-					OR = { 
-						has_government = communism
-						has_government = fascism 
-					}
-				}
-			}
-
-			picture = gre_debt_to_the_ifc
-				
-			removal_cost = -1
-				
-			modifier = {
-				stability_factor = -0.15	
-				consumer_goods_factor = 0.1	
-			}
-		}
-
-		GRE_debt_to_the_ifc_3 = {
-				
-			allowed = {
-				original_tag = GRE
-			}
-
-			allowed_civil_war = {
-				NOT = {
-					OR = { 
-						has_government = communism
-						has_government = fascism 
-					}
-				}
-			}
-
-			picture = gre_debt_to_the_ifc
-				
-			removal_cost = -1
-				
-			modifier = {
-				stability_factor = -0.1	
-				consumer_goods_factor = 0.05	
 			}
 		}
 
@@ -1034,8 +631,8 @@ ideas = {
 			allowed = { original_tag=GRE }
 			allowed_civil_war = { always=yes }
             cancel = { has_war_with=GER }
-			picture = gre_schachtplan
-			removal_cost = -1
+			picture=gre_schachtplan
+			removal_cost=-1
 
 			targeted_modifier = { 
 				tag=GER 
@@ -1045,7 +642,8 @@ ideas = {
 				
 			modifier = {
 				axal_modifier_token = 0.06
-				consumer_goods_factor = -0.10
+				consumer_goods_factor = -0.15
+                stability_factor = -0.1
 			}
 		}
 
@@ -1053,8 +651,8 @@ ideas = {
 			allowed = { original_tag=GRE }
 			allowed_civil_war = { always=yes }
             cancel = { has_war_with=GER }
-			picture = gre_schachtplan2
-			removal_cost = -1
+			picture=gre_schachtplan2
+			removal_cost=-1
 
 			targeted_modifier = { 
 				tag=GER 
@@ -1063,7 +661,8 @@ ideas = {
 				
 			modifier = {
 				axal_modifier_token = 0.04
-				consumer_goods_factor = -0.05
+				consumer_goods_factor = -0.075
+                stability_factor = -0.075
 			}
 		}
 
@@ -1071,8 +670,8 @@ ideas = {
 			allowed = { original_tag=GRE }
 			allowed_civil_war = { always=yes }
             cancel = { has_war_with=GER }
-			picture = gre_schachtplan3
-			removal_cost = -1
+			picture=gre_schachtplan3
+			removal_cost=-1
             
             on_remove = {
                 if = {
@@ -1085,8 +684,8 @@ ideas = {
 				
 			modifier = {
 				axal_modifier_token = 0.02
-				stability_factor = 0.025
 				consumer_goods_factor = -0.025
+                stability_factor = -0.05
 			}
 		}
         
@@ -1095,11 +694,11 @@ ideas = {
         GRtar_trade_1 = {
 
 			allowed_civil_war={ always=yes }
-			removal_cost = -1
-            picture = gre_schachtplan3
+			removal_cost=-1
+            picture=gre_schachtplan3
             
-            cancel = { check_variable={ ROOT.favor@GRE < 30 }}
-            on_remove = { set_variable={ GRE.tariff_level@ROOT = 0 }}
+            cancel={ check_variable={ ROOT.favor@GRE<30 }}
+            on_remove={ set_variable={ GRE.tariff_level@ROOT=0 }}
             
             targeted_modifier = {
                 tag = GRE
@@ -1112,11 +711,11 @@ ideas = {
         GRtar_trade_2 = {
 
 			allowed_civil_war={ always=yes }
-			removal_cost = -1
-            picture = gre_schachtplan3
+			removal_cost=-1
+            picture=gre_schachtplan3
             
-            cancel = { check_variable={ ROOT.favor@GRE < 30 }}
-            on_remove = { set_variable={ GRE.tariff_level@ROOT = 0 }}
+            cancel={ check_variable={ ROOT.favor@GRE<30 }}
+            on_remove={ set_variable={ GRE.tariff_level@ROOT=0 }}
             
             targeted_modifier = {
                 tag = GRE
@@ -1128,11 +727,11 @@ ideas = {
         GRtar_trade_3 = {
 
 			allowed_civil_war={ always=yes }
-			removal_cost = -1
-            picture = gre_schachtplan3
+			removal_cost=-1
+            picture=gre_schachtplan3
             
-            cancel = { check_variable={ ROOT.favor@GRE < 30 }}
-            on_remove = { set_variable={ GRE.tariff_level@ROOT = 0 }}
+            cancel={ check_variable={ ROOT.favor@GRE<30 }}
+            on_remove={ set_variable={ GRE.tariff_level@ROOT=0 }}
             
             targeted_modifier = {
                 tag = GRE
@@ -1144,18 +743,19 @@ ideas = {
         ######################
         
         GRE_schachtplan_incorporated = {
-				
-			allowed = {
-				original_tag = GRE
-			}
-            
-			allowed_civil_war = {
-				always = yes
+			allowed={ original_tag=GRE }
+			picture=gre_schachtplan3
+
+			cancel={
+				has_dynamic_modifier={ modifier=GRE_corporatist_state_dyn }
 			}
 
-			picture = gre_schachtplan3
+			on_remove = {
+				add_to_variable={ corp_stb=0.05   }
+				add_to_variable={ corp_cons=-0.01 }
+			}
 				
-			removal_cost = -1
+			removal_cost=-1
 				
 			modifier = {
 				stability_factor = 0.05
@@ -1164,19 +764,10 @@ ideas = {
 		}
 
 		GRE_sophistry_and_science_idea = {
-			removal_cost = -1
+			allowed={ original_tag=GRE }
+			picture=generic_research_bonus
 			
-			allowed = {
-				original_tag = GRE
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-			
-			picture = generic_research_bonus
-
-			removal_cost = -1
+			removal_cost=-1
 			
 			modifier = {
 				political_power_factor	= 0.05
@@ -1185,18 +776,10 @@ ideas = {
 		}
 
 		GRE_eon = {
+			allowed={ original_tag=GRE }
+			picture=gre_eon
 				
-			allowed = {
-				original_tag = GRE
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-
-			picture = gre_eon
-				
-			removal_cost = -1
+			removal_cost=-1
 				
 			modifier = {
 				war_support_factor = 0.08
@@ -1205,18 +788,10 @@ ideas = {
 		}
         
         GRE_eon_kanellopoulos_year_1 = {
+			allowed={ original_tag=GRE }
+			picture=gre_eon
 				
-			allowed = {
-				original_tag = GRE
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-
-			picture = gre_eon
-				
-			removal_cost = -1
+			removal_cost=-1
 				
 			modifier = {
 				war_support_factor = 0.1
@@ -1228,18 +803,10 @@ ideas = {
 		}
         
         GRE_eon_kanellopoulos_year_2 = {
+			allowed={ original_tag=GRE }
+			picture=gre_eon
 				
-			allowed = {
-				original_tag = GRE
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-
-			picture = gre_eon
-				
-			removal_cost = -1
+			removal_cost=-1
 				
 			modifier = {
 				war_support_factor = 0.15
@@ -1250,236 +817,102 @@ ideas = {
                 industry_repair_factor = 0.15
 			}
 		}
-        
-        GRE_dummy_surrender = {
-        
-            allowed = {
-				original_tag = GRE
-			}
-
-			allowed_civil_war = { has_government = neutrality }	
-
-			picture = gre_george_ii
-				
-			removal_cost = -1
-				
-			modifier = {
-				surrender_limit = -3
-			}
-        
-        }
 
 		GRE_george_ii = {
-				
-			allowed = {
-				original_tag = GRE
-			}
+			allowed={ original_tag=GRE }
+			picture=gre_george_ii
 
-			allowed_civil_war = { has_government = neutrality }	
-
-			picture = gre_george_ii
-				
-			removal_cost = -1
+			allowed_civil_war = { has_government = neutrality }					
+			removal_cost=-1
 				
 			modifier = {
 				neutrality_drift = 0.01
 			}
 		}
 
-		GRE_george_ii_restrained = {
-				
-			allowed = {
-				original_tag = GRE
-			}
-
-			allowed_civil_war = { has_government = neutrality }	
-
-			picture = gre_george_ii
-				
-			removal_cost = -1
-				
-			modifier = {
-				stability_factor = 0.05		
-			}
-		}
-
         GRE_tied_to_foreign_investments = {
-        
-            allowed = {
-                original_tag = GRE
-            }
+            allowed={ original_tag=GRE }
+            picture=gre_tied_to
             
-            allowed_civil_war = {
-                always = yes
-            }
-                
-            picture = gre_tied_to
-            
-            removal_cost = -1
+            removal_cost=-1
             
             modifier = {
-                political_power_cost = 0.2
-                civilian_intel_to_others = 50
-                army_intel_to_others = 40
-                navy_intel_to_others = 40
-                airforce_intel_to_others = 40
-				intelligence_agency_defense = -0.5
-                #democratic_acceptance = 5
-                #communism_acceptance = 5
-                #fascism_acceptance = 5 
-                #neutrality_acceptance = 5
-            }   
+                stability_weekly = -0.004
+                civilian_intel_to_others = 30
+                army_intel_to_others = 25
+                navy_intel_to_others = 25
+                airforce_intel_to_others = 25
+				intelligence_agency_defense = -1
+            }
         }
 
         GRE_tied_to_foreign_investments_1 = {
-        
-            allowed = {
-                original_tag = GRE
-            }
+            allowed={ original_tag=GRE }                
+            picture=gre_tied_to
             
-            allowed_civil_war = {
-                always = yes
-            }
-                
-            picture = gre_tied_to
-            
-            removal_cost = -1
+            removal_cost=-1
             
             modifier = {
-                political_power_cost = 0.1
-                civilian_intel_to_others = 20
-                army_intel_to_others = 15
-                navy_intel_to_others = 15
-                airforce_intel_to_others = 15
-                intelligence_agency_defense = -0.2
-            }   
-        }
-
-        GRE_neglected_army = {
-        
-            allowed = {
-                original_tag = GRE
+                stability_weekly = -0.002
+                civilian_intel_to_others = 15
+                army_intel_to_others = 12.5
+                navy_intel_to_others = 12.5
+                airforce_intel_to_others = 12.5
+                intelligence_agency_defense = -0.5
             }
-
-			cancel = {
-				AND = {
-                    NOT = { has_idea = GRE_army_status_0 }
-                    NOT = { has_idea = GRE_army_status_1 }
-                }
-			}            
-
-			on_remove = {
-				country_lock_all_division_template = no
-                if = {
-                    limit = {
-                        is_neighbor_of = ITA                                                                ### Check if neighbor (== Albania occupied)
-                        NOT = {
-                            is_guaranteed_by = ITA                                                          ### Make sure GRE hasn't yet achieved important guarantees, meaning Italians can't force a country-to-country war.
-                            is_guaranteed_by = GER
-                            is_guaranteed_by = ENG
-                            is_in_faction_with = ITA                                                        ### Likewise, if in same faction, puppet, or has non-aggr. avoid giving wargoal
-                            is_in_faction_with = GER
-                            has_non_aggression_pact_with = ITA
-                            is_subject_of = ITA
-                            has_country_flag = GRE_grecoitalian_start                                       ### If the GrecoItalian war has started before, then the event must not trigger (probable use for after WW2 ends).
-                        }
-                        ITA = {
-                            NOT = { is_justifying_wargoal_against = GRE }                                   ### Obviously if ITA is justifying against Greece, then the event must not be triggered
-                        }
-                        check_variable = { var = ITA.favor@GRE value = 30 compare = less_than_or_equals }   ### As a last chance, if Greece have managed to build somewhat good influence over the Italians, avoid giving wargoal.
-                    }
-                    ITA = { country_event = hellas.200 }                                                    ### Calls event to give the italians wargoal, for some reason if you write the code here it will crash the game (won't even load to main menu).
-                }
-			}
-            
-            allowed_civil_war = {
-                always = yes
-            }
-                
-            picture = gre_neglected_army
-            
-            removal_cost = -1
-            
-            modifier = {
-                custom_modifier_tooltip = GRE_neglected_army_tt
-            }   
         }
         
 		GRE_domestic_competition_0 = {
+			allowed={ original_tag=GRE }
+			picture=gre_dom_0
 				
-			allowed = {
-				original_tag = GRE
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-
-			picture = gre_dom_0
-				
-			removal_cost = -1
+			removal_cost=-1
             
             on_remove = {
                 add_ideas = GRE_domestic_competition_1_hidden
             }
 				
 			modifier = {
-                political_power_gain = -0.15
-                production_speed_buildings_factor = -0.50
-                production_speed_infrastructure_factor = -0.25
-				production_speed_rail_way_factor = -0.25
-                research_speed_factor = -0.50
-                equipment_upgrade_xp_cost = 0.5  
+                production_speed_buildings_factor = -0.60
+                production_speed_infrastructure_factor = -0.30
+				production_speed_rail_way_factor = -0.30
+                research_speed_factor = -0.60
+                equipment_upgrade_xp_cost = 0.6
                 custom_modifier_tooltip = GRE_domestic_competition_tt
 			}
 		}
 
 		GRE_domestic_competition_1 = {
-				
-			allowed = {
-				original_tag = GRE
-			}
+			allowed={ original_tag=GRE }
 
-			allowed_civil_war = {
-				always = yes
-			}
-
-			picture = gre_dom_1
+			picture=gre_dom_1
 				
-			removal_cost = -1
+			removal_cost=-1
             
             on_remove = {
                 add_ideas = GRE_domestic_competition_2_hidden
             }
 				
 			modifier = {
-                production_speed_buildings_factor = -0.25
-                research_speed_factor = -0.25
-                equipment_upgrade_xp_cost = 0.25
+                production_speed_buildings_factor = -0.30
+                research_speed_factor = -0.30
+                equipment_upgrade_xp_cost = 0.30
                 custom_modifier_tooltip = GRE_domestic_competition_tt
 			}
 		}
         
 		GRE_domestic_competition_2 = {
-				
-			allowed = {
-				original_tag = GRE
-			}
+			allowed={ original_tag=GRE }
 
-			allowed_civil_war = {
-				always = yes
-			}
-
-			picture = gre_dom_1
+			picture=gre_dom_1
 				
-			removal_cost = -1
+			removal_cost=-1
             
             on_remove = {
                 add_ideas = GRE_domestic_competition_3_hidden
             }
 				
 			modifier = {
-                political_power_gain = 0.2
                 production_speed_buildings_factor = 0.05
                 economy_cost_factor = -0.1
                 trade_laws_cost_factor = -0.1
@@ -1489,20 +922,12 @@ ideas = {
 		}
         
 		GRE_domestic_competition_3 = {
+			allowed={ original_tag=GRE }
+			picture=gre_dom_2
 				
-			allowed = {	original_tag = GRE
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-
-			picture = gre_dom_2
-				
-			removal_cost = -1
+			removal_cost=-1
 				
 			modifier = {
-                political_power_gain = 0.25
                 production_speed_buildings_factor = 0.2
                 research_speed_factor = 0.1
                 equipment_upgrade_xp_cost = -0.25
@@ -1511,136 +936,58 @@ ideas = {
                 mobilization_laws_cost_factor = -0.15               
                 custom_modifier_tooltip = GRE_domestic_competition_tt
             }
-		} 
+		}
 
 		GRE_foreign_monopolies = {
+			allowed={ original_tag=GRE }
+			picture=gre_foreign_monopolies
 				
-			allowed = {
-				original_tag = GRE
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-
-			picture = generic_exploit_mines
-				
-			removal_cost = -1
+			removal_cost=-1
 				
 			modifier = {
 				trade_laws_cost_factor = 2
 				economy_cost_factor	= 2
 				consumer_goods_factor = 0.2
-                min_export = 0.5
-                stability_factor = -0.25
-				party_popularity_stability_factor = -1
-				trade_opinion_factor = 0.25
-			}
-		}
-
-		GRE_foreign_monopolies_2 = {
-				
-			allowed = {
-				original_tag = GRE
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-
-			picture = generic_exploit_mines
-				
-			removal_cost = -1
-				
-			modifier = {
-				trade_laws_cost_factor = 1.5
-				economy_cost_factor	= 1.5
-				consumer_goods_factor = 0.20
-                min_export = 0.2
+                min_export = 0.6
                 stability_factor = -0.20
-				party_popularity_stability_factor = -0.75
-				trade_opinion_factor = 0.25
+				party_popularity_stability_factor = -0.8
+				trade_opinion_factor = 0.4
 			}
-		}
+		} 
 
-		GRE_foreign_monopolies_3 = {
-				
-			allowed = {
-				original_tag = GRE
-			}
+		GRE_epk_pyrkal_pursuit = {
+			allowed={ original_tag=GRE }
+			picture=gre_bodosakis_epk_pyrkal				
+			removal_cost=-1
 
-			allowed_civil_war = {
-				always = yes
-			}
-
-			picture = generic_exploit_mines
+            on_remove={
+                #set_technology={ advanced_infantry_weapons=1 }
+                country_event={ id=hellas.417 days=0 }
+            }
 				
-			removal_cost = -1
-				
-			modifier = {
-				trade_laws_cost_factor = 1.25
-				economy_cost_factor	= 1.25
-				consumer_goods_factor = 0.10
-                min_export = 0.15
-                stability_factor = -0.15
-				party_popularity_stability_factor = -0.5
-				trade_opinion_factor = 0.25
-			}
-		}
-
-		GRE_foreign_monopolies_4 = {
-				
-			allowed = {
-				original_tag = GRE
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-
-			picture = generic_exploit_mines
-				
-			removal_cost = -1
-				
-			modifier = {
-				trade_laws_cost_factor = 1
-				economy_cost_factor	= 1
-				consumer_goods_factor = 0.05
-                min_export = 0.10
-                stability_factor = -0.15
-				party_popularity_stability_factor = -0.25
-				trade_opinion_factor = 0.25
-                research_speed_factor = 0.02
+			modifier={
+                civilian_factory_use=12
+                industrial_capacity_factory=-0.35
 			}
 		}
 
 		GRE_cooperate_with_foreign_monopolies_spirit = {
-				
-			allowed = {
-				original_tag = GRE
-			}
+			allowed={ original_tag=GRE }
 
-			allowed_civil_war = {
-				always = yes
-			}
-
-			picture = generic_deal_with_the_devil2
+			picture=generic_deal_with_the_devil2
 				
-			removal_cost = -1
+			removal_cost=-1
 				
 			modifier = {
 				economy_cost_factor	= -0.15
 				trade_laws_cost_factor = -0.15
 				research_speed_factor = 0.05
-				trade_opinion_factor = 0.5
+				trade_opinion_factor = 0.25
 			}
 		}
 
 		GRE_booming_tourism = {
-				
-			allowed = {
-				original_tag = GRE
-			}
+			allowed={ original_tag=GRE }
 
 			available = {
 				has_war = no
@@ -1650,24 +997,20 @@ ideas = {
 				always = no
 			}
 
-			picture = generic_air_bonus
+			picture=generic_air_bonus
 				
-			removal_cost = -1
+			removal_cost=-1
 				
 			modifier = {
 				stability_factor = 0.025
-                stability_weekly = 0.001
 				political_power_factor	= 0.05
-				consumer_goods_factor = 0.05
+				consumer_goods_factor = 0.025
                 custom_modifier_tooltip = GRE_booming_tourism_tt
 			}
 		}
 
 		GRE_booming_tourism_2 = {
-				
-			allowed = {
-				original_tag = GRE
-			}
+			allowed={ original_tag=GRE }
 
 			available = {
 				has_war = no
@@ -1677,24 +1020,20 @@ ideas = {
 				always = no
 			}
 
-			picture = gre_tourism_booming
+			picture=gre_tourism_booming
 				
-			removal_cost = -1
+			removal_cost=-1
 				
 			modifier = {
 				stability_factor = 0.05
-                stability_weekly = 0.002
 				political_power_factor	= 0.10
-				consumer_goods_factor = 0.10
+				consumer_goods_factor = 0.05
                 custom_modifier_tooltip = GRE_booming_tourism_2_tt
 			}
 		}
 
 		GRE_booming_tourism_3 = {
-				
-			allowed = {
-				original_tag = GRE
-			}
+			allowed={ original_tag=GRE }
 
 			available = {
 				has_war = no
@@ -1704,24 +1043,19 @@ ideas = {
 				always = no
 			}
 
-			picture = gre_tourism_booming
+			picture=gre_tourism_booming
 				
-			removal_cost = -1
+			removal_cost=-1
 				
 			modifier = {
 				stability_factor = 0.05
-                stability_weekly = 0.002
 				political_power_factor	= 0.10
                 custom_modifier_tooltip = GRE_booming_tourism_2_tt
 			}
 		}
         
         GRE_masters_of_shipbuilding = {
-        
-            allowed = {
-                original_tag = GRE
-            }
-            
+            allowed={ original_tag=GRE }
             allowed_civil_war = {
                 always = yes
             }
@@ -1738,9 +1072,9 @@ ideas = {
                 }
             }
             
-            picture = gre_shipyards_early
+            picture=gre_shipyards_early
             
-            removal_cost = -1
+            removal_cost=-1
             
 			equipment_bonus = {
 				capital_ship = {
@@ -1762,18 +1096,14 @@ ideas = {
         }
         
         GRE_submarine_expertise = {
-        
-            allowed = {
-                original_tag = GRE
-            }
-            
+            allowed={ original_tag=GRE }
             allowed_civil_war = {
                 always = yes
             }
                 
-            picture = gre_shipyards_early_2
+            picture=gre_shipyards_early_2
             
-            removal_cost = -1
+            removal_cost=-1
             
 			equipment_bonus = {
 				submarine = {
@@ -1783,18 +1113,14 @@ ideas = {
         }
         
         GRE_masters_of_shipbuilding_2 = {
-        
-            allowed = {
-                original_tag = GRE
-            }
-            
+            allowed={ original_tag=GRE }
             allowed_civil_war = {
                 always = yes
             }
                 
-            picture = gre_royal_ship
+            picture=gre_royal_ship
             
-            removal_cost = -1
+            removal_cost=-1
             
 			equipment_bonus = {
 				capital_ship = {
@@ -1814,68 +1140,13 @@ ideas = {
                 }
 			}       
         }
-        
-        GRE_paying_off_debt_small = {
-				
-			allowed = {
-				original_tag = GRE
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-            
-            #cancel  = {
-            #    NOT = { has_country_flag = GRE_small_installment_payment_flag }
-            #}
-
-			picture = generic_foreign_capital
-				
-			removal_cost = -1
-				
-			modifier = {
-				consumer_goods_factor = 0.05		
-				min_export = 0.1			
-			}
-		}
-        
-		GRE_paying_off_debt_large = {
-				
-			allowed = {
-				original_tag = GRE
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
-            
-            #cancel  = {
-            #    NOT = { has_country_flag = GRE_large_installment_payment_flag }
-            #}
-
-			picture = SPR_relocate_the_gold_reserves
-				
-			removal_cost = -1
-				
-			modifier = {
-				consumer_goods_factor = 0.15		
-				min_export = 0.25			
-			}
-		}
 
 		GRE_economic_fluctuations = {
-				
-			allowed = {
-				original_tag = GRE
-			}
+			allowed={ original_tag=GRE }
 
-			allowed_civil_war = {
-				always = yes
-			}
-
-			picture = chi_hyper_inflation3
+			picture=chi_hyper_inflation3
 				
-			removal_cost = -1
+			removal_cost=-1
 				
 			modifier = {
 				consumer_goods_factor = 0.1	
@@ -1894,9 +1165,9 @@ ideas = {
 				always = no
 			}
 
-			picture = generic_foreign_capital
+			picture=generic_foreign_capital
 				
-			removal_cost = -1
+			removal_cost=-1
 				
 			modifier = {
 				consumer_goods_factor = 0.05
@@ -1915,9 +1186,9 @@ ideas = {
 				always = no
 			}
 
-			picture = generic_foreign_capital
+			picture=generic_foreign_capital
 				
-			removal_cost = -1
+			removal_cost=-1
 				
 			modifier = {
 				consumer_goods_factor = 0.07
@@ -1936,9 +1207,9 @@ ideas = {
 				always = no
 			}
 
-			picture = generic_foreign_capital
+			picture=generic_foreign_capital
 				
-			removal_cost = -1
+			removal_cost=-1
 				
 			modifier = {
 				consumer_goods_factor = 0.1
@@ -1946,18 +1217,11 @@ ideas = {
 		}
 
 		GRE_security_batallions = {
-				
-			allowed = {
-				original_tag = GRE
-			}
+			allowed={ original_tag=GRE }
 
-			allowed_civil_war = {
-				always = yes
-			}
-
-			picture = generic_oppression
+			picture=generic_oppression
 				
-			removal_cost = -1
+			removal_cost=-1
 				
 			modifier = {
 				resistance_damage_to_garrison = -0.25
@@ -1972,13 +1236,9 @@ ideas = {
 				original_tag = GRE
 			}
 
-			allowed_civil_war = {
-				always = yes
-			}
-
-			picture = gre_workers_in_germany
+			picture=gre_workers_in_germany
 				
-			removal_cost = -1
+			removal_cost=-1
 				
 			modifier = {
 				consumer_goods_factor = 0.08
@@ -1991,13 +1251,9 @@ ideas = {
 				original_tag = GRE
 			}
 
-			allowed_civil_war = {
-				always = yes
-			}
-
-			picture = gre_workers_in_germany
+			picture=gre_workers_in_germany
 				
-			removal_cost = -1
+			removal_cost=-1
 				
 			modifier = {
 				consumer_goods_factor = 0.16
@@ -2010,13 +1266,9 @@ ideas = {
 				original_tag = GRE
 			}
 
-			allowed_civil_war = {
-				always = yes
-			}
-
-			picture = gre_workers_in_germany
+			picture=gre_workers_in_germany
 				
-			removal_cost = -1
+			removal_cost=-1
 				
 			modifier = {
 				consumer_goods_factor = 0.24
@@ -2029,13 +1281,9 @@ ideas = {
 				original_tag = GRE
 			}
 
-			allowed_civil_war = {
-				always = yes
-			}
-
-			picture = can_wartime_prices_and_trade_board
+			picture=can_wartime_prices_and_trade_board
 				
-			removal_cost = -1
+			removal_cost=-1
 				
 			targeted_modifier = {
 				tag = GER
@@ -2049,13 +1297,9 @@ ideas = {
 				original_tag = GRE
 			}
 
-			allowed_civil_war = {
-				always = yes
-			}
-
-			picture = can_wartime_prices_and_trade_board
+			picture=can_wartime_prices_and_trade_board
 				
-			removal_cost = -1
+			removal_cost=-1
 				
 			targeted_modifier = {
 				tag = GER
@@ -2071,13 +1315,9 @@ ideas = {
 				original_tag = BUL
 			}
 
-			allowed_civil_war = {
-				always = yes
-			}
-
-			picture = gre_bulgarian_industry_shackled
+			picture=gre_bulgarian_industry_shackled
 				
-			removal_cost = -1
+			removal_cost=-1
 				
 			targeted_modifier = {
                 tag = GRE
@@ -2111,13 +1351,9 @@ ideas = {
 				original_tag = ITA
 			}
 
-			allowed_civil_war = {
-				always = yes
-			}
-
-			picture = gre_bulgarian_industry_shackled
+			picture=gre_bulgarian_industry_shackled
 				
-			removal_cost = -1
+			removal_cost=-1
 				
 			targeted_modifier = {
                 tag = GRE
@@ -2133,13 +1369,9 @@ ideas = {
 				original_tag = ITA
 			}
 
-			allowed_civil_war = {
-				always = yes
-			}
-
-			picture = gre_bulgarian_industry_shackled
+			picture=gre_bulgarian_industry_shackled
 				
-			removal_cost = -1
+			removal_cost=-1
 				
 			targeted_modifier = {
                 tag = GRE
@@ -2155,13 +1387,9 @@ ideas = {
 				original_tag = ITA
 			}
 
-			allowed_civil_war = {
-				always = yes
-			}
-
-			picture = gre_bulgarian_industry_shackled
+			picture=gre_bulgarian_industry_shackled
 				
-			removal_cost = -1
+			removal_cost=-1
 				
 			targeted_modifier = {
                 tag = GRE
@@ -2177,13 +1405,9 @@ ideas = {
 				original_tag = GER
 			}
 
-			allowed_civil_war = {
-				always = yes
-			}
-
-			picture = gre_workers_in_germany
+			picture=gre_workers_in_germany
 				
-			removal_cost = -1
+			removal_cost=-1
 				
 			modifier = {
 				consumer_goods_factor = -0.04
@@ -2196,13 +1420,9 @@ ideas = {
 				original_tag = GER
 			}
 
-			allowed_civil_war = {
-				always = yes
-			}
-
-			picture = gre_workers_in_germany
+			picture=gre_workers_in_germany
 				
-			removal_cost = -1
+			removal_cost=-1
 				
 			modifier = {
 				consumer_goods_factor = -0.08
@@ -2215,13 +1435,9 @@ ideas = {
 				original_tag = GER
 			}
 
-			allowed_civil_war = {
-				always = yes
-			}
-
-			picture = gre_workers_in_germany
+			picture=gre_workers_in_germany
 				
-			removal_cost = -1
+			removal_cost=-1
 				
 			modifier = {
 				consumer_goods_factor = -0.12
@@ -2234,43 +1450,16 @@ ideas = {
 				original_tag = GRE
 			}
 
-			allowed_civil_war = {
-				always = yes
-			}
-
-			picture = can_wartime_prices_and_trade_board
+			picture=can_wartime_prices_and_trade_board
 				
-			removal_cost = -1
+			removal_cost=-1
 				
 			targeted_modifier = {
 				tag = GRE
 				trade_cost_for_target_factor = -0.15
 			}
 		}
-	}	
-
-		#GRE_high_command_papparodou = {
-		#	picture = gre_high_command_papparodou
-		#	ledger = army
-		#	allowed = { original_tag = GRE }
-		#	available = {
-		#		set_temp_variable = { tmpZ = 0.7 }
-		#		OR = {
-		#			current_ruling_monarchists = yes
-		#			current_ruling_democrats = yes
-		#			custom_trigger_tooltip = {
-		#				tooltip = fct_at_least_mon_tt
-		#				check_variable = { fct_mon > 69 }
-		#			}
-		#			custom_trigger_tooltip = {
-		#				tooltip = fct_at_least_dem_tt
-		#				check_variable = { fct_dem > 69 }
-		#			}
-		#		}
-		#	}
-		#	traits = { air_naval_strike_3 }
-		#	ai_will_do = { factor = 1 }
-		#}
+	}
 
 
 	#DESIGNERS
@@ -2300,7 +1489,7 @@ ideas = {
         ########################[ Early Tank Manufacturers ]###############################
         GRE_vickers_armstrong = {                                                    ## ENG
 		
-			picture = vickers_armstrong_eng
+			picture=vickers_armstrong_eng
 
 			allowed = {
 				original_tag = GRE
@@ -2353,7 +1542,7 @@ ideas = {
         
         GRE_astrov_design_bureau = {                                                      ## SOV
 			
-            picture = astrov_design_bureau
+            picture=astrov_design_bureau
 			
 			allowed = {
 				original_tag = GRE
@@ -2374,7 +1563,7 @@ ideas = {
         
         GRE_chrysler = {                                                                   ## USA
 			
-			picture = chrysler
+			picture=chrysler
             
 			allowed = {
 				original_tag = GRE
@@ -2399,7 +1588,7 @@ ideas = {
         
         GRE_osaka_army_arsenal = {                                                          ## JAP
 			
-            picture = osaka_army_arsenal
+            picture=osaka_army_arsenal
             
 			allowed = {
 				original_tag = GRE
@@ -2424,7 +1613,7 @@ ideas = {
         
         GRE_AMX = {                                                                     ## FRA
 		
-			picture = FRA_atelier_puteaux
+			picture=FRA_atelier_puteaux
 
 			allowed = {
 				original_tag = GRE
@@ -2471,7 +1660,7 @@ ideas = {
 
 		GRE_man = {	                                                                    ## GER
 
-			picture = GER_MAN
+			picture=GER_MAN
 
 			allowed = {
 				original_tag = GRE
@@ -2501,7 +1690,7 @@ ideas = {
 
 		GRE_fiat = {                                                                    ## ITA 	
 		
-			picture = fiat
+			picture=fiat
 
 			allowed = {
 				original_tag = GRE
@@ -2554,7 +1743,7 @@ ideas = {
         
         GRE_biamax = {
 			
-			picture = gre_biamax
+			picture=gre_biamax
 
 			allowed = {
 				original_tag = GRE
@@ -2594,7 +1783,7 @@ ideas = {
         
         GRE_mig_design_bureau = {
 			
-            picture = mig_design_bureau
+            picture=mig_design_bureau
 			
             cost = 75
 			
@@ -2615,7 +1804,7 @@ ideas = {
         
         GRE_boeing = {
 			
-            picture = boeing
+            picture=boeing
 			
             cost = 75
 			
@@ -2640,7 +1829,7 @@ ideas = {
         
         GRE_yokosuka = {
 
-            picture = yokosuka
+            picture=yokosuka
 			
             cost = 75
 			
@@ -2665,7 +1854,7 @@ ideas = {
         
         GRE_supermarine = {
 			
-            picture = supermarine
+            picture=supermarine
 			
             cost = 75
 			
@@ -2712,7 +1901,7 @@ ideas = {
         
         GRE_bloch = {
         
-            picture = bloch
+            picture=bloch
 			
             cost = 75
 			
@@ -2759,7 +1948,7 @@ ideas = {
         
         GRE_junkers = { 
         
-            picture = junkers
+            picture=junkers
 			
             cost = 75
 			
@@ -2788,7 +1977,7 @@ ideas = {
         
 		gnaf = {
 			
-			picture = generic_air_manufacturer_3
+			picture=generic_air_manufacturer_3
 
 			
 			allowed = {
@@ -2810,7 +1999,7 @@ ideas = {
 
 		GRE_aekkea = {
 			
-			picture = gre_phaliron_aekka
+			picture=gre_phaliron_aekka
 
 			allowed = {
 				original_tag = GRE
@@ -2835,7 +2024,7 @@ ideas = {
 
 		GRE_phaliron_aircraft = {
 			
-			picture = gre_phaliron_aircraft
+			picture=gre_phaliron_aircraft
 			
 			allowed = {
 				original_tag = GRE
@@ -2865,7 +2054,7 @@ ideas = {
         
         GRE_john_brown_company = {
         
-            picture = john_brown_company
+            picture=john_brown_company
 			
 			cost = 75
 			
@@ -2912,7 +2101,7 @@ ideas = {
         
         GRE_electric_boat_company = {
         
-            picture = electric_boat_company
+            picture=electric_boat_company
 			
 			cost = 75
 			
@@ -2938,7 +2127,7 @@ ideas = {
         
         GRE_kure_naval_arsenal = {
         
-            picture = kure_naval_arsenal
+            picture=kure_naval_arsenal
 			
 			cost = 75
 			
@@ -2963,7 +2152,7 @@ ideas = {
         
         GRE_blohm_und_voss = {
         
-            picture = blohm_und_voss
+            picture=blohm_und_voss
 			
 			allowed = {
 				original_tag = GRE
@@ -2988,7 +2177,7 @@ ideas = {
 
 		GRE_royal_hellenic_naval_shipyard = {
 			
-			picture = gre_royal_hellenic_naval_shipyard
+			picture=gre_royal_hellenic_naval_shipyard
 			
 			allowed = {
 				original_tag = GRE
@@ -3014,7 +2203,7 @@ ideas = {
 
 		GRE_basileiades = {
 			
-			picture = gre_basileiades
+			picture=gre_basileiades
 			
 			allowed = {
 				original_tag = GRE
@@ -3040,7 +2229,7 @@ ideas = {
 
 		GRE_astilleros_onassis = {
 			
-			picture = gre_astilleros_onassis
+			picture=gre_astilleros_onassis
 			
 			allowed = {
 				original_tag = GRE
@@ -3049,23 +2238,9 @@ ideas = {
             
             visible = {
                 NOT = { has_axis_occupation = yes }
-				#OR = {
-				#	has_country_leader = {
-				#		name = "Aristotle Onassis"
-				#		ruling_only = yes
-				#	}
-				#	has_idea = GRE_aristotle_onassis
-				#}
             } 
 
 			available = {
-				#OR = {
-				#	has_country_leader = {
-				#		name = "Aristotle Onassis"
-				#		ruling_only = yes
-				#	}
-				#	has_idea = GRE_aristotle_onassis
-				#}
 				has_completed_focus = GRE_buy_destroyers_and_torpedo_boats
 				has_completed_focus = GRE_buy_subs
 			}
@@ -3084,7 +2259,7 @@ ideas = {
 		
         GRE_stalingrad_tractor_factory = {
         
-            picture = stalingrad_tractor_factory
+            picture=stalingrad_tractor_factory
 		
 			cost = 75
 			
@@ -3105,7 +2280,7 @@ ideas = {
 		
 		GRE_general_electric = {
         
-            picture = general_electric
+            picture=general_electric
 			
 			cost = 75
 			
@@ -3133,7 +2308,7 @@ ideas = {
         
         GRE_krupp = {
         
-            picture = krupp
+            picture=krupp
 			
 			cost = 75
 			
@@ -3159,7 +2334,7 @@ ideas = {
         
 		GRE_dep = {
 			
-			picture = gre_dep
+			picture=gre_dep
 		
 			allowed = {
 				original_tag = GRE
@@ -3188,7 +2363,7 @@ ideas = {
 
 		GRE_english_electric = {
 			
-			picture = english_electric
+			picture=english_electric
 
 			allowed = {
 				original_tag = GRE
@@ -3253,7 +2428,7 @@ ideas = {
 
 		GRE_siemens = {
 			
-			picture = siemens
+			picture=siemens
 
 			allowed = {
 				original_tag = GRE
@@ -3285,7 +2460,7 @@ ideas = {
 
 		GRE_pitsos = {
 			
-			picture = gre_pitsos
+			picture=gre_pitsos
 		
 			allowed = {
 				original_tag = GRE
@@ -3314,7 +2489,7 @@ ideas = {
 
 		GRE_aete = {
 			
-			picture = gre_aete
+			picture=gre_aete
 
 			allowed = {
 				original_tag = GRE
@@ -3343,7 +2518,7 @@ ideas = {
 
 		GRE_neorion = {
 			
-			picture = gre_neorion
+			picture=gre_neorion
 		
 			allowed = {
 				original_tag = GRE
@@ -3377,7 +2552,7 @@ ideas = {
         
         GRE_tula_arms_plant = {
 
-            picture = tula_arms_plant
+            picture=tula_arms_plant
 			
             cost = 75
 			
@@ -3399,7 +2574,7 @@ ideas = {
         
         GRE_springfield_armory = {
         
-            picture = springfield_armory
+            picture=springfield_armory
 			
             cost = 75
 			
@@ -3424,7 +2599,7 @@ ideas = {
         
         GRE_nissan = {
 
-            picture = nissan
+            picture=nissan
 			
             cost = 75
 			
@@ -3449,7 +2624,7 @@ ideas = {
         
         GRE_lancia = {
 			
-            picture = lancia
+            picture=lancia
 			
             cost = 75
 			
@@ -3496,7 +2671,7 @@ ideas = {
         
         GRE_mas = {
         
-            picture = mas
+            picture=mas
 			
             cost = 75
 			
@@ -3543,7 +2718,7 @@ ideas = {
 		
 		GRE_mauser = {
 
-            picture = mauser
+            picture=mauser
 			
             cost = 75
 			
@@ -3568,7 +2743,7 @@ ideas = {
 		
 		GRE_pyrkal = {
 
-			picture = gre_pyrkal
+			picture=gre_pyrkal
 			
 			allowed = {
 				original_tag = GRE
@@ -3598,7 +2773,7 @@ ideas = {
 		
 		GRE_petropoulos = {
 
-			picture = gre_petropoulos
+			picture=gre_petropoulos
 			
 			allowed = {
 				original_tag = GRE
@@ -3630,7 +2805,7 @@ ideas = {
 
 		GRE_rsaf_enfield = {
 
-			picture = rsaf_enfield
+			picture=rsaf_enfield
 			
 			allowed = {
 				original_tag = GRE
@@ -3684,7 +2859,7 @@ ideas = {
 
 		GRE_rheinmetall = {
 
-			picture = rheinmetall
+			picture=rheinmetall
 			
 			allowed = {
 				original_tag = GRE
@@ -3716,7 +2891,7 @@ ideas = {
 
 		GRE_ford_motor_company = {
 
-			picture = ford_motor_company
+			picture=ford_motor_company
 			
 			allowed = {
 				original_tag = GRE
@@ -3748,7 +2923,7 @@ ideas = {
 
 		GRE_grabin_design_bureau = {
 
-			picture = grabin_design_bureau
+			picture=grabin_design_bureau
 			
 			allowed = {
 				original_tag = GRE
@@ -3777,24 +2952,64 @@ ideas = {
 	}
 
 	hidden_ideas = {
+
+        GRE_neglected_army = {
+            allowed={ original_tag=GRE }
+
+			cancel = {
+				AND = {
+                    NOT = { has_idea = GRE_army_status_0 }
+                    NOT = { has_idea = GRE_army_status_1 }
+                }
+			}            
+
+			on_remove = {
+				country_lock_all_division_template = no
+                if = {
+                    limit = {
+                        is_neighbor_of = ITA                                                                ### Check if neighbor (== Albania occupied)
+                        NOT = {
+                            is_guaranteed_by = ITA                                                          ### Make sure GRE hasn't yet achieved important guarantees, meaning Italians can't force a country-to-country war.
+                            is_guaranteed_by = GER
+                            is_guaranteed_by = ENG
+                            is_in_faction_with = ITA                                                        ### Likewise, if in same faction, puppet, or has non-aggr. avoid giving wargoal
+                            is_in_faction_with = GER
+                            has_non_aggression_pact_with = ITA
+                            is_subject_of = ITA
+                            has_country_flag = GRE_grecoitalian_start                                       ### If the GrecoItalian war has started before, then the event must not trigger (probable use for after WW2 ends).
+                        }
+                        ITA = {
+                            NOT = { is_justifying_wargoal_against = GRE }                                   ### Obviously if ITA is justifying against Greece, then the event must not be triggered
+                        }
+                        check_variable = { var = ITA.favor@GRE value = 30 compare = less_than_or_equals }   ### As a last chance, if Greece have managed to build somewhat good influence over the Italians, avoid giving wargoal.
+                    }
+                    ITA = { country_event = hellas.200 }                                                    ### Calls event to give the italians wargoal, for some reason if you write the code here it will crash the game (won't even load to main menu).
+                }
+			}
+            
+            allowed_civil_war = {
+                always = yes
+            }
+                
+            picture=gre_neglected_army
+            
+            removal_cost=-1
+            
+            modifier = {
+                custom_modifier_tooltip = GRE_neglected_army_tt
+            }   
+        }
     
 		GRE_domestic_competition_0_hidden = {
-				
-			allowed = {
-				original_tag = GRE
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
+			allowed={ original_tag=GRE }
             
             cancel = {
                 NOT = { has_idea = GRE_domestic_competition_0 }
             }
 
-			picture = gre_dom_0
+			picture=gre_dom_0
 				
-			removal_cost = -1
+			removal_cost=-1
             
             research_bonus = {
                 infantry_weapons = -0.75
@@ -3806,22 +3021,15 @@ ideas = {
 		}
         
         GRE_domestic_competition_1_hidden = {
-				
-			allowed = {
-				original_tag = GRE
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
+			allowed={ original_tag=GRE }
             
             cancel = {
                 NOT = { has_idea = GRE_domestic_competition_1 }
             }
 
-			picture = gre_dom_0
+			picture=gre_dom_0
 				
-			removal_cost = -1
+			removal_cost=-1
             
             research_bonus = {
                 infantry_weapons = -0.5
@@ -3833,22 +3041,15 @@ ideas = {
 		}
         
         GRE_domestic_competition_2_hidden = {
-				
-			allowed = {
-				original_tag = GRE
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
+			allowed={ original_tag=GRE }
             
             cancel = {
                 NOT = { has_idea = GRE_domestic_competition_2 }
             }
 
-			picture = gre_dom_0
+			picture=gre_dom_0
 				
-			removal_cost = -1
+			removal_cost=-1
             
             research_bonus = {
                 infantry_weapons = -0.15
@@ -3860,22 +3061,15 @@ ideas = {
 		}
         
         GRE_domestic_competition_3_hidden = {
-				
-			allowed = {
-				original_tag = GRE
-			}
-
-			allowed_civil_war = {
-				always = yes
-			}
+			allowed={ original_tag=GRE }
             
             cancel = {
                 NOT = { has_idea = GRE_domestic_competition_3 }
             }
 
-			picture = gre_dom_2
+			picture=gre_dom_2
 				
-			removal_cost = -1
+			removal_cost=-1
             
             research_bonus = {
                 infantry_weapons = 0.05
@@ -3887,18 +3081,14 @@ ideas = {
 		}
     
         GRE_obsolescent_dogma = {
-        
-            allowed = {
-                original_tag = GRE
-            }
-            
+            allowed={ original_tag=GRE }
             allowed_civil_war = {
                 always = yes
             }
                 
-            picture = gre_old
+            picture=gre_old
             
-            removal_cost = -1
+            removal_cost=-1
 
 			modifier = {
                 cat_mobile_warfare_cost_factor = 3
@@ -3909,18 +3099,14 @@ ideas = {
         }
         
         GRE_complete_lack_of_heavy_equipment = {
-        
-            allowed = {
-                original_tag = GRE
-            }
-            
+            allowed={ original_tag=GRE }
             allowed_civil_war = {
                 always = yes
             }
                 
-            picture = gre_bad_art
+            picture=gre_bad_art
             
-            removal_cost = -1
+            removal_cost=-1
             
 			equipment_bonus = {
 				artillery_equipment = {
@@ -3936,21 +3122,16 @@ ideas = {
         }
 
         GRE_army_leadership_0 = {
-        
-            allowed = {
-                original_tag = GRE
-            }
-            
+            allowed={ original_tag=GRE }
             allowed_civil_war = {
                 always = yes
             }
                 
-            picture = gre_army_0_b
+            picture=gre_army_0_b
             
-            removal_cost = -1
+            removal_cost=-1
             
             modifier = {
-                political_power_cost = 0.1
                 experience_gain_factor = -0.05
                 experience_gain_army_factor = -0.15
                 max_command_power = -50
@@ -3960,57 +3141,41 @@ ideas = {
         
         
         GRE_airforce_leadership_0 = {
-        
-            allowed = {
-                original_tag = GRE
-            }
-            
+            allowed={ original_tag=GRE }
             allowed_civil_war = {
                 always = yes
             }
                 
-            picture = gre_air_0_b
+            picture=gre_air_0_b
             
-            removal_cost = -1
+            removal_cost=-1
             
             modifier = {
-                political_power_cost = 0.1
                 air_training_xp_gain_factor = -0.1
                 experience_gain_air_factor = -0.15
             }   
         }
         
         GRE_navy_leadership_0 = {
-        
-            allowed = {
-                original_tag = GRE
-            }
-            
+            allowed={ original_tag=GRE }
             allowed_civil_war = {
                 always = yes
             }
                 
-            picture = gre_air_0_b
+            picture=gre_air_0_b
             
-            removal_cost = -1
-            
-            modifier = {
-            }   
+            removal_cost=-1
         }        
 
         GRE_army_status_0 = {
-        
-            allowed = {
-                original_tag = GRE
-            }
-            
+            allowed={ original_tag=GRE }
             allowed_civil_war = {
                 always = yes
             }
                 
-            picture = gre_army_0
+            picture=gre_army_0
             
-            removal_cost = -1
+            removal_cost=-1
             
             modifier = {
                 breakthrough_factor = -0.2
@@ -4024,18 +3189,14 @@ ideas = {
         }
 
         GRE_army_status_1 = {
-        
-            allowed = {
-                original_tag = GRE
-            }
-            
+            allowed={ original_tag=GRE }
             allowed_civil_war = {
                 always = yes
             }
                 
-            picture = gre_army_1
+            picture=gre_army_1
             
-            removal_cost = -1
+            removal_cost=-1
             
             modifier = {
                 breakthrough_factor = -0.1
@@ -4049,18 +3210,14 @@ ideas = {
         }
         
         GRE_army_status_2 = {
-        
-            allowed = {
-                original_tag = GRE
-            }
-            
+            allowed={ original_tag=GRE }
             allowed_civil_war = {
                 always = yes
             }
                 
-            picture = gre_army_2
+            picture=gre_army_2
             
-            removal_cost = -1
+            removal_cost=-1
             
             modifier = {
                 special_forces_cap = 0.05
@@ -4068,18 +3225,14 @@ ideas = {
         }
         
         GRE_army_status_3 = {
-        
-            allowed = {
-                original_tag = GRE
-            }
-            
+            allowed={ original_tag=GRE }
             allowed_civil_war = {
                 always = yes
             }
                 
-            picture = gre_army_3
+            picture=gre_army_3
             
-            removal_cost = -1
+            removal_cost=-1
             
             modifier = {
                 attrition = -0.1
@@ -4090,18 +3243,14 @@ ideas = {
         }
         
         GRE_army_status_4 = {
-        
-            allowed = {
-                original_tag = GRE
-            }
-            
+            allowed={ original_tag=GRE }
             allowed_civil_war = {
                 always = yes
             }
                 
-            picture = gre_army_4
+            picture=gre_army_4
             
-            removal_cost = -1
+            removal_cost=-1
             
             modifier = {
                 breakthrough_factor = 0.05
@@ -4115,18 +3264,14 @@ ideas = {
         }    
  
         GRE_airforce_status_0 = {
-        
-            allowed = {
-                original_tag = GRE
-            }
-            
+            allowed={ original_tag=GRE }
             allowed_civil_war = {
                 always = yes
             }
                 
-            picture = gre_air_0
+            picture=gre_air_0
             
-            removal_cost = -1
+            removal_cost=-1
             
             modifier = {
                 air_accidents_factor = 0.15
@@ -4137,18 +3282,14 @@ ideas = {
         }
 
         GRE_airforce_status_1 = {
-        
-            allowed = {
-                original_tag = GRE
-            }
-            
+            allowed={ original_tag=GRE }
             allowed_civil_war = {
                 always = yes
             }
                 
-            picture = gre_air_1
+            picture=gre_air_1
             
-            removal_cost = -1
+            removal_cost=-1
             
             modifier = {
                 air_accidents_factor = 0.075
@@ -4159,36 +3300,28 @@ ideas = {
         }
         
         GRE_airforce_status_2 = {
-        
-            allowed = {
-                original_tag = GRE
-            }
-            
+            allowed={ original_tag=GRE }
             allowed_civil_war = {
                 always = yes
             }
                 
-            picture = gre_air_2
+            picture=gre_air_2
             
-            removal_cost = -1
+            removal_cost=-1
             
             modifier = {
             }   
         }
         
         GRE_airforce_status_3 = {
-        
-            allowed = {
-                original_tag = GRE
-            }
-            
+            allowed={ original_tag=GRE }
             allowed_civil_war = {
                 always = yes
             }
                 
-            picture = gre_air_3
+            picture=gre_air_3
             
-            removal_cost = -1
+            removal_cost=-1
             
             modifier = {
                 air_accidents_factor = -0.075
@@ -4198,18 +3331,14 @@ ideas = {
         }
         
         GRE_airforce_status_4 = {
-        
-            allowed = {
-                original_tag = GRE
-            }
-            
+            allowed={ original_tag=GRE }
             allowed_civil_war = {
                 always = yes
             }
                 
-            picture = gre_air_4
+            picture=gre_air_4
             
-            removal_cost = -1
+            removal_cost=-1
             
             modifier = {
                 air_accidents_factor = -0.15
@@ -4220,48 +3349,36 @@ ideas = {
         }
 
         GRE_navy_status_0 = {
-        
-            allowed = {
-                original_tag = GRE
-            }
-            
+            allowed={ original_tag=GRE }
             allowed_civil_war = {
                 always = yes
             }
             
-            removal_cost = -1
+            removal_cost=-1
             
             modifier = {
             }   
         } 
 
         GRE_navy_status_1 = {
-        
-            allowed = {
-                original_tag = GRE
-            }
-            
+            allowed={ original_tag=GRE }
             allowed_civil_war = {
                 always = yes
             }
             
-            removal_cost = -1
+            removal_cost=-1
             
             modifier = {
             }   
         } 
 
         GRE_navy_status_2 = {
-        
-            allowed = {
-                original_tag = GRE
-            }
-            
+            allowed={ original_tag=GRE }
             allowed_civil_war = {
                 always = yes
             }
             
-            removal_cost = -1
+            removal_cost=-1
             
             modifier = {
             }   

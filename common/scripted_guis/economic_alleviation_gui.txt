@@ -85,7 +85,7 @@ scripted_gui = {
 					add_political_power = 50
 					set_temp_variable = { findX=ecall_selector }
 					set_temp_variable = { findY=-15 }
-					var:ecall_selector = { custom_effect_tooltip=axal_nl_tt add_to_variable = { favor@GRE=findY tooltip=favor_hit_with_findX_by_findY_no_name_tt }}
+					var:ecall_selector = { custom_effect_tooltip=axal_nl_tt add_to_variable={ favor@GRE=findY tooltip=favor_fluct_with_findX_by_findY_no_name_tt }}
 					every_country = {
 						limit = {
 							is_in_array = {
@@ -96,7 +96,7 @@ scripted_gui = {
 						}
 						set_temp_variable = { findX=THIS.id }
 						set_temp_variable = { findY=-7.5 }
-						add_to_variable = { THIS.favor@GRE=findY tooltip=favor_hit_with_findX_by_findY_no_name_tt }
+						add_to_variable = { THIS.favor@GRE=findY tooltip=favor_fluct_with_findX_by_findY_no_name_tt }
 					}
 					#######################################################
 					set_variable = { GRE.true_debt@var:ecall_selector = GRE.debt@var:ecall_selector }
@@ -132,7 +132,7 @@ scripted_gui = {
 					add_political_power = var:x
 					set_temp_variable = { findX=ecall_selector }
 					set_temp_variable = { findY=-30 }
-					var:ecall_selector = { custom_effect_tooltip=axal_nl_tt add_to_variable = { favor@GRE=findY tooltip=favor_hit_with_findX_by_findY_no_name_tt }}
+					var:ecall_selector = { custom_effect_tooltip=axal_nl_tt add_to_variable = { favor@GRE=findY tooltip=favor_fluct_with_findX_by_findY_no_name_tt }}
 					every_country = {
 						limit = {
 							is_in_array = {
@@ -143,7 +143,7 @@ scripted_gui = {
 						}
 						set_temp_variable = { findX=THIS.id }
 						set_temp_variable = { findY=-15 }
-						add_to_variable = { THIS.favor@GRE=findY tooltip=favor_hit_with_findX_by_findY_no_name_tt }
+						add_to_variable = { THIS.favor@GRE=findY tooltip=favor_fluct_with_findX_by_findY_no_name_tt }
 					}
 					set_variable = { GRE.defaulted_on@var:ecall_selector = 1 }
 					set_variable = { GRE.debt_package = GRE.debt@var:ecall_selector }
@@ -194,7 +194,7 @@ scripted_gui = {
 						add_political_power = 50
 						set_temp_variable = { findX=ecall_selector }
 						set_temp_variable = { findY=-15 }
-						var:ecall_selector = { add_to_variable = { favor@GRE=findY tooltip=favor_hit_with_findX_by_findY_no_name_tt }}
+						var:ecall_selector = { add_to_variable={ favor@GRE=findY tooltip=favor_fluct_with_findX_by_findY_no_name_tt }}
 						every_country = {
 							limit = {
 								is_in_array = {
@@ -205,7 +205,7 @@ scripted_gui = {
 							}
 							set_temp_variable = { findX=THIS.id }
 							set_temp_variable = { findY=-7.5 }
-							add_to_variable = { THIS.favor@GRE=findY tooltip=favor_hit_with_findX_by_findY_no_name_tt }
+							add_to_variable = { THIS.favor@GRE=findY tooltip=favor_fluct_with_findX_by_findY_no_name_tt }
 						}
 						#######################################################
 						set_variable = { GRE.true_debt@var:ecall_selector = GRE.debt@var:ecall_selector }
@@ -241,7 +241,7 @@ scripted_gui = {
 						add_political_power = var:x
 						set_temp_variable = { findX=ecall_selector }
 						set_temp_variable = { findY=-30 }
-						var:ecall_selector = { add_to_variable = { favor@GRE=findY tooltip=favor_hit_with_findX_by_findY_no_name_tt }}
+						var:ecall_selector = { add_to_variable = { favor@GRE=findY tooltip=favor_fluct_with_findX_by_findY_no_name_tt }}
 						every_country = {
 							limit = {
 								is_in_array = {
@@ -252,7 +252,7 @@ scripted_gui = {
 							}
 							set_temp_variable = { findX=THIS.id }
 							set_temp_variable = { findY=-15 }
-							add_to_variable = { THIS.favor@GRE=findY tooltip=favor_hit_with_findX_by_findY_no_name_tt }
+							add_to_variable = { THIS.favor@GRE=findY tooltip=favor_fluct_with_findX_by_findY_no_name_tt }
 						}
 						set_variable = { GRE.defaulted_on@var:ecall_selector = 1 }
 						set_variable = { GRE.debt_package = GRE.debt@var:ecall_selector }
@@ -280,8 +280,10 @@ scripted_gui = {
 			hell_ecall_minister_portrait_click_enabled = { has_idea=GRE_andreas_apostolidis_political_advisor }
 			hell_ecall_bank_internal_steer_click_enabled = { has_idea=GRE_emmanouil_tsouderos_political_advisor has_completed_focus=GRE_greek_autarky custom_trigger_tooltip={ tooltip=hell_ecall_steering_in_other_direction if={ limit={ check_variable={ GRE.ecall_bank_internal_steer_remaining_days>0 }} has_political_power>GRE.ecall_bank_drift_immediate_cost } NOT={ check_variable={ GRE.ecall_bank_external_steer_remaining_days>0 }}} custom_trigger_tooltip={ tooltip=hell_ecall_maxed_steering NOT={ check_variable={ ecall_bank_shift=4 }}}}
 			hell_ecall_bank_external_steer_click_enabled = { has_idea=GRE_emmanouil_tsouderos_political_advisor has_completed_focus=GRE_greek_autarky custom_trigger_tooltip={ tooltip=hell_ecall_steering_in_other_direction if={ limit={ check_variable={ GRE.ecall_bank_external_steer_remaining_days>0 }} has_political_power>GRE.ecall_bank_drift_immediate_cost } NOT={ check_variable={ GRE.ecall_bank_internal_steer_remaining_days>0 }}} custom_trigger_tooltip={ tooltip=hell_ecall_maxed_steering NOT={ check_variable={ ecall_bank_shift=-4 }}}}
-			hell_ecall_decrease_exports_click_enabled = { has_idea=GRE_andreas_apostolidis_political_advisor has_completed_focus=GRE_greek_autarky custom_trigger_tooltip={ tooltip=hell_ecall_steering_in_other_direction if={ limit={ check_variable={ GRE.ecall_decrease_exports_remaining_days>0 }} has_political_power>GRE.ecall_exports_drift_immediate_cost } NOT={ check_variable={ GRE.ecall_increase_exports_remaining_days>0 }}} custom_trigger_tooltip={ tooltip=hell_ecall_maxed_steering NOT={ check_variable={ ecall_ministry_shift=4 }}}}
-			hell_ecall_increase_exports_click_enabled = { has_idea=GRE_andreas_apostolidis_political_advisor has_completed_focus=GRE_greek_autarky custom_trigger_tooltip={ tooltip=hell_ecall_steering_in_other_direction if={ limit={ check_variable={ GRE.ecall_increase_exports_remaining_days>0 }} has_political_power>GRE.ecall_exports_drift_immediate_cost } NOT={ check_variable={ GRE.ecall_decrease_exports_remaining_days>0 }}} custom_trigger_tooltip={ tooltip=hell_ecall_maxed_steering NOT={ check_variable={ ecall_ministry_shift=-4 }}}}
+			hell_ecall_decrease_exports_click_enabled = { has_idea=GRE_andreas_apostolidis_political_advisor has_completed_focus=GRE_greek_autarky not_steering_exports=yes }
+			hell_ecall_increase_exports_click_enabled = { has_idea=GRE_andreas_apostolidis_political_advisor has_completed_focus=GRE_greek_autarky not_steering_exports=yes }
+			hell_ecall_apply_export_changes_click_enabled = { has_idea = GRE_andreas_apostolidis_political_advisor if={ limit={ check_variable={ GRE.ecall_fluctuate_exports_remaining_days=0 }} export_change_within_limits=yes } else={ hidden_trigger={ has_political_power>GRE.ecall_exports_drift_immediate_cost }}}
+			hell_ecall_secure_convoys_click_enabled = { hidden_trigger={ check_variable={ GRE.ecall_secure_convoys_remaining_days=0 }} if={ limit={ check_variable={ GRE.ecall_secure_convoys_remaining_days=0 }} has_completed_focus=GRE_the_navy command_power>25 set_temp_variable={ x=GRE.convoys_secured } add_to_temp_variable={ x=25 } has_equipment={ convoy_1>x }}}
 			hell_ecall_upgrade_economy_click_enabled = { has_idea=GRE_andreas_apostolidis_political_advisor check_variable={ GRE.economy_level<4 } if={ limit={ check_variable={ GRE.ecall_economy_upgrade_remaining_days>0 }} has_political_power>GRE.ecall_economy_immediate_cost }}
 		    hell_ecall_announce_economy_click_enabled = { has_idea=GRE_andreas_apostolidis_political_advisor }
 		}
@@ -363,47 +365,40 @@ scripted_gui = {
 
 				ecall_announce_economy_backslash_calculation=yes
 				set_variable={ h50_type=1 }
-				country_event={ id=hellas.50 days=0 }
+				hidden_effect={ country_event={ id=hellas.50 days=0 }}
 			}
-			hell_ecall_decrease_exports_click = {
-				if = { 
-					limit={ check_variable={ GRE.ecall_decrease_exports_remaining_days=0 }}
-
-					set_variable = { GRE.ecall_decrease_exports_at=global.num_days}
-					set_variable = { GRE.ecall_decrease_exports_end=global.num_days}
-					add_to_variable = { GRE.ecall_decrease_exports_end=15 }
-					set_variable = { GRE.ecall_decrease_exports_remaining_days=15 }
-					set_variable = { GRE.ecall_decrease_exports_passed_days=0 }
-					set_variable = { GRE.ecall_exports_drift_immediate_cost=150 }
-				}
-				else = {
-					set_temp_variable = { ppcost=GRE.ecall_exports_drift_immediate_cost }
-					multiply_temp_variable = { ppcost=-1 }
-					add_political_power = ppcost
-					ecall_set_ministry_shift_towards_less_exports=yes
-                    clear_variable = GRE.ecall_decrease_exports_remaining_days
-                    clear_variable = GRE.ecall_decrease_exports_passed_days
-				}
-			}
-			hell_ecall_increase_exports_click = {
+			hell_ecall_decrease_exports_click={ set_variable={ ecall_exports_shift_volume=0.05 } set_variable={ ecall_exports_shift_type=0 }}
+			hell_ecall_decrease_exports_control_click={ set_variable={ ecall_exports_shift_volume=0.10 } set_variable={ ecall_exports_shift_type=0 }}
+			hell_ecall_decrease_exports_control_shift_click={ set_variable={ ecall_exports_shift_volume=0.15 } set_variable={ ecall_exports_shift_type=0 }}
+			hell_ecall_increase_exports_click={ set_variable={ ecall_exports_shift_volume=0.05 } set_variable={ ecall_exports_shift_type=1 }}
+			hell_ecall_increase_exports_control_click={ set_variable={ ecall_exports_shift_volume=0.10 } set_variable={ ecall_exports_shift_type=1 }}
+			hell_ecall_increase_exports_control_shift_click={ set_variable={ ecall_exports_shift_volume=0.15 } set_variable={ ecall_exports_shift_type=1 }}
+			hell_ecall_apply_export_changes_click = {
 				if = {
-					limit={ check_variable={ GRE.ecall_increase_exports_remaining_days=0 }}
+					limit={ check_variable={ GRE.ecall_fluctuate_exports_remaining_days=0 }}
 
-					set_variable = { GRE.ecall_increase_exports_at=global.num_days}
-					set_variable = { GRE.ecall_increase_exports_end=global.num_days}
-					add_to_variable = { GRE.ecall_increase_exports_end=15 }
-					set_variable = { GRE.ecall_increase_exports_remaining_days=15 }
-					set_variable = { GRE.ecall_increase_exports_passed_days=0 }
+					set_variable = { GRE.ecall_fluctuate_exports_at=global.num_days }
+					set_variable = { GRE.ecall_fluctuate_exports_end=global.num_days }
+					add_to_variable = { GRE.ecall_fluctuate_exports_end=15 }
+					set_variable = { GRE.ecall_fluctuate_exports_remaining_days=15 }
+					set_variable = { GRE.ecall_fluctuate_exports_passed_days=0 }
 					set_variable = { GRE.ecall_exports_drift_immediate_cost=150 }
 				}
 				else = {
 					set_temp_variable = { ppcost=GRE.ecall_exports_drift_immediate_cost }
 					multiply_temp_variable = { ppcost=-1 }
 					add_political_power = ppcost
-					ecall_set_ministry_shift_towards_more_exports=yes
-                    clear_variable = GRE.ecall_increase_exports_remaining_days
-                    clear_variable = GRE.ecall_increase_exports_passed_days
+					ecall_shift_ministry_exports=yes
 				}
+			}
+			hell_ecall_secure_convoys_click={
+				hidden_effect={ add_command_power=-25 }
+				ecall_calculate_convoys_and_days=yes
+				set_variable = { GRE.ecall_secure_convoys_at=global.num_days }
+				set_variable = { GRE.ecall_secure_convoys_end=global.num_days }
+				add_to_variable = { GRE.ecall_secure_convoys_end=GRE.convoys_to_be_secured_days }
+				set_variable = { GRE.ecall_secure_convoys_remaining_days=GRE.convoys_to_be_secured_days }
+				set_variable = { GRE.ecall_secure_convoys_passed_days=0 }
 			}
 		}
 	}

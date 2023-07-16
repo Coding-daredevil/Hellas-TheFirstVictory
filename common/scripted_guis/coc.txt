@@ -106,6 +106,8 @@ scripted_gui = {
 			coc_portrait_army_rank_visible = { vscope_character_is_army=yes }
 			coc_portrait_navy_rank_visible = { vscope_character_is_navy=yes }
 			coc_portrait_air_rank_visible  = { vscope_character_is_air=yes }
+			coc_portrait_ledger_rest_visible = { var:v={ check_variable={ ledger_display=0 }}}
+			coc_portrait_ledger_rest_2_visible = { var:v={ check_variable={ ledger_display=1 }}}
 			###################################################################################
 			available_button_visible = { check_variable={ coc_filters>0 }}
 			sort_stats_button_visible = { check_variable={ coc_filters>0 }}
@@ -177,6 +179,7 @@ scripted_gui = {
 			coc_portrait_click = { if={ limit={ vscope_character_is_available_for_hire_in_high_command=yes vscope_character_hired=no } hidden_effect={ hire_targeted_character_in_high_command=yes }}}
 			coc_portrait_right_click = { if={ limit={ vscope_character_is_available_for_hire_as_chief=yes vscope_character_hired=no } hidden_effect={ hire_targeted_character_as_chief=yes }}}
 			coc_portrait_army_rank_click = { var:v={ increase_officer_rank=yes }}
+			coc_portrait_ledger_swap_rest_click={ var:v={ add_to_variable={ ledger_display=1 } modulo_variable={ ledger_display=2 }}}
 		}
 	}
 }

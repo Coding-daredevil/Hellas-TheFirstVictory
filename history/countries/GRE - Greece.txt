@@ -43,7 +43,7 @@ set_technology = {
 	trench_warfare = 1
 }
 if = {
-	limit = { not = { has_dlc = "Man the Guns" } }
+	limit={ not={ has_dlc = "Man the Guns" }}
 	set_technology = {
 		early_submarine = 1
 		early_destroyer = 1
@@ -79,14 +79,72 @@ if = {
 	add_opinion_modifier = { target=BUL modifier=BFTB_balkan_pact_enemy }
 	add_opinion_modifier = { target=HUN modifier=BFTB_balkan_pact_enemy }
 	set_country_flag = GRE_grecoitalian_diplomatic_games_still_relevant
+	set_variable={ emergency_powers_cost=50 }
+	#####################[ Resource Development Scheme ]####################
+	47={  set_variable={ max_state_resourse_level=5 }}
+	185={ set_variable={ max_state_resourse_level=4 }}
+	185={ set_variable={ max_state_resourse_level=3 }}
+	186={ set_variable={ max_state_resourse_level=4 }}
+	187={ set_variable={ max_state_resourse_level=4 }}
+	909={ set_variable={ max_state_resourse_level=4 }}
+	915={ set_variable={ max_state_resourse_level=4 }}
+	#########################[ Trade Law Min/Max/Gain Benefits ]##########################
+	#set_power_balance={ id=GRE_power_balance left_side=metaxas_regime_broken right_side=metaxas_regime_stabilized }
+	add_dynamic_modifier = { modifier = GRE_trade_system_dyn }
+	set_variable = { gre_tra_minimum_exports = 1 }
+	set_variable = { convoys_secured=100   }
+	set_variable = { gre_tra_min_fdce=0.00 }																# Industrial Capacity Factory/Dockyard & Construction Speed
+	set_variable = { gre_tra_min_resb=0.00 } 																# Research Speed Factor
+	set_variable = { gre_tra_min_trop=0.00 } 																# Trade Opinion Factor
+	set_variable = { gre_tra_min_intf=0.00 } 																# Intel Factor
+	set_variable = { gre_tra_min_inta=0.00 } 																# Intel Factor Others
+	set_variable = { gre_tra_min_adef=-5.0 } 																# Agency Defence
+	set_variable = { gre_tra_min_netg=0.00 } 																# Network Gain
+	set_variable = { gre_tra_min_ltcf=-0.5 } 																# License Purchase Cost Factor
+	set_variable = { gre_tra_min_ltds=-0.5 } 																# License Tech Difference Speed
+	set_variable = { gre_tra_min_ltps=0.00 } 																# License Production Speed
+	set_variable = { gre_tra_min_eodf=-0.2 } 																# Enemy Operative Detection Factor
+	#
+	set_variable = { gre_tra_max_fdce=0.20 }
+	set_variable = { gre_tra_max_resb=0.20 }
+	set_variable = { gre_tra_max_trop=0.50 }
+	set_variable = { gre_tra_max_intf=0.40 }
+	set_variable = { gre_tra_max_inta=0.80 }
+	set_variable = { gre_tra_max_adef=0.00 }
+	set_variable = { gre_tra_max_netg=0.50 }
+	set_variable = { gre_tra_max_ltds=0.00 }
+	set_variable = { gre_tra_max_ltps=0.50 }
+	set_variable = { gre_tra_max_eodf=0.20 }
+	# Influence Effects
+	set_variable = { gre_tra_gain_infl_trop=0.015 }
+	set_variable = { gre_tra_gain_infl_resb=0.005 }
+	set_variable = { gre_tra_gain_infl_netg=0.010 }
+	set_variable = { gre_tra_gain_infl_ltcf=-0.01 }
+	set_variable = { gre_tra_gain_infl_eodf=0.010 }
+	# Imports Effects per 8
+	set_variable = { gre_tra_gain_rimp_inta=0.004 }
+	set_variable = { gre_tra_gain_rimp_netg=0.005 }
+	set_variable = { gre_tra_gain_rimp_ltds=0.005 }
+	set_variable = { gre_tra_gain_rimp_ltps=0.005 }
+	set_variable = { gre_tra_gain_rimp_adef=0.002 }
+	# Convoys Effects per 50
+	set_variable = { gre_tra_gain_cown_trop=0.050 }
+	set_variable = { gre_tra_gain_cown_intf=0.010 }
+	set_variable = { gre_tra_gain_cown_netg=0.010 }
+	set_variable = { gre_tra_gain_cown_ltds=0.010 }
+	set_variable = { gre_tra_gain_cown_ltps=0.010 }
+	#########################[ Foreign Monopolies ]#########################
+	add_dynamic_modifier = { modifier = GRE_foreign_monopolies_dyn }
+	set_variable = { gre_formon_mnexp=1 }
+	set_variable = { gre_formon_consg=0.2 }
+	set_variable = { gre_formon_ppopf=-1 }
 	###########################[ The Greek Army ]###########################
 	add_dynamic_modifier = { modifier = GRE_the_army_dyn }
 	##########################[ Agrarian Society ]##########################
 	add_dynamic_modifier = { modifier = GRE_agrarian_society_dyn }
 	set_variable = { gre_agr_mp = -0.50 }
-	set_variable = { gre_agr_cf = -0.50}
+	set_variable = { gre_agr_cf = -0.50 }
 	set_variable = { gre_agr_stbw = 0.005 }
-	set_variable = { gre_agr_ppg = 0.05 }
 	########################[ No Industrialization ]########################
 	add_dynamic_modifier = { modifier = GRE_no_industrilization_dyn }
 	set_variable = { gre_noi_gbs = -0.5 }
@@ -136,17 +194,16 @@ if = {
 	refresh_italian_escalation_and_acceleration = yes
 	########################################################################
 	add_ideas = {
-		export_focus
+		ministry_of_rolling_with_the_punches_early
 		limited_conscription
 		the_greek_economical_enigma
-		GRE_george_ii
 		GRE_schachtplan
 		GRE_tied_to_foreign_investments
 		GRE_domestic_competition_0
 		GRE_domestic_competition_0_hidden
-		GRE_foreign_monopolies
 		GRE_neglected_army
 		GRE_debt_to_the_ifc
+		GRE_foreign_monopolies
 		GRE_army_status_0
 		GRE_army_leadership_0
 		GRE_airforce_status_0

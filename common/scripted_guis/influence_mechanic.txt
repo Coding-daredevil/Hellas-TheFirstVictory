@@ -112,36 +112,32 @@ scripted_gui = {
 	}
 
 	#win_favor_gui = {
-	#	context_type = country_mapicon
-	#	window_name = "win_favor_container"
+	#	context_type=country_mapicon
+	#	window_name="win_favor_container"
 	#
-	#	mapicon_targets = {
-	#		target_array = global.favor_mechanic
-	#		target_trigger = {
+	#	mapicon_targets={
+	#		target_array=global.favor_mechanic
+	#		target_trigger={
 	#			FROM={ NOT={ has_war_with=GRE }}
 	#		}
 	#	}
 	#
-	#	visible = { 
-	#		GRE={ has_country_flag=infl_mech_opened }
-	#		#has_completed_focus = GRE_a_game_of_shadows
-    #        #NOT = { has_axis_occupation = yes }
-	#	}
+	#	visible={ GRE={ has_country_flag=infl_mech_opened }}
 	#
-	#	triggers = {
-	#		win_favor_button_click_enabled = {
-	#			THIS={ NOT={ has_country_flag=is_influenced_by_decision }}
+	#	triggers={
+	#		win_favor_button_click_enabled={
+	#			custom_trigger_tooltip={
+	#				tooltip=bolster_influence_trigg1_tt
+	#				THIS={ NOT={ has_country_flag=is_influenced_by_decision }}
+	#			}
 	#		}
 	#	}
 	#
 	#	effects = {
-	#		win_favor_button_click = {
-	#			GRE = { log="HIT" }
-	#			THIS = { 
-	#				add_political_power=50 log="[?THIS.GetName] - [?political_power]"
-	#				set_country_flag={ flag=is_influenced_by_decision days=70 value=1 }
-	#			}
-	#			custom_effect_tooltip = GRE_win_favor_THIS
+	#		win_favor_button_click={
+	#			GRE={ add_political_power=-100 }
+	#			THIS={ set_country_flag={ flag=is_influenced_by_decision days=70 value=1 }}
+	#			custom_effect_tooltip = bolster_influence_explan_tt
 	#		}
 	#	}
 	#}

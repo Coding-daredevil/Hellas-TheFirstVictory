@@ -35,7 +35,8 @@ GRE_hell_acad_category  = {
     picture = GFX_dec_cat_army
 	allowed = { original_tag=GRE }
 
-    visible = { 
+    visible = {
+        has_axis_occupation=no
         OR={
             has_completed_focus = GRE_solidify_the_budget
             has_country_flag = GRE_faction_gui_flag
@@ -96,17 +97,17 @@ GRE_kathestos_exoteriki_politiki = {
     scripted_gui = exopol_gui
 }
 
-GRE_kathestos_war_preparation = {
-    priority = 14
-    picture = GFX_dec_cat_reform
-	allowed = { original_tag=GRE }
-    
-    visible = { 
-        has_completed_focus = GRE_metaxas_military_affairs
-        NOT = { has_global_flag = GRE_grecoitalian_start }
-        has_axis_occupation = no
-    }
-}
+#### GRE_kathestos_war_preparation = {
+####     priority = 14
+####     picture = GFX_dec_cat_reform
+#### 	allowed = { original_tag=GRE }
+####     
+####     visible = { 
+####         has_completed_focus = GRE_metaxas_military_affairs
+####         NOT = { has_global_flag = GRE_grecoitalian_start }
+####         has_axis_occupation = no
+####     }
+#### }
 
 GRE_economic_alleviation_category = {
 	priority = 13
@@ -114,18 +115,21 @@ GRE_economic_alleviation_category = {
 	picture = GFX_dec_cat_ecall
 	allowed = { original_tag=GRE }
 
-    visible = { has_completed_focus=GRE_reevaluating_the_drachma }
+    visible = { has_completed_focus=GRE_reevaluating_the_drachma has_axis_occupation=no }
     visible_when_empty=yes
     scripted_gui = hell_ecall_gui                           
 }
 
-GRE_investment_decisions_category  = {
+GRE_investment_decisions_category={
 	priority = 13
 	icon = gre_investment_decisions    
     picture = GFX_dec_cat_gre_invest
 	allowed = { original_tag=GRE }
 
-    visible = { has_axis_occupation=no }
+    visible={
+        has_completed_focus=GRE_open_up_the_country
+        has_axis_occupation=no
+    }
 }
 
 GRE_faction_management_category = {
@@ -220,3 +224,36 @@ GRE_hellenic_state_catefory = {
 ####         highlight_color_before_active=1
 ####     }
 #### }
+
+hidden_albanian_border_highlighter={
+    allowed={ tag=GRE }
+    visible={ has_greco_italian_war_occured=no }
+
+    highlight_states={
+        highlight_provinces={ 13257 13258 841 9837 }
+        highlight_color_while_active=1
+        highlight_color_before_active=1
+    }
+}
+
+hidden_epirus_limitations_highlighter={
+    allowed={ tag=GRE }
+    visible={ has_greco_italian_war_occured=no }
+
+    highlight_states={
+        highlight_provinces={ 13259 13270 3980 863 966 936 13257 13258 841 9837 }
+        highlight_color_while_active=2
+        highlight_color_before_active=2
+    }
+}
+
+hidden_bulgarian_border_highlighter={
+    allowed={ tag=GRE }
+    visible={ always=yes }
+
+    highlight_states={
+        highlight_provinces={ 3526 13265 9791 13264 13263 11774 11905 }
+        highlight_color_while_active=1
+        highlight_color_before_active=1
+    }
+}
