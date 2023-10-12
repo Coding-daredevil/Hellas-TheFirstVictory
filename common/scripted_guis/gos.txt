@@ -1,0 +1,67 @@
+scripted_gui = {
+
+	gos_main_open_gui = {
+		context_type = player_context
+		window_name = "gos_open_container"
+        parent_window_token = top_bar
+
+		visible = { original_tag=GRE always=yes }
+		triggers = { 
+			gos_button_click_enabled={ 
+				has_completed_focus=GRE_a_game_of_shadows
+				#any_of_scopes = {
+				#	array=global.majors
+				#	tooltip=xtestx_tt
+				#
+				#	GRE={
+				#		network_strength={
+				#			state = PREV.capital
+				#			value > 75
+				#		}
+				#	}
+				#}
+			}
+		}
+		
+		effects = {
+			gos_button_click = {
+				if={ limit = { NOT = { has_country_flag = gos_opened }} set_country_flag = gos_opened }
+				else = { clr_country_flag=gos_opened }
+			}
+		}
+
+		properties = {
+			gos_button = {
+				x=-436
+				y=-600
+			}
+		}
+	}
+
+	coc_main = {
+		context_type=player_context		
+		window_name="gos_main_window_container"
+
+		visible={
+			has_country_flag=gos_opened
+		}
+
+		triggers={
+			stifle_down_channels_click_enabled={
+				custom_trigger_tooltip={
+					tooltip=stifle_down_channels_trig_tt
+
+					NOT={ has_decision = stifle_down_information_channels }
+				}
+				has_political_power>var:stifle_down_information_channels_cost
+				hidden_trigger={ check_variable={ GRE.amount_of_work_in_asfaleia>0 }}
+			}
+		}
+
+		effects={
+			stifle_down_channels_click={
+				activate_decision=stifle_down_information_channels
+			}
+		}
+	}
+}

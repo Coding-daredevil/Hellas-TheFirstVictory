@@ -23,6 +23,7 @@ Italian_strategy_0_keeping_albania_safe = {
         has_greco_italian_war_occured=no
         has_war_with=ENG
     }
+    abort_when_not_enabled=yes
 
     ai_strategy = { type=put_unit_buffers ratio=0.02 states={ 44 }}
 }
@@ -83,7 +84,7 @@ Italian_strategy_A_preparing_war = {                                            
     ai_strategy = {
  	    type = front_unit_request
     	tag = GRE
-        state = 912 
+        state = 938 
         state = 185
     	value = 15
     }
@@ -95,6 +96,7 @@ Italian_strategy_A2_avoid_bulgarian_border_during_buildup = {
         focus_progress={ focus=ITA_war_with_greece progress>0.01 }
         check_variable={ BUL.stance_in_grecoitalian_war>0 }
     }
+    abort_when_not_enabled=yes
     
     ai_strategy = {
         type = dont_defend_ally_borders
@@ -110,8 +112,7 @@ Italian_strategy_B1_selfish_war = {
     enable = {
         has_global_flag = GRE_grecoitalian_start
         has_idea = GRE_italian_ambition     
-    }
-    
+    }    
     abort_when_not_enabled = yes
     
     ai_strategy = {                                                                             ## However, Italy will commit only to Albania, as historically they desired Bulgaria's help to split Greek forces.
@@ -142,7 +143,7 @@ Italian_strategy_B1_selfish_war = {
         type = front_control
         #you can define a target in following ways. you can define more than one
         tag = GRE
-        state = 912 
+        state = 938 
         state = 185
         #ratio = 0.0 # the strategy is enabled only if ratio of the front covered by this strat's targets greater than this ratio
         priority = 5000 # default 0, higher prio strats will override lower
@@ -155,7 +156,7 @@ Italian_strategy_B1_selfish_war = {
     ai_strategy = {
  	    type = front_unit_request
     	tag = GRE
-        state = 912 
+        state = 938 
         state = 185
     	value = 20
     }
@@ -209,7 +210,7 @@ Italian_strategy_B2_selfish_war = {
         type = front_control
         #you can define a target in following ways. you can define more than one
         tag = GRE
-        state = 912 
+        state = 938 
         state = 185
         #ratio = 0.0 # the strategy is enabled only if ratio of the front covered by this strat's targets greater than this ratio
         priority = 5000 # default 0, higher prio strats will override lower
@@ -222,7 +223,7 @@ Italian_strategy_B2_selfish_war = {
     ai_strategy = {
  	    type = front_unit_request
     	tag = GRE
-        state = 912 
+        state = 938 
         state = 185
     	value = 30
     }
@@ -266,7 +267,7 @@ Italian_strategy_B3_selfish_war = {
     ai_strategy = {
         type = front_control
         tag = GRE
-        state = 912 
+        state = 938 
         state = 185
         priority = 50000
         ordertype = front
@@ -278,7 +279,7 @@ Italian_strategy_B3_selfish_war = {
     ai_strategy = {
  	    type = front_unit_request
     	tag = GRE
-        state = 912 
+        state = 938 
         state = 185
     	value = 35
     }
@@ -402,6 +403,7 @@ Italy_avoid_manning_Vichy_Swiss_borders = {
     enable = {
         always=yes
     }
+    abort_when_not_enabled=yes
 
     ai_strategy = {
         type = front_control

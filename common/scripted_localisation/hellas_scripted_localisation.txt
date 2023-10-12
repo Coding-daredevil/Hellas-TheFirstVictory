@@ -2697,12 +2697,12 @@ defined_text = {
 defined_text = {
 	name=GetExerciseTypeName
 
-	text={ trigger={ FROM={ OR={ state=911 state=182 state=916 state=187 }}} localization_key=state_exercises_naval_tt }
-	text={ trigger={ FROM={ OR={ state=186 state=909 state=185 state=912 state=184 state=915 }}} localization_key=state_exercises_mountain_tt }
+	text={ trigger={ FROM={ OR={ state=937 state=182 state=942 state=187 }}} localization_key=state_exercises_naval_tt }
+	text={ trigger={ FROM={ OR={ state=186 state=935 state=185 state=938 state=184 state=941 }}} localization_key=state_exercises_mountain_tt }
 	text={ trigger={ FROM={ state=731 }} localization_key=state_exercises_maneuver_tt }
-	text={ trigger={ FROM={ state=914 }} localization_key=state_exercises_staticw_tt }
-	text={ trigger={ FROM={ state=910 }} localization_key=state_exercises_inf_tt }
-	text={ trigger={ FROM={ OR={ state=47 state=913 }}} localization_key=state_exercises_urban_tt }
+	text={ trigger={ FROM={ state=940 }} localization_key=state_exercises_staticw_tt }
+	text={ trigger={ FROM={ state=936 }} localization_key=state_exercises_inf_tt }
+	text={ trigger={ FROM={ OR={ state=47 state=939 }}} localization_key=state_exercises_urban_tt }
 	text={ localization_key="Conventional Exercises" }
 }
 
@@ -2892,6 +2892,15 @@ defined_text = {
 }
 
 defined_text = {
+	name = GetGeneralVeterancyStatusAppend
+
+	text={ trigger={ check_variable={ tmpZ2=0 }} localization_key="" }
+	text={ trigger={ check_variable={ tmpZ2=1 }} localization_key="Veteran" }
+	text={ trigger={ check_variable={ tmpZ2=2 }} localization_key="Veteran" }
+	text={ trigger={ check_variable={ tmpZ2=3 }} localization_key="Veteran" }
+}
+
+defined_text = {
 	name = GetGeneralUnpreparedStatus
 
 	text={ trigger={ check_variable={ tmpZ3=0 }} localization_key="Reintegrated General" }
@@ -2904,6 +2913,7 @@ defined_text = {
 defined_text = {
 	name = GetOnOfficerTarget
 
+	text={ trigger={ check_variable={ tmpX>0 } check_variable={ tmpX_TYPE=1 }} localization_key=on_officer_effects_target_percent }
 	text={ trigger={ check_variable={ tmpX>0 }} localization_key=on_officer_effects_target_number }
 	text={ localization_key=on_officer_effects_target_alloff }
 }
@@ -3141,6 +3151,13 @@ defined_text = {
 }
 
 defined_text = {
+	name = GetKathBopBodyTmpMOV
+
+	text={ trigger={ check_variable={ tmpMOV>0 }} localization_key=kath_bop_pos }
+	text={ localization_key=kath_bop_neg }
+}
+
+defined_text = {
 	name = GetDynamicImpactReasonFromTmpREAS
 
 	text={ trigger={ check_variable={ tmpREAS=0 }} localization_key="Party Popularity" }
@@ -3325,6 +3342,30 @@ defined_text = {
 		localization_key = hellas.332_t0.t
 	}
 	text = {
+		trigger = { check_variable = { TYPE=17 }}			# Monarchist Power-Up during Rebellious
+		localization_key = hellas.17.t
+	}
+	text = {
+		trigger = { check_variable = { TYPE=18 }}			# Republican Power-Up during Rebellious
+		localization_key = hellas.18.t
+	}
+	text = {
+		trigger = { check_variable = { TYPE=19 }}			# Monarchist Power-Up during Rebellious
+		localization_key = hellas.19.t
+	}
+	text = {
+		trigger = { check_variable = { TYPE=20 }}			# Monarchist Power-Up during Rebellious
+		localization_key = hellas.20.t
+	}
+	text = {
+		trigger = { check_variable = { TYPE=22 }}			# Republican Rebellious
+		localization_key = hellas.352a.t
+	}
+	text = {
+		trigger = { check_variable = { TYPE=23 }}			# Communists Rebellious
+		localization_key = hellas.353a.t
+	}
+	text = {
 		trigger = { check_variable = { TYPE=50 }}			# Unevenly paid debt
 		localization_key = hellas.332_t50.t
 	}
@@ -3377,6 +3418,30 @@ defined_text = {
 		localization_key = hellas.332_t0.desc
 	}
 	text = {
+		trigger = { check_variable = { TYPE=17 }}			# Monarchist Power-Up during Rebellious
+		localization_key = hellas.17.desc
+	}
+	text = {
+		trigger = { check_variable = { TYPE=18 }}			# Republican Power-Up during Rebellious
+		localization_key = hellas.18.desc
+	}
+	text = {
+		trigger = { check_variable = { TYPE=19 }}			# Monarchist Power-Up during Rebellious
+		localization_key = hellas.19.desc
+	}
+	text = {
+		trigger = { check_variable = { TYPE=20 }}			# Monarchist Power-Up during Rebellious
+		localization_key = hellas.20.desc
+	}
+	text = {
+		trigger = { check_variable = { TYPE=22 }}			# Republican Rebellious
+		localization_key = hellas.352a.desc
+	}
+	text = {
+		trigger = { check_variable = { TYPE=23 }}			# Communists Rebellious
+		localization_key = hellas.353a.desc
+	}
+	text = {
 		trigger = { check_variable = { TYPE=50 }}			# Unevenly paid debt
 		localization_key = hellas.332_t50.desc
 	}
@@ -3421,6 +3486,32 @@ defined_text = {
 defined_text = {
 	name = GetEvent332Picture
 
+	#
+	text = {
+		trigger = { check_variable = { TYPE=17 }}			# Monarchist Power-Up during Rebellious
+		localization_key = "GFX_report_event_monarchists_power_up"
+	}
+	text = {
+		trigger = { check_variable = { TYPE=18 }}			# Republican Power-Up during Rebellious
+		localization_key = "GFX_report_event_democrats_power_up"
+	}
+	text = {
+		trigger = { check_variable = { TYPE=19 }}			# Monarchist Power-Up during Rebellious
+		localization_key = "GFX_report_event_communists_power_up"
+	}
+	text = {
+		trigger = { check_variable = { TYPE=20 }}			# Monarchist Power-Up during Rebellious
+		localization_key = "GFX_report_event_fascists_power_up"
+	}
+	text = {
+		trigger = { check_variable = { TYPE=22 }}			# Republican Rebellious
+		localization_key = "GFX_report_event_republicans_rebellious"
+	}
+	text = {
+		trigger = { check_variable = { TYPE=23 }}			# Communists Rebellious
+		localization_key = "GFX_report_event_communists_rebellious"
+	}
+	#
 	text = {
 		trigger = { FROM={ original_tag=ENG has_country_leader={ character=ENG_winston_churchill ruling_only=yes }}}
 		localization_key = "GFX_report_event_churchil_diplomacy"

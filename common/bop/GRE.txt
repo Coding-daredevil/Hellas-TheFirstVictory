@@ -1,13 +1,27 @@
 GRE_power_balance = {
-	initial_value = -0.6
+	initial_value = -0.45
 	left_side = metaxas_regime_broken
 	right_side = metaxas_regime_stabilized
-#	decision_category = GRE_balance_of_power_category
+	decision_category = GRE_balance_of_power_category
 	range = {
 		id = mid_range
-		min = -0.8
-		max = -0.6
-            modifier = { war_support_weekly = -0.10 }
+		min = -0.60
+		max = -0.30
+		modifier = {
+			stability_factor = -0.6
+			war_support_factor = -0.6
+			intelligence_agency_defense = -1
+			global_influence_weekly_modifier_token=-0.15
+			hidden_modifier={
+				fct_dem_effect_multiplier_modifier_token = 0.008
+				fct_com_effect_multiplier_modifier_token = 0.008
+				fct_fas_effect_multiplier_modifier_token = 0.008
+				fct_mon_effect_multiplier_modifier_token = -0.024
+			}
+			custom_modifier_tooltip=mid_range_tt
+		}
+		on_activate = {}
+		on_deactivate = {}
 	}
 	side = {
 		id = metaxas_regime_broken
@@ -16,20 +30,56 @@ GRE_power_balance = {
         range = {
             id = broken_2
             min = -1.00
-            max = -0.95
-            modifier = { war_support_weekly = -0.9 }
+            max = -0.90
+            modifier = {
+				stability_factor = -1
+				war_support_factor = -1
+				intelligence_agency_defense = -4
+				global_influence_weekly_modifier_token=-0.75
+				hidden_modifier={
+					fct_dem_effect_multiplier_modifier_token = 0.020
+					fct_com_effect_multiplier_modifier_token = 0.020
+					fct_fas_effect_multiplier_modifier_token = 0.020
+					fct_mon_effect_multiplier_modifier_token = -0.060
+				}
+				custom_modifier_tooltip=broken_2_tt
+			}
         }
         range = {
             id = broken_1
-            min = -0.95
-            max = -0.90
-            modifier = { war_support_weekly = -0.5 }
+            min = -0.90
+            max = -0.75
+            modifier = {
+				stability_factor = -0.85
+				war_support_factor = -0.85
+				intelligence_agency_defense = -3
+				global_influence_weekly_modifier_token=-0.50
+				hidden_modifier={
+					fct_dem_effect_multiplier_modifier_token = 0.015
+					fct_com_effect_multiplier_modifier_token = 0.015
+					fct_fas_effect_multiplier_modifier_token = 0.015
+					fct_mon_effect_multiplier_modifier_token = -0.045
+				}
+				custom_modifier_tooltip=broken_1_tt
+			}
         }
         range = {
             id = broken_0
-            min = -0.90
-            max = -0.80
-            modifier = { war_support_weekly = -0.25 }
+            min = -0.75
+            max = -0.60
+            modifier = {
+				stability_factor = -0.70
+				war_support_factor = -0.70
+				global_influence_weekly_modifier_token=-0.25
+				intelligence_agency_defense = -2
+				hidden_modifier={
+					fct_dem_effect_multiplier_modifier_token = 0.010
+					fct_com_effect_multiplier_modifier_token = 0.010
+					fct_fas_effect_multiplier_modifier_token = 0.010
+					fct_mon_effect_multiplier_modifier_token = -0.030
+				}
+				custom_modifier_tooltip=broken_0_tt
+			}
         }
 	}
 	side = {
@@ -37,51 +87,156 @@ GRE_power_balance = {
 		icon = GFX_idea_gre_metaxas_side
 		range = {
 			id = stabilized_0
-			min = -0.6
-			max = -0.4
-			modifier = {}
+			min = -0.30
+			max = -0.15
+			modifier = {
+				stability_factor = -0.50
+				war_support_factor = -0.50
+				intelligence_agency_defense = -0.5
+				hidden_modifier={
+					fct_dem_effect_multiplier_modifier_token = 0.005
+					fct_com_effect_multiplier_modifier_token = 0.005
+					fct_fas_effect_multiplier_modifier_token = 0.005
+					fct_mon_effect_multiplier_modifier_token = -0.015
+				}
+				custom_modifier_tooltip=stabilized_0_tt
+			}
 		}
 		range = {
 			id = stabilized_1
-			min = -0.4
-			max = -0.2
-			modifier = { war_support_weekly = 0.10 }
+			min = -0.15
+			max = 0.00
+			modifier = {
+				stability_factor = -0.45
+				war_support_factor = -0.45
+				hidden_modifier={
+					fct_dem_effect_multiplier_modifier_token = 0.004
+					fct_com_effect_multiplier_modifier_token = 0.004
+					fct_fas_effect_multiplier_modifier_token = 0.004
+					fct_mon_effect_multiplier_modifier_token = -0.012
+				}
+				custom_modifier_tooltip=stabilized_1_tt
+			}
 		}
 		range = {
 			id = stabilized_2
-			min = -0.2
-			max = 0
-			modifier = { war_support_weekly = 0.20 }
+			min = 0.00
+			max = 0.15
+			modifier = {
+				stability_factor = -0.40
+				war_support_factor = -0.40
+				intelligence_agency_defense = 0.1
+				hidden_modifier={
+					fct_dem_effect_multiplier_modifier_token = 0.003
+					fct_com_effect_multiplier_modifier_token = 0.003
+					fct_fas_effect_multiplier_modifier_token = 0.003
+					fct_mon_effect_multiplier_modifier_token = -0.009
+				}
+				custom_modifier_tooltip=stabilized_2_tt
+			}
 		}
 		range = {
 			id = stabilized_3
-			min = 0
-			max = 0.2
-			modifier = { war_support_weekly = 0.30 }
+			min = 0.15
+			max = 0.30
+			modifier = {
+				stability_factor = -0.30
+				war_support_factor = -0.30
+				intelligence_agency_defense = 0.3
+				hidden_modifier={
+					fct_dem_effect_multiplier_modifier_token = 0.002
+					fct_com_effect_multiplier_modifier_token = 0.002
+					fct_fas_effect_multiplier_modifier_token = 0.002
+					fct_mon_effect_multiplier_modifier_token = -0.006
+				}
+				custom_modifier_tooltip=stabilized_3_tt
+			}
 		}
 		range = {
 			id = stabilized_4
-			min = 0.2
-			max = 0.4
-			modifier = { war_support_weekly = 0.40 }
+			min = 0.30
+			max = 0.45
+			modifier = {
+				stability_factor = -0.15
+				war_support_factor = -0.15
+				intelligence_agency_defense = 0.5
+				political_advisor_cost_factor = -0.05
+				global_influence_weekly_modifier_token=0.05
+				hidden_modifier={
+					fct_dem_effect_multiplier_modifier_token = 0.001
+					fct_com_effect_multiplier_modifier_token = 0.001
+					fct_fas_effect_multiplier_modifier_token = 0.001
+					fct_mon_effect_multiplier_modifier_token = -0.003
+				}
+				custom_modifier_tooltip=stabilized_4_tt
+			}
 		}
 		range = {
 			id = stabilized_5
-			min = 0.4
-			max = 0.6
-			modifier = { war_support_weekly = 0.50 }
+			min = 0.45
+			max = 0.60
+			modifier = {
+				intelligence_agency_defense = 1
+				global_influence_weekly_modifier_token=0.10
+				political_advisor_cost_factor = -0.10
+			}
 		}
 		range = {
 			id = stabilized_6
-			min = 0.6
-			max = 0.8
-			modifier = { war_support_weekly = 0.60 }
+			min = 0.60
+			max = 0.75
+			modifier = {
+				stability_factor = 0.025
+				war_support_factor = 0.025
+				political_advisor_cost_factor = -0.15
+				intelligence_agency_defense = 1.5
+				global_influence_weekly_modifier_token=0.15
+				hidden_modifier={
+					fct_dem_effect_multiplier_modifier_token = -0.005
+					fct_com_effect_multiplier_modifier_token = -0.005
+					fct_fas_effect_multiplier_modifier_token = -0.005
+					fct_mon_effect_multiplier_modifier_token = 0.015
+				}
+				custom_modifier_tooltip=stabilized_6_tt
+			}
 		}
 		range = {
 			id = stabilized_7
-			min = 0.8
+			min = 0.75
+			max = 0.90
+			modifier = {
+				stability_factor = 0.05
+				war_support_factor = 0.05
+				intelligence_agency_defense = 2.0
+				political_advisor_cost_factor = -0.20
+				global_influence_weekly_modifier_token=0.20
+				hidden_modifier={
+					fct_dem_effect_multiplier_modifier_token = -0.010
+					fct_com_effect_multiplier_modifier_token = -0.010
+					fct_fas_effect_multiplier_modifier_token = -0.010
+					fct_mon_effect_multiplier_modifier_token = 0.030
+				}
+				custom_modifier_tooltip=stabilized_7_tt
+			}
+		}
+		range = {
+			id = stabilized_8
+			min = 0.90
 			max = 1
-			modifier = { war_support_weekly = 1.00 }
+			modifier = {
+				stability_factor = 0.10
+				war_support_factor = 0.10
+				intelligence_agency_defense = 2.5
+				political_advisor_cost_factor = -0.25
+				global_influence_weekly_modifier_token=0.25
+				hidden_modifier={
+					fct_dem_effect_multiplier_modifier_token = -0.025
+					fct_com_effect_multiplier_modifier_token = -0.025
+					fct_fas_effect_multiplier_modifier_token = -0.025
+					fct_mon_effect_multiplier_modifier_token = 0.075
+				}
+				custom_modifier_tooltip=stabilized_8_tt
+			}
 		}
 	}
 }

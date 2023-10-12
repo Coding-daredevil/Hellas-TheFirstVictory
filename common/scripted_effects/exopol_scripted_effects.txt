@@ -69,6 +69,106 @@ reload_axal_gui = {
 	clear_array = tmp    
 }
 
+on_alignment_change_initialize_vars = {
+    if={
+        limit={
+			OR={
+				AND={
+					check_variable = { var=GRE.alax value=0 compare=greater_than_or_equals }
+					check_variable = { var=GRE.alax value=5 compare=less_than }
+				}
+				AND={
+					check_variable = { var=GRE.alax value=95 compare=greater_than }
+					check_variable = { var=GRE.alax value=100 compare=less_than_or_equals }
+				}
+			}
+		}
+		clear_variable=axal_faction_influence
+		set_variable={ axal_faction_rdiscount = 0.50 }
+		set_variable={ axal_faction_rpositive = 0.75 }
+    }
+    else_if={
+		limit = { 
+			OR={
+				AND={
+					check_variable = { var=GRE.alax value=5 compare=greater_than_or_equals }
+					check_variable = { var=GRE.alax value=10 compare=less_than }
+				}
+				AND={
+					check_variable = { var=GRE.alax value=90 compare=greater_than_or_equals }
+					check_variable = { var=GRE.alax value=95 compare=less_than_or_equals }
+				}
+			}
+		}
+		set_variable={ axal_faction_influence = 2.00 }
+		set_variable={ axal_faction_rdiscount = 0.40 }
+		set_variable={ axal_faction_rpositive = 0.50 }
+    }
+    else_if={
+		limit = {
+			OR={
+				AND={
+					check_variable = { var=GRE.alax value=10 compare=greater_than_or_equals }
+					check_variable = { var=GRE.alax value=20 compare=less_than }
+				}
+				AND={
+					check_variable = { var=GRE.alax value=80 compare=greater_than_or_equals }
+					check_variable = { var=GRE.alax value=90 compare=less_than }
+				}
+			}
+		}
+		set_variable={ axal_faction_influence = 1.00 }
+		set_variable={ axal_faction_rdiscount = 0.30 }
+		set_variable={ axal_faction_rpositive = 0.25 }
+    }
+    else_if={
+		limit = {
+			OR={
+				AND={
+					check_variable = { var=GRE.alax value=20 compare=greater_than_or_equals }
+					check_variable = { var=GRE.alax value=30 compare=less_than }
+				}
+				AND={
+					check_variable = { var=GRE.alax value=70 compare=greater_than_or_equals }
+					check_variable = { var=GRE.alax value=80 compare=less_than }
+				}
+			}
+		}
+		set_variable={ axal_faction_influence = 0.50 }
+		set_variable={ axal_faction_rdiscount = 0.20 }
+		set_variable={ axal_faction_rpositive = 0.10 }
+    }
+    else_if={
+		limit = {
+			OR={
+				AND={
+					check_variable = { var=GRE.alax value=30 compare=greater_than_or_equals }
+					check_variable = { var=GRE.alax value=40 compare=less_than_or_equals }
+				}
+				AND={
+					check_variable = { var=GRE.alax value=60 compare=greater_than_or_equals }
+					check_variable = { var=GRE.alax value=70 compare=less_than }
+				}
+			}
+		}
+		if={ limit={ has_idea=GRE_exopol_neutral_global_influence } hidden_effect={ remove_ideas=GRE_exopol_neutral_global_influence }}
+		clear_variable=balkan_pact_member_desirability_weekly
+		set_variable={ axal_faction_influence = 0.25 }
+		set_variable={ axal_faction_rdiscount = 0.10 }
+		clear_variable=axal_faction_rpositive
+    }
+    else_if={
+		limit = { 
+			check_variable = { var=GRE.alax value=40 compare=greater_than }
+			check_variable = { var=GRE.alax value=60 compare=less_than}
+		}
+		hidden_effect={ add_ideas=GRE_exopol_neutral_global_influence }
+		set_variable={ balkan_pact_member_desirability_weekly = 0.20 }
+		clear_variable=axal_faction_influence
+		clear_variable=axal_faction_rdiscount
+    }
+}
+
 ########################################################
 ##############[                           ]#############
 ##############[           REST            ]#############

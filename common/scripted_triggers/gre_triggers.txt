@@ -1,3 +1,39 @@
+is_valid_event_info_array_index_right={
+    OR={
+        check_variable={ event_info_array^event_info_index=0.140 }
+        check_variable={ event_info_array^event_info_index=0.141 }
+        check_variable={ event_info_array^event_info_index=0.142 }
+        check_variable={ event_info_array^event_info_index=0.143 }
+        check_variable={ event_info_array^event_info_index=0.144 }
+        check_variable={ event_info_array^event_info_index=0.145 }
+        check_variable={ event_info_array^event_info_index=0.150 }
+        check_variable={ event_info_array^event_info_index=0.151 }
+        check_variable={ event_info_array^event_info_index=0.152 }
+        check_variable={ event_info_array^event_info_index=0.160 }
+        check_variable={ event_info_array^event_info_index=0.161 }
+        check_variable={ event_info_array^event_info_index=0.1 }
+        check_variable={ event_info_array^event_info_index=0.2 }
+        check_variable={ event_info_array^event_info_index=0.3 }
+        check_variable={ event_info_array^event_info_index=0.4 }
+        check_variable={ event_info_array^event_info_index=0.41 }
+        check_variable={ event_info_array^event_info_index=12 }
+        check_variable={ event_info_array^event_info_index=82  }
+        check_variable={ event_info_array^event_info_index=100 }
+        check_variable={ event_info_array^event_info_index=241 }
+        check_variable={ event_info_array^event_info_index=248 }
+        check_variable={ event_info_array^event_info_index=416 }
+    }
+}
+
+is_valid_event_info_array_index_left={
+    OR={
+        check_variable={ event_info_array^event_info_index=0.4 }
+        check_variable={ event_info_array^event_info_index=0.41 }
+        check_variable={ event_info_array^event_info_index=12 }
+    }
+}
+
+
 ####################################
 #######[ Influence Triggers]########
 ####################################
@@ -180,8 +216,8 @@ mussolini_historical_tensions_with_greece = {
 
 forts_in_grecoalbanian_borderline_exist = {
     OR = {
-        184 = { any_province_building_level={ province={ id=13257 id=13258 } building=bunker level>0 }}
-        912 = { any_province_building_level={ province={ id=841 id=9837 } building=bunker level>0 }}
+        184 = { any_province_building_level={ province={ id=13273 id=13274 } building=bunker level>0 }}
+        938 = { any_province_building_level={ province={ id=841 id=9837 } building=bunker level>0 }}
     }
 }
 
@@ -227,7 +263,7 @@ has_exceeded_division_limit_on_grecoalbanian_border = {
 
         OR={
             divisions_in_border_state = { size>2 state=185 border_state=805 }
-            divisions_in_border_state = { size>2 state=912 border_state=805 }
+            divisions_in_border_state = { size>2 state=938 border_state=805 }
         }
     }
 }
@@ -557,6 +593,15 @@ has_appropriate_armor_fm_selected = {
 #####################################
 ############[Faction ARMY]###########
 #####################################
+
+is_any_faction_rebellious = {
+    OR={
+        has_active_mission = GRE_comm_upr
+        has_active_mission = GRE_repub_upr
+    }
+    NOT={ has_country_flag=dem_civilwar_started }
+    NOT={ has_country_flag=com_civilwar_started }
+}
 
 is_faction_tmpF_hostile = {
     if = {

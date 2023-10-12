@@ -6,7 +6,7 @@ export_change_within_limits = {
         set_temp_variable={ x=gre_tra_minimum_exports }
         if={ limit={ check_variable={ ecall_exports_shift_type=0 }} subtract_from_temp_variable={ x=ecall_exports_shift_volume }}
         else={ add_to_temp_variable={ x=ecall_exports_shift_volume }}
-        check_variable={ var=x value=modifier@gre_trade_minimum_exports_possible compare=greater_than_or_equals }
+        check_variable={ var=x value=modifier@minimum_trade_exports_modifier_token compare=greater_than_or_equals }
         check_variable={ var=x value=1 compare=less_than_or_equals }
     }
 }

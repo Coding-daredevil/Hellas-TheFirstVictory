@@ -199,6 +199,10 @@ characters={
 			#	fct_fas_modifier_token = 0.35
 			#}
 			on_add = {
+				add_to_variable={ additional_influence_weekly@GER=0.50 }
+				add_to_variable={ additional_influence_weekly@ITA=0.25 }
+				add_to_variable={ additional_influence_weekly@JAP=0.25 }
+				#
 				set_temp_variable={ tmp=THIS }
 				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=tmp }}
 				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=tmp }}
@@ -207,6 +211,10 @@ characters={
 				else_if = { limit={ check_variable={ global.gov_advisor_second_array^1=7 }} set_variable={ global.gov_advisor_second_array^1=tmp }}
 			}
 			on_remove = {
+				subtract_from_variable={ additional_influence_weekly@GER=0.50 }
+				subtract_from_variable={ additional_influence_weekly@ITA=0.25 }
+				subtract_from_variable={ additional_influence_weekly@JAP=0.25 }
+				#
 				set_temp_variable={ tmp=THIS }
 				if = { limit={ check_variable={ global.gov_advisor_first_array^0=tmp }} set_variable={ global.gov_advisor_first_array^0=7 }}
 				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=tmp }} set_variable={ global.gov_advisor_first_array^1=7 }}
@@ -318,7 +326,9 @@ characters={
 				has_country_flag = GRE_kathestos_proclaimed
 				has_completed_focus = GRE_establish_propaganda
 			}
-			on_add = { 
+			on_add = {
+				add_to_variable={ additional_influence_weekly@GER=0.75 }
+				#
 				set_temp_variable={ tmp=THIS }
 				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=tmp }}
 				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=tmp }}
@@ -328,6 +338,8 @@ characters={
 				GRE = { hidden_effect={ if = { limit={ NOT={ has_completed_focus=GRE_eon_2 }} complete_national_focus = GRE_eon_2 }}}
 			}
 			on_remove = {
+				subtract_from_variable={ additional_influence_weekly@GER=0.75 }
+				#
 				set_temp_variable={ tmp=THIS }
 				if = { limit={ check_variable={ global.gov_advisor_first_array^0=tmp }} set_variable={ global.gov_advisor_first_array^0=7 }}
 				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=tmp }} set_variable={ global.gov_advisor_first_array^1=7 }}
@@ -349,6 +361,11 @@ characters={
 			cost = 75
 			available = { has_country_flag=GRE_kathestos_proclaimed }
 			on_add = {
+				add_to_variable={ additional_influence_weekly@GER=0.25 }
+				add_to_variable={ additional_influence_weekly@USA=0.25 }
+				add_to_variable={ additional_influence_weekly@ITA=-0.25 }
+				add_to_variable={ additional_influence_weekly@SOV=-0.25 }
+				#
 				set_temp_variable={ tmp=THIS }
 				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=tmp }}
 				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=tmp }}
@@ -358,6 +375,11 @@ characters={
 				GRE = { hidden_effect={ if = { limit={ NOT={ has_completed_focus=GRE_american_influencers }} complete_national_focus = GRE_american_influencers }}}
 			}
 			on_remove = {
+				subtract_from_variable={ additional_influence_weekly@GER=0.25 }
+				subtract_from_variable={ additional_influence_weekly@USA=0.25 }
+				subtract_from_variable={ additional_influence_weekly@ITA=-0.25 }
+				subtract_from_variable={ additional_influence_weekly@SOV=-0.25 }
+				#
 				set_temp_variable={ tmp=THIS }
 				if = { limit={ check_variable={ global.gov_advisor_first_array^0=tmp }} set_variable={ global.gov_advisor_first_array^0=7 }}
 				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=tmp }} set_variable={ global.gov_advisor_first_array^1=7 }}
@@ -541,7 +563,9 @@ characters={
 			allowed = { original_tag = GRE }
 			cost = 75
 			available = { has_country_flag=GRE_kathestos_proclaimed }
-			on_add = { 
+			on_add = {
+				add_to_variable={ additional_influence_weekly@GER=0.25 }
+				#
 				set_temp_variable={ tmp=THIS }
 				if = { limit={ check_variable={ global.gov_advisor_first_array^0=7 }} set_variable={ global.gov_advisor_first_array^0=tmp }}
 				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=7 }} set_variable={ global.gov_advisor_first_array^1=tmp }}
@@ -550,6 +574,8 @@ characters={
 				else_if = { limit={ check_variable={ global.gov_advisor_second_array^1=7 }} set_variable={ global.gov_advisor_second_array^1=tmp }}
 			}
 			on_remove = {
+				subtract_from_variable={ additional_influence_weekly@GER=0.25 }
+				#
 				set_temp_variable={ tmp=THIS }
 				if = { limit={ check_variable={ global.gov_advisor_first_array^0=tmp }} set_variable={ global.gov_advisor_first_array^0=7 }}
 				else_if = { limit={ check_variable={ global.gov_advisor_first_array^1=tmp }} set_variable={ global.gov_advisor_first_array^1=7 }}

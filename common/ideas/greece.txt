@@ -634,7 +634,7 @@ ideas = {
 			picture=gre_schachtplan
 			removal_cost=-1
 
-			targeted_modifier = { 
+			targeted_modifier = {
 				tag=GER 
 				extra_trade_to_target_factor=0.50 
 				trade_cost_for_target_factor=-0.25
@@ -643,7 +643,7 @@ ideas = {
 			modifier = {
 				axal_modifier_token = 0.06
 				consumer_goods_factor = -0.15
-                stability_factor = -0.1
+                minimum_trade_exports_modifier_token = 0.30
 			}
 		}
 
@@ -662,7 +662,7 @@ ideas = {
 			modifier = {
 				axal_modifier_token = 0.04
 				consumer_goods_factor = -0.075
-                stability_factor = -0.075
+                minimum_trade_exports_modifier_token = 0.20
 			}
 		}
 
@@ -685,7 +685,7 @@ ideas = {
 			modifier = {
 				axal_modifier_token = 0.02
 				consumer_goods_factor = -0.025
-                stability_factor = -0.05
+                minimum_trade_exports_modifier_token = 0.15
 			}
 		}
         
@@ -784,6 +784,7 @@ ideas = {
 			modifier = {
 				war_support_factor = 0.08
 				neutrality_drift = 0.08
+				industry_free_repair_factor = 0.08
 			}
 		}
         
@@ -798,7 +799,7 @@ ideas = {
 				neutrality_drift = 0.1
                 army_morale_factor = 0.04
                 supply_consumption_factor = -0.03
-                industry_repair_factor = 0.08
+                industry_free_repair_factor = 0.15
 			}
 		}
         
@@ -814,7 +815,7 @@ ideas = {
                 army_org_factor = 0.04
                 army_morale_factor = 0.08
                 supply_consumption_factor = -0.06
-                industry_repair_factor = 0.15
+                industry_free_repair_factor = 0.25
 			}
 		}
 
@@ -843,6 +844,7 @@ ideas = {
                 navy_intel_to_others = 25
                 airforce_intel_to_others = 25
 				intelligence_agency_defense = -1
+                minimum_trade_exports_modifier_token = 0.10
             }
         }
 
@@ -859,6 +861,7 @@ ideas = {
                 navy_intel_to_others = 12.5
                 airforce_intel_to_others = 12.5
                 intelligence_agency_defense = -0.5
+                minimum_trade_exports_modifier_token = 0.05
             }
         }
         
@@ -1005,7 +1008,8 @@ ideas = {
 				stability_factor = 0.025
 				political_power_factor	= 0.05
 				consumer_goods_factor = 0.025
-                custom_modifier_tooltip = GRE_booming_tourism_tt
+                global_influence_weekly_modifier_token = 0.25
+                #custom_modifier_tooltip = GRE_booming_tourism_tt
 			}
 		}
 
@@ -1028,7 +1032,8 @@ ideas = {
 				stability_factor = 0.05
 				political_power_factor	= 0.10
 				consumer_goods_factor = 0.05
-                custom_modifier_tooltip = GRE_booming_tourism_2_tt
+                global_influence_weekly_modifier_token = 0.50
+                #custom_modifier_tooltip = GRE_booming_tourism_2_tt
 			}
 		}
 
@@ -1050,95 +1055,79 @@ ideas = {
 			modifier = {
 				stability_factor = 0.05
 				political_power_factor	= 0.10
-                custom_modifier_tooltip = GRE_booming_tourism_2_tt
+                global_influence_weekly_modifier_token = 0.50
+                #custom_modifier_tooltip = GRE_booming_tourism_2_tt
 			}
 		}
         
-        GRE_masters_of_shipbuilding = {
+        GRE_masters_of_shipbuilding_0 = {
             allowed={ original_tag=GRE }
-            allowed_civil_war = {
-                always = yes
-            }
+            allowed_civil_war={ always=yes }
             
-            cancel = {
-                has_idea = GRE_submarine_expertise
-            }
+            picture=gre_shipyards_early
+            removal_cost=-1
             
-            on_remove = {
-                if = {
-                    limit = { has_idea = GRE_submarine_expertise }
-                    remove_ideas = GRE_submarine_expertise
-                    add_ideas = GRE_masters_of_shipbuilding_2
+			equipment_bonus={
+				capital_ship={ build_cost_ic=-0.05 instant=yes }
+                carrier={ build_cost_ic=-0.05 instant=yes }
+                screen_ship={ build_cost_ic=-0.05 instant=yes }
+                submarine={ build_cost_ic=-0.05 instant=yes }
+                convoy={ build_cost_ic=-0.25 instant=yes }
+			}
+        }
+        
+        GRE_masters_of_shipbuilding_1 = {
+            allowed={ original_tag=GRE }
+            allowed_civil_war={ always=yes }
+            
+            cancel={ has_idea=GRE_submarine_expertise }
+            on_remove={ 
+                if={ 
+                    limit={ has_idea=GRE_submarine_expertise } 
+                    
+                    remove_ideas=GRE_submarine_expertise
+                    add_ideas=GRE_masters_of_shipbuilding_2 
                 }
             }
             
             picture=gre_shipyards_early
-            
             removal_cost=-1
             
-			equipment_bonus = {
-				capital_ship = {
-					build_cost_ic = -0.08 instant = yes
-				}
-                carrier = {
-                    build_cost_ic = -0.08 instant = yes
-                }
-                screen_ship = {
-                    build_cost_ic = -0.08 instant = yes
-                }
-                submarine = {
-                    build_cost_ic = -0.08 instant = yes
-                }
-                convoy = {
-                    build_cost_ic = -0.08 instant = yes
-                }
-			}       
+			equipment_bonus={
+				capital_ship={ build_cost_ic=-0.10 instant=yes }
+                carrier={ build_cost_ic=-0.10 instant=yes }
+                screen_ship={ build_cost_ic=-0.10 instant=yes }
+                submarine={ build_cost_ic=-0.10 instant=yes }
+                convoy={ build_cost_ic=-0.35 instant=yes }
+			}
         }
         
         GRE_submarine_expertise = {
             allowed={ original_tag=GRE }
-            allowed_civil_war = {
-                always = yes
-            }
+            allowed_civil_war={ always=yes }
                 
-            picture=gre_shipyards_early_2
-            
+            picture=gre_shipyards_early_2            
             removal_cost=-1
             
-			equipment_bonus = {
-				submarine = {
-                    build_cost_ic = -0.12 instant = yes
-                }
-			}       
+			equipment_bonus={ 
+                submarine={ build_cost_ic=-0.12 instant=yes }
+            }       
         }
         
         GRE_masters_of_shipbuilding_2 = {
             allowed={ original_tag=GRE }
-            allowed_civil_war = {
-                always = yes
-            }
-                
-            picture=gre_royal_ship
+            allowed_civil_war={ always=yes }
             
+            picture=gre_royal_ship
             removal_cost=-1
             
-			equipment_bonus = {
-				capital_ship = {
-					build_cost_ic = -0.08 instant = yes
-				}
-                carrier = {
-                    build_cost_ic = -0.08 instant = yes
-                }
-                screen_ship = {
-                    build_cost_ic = -0.08 instant = yes
-                }
-                submarine = {
-                    build_cost_ic = -0.2 instant = yes
-                }
-                convoy = {
-                    build_cost_ic = -0.15 instant = yes
-                }
-			}       
+			equipment_bonus={
+				capital_ship={ build_cost_ic=-0.15 instant=yes }
+                carrier={ build_cost_ic=-0.15 instant=yes }
+                screen_ship={ build_cost_ic=-0.15 instant=yes }
+                submarine={ build_cost_ic=-0.25 instant=yes }
+                convoy={ build_cost_ic=-0.50 instant=yes }
+			}
         }
 
 		GRE_economic_fluctuations = {
@@ -2953,6 +2942,20 @@ ideas = {
 
 	hidden_ideas = {
 
+		GRE_fascism_assimilated = {
+			allowed={ original_tag=GRE }
+			removal_cost=-1
+			modifier={ fascism_drift=-10 }
+		}
+
+		GRE_exopol_neutral_global_influence = {
+			allowed={ original_tag=GRE }
+				
+			removal_cost=-1
+				
+			modifier={ global_influence_weekly_modifier_token = 0.05 }
+		}
+
         GRE_neglected_army = {
             allowed={ original_tag=GRE }
 
@@ -3082,9 +3085,7 @@ ideas = {
     
         GRE_obsolescent_dogma = {
             allowed={ original_tag=GRE }
-            allowed_civil_war = {
-                always = yes
-            }
+            allowed_civil_war={ always=yes }
                 
             picture=gre_old
             
@@ -3100,9 +3101,7 @@ ideas = {
         
         GRE_complete_lack_of_heavy_equipment = {
             allowed={ original_tag=GRE }
-            allowed_civil_war = {
-                always = yes
-            }
+            allowed_civil_war={ always=yes }
                 
             picture=gre_bad_art
             
@@ -3123,9 +3122,7 @@ ideas = {
 
         GRE_army_leadership_0 = {
             allowed={ original_tag=GRE }
-            allowed_civil_war = {
-                always = yes
-            }
+            allowed_civil_war={ always=yes }
                 
             picture=gre_army_0_b
             
@@ -3142,9 +3139,7 @@ ideas = {
         
         GRE_airforce_leadership_0 = {
             allowed={ original_tag=GRE }
-            allowed_civil_war = {
-                always = yes
-            }
+            allowed_civil_war={ always=yes }
                 
             picture=gre_air_0_b
             
@@ -3169,13 +3164,22 @@ ideas = {
 
         GRE_army_status_0 = {
             allowed={ original_tag=GRE }
-            allowed_civil_war = {
-                always = yes
-            }
+            allowed_civil_war={ always=yes }
                 
             picture=gre_army_0
             
             removal_cost=-1
+
+			cancel={
+				OR={
+					has_war=yes
+					check_variable={ unveil_army_early>0 }
+				}
+				check_variable={ var=preparedness_level value=0.50 compare=greater_than_or_equals }
+				check_variable={ var=GRE_army_reform_cnt value=10 compare=greater_than_or_equals }
+			}
+
+			on_remove={ add_ideas=GRE_army_status_1 }
             
             modifier = {
                 breakthrough_factor = -0.2
@@ -3185,18 +3189,27 @@ ideas = {
                 training_time_army_factor = 0.25
                 terrain_penalty_reduction = -0.1
                 special_forces_cap = 0.05
-            }   
+            }
         }
 
         GRE_army_status_1 = {
             allowed={ original_tag=GRE }
-            allowed_civil_war = {
-                always = yes
-            }
+            allowed_civil_war={ always=yes }
                 
             picture=gre_army_1
             
             removal_cost=-1
+
+			cancel={
+				OR={
+					has_war=yes
+					check_variable={ unveil_army_early>1 }
+				}
+				check_variable={ var=preparedness_level value=1 compare=greater_than_or_equals }
+				check_variable={ var=GRE_army_reform_cnt value=15 compare=greater_than_or_equals }
+			}
+
+			on_remove={ add_ideas=GRE_army_status_2 }
             
             modifier = {
                 breakthrough_factor = -0.1
@@ -3211,9 +3224,7 @@ ideas = {
         
         GRE_army_status_2 = {
             allowed={ original_tag=GRE }
-            allowed_civil_war = {
-                always = yes
-            }
+            allowed_civil_war={ always=yes }
                 
             picture=gre_army_2
             
@@ -3226,9 +3237,7 @@ ideas = {
         
         GRE_army_status_3 = {
             allowed={ original_tag=GRE }
-            allowed_civil_war = {
-                always = yes
-            }
+            allowed_civil_war={ always=yes }
                 
             picture=gre_army_3
             
@@ -3244,9 +3253,7 @@ ideas = {
         
         GRE_army_status_4 = {
             allowed={ original_tag=GRE }
-            allowed_civil_war = {
-                always = yes
-            }
+            allowed_civil_war={ always=yes }
                 
             picture=gre_army_4
             
@@ -3265,11 +3272,28 @@ ideas = {
  
         GRE_airforce_status_0 = {
             allowed={ original_tag=GRE }
-            allowed_civil_war = {
-                always = yes
-            }
+            allowed_civil_war={ always=yes }
                 
             picture=gre_air_0
+
+			cancel={
+				count_triggers = {
+					amount = 2
+					has_completed_focus=GRE_bombers
+					has_completed_focus=GRE_fighters
+					has_completed_focus=GRE_naval_bombers
+					has_completed_focus=GRE_heavy_fighters
+				}
+				amount_taken_ideas={ amount>0 slots={ air_chief }}
+				has_deployed_air_force_size={ size>249 }
+				set_temp_variable={ airp_cnt=0 }
+				all_owned_state={
+					if={ limit={ air_base>7 } add_to_temp_variable={ airp_cnt=1 }}
+				}
+				check_variable={ var=airp_cnt value=2 compare=greater_than_or_equals }
+			}
+
+			on_remove={ add_ideas=GRE_airforce_status_1 }
             
             removal_cost=-1
             
@@ -3283,11 +3307,11 @@ ideas = {
 
         GRE_airforce_status_1 = {
             allowed={ original_tag=GRE }
-            allowed_civil_war = {
-                always = yes
-            }
+            allowed_civil_war={ always=yes }
                 
             picture=gre_air_1
+
+			on_remove={ add_ideas=GRE_airforce_status_2 }
             
             removal_cost=-1
             
@@ -3301,11 +3325,11 @@ ideas = {
         
         GRE_airforce_status_2 = {
             allowed={ original_tag=GRE }
-            allowed_civil_war = {
-                always = yes
-            }
+            allowed_civil_war={ always=yes }
                 
             picture=gre_air_2
+
+			on_remove={ add_ideas=GRE_airforce_status_3 }
             
             removal_cost=-1
             
@@ -3315,11 +3339,11 @@ ideas = {
         
         GRE_airforce_status_3 = {
             allowed={ original_tag=GRE }
-            allowed_civil_war = {
-                always = yes
-            }
+            allowed_civil_war={ always=yes }
                 
             picture=gre_air_3
+
+			on_remove={ add_ideas=GRE_airforce_status_4 }
             
             removal_cost=-1
             
@@ -3332,9 +3356,7 @@ ideas = {
         
         GRE_airforce_status_4 = {
             allowed={ original_tag=GRE }
-            allowed_civil_war = {
-                always = yes
-            }
+            allowed_civil_war={ always=yes }
                 
             picture=gre_air_4
             
@@ -3350,9 +3372,7 @@ ideas = {
 
         GRE_navy_status_0 = {
             allowed={ original_tag=GRE }
-            allowed_civil_war = {
-                always = yes
-            }
+            allowed_civil_war={ always=yes }
             
             removal_cost=-1
             
@@ -3362,9 +3382,7 @@ ideas = {
 
         GRE_navy_status_1 = {
             allowed={ original_tag=GRE }
-            allowed_civil_war = {
-                always = yes
-            }
+            allowed_civil_war={ always=yes }
             
             removal_cost=-1
             
@@ -3374,9 +3392,7 @@ ideas = {
 
         GRE_navy_status_2 = {
             allowed={ original_tag=GRE }
-            allowed_civil_war = {
-                always = yes
-            }
+            allowed_civil_war={ always=yes }
             
             removal_cost=-1
             

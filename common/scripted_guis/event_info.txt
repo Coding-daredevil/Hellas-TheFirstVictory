@@ -16,6 +16,10 @@ scripted_gui = {
                 add_to_variable={ event_info_index=1 }
                 modulo_variable={ event_info_index=event_info_array^num }
             }
+            event_info_entry_hidden_btn_click={
+                add_to_variable={ event_info_index=1 }
+                modulo_variable={ event_info_index=event_info_array^num }
+            }
         }
     }
 
@@ -30,6 +34,22 @@ scripted_gui = {
         visible={ 
             has_country_flag=event_info_flag
             check_variable={ event_info_array^num>0 }
+            is_valid_event_info_array_index_right=yes
+        }
+    }
+
+	containerWindowType = {
+		context_type = player_context
+		window_name = "event_info_gui_2"
+
+		properties = {
+			event_info_explanatory_icon_2={ image=[GetEventInfoIconSprite2] }
+		}
+
+        visible={
+            has_country_flag=event_info_flag
+            check_variable={ event_info_array^num>0 }
+            is_valid_event_info_array_index_left=yes
         }
     }
 }

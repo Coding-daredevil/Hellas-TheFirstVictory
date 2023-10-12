@@ -2,9 +2,111 @@
 ##################################################################################[GENERAL SCRIPTED EFFECTS]#################################################################################
 #############################################################################################################################################################################################
 
+assign_affiliate_relations = {
+    if={
+        limit={ check_variable={ var=modifier@min_export value=0.4 compare=greater_than_or_equals }}
+
+        for_each_scope_loop={
+            array=GRE.important_nations
+
+            if={
+                limit={ check_variable={ var=favor@GRE value=80 compare=greater_than_or_equals }}
+
+                if={ limit={ has_opinion_modifier=GRE_monopoly_cooperation } remove_opinion_modifier={ target=GRE modifier=GRE_monopoly_cooperation } remove_opinion_modifier={ target=GRE modifier=GRE_monopoly_cooperation_trade } }
+                if={ limit={ NOT={ has_opinion_modifier=GRE_monopoly_cooperation_2 }} add_opinion_modifier={ target=GRE modifier=GRE_monopoly_cooperation_2 } add_opinion_modifier={ target=GRE modifier=GRE_monopoly_cooperation_2_trade }}
+            }
+            else_if={
+                limit={ check_variable={ var=favor@GRE value=60 compare=greater_than_or_equals }}
+
+                if={ limit={ has_opinion_modifier=GRE_monopoly_cooperation_2 } remove_opinion_modifier={ target=GRE modifier=GRE_monopoly_cooperation_2 } remove_opinion_modifier={ target=GRE modifier=GRE_monopoly_cooperation_2_trade } }
+                if={ limit={ NOT={ has_opinion_modifier=GRE_monopoly_cooperation }} add_opinion_modifier={ target=GRE modifier=GRE_monopoly_cooperation } add_opinion_modifier={ target=GRE modifier=GRE_monopoly_cooperation_trade }}
+            }
+            else_if={
+                limit={ check_variable={ var=favor@GRE value=60 compare=less_than }}
+
+                if={ limit={ has_opinion_modifier=GRE_monopoly_cooperation_2 } remove_opinion_modifier={ target=GRE modifier=GRE_monopoly_cooperation_2 } remove_opinion_modifier={ target=GRE modifier=GRE_monopoly_cooperation_2_trade } }
+                if={ limit={ has_opinion_modifier=GRE_monopoly_cooperation } remove_opinion_modifier={ target=GRE modifier=GRE_monopoly_cooperation } remove_opinion_modifier={ target=GRE modifier=GRE_monopoly_cooperation_trade } }
+            }
+        }
+    }
+    else={
+        for_each_scope_loop={
+            array=GRE.important_nations
+
+                if={ limit={ has_opinion_modifier=GRE_monopoly_cooperation_2 } remove_opinion_modifier={ target=GRE modifier=GRE_monopoly_cooperation_2 } remove_opinion_modifier={ target=GRE modifier=GRE_monopoly_cooperation_2_trade } }
+                if={ limit={ has_opinion_modifier=GRE_monopoly_cooperation } remove_opinion_modifier={ target=GRE modifier=GRE_monopoly_cooperation } remove_opinion_modifier={ target=GRE modifier=GRE_monopoly_cooperation_trade } }
+        }
+    }
+}
+
+improve_agrarian_dyn = {
+    if={
+        limit={ has_dynamic_modifier={ modifier=GRE_agrarian_society_dyn }}
+        
+        add_to_variable = { GRE.invigorating_level=0.1 tooltip=invigorating_towards_completion_tt }
+        custom_effect_tooltip = gre_agr_dyn_up_tt
+        add_to_variable = { gre_agr_mp = 0.150 tooltip=gre_agr_mp_tt }
+        add_to_variable = { gre_agr_cf = 0.050 tooltip=gre_agr_cf_tt }
+        if={ limit={ check_variable={ gre_agr_stbw<0 }} add_to_variable = { gre_agr_stbw=0.001 tooltip=gre_agr_stbw_tt }}
+        hidden_effect = {
+            if = {
+                limit={ check_variable={ GRE.invigorating_level=1 }}
+                remove_dynamic_modifier={ modifier=GRE_agrarian_society_dyn }
+                add_ideas=GRE_farmer_culture
+                improve_foreign_monopolies_spirit=yes
+                if = {
+                    limit = { check_variable={ GRE.working_level=1 }}
+                    improve_tied_economy_spirit = yes
+                }
+                if={ limit={ has_active_mission=invigorating_hellenic_spirit check_variable={ decPROC=0 }} remove_mission=invigorating_hellenic_spirit }
+            }
+            else_if = {
+                limit={ check_variable={ decPROC=1 }}
+
+                activate_mission=invigorating_hellenic_spirit
+                47 = { state_event = { id = hellas.33 days=0 random=4 }}
+            }
+        }
+    }
+}
+
+improve_noindustr_dyn = {
+    if={
+        limit={ has_dynamic_modifier={ modifier=GRE_no_industrilization_dyn }}
+
+        add_to_variable = { GRE.working_level=0.1 tooltip=working_towards_completion_tt}
+        custom_effect_tooltip = gre_noi_dyn_up_tt
+        add_to_variable = { gre_noi_gbs = 0.075 tooltip=gre_noi_gbs_tt }
+        add_to_variable = { gre_noi_pfegf = 0.01 tooltip=gre_noi_pfegf_tt }
+        add_to_variable = { gre_noi_pfmef = 0.005 tooltip=gre_noi_pfmef_tt }
+        add_to_variable = { gre_noi_icd = 0.08 tooltip=gre_noi_icd_tt }
+        add_to_variable = { gre_noi_icf = 0.08 tooltip=gre_noi_icf_tt }
+        add_to_variable = { gre_noi_irf = 0.05 tooltip=gre_noi_irf_tt }
+        if={ limit={ check_variable={ gre_noi_stbw<0 }} add_to_variable = { gre_noi_stbw=0.001 tooltip=gre_noi_stbw_tt }}
+        hidden_effect = {
+            if = {
+                limit={ check_variable={ GRE.working_level=1 }}
+                remove_dynamic_modifier={ modifier=GRE_no_industrilization_dyn }
+                add_ideas=GRE_industrializing_society
+                improve_foreign_monopolies_spirit=yes
+                if = {
+                    limit = { check_variable={ GRE.working_level=1 }}
+                    improve_tied_economy_spirit = yes
+                }
+                if={ limit={ has_active_mission=workers_entering_factories check_variable={ decPROC=0 }} remove_mission=workers_entering_factories }
+            }
+            else = {
+                activate_mission=workers_entering_factories
+                939 = { state_event = { id = hellas.33 days=0 random=4 } }
+            }
+        }
+    }
+}
+
 calculate_greek_trade_system_effects={
     # This script will calculate the effects of the trade system that display on the Greek Economical Enigma Category.
 
+    calculate_total_influence=yes
     calculate_total_exports=yes
     calculate_total_imports=yes
 
@@ -16,22 +118,30 @@ calculate_greek_trade_system_effects={
     set_variable={ gre_tra_fdce=x }
 
     ###[Research Speed]###
+    set_temp_variable={ inf=tmpINF }
+    multiply_temp_variable={ inf=0.005 }
     set_temp_variable={ y=tmpIMP }
     divide_temp_variable={ y=8 }
     multiply_temp_variable={ y=0.005 }
     set_temp_variable={ z=GRE.convoys_secured }
     divide_temp_variable={ z=50 }
     multiply_temp_variable={ z=0.005 }
+    set_variable={ gre_tra_resb_influence=inf }
     set_variable={ gre_tra_resb_imports=y }
     set_variable={ gre_tra_resb_convoys=z }
     add_to_temp_variable={ y=z }
+    add_to_temp_variable={ y=inf }
     set_variable={ gre_tra_resb=y }
 
     ###[Trade Opinion]###
+    set_temp_variable={ inf=tmpINF }
+    multiply_temp_variable={ inf=0.015 }
     set_temp_variable={ z=GRE.convoys_secured }
     divide_temp_variable={ z=50 }
     multiply_temp_variable={ z=0.05 }
+    set_variable={ gre_tra_trop_influence=inf }
     set_variable={ gre_tra_trop_convoys=z }
+    add_to_temp_variable={ z=inf }
     set_variable={ gre_tra_trop=z }
 
     ###[Intel Factor]###
@@ -49,7 +159,7 @@ calculate_greek_trade_system_effects={
     ###[Intel 2 Others]###
     set_temp_variable={ y=tmpIMP }
     divide_temp_variable={ y=8 }
-    multiply_temp_variable={ y=0.025 }
+    multiply_temp_variable={ y=2.5 }
     set_variable={ gre_tra_inta_imports=y }
     set_variable={ gre_tra_inta=y }
 
@@ -66,13 +176,21 @@ calculate_greek_trade_system_effects={
     set_variable={ gre_tra_adef=x }
 
     ###[Network Gain]###
+    set_temp_variable={ inf=tmpINF }
+    multiply_temp_variable={ inf=0.01 }
     set_temp_variable={ z=GRE.convoys_secured }
     divide_temp_variable={ z=50 }
     multiply_temp_variable={ z=0.01 }
+    set_variable={ gre_tra_netg_influence=inf }
     set_variable={ gre_tra_netg_convoys=z }
+    add_to_temp_variable={ z=inf }
     set_variable={ gre_tra_netg=z }
 
     ###[License Purchase]###
+    set_temp_variable={ inf=tmpINF }
+    multiply_temp_variable={ inf=-0.01 }
+    set_variable={ gre_tra_lctf_influence=inf }
+    set_variable={ gre_tra_lctf=inf }
 
     ###[License Production]###
     set_temp_variable={ y=tmpIMP }
@@ -86,6 +204,38 @@ calculate_greek_trade_system_effects={
     add_to_temp_variable={ y=z }
     set_variable={ gre_tra_ltps=y }
 
+}
+
+calculate_total_influence={
+    set_temp_variable={ tmpINF=0 }
+    if={
+        limit={ has_completed_focus=GRE_cooperate_with_foreign_monopolies check_variable={ var=modifier@min_export value=0.4 compare=greater_than_or_equals }}
+
+        for_each_scope_loop={
+            array=GRE.important_nations
+
+            if={
+                limit={ check_variable={ var=THIS.favor@GRE value=95 compare=greater_than_or_equals }}
+                add_to_temp_variable={ tmpINF=2.00 }
+            }
+            else_if={
+                limit={ check_variable={ var=THIS.favor@GRE value=90 compare=greater_than_or_equals }}
+                add_to_temp_variable={ tmpINF=1.75 }
+            }
+            else_if={
+                limit={ check_variable={ var=THIS.favor@GRE value=80 compare=greater_than_or_equals }}
+                add_to_temp_variable={ tmpINF=1.50 }
+            }
+            else_if={
+                limit={ check_variable={ var=THIS.favor@GRE value=70 compare=greater_than_or_equals }}
+                add_to_temp_variable={ tmpINF=1.25 }
+            }
+            else_if={
+                limit={ check_variable={ var=THIS.favor@GRE value=60 compare=greater_than_or_equals }}
+                add_to_temp_variable={ tmpINF=1.00 }
+            }
+        }
+    }
 }
 
 calculate_total_exports={
@@ -113,6 +263,11 @@ fluctuate_favor_with_findX_by_findY={
     else_if={ limit={ check_variable={ favTT=1 }} custom_effect_tooltip=favor_fluct_with_findX_by_findY_long }
     else_if={ limit={ check_variable={ favTT=2 }} custom_effect_tooltip=favor_fluct_with_findX_by_findY_no_name_tt }
     hidden_effect={ var:findX={ add_to_variable={ favor@GRE=findY }}}
+}
+
+fluctuate_favor_with_typeX_by_findY={
+    if={ limit={ check_variable={ typeX=0 }} custom_effect_tooltip=favor_fluct_with_type0_by_findY_shrt }
+    else_if={ limit={ check_variable={ typeX=1 }} custom_effect_tooltip=favor_fluct_with_type1_by_findY_shrt }
 }
 
 kathestos_projects_calculate_extra_pp_cost={
@@ -149,15 +304,15 @@ improve_foreign_monopolies_spirit={
 
             add_to_variable={ gre_formon_level=1 tooltip=formon_dyn_up_tt }
             add_to_variable={ gre_formon_consg=-0.035 tooltip=formon_consg_tt }
-            add_to_variable={ gre_formon_ppopf=0.15 tooltip=formon_ppopf_tt }
-            add_to_variable={ gre_formon_mnexp=-0.08 tooltip=formon_minex_tt }
+            add_to_variable={ gre_formon_ppopf=0.07 tooltip=formon_ppopf_tt }
+            add_to_variable={ gre_formon_mnexp=-0.04 tooltip=formon_minex_tt }
         }
         else={
             custom_effect_tooltip=formon_dyn_up_words_tt
             add_to_variable={ gre_formon_level=1 }
             add_to_variable={ gre_formon_consg=-0.035 }
-            add_to_variable={ gre_formon_ppopf=0.15 }
-            add_to_variable={ gre_formon_mnexp=-0.08 }
+            add_to_variable={ gre_formon_ppopf=0.07 }
+            add_to_variable={ gre_formon_mnexp=-0.04 }
         }
         #if={ limit={ check_variable={ gre_formon_consg=0 }} remove_dynamic_modifier={ modifier=GRE_foreign_monopolies_dyn }}
     }
@@ -472,20 +627,36 @@ hID_calculate_eventual_chances_and_randomize={
 ##########################[ CIVILIAN DOMESTIC/OFFMAP EFFECTS ]##########################
 ########################################################################################
 
-calculate_domciv_ratio={
+calculate_domXXX_ratio={
     # This function iterates on every owned state and calculates our owned civilian factories.
 
+    reset_all_domXXX_variables=yes
+    every_owned_state={
+        add_to_variable={ GRE.domcivs=building_level@industrial_complex }
+        add_to_variable={ GRE.dommils=building_level@arms_factory }
+        add_to_variable={ GRE.domdocs=building_level@dockyard }
+    }
+    divide_variable={ GRE.domciv_ratio?GRE.domcivs=GRE.allcivs }
+    divide_variable={ GRE.dommil_ratio?GRE.dommils=GRE.allmils }
+    divide_variable={ GRE.domdoc_ratio?GRE.domdocs=GRE.alldocs }
+}
+
+reset_all_domXXX_variables = {
     clear_variable=GRE.allcivs
     clear_variable=GRE.domcivs
     clear_variable=GRE.domciv_ratio
+    clear_variable=GRE.allmils
+    clear_variable=GRE.dommils
+    clear_variable=GRE.dommil_ratio
+    clear_variable=GRE.alldocs
+    clear_variable=GRE.domdocs
+    clear_variable=GRE.domdoc_ratio
     set_variable={ GRE.allcivs=GRE.num_of_civilian_factories }
-    every_owned_state={
-        add_to_variable={ GRE.domcivs=building_level@industrial_complex }
-    }
-    divide_variable={ GRE.domciv_ratio?GRE.domcivs=GRE.allcivs }
+    set_variable={ GRE.allmils=GRE.num_of_military_factories }
+    set_variable={ GRE.alldocs=GRE.num_of_naval_factories }
 }
 
-calculate_construction_penalty={
+calculate_domXXX_construction_penalty={
     # This function utilizes the domciv ratio to calculate the construction penalty.
 
     set_temp_variable={ x=GRE.domciv_ratio }
@@ -495,10 +666,27 @@ calculate_construction_penalty={
     calculate_upper_lower_bounded_y_ax_b=yes
     multiply_temp_variable={ y=GRE.domciv_penalty_max }
     set_variable={ GRE.cs_all_penalty=y }
-    multiply_temp_variable={ z?y=2.00 }
-    multiply_temp_variable={ q?y=3.00 }
-    set_variable={ GRE.cs_civ_penalty=z }
-    set_variable={ GRE.cs_mil_penalty=q }
+    multiply_temp_variable={ cs_civ?y=2.00 }
+    multiply_temp_variable={ cs_mil?y=3.00 }
+    set_variable={ GRE.cs_civ_penalty=cs_civ }
+    set_variable={ GRE.cs_mil_penalty=cs_mil }
+}
+
+calculate_domXXX_intel_leakage={
+    # This function utilizes the domciv ratio to calculate the intel leakage.
+    set_temp_variable={ x=GRE.dommil_ratio }
+    set_temp_variable={ tmpLWTHR=0 }
+    set_temp_variable={ tmpUPTHR=1 }
+    set_temp_variable={ tmpMAXDIR=0 }
+    calculate_upper_lower_bounded_y_ax_b=yes
+    multiply_temp_variable={ y=40 }
+    set_variable={ GRE.cs_arm_leak=y }
+    set_variable={ GRE.cs_air_leak=y }
+    #
+    set_temp_variable={ x=GRE.domdoc_ratio }
+    calculate_upper_lower_bounded_y_ax_b=yes
+    multiply_temp_variable={ y=40 }
+    set_variable={ GRE.cs_nav_leak=y }
 }
 
 ###########################################################################################
@@ -1094,6 +1282,12 @@ calculate_upper_lower_bounded_y_ax_b = {
 ##################################[ CHARACTER  GROWTH ]#################################
 ########################################################################################
 
+cscope_increase_title = {
+    # Changes character title to display in GUI. Must be inside character scope to work.
+
+    add_to_variable={ GRE.c_title@THIS=1 }
+}
+
 vscope_from_cscope = {
     # This command utilizes a character scope to assign the character ID to the v temp variable. Since the .8 patch this has been fixed.
 
@@ -1242,23 +1436,23 @@ expand_greek_railway_system_generator = {
         limit = { check_variable={ GRE.railway_expansion_level=0 }}
         custom_effect_tooltip = railway_system_expansion_0_tt
         hidden_effect = {
-            build_railway = { start_state=47 target_state=913 }
+            build_railway = { start_state=47 target_state=939 }
             build_railway = { path = { 4109 1109 3988 7211 } }
-            build_railway = { path = { 11818 3936 6990 9930 13263 11774 11905 } }
+            build_railway = { path = { 11818 3936 6990 9930 13279 11774 11905 } }
             build_railway = { path = { 11895 3844 3864 } }
-            909 = {
+            935 = {
                 add_building_construction = {
                     type = naval_base
                     level = 1
                     instant_build = yes
-                    province = 13272
+                    province = 13288
                 }
             }
             build_railway = {
-                path = { 13272 12001 }
+                path = { 13288 12001 }
             }
             hidden_effect = {
-                build_railway = { path = { 11895 13269 } }
+                build_railway = { path = { 11895 13285 } }
                 build_railway = { path = { 3988 7096 } }
             }
         }
@@ -1274,15 +1468,15 @@ expand_greek_railway_system_generator = {
                     instant_build = yes
                 }
             }
-            913 = {
+            939 = {
                 add_building_construction = {
                     type = infrastructure
                     level = 1
                     instant_build = yes
                 }
             }
-            build_railway = { path = { 11818 10163 13261 3973 13271 11895 13267 13262 1109 4109 11965 } }
-            build_railway = { path = { 11818 3936 6990 9930 13263 11774 11905 } }
+            build_railway = { path = { 11818 10163 13277 3973 13287 11895 13283 13278 1109 4109 11965 } }
+            build_railway = { path = { 11818 3936 6990 9930 13279 11774 11905 } }
             build_railway = { path = { 7211 4193 1173 4178 4078 7096 } }
         }
     }
@@ -1291,21 +1485,21 @@ expand_greek_railway_system_generator = {
         custom_effect_tooltip = railway_system_expansion_2_tt
         hidden_effect = {
             185 = { add_building_construction = { type=infrastructure level=1 instant_build=yes }}
-            910 = { add_building_construction = { type=supply_node level=1 province=11895 instant_build=yes }}
+            936 = { add_building_construction = { type=supply_node level=1 province=11895 instant_build=yes }}
             186 = { add_building_construction = { type=supply_node level=1 province=4078 instant_build=yes }}
-            build_railway = { path = { 1109 976 13272 } }
+            build_railway = { path = { 1109 976 13288 } }
             build_railway = { path = { 12001 9916 6930 9805 } }
-            build_railway = { path = { 13269 3914 } }
+            build_railway = { path = { 13285 3914 } }
         }
     }
     else_if = { 
         limit = { check_variable={ GRE.railway_expansion_level=3 }}
         custom_effect_tooltip = railway_system_expansion_3_tt
         hidden_effect = {
-            910 = { add_building_construction = { type=fuel_silo level=1 instant_build=yes }}
+            936 = { add_building_construction = { type=fuel_silo level=1 instant_build=yes }}
             185 = { add_building_construction = { type=supply_node province=3914 level=1 instant_build=yes }}
-            914 = { add_building_construction = { type=supply_node province=9930 level=1 instant_build=yes }}
-            build_railway = { path = { 13269 13273 9916 } }
+            940 = { add_building_construction = { type=supply_node province=9930 level=1 instant_build=yes }}
+            build_railway = { path = { 13285 13289 9916 } }
             build_railway = { path = { 3914 9805 } }
         }
     }
@@ -1313,15 +1507,15 @@ expand_greek_railway_system_generator = {
         limit = { check_variable={ GRE.railway_expansion_level=4 }}
         custom_effect_tooltip = railway_system_expansion_4_tt
         hidden_effect = {
-            910 = { add_building_construction = { type=fuel_silo level=1 instant_build=yes }}
+            936 = { add_building_construction = { type=fuel_silo level=1 instant_build=yes }}
             186 = { add_building_construction = { type=fuel_silo level=1 instant_build=yes }}
             47 = { add_building_construction = { type=infrastructure level=1 instant_build=yes }}
-            913 = { add_building_construction = { type=infrastructure level=1 instant_build=yes }}
+            939 = { add_building_construction = { type=infrastructure level=1 instant_build=yes }}
             186 = { add_building_construction = { type=infrastructure level=1 instant_build=yes }}
-            909 = { add_building_construction = { type=infrastructure level=1 instant_build=yes }}
+            935 = { add_building_construction = { type=infrastructure level=1 instant_build=yes }}
             185 = { add_building_construction = { type=infrastructure level=1 instant_build=yes }}
-            912 = { add_building_construction = { type=infrastructure level=1 instant_build=yes }}
-            910 = { add_building_construction = { type=infrastructure level=1 instant_build=yes }}
+            938 = { add_building_construction = { type=infrastructure level=1 instant_build=yes }}
+            936 = { add_building_construction = { type=infrastructure level=1 instant_build=yes }}
             every_controlled_state = { 
                 if = {
                     limit = { has_dynamic_modifier = { modifier = GRE_inaccessible_region } }
@@ -1714,6 +1908,8 @@ GRE_debt_flags_check = {
             has_country_flag = GRE_debt_at_ita_fulfilled
         }
         set_country_flag = GRE_debt_free
+        set_variable={ GRE.h240_debt_fulfilment_at_day_days=global.num_days }
+        set_variable={ GRE.h240_debt_fulfilment_at_day_date=global.date }
     }
 }
 
@@ -2114,13 +2310,13 @@ GRE_line_pop = {
                 }
             }
         }
-        914 = {
+        940 = {
             if = {
                 limit = { is_controlled_by = GRE }
                 set_building_level = {
                     type = bunker
                     level = 3
-                    province = 13265
+                    province = 13281
                     instant_build = yes
                 }
                 set_building_level = {
@@ -2161,13 +2357,13 @@ GRE_line_pop = {
                 }
             }
         }
-        914 = {
+        940 = {
             if = {
                 limit = { is_controlled_by = GRE }
                 set_building_level = {
                     type = bunker
                     level = 6
-                    province = 13265
+                    province = 13281
                     instant_build = yes
                 }
                 set_building_level = {
@@ -2185,7 +2381,7 @@ GRE_line_pop = {
                 set_building_level = {
                     type = bunker
                     level = 3
-                    province = 13264
+                    province = 13280
                     instant_build = yes
                 }
             }
@@ -2202,12 +2398,12 @@ GRE_line_pop = {
                 set_building_level = {
                     type = bunker
                     level = 3
-                    province = 13263
+                    province = 13279
                     instant_build = yes
                 }
             }
         }
-        915 = {
+        941 = {
             if = {
                 limit = { is_controlled_by = GRE }
                 set_building_level = {
@@ -2218,7 +2414,7 @@ GRE_line_pop = {
                 }
             }
         }
-        912 = {
+        938 = {
             if = {
                 limit = { is_controlled_by = GRE }
                 set_building_level = {
@@ -2982,8 +3178,8 @@ expand_mines_in_STID = {
     }
     # Sterea Ellada
     if={
-        limit={ var:STID={ check_variable={ state_resourse_level<max_state_resourse_level }} OR={ var:STID={ state=909 } check_variable={ STID=-1 }}}
-        909={
+        limit={ var:STID={ check_variable={ state_resourse_level<max_state_resourse_level }} OR={ var:STID={ state=935 } check_variable={ STID=-1 }}}
+        935={
             effect_tooltip={ add_to_variable={ state_resourse_level=1 tooltip=expand_mines_in_STID_tt }}
         }
     }
@@ -3349,12 +3545,12 @@ ep_calculate_alignment = {
 #############################################################################################################################################################################################
 
 add_preparation_trait_based_on_FROM_state_initialization={
-    if={ limit={ FROM={ OR={ state=911 state=182 state=916 state=187 }}} set_temp_variable={ type=0 }}
-    else_if={ limit={ FROM={ OR={ state=186 state=909 state=185 state=912 state=184 state=915 }}} set_temp_variable={ type=1 }}
+    if={ limit={ FROM={ OR={ state=937 state=182 state=942 state=187 }}} set_temp_variable={ type=0 }}
+    else_if={ limit={ FROM={ OR={ state=186 state=935 state=185 state=938 state=184 state=941 }}} set_temp_variable={ type=1 }}
     else_if={ limit={ FROM={ state=731 }} set_temp_variable={ type=2 }}
-    else_if={ limit={ FROM={ state=914 }} set_temp_variable={ type=3 }}
-    else_if={ limit={ FROM={ state=910 }} set_temp_variable={ type=4 }}
-    else_if={ limit={ FROM={ OR={ state=47 state=913 }}} set_temp_variable={ type=5 }}
+    else_if={ limit={ FROM={ state=940 }} set_temp_variable={ type=3 }}
+    else_if={ limit={ FROM={ state=936 }} set_temp_variable={ type=4 }}
+    else_if={ limit={ FROM={ OR={ state=47 state=939 }}} set_temp_variable={ type=5 }}
 }
 
 add_preparation_trait_based_on_FROM_state={
@@ -3500,6 +3696,13 @@ find_total_and_faction_weight_of_ideology_characters={
     set_variable={ GRE.final_fas_military_weight=fas_asgn_w_s }
     add_to_variable={ GRE.final_fas_military_weight=fas_bat_w_s }
     add_to_variable={ GRE.final_fas_military_weight=fas_ships_w_s }
+    ##################################[Assimilation Correction]##################################
+    if={
+        limit={ has_country_flag=metaxas_assimilated_fascists }
+
+        add_to_variable={ GRE.final_mon_military_weight=GRE.final_fas_military_weight }
+        clear_variable=GRE.final_fas_military_weight
+    }
 }
 
 #############################################################################################
@@ -5222,14 +5425,31 @@ on_officer_effects_apply_actions_to_officer={
 
 on_officer_effects_array_initialization={
 
-    if={ 
+    if={                                                                                 # For remaining Generals
         limit={ check_variable={ tmpY=-1 }}
 
         set_temp_variable={ tmpX=GRE.training_leftovers }
         set_temp_variable={ cnt_left=0 }
+        resize_temp_array = { general_factory=tmpX }
     }
-    else={ set_temp_variable = { cnt_left=tmpX }}
-    resize_temp_array = { general_factory=tmpX }
+    else_if={                                                                            # For percentage of Generals
+        limit={ check_variable={ tmpX_TYPE=1 }}
+
+        set_temp_variable={ gf_cnt=0 }
+        hidden_effect={
+            every_army_leader={
+                limit={ on_officer_effects_requirements_met=yes }
+                add_to_temp_variable={ gf_cnt=1 }
+            }
+        }
+        multiply_temp_variable={ gf_cnt=tmpX }
+        round_temp_variable=gf_cnt
+        resize_temp_array = { general_factory=gf_cnt }
+    }
+    else={                                                                               # For number of Generals
+        set_temp_variable = { cnt_left=tmpX }
+        resize_temp_array = { general_factory=tmpX }
+    }
 }
 
 calculate_unpreparedness = {
@@ -8726,7 +8946,7 @@ HS_GAR_calculate_state_weights_for_THIS = {
             limit = { check_variable = { THIS.controller=PREV.original_tag } }
 
             if = { limit = { state=47 } set_temp_variable = { state_score_is=30 } }
-            else_if = { limit = { state=913 } set_temp_variable = { state_score_is=25 } }
+            else_if = { limit = { state=939 } set_temp_variable = { state_score_is=25 } }
             else_if = { limit = { state=182 } set_temp_variable = { state_score_is=20 } }
             else = { set_temp_variable = { state_score_is=5 } }
             if = {
@@ -8764,7 +8984,7 @@ HS_GAR_calculate_state_weights = {
                 limit = { check_variable = { THIS.controller=PREV.original_tag } }
 
                 if = { limit = { state=47 } set_temp_variable = { state_score_is=30 } }
-                else_if = { limit = { state=913 } set_temp_variable = { state_score_is=25 } }
+                else_if = { limit = { state=939 } set_temp_variable = { state_score_is=25 } }
                 else_if = { limit = { state=182 } set_temp_variable = { state_score_is=20 } }
                 else = { set_temp_variable = { state_score_is=5 } }
                 if = {
@@ -9222,25 +9442,13 @@ HS_calculate_manpower_ratio_for_THIS = {
     multiply_temp_variable = { x = 0.8 }
     add_to_temp_variable = { sum = x }
     #[Air]#
-    set_temp_variable = { x = num_deployed_planes_with_type@fighter_equipment }
-    add_to_temp_variable = { x = num_deployed_planes_with_type@CAS_equipment }
-    add_to_temp_variable = { x = num_deployed_planes_with_type@nav_bomber_equipment }
-    add_to_temp_variable = { x = num_deployed_planes_with_type@cv_fighter_equipment }
-    add_to_temp_variable = { x = num_deployed_planes_with_type@cv_CAS_equipment }
-    add_to_temp_variable = { x = num_deployed_planes_with_type@cv_nav_bomber_equipment }
-    add_to_temp_variable = { x = num_deployed_planes_with_type@cv_nav_bomber_equipment }
-    #add_to_temp_variable = { x = num_deployed_planes_with_type@suicide_craft_equipment }
+    set_temp_variable = { x = num_deployed_planes_with_type@small_plane_airframe }
     multiply_temp_variable = { x = 0.02 }
     add_to_temp_variable = { sum = x }
-    set_temp_variable = { x = num_deployed_planes_with_type@heavy_fighter_equipment }
-    add_to_temp_variable = { x = num_deployed_planes_with_type@tac_bomber_equipment }
-    add_to_temp_variable = { x = num_deployed_planes_with_type@scout_plane_equipment }
-    add_to_temp_variable = { x = num_deployed_planes_with_type@jet_fighter_equipment }
+    set_temp_variable = { x = num_deployed_planes_with_type@medium_plane_airframe }
     multiply_temp_variable = { x = 0.04 }
     add_to_temp_variable = { sum = x }
-    set_temp_variable = { x = num_deployed_planes_with_type@strat_bomber_equipment }
-    add_to_temp_variable = { x = num_deployed_planes_with_type@jet_strat_bomber_equipment }
-    add_to_temp_variable = { x = num_deployed_planes_with_type@transport_plane_equipment }
+    set_temp_variable = { x = num_deployed_planes_with_type@large_plane_airframe }
     multiply_temp_variable = { x = 0.08 }
     add_to_temp_variable = { sum = x }
     #[Garisson]#
@@ -9619,7 +9827,7 @@ HS_FAM_set_base_state_level = {
             set_variable = { THIS.state_famine_base_level=2 }
         }
         else_if = {
-            limit = { state=913 }
+            limit = { state=939 }
             set_variable = { THIS.state_famine_base_level=1 }
         }
         else = { set_variable = { THIS.state_famine_base_level=0 } }
@@ -9632,11 +9840,11 @@ HS_FAM_set_base_state_level = {
         else_if = { 
             limit = { date<1942.1.1 }
             if = { 
-                limit = { OR={ state=47 state=187 state=913 } }
+                limit = { OR={ state=47 state=187 state=939 } }
                 add_to_variable = { THIS.state_famine_base_level = 4 }
             }
             else_if = {
-                limit = { OR = { state=910 state=186 state=914 state=184 state=182 } }
+                limit = { OR = { state=936 state=186 state=940 state=184 state=182 } }
                 add_to_variable = { THIS.state_famine_base_level = 1 }
             }
             else = { add_to_variable = { THIS.state_famine_base_level = 2 } }
@@ -9645,11 +9853,11 @@ HS_FAM_set_base_state_level = {
         else_if = { 
             limit = { date<1942.4.1 }
             if = { 
-                limit = { OR={ state=47 state=187 state=913 } }
+                limit = { OR={ state=47 state=187 state=939 } }
                 add_to_variable = { THIS.state_famine_base_level = 5 }
             }
             else_if = {
-                limit = { OR = { state=910 state=186 state=914 state=184 state=182 } }
+                limit = { OR = { state=936 state=186 state=940 state=184 state=182 } }
                 add_to_variable = { THIS.state_famine_base_level = 2 }
             }
             else = { add_to_variable = { THIS.state_famine_base_level = 3 } }
@@ -9658,11 +9866,11 @@ HS_FAM_set_base_state_level = {
         else_if = { 
             limit = { date<1942.12.12 }
             if = { 
-                limit = { OR={ state=47 state=187 state=913 } }
+                limit = { OR={ state=47 state=187 state=939 } }
                 add_to_variable = { THIS.state_famine_base_level = 2 }
             }
             else_if = {
-                limit = { OR = { state=910 state=186 state=914 state=184 state=182 } }
+                limit = { OR = { state=936 state=186 state=940 state=184 state=182 } }
                 add_to_variable = { THIS.state_famine_base_level = 0 }
             }
             else = { add_to_variable = { THIS.state_famine_base_level = 1 } }
@@ -9675,7 +9883,7 @@ HS_FAM_set_base_state_level = {
                 add_to_variable = { THIS.state_famine_base_level = 3 }
             }
             else_if = {
-                limit = { OR = { state=910 state=186 state=914 state=184 state=182 } }
+                limit = { OR = { state=936 state=186 state=940 state=184 state=182 } }
                 add_to_variable = { THIS.state_famine_base_level = 1 }
             }
             else = { add_to_variable = { THIS.state_famine_base_level = 2 } }
@@ -9684,11 +9892,11 @@ HS_FAM_set_base_state_level = {
         else_if = { 
             limit = { date<1943.12.10 }
             if = { 
-                limit = { OR={ state=47 state=187 state=913 } }
+                limit = { OR={ state=47 state=187 state=939 } }
                 add_to_variable = { THIS.state_famine_base_level = 1 }
             }
             else_if = {
-                limit = { OR = { state=910 state=186 state=914 state=184 state=182 } }
+                limit = { OR = { state=936 state=186 state=940 state=184 state=182 } }
                 add_to_variable = { THIS.state_famine_base_level = 0 }
             }
             else = { add_to_variable = { THIS.state_famine_base_level = 0 } }
@@ -9697,11 +9905,11 @@ HS_FAM_set_base_state_level = {
         else_if = { 
             limit = { date<1944.3.15 }
             if = { 
-                limit = { OR={ state=47 state=187 state=913 } }
+                limit = { OR={ state=47 state=187 state=939 } }
                 add_to_variable = { THIS.state_famine_base_level = 2 }
             }
             else_if = {
-                limit = { OR = { state=910 state=186 state=914 state=184 state=182 } }
+                limit = { OR = { state=936 state=186 state=940 state=184 state=182 } }
                 add_to_variable = { THIS.state_famine_base_level = 1 }
             }
             else = { add_to_variable = { THIS.state_famine_base_level = 1 } }
@@ -9951,58 +10159,58 @@ HS_BM_toggle_negative = {
 
 HS_set_up_state_modifiers = {
     add_to_array = { global.german_occupied_states = 47 }
-    add_to_array = { global.german_occupied_states = 915 }
+    add_to_array = { global.german_occupied_states = 941 }
     add_to_array = { global.german_occupied_states = 187 }
     add_to_array = { global.german_occupied_states = 731 }
-    add_to_array = { global.german_occupied_states = 913 }
-    add_to_array = { global.german_occupied_states = 912 }
+    add_to_array = { global.german_occupied_states = 939 }
+    add_to_array = { global.german_occupied_states = 938 }
     add_to_array = { global.italian_occupied_states = 185 }
-    add_to_array = { global.italian_occupied_states = 911 }
-    add_to_array = { global.italian_occupied_states = 909 }
-    add_to_array = { global.italian_occupied_states = 910 }
+    add_to_array = { global.italian_occupied_states = 937 }
+    add_to_array = { global.italian_occupied_states = 935 }
+    add_to_array = { global.italian_occupied_states = 936 }
     add_to_array = { global.italian_occupied_states = 186 }
-    add_to_array = { global.italian_occupied_states = 916 }
+    add_to_array = { global.italian_occupied_states = 942 }
     if = {
         limit = {
             BUL = {
                 NOT = {
                     owns_state = 184
-                    owns_state = 914
+                    owns_state = 940
                 }
             }
         }
         add_to_array = { global.italian_occupied_states = 184 }
-        add_to_array = { global.italian_occupied_states = 914 }
+        add_to_array = { global.italian_occupied_states = 940 }
     }
     else = {
         add_to_array = { global.bulgarian_occupied_states = 184 }
-        add_to_array = { global.bulgarian_occupied_states = 914 }
+        add_to_array = { global.bulgarian_occupied_states = 940 }
     }
     add_to_array = { global.greek_occupied_states_all = 47 }
-    add_to_array = { global.greek_occupied_states_all = 915 }
+    add_to_array = { global.greek_occupied_states_all = 941 }
     add_to_array = { global.greek_occupied_states_all = 187 }
     add_to_array = { global.greek_occupied_states_all = 731 }
-    add_to_array = { global.greek_occupied_states_all = 913 }
-    add_to_array = { global.greek_occupied_states_all = 912 }
+    add_to_array = { global.greek_occupied_states_all = 939 }
+    add_to_array = { global.greek_occupied_states_all = 938 }
     add_to_array = { global.greek_occupied_states_all = 185 }
-    add_to_array = { global.greek_occupied_states_all = 911 }
-    add_to_array = { global.greek_occupied_states_all = 909 }
-    add_to_array = { global.greek_occupied_states_all = 910 }
+    add_to_array = { global.greek_occupied_states_all = 937 }
+    add_to_array = { global.greek_occupied_states_all = 935 }
+    add_to_array = { global.greek_occupied_states_all = 936 }
     add_to_array = { global.greek_occupied_states_all = 186 }
     add_to_array = { global.greek_occupied_states_all = 184 }
-    add_to_array = { global.greek_occupied_states_all = 914 }
-    add_to_array = { global.greek_occupied_states_all = 916 }
+    add_to_array = { global.greek_occupied_states_all = 940 }
+    add_to_array = { global.greek_occupied_states_all = 942 }
     #########################################################
     add_to_array = { global.greek_mainland_states_all = 47 }
     add_to_array = { global.greek_mainland_states_all = 731 }
-    add_to_array = { global.greek_mainland_states_all = 913 }
-    add_to_array = { global.greek_mainland_states_all = 912 }
+    add_to_array = { global.greek_mainland_states_all = 939 }
+    add_to_array = { global.greek_mainland_states_all = 938 }
     add_to_array = { global.greek_mainland_states_all = 185 }
-    add_to_array = { global.greek_mainland_states_all = 909 }
-    add_to_array = { global.greek_mainland_states_all = 910 }
+    add_to_array = { global.greek_mainland_states_all = 935 }
+    add_to_array = { global.greek_mainland_states_all = 936 }
     add_to_array = { global.greek_mainland_states_all = 186 }
     add_to_array = { global.greek_mainland_states_all = 184 }
-    add_to_array = { global.greek_mainland_states_all = 914 }
+    add_to_array = { global.greek_mainland_states_all = 940 }
     add_to_array = { global.greek_mainland_states_all = 184 }
     #########################################################
     if = {
@@ -10067,7 +10275,7 @@ HS_calculate_total_factories_in_occupation_zones = {
 }
 
 HS_flag_states = {
-    909 = {
+    935 = {
         set_variable = { GRE.RES_HQ_STATE=THIS.id }
         set_variable = { province_num = 8 }
         set_variable = { fields = 2 }
@@ -10108,7 +10316,7 @@ HS_flag_states = {
         set_variable = { base_controller = controller }
         calculate_base_time_to_deploy_recall=yes
     }
-    910 = {
+    936 = {
         set_variable = { province_num = 9 }
         set_variable = { fields = 4 }
         set_variable = { hills = 3 }
@@ -10135,7 +10343,7 @@ HS_flag_states = {
         set_variable = { base_controller = controller }
         calculate_base_time_to_deploy_recall=yes
     }
-    912 = {
+    938 = {
         set_variable = { province_num = 9 }
         set_variable = { fields = 1 }
         set_variable = { hills = 1 }
@@ -10147,7 +10355,7 @@ HS_flag_states = {
         set_variable = { state_agitation_multiplier = 1.25 }
         calculate_base_time_to_deploy_recall=yes
     }
-    913 = {
+    939 = {
         set_variable = { province_num = 2 }
         set_variable = { urban = 2 }
         set_variable = { fld_r = 1.000 }
@@ -10167,7 +10375,7 @@ HS_flag_states = {
         set_variable = { state_agitation_multiplier = 1.25 }
         calculate_base_time_to_deploy_recall=yes
     }
-    914 = {
+    940 = {
         set_variable = { HQ = 1 }
         add_to_array = { HQ_controller = BUL.id }
         set_variable = { province_num = 5 }
@@ -10191,7 +10399,7 @@ HS_flag_states = {
         set_variable = { state_agitation_multiplier = 1.25 }
         calculate_base_time_to_deploy_recall=yes
     }
-    915 = {
+    941 = {
         set_variable = { province_num = 1 }
         set_variable = { mountains = 1 }
         set_variable = { hnm = 1 }
@@ -10200,14 +10408,14 @@ HS_flag_states = {
         set_variable = { state_agitation_multiplier = 1.25 }
         calculate_base_time_to_deploy_recall=yes
     }
-    911 = {
+    937 = {
         set_variable = { province_num = 2 }
         set_variable = { island = 2 }
         set_variable = { state_agitation = 0 }
         set_variable = { state_agitation_multiplier = 1 }
         calculate_base_time_to_deploy_recall=yes
     }
-    916 = {
+    942 = {
         set_variable = { province_num = 1 }
         set_variable = { island = 1 }
         set_variable = { state_agitation = 0 }
@@ -10422,47 +10630,47 @@ HS_set_up_occupation_zones = {                                                  
     add_to_array = { german_occupation_zone = 11818 } ##    THESSALONIKI
     add_to_array = { german_occupation_zone = 936 }   ##    WESTERN MACEDONIA
     add_to_array = { german_occupation_zone = 10163 }
-    add_to_array = { german_occupation_zone = 13261 }
+    add_to_array = { german_occupation_zone = 13277 }
     add_to_array = { german_occupation_zone = 9837 }
     add_to_array = { german_occupation_zone = 966 }
     add_to_array = { german_occupation_zone = 3980 }
     add_to_array = { german_occupation_zone = 863 }
-    add_to_array = { german_occupation_zone = 915 }  
-    add_to_array = { german_occupation_zone = 13270 } 
+    add_to_array = { german_occupation_zone = 941 }  
+    add_to_array = { german_occupation_zone = 13286 } 
     add_to_array = { german_occupation_zone = 4109 }  ##    ATTIKA
     add_to_array = { german_occupation_zone = 11965 }
     add_to_array = { german_occupation_zone = 8435 }  ##    AEGEAN
     add_to_array = { german_occupation_zone = 6550 } 
     add_to_array = { german_occupation_zone = 11965 } 
     add_to_array = { italian_occupation_zone = 3401 }  ##   CYCLADES
-    add_to_array = { italian_occupation_zone = 13258 } ##   HPEIROS
-    add_to_array = { italian_occupation_zone = 13257 }
-    add_to_array = { italian_occupation_zone = 13259 }
+    add_to_array = { italian_occupation_zone = 13274 } ##   HPEIROS
+    add_to_array = { italian_occupation_zone = 13273 }
+    add_to_array = { italian_occupation_zone = 13275 }
     add_to_array = { italian_occupation_zone = 9805 }
     add_to_array = { italian_occupation_zone = 3914 }
     add_to_array = { italian_occupation_zone = 6930 }
     add_to_array = { italian_occupation_zone = 9916 }
-    add_to_array = { italian_occupation_zone = 13273 }
-    add_to_array = { italian_occupation_zone = 13274 }
+    add_to_array = { italian_occupation_zone = 13289 }
+    add_to_array = { italian_occupation_zone = 13290 }
     add_to_array = { italian_occupation_zone = 10203 } ##   STEREA
     add_to_array = { italian_occupation_zone = 1106 }
     add_to_array = { italian_occupation_zone = 12001 }
     add_to_array = { italian_occupation_zone = 1205 }
-    add_to_array = { italian_occupation_zone = 13262 }
+    add_to_array = { italian_occupation_zone = 13278 }
     add_to_array = { italian_occupation_zone = 976 }
     add_to_array = { italian_occupation_zone = 1109 }
     add_to_array = { italian_occupation_zone = 7127 }
-    add_to_array = { italian_occupation_zone = 13266 }
-    add_to_array = { italian_occupation_zone = 13272 }
+    add_to_array = { italian_occupation_zone = 13282 }
+    add_to_array = { italian_occupation_zone = 13288 }
     add_to_array = { italian_occupation_zone = 3864 } ##    THESSALY
     add_to_array = { italian_occupation_zone = 3844 }
     add_to_array = { italian_occupation_zone = 3973 }
     add_to_array = { italian_occupation_zone = 11786 }
     add_to_array = { italian_occupation_zone = 11895 }
-    add_to_array = { italian_occupation_zone = 13267 }
-    add_to_array = { italian_occupation_zone = 13268 }
-    add_to_array = { italian_occupation_zone = 13269 }
-    add_to_array = { italian_occupation_zone = 13271 }
+    add_to_array = { italian_occupation_zone = 13283 }
+    add_to_array = { italian_occupation_zone = 13284 }
+    add_to_array = { italian_occupation_zone = 13285 }
+    add_to_array = { italian_occupation_zone = 13287 }
     add_to_array = { italian_occupation_zone = 3988 } ##    PELOP
     add_to_array = { italian_occupation_zone = 7211 }
     add_to_array = { italian_occupation_zone = 4193 }
@@ -10475,17 +10683,17 @@ HS_set_up_occupation_zones = {                                                  
             BUL = {
                 NOT = {
                     owns_state = 184
-                    owns_state = 914
+                    owns_state = 940
                 }
             }
         }
         add_to_array = { italian_occupation_zone = 11774 }
-        add_to_array = { italian_occupation_zone = 13263 }
-        add_to_array = { italian_occupation_zone = 13264 }
+        add_to_array = { italian_occupation_zone = 13279 }
+        add_to_array = { italian_occupation_zone = 13280 }
         add_to_array = { italian_occupation_zone = 9797 }
         add_to_array = { italian_occupation_zone = 9930 }
         add_to_array = { italian_occupation_zone = 6990 }
-        add_to_array = { italian_occupation_zone = 13265 }
+        add_to_array = { italian_occupation_zone = 13281 }
     }
     for_each_loop = {         
         array = german_occupation_zone
@@ -10505,8 +10713,8 @@ GR_HS_split_ideas = {
         set_country_flag = had_masters_of_shipbuilding_2
     }
     if = {
-        limit = { has_idea = GRE_masters_of_shipbuilding }
-        remove_ideas = GRE_masters_of_shipbuilding
+        limit = { has_idea = GRE_masters_of_shipbuilding_1 }
+        remove_ideas = GRE_masters_of_shipbuilding_1
         set_country_flag = had_masters_of_shipbuilding
     }
     if = {
@@ -10966,6 +11174,128 @@ spawn_ships = {
 #############################################################################################################################################
 
 #############################################################################################
+######################################[ FACTION FLAGS ]######################################
+#############################################################################################
+
+set_faction_loyalty_dates = {
+    if={ limit={ NOT={ has_variable=MON_LOYALTY_DATE_ACHIEVED } check_variable={ var=fct_mon value=95 compare=greater_than_or_equals }} set_variable={ MON_LOYALTY_DATE_ACHIEVED=global.date } set_variable={ MON_LOYALTY_ACHIEVED_DAYS=global.num_days }}
+    if={ limit={ NOT={ has_variable=DEM_LOYALTY_DATE_ACHIEVED } check_variable={ var=fct_dem value=95 compare=greater_than_or_equals }} set_variable={ DEM_LOYALTY_DATE_ACHIEVED=global.date } set_variable={ DEM_LOYALTY_ACHIEVED_DAYS=global.num_days }}
+    if={ limit={ NOT={ has_variable=COM_LOYALTY_DATE_ACHIEVED } check_variable={ var=fct_com value=95 compare=greater_than_or_equals }} set_variable={ COM_LOYALTY_DATE_ACHIEVED=global.date } set_variable={ COM_LOYALTY_ACHIEVED_DAYS=global.num_days }}
+    if={ limit={ NOT={ has_variable=FAS_LOYALTY_DATE_ACHIEVED } check_variable={ var=fct_fas value=95 compare=greater_than_or_equals }} set_variable={ FAS_LOYALTY_DATE_ACHIEVED=global.date } set_variable={ FAS_LOYALTY_ACHIEVED_DAYS=global.num_days }}
+    if={
+        limit={
+            has_variable=MON_LOYALTY_DATE_ACHIEVED
+            has_variable=DEM_LOYALTY_DATE_ACHIEVED
+            has_variable=COM_LOYALTY_DATE_ACHIEVED
+            has_variable=FAS_LOYALTY_DATE_ACHIEVED
+        }
+        set_variable={ ALL_LOYALTY_DATE_ACHIEVED=global.date }
+        set_variable={ ALL_LOYALTY_ACHIEVED_DAYS=global.num_days }
+    }
+}
+
+
+#############################################################################################
+#######################################[ PPUE / CWE ]########################################
+#############################################################################################
+
+proc_daily_ppue_cwe_chances = {
+
+    if={ limit={ NOT={ has_country_flag=mon_dealt_with }} set_temp_variable={ tmpF=0 } proc_tmpF_power_up_event_chance=yes }
+    if={ limit={ NOT={ has_country_flag=com_dealt_with }} set_temp_variable={ tmpF=1 } proc_tmpF_power_up_event_chance=yes if={ limit={ has_active_mission=GRE_repub_upr } proc_tmpF_rebellious_event_chance=yes }}
+    if={ limit={ NOT={ has_country_flag=dem_dealt_with }} set_temp_variable={ tmpF=2 } proc_tmpF_power_up_event_chance=yes if={ limit={ has_active_mission=GRE_comm_upr  } proc_tmpF_rebellious_event_chance=yes }}
+    if={ limit={ NOT={ has_country_flag=fas_dealt_with }} set_temp_variable={ tmpF=3 } proc_tmpF_power_up_event_chance=yes }
+}
+
+proc_tmpF_power_up_event_chance = {
+    # This function calculates when the next factional power up event procs. The minimum amount per power up can be 4 days per chance.
+    # The only variable to this is the faction military grip. These events happen about 5 times less often if no ideology is in the brink of civil war.
+
+    meta_effect={
+        text={
+            set_temp_variable={ x=final_[TOKEN]_military_weight }
+            set_temp_variable={ ETOKEN=17 }
+            add_to_temp_variable={ ETOKEN=tmpF }
+
+            set_temp_variable={ tmpLWTHR=5 }
+            set_temp_variable={ tmpUPTHR=60 }
+            set_temp_variable={ tmpMAXDIR=1 }
+            calculate_upper_lower_bounded_y_ax_b=yes
+            multiply_temp_variable={ y=25.000 }
+            set_temp_variable={ ny=100 }
+            if={ limit={ is_any_faction_rebellious=no } divide_temp_variable={ y=5 }}
+            subtract_from_temp_variable={ ny=y }
+            #
+            random_list = {
+                log=yes
+                seed=random
+                y = { country_event={ id=hellas.[EID] days=0 }}
+                #y={
+                #    set_variable={ init_e332t@GRE=ETOKEN }
+                #    set_variable={ init_e332d@GRE=0 }
+                #    send_event_FROM_scope_to_GRE_of_type_tmpT_in_days_tmpD=yes
+                #}
+                ny = {}
+            }
+        }
+        TOKEN = "[GetTokenFromF]"
+        EID = "[?ETOKEN|.0]"
+    }
+    log="PPUE chance for [GetTokenFromF] = [?y|2]"
+}
+
+proc_tmpF_rebellious_event_chance = {
+    # This function calculates when the next civil war event procs. The minimum amount per power up can be 4 days. Relations + Military Grip are variables for frequency.
+    # The only variable to this is the faction military grip. These events only happen for ideologies that are in the brink of civil war
+
+    meta_effect={
+        text={
+            set_temp_variable={ ETOKEN=351 }
+            add_to_temp_variable={ ETOKEN=tmpF }
+
+            ###[Faction Relations]###
+            set_temp_variable={ x=fct_[TOKEN] }
+            set_temp_variable={ tmpLWTHR=0 }
+            set_temp_variable={ tmpUPTHR=40 }
+            set_temp_variable={ tmpMAXDIR=0 }
+            calculate_upper_lower_bounded_y_ax_b=yes
+            multiply_temp_variable={ y=15 }
+            set_temp_variable={ y1=y }
+
+            ###[Military Grip]###
+            set_temp_variable={ x=final_[TOKEN]_military_weight }
+            set_temp_variable={ tmpLWTHR=5 }
+            set_temp_variable={ tmpUPTHR=60 }
+            set_temp_variable={ tmpMAXDIR=0 }
+            calculate_upper_lower_bounded_y_ax_b=yes
+            multiply_temp_variable={ y=10 }
+
+            ###[Sum]###
+            add_to_temp_variable={ y=y1 }
+            set_temp_variable={ ny=100 }
+            subtract_from_temp_variable={ ny=y }
+
+            ###[Event Execution]###
+            random_list = {
+                seed=random
+                y = { country_event={ id=hellas.[EID] days=0 }}
+                #y={
+                #    set_temp_variable={ xxx=21 }
+                #    add_to_temp_variable={ xxx=tmpF }
+                #    set_variable={ init_e332t@GRE=xxx }
+                #    set_variable={ init_e332d@GRE=0 }
+                #    send_event_FROM_scope_to_GRE_of_type_tmpT_in_days_tmpD=yes
+                #}
+                ny = {}
+            }
+        }
+        TOKEN = "[GetTokenFromF]"
+        EID = "[?ETOKEN|.0]"
+    }
+    #log="CWE chance for [GetTokenFromF] = [?y|2]"
+}
+
+#############################################################################################
 ####################################[ THE HELLENIC ARMY ]####################################
 #############################################################################################
 
@@ -11081,33 +11411,37 @@ update_gre_the_army_dyn = {
     ###[Main Calcs]###
     calculate_faction_effects_due_to_military_status = yes
     ###[Apply Faction Effect Multiplier]###
-    #multiply_variable = { GRE.mon_wri = fct_mon_effect_multiplier }
-    multiply_variable = { GRE.mon_dpp = fct_mon_effect_multiplier }
-    multiply_variable = { GRE.mon_dcp = fct_mon_effect_multiplier }
-    multiply_variable = { GRE.mon_ac = fct_mon_effect_multiplier }
-    multiply_variable = { GRE.mon_i2o = fct_mon_effect_multiplier }
-    multiply_variable = { GRE.mon_cwe_freq = fct_mon_effect_multiplier }
+    divide_temp_variable={ mon_divider?fct_mon_effect_multiplier=100 }
+    #multiply_variable = { GRE.mon_wri = mon_divider }
+    multiply_variable = { GRE.mon_dpp = mon_divider }
+    multiply_variable = { GRE.mon_dcp = mon_divider }
+    multiply_variable = { GRE.mon_ac = mon_divider }
+    multiply_variable = { GRE.mon_i2o = mon_divider }
+    multiply_variable = { GRE.mon_cwe_freq = mon_divider }
     #
-    #multiply_variable = { GRE.dem_wri = fct_dem_effect_multiplier }
-    multiply_variable = { GRE.dem_dpp = fct_dem_effect_multiplier }
-    multiply_variable = { GRE.dem_dcp = fct_dem_effect_multiplier }
-    multiply_variable = { GRE.dem_ac = fct_dem_effect_multiplier }
-    multiply_variable = { GRE.dem_i2o = fct_dem_effect_multiplier }
-    multiply_variable = { GRE.dem_cwe_freq = fct_dem_effect_multiplier }
+    divide_temp_variable={ dem_divider?fct_dem_effect_multiplier=100 }
+    #multiply_variable = { GRE.dem_wri = dem_divider }
+    multiply_variable = { GRE.dem_dpp = dem_divider }
+    multiply_variable = { GRE.dem_dcp = dem_divider }
+    multiply_variable = { GRE.dem_ac = dem_divider }
+    multiply_variable = { GRE.dem_i2o = dem_divider }
+    multiply_variable = { GRE.dem_cwe_freq = dem_divider }
     #
-    #multiply_variable = { GRE.com_wri = fct_com_effect_multiplier }
-    multiply_variable = { GRE.com_dpp = fct_com_effect_multiplier }
-    multiply_variable = { GRE.com_dcp = fct_com_effect_multiplier }
-    multiply_variable = { GRE.com_ac = fct_com_effect_multiplier }
-    multiply_variable = { GRE.com_i2o = fct_com_effect_multiplier }
-    multiply_variable = { GRE.com_cwe_freq = fct_com_effect_multiplier }
+    divide_temp_variable={ com_divider?fct_com_effect_multiplier=100 }
+    #multiply_variable = { GRE.com_wri = com_divider }
+    multiply_variable = { GRE.com_dpp = com_divider }
+    multiply_variable = { GRE.com_dcp = com_divider }
+    multiply_variable = { GRE.com_ac = com_divider }
+    multiply_variable = { GRE.com_i2o = com_divider }
+    multiply_variable = { GRE.com_cwe_freq = com_divider }
     #
-    #multiply_variable = { GRE.fas_wri = fct_fas_effect_multiplier }
-    multiply_variable = { GRE.fas_dpp = fct_fas_effect_multiplier }
-    multiply_variable = { GRE.fas_dcp = fct_fas_effect_multiplier }
-    multiply_variable = { GRE.fas_ac = fct_fas_effect_multiplier }
-    multiply_variable = { GRE.fas_i2o = fct_fas_effect_multiplier }
-    multiply_variable = { GRE.fas_cwe_freq = fct_fas_effect_multiplier }
+    divide_temp_variable={ fas_divider?fct_fas_effect_multiplier=100 }
+    #multiply_variable = { GRE.fas_wri = fas_divider }
+    multiply_variable = { GRE.fas_dpp = fas_divider }
+    multiply_variable = { GRE.fas_dcp = fas_divider }
+    multiply_variable = { GRE.fas_ac = fas_divider }
+    multiply_variable = { GRE.fas_i2o = fas_divider }
+    multiply_variable = { GRE.fas_cwe_freq = fas_divider }
     ###[Calculate and Set Totals]###
     ##[PP]##
     set_temp_variable = { adder = 0 }
@@ -11671,6 +12005,52 @@ set_temp_rand_fas_catastrophic={ set_temp_variable_to_random={ var=tmp_fas min=-
 #####################################[ FACTION EFFECTS ]#####################################
 #############################################################################################
 
+#s = {
+#    # This function will swing OEM (Overall Effect Multiplier) based on tmp_TVAL (Target Value) aand tmp_TFAC (Target Faction), by taking a tmp_FACARR_WEIGHT amount from factions
+#    # inside the tmp_FACARR (Faction Array). Each faction tries to grant the respective value. If it fails, tmp_FACARR_FAIL flag decides the outcome. If 0, then faction simply
+#    # grants as much as it can, if 1, then other factions will compensate. If tmp_FACARR_WEIGHT does not exist, then equal weights are granted.
+#
+#    set_temp_variable={ total_to_give_TFAC=0 }
+#    if={ limit={ check_variable={ var=tmp_FACARR_WEIGHT^num value=tmp_FACARR^num compare=not_equals }} for_each_loop={ array=tmp_FACARR add_to_temp_array={ tmpCHANCES=1 }}}
+#    
+#    for_each_loop={
+#        array=tmp_FACARR
+#
+#        if={
+#            limit={ check_variable={ v=0 }}
+#        }
+#    }
+#}
+
+GRE_faction_oem_swing = {
+    hidden_effect={
+        if={ limit={ NOT={ check_variable={ modifier@fct_mon_effect_multiplier_modifier_token=0 }}} set_temp_variable={ tmpF=0 } GRE_faction_tmpF_oem_swing=yes }
+        if={ limit={ NOT={ check_variable={ modifier@fct_dem_effect_multiplier_modifier_token=0 }}} set_temp_variable={ tmpF=1 } GRE_faction_tmpF_oem_swing=yes }
+        if={ limit={ NOT={ check_variable={ modifier@fct_com_effect_multiplier_modifier_token=0 }}} set_temp_variable={ tmpF=2 } GRE_faction_tmpF_oem_swing=yes }
+        if={ limit={ NOT={ check_variable={ modifier@fct_fas_effect_multiplier_modifier_token=0 }}} set_temp_variable={ tmpF=3 } GRE_faction_tmpF_oem_swing=yes }
+    }
+}
+
+GRE_faction_oem_corrections = {
+    hidden_effect={
+        if={ limit={ has_country_flag=mon_dealt_with } set_variable={ fct_mon_effect_multiplier=0 }}
+        if={ limit={ has_country_flag=dem_dealt_with } set_variable={ fct_dem_effect_multiplier=0 }}
+        if={ limit={ has_country_flag=com_dealt_with } set_variable={ fct_com_effect_multiplier=0 }}
+        if={ limit={ OR={ has_country_flag=GRE_fascism_assimilated has_country_flag=fas_dealt_with }} set_variable={ fct_fas_effect_multiplier=0 }}
+    }
+}
+
+GRE_faction_tmpF_oem_swing = {
+
+    meta_effect={
+        text={
+            add_to_variable={ fct_[TOKEN]_effect_multiplier=modifier@fct_[TOKEN]_effect_multiplier_modifier_token }
+            clamp_variable={ var=fct_[TOKEN]_effect_multiplier min=0 max=400 }
+        }
+        TOKEN = "[GetTokenFromF]"
+    }  
+}
+
 GRE_faction_refresh = {
     ###Gets called by faction GUI since they are both dependent on the fct_xxx variables and thus can be called together in 1 line###
     hidden_effect = {
@@ -11696,11 +12076,11 @@ clear_faction_effect_variables={
             clear_variable = GRE_[TOKEN]_com_drift
             clear_variable = GRE_[TOKEN]_fas_drift
             clear_variable = GRE_[TOKEN]_pp_fct
-            clear_variable = GRE_[TOKEN]_stb_fct
             clear_variable = GRE_[TOKEN]_wstb
             clear_variable = GRE_[TOKEN]_wws
-            clear_variable = GRE_[TOKEN]_wr_fct
             clear_variable = GRE_[TOKEN]_cn_fct
+            #clear_variable = GRE_[TOKEN]_stb_fct
+            #clear_variable = GRE_[TOKEN]_wr_fct
         }
         TOKEN = "[GetTokenFromF]"
     }
@@ -11713,16 +12093,17 @@ clear_faction_effect_variables_nm={
     clear_variable = GRE_[TOKEN]_com_drift
     clear_variable = GRE_[TOKEN]_fas_drift
     clear_variable = GRE_[TOKEN]_pp_fct
-    clear_variable = GRE_[TOKEN]_stb_fct
     clear_variable = GRE_[TOKEN]_wstb
     clear_variable = GRE_[TOKEN]_wws
-    clear_variable = GRE_[TOKEN]_wr_fct
     clear_variable = GRE_[TOKEN]_cn_fct
+    #clear_variable = GRE_[TOKEN]_stb_fct
+    #clear_variable = GRE_[TOKEN]_wr_fct
 }
 
 #####################################################################
 #####################[ REFRESH FACTION EFFECTS ]#####################
 #####################################################################
+
 GRE_faction_tmpF_refresh = {
 
     meta_effect={
@@ -11730,7 +12111,7 @@ GRE_faction_tmpF_refresh = {
             ##################[ Preliminary ]##################
             clear_faction_effect_variables=yes
             ###################[ Clamp OEM ]###################
-            clamp_variable = { var = fct_[TOKEN]_effect_multiplier min=0 max=4 }
+            clamp_variable = { var = fct_[TOKEN]_effect_multiplier min=0 max=400 }
             #####################[ DRIFT ]#####################
             set_temp_variable={ x=fct_[TOKEN] }
             if={                                                                                                   ## If this is current ruling party, we only gain.
@@ -11753,6 +12134,7 @@ GRE_faction_tmpF_refresh = {
                     set_temp_variable={ tmpMAXDIR=0 }
                     calculate_upper_lower_bounded_y_ax_b=yes
                     divide_temp_variable={ y=10 }
+                    add_to_temp_variable={ y=0.1 }
                     set_variable={ GRE_[TOKEN]_[TOKEN]_drift=y }
                 }
                 else_if={                                                                                           # If between 40-80, less drift.
@@ -11775,7 +12157,8 @@ GRE_faction_tmpF_refresh = {
                     set_variable={ GRE_[TOKEN]_[RULING_TOKEN]_drift=y }
                 }
             }
-            multiply_temp_variable={ y=fct_[TOKEN]_effect_multiplier }
+            #multiply_temp_variable={ y=fct_[TOKEN]_effect_multiplier }
+            #divide_temp_variable={ y=100 }
             #####################[ PP_GAIN ]#####################
             set_temp_variable={ tmpZ=60 }
             set_temp_variable={ x=fct_[TOKEN] }
@@ -11807,92 +12190,95 @@ GRE_faction_tmpF_refresh = {
                 multiply_temp_variable={ y=0.05 }
             }
             multiply_temp_variable={ y=fct_[TOKEN]_effect_multiplier }
+            divide_temp_variable={ y=100 }
             set_variable={ GRE_[TOKEN]_pp_fct=y }
             clamp_variable={ var=GRE_[TOKEN]_pp_fct min=-0.30 max=0.10 }
             #####################[ STABILITY ]#####################
-            set_temp_variable={ x=fct_[TOKEN] }
-            if={
-                limit={ is_faction_tmpF_hostile=yes }
-
-                set_temp_variable={ tmpLWTHR=0 }
-                set_temp_variable={ tmpUPTHR=40 }
-                set_temp_variable={ tmpMAXDIR=0 }
-                calculate_upper_lower_bounded_y_ax_b=yes
-                multiply_temp_variable={ y=-0.15 }
-                add_to_temp_variable={ y=-0.15 }
-            }
-            else_if={
-                limit={ set_temp_variable={ tmpZ=60 } is_faction_tmpF_below_tmpZ=yes }
-
-                set_temp_variable={ tmpLWTHR=40 }
-                set_temp_variable={ tmpUPTHR=60 }
-                set_temp_variable={ tmpMAXDIR=0 }
-                calculate_upper_lower_bounded_y_ax_b=yes
-                multiply_temp_variable={ y=-0.10 }
-                add_to_temp_variable={ y=-0.05 }
-            }
-            else_if={
-                limit={ set_temp_variable={ tmpZ=80 } is_faction_tmpF_below_tmpZ=yes }
-
-                set_temp_variable={ tmpLWTHR=60 }
-                set_temp_variable={ tmpUPTHR=80 }
-                set_temp_variable={ tmpMAXDIR=1 }
-                calculate_upper_lower_bounded_y_ax_b=yes
-                multiply_temp_variable={ y=0.05 }
-                add_to_temp_variable={ y=-0.05 }
-            }
-            else={
-                set_temp_variable={ tmpLWTHR=80 }
-                set_temp_variable={ tmpUPTHR=100 }
-                set_temp_variable={ tmpMAXDIR=1 }
-                calculate_upper_lower_bounded_y_ax_b=yes
-                multiply_temp_variable={ y=0.02 }
-            }
-            multiply_temp_variable={ y=fct_[TOKEN]_effect_multiplier }
-            set_variable={ GRE_[TOKEN]_stb_fct=y }
-            clamp_variable={ var=GRE_[TOKEN]_stb_fct min=-0.45 max=0.025 }
-            ####################[ WAR SUPPORT ]####################
-            set_temp_variable={ x=fct_[TOKEN] }
-            if={
-                limit={ is_faction_tmpF_hostile=yes }
-
-                set_temp_variable={ tmpLWTHR=0 }
-                set_temp_variable={ tmpUPTHR=40 }
-                set_temp_variable={ tmpMAXDIR=0 }
-                calculate_upper_lower_bounded_y_ax_b=yes
-                multiply_temp_variable={ y=-0.20 }
-                add_to_temp_variable={ y=-0.20 }
-            }
-            else_if={
-                limit={ set_temp_variable={ tmpZ=60 } is_faction_tmpF_below_tmpZ=yes }
-
-                set_temp_variable={ tmpLWTHR=40 }
-                set_temp_variable={ tmpUPTHR=60 }
-                set_temp_variable={ tmpMAXDIR=0 }
-                calculate_upper_lower_bounded_y_ax_b=yes
-                multiply_temp_variable={ y=-0.15 }
-                add_to_temp_variable={ y=-0.05 }
-            }
-            else_if={
-                limit={ set_temp_variable={ tmpZ=80 } is_faction_tmpF_below_tmpZ=yes }
-
-                set_temp_variable={ tmpLWTHR=60 }
-                set_temp_variable={ tmpUPTHR=80 }
-                set_temp_variable={ tmpMAXDIR=1 }
-                calculate_upper_lower_bounded_y_ax_b=yes
-                multiply_temp_variable={ y=0.05 }
-                add_to_temp_variable={ y=-0.05 }
-            }
-            else={
-                set_temp_variable={ tmpLWTHR=80 }
-                set_temp_variable={ tmpUPTHR=100 }
-                set_temp_variable={ tmpMAXDIR=1 }
-                calculate_upper_lower_bounded_y_ax_b=yes
-                multiply_temp_variable={ y=0.025 }
-            }
-            multiply_temp_variable={ y=fct_[TOKEN]_effect_multiplier }
-            set_variable={ GRE_[TOKEN]_wr_fct=y }
-            clamp_variable={ var=GRE_[TOKEN]_wr_fct min=-0.40 max=0.05 }
+            #set_temp_variable={ x=fct_[TOKEN] }
+            #if={
+            #    limit={ is_faction_tmpF_hostile=yes }
+            #
+            #    set_temp_variable={ tmpLWTHR=0 }
+            #    set_temp_variable={ tmpUPTHR=40 }
+            #    set_temp_variable={ tmpMAXDIR=0 }
+            #    calculate_upper_lower_bounded_y_ax_b=yes
+            #    multiply_temp_variable={ y=-0.15 }
+            #    add_to_temp_variable={ y=-0.15 }
+            #}
+            #else_if={
+            #    limit={ set_temp_variable={ tmpZ=60 } is_faction_tmpF_below_tmpZ=yes }
+            #
+            #    set_temp_variable={ tmpLWTHR=40 }
+            #    set_temp_variable={ tmpUPTHR=60 }
+            #    set_temp_variable={ tmpMAXDIR=0 }
+            #    calculate_upper_lower_bounded_y_ax_b=yes
+            #    multiply_temp_variable={ y=-0.10 }
+            #    add_to_temp_variable={ y=-0.05 }
+            #}
+            #else_if={
+            #    limit={ set_temp_variable={ tmpZ=80 } is_faction_tmpF_below_tmpZ=yes }
+            #
+            #    set_temp_variable={ tmpLWTHR=60 }
+            #    set_temp_variable={ tmpUPTHR=80 }
+            #    set_temp_variable={ tmpMAXDIR=1 }
+            #    calculate_upper_lower_bounded_y_ax_b=yes
+            #    multiply_temp_variable={ y=0.05 }
+            #    add_to_temp_variable={ y=-0.05 }
+            #}
+            #else={
+            #    set_temp_variable={ tmpLWTHR=80 }
+            #    set_temp_variable={ tmpUPTHR=100 }
+            #    set_temp_variable={ tmpMAXDIR=1 }
+            #    calculate_upper_lower_bounded_y_ax_b=yes
+            #    multiply_temp_variable={ y=0.02 }
+            #}
+            #multiply_temp_variable={ y=fct_[TOKEN]_effect_multiplier }
+            divide_temp_variable={ y=100 }
+            #set_variable={ GRE_[TOKEN]_stb_fct=y }
+            #clamp_variable={ var=GRE_[TOKEN]_stb_fct min=-0.45 max=0.025 }
+            #####################[ WAR SUPPORT ]####################
+            #set_temp_variable={ x=fct_[TOKEN] }
+            #if={
+            #    limit={ is_faction_tmpF_hostile=yes }
+            #
+            #    set_temp_variable={ tmpLWTHR=0 }
+            #    set_temp_variable={ tmpUPTHR=40 }
+            #    set_temp_variable={ tmpMAXDIR=0 }
+            #    calculate_upper_lower_bounded_y_ax_b=yes
+            #    multiply_temp_variable={ y=-0.20 }
+            #    add_to_temp_variable={ y=-0.20 }
+            #}
+            #else_if={
+            #    limit={ set_temp_variable={ tmpZ=60 } is_faction_tmpF_below_tmpZ=yes }
+            #
+            #    set_temp_variable={ tmpLWTHR=40 }
+            #    set_temp_variable={ tmpUPTHR=60 }
+            #    set_temp_variable={ tmpMAXDIR=0 }
+            #    calculate_upper_lower_bounded_y_ax_b=yes
+            #    multiply_temp_variable={ y=-0.15 }
+            #    add_to_temp_variable={ y=-0.05 }
+            #}
+            #else_if={
+            #    limit={ set_temp_variable={ tmpZ=80 } is_faction_tmpF_below_tmpZ=yes }
+            #
+            #    set_temp_variable={ tmpLWTHR=60 }
+            #    set_temp_variable={ tmpUPTHR=80 }
+            #    set_temp_variable={ tmpMAXDIR=1 }
+            #    calculate_upper_lower_bounded_y_ax_b=yes
+            #    multiply_temp_variable={ y=0.05 }
+            #    add_to_temp_variable={ y=-0.05 }
+            #}
+            #else={
+            #    set_temp_variable={ tmpLWTHR=80 }
+            #    set_temp_variable={ tmpUPTHR=100 }
+            #    set_temp_variable={ tmpMAXDIR=1 }
+            #    calculate_upper_lower_bounded_y_ax_b=yes
+            #    multiply_temp_variable={ y=0.025 }
+            #}
+            #multiply_temp_variable={ y=fct_[TOKEN]_effect_multiplier }
+            divide_temp_variable={ y=100 }
+            #set_variable={ GRE_[TOKEN]_wr_fct=y }
+            #clamp_variable={ var=GRE_[TOKEN]_wr_fct min=-0.40 max=0.05 }
             #####################[ STABILITY WEEKLY ]#####################
             set_temp_variable={ tmpZ=80 }
             set_temp_variable={ x=fct_[TOKEN] }
@@ -11924,6 +12310,7 @@ GRE_faction_tmpF_refresh = {
                 multiply_temp_variable={ y=0.002 }
             }
             multiply_temp_variable={ y = fct_[TOKEN]_effect_multiplier }
+            divide_temp_variable={ y=100 }
             set_variable={ GRE_[TOKEN]_wstb=y }
             clamp_variable={ var=GRE_[TOKEN]_wstb min=-0.006 max=0.003 }
             ####################[ WAR SUPPORT WEEKLY ]####################
@@ -11957,6 +12344,7 @@ GRE_faction_tmpF_refresh = {
                 multiply_temp_variable={ y=0.002 }
             }
             multiply_temp_variable={ y = fct_[TOKEN]_effect_multiplier }
+            divide_temp_variable={ y=100 }
             set_variable={ GRE_[TOKEN]_wws=y }
             clamp_variable={ var=GRE_[TOKEN]_wws min=-0.006 max=0.002 }
             ####################[ CONSCRIPTION ]####################
@@ -11999,8 +12387,42 @@ GRE_faction_tmpF_refresh = {
                 add_to_temp_variable={ y=0.05 }
             }
             multiply_temp_variable={ y=fct_[TOKEN]_effect_multiplier }
+            divide_temp_variable={ y=100 }
             set_variable={ GRE_[TOKEN]_cn_fct=y }
             clamp_variable={ var=GRE_[TOKEN]_cn_fct min=-0.25 max=0.25 }
+            #####################[ BOP WEEKLY ]#####################
+            set_temp_variable={ tmpZ=80 }
+            set_temp_variable={ x=fct_[TOKEN] }
+            if={
+                limit={ is_faction_tmpF_hostile=yes }
+
+                set_temp_variable={ tmpLWTHR=0 }
+                set_temp_variable={ tmpUPTHR=40 }
+                set_temp_variable={ tmpMAXDIR=0 }
+                calculate_upper_lower_bounded_y_ax_b=yes
+                multiply_temp_variable={ y=-0.003 }
+                add_to_temp_variable={ y=-0.002 }
+            }
+            else_if={
+                limit={ is_faction_tmpF_below_tmpZ=yes }
+
+                set_temp_variable={ tmpLWTHR=40 }
+                set_temp_variable={ tmpUPTHR=80 }
+                set_temp_variable={ tmpMAXDIR=1 }
+                calculate_upper_lower_bounded_y_ax_b=yes
+                multiply_temp_variable={ y=0.002 }
+                add_to_temp_variable={ y=-0.002 }
+            }
+            else={
+                set_temp_variable={ tmpLWTHR=80 }
+                set_temp_variable={ tmpUPTHR=100 }
+                set_temp_variable={ tmpMAXDIR=1 }
+                calculate_upper_lower_bounded_y_ax_b=yes
+                multiply_temp_variable={ y=0.002 }
+            }
+            multiply_temp_variable={ y = fct_[TOKEN]_effect_multiplier }
+            divide_temp_variable={ y=100 }
+            set_variable={ GRE_[TOKEN]_wbop=y }
         }
         TOKEN = "[GetTokenFromF]"
         PARTY_TOKEN = "[GetPartyTokenFromF]"
@@ -12089,20 +12511,24 @@ check_to_add_to_important_nations = {
 }
 
 GRE_add_favor_weekly = {
-    #############################[ Base Value ]############################
-    if={        limit={ has_opinion={ target=GRE value>89  }} set_temp_variable={ x=0.50  }} 
-    else_if={   limit={ has_opinion={ target=GRE value>79  }} set_temp_variable={ x=0.45  }}
-    else_if={   limit={ has_opinion={ target=GRE value>69  }} set_temp_variable={ x=0.40  }}
-    else_if={   limit={ has_opinion={ target=GRE value>59  }} set_temp_variable={ x=0.35  }}
-    else_if={   limit={ has_opinion={ target=GRE value>49  }} set_temp_variable={ x=0.20  }}
-    else_if={   limit={ has_opinion={ target=GRE value>39  }} set_temp_variable={ x=0.15  }}
-    else_if={   limit={ has_opinion={ target=GRE value>29  }} set_temp_variable={ x=0.10  }}
-    else_if={   limit={ has_opinion={ target=GRE value>9   }} set_temp_variable={ x=0.00  }}
-    else_if={   limit={ has_opinion={ target=GRE value>-11 }} set_temp_variable={ x=-0.25 }}
-    else_if={   limit={ has_opinion={ target=GRE value>-31 }} set_temp_variable={ x=-0.50 }}
-    else_if={   limit={ has_opinion={ target=GRE value>-51 }} set_temp_variable={ x=-0.75 }}
-    else_if={   limit={ has_opinion={ target=GRE value>-81 }} set_temp_variable={ x=-1    }}
+    #############################[ Global Modifier ]############################
+    GRE={ set_temp_variable={ x=modifier@global_influence_weekly_modifier_token }}
+    #############################[ Opinion Base Value ]############################
+    if={        limit={ has_opinion={ target=GRE value>89  }} add_to_temp_variable={ x=0.50  }} 
+    else_if={   limit={ has_opinion={ target=GRE value>79  }} add_to_temp_variable={ x=0.45  }}
+    else_if={   limit={ has_opinion={ target=GRE value>69  }} add_to_temp_variable={ x=0.40  }}
+    else_if={   limit={ has_opinion={ target=GRE value>59  }} add_to_temp_variable={ x=0.35  }}
+    else_if={   limit={ has_opinion={ target=GRE value>49  }} add_to_temp_variable={ x=0.20  }}
+    else_if={   limit={ has_opinion={ target=GRE value>39  }} add_to_temp_variable={ x=0.15  }}
+    else_if={   limit={ has_opinion={ target=GRE value>29  }} add_to_temp_variable={ x=0.10  }}
+    else_if={   limit={ has_opinion={ target=GRE value>9   }} add_to_temp_variable={ x=0.00  }}
+    else_if={   limit={ has_opinion={ target=GRE value>-11 }} add_to_temp_variable={ x=-0.25 }}
+    else_if={   limit={ has_opinion={ target=GRE value>-31 }} add_to_temp_variable={ x=-0.50 }}
+    else_if={   limit={ has_opinion={ target=GRE value>-51 }} add_to_temp_variable={ x=-0.75 }}
+    else_if={   limit={ has_opinion={ target=GRE value>-81 }} add_to_temp_variable={ x=-1    }}
     else={ set_temp_variable={ x=-1.25 }}
+    ###########################[ Variables ]##############################
+    add_to_temp_variable={ x=GRE.additional_influence_weekly@THIS }
     ###########################[ Collaboration ]##############################
     if={
         limit={ check_variable={ GRE.has_collaboration@THIS > 0 }}
@@ -12153,14 +12579,6 @@ GRE_add_favor_weekly = {
         else={ add_to_temp_variable={ x=0.2 }}
     }
     #############################[ Additional ]###############################
-    if={                                                                                                      ## Tourism always good                                                                                
-        limit={ GRE={ has_idea=GRE_booming_tourism }}
-        add_to_temp_variable={ x=0.25 }
-    }
-    else_if={                                                                                                 ## Better Tourism always better
-        limit={ GRE={ OR={ has_idea=GRE_booming_tourism_2 has_idea=GRE_booming_tourism_3 }}}
-        add_to_temp_variable={ x=0.50 }
-    }
     if={                                                                                                      ## War always bad                                                                                
         limit={ has_war_with=GRE }
         subtract_from_temp_variable={ x=0.75 }
@@ -12344,39 +12762,6 @@ GRE_add_favor_weekly = {
         limit={ original_tag=BUL has_completed_focus=BUL_bulgarian_irredentism }
         subtract_from_temp_variable={ x=0.25 }
     }
-    if={                                                                                                                   ## Has Kotzias (bonus to GER/ITA/JAP influence)
-        limit={ original_tag=GER GRE={ has_idea=GRE_kostas_kotzias_political_advisor }}
-        add_to_temp_variable={ x=0.5 }
-    }
-    else_if={
-        limit={ OR={ original_tag=ITA original_tag=JAP } GRE={ has_idea=GRE_kostas_kotzias_political_advisor }}
-        add_to_temp_variable={ x=0.25 }    
-    }
-    if={                                                                                                                   ## Has Nelly (bonus to all -SOV/ITA, extra bonus to USA/GER)
-        limit={
-            GRE={ has_idea=GRE_nelly_political_advisor }
-            NOT={ original_tag=SOV original_tag=ITA }
-        }
-        add_to_temp_variable={ x=0.25 }
-    }
-    else_if={
-        limit={
-            GRE={ has_idea=GRE_nelly_political_advisor }
-            OR={ original_tag=GER original_tag=USA }
-        }
-        add_to_temp_variable={ x=0.5 }    
-    }
-    if={                                                                                                                   ## Has Karaiskaki (bonus to GER, and its a big one)
-        limit={ original_tag=GER GRE={ has_idea=GRE_sitsa_karaiskaki_political_advisor }}
-        add_to_temp_variable={ x=0.75 }
-    }
-    #############################[ Influence Decision ]#############################
-    if={
-        limit={
-            THIS={ has_country_flag=is_influenced_by_decision }
-        }
-        add_to_temp_variable={ x=1.5 }
-    }
     #############################[ Neg. Scaling ]#############################
     if={ 
         limit={ check_variable={ x > 0 }}
@@ -12415,11 +12800,11 @@ GRE_add_favor = {
     #############################[ Base Value ]############################
     if = {                                                              ### Begins by setting the base value depending on the current opinion between SCOPE and GRE
         limit = {
-            has_opinion = { target = GRE value > 89 }                       ##  [80,100] - 4    (-80,-100] - -4
-        }                                                                   ##  [50,80)  - 3    (-50,-80]  - -3   
-        set_temp_variable = { x = 2 }                                       ##  [30,50)  - 2    (-30,-50]  - -2
-    }                                                                       ##  (10,30)  - 1    (-10,-30]  - -1
-    else_if = {                                                             ##          [-10,10] - 0
+            has_opinion = { target = GRE value > 89 }                       
+        }                                                                   
+        set_temp_variable = { x = 2 }                                       
+    }                                                                       
+    else_if = {                                                             
         limit = {                                                           
             has_opinion = { target = GRE value > 79 }                       
         }
@@ -13338,6 +13723,9 @@ GRE_air_reform_tr = {
 
 improve_tied_economy_spirit = {
     add_stability = 0.05
+    ###[ BOP MECHANIC ]###
+    set_temp_variable={ tmpMOV=0.05 }
+    fluctuate_bop_by_tmpMOV_tmpTT=yes
     if = {
         limit = { has_idea=GRE_tied_to_foreign_investments }
         swap_ideas = {

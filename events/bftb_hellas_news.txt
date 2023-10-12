@@ -10,11 +10,23 @@ country_event = {
 	title = hellenic_news.1.t
 	desc = hellenic_news.1.desc
 	picture = GFX_report_event_gre_george_ii_victorious
-	
-	major = no	
+
+	major = no
 	is_triggered_only = yes
+
+	immediate={
+		hidden_effect={
+            set_temp_variable={ tmpID=0.1 }
+            event_info_gui_add_current_event_to_heap=yes
+            if={ limit={ NOT={ has_country_flag=event_info_flag }} set_country_flag=event_info_flag }
+		}
+	}
 	
-	option = { name=hellenic_news.1.a }
+	option = {
+		name=hellenic_news.1.a
+		set_temp_variable={ tmpID=0.1 }
+		event_info_gui_remove_current_event=yes
+	}
 }
 
 ###George's Dictat
@@ -23,13 +35,22 @@ country_event = {
 	title = hellenic_news.2.t
 	desc = hellenic_news.2.desc
 	picture = GFX_report_event_gre_george_ii_victorious
-	
+
 	major = no
-	
 	is_triggered_only = yes
+
+	immediate={
+		hidden_effect={
+            set_temp_variable={ tmpID=0.2 }
+            event_info_gui_add_current_event_to_heap=yes
+            if={ limit={ NOT={ has_country_flag=event_info_flag }} set_country_flag=event_info_flag }
+		}
+	}
 	
 	option = {
 		name = hellenic_news.2.a
+		set_temp_variable={ tmpID=0.2 }
+		event_info_gui_remove_current_event=yes
 		add_command_power = 60
 	}
 }
@@ -45,10 +66,13 @@ country_event = {
     is_triggered_only = yes
 	immediate={
 		hidden_effect={
+            set_temp_variable={ tmpID=0.3 }
+            event_info_gui_add_current_event_to_heap=yes
+			#
 			set_variable={ emergency_powers_cost=25 }
 			remove_country_leader_role={ character=GRE_konstantinos_demertzis ideology=centrism }
 			GRE_konstantinos_demertzis={ vscope_from_cscope=yes GRE={ vscope_increase_title=yes add_to_array={ c_dead=var:v } set_variable={ c_dead@var:v=1 }}}
-			GRE_ioannis_metaxas={ vscope_from_cscope=yes GRE={ vscope_increase_title=yes }}
+			GRE_ioannis_metaxas={ vscope_from_cscope=yes cscope_increase_title=yes }
 			set_variable={ global.gov_head_array^0=metaxas }
 			GRE_ioannis_metaxas={ promote_leader=yes }
 			set_party_name={ ideology=neutrality long_name="Metavatikí Kyvérnisi" name="Metavatikí Kyvérnisi" }
@@ -75,6 +99,8 @@ country_event = {
 			set_party_name={ ideology=neutrality long_name="Metavatikí Kyvérnisi" name="Metavatikí Kyvérnisi" }
 			custom_effect_tooltip = GRE_metaxism_warning_tt
 		}
+		set_temp_variable={ tmpID=0.3 }
+		event_info_gui_remove_current_event=yes
 	}
 }
 
@@ -88,9 +114,21 @@ country_event = {
 	major = no
 	is_triggered_only = yes
     fire_only_once = yes
-	immediate={ hidden_effect={ country_event={ id=hellenic_news.5 days=5 }}}
+	immediate={ 
+		set_temp_variable={ tmpID=0.4 }
+		event_info_gui_add_current_event_to_heap=yes
+		set_temp_variable={ tmpID=0.41 }
+		event_info_gui_add_current_event_to_heap=yes
+		hidden_effect={ country_event={ id=hellenic_news.5 days=5 }}
+	}
     
-	option={ name=hellenic_news.4.a }
+	option={ 
+		name=hellenic_news.4.a
+		set_temp_variable={ tmpID=0.4 }
+		event_info_gui_remove_current_event=yes
+		set_temp_variable={ tmpID=0.41 }
+		event_info_gui_remove_current_event=yes
+	}
 }
 
 ###STRIKES
