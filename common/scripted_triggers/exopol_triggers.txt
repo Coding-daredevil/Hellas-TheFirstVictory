@@ -1,3 +1,19 @@
+is_italian_escalation_applicable={
+    # Checks if italian escalation/acceleration are still applicable and should proceed with changing the values.
+
+    OR={
+        AND={
+            NOT={ has_country_flag=GRE_italians_connections_reestablished }
+            NOT={ has_country_flag=GRE_italians_escalating_war_historical }
+        }
+    }
+    OR={
+        NOT={ has_global_flag=GRE_grecoitalian_start }
+        NOT={ has_global_flag=GRE_grecoitalian_ended }
+        has_wargoal_against=GRE
+    }
+}
+
 is_axal_tmpLVL = {
     if={
         limit={ check_variable={ tmpLVL=-5 }}

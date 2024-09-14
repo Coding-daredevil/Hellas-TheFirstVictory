@@ -145,6 +145,17 @@ ideas = {
         GRE_new_corporatism = {
             allowed={ original_tag=GRE }
             picture=gre_new_corp
+            
+            cancel = {
+                has_idea = GRE_industrializing_society
+                has_idea = GRE_farmer_culture
+            }
+            
+            on_remove = {
+                remove_ideas = GRE_industrializing_society
+                remove_ideas = GRE_farmer_culture
+                add_ideas = GRE_new_corporatism_combined
+            }
 
             modifier = {
                 global_building_slots_factor = 0.4
@@ -873,6 +884,8 @@ ideas = {
             
             on_remove = {
                 add_ideas = GRE_domestic_competition_1_hidden
+				set_variable={ display_domestic_competition_penalty=0.50 }
+				update_fm_mio_domestic_penalty_alleviation=yes
             }
 				
 			modifier = {
@@ -894,6 +907,8 @@ ideas = {
             
             on_remove = {
                 add_ideas = GRE_domestic_competition_2_hidden
+				set_variable={ display_domestic_competition_penalty=0.15 }
+				update_fm_mio_domestic_penalty_alleviation=yes
             }
 				
 			modifier = {
@@ -913,6 +928,8 @@ ideas = {
             
             on_remove = {
                 add_ideas = GRE_domestic_competition_3_hidden
+				clear_variable=display_domestic_competition_penalty
+				update_fm_mio_domestic_penalty_alleviation=yes
             }
 				
 			modifier = {
@@ -1009,7 +1026,6 @@ ideas = {
 				political_power_factor	= 0.05
 				consumer_goods_factor = 0.025
                 global_influence_weekly_modifier_token = 0.25
-                #custom_modifier_tooltip = GRE_booming_tourism_tt
 			}
 		}
 
@@ -1033,7 +1049,6 @@ ideas = {
 				political_power_factor	= 0.10
 				consumer_goods_factor = 0.05
                 global_influence_weekly_modifier_token = 0.50
-                #custom_modifier_tooltip = GRE_booming_tourism_2_tt
 			}
 		}
 
@@ -1056,7 +1071,6 @@ ideas = {
 				stability_factor = 0.05
 				political_power_factor	= 0.10
                 global_influence_weekly_modifier_token = 0.50
-                #custom_modifier_tooltip = GRE_booming_tourism_2_tt
 			}
 		}
         

@@ -16,7 +16,14 @@ is_valid_event_info_array_index_right={
         check_variable={ event_info_array^event_info_index=0.3 }
         check_variable={ event_info_array^event_info_index=0.4 }
         check_variable={ event_info_array^event_info_index=0.41 }
+        check_variable={ event_info_array^event_info_index=2  }
+        check_variable={ event_info_array^event_info_index=9.0 }
+        check_variable={ event_info_array^event_info_index=9.1 }
+        check_variable={ event_info_array^event_info_index=9.2 }
         check_variable={ event_info_array^event_info_index=12 }
+        check_variable={ event_info_array^event_info_index=14.0 }
+        check_variable={ event_info_array^event_info_index=14.1 }
+        check_variable={ event_info_array^event_info_index=60 }
         check_variable={ event_info_array^event_info_index=82  }
         check_variable={ event_info_array^event_info_index=100 }
         check_variable={ event_info_array^event_info_index=241 }
@@ -29,7 +36,21 @@ is_valid_event_info_array_index_left={
     OR={
         check_variable={ event_info_array^event_info_index=0.4 }
         check_variable={ event_info_array^event_info_index=0.41 }
+        check_variable={ event_info_array^event_info_index=2  }
+        check_variable={ event_info_array^event_info_index=9.0 }
+        check_variable={ event_info_array^event_info_index=9.1 }
+        check_variable={ event_info_array^event_info_index=9.2 }
+        check_variable={ event_info_array^event_info_index=11 }
         check_variable={ event_info_array^event_info_index=12 }
+        check_variable={ event_info_array^event_info_index=14.0 }
+        check_variable={ event_info_array^event_info_index=14.1 }
+        check_variable={ event_info_array^event_info_index=60 }
+        check_variable={ event_info_array^event_info_index=61 }
+        check_variable={ event_info_array^event_info_index=62 }
+        check_variable={ event_info_array^event_info_index=63 }
+        check_variable={ event_info_array^event_info_index=64 }
+        check_variable={ event_info_array^event_info_index=65 }
+        check_variable={ event_info_array^event_info_index=401 }
     }
 }
 
@@ -176,6 +197,15 @@ meets_promotion_criteria = {
 ########[ DIPLOMATIC TRIGG ]########
 ####################################
 
+german_italian_collaboration_exists={
+    ITA={
+        OR={
+            is_in_faction_with=GER
+            has_completed_focus=ITA_pact_of_steel
+        }
+    }
+}
+
 has_required_pp_for_investment={
     set_temp_variable={ cur_cost=tmpC }
     #####[ Calculate Display Cost and Reductions on Current Cost ]#####
@@ -216,8 +246,8 @@ mussolini_historical_tensions_with_greece = {
 
 forts_in_grecoalbanian_borderline_exist = {
     OR = {
-        184 = { any_province_building_level={ province={ id=13273 id=13274 } building=bunker level>0 }}
-        938 = { any_province_building_level={ province={ id=841 id=9837 } building=bunker level>0 }}
+        184 = { any_province_building_level={ province={ id=13364 id=13365 } building=bunker level>0 }}
+        973 = { any_province_building_level={ province={ id=841 id=9837 } building=bunker level>0 }}
     }
 }
 
@@ -263,17 +293,23 @@ has_exceeded_division_limit_on_grecoalbanian_border = {
 
         OR={
             divisions_in_border_state = { size>2 state=185 border_state=805 }
-            divisions_in_border_state = { size>2 state=938 border_state=805 }
+            divisions_in_border_state = { size>2 state=973 border_state=805 }
         }
     }
 }
 
 meets_qualifications_to_peer_into_italian_quotas = {
-    # This function checks whether Greece has sufficient army intel over the italians, or enough network coverage.
+    # This function checks whether Greece meets the criteria to know how many battalions they can muster.
 
     OR={
-        intel_level_over = { target=ITA army_intel>0.25 }
-        check_variable = { var=GRE.network_national_coverage@ITA value=0 compare=greater_than_or_equals }
+        check_variable={ GRE.army_intel@ITA>35 }
+        is_fully_decrypted=ITA
+        has_operation_token={ tag=ITA token=token_civilian }
+        has_operation_token={ tag=ITA token=token_army }
+        has_operation_token={ tag=ITA token=token_airforce }
+        has_operation_token={ tag=ITA token=token_navy }
+        has_operation_token={ tag=ITA token=token_resistance_contacts }
+        check_variable={ var=GRE.network_national_coverage@ITA value=35 compare=greater_than_or_equals }
     }
 }
 
@@ -2024,10 +2060,16 @@ has_any_tied_economy_spirit={
 }
 
 in_trigger_kathestos_projects_calculate_extra_pp_cost={
+    set_temp_variable={ base_display=base }
     set_temp_variable={ extra_cost=1 }
     add_to_temp_variable={ extra_cost=modifier@kathestos_project_extra_pp_modifier_token }
     multiply_temp_variable={ extra_cost=var:kathestos_dynamic_ppcost }
     add_to_temp_variable={ base=extra_cost }
+}
+
+in_trigger_kathestos_projects_is_available={
+    has_political_power>base
+    if={ limit={ check_variable={ req_civ>0 }} num_of_civilian_factories_available_for_projects>req_civ }
 }
 
 in_trigger_kathestos_army_reforms_calculate_extra_cost_and_conditions={

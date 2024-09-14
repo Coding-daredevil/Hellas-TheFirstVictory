@@ -80,14 +80,15 @@ if = {
 	add_opinion_modifier = { target=HUN modifier=BFTB_balkan_pact_enemy }
 	set_country_flag = GRE_grecoitalian_diplomatic_games_still_relevant
 	set_variable={ emergency_powers_cost=50 }
+	set_variable={ met_ark_ppg=0.10 }
 	#####################[ Resource Development Scheme ]####################
 	47={  set_variable={ max_state_resourse_level=5 }}
 	185={ set_variable={ max_state_resourse_level=4 }}
 	185={ set_variable={ max_state_resourse_level=3 }}
 	186={ set_variable={ max_state_resourse_level=4 }}
 	187={ set_variable={ max_state_resourse_level=4 }}
-	935={ set_variable={ max_state_resourse_level=4 }}
-	941={ set_variable={ max_state_resourse_level=4 }}
+	970={ set_variable={ max_state_resourse_level=4 }}
+	976={ set_variable={ max_state_resourse_level=4 }}
 	#########################[ Trade Law Min/Max/Gain Benefits ]##########################
 	add_dynamic_modifier = { modifier = GRE_trade_system_dyn }
 	set_variable = { gre_tra_minimum_exports = 1 }
@@ -168,28 +169,31 @@ if = {
 	#################[ Domestic/Offmap Industry Penalty ]###################
 	add_dynamic_modifier = { modifier = GRE_domciv_penalty }
 	set_variable = { domciv_penalty_max=-0.50 }
+	set_variable = { dommil_penalty_max=-0.50 }
+	set_variable = { domdoc_penalty_max=-0.50 }
 	###########################[ Debt to the I.F.C ]########################
 	add_dynamic_modifier = { modifier = GRE_debt_to_the_ifc_dyn }
 	set_variable = { debt_to_the_ifc_stb = -0.25 }
 	set_variable = { debt_to_the_ifc_cons = 0.2 }
 	########################[ Inaccessible Regions ]########################
 	184 = { add_dynamic_modifier = { modifier = GRE_inaccessible_region } }
-	941 = { add_dynamic_modifier = { modifier = GRE_inaccessible_region } }
+	976 = { add_dynamic_modifier = { modifier = GRE_inaccessible_region } }
 	185 = { add_dynamic_modifier = { modifier = GRE_inaccessible_region } }
 	805 = { add_dynamic_modifier = { modifier = GRE_inaccessible_region } }
-	938 = { add_dynamic_modifier = { modifier = GRE_inaccessible_region } }
+	973 = { add_dynamic_modifier = { modifier = GRE_inaccessible_region } }
 	##########################[ Bulgarian Claims ]##########################
 	184 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
-	939 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
+	974 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
 	731 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
-	940 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
-	941 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
+	975 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
+	976 = { set_state_flag = BUL_historical_bulgarian_claim_flag }
 	#########################[ Initialize EXOPOL ]##########################
 	add_to_array={ array=GRE.balkan_pact_members value=TUR.id }
 	add_to_array={ array=GRE.balkan_pact_members value=YUG.id }
 	add_to_array={ array=GRE.balkan_pact_members value=ROM.id }
-	for_each_scope_loop={ array=GRE.balkan_pact_members refresh_balkan_pact_desirability_gui_THIS=yes }
-	refresh_italian_escalation_and_acceleration = yes
+	for_each_scope_loop={ array=GRE.balkan_pact_members set_variable={ balkan_pact_desirability=0 } refresh_balkan_pact_desirability_gui_THIS=yes }
+	set_variable={ italian_awareness=1 }
+	initialize_italian_escalation_and_acceleration = yes
 	########################################################################
 	add_ideas = {
 		ministry_of_rolling_with_the_punches_early
@@ -240,7 +244,7 @@ set_popularities = {
 	neutrality = 47.90
 }
 
-set_stability = 1
+set_stability = 0.9
 set_war_support = 0.25
 set_convoys = 100
 
@@ -548,6 +552,75 @@ set_variable = { GRE.available_hc_slots=3 }
 #		nationalities = { ENG GRE }
 #	}
 #}			THIS LITTLE CUNT CAUSED ME SO MANY PROBLEMS IT ALMOST BROKE THE ENTIRE INFLUENCE MECHANIC WITH OPERATIVES.
+
+###################################################################################################
+####################################[          MILITARY          ]#################################
+####################################[         INDUSTRIAL         ]#################################
+####################################[        ORGANIZATIONS       ]#################################
+###################################################################################################
+
+set_variable={ display_domestic_competition_penalty=0.75 }
+
+add_to_array={ array=fm_mio value=mio:fm_armor_ENG }
+add_to_array={ array=fm_mio value=mio:fm_ship_ENG  }
+add_to_array={ array=fm_mio value=mio:fm_air_ENG   }
+add_to_array={ array=fm_mio value=mio:fm_arty_ENG  }
+add_to_array={ array=fm_mio value=mio:fm_armor_GER }
+add_to_array={ array=fm_mio value=mio:fm_ship_GER  }
+add_to_array={ array=fm_mio value=mio:fm_air_GER   }
+add_to_array={ array=fm_mio value=mio:fm_arty_GER  }
+add_to_array={ array=fm_mio value=mio:fm_motor_GER }
+add_to_array={ array=fm_mio value=mio:fm_armor_USA }
+add_to_array={ array=fm_mio value=mio:fm_ship_USA  }
+add_to_array={ array=fm_mio value=mio:fm_air_USA   }
+add_to_array={ array=fm_mio value=mio:fm_armor_GER }
+add_to_array={ array=fm_mio value=mio:fm_armor_FRA }
+add_to_array={ array=fm_mio value=mio:fm_air_FRA   }
+add_to_array={ array=fm_mio value=mio:fm_arty_FRA  }
+add_to_array={ array=fm_mio value=mio:fm_armor_SOV }
+add_to_array={ array=fm_mio value=mio:fm_air_SOV   }
+add_to_array={ array=fm_mio value=mio:fm_arty_CZE  }
+add_to_array={ array=fm_mio value=mio:fm_armor_JAP }
+add_to_array={ array=fm_mio value=mio:fm_ship_JAP  }
+add_to_array={ array=fm_mio value=mio:fm_air_JAP   }
+add_to_array={ array=fm_mio value=mio:fm_armor_ITA }
+add_to_array={ array=fm_mio@ENG value=mio:fm_armor_ENG }
+add_to_array={ array=fm_mio@ENG value=mio:fm_ship_ENG  }
+add_to_array={ array=fm_mio@ENG value=mio:fm_air_ENG   }
+add_to_array={ array=fm_mio@ENG value=mio:fm_arty_ENG  }
+add_to_array={ array=fm_mio@GER value=mio:fm_armor_GER }
+add_to_array={ array=fm_mio@GER value=mio:fm_ship_GER  }
+add_to_array={ array=fm_mio@GER value=mio:fm_air_GER   }
+add_to_array={ array=fm_mio@GER value=mio:fm_arty_GER  }
+add_to_array={ array=fm_mio@GER value=mio:fm_motor_GER }
+add_to_array={ array=fm_mio@USA value=mio:fm_armor_USA }
+add_to_array={ array=fm_mio@USA value=mio:fm_ship_USA  }
+add_to_array={ array=fm_mio@USA value=mio:fm_air_USA   }
+add_to_array={ array=fm_mio@GER value=mio:fm_armor_GER }
+add_to_array={ array=fm_mio@FRA value=mio:fm_armor_FRA }
+add_to_array={ array=fm_mio@FRA value=mio:fm_air_FRA   }
+add_to_array={ array=fm_mio@FRA value=mio:fm_arty_FRA  }
+add_to_array={ array=fm_mio@SOV value=mio:fm_armor_SOV }
+add_to_array={ array=fm_mio@SOV value=mio:fm_air_SOV   }
+add_to_array={ array=fm_mio@CZE value=mio:fm_arty_CZE  }
+add_to_array={ array=fm_mio@JAP value=mio:fm_armor_JAP }
+add_to_array={ array=fm_mio@JAP value=mio:fm_ship_JAP  }
+add_to_array={ array=fm_mio@JAP value=mio:fm_air_JAP   }
+add_to_array={ array=fm_mio@ITA value=mio:fm_armor_ITA }
+
+#	for_each_scope_loop={
+#		array=GRE.fm_mio
+#	
+#		set_variable={ base_fm_mio_bonus=0.05 }
+#		set_variable={ domestic_alleviation_bonus=0.50 }
+#		#
+#		set_mio_research_bonus=base_fm_mio_bonus
+#		set_temp_variable={ extra=domestic_alleviation_bonus }
+#		multiply_temp_variable={ extra=GRE.display_domestic_competition_penalty }
+#		add_mio_research_bonus=extra
+#		set_variable={ display_extra_mio_bonus=extra }
+#	}
+
 
 ###################################################################################################
 ####################################[                         ]####################################

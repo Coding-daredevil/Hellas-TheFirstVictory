@@ -73,7 +73,17 @@ focus_tree = {
 		mutually_exclusive = { focus = SWE_continue_the_second_industrial_revolution }
 
 		ai_will_do = {
-			factor = 10		
+			factor = 10
+			modifier = {
+				factor = 0
+				OR = {
+					has_country_flag = SWE_AI_RANDOM_COMMUNISM
+					has_game_rule = {
+						rule = SWE_ai_behavior
+						option = SWE_COMMUNISM
+					}
+				}
+			}
 		}
 
 		available = {
@@ -1713,12 +1723,17 @@ focus_tree = {
 			custom_effect_tooltip = SWE_norma_projektilfabrik_tt
 			if = {
 				limit = {
-					NOR = { 
+					any_other_country = {
+						original_tag = NOR 
+						NOT = { 
+							has_war_with = ROOT 
+							has_government = fascism
+						}
+						surrender_progress > 0
 						any_enemy_country = {
 							is_major = yes
 						}
-						NOT = { has_war_with = ROOT }
-						surrender_progress > 0
+
 					}
 				}
 				
@@ -4004,7 +4019,7 @@ focus_tree = {
 			#			}
 			#		}
 			#	}
-			#
+#
 			#	YUG = { YUG_josip_broz_tito = { set_nationality = ROOT } }
 			#}
 
@@ -4511,8 +4526,11 @@ focus_tree = {
 				NOR = { exists = no }
 				has_war_with = NOR
 				AND = {
-					has_government = communism
-					NOR = { NOT = { has_completed_focus = NOR_compromise_with_the_nkp }}
+
+					NOR = { 
+						NOT = { has_completed_focus = NOR_compromise_with_the_nkp }
+						has_government = communism
+					}
 				}
 			}
 		}
@@ -5123,11 +5141,38 @@ focus_tree = {
 		available_if_capitulated = no
 		search_filters = { FOCUS_FILTER_ANNEXATION }
 		completion_reward = {
-			add_political_power = 100
+			mio:SWE_saab_organization = {
+				add_mio_funds = 600
+			}
 
-			add_opinion_modifier = {
-				target = NOR
-				modifier = DEN_deepening_partnership
+			mio:SWE_landsverk_organization = {
+				add_mio_funds = 600
+			}
+
+			mio:SWE_gotaverken_organization = {
+				add_mio_funds = 600
+			}
+
+			mio:SWE_husqvarna_organization = {
+				add_mio_funds = 600
+			}
+
+			mio:SWE_bofors_organization = {
+				add_mio_funds = 600
+			}
+
+			mio:SWE_volvo_organization = {
+				add_mio_funds = 600
+			}
+
+			mio:SWE_scania_vabis_organization = {
+				add_mio_funds = 600
+			}
+			hidden_effect = {
+				add_opinion_modifier = {
+					target = NOR
+					modifier = DEN_deepening_partnership
+				}
 			}
             NOR = {
                 add_opinion_modifier = {
@@ -5136,9 +5181,11 @@ focus_tree = {
                 }
             }
 
-            add_opinion_modifier = {
-                target = DEN
-                modifier = DEN_deepening_partnership
+            hidden_effect = {
+	            add_opinion_modifier = {
+	                target = DEN
+	                modifier = DEN_deepening_partnership
+	            }
             }
             DEN = {
                 add_opinion_modifier = {
@@ -5147,9 +5194,11 @@ focus_tree = {
                 }
             }
 
-            add_opinion_modifier = {
-                target = FIN
-                modifier = DEN_deepening_partnership
+            hidden_effect = {
+	            add_opinion_modifier = {
+	                target = FIN
+	                modifier = DEN_deepening_partnership
+	            }
             }
             FIN = {
                 add_opinion_modifier = {
@@ -5157,10 +5206,11 @@ focus_tree = {
                     modifier = DEN_deepening_partnership
                 }
             }
-
-            add_opinion_modifier = {
-                target = ICE
-                modifier = DEN_deepening_partnership
+            hidden_effect = {
+	            add_opinion_modifier = {
+	                target = ICE
+	                modifier = DEN_deepening_partnership
+	            }
             }
             ICE = {
                 add_opinion_modifier = {
@@ -5171,7 +5221,7 @@ focus_tree = {
 		}
 	}
 
-	focus = {
+ 	focus = {
 		id = SWE_central_nordic_army_command
 		icon = GFX_focus_SWE_the_nordic_centralized_nordic_army_command
 		x = -3
@@ -5253,13 +5303,14 @@ focus_tree = {
 			}
 
 			#unlock_decision_category_tooltip = SWE_coax_nordic_defense_council_cat
-			if = {
-				limit = {
-					has_idea = neutrality_idea
+			hidden_effect = {
+				if = {
+					limit = {
+						has_idea = neutrality_idea
+					}
+					remove_ideas = neutrality_idea
 				}
-				remove_ideas = neutrality_idea
 			}
-
 			
 			for_each_scope_loop = {
 				array = SWE_nordic_defense_council_members
@@ -5282,6 +5333,7 @@ focus_tree = {
 			}
 			custom_effect_tooltip = SWE_central_nordic_army_command_tt
 			show_ideas_tooltip = SWE_nordic_centralized_army
+			custom_effect_tooltip = SWE_central_nordic_army_command_tt_2
 		}
 	}
 
@@ -5861,8 +5913,8 @@ focus_tree = {
 	}
 
 	focus = {
-		id = SWE_decentralized_industrial_aid
-		icon = GFX_goal_generic_construct_civ_factory 
+		id = SWE_nordic_protection_complex
+		icon = GFX_focus_generic_little_entente 
 		x = 0
 		y = 1
 		#mutually_exclusive = {focus = SWE_finlands_cause_is_ours}
@@ -5889,7 +5941,7 @@ focus_tree = {
 		search_filters = { FOCUS_FILTER_INDUSTRY }
 
 		completion_reward = {
-			custom_effect_tooltip = SWE_decentralized_industrial_aid_tt
+			custom_effect_tooltip = SWE_nordic_protection_complex_tt
 			for_each_scope_loop = {
 				array = SWE_nordic_defense_council_members
 
@@ -5919,6 +5971,12 @@ focus_tree = {
 
 			for_each_scope_loop = {
 				array = SWE_nordic_defense_council_members
+				if = {
+					limit = {
+						has_idea = SWE_nordic_centralized_army
+					}
+					remove_ideas = SWE_nordic_centralized_army
+				}
 
 				if = {
 					limit = { 
@@ -5928,7 +5986,7 @@ focus_tree = {
 						limit = {
 							NOT = { original_tag = SWE }
 						}
-						add_ideas = SWE_nordic_decentralized_army
+						add_ideas = SWE_nordic_protection_complex_idea
 					}
 
 					if = {
@@ -5945,7 +6003,13 @@ focus_tree = {
 				}
 			}
 			custom_effect_tooltip = SWE_decentralized_nordic_army_command_tt
-			show_ideas_tooltip = SWE_nordic_decentralized_army
+			show_ideas_tooltip = SWE_nordic_protection_complex_idea
+
+			custom_effect_tooltip = SWE_decentralized_nordic_army_command_tt_2
+			effect_tooltip = {
+				remove_ideas =SWE_nordic_centralized_army
+			}
+
 		}
 	}
 
@@ -6109,7 +6173,7 @@ focus_tree = {
 	  		#	add_to_variable = { SWE_nordic_defense_council_dockyard_capacity_factor = 0.03 }
 			#}
 			#custom_effect_tooltip = SWE_decentralized_nordic_army_command_tt
-			#show_ideas_tooltip = SWE_nordic_decentralized_army
+			#show_ideas_tooltip = SWE_nordic_protection_complex
 		}
 	}
 
@@ -7424,6 +7488,7 @@ focus_tree = {
 			unlock_decision_tooltip = SWE_rangers_sabotage
 			custom_effect_tooltip = SWE_jagartrupper_tt
 			every_army_leader = {
+				random_select_amount = 4
 				limit = {
 					NOT = {
 						OR = {
@@ -7591,25 +7656,30 @@ focus_tree = {
 		search_filters = {  }
 
 		completion_reward = {
-
-			hidden_effect = {
 				set_technology = {
 					militia_tech = 1
 					popup = no
 				}
-				set_variable = { SWE_stormtrupper_division_cap = 0 }
-				set_variable = { SWE_max_stormtrupper_division_cap = 16 }
-				add_to_variable = { SWE_stormtrupper_division_cap = 1 }
-				clamp_variable = {
-					var = SWE_stormtrupper_division_cap
-					min = 0 
-					max = SWE_max_stormtrupper_division_cap
+				every_army_leader = {
+					random_select_amount = 3
+					add_unit_leader_trait = militias_officer
 				}
+
+			hidden_effect = {
+
+			#	set_variable = { SWE_stormtrupper_division_cap = 0 }
+			#	set_variable = { SWE_max_stormtrupper_division_cap = 16 }
+			#	add_to_variable = { SWE_stormtrupper_division_cap = 1 }
+			#	clamp_variable = {
+			#		var = SWE_stormtrupper_division_cap
+			#		min = 0 
+			#		max = SWE_max_stormtrupper_division_cap
+			#	}
 			
 				division_template = {
 					name = "Stormtrupper"		
 					division_names_group = SWE_BS_01
-#					is_locked = no
+					is_locked = yes
 					#force_allow_recruiting = yes
 					template_counter = 20
 					# Note: Represents brownshirts
@@ -7619,12 +7689,13 @@ focus_tree = {
 						militia = { x = 1 y = 0 }
 						militia = { x = 1 y = 1 }
 					}
-					#division_cap = 1
 					override_model = SWE_militia_alt_0_entity
 				}
+
+
 				#set_division_template_cap = { 
 				#	division_template = "Stormtrupper" 
-				#	division_cap = SWE_stormtrupper_division_cap   
+				#	#division_cap = 24   
 				#}
 			}
 
@@ -7776,7 +7847,14 @@ focus_tree = {
 				id = AAT_Sweden_nationalists.19
 				hours = 1
 			}
+
+			swap_ideas = {
+				remove_idea = SWE_gustaf_v_idea
+				add_idea = SWE_gustaf_v_idea_upgraded
+			}
 			custom_effect_tooltip = SWE_meet_with_the_king_tt
+			
+
 		}
 	}
 
@@ -7883,12 +7961,38 @@ focus_tree = {
 				start_civil_war = {
 					ideology = democratic #SPLITTING TAG
 					size = var:SWE_opposing_ideology
-				}
-			}
+					if = {
+						limit = {
+							NOT = {
+								has_template = "Arméfördelning"
+							}
+						}
+						division_template = {
+							name = "Arméfördelning"			
+							division_names_group = SWE_INF_01
 
-			if = {
-				limit = { has_idea = SWE_hungershield }
-				remove_ideas = SWE_hungershield
+							regiments = {
+								infantry = { x = 0 y = 0 }
+								infantry = { x = 0 y = 1 }
+								infantry = { x = 1 y = 0 }
+								infantry = { x = 1 y = 1 }
+								infantry = { x = 2 y = 0 }
+								infantry = { x = 2 y = 1 }
+							}
+							support = {
+								artillery = { x = 0 y = 0 }  
+								engineer = { x = 0 y = 1 }   
+								recon = { x = 0 y = 2 }      
+							}
+						}
+
+					}
+					every_country_division = {
+						change_division_template = {
+							division_template = "Arméfördelning" 
+						}
+					}
+				}
 			}
 
 
@@ -7919,9 +8023,12 @@ focus_tree = {
 				name = SWE_kings_party
 				long_name = SWE_kings_party_long
 			}
-			set_politics = {
-				ruling_party = neutrality
-				elections_allowed = no
+			custom_effect_tooltip = SWE_king_in_council_tt
+			hidden_effect = {
+				set_politics = {
+					ruling_party = neutrality
+					elections_allowed = no
+				}
 			}
 			SWE_king_gustaf_v = {
 				add_country_leader_role = {

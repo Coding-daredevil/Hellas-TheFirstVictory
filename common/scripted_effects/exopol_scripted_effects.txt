@@ -220,7 +220,7 @@ apply_italian_aggression_effects_through_tmpESC_tmpACC = {
 	# Quick function to avoid all the line dumps.
 
 	if={
-		limit={ NOT={ has_country_flag=GRE_italians_connections_reestablished }}
+		limit={ is_italian_escalation_applicable=yes }
 
 		custom_effect_tooltip=itagg_escalation_header_tt
 		set_temp_variable={ x=tmpESC }
@@ -254,6 +254,12 @@ apply_italian_aggression_effects_only_acceleration = {
 		add_to_variable={ GRE.italian_escalation_level=italian_escalation_accelerator tooltip=itagg_escalation_increased_by_tt }
 		refresh_italian_escalation_and_acceleration=yes
 	}
+}
+
+initialize_italian_escalation_and_acceleration={
+	set_variable={ italian_escalation_level=0 }
+	set_variable={ italian_escalation_accelerator=0 }
+	refresh_italian_escalation_and_acceleration=yes
 }
 
 refresh_italian_escalation_and_acceleration = {

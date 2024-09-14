@@ -1,5 +1,5 @@
 ﻿division_template = {
-	name = "(Merarchía-XX) Pezikoú" 				# Triangular Infantry Division
+	name = "(Merarchía-XX) Pezikoú"
 	division_names_group = GRE_INF_01
 	priority = 2
 	# Prior to 1940 mobilization = 3rd, 4th, 5th, 9th, 10, 13th;
@@ -22,8 +22,8 @@
 	}
 }
 division_template = {
-	name = "(Taxiarchía-X) Pezikoú I" 				# Triangular Infantry Division
-	division_names_group = GRE_INF_01
+	name = "(Taxiarchía-X) Pezikoú I"
+	division_names_group = GRE_INF_DEC_01
 	template_counter = 29
 
 	regiments = {
@@ -36,9 +36,9 @@ division_template = {
 	}
 }
 division_template = {
-	name = "(Taxiarchía-X) Pezikoú II" 				# Triangular Infantry Division
-	division_names_group = GRE_INF_01
-	template_counter = 12
+	name = "(Taxiarchía-X) Pezikoú II"
+	division_names_group = GRE_INF_DEC_02
+	template_counter = 6
 
 	regiments = {
 		infantry = { x = 0 y = 0 }
@@ -50,7 +50,18 @@ division_template = {
 	}
 }
 division_template = {
-	name = "(Merarchía-XX) Oreinoú Pezikoú" 				# Square Infantry Division
+	name = "(Taxiarchía-X) Pezikoú III"
+	division_names_group = GRE_INF_DEC_03
+	template_counter = 3
+
+	regiments = {
+		infantry = { x = 0 y = 0 }
+		infantry = { x = 0 y = 1 }
+		infantry = { x = 0 y = 2 }
+	}
+}
+division_template = {
+	name = "(Merarchía-XX) Oreinoú Pezikoú"
 	division_names_group = GRE_MNT_01
 	priority = 2
 	# Prior to 1940 mobilization = 1st, 2nd, 8th
@@ -70,9 +81,10 @@ division_template = {
 	}
 }
 division_template = {
-	name = "(Taxiarchía-X) Ippikoú" 			# Cavalry Division
+	name = "(Taxiarchía-X) Ippikoú"
 	division_names_group = GRE_CAV_01
 	template_counter = 5
+	priority = 2
 
 	regiments = {
 		cavalry = { x = 0 y = 0 }
@@ -83,19 +95,38 @@ division_template = {
 		cavalry = { x = 1 y = 2 }
 	}
 	support = {
-		recon = { x = 0 y = 0 }      # Motorized recon inf bn
+		recon = { x = 0 y = 0 }
+		artillery = { x = 0 y = 1 }
 	}
 }
 division_template = {
-	name = "(Tágma-III) Ippikoú" 			# Cavalry Division
-	division_names_group = GRE_CAV_01
+	name = "(Tágma-III) Ippikoú I"
+	division_names_group = GRE_DEC_CAV_01
 	template_counter = 17
-	priority = 0
+	priority = 1
 
 	regiments = {
 		cavalry = { x = 0 y = 0 }
 		cavalry = { x = 0 y = 1 }
 		cavalry = { x = 0 y = 2 }
+	}
+	support = {
+		recon = { x = 0 y = 0 }
+	}
+}
+division_template = {
+	name = "(Tágma-III) Ippikoú II"
+	division_names_group = GRE_DEC_CAV_02
+	template_counter = 17
+	priority = 1
+
+	regiments = {
+		cavalry = { x = 0 y = 0 }
+		cavalry = { x = 0 y = 1 }
+		cavalry = { x = 0 y = 2 }
+	}
+	support = {
+		artillery = { x = 0 y = 0 }
 	}
 }
 division_template = {
@@ -112,7 +143,7 @@ division_template = {
 }
 division_template = {
 	name = "(Tágma-III) Opisthofylakís" 				# Garisson Division for Islands
-	division_names_group = GRE_GAR_01
+	division_names_group = GRE_GAR_02
 	template_counter = 7
 	priority = 0
 	
@@ -126,315 +157,301 @@ units = {
 	########[ Ellinikó Genikó Epiteleío ]########
 	#########################################################################################
 	division = { 																			# "V Merarchía Pezikoú"
-		name = "V Merarchía Pezikoú - I Taxiarchía"
+		division_name={ is_name_ordered=yes name_order=5 }
 		location = 12058
 		division_template = "(Taxiarchía-X) Pezikoú I" 
 		start_experience_factor = 0.2
 		start_equipment_factor = 0.64
 	}
 	division = {
-		name = "V Merarchía Pezikoú - II Taxiarchía"
+		division_name={ is_name_ordered=yes name_order=5 }
 		location = 9940
 		division_template = "(Taxiarchía-X) Pezikoú II" 
 		start_experience_factor = 0.2
 		start_equipment_factor = 0.63
 	}
 	division = {
-		name = "V Merarchía Pezikoú - III Taxiarchía"
+		division_name={ is_name_ordered=yes name_order=5 }
 		location = 1164
-		division_template = "(Taxiarchía-X) Opisthofylakís" 
+		division_template = "(Taxiarchía-X) Pezikoú III" 
 		start_experience_factor = 0.2
 		start_equipment_factor = 0.62
 	}
 	#########################################################################################
 	division = { 																			# "VIII Merarchía Oreinoú Pezikoú"
-		division_name = {
-				is_name_ordered = yes
-				name_order = 8
-		}
+		division_name={ is_name_ordered=yes name_order=8 }
 		location = 3914
 		division_template = "(Merarchía-XX) Oreinoú Pezikoú" 
 		start_experience_factor = 0.3
 		start_equipment_factor = 0.82
 	}
 	#########################################################################################
-	division = {																			# "I Taxiarchía Ippikoú"
-		name = "I Taxiarchía Ippikoú - I Tágma"
+	division = {																			# "I Taxiarchía Ippikoú Larissa (https://ikee.lib.auth.gr/record/287007/files/GRI-2017-18274.pdf)"
+		division_name={ is_name_ordered=yes name_order=1 }
+		location = 3844
+		division_template = "(Tágma-III) Ippikoú I" 
+		start_experience_factor = 0.2
+		start_equipment_factor = 0.72
+	}
+	division = {
+		division_name={ is_name_ordered=yes name_order=1 }
+		location = 3844
+		division_template = "(Tágma-III) Ippikoú II" 
+		start_experience_factor = 0.2
+		start_equipment_factor = 0.70
+	}
+	division = {																			# "ΙI Taxiarchía Ippikoú Thessaloniki (https://en.wikipedia.org/wiki/Cavalry_Division_(Greece))"
+		division_name={ is_name_ordered=yes name_order=2 }
 		location = 11818
-		division_template = "(Tágma-III) Ippikoú" 
+		division_template = "(Tágma-III) Ippikoú I" 
 		start_experience_factor = 0.2
 		start_equipment_factor = 0.66
 	}
 	division = {
-		name = "I Taxiarchía Ippikoú - II Tágma"
+		division_name={ is_name_ordered=yes name_order=2 }
 		location = 11818
-		division_template = "(Tágma-III) Ippikoú" 
+		division_template = "(Tágma-III) Ippikoú II" 
 		start_experience_factor = 0.2
 		start_equipment_factor = 0.63
 	}
-	division = {
-		name = "I Taxiarchía Ippikoú - III Tágma"
-		location = 11818
-		division_template = "(Tágma-III) Ippikoú" 
+	division = {																			# "V Taxiarchía Ippikoú Athens (https://en.wikipedia.org/wiki/Cavalry_Division_(Greece))"
+		division_name={ is_name_ordered=yes name_order=5 }
+		location = 4109
+		division_template = "(Tágma-III) Ippikoú I" 
 		start_experience_factor = 0.2
-		start_equipment_factor = 0.57
+		start_equipment_factor = 0.40
+	}
+	division = {
+		division_name={ is_name_ordered=yes name_order=5 }
+		location = 4109
+		division_template = "(Tágma-III) Ippikoú II" 
+		start_experience_factor = 0.2
+		start_equipment_factor = 0.38
 	}
 	#########################################################################################	# A Sóma Stratoú
 	division = { 																			# "II Merarchía Oreinoú Pezikoú"
-		division_name = {
-				is_name_ordered = yes
-				name_order = 2
-		}
+		division_name={ is_name_ordered=yes name_order=2 }
 		location = 4109
 		division_template = "(Merarchía-XX) Oreinoú Pezikoú" 
 		start_experience_factor = 0.3
 		start_equipment_factor = 0.72
 	}
 	division = { 																			# "III Merarchía Pezikoú"
-		name = "III Merarchía Pezikoú - I Taxiarchía"
+		division_name={ is_name_ordered=yes name_order=3 }
 		location = 7211
 		division_template = "(Taxiarchía-X) Pezikoú I" 
 		start_experience_factor = 0.2
 		start_equipment_factor = 0.64
 	}
 	division = {
-		name = "III Merarchía Pezikoú - II Taxiarchía"
+		division_name={ is_name_ordered=yes name_order=3 }
 		location = 4193
 		division_template = "(Taxiarchía-X) Pezikoú II" 
 		start_experience_factor = 0.2
 		start_equipment_factor = 0.60
 	}
 	division = {
-		name = "III Merarchía Pezikoú - III Taxiarchía"
+		division_name={ is_name_ordered=yes name_order=3 }
 		location = 1173
-		division_template = "(Taxiarchía-X) Opisthofylakís" 
+		division_template = "(Taxiarchía-X) Pezikoú III" 
 		start_experience_factor = 0.2
 		start_equipment_factor = 0.62
 	}
 	division = { 																			# "IV Merarchía Pezikoú"
-		name = "IV Merarchía Pezikoú - I Taxiarchía"
+		division_name={ is_name_ordered=yes name_order=4 }
 		location = 7096
 		division_template = "(Taxiarchía-X) Pezikoú I" 
 		start_experience_factor = 0.2
 		start_equipment_factor = 0.58
 	}
 	division = {
-		name = "IV Merarchía Pezikoú - II Taxiarchía"
+		division_name={ is_name_ordered=yes name_order=4 }
 		location = 3988
 		division_template = "(Taxiarchía-X) Pezikoú II" 
 		start_experience_factor = 0.2
 		start_equipment_factor = 0.64
 	}
 	division = {
-		name = "IV Merarchía Pezikoú - III Taxiarchía"
+		division_name={ is_name_ordered=yes name_order=4 }
 		location = 4078
-		division_template = "(Taxiarchía-X) Opisthofylakís" 
+		division_template = "(Taxiarchía-X) Pezikoú III" 
 		start_experience_factor = 0.2
 		start_equipment_factor = 0.62
 	}
 	#########################################################################################	# B Sóma Stratoú
-	division = { # "I Merarchía Oreinoú Pezikoú"
-		division_name = {
-				is_name_ordered = yes
-				name_order = 1
-		}
+	division = { 																			# "I Merarchía Oreinoú Pezikoú"
+		division_name={ is_name_ordered=yes name_order=1 }
 		location = 863
 		division_template = "(Merarchía-XX) Oreinoú Pezikoú" 
 		start_experience_factor = 0.3
 		start_equipment_factor = 0.77
 	}
 	division = { 																			# "IX Merarchía Pezikoú"
-		name = "IX Merarchía Pezikoú - I Taxiarchía"
+		division_name={ is_name_ordered=yes name_order=9 }
 		location = 9837
 		division_template = "(Taxiarchía-X) Pezikoú I" 
 		start_experience_factor = 0.2
 		start_equipment_factor = 0.60
 	}
 	division = {
-		name = "IX Merarchía Pezikoú - II Taxiarchía"
+		division_name={ is_name_ordered=yes name_order=9 }
 		location = 966
 		division_template = "(Taxiarchía-X) Pezikoú II" 
 		start_experience_factor = 0.2
 		start_equipment_factor = 0.64
 	}
 	division = {
-		name = "IX Merarchía Pezikoú - III Taxiarchía"
+		division_name={ is_name_ordered=yes name_order=9 }
 		location = 3980
-		division_template = "(Taxiarchía-X) Opisthofylakís" 
+		division_template = "(Taxiarchía-X) Pezikoú III" 
 		start_experience_factor = 0.2
 		start_equipment_factor = 0.62
 	}
 	#########################################################################################	# C Sóma Stratoú
 	division = { 																			# "VI Merarchía Pezikoú"
-		name = "VI Merarchía Pezikoú - I Taxiarchía"
+		division_name={ is_name_ordered=yes name_order=6 }
 		location = 3526
 		division_template = "(Taxiarchía-X) Pezikoú I" 
 		start_experience_factor = 0.2
 		start_equipment_factor = 0.60
 	}
 	division = {
-		name = "VI Merarchía Pezikoú - II Taxiarchía"
+		division_name={ is_name_ordered=yes name_order=6 }
 		location = 3526
 		division_template = "(Taxiarchía-X) Pezikoú II" 
 		start_experience_factor = 0.2
 		start_equipment_factor = 0.64
 	}
 	division = {
-		name = "VI Merarchía Pezikoú - III Taxiarchía"
+		division_name={ is_name_ordered=yes name_order=6 }
 		location = 3526
-		division_template = "(Taxiarchía-X) Opisthofylakís" 
+		division_template = "(Taxiarchía-X) Pezikoú III" 
 		start_experience_factor = 0.2
 		start_equipment_factor = 0.62
 	}
 	division = { 																			# "X Merarchía Pezikoú"
-		name = "X Merarchía Pezikoú - I Taxiarchía"
+		division_name={ is_name_ordered=yes name_order=10 }
 		location = 936
 		division_template = "(Taxiarchía-X) Pezikoú I" 
 		start_experience_factor = 0.2
 		start_equipment_factor = 0.60
 	}
 	division = {
-		name = "X Merarchía Pezikoú - II Taxiarchía"
+		division_name={ is_name_ordered=yes name_order=10 }
 		location = 10163
 		division_template = "(Taxiarchía-X) Pezikoú II" 
 		start_experience_factor = 0.2
 		start_equipment_factor = 0.64
 	}
 	division = {
-		name = "X Merarchía Pezikoú - III Taxiarchía"
-		location = 13277
-		division_template = "(Taxiarchía-X) Opisthofylakís" 
+		division_name={ is_name_ordered=yes name_order=10 }
+		location = 13368
+		division_template = "(Taxiarchía-X) Pezikoú III" 
 		start_experience_factor = 0.2
 		start_equipment_factor = 0.62
 	}
 	division = { 																			# "XI Merarchía Pezikoú"
-		name = "XI Merarchía Pezikoú - I Taxiarchía"
+		division_name={ is_name_ordered=yes name_order=9 }
 		location = 11818
 		division_template = "(Taxiarchía-X) Pezikoú I" 
 		start_experience_factor = 0.2
 		start_equipment_factor = 0.60
 	}
 	division = {
-		name = "XI Merarchía Pezikoú - II Taxiarchía"
+		division_name={ is_name_ordered=yes name_order=9 }
 		location = 11818
 		division_template = "(Taxiarchía-X) Pezikoú II" 
 		start_experience_factor = 0.2
 		start_equipment_factor = 0.64
 	}
 	division = {
-		name = "XI Merarchía Pezikoú - III Taxiarchía"
+		division_name={ is_name_ordered=yes name_order=9 }
 		location = 11818
-		division_template = "(Taxiarchía-X) Opisthofylakís" 
+		division_template = "(Taxiarchía-X) Pezikoú III" 
 		start_experience_factor = 0.2
 		start_equipment_factor = 0.62
 	}
 	#########################################################################################	# D Sóma Stratoú
 	division = { 																			# "VII Merarchía Pezikoú"
-		name = "VII Merarchía Pezikoú - I Taxiarchía"
-		location = 13281
+		division_name={ is_name_ordered=yes name_order=7 }
+		location = 13372
 		division_template = "(Taxiarchía-X) Pezikoú I" 
 		start_experience_factor = 0.2
 		start_equipment_factor = 0.38
 	}
 	division = {
-		name = "VII Merarchía Pezikoú - II Taxiarchía"
-		location = 13280
+		division_name={ is_name_ordered=yes name_order=7 }
+		location = 13371
 		division_template = "(Taxiarchía-X) Pezikoú II" 
 		start_experience_factor = 0.2
 		start_equipment_factor = 0.45
 	}
 	division = {
-		name = "VII Merarchía Pezikoú - III Taxiarchía"
+		division_name={ is_name_ordered=yes name_order=7 }
 		location = 9791
-		division_template = "(Taxiarchía-X) Opisthofylakís" 
+		division_template = "(Taxiarchía-X) Pezikoú III" 
 		start_experience_factor = 0.2
 		start_equipment_factor = 0.43
 	}
 	#########################################################################################	# E Sóma Stratoú
 	division = { 																			# "XII Merarchía Pezikoú"
-		name = "XII Merarchía Pezikoú - I Taxiarchía"
+		division_name={ is_name_ordered=yes name_order=12 }
 		location = 11905
 		division_template = "(Taxiarchía-X) Pezikoú I" 
 		start_experience_factor = 0.2
 		start_equipment_factor = 0.41
 	}
 	division = {
-		name = "XII Merarchía Pezikoú - II Taxiarchía"
+		division_name={ is_name_ordered=yes name_order=12 }
 		location = 11774
 		division_template = "(Taxiarchía-X) Pezikoú II" 
 		start_experience_factor = 0.2
 		start_equipment_factor = 0.44
 	}
 	division = {
-		name = "XII Merarchía Pezikoú - III Taxiarchía"
-		location = 13279
-		division_template = "(Taxiarchía-X) Opisthofylakís" 
+		division_name={ is_name_ordered=yes name_order=12 }
+		location = 13370
+		division_template = "(Taxiarchía-X) Pezikoú III" 
 		start_experience_factor = 0.2
 		start_equipment_factor = 0.42
 	}
 	######################################################################################### Frourá Nisiwn
 	division = {
-		name = "Frourá Voreíou Aigéou"
+		division_name={ is_name_ordered=yes name_order=1 }
 		location = 8435
 		division_template = "(Tágma-III) Opisthofylakís" 
 		start_experience_factor = 0.1
 		start_equipment_factor = 0.80
 	}
 	division = {
-		name = "Frourá Anatolikoú Aigéou"
+		division_name={ is_name_ordered=yes name_order=2 }
 		location = 6550
 		division_template = "(Tágma-III) Opisthofylakís" 
 		start_experience_factor = 0.12
 		start_equipment_factor = 0.78
 	}
 	division = {
-		name = "Frourá Kykládon"
+		division_name={ is_name_ordered=yes name_order=3 }
 		location = 3401
 		division_template = "(Tágma-III) Opisthofylakís" 
 		start_experience_factor = 0.06
 		start_equipment_factor = 0.70
 	}
 	division = {
-		name = "Frourá Iónion Níson"
+		division_name={ is_name_ordered=yes name_order=4 }
 		location = 1106
 		division_template = "(Tágma-III) Opisthofylakís" 
 		start_experience_factor = 0.14
 		start_equipment_factor = 0.74
 	}
 	division = {
-		name = "Frourá Kérkyras"
+		division_name={ is_name_ordered=yes name_order=5 }
 		location = 10203
 		division_template = "(Tágma-III) Opisthofylakís" 
 		start_experience_factor = 0.16
 		start_equipment_factor = 0.94
 	}
 }
-
-
-### Starting Production ###
-instant_effect = {
-	add_equipment_production = {
-		equipment = {
-			type = support_equipment_1
-			creator = "GRE"
-		}
-		requested_factories = 1
-		progress = 0.5
-		efficiency = 100
-	}
-	add_equipment_production = {
-		equipment = {
-			type = infantry_equipment_0
-			creator = "GRE"
-		}
-		requested_factories = 1
-		progress = 0.5
-		efficiency = 100
-	}
-}
-
-
-
 
 ####[Deprecated]###
 ####units = {

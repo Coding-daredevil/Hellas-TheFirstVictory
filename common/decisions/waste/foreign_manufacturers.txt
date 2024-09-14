@@ -1,0 +1,2456 @@
+
+    #GRE_expand_collapse_foreign_manufacturer_buffs = {                                          ### Expand/Collapse Dec
+    #    icon = decision_generic_decision    
+    #    allowed = { tag=GRE }
+    #    
+    #    fire_only_once = no
+    #    days_remove = 0
+    #    days_re_enable = 0
+    #    priority = 12
+    #    
+    #    complete_effect={
+    #        hidden_effect={
+    #            if={ limit={ NOT={ has_country_flag=toggle_fm }} set_country_flag=toggle_fm }
+    #            else={ clr_country_flag=toggle_fm }
+    #        }
+    #    }
+    #}
+#
+    #GRE_foreign_manufacturer_light_armor_investments = {
+    #    on_map_mode = map_and_decisions_view
+    #    highlight_states = { highlight_states_trigger = { state = FROM.capital } }
+    #    
+    #    icon = generic_tank
+	#	allowed = { tag = GRE }
+    #    priority = 12
+    #    days_re_enable = 550
+    #    targets={ GER FRA ENG SOV ITA JAP USA }
+    #    target_trigger={ FROM={ exists=yes NOT={ has_war_with=GRE }}}
+#
+	#	available = {
+	#		date<1942.1.1
+	#		NOT={
+    #            custom_trigger_tooltip={
+    #                tooltip=GRE_favor_abysmal_from_tt
+    #                check_variable={ var=FROM.favor@GRE value=0 compare=less_than }
+    #            }
+	#		}
+    #        if={ limit={ has_completed_appropriate_fm_focuses=no } has_completed_appropriate_fm_focuses=yes }
+	#	}
+    #    
+	#	visible={
+    #        NOT={ has_country_flag=toggle_fm }
+    #        has_appropriate_armor_fm_selected=yes
+	#	}
+    #    
+    #    days_remove = 14
+    #    cost = 25
+#
+	#	remove_effect = {
+    #        #####################[Domestic Competition Limits]####################
+    #        if = {
+    #            limit = { has_idea = GRE_domestic_competition_0_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.60 }
+    #        }
+    #        else_if = {
+    #            limit = { has_idea = GRE_domestic_competition_1_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.40 }
+    #        }
+    #        else_if = {
+    #            limit = { has_idea = GRE_domestic_competition_2_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.10 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { bonus_from_domcom_level = 0.00 }
+    #        }
+    #        ########################[FROM Has Tech Bonus]########################
+    #        if = {
+    #            limit = { 
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [LIGHT_TANK_TECH] }
+    #                        LIGHT_TANK_TECH = "[GRE.GetNextLightTank]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { bonus_from_researched_tech = 0.4 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { bonus_from_researched_tech = 0.1 }
+    #        }
+    #        ##########################[Country Bonuses]##########################
+    #        if = { 
+    #            limit = { FROM = { original_tag = GER } }
+    #            set_temp_variable = { bonus_from_country = 0.1 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = SOV } }
+    #            set_temp_variable = { bonus_from_country = 0.1 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = FRA } }
+    #            set_temp_variable = { bonus_from_country = 0.12 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = ENG } }
+    #            set_temp_variable = { bonus_from_country = 0.1 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = USA } }
+    #            set_temp_variable = { bonus_from_country = 0.12 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = ITA } }
+    #            set_temp_variable = { bonus_from_country = 0.06 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = JAP } }
+    #            set_temp_variable = { bonus_from_country = 0.08 }
+    #        }
+    #        add_bonuses_to_sum = yes
+    #        meta_effect = {
+    #            text = { add_tech_bonus = { name=GRE_FM_light_tank_bonus bonus=[BONUS_SUM] uses=1 technology=[LIGHT_TANK_TECH] } }
+    #            BONUS_SUM = "[?sum|.3]"
+    #            LIGHT_TANK_TECH = "[GRE.GetNextLightTank]"
+    #        }
+    #    }
+    #}
+#
+    #GRE_foreign_manufacturer_medium_armor_investments = {
+    #    on_map_mode = map_and_decisions_view
+    #    highlight_states = { highlight_states_trigger = { state = FROM.capital } }
+    #    
+    #    icon = generic_tank
+	#	allowed = { tag = GRE }
+    #    priority = 12
+    #    days_re_enable = 550
+    #    targets={ GER FRA ENG SOV ITA JAP USA }
+    #    target_trigger={ FROM={ exists=yes NOT={ has_war_with=GRE }}}
+#
+	#	available = {
+	#		date<1942.1.1
+	#		NOT={
+    #            custom_trigger_tooltip={
+    #                tooltip=GRE_favor_abysmal_from_tt
+    #                check_variable={ var=FROM.favor@GRE value=0 compare=less_than }
+    #            }
+	#		}
+    #        if={ limit={ has_completed_appropriate_fm_focuses=no } has_completed_appropriate_fm_focuses=yes }
+	#	}
+    #    
+	#	visible = {
+    #        NOT = { has_country_flag = toggle_fm }
+    #        NOT = { can_research = gwtank_chassis }
+    #        has_appropriate_armor_fm_selected = yes
+	#	}
+    #    
+    #    days_remove = 14
+    #    cost = 25
+#
+	#	remove_effect = {
+    #        #####################[Domestic Competition Limits]####################
+    #        if = {
+    #            limit = { has_idea = GRE_domestic_competition_0_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.60 }
+    #        }
+    #        else_if = {
+    #            limit = { has_idea = GRE_domestic_competition_1_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.40 }
+    #        }
+    #        else_if = {
+    #            limit = { has_idea = GRE_domestic_competition_2_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.10 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { bonus_from_domcom_level = 0.00 }
+    #        }
+    #        ########################[FROM Has Tech Bonus]########################
+    #        if = {
+    #            limit = { 
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [MEDIUM_TANK_TECH] }
+    #                        MEDIUM_TANK_TECH = "[GRE.GetNextMediumTank]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { bonus_from_researched_tech = 0.4 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { bonus_from_researched_tech = 0.1 }
+    #        }
+    #        ##########################[Country Bonuses]##########################
+    #        if = { 
+    #            limit = { FROM = { original_tag = GER } }
+    #            set_temp_variable = { bonus_from_country = 0.14 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = SOV } }
+    #            set_temp_variable = { bonus_from_country = 0.16 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = FRA } }
+    #            set_temp_variable = { bonus_from_country = 0.05 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = ENG } }
+    #            set_temp_variable = { bonus_from_country = 0.07 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = USA } }
+    #            set_temp_variable = { bonus_from_country = 0.08 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = ITA } }
+    #            set_temp_variable = { bonus_from_country = 0.02 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = JAP } }
+    #            set_temp_variable = { bonus_from_country = 0.01 }
+    #        }
+    #        add_bonuses_to_sum = yes
+    #        meta_effect = {
+    #            text = { add_tech_bonus = { name=GRE_FM_medium_tank_bonus bonus=[BONUS_SUM] uses=1 technology=[MEDIUM_TANK_TECH] } }
+    #            BONUS_SUM = "[?sum|.3]"
+    #            MEDIUM_TANK_TECH = "[GRE.GetNextMediumTank]"
+    #        }
+    #    }
+    #}
+#
+    #GRE_foreign_manufacturer_heavy_armor_investments = {
+    #    on_map_mode = map_and_decisions_view
+    #    highlight_states = { highlight_states_trigger = { state = FROM.capital } }
+    #    
+    #    icon = generic_tank
+	#	allowed = { tag = GRE }
+    #    priority = 12
+    #    days_re_enable = 550
+    #    targets={ GER FRA ENG SOV ITA JAP USA}
+    #    target_trigger={ FROM={ exists=yes NOT={ has_war_with=GRE }}}
+#
+	#	available = {
+	#		date<1942.1.1
+	#		NOT={
+    #            custom_trigger_tooltip={
+    #                tooltip=GRE_favor_abysmal_from_tt
+    #                check_variable={ var=FROM.favor@GRE value=0 compare=less_than }
+    #            }
+	#		}
+    #        if={ limit={ has_completed_appropriate_fm_focuses=no } has_completed_appropriate_fm_focuses=yes }
+	#	}
+    #    
+	#	visible = {
+    #        NOT = { has_country_flag = toggle_fm }
+    #        has_appropriate_armor_fm_selected = yes 
+    #        NOT = { can_research = gwtank_chassis }
+	#	}
+    #    
+    #    days_remove = 14
+    #    cost = 25
+#
+	#	remove_effect = {
+    #        #####################[Domestic Competition Limits]####################
+    #        if = {
+    #            limit = { has_idea = GRE_domestic_competition_0_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.60 }
+    #        }
+    #        else_if = {
+    #            limit = { has_idea = GRE_domestic_competition_1_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.40 }
+    #        }
+    #        else_if = {
+    #            limit = { has_idea = GRE_domestic_competition_2_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.10 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { bonus_from_domcom_level = 0.00 }
+    #        }
+    #        ########################[FROM Has Tech Bonus]########################
+    #        if = {
+    #            limit = { 
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [HEAVY_TANK_TECH] }
+    #                        HEAVY_TANK_TECH = "[GRE.GetNextHeavyTank]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { bonus_from_researched_tech = 0.4 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { bonus_from_researched_tech = 0.1 }
+    #        }
+    #        ##########################[Country Bonuses]##########################
+    #        if = { 
+    #            limit = { FROM = { original_tag = GER } }
+    #            set_temp_variable = { bonus_from_country = 0.14 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = SOV } }
+    #            set_temp_variable = { bonus_from_country = 0.16 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = FRA } }
+    #            set_temp_variable = { bonus_from_country = 0.04 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = ENG } }
+    #            set_temp_variable = { bonus_from_country = 0.08 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = USA } }
+    #            set_temp_variable = { bonus_from_country = 0.12 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = ITA } }
+    #            set_temp_variable = { bonus_from_country = 0.00 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = JAP } }
+    #            set_temp_variable = { bonus_from_country = 0.00 }
+    #        }
+    #        add_bonuses_to_sum = yes
+    #        meta_effect = {
+    #            text = { add_tech_bonus = { name=GRE_FM_heavy_tank_bonus bonus=[BONUS_SUM] uses=1 technology=[HEAVY_TANK_TECH] } }
+    #            BONUS_SUM = "[?sum|.3]"
+    #            HEAVY_TANK_TECH = "[GRE.GetNextHeavyTank]"
+    #        }
+    #    }
+    #}
+#
+    #GRE_foreign_manufacturer_naval_screen_investments = {
+    #    icon = generic_naval
+    #    on_map_mode = map_and_decisions_view
+    #    highlight_states = { highlight_states_trigger = { state = FROM.capital } }
+#
+	#	allowed = { tag = GRE }
+    #    priority = 12
+    #    days_re_enable = 550
+    #    targets={ ENG JAP GER }
+    #    target_trigger={ FROM={ exists=yes NOT={ has_war_with=GRE }}}
+#
+	#	available = {
+	#		date<1942.1.1
+	#		NOT={
+    #            custom_trigger_tooltip={
+    #                tooltip=GRE_favor_abysmal_from_tt
+    #                check_variable={ var=FROM.favor@GRE value=0 compare=less_than }
+    #            }
+	#		}
+    #        if={ limit={ has_completed_appropriate_fm_focuses=no } has_completed_appropriate_fm_focuses=yes }
+	#	}
+    #    
+	#	visible = {
+    #        NOT = { has_country_flag = toggle_fm }
+    #        has_appropriate_naval_fm_selected = yes
+	#	}
+    #    
+    #    days_remove = 14
+    #    cost = 250
+    #
+	#	remove_effect = {
+    #        #[Destroyer Hull]#
+    #        if = {
+    #            limit = {
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [DESTR] }
+    #                        DESTR = "[GRE.GetNextDestroyer]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { fm_destroyer_bonus = 0.75 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { fm_destroyer_bonus = 0.25 }
+    #        }
+    #        #[Cruiser Hull]#
+    #        if = {
+    #            limit = {
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [CRU] }
+    #                        CRU = "[GRE.GetNextCruiser]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { fm_cruiser_bonus = 0.75 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { fm_cruiser_bonus = 0.25 }
+    #        }
+    #        #[Destroyer SubTechs]#
+    #        if = {
+    #            limit = {
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextDestrDepth]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { fm_destroyer_sonar_bonus = 0.75 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { fm_destroyer_sonar_bonus = 0.25 }
+    #        }
+    #        if = {
+    #            limit = { 
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextDestrDepth]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { fm_destroyer_depth_bonus = 0.75 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { fm_destroyer_depth_bonus = 0.25 }
+    #        }
+    #        #[Cruiser SubTechs]#
+    #        if = {
+    #            limit = {
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextCruCatapult]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { fm_cruiser_catap_bonus = 0.75 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { fm_cruiser_catap_bonus = 0.25 }
+    #        }
+    #        if = {
+    #            limit = { 
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextCruArmor]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { fm_cruiser_armor_bonus = 0.75 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { fm_cruiser_armor_bonus = 0.25 }
+    #        }
+    #        ###[Final Effects]###
+    #        meta_effect = {
+    #            text = {
+    #                if = { limit = { NOT = { has_tech = [ITEM] } } 
+    #                    add_tech_bonus = { name=GRE_FM_screen_bonus bonus=[BONS] uses=1 technology=[ITEM] }
+    #                }
+    #            }
+    #            BONS = "[?fm_destroyer_bonus|.3]"
+    #            ITEM = "[GRE.GetNextDestroyer]"
+    #        }
+    #        meta_effect = {
+    #            text = {
+    #                if = { limit = { NOT = { has_tech = [ITEM] } } 
+    #                    add_tech_bonus = { name=GRE_FM_screen_bonus bonus=[BONS] uses=1 technology=[ITEM] }
+    #                }
+    #            }
+    #            BONS = "[?fm_destroyer_depth_bonus|.3]"
+    #            ITEM = "[GRE.GetNextDestrDepth]"
+    #        }
+    #        meta_effect = {
+    #            text = {
+    #                if = { limit = { NOT = { has_tech = [ITEM] } } 
+    #                    add_tech_bonus = { name=GRE_FM_screen_bonus bonus=[BONS] uses=1 technology=[ITEM] }
+    #                }
+    #            }
+    #            BONS = "[?fm_destroyer_sonar_bonus|.3]"
+    #            ITEM = "[GRE.GetNextDestrSonar]"
+    #        }
+    #        meta_effect = {
+    #            text = {
+    #                if = { limit = { NOT = { has_tech = [ITEM] } } 
+    #                    add_tech_bonus = { name=GRE_FM_screen_bonus bonus=[BONS] uses=1 technology=[ITEM] }
+    #                }
+    #            }
+    #            BONS = "[?fm_cruiser_bonus|.3]"
+    #            ITEM = "[GRE.GetNextCruiser]"
+    #        }
+    #        meta_effect = {
+    #            text = {
+    #                if = { limit = { NOT = { has_tech = [ITEM] } } 
+    #                    add_tech_bonus = { name=GRE_FM_screen_bonus bonus=[BONS] uses=1 technology=[ITEM] }
+    #                }
+    #            }
+    #            BONS = "[?fm_cruiser_catap_bonus|.3]"
+    #            ITEM = "[GRE.GetNextCruCatapult]"
+    #        }
+    #        meta_effect = {
+    #            text = {
+    #                if = { limit = { NOT = { has_tech = [ITEM] } } 
+    #                    add_tech_bonus = { name=GRE_FM_screen_bonus bonus=[BONS] uses=1 technology=[ITEM] }
+    #                }
+    #            }
+    #            BONS = "[?fm_cruiser_armor_bonus|.3]"
+    #            ITEM = "[GRE.GetNextCruArmor]"
+    #        }
+    #    }
+    #}
+    #
+    #GRE_foreign_manufacturer_naval_capital_investments = {
+    #    icon = generic_naval
+    #    on_map_mode = map_and_decisions_view
+    #    highlight_states = { highlight_states_trigger = { state = FROM.capital } }
+    #
+	#	allowed = { tag = GRE }
+    #    priority = 12
+    #    days_re_enable = 550
+    #    targets={ ENG JAP USA GER }
+    #    target_trigger={ FROM={ exists=yes NOT={ has_war_with=GRE }}}
+    #
+	#	available = {
+	#		date<1942.1.1
+	#		NOT={
+    #            custom_trigger_tooltip={
+    #                tooltip=GRE_favor_abysmal_from_tt
+    #                check_variable={ var=FROM.favor@GRE value=0 compare=less_than }
+    #            }
+	#		}
+    #        if={ limit={ has_completed_appropriate_fm_focuses=no } has_completed_appropriate_fm_focuses=yes }
+	#	}
+    #    
+	#	visible = {
+    #        NOT = { has_country_flag = toggle_fm }
+	#		has_completed_focus = GRE_open_up_the_country
+    #        has_axis_occupation=no
+    #        has_appropriate_naval_fm_selected = yes
+	#	}
+    #    
+    #    days_remove = 14
+    #    cost = 250
+    #
+	#	remove_effect = {
+    #        #[CAP Hull]#
+    #        if = {
+    #            limit = {
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [HEAV] }
+    #                        HEAV = "[GRE.GetNextHeavy]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { fm_heavy_bonus = 0.75 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { fm_heavy_bonus = 0.25 }
+    #        }
+    #        #[CAR Hull]#
+    #        if = {
+    #            limit = {
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [CAR] }
+    #                        CAR = "[GRE.GetNextCarrier]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { fm_carrier_bonus = 0.75 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { fm_carrier_bonus = 0.25 }
+    #        }
+    #        #[CAP SubTechs]#
+    #        if = {
+    #            limit = {
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextHvArmor]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { fm_capital_armor_bonus = 0.75 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { fm_capital_armor_bonus = 0.25 }
+    #        }
+    #        ###[Final Effects]###
+    #        meta_effect = {
+    #            text = {
+    #                if = { limit = { NOT = { has_tech = [ITEM] } } 
+    #                    add_tech_bonus = { name=GRE_FM_screen_bonus bonus=[BONS] uses=1 technology=[ITEM] }
+    #                }
+    #            }
+    #            BONS = "[?fm_heavy_bonus|.3]"
+    #            ITEM = "[GRE.GetNextHeavy]"
+    #        }
+    #        meta_effect = {
+    #            text = {
+    #                if = { limit = { NOT = { has_tech = [ITEM] } } 
+    #                    add_tech_bonus = { name=GRE_FM_screen_bonus bonus=[BONS] uses=1 technology=[ITEM] }
+    #                }
+    #            }
+    #            BONS = "[?fm_capital_armor_bonus|.3]"
+    #            ITEM = "[GRE.GetNextHvArmor]"
+    #        }
+    #        meta_effect = {
+    #            text = {
+    #                if = { limit = { NOT = { has_tech = [ITEM] } } 
+    #                    add_tech_bonus = { name=GRE_FM_screen_bonus bonus=[BONS] uses=1 technology=[ITEM] }
+    #                }
+    #            }
+    #            BONS = "[?fm_carrier_bonus|.3]"
+    #            ITEM = "[GRE.GetNextCarrier]"
+    #        }
+    #    }
+    #}
+    #
+    #GRE_foreign_manufacturer_naval_submarine_investments = {
+    #    icon = generic_naval
+    #    on_map_mode = map_and_decisions_view
+    #    highlight_states = { highlight_states_trigger = { state = FROM.capital } }
+    #
+	#	allowed = { tag = GRE }
+    #    priority = 12
+    #    days_re_enable = 550
+    #    targets={ ENG JAP USA GER }
+    #    target_trigger={ FROM={ exists=yes NOT={ has_war_with=GRE }}}
+    #
+	#	available = {
+	#		date<1942.1.1
+	#		NOT={
+    #            custom_trigger_tooltip={
+    #                tooltip=GRE_favor_abysmal_from_tt
+    #                check_variable={ var=FROM.favor@GRE value=0 compare=less_than }
+    #            }
+	#		}
+    #        if={ limit={ has_completed_appropriate_fm_focuses=no } has_completed_appropriate_fm_focuses=yes }
+	#	}
+    #    
+	#	visible = {
+    #        NOT = { has_country_flag = toggle_fm }
+    #        has_appropriate_naval_fm_selected = yes
+	#	}
+    #    
+    #    days_remove = 14
+    #    cost = 250
+    #
+	#	remove_effect = {
+    #        #[SUB Hull]#
+    #        if = {
+    #            limit = {
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [HEAV] }
+    #                        HEAV = "[GRE.GetNextSubmarine]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { fm_sub_bonus = 0.75 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { fm_sub_bonus = 0.25 }
+    #        }
+    #        #[SUB SubTechs]#
+    #        if = {
+    #            limit = {
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextSubSnorkel]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { fm_sub_snor_bonus = 0.75 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { fm_sub_snor_bonus = 0.25 }
+    #        }
+    #        if = {
+    #            limit = {
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextSubTorpedo]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { fm_sub_torp_bonus = 0.75 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { fm_sub_torp_bonus = 0.25 }
+    #        }
+    #        if = {
+    #            limit = {
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextSubMagn]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { fm_sub_magn_bonus = 0.75 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { fm_sub_magn_bonus = 0.25 }
+    #        }
+    #        if = {
+    #            limit = {
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextSubElectr]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { fm_sub_electr_bonus = 0.75 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { fm_sub_electr_bonus = 0.25 }
+    #        }
+    #        ###[Final Effects]###
+    #        meta_effect = {
+    #            text = {
+    #                if = { limit = { can_research = [ITEM] } 
+    #                    add_tech_bonus = { name=GRE_FM_screen_bonus bonus=[BONS] uses=1 technology=[ITEM] }
+    #                }
+    #            }
+    #            BONS = "[?fm_sub_bonus|.3]"
+    #            ITEM = "[GRE.GetNextSubmarine]"
+    #        }
+    #        meta_effect = {
+    #            text = {
+    #                if = { limit = { can_research = [ITEM] } 
+    #                    add_tech_bonus = { name=GRE_FM_screen_bonus bonus=[BONS] uses=1 technology=[ITEM] }
+    #                }
+    #            }
+    #            BONS = "[?fm_sub_snor_bonus|.3]"
+    #            ITEM = "[GRE.GetNextSubSnorkel]"
+    #        }
+    #        meta_effect = {
+    #            text = {
+    #                if = { limit = { can_research = [ITEM] } 
+    #                    add_tech_bonus = { name=GRE_FM_screen_bonus bonus=[BONS] uses=1 technology=[ITEM] }
+    #                }
+    #            }
+    #            BONS = "[?fm_sub_torp_bonus|.3]"
+    #            ITEM = "[GRE.GetNextSubTorpedo]"
+    #        }
+    #        meta_effect = {
+    #            text = {
+    #                if = { limit = { can_research = [ITEM] } 
+    #                    add_tech_bonus = { name=GRE_FM_screen_bonus bonus=[BONS] uses=1 technology=[ITEM] }
+    #                }
+    #            }
+    #            BONS = "[?fm_sub_magn_bonus|.3]"
+    #            ITEM = "[GRE.GetNextSubMagn]"
+    #        }
+    #        meta_effect = {
+    #            text = {
+    #                if = { limit = { can_research = [ITEM] } 
+    #                    add_tech_bonus = { name=GRE_FM_screen_bonus bonus=[BONS] uses=1 technology=[ITEM] }
+    #                }
+    #            }
+    #            BONS = "[?fm_sub_electr_bonus|.3]"
+    #            ITEM = "[GRE.GetNextSubElectr]"
+    #        }
+    #    }
+    #}
+    #
+    #GRE_foreign_manufacturer_naval_armament_investments = {
+    #    icon = generic_naval
+    #    on_map_mode = map_and_decisions_view
+    #    highlight_states = { highlight_states_trigger = { state = FROM.capital } }
+    #
+	#	allowed = { tag = GRE }
+    #    priority = 12
+    #    days_re_enable = 550
+    #    targets={ ENG JAP USA GER }
+    #    target_trigger={ FROM={ exists=yes NOT={ has_war_with=GRE }}}
+    #
+	#	available = {
+	#		date<1942.1.1
+	#		NOT={
+    #            custom_trigger_tooltip={
+    #                tooltip=GRE_favor_abysmal_from_tt
+    #                check_variable={ var=FROM.favor@GRE value=0 compare=less_than }
+    #            }
+	#		}
+    #        if={ limit={ has_completed_appropriate_fm_focuses=no } has_completed_appropriate_fm_focuses=yes }
+	#	}
+    #    
+	#	visible = {
+    #        NOT = { has_country_flag = toggle_fm }
+    #        has_appropriate_naval_fm_selected = yes
+	#	}
+    #    
+    #    days_remove = 14
+    #    cost = 250
+    #
+	#	remove_effect = {
+    #        if = {
+    #            limit = {
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextArmamentA]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { arm1 = 0.75 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { arm1 = 0.25 }
+    #        }
+    #        if = {
+    #            limit = {
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextArmamentASh]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { arm11 = 0.75 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { arm11 = 0.25 }
+    #        }
+    #        ###
+    #        if = {
+    #            limit = {
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextArmamentB]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { arm2 = 0.75 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { arm2 = 0.25 }
+    #        }
+    #        if = {
+    #            limit = {
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextArmamentBSh]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { arm21 = 0.75 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { arm21 = 0.25 }
+    #        }
+    #        ###
+    #        if = {
+    #            limit = {
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextArmamentC]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { arm3 = 0.75 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { arm3 = 0.25 }
+    #        }
+    #        if = {
+    #            limit = {
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextArmamentCSh]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { arm31 = 0.75 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { arm31 = 0.25 }
+    #        }
+    #        ###
+    #        if = {
+    #            limit = {
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextArmamentD]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { arm4 = 0.75 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { arm4 = 0.25 }
+    #        }
+    #        ###[Final Effects]###
+    #        meta_effect = {
+    #            text = {
+    #                if = { limit = { can_research = [ITEM] } 
+    #                    add_tech_bonus = { name=GRE_FM_screen_bonus bonus=[BONS] uses=1 technology=[ITEM] }
+    #                }
+    #            }
+    #            BONS = "[?arm1|.3]"
+    #            ITEM = "[GRE.GetNextArmamentA]"
+    #        }
+    #        meta_effect = {
+    #            text = {
+    #                if = { limit = { can_research = [ITEM] } 
+    #                    add_tech_bonus = { name=GRE_FM_screen_bonus bonus=[BONS] uses=1 technology=[ITEM] }
+    #                }
+    #            }
+    #            BONS = "[?arm11|.3]"
+    #            ITEM = "[GRE.GetNextArmamentASh]"
+    #        }
+    #        meta_effect = {
+    #            text = {
+    #                if = { limit = { can_research = [ITEM] } 
+    #                    add_tech_bonus = { name=GRE_FM_screen_bonus bonus=[BONS] uses=1 technology=[ITEM] }
+    #                }
+    #            }
+    #            BONS = "[?arm2|.3]"
+    #            ITEM = "[GRE.GetNextArmamentB]"
+    #        }
+    #        meta_effect = {
+    #            text = {
+    #                if = { limit = { can_research = [ITEM] } 
+    #                    add_tech_bonus = { name=GRE_FM_screen_bonus bonus=[BONS] uses=1 technology=[ITEM] }
+    #                }
+    #            }
+    #            BONS = "[?arm21|.3]"
+    #            ITEM = "[GRE.GetNextArmamentBSh]"
+    #        }
+    #        meta_effect = {
+    #            text = {
+    #                if = { limit = { can_research = [ITEM] } 
+    #                    add_tech_bonus = { name=GRE_FM_screen_bonus bonus=[BONS] uses=1 technology=[ITEM] }
+    #                }
+    #            }
+    #            BONS = "[?arm3|.3]"
+    #            ITEM = "[GRE.GetNextArmamentC]"
+    #        }
+    #        meta_effect = {
+    #            text = {
+    #                if = { limit = { can_research = [ITEM] } 
+    #                    add_tech_bonus = { name=GRE_FM_screen_bonus bonus=[BONS] uses=1 technology=[ITEM] }
+    #                }
+    #            }
+    #            BONS = "[?arm31|.3]"
+    #            ITEM = "[GRE.GetNextArmamentCSh]"
+    #        }
+    #        meta_effect = {
+    #            text = {
+    #                if = { limit = { can_research = [ITEM] } 
+    #                    add_tech_bonus = { name=GRE_FM_screen_bonus bonus=[BONS] uses=1 technology=[ITEM] }
+    #                }
+    #            }
+    #            BONS = "[?arm4|.3]"
+    #            ITEM = "[GRE.GetNextArmamentD]"
+    #        }
+    #    }
+    #}
+    #
+    #GRE_foreign_manufacturer_naval_misc_investments = {
+    #    icon = generic_naval
+    #    on_map_mode = map_and_decisions_view
+    #    highlight_states = { highlight_states_trigger = { state = FROM.capital } }
+    #
+	#	allowed = { tag = GRE }
+    #    priority = 12
+    #    days_re_enable = 550
+    #    targets={ ENG JAP USA GER }
+    #    target_trigger={ FROM={ exists=yes NOT={ has_war_with=GRE }}}
+    #
+	#	available = {
+	#		date<1942.1.1
+	#		NOT={
+    #            custom_trigger_tooltip={
+    #                tooltip=GRE_favor_abysmal_from_tt
+    #                check_variable={ var=FROM.favor@GRE value=0 compare=less_than }
+    #            }
+	#		}
+    #        if={ limit={ has_completed_appropriate_fm_focuses=no } has_completed_appropriate_fm_focuses=yes }
+	#	}
+    #    
+	#	visible = {
+    #        NOT = { has_country_flag = toggle_fm }
+    #        has_appropriate_naval_fm_selected = yes
+	#	}
+    #    
+    #    days_remove = 14
+    #    cost = 250
+    #
+	#	remove_effect = {
+    #        if = {
+    #            limit = {
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextDamageControl]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { arm1 = 0.75 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { arm1 = 0.25 }
+    #        }
+    #        if = {
+    #            limit = {
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextFireControl]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { arm2 = 0.75 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { arm2 = 0.25 }
+    #        }
+    #        ###
+    #        if = {
+    #            limit = {
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextTransport]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { arm3 = 0.75 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { arm3 = 0.25 }
+    #        }
+    #        if = {
+    #            limit = {
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextMine]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { arm4 = 0.75 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { arm4 = 0.25 }
+    #        }
+    #        ###
+    #        if = {
+    #            limit = {
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextMineSub]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { arm5 = 0.75 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { arm5 = 0.25 }
+    #        }
+    #        if = {
+    #            limit = {
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextMineA]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { arm41 = 0.75 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { arm41 = 0.25 }
+    #        }
+    #        ###
+    #        if = {
+    #            limit = {
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextMineB]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { arm42 = 0.75 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { arm42 = 0.25 }
+    #        }
+    #        ###
+    #        if = {
+    #            limit = {
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextMineC]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { arm43 = 0.75 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { arm43 = 0.25 }
+    #        }
+    #        ###[Final Effects]###
+    #        meta_effect = {
+    #            text = {
+    #                if = { limit = { can_research = [ITEM] } 
+    #                    add_tech_bonus = { name=GRE_FM_screen_bonus bonus=[BONS] uses=1 technology=[ITEM] }
+    #                }
+    #            }
+    #            BONS = "[?arm1|.3]"
+    #            ITEM = "[GRE.GetNextDamageControl]"
+    #        }
+    #        meta_effect = {
+    #            text = {
+    #                if = { limit = { can_research = [ITEM] } 
+    #                    add_tech_bonus = { name=GRE_FM_screen_bonus bonus=[BONS] uses=1 technology=[ITEM] }
+    #                }
+    #            }
+    #            BONS = "[?arm2|.3]"
+    #            ITEM = "[GRE.GetNextFireControl]"
+    #        }
+    #        meta_effect = {
+    #            text = {
+    #                if = { limit = { can_research = [ITEM] } 
+    #                    add_tech_bonus = { name=GRE_FM_screen_bonus bonus=[BONS] uses=1 technology=[ITEM] }
+    #                }
+    #            }
+    #            BONS = "[?arm3|.3]"
+    #            ITEM = "[GRE.GetNextTransport]"
+    #        }
+    #        meta_effect = {
+    #            text = {
+    #                if = { limit = { can_research = [ITEM] } 
+    #                    add_tech_bonus = { name=GRE_FM_screen_bonus bonus=[BONS] uses=1 technology=[ITEM] }
+    #                }
+    #            }
+    #            BONS = "[?arm4|.3]"
+    #            ITEM = "[GRE.GetNextMine]"
+    #        }
+    #        meta_effect = {
+    #            text = {
+    #                if = { limit = { can_research = [ITEM] } 
+    #                    add_tech_bonus = { name=GRE_FM_screen_bonus bonus=[BONS] uses=1 technology=[ITEM] }
+    #                }
+    #            }
+    #            BONS = "[?arm41|.3]"
+    #            ITEM = "[GRE.GetNextMineA]"
+    #        }
+    #        meta_effect = {
+    #            text = {
+    #                if = { limit = { can_research = [ITEM] } 
+    #                    add_tech_bonus = { name=GRE_FM_screen_bonus bonus=[BONS] uses=1 technology=[ITEM] }
+    #                }
+    #            }
+    #            BONS = "[?arm42|.3]"
+    #            ITEM = "[GRE.GetNextMineB]"
+    #        }
+    #        meta_effect = {
+    #            text = {
+    #                if = { limit = { can_research = [ITEM] } 
+    #                    add_tech_bonus = { name=GRE_FM_screen_bonus bonus=[BONS] uses=1 technology=[ITEM] }
+    #                }
+    #            }
+    #            BONS = "[?arm43|.3]"
+    #            ITEM = "[GRE.GetNextMineC]"
+    #        }
+    #        meta_effect = {
+    #            text = {
+    #                if = { limit = { can_research = [ITEM] } 
+    #                    add_tech_bonus = { name=GRE_FM_screen_bonus bonus=[BONS] uses=1 technology=[ITEM] }
+    #                }
+    #            }
+    #            BONS = "[?arm5|.3]"
+    #            ITEM = "[GRE.GetNextMineSub]"
+    #        }
+    #    }
+    #}
+    #
+    #GRE_foreign_manufacturer_naval_doctrine_investments = {
+    #    icon = generic_naval
+    #    on_map_mode = map_and_decisions_view
+    #    highlight_states = { highlight_states_trigger = { state = FROM.capital } }
+    #
+	#	allowed = { tag = GRE }
+    #    priority = 12
+    #    days_re_enable = 550
+    #    targets={ ENG JAP USA GER }
+    #    target_trigger={ FROM={ exists=yes NOT={ has_war_with=GRE }}}
+    #
+	#	available = {
+	#		date<1942.1.1
+	#		NOT={
+    #            custom_trigger_tooltip={
+    #                tooltip=GRE_favor_abysmal_from_tt
+    #                check_variable={ var=FROM.favor@GRE value=0 compare=less_than }
+    #            }
+	#		}
+    #        if={ limit={ has_completed_appropriate_fm_focuses=no } has_completed_appropriate_fm_focuses=yes }
+	#	}
+    #    
+	#	visible = {
+    #        NOT = { has_country_flag = toggle_fm }
+    #        has_appropriate_naval_fm_selected = yes
+	#	}
+    #    
+    #    days_remove = 14
+    #    cost = 250
+    #
+	#	remove_effect = {
+    #        if = {
+    #            limit = {
+    #                meta_trigger = {
+    #                    text = { 
+    #                        FROM = { has_tech = [ITEM] }
+    #                    }
+    #                    ITEM = "[GRE.GetNextDoctrA]"
+    #                }
+    #            }
+    #            set_temp_variable = { arm1 = 0.5 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { arm1 = 0.15 }
+    #        }
+    #        if = {
+    #            limit = {
+    #                meta_trigger = {
+    #                    text = { 
+    #                        FROM = { has_tech = [ITEM] }
+    #                    }
+    #                    ITEM = "[GRE.GetNextDoctrB]"
+    #                }
+    #            }
+    #            set_temp_variable = { arm2 = 0.5 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { arm2 = 0.15 }
+    #        }
+    #        ###
+    #        if = {
+    #            limit = {
+    #                meta_trigger = {
+    #                    text = { 
+    #                        FROM = { has_tech = [ITEM] }
+    #                    }
+    #                    ITEM = "[GRE.GetNextDoctrC]"
+    #                }
+    #            }
+    #            set_temp_variable = { arm3 = 0.5 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { arm3 = 0.15 }
+    #        }
+    #        ###
+    #        ###[Final Effects]###
+    #        meta_effect = {
+    #            text = {
+    #                if = { limit = { can_research = [ITEM] }
+    #                    add_doctrine_cost_reduction = { name=GRE_FM_doctrine_bonus cost_reduction=[BONS] uses=1 technology=[ITEM] }
+    #                }
+    #            }
+    #            BONS = "[?arm1|.3]"
+    #            ITEM = "[GetNextDoctrA]"
+    #        }
+    #        meta_effect = {
+    #            text = {
+    #                if = { limit = { can_research = [ITEM] } 
+    #                    add_doctrine_cost_reduction = { name=GRE_FM_doctrine_bonus cost_reduction=[BONS] uses=1 technology=[ITEM] }
+    #                }
+    #            }
+    #            BONS = "[?arm2|.3]"
+    #            ITEM = "[GRE.GetNextDoctrB]"
+    #        }
+    #        meta_effect = {
+    #            text = {
+    #                if = { limit = { can_research = [ITEM] } 
+    #                    add_doctrine_cost_reduction = { name=GRE_FM_doctrine_bonus cost_reduction=[BONS] uses=1 technology=[ITEM] }
+    #                }
+    #            }
+    #            BONS = "[?arm3|.3]"
+    #            ITEM = "[GRE.GetNextDoctrC]"
+    #        }
+    #    }
+    #}
+    #
+    #GRE_foreign_manufacturer_small_airframe_investments = {
+    #    on_map_mode = map_and_decisions_view
+    #    highlight_states = { highlight_states_trigger = { state = FROM.capital } }
+    #    
+    #    icon = generic_air
+	#	allowed = { tag = GRE }
+    #    priority = 12
+    #    days_re_enable = 550
+    #    targets={ GER FRA ENG SOV JAP USA }
+    #    target_trigger={ FROM={ exists=yes NOT={ has_war_with=GRE }}}
+    #
+	#	available = {
+	#		date<1942.1.1
+	#		NOT={
+    #            custom_trigger_tooltip={
+    #                tooltip=GRE_favor_abysmal_from_tt
+    #                check_variable={ var=FROM.favor@GRE value=0 compare=less_than }
+    #            }
+	#		}
+    #        if={ limit={ has_completed_appropriate_fm_focuses=no } has_completed_appropriate_fm_focuses=yes }
+	#	}
+    #    
+	#	visible = {
+    #        NOT = { has_country_flag = toggle_fm }
+    #        has_appropriate_aircraft_fm_selected = yes
+	#	}
+    #    
+    #    days_remove = 14
+    #    cost = 25
+    #
+	#	remove_effect = {
+    #        #####################[Domestic Competition Limits]####################
+    #        if = {
+    #            limit = { has_idea = GRE_domestic_competition_0_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.60 }
+    #        }
+    #        else_if = {
+    #            limit = { has_idea = GRE_domestic_competition_1_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.40 }
+    #        }
+    #        else_if = {
+    #            limit = { has_idea = GRE_domestic_competition_2_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.10 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { bonus_from_domcom_level = 0.00 }
+    #        }
+    #        ########################[FROM Has Tech Bonus]########################
+    #        if = {
+    #            limit = { 
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextSmallAirframe]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { bonus_from_researched_tech = 0.4 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { bonus_from_researched_tech = 0.1 }
+    #        }
+    #        ##########################[Country Bonuses]##########################
+    #        if = { 
+    #            limit = { FROM = { original_tag = GER } }
+    #            set_temp_variable = { bonus_from_country = 0.06 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = SOV } }
+    #            set_temp_variable = { bonus_from_country = 0.02 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = FRA } }
+    #            set_temp_variable = { bonus_from_country = 0.02 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = ENG } }
+    #            set_temp_variable = { bonus_from_country = 0.12 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = USA } }
+    #            set_temp_variable = { bonus_from_country = 0.10 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = ITA } }
+    #            set_temp_variable = { bonus_from_country = 0.06 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = JAP } }
+    #            set_temp_variable = { bonus_from_country = 0.06 }
+    #        }
+    #        add_bonuses_to_sum = yes
+    #        meta_effect = {
+    #            text = { add_tech_bonus = { name=GRE_FM_aircraft_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] } }
+    #            BONUS_SUM = "[?sum|.3]"
+    #            ITEM = "[GRE.GetNextSmallAirframe]"
+    #        }
+    #    }
+    #}
+    #
+    #GRE_foreign_manufacturer_medium_airframe_investments = {
+    #    on_map_mode = map_and_decisions_view
+    #    highlight_states = { highlight_states_trigger = { state = FROM.capital } }
+    #    
+    #    icon = generic_air
+	#	allowed = { tag = GRE }
+    #    priority = 12
+    #    days_re_enable = 550
+    #    targets={ GER FRA ENG SOV JAP USA }
+    #    target_trigger={ FROM={ exists=yes NOT={ has_war_with=GRE }}}
+    #
+	#	available = {
+	#		date<1942.1.1
+	#		NOT={
+    #            custom_trigger_tooltip={
+    #                tooltip=GRE_favor_abysmal_from_tt
+    #                check_variable={ var=FROM.favor@GRE value=0 compare=less_than }
+    #            }
+	#		}
+    #        if={ limit={ has_completed_appropriate_fm_focuses=no } has_completed_appropriate_fm_focuses=yes }
+	#	}
+    #    
+	#	visible = {
+    #        NOT = { has_country_flag = toggle_fm }
+    #        has_appropriate_aircraft_fm_selected = yes
+	#	}
+    #    
+    #    days_remove = 14
+    #    cost = 25
+    #
+	#	remove_effect = {
+    #        #####################[Domestic Competition Limits]####################
+    #        if = {
+    #            limit = { has_idea = GRE_domestic_competition_0_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.60 }
+    #        }
+    #        else_if = {
+    #            limit = { has_idea = GRE_domestic_competition_1_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.40 }
+    #        }
+    #        else_if = {
+    #            limit = { has_idea = GRE_domestic_competition_2_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.10 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { bonus_from_domcom_level = 0.00 }
+    #        }
+    #        ########################[FROM Has Tech Bonus]########################
+    #        if = {
+    #            limit = { 
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextMediumAirframe]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { bonus_from_researched_tech = 0.4 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { bonus_from_researched_tech = 0.1 }
+    #        }
+    #        ##########################[Country Bonuses]##########################
+    #        if = { 
+    #            limit = { FROM = { original_tag = GER } }
+    #            set_temp_variable = { bonus_from_country = 0.08 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = SOV } }
+    #            set_temp_variable = { bonus_from_country = 0.06 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = FRA } }
+    #            set_temp_variable = { bonus_from_country = 0.06 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = ENG } }
+    #            set_temp_variable = { bonus_from_country = 0.10 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = USA } }
+    #            set_temp_variable = { bonus_from_country = 0.12 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = ITA } }
+    #            set_temp_variable = { bonus_from_country = 0.02 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = JAP } }
+    #            set_temp_variable = { bonus_from_country = 0.02 }
+    #        }
+    #        add_bonuses_to_sum = yes
+    #        meta_effect = {
+    #            text = { add_tech_bonus = { name=GRE_FM_aircraft_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] } }
+    #            BONUS_SUM = "[?sum|.3]"
+    #            ITEM = "[GRE.GetNextMediumAirframe]"
+    #        }
+    #    }
+    #}
+    #
+    #GRE_foreign_manufacturer_large_airframe_investments = {
+    #    on_map_mode = map_and_decisions_view
+    #    highlight_states = { highlight_states_trigger = { state = FROM.capital } }
+    #    
+    #    icon = generic_air
+	#	allowed = { tag = GRE }
+    #    priority = 12
+    #    days_re_enable = 550
+    #    targets={ GER FRA ENG SOV JAP USA }
+    #    target_trigger={ FROM={ exists=yes NOT={ has_war_with=GRE }}}
+    #
+	#	available = {
+	#		date<1942.1.1
+	#		NOT={
+    #            custom_trigger_tooltip={
+    #                tooltip=GRE_favor_abysmal_from_tt
+    #                check_variable={ var=FROM.favor@GRE value=0 compare=less_than }
+    #            }
+	#		}
+    #        if={ limit={ has_completed_appropriate_fm_focuses=no } has_completed_appropriate_fm_focuses=yes }
+	#	}
+    #    
+	#	visible = {
+    #        NOT = { has_country_flag = toggle_fm }
+    #        has_appropriate_aircraft_fm_selected = yes
+	#	}
+    #    
+    #    days_remove = 14
+    #    cost = 25
+    #
+	#	remove_effect = {
+    #        #####################[Domestic Competition Limits]####################
+    #        if = {
+    #            limit = { has_idea = GRE_domestic_competition_0_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.60 }
+    #        }
+    #        else_if = {
+    #            limit = { has_idea = GRE_domestic_competition_1_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.40 }
+    #        }
+    #        else_if = {
+    #            limit = { has_idea = GRE_domestic_competition_2_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.10 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { bonus_from_domcom_level = 0.00 }
+    #        }
+    #        ########################[FROM Has Tech Bonus]########################
+    #        if = {
+    #            limit = { 
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextLargeAirframe]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { bonus_from_researched_tech = 0.4 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { bonus_from_researched_tech = 0.1 }
+    #        }
+    #        ##########################[Country Bonuses]##########################
+    #        if = { 
+    #            limit = { FROM = { original_tag = GER } }
+    #            set_temp_variable = { bonus_from_country = 0.04 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = SOV } }
+    #            set_temp_variable = { bonus_from_country = 0.06 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = FRA } }
+    #            set_temp_variable = { bonus_from_country = 0.08 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = ENG } }
+    #            set_temp_variable = { bonus_from_country = 0.12 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = USA } }
+    #            set_temp_variable = { bonus_from_country = 0.12 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = ITA } }
+    #            set_temp_variable = { bonus_from_country = 0.02 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = JAP } }
+    #            set_temp_variable = { bonus_from_country = 0.01 }
+    #        }
+    #        add_bonuses_to_sum = yes
+    #        meta_effect = {
+    #            text = { add_tech_bonus = { name=GRE_FM_aircraft_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] } }
+    #            BONUS_SUM = "[?sum|.3]"
+    #            ITEM = "[GRE.GetNextLargeAirframe]"
+    #        }
+    #    }
+    #}
+    #
+    ####################################################################################################
+    #
+    #GRE_foreign_manufacturer_infwep_investments = {
+    #    on_map_mode = map_and_decisions_view
+    #    highlight_states = { highlight_states_trigger = { state = FROM.capital } }
+    #    
+    #    icon = generic_air
+	#	allowed = { tag = GRE }
+    #    priority = 12
+    #    days_re_enable = 550
+    #    targets={ GER ENG SOV }
+    #    target_trigger={ FROM={ exists=yes NOT={ has_war_with=GRE }}}
+    #
+	#	available = {
+	#		date<1942.1.1
+	#		NOT={
+    #            custom_trigger_tooltip={
+    #                tooltip=GRE_favor_abysmal_from_tt
+    #                check_variable={ var=FROM.favor@GRE value=0 compare=less_than }
+    #            }
+	#		}
+    #        if={ limit={ has_completed_appropriate_fm_focuses=no } has_completed_appropriate_fm_focuses=yes }
+	#	}
+    #    
+	#	visible = {
+    #        NOT = { has_country_flag = toggle_fm }
+    #        has_appropriate_materiel_infeq_fm_selected = yes
+	#	}
+    #    
+    #    days_remove = 14
+    #    cost = 25
+    #
+	#	remove_effect = {
+    #        #####################[Domestic Competition Limits]####################
+    #        if = {
+    #            limit = { has_idea = GRE_domestic_competition_0_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.60 }
+    #        }
+    #        else_if = {
+    #            limit = { has_idea = GRE_domestic_competition_1_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.40 }
+    #        }
+    #        else_if = {
+    #            limit = { has_idea = GRE_domestic_competition_2_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.10 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { bonus_from_domcom_level = 0.00 }
+    #        }
+    #        ########################[FROM Has Tech Bonus]########################
+    #        if = {
+    #            limit = { 
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextInfEq]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { bonus_from_researched_tech = 0.4 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { bonus_from_researched_tech = 0.1 }
+    #        }
+    #        ##########################[Country Bonuses]##########################
+    #        if = { 
+    #            limit = { FROM = { original_tag = GER } }
+    #            set_temp_variable = { bonus_from_country = 0.12 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = SOV } }
+    #            set_temp_variable = { bonus_from_country = 0.12 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = ENG } }
+    #            set_temp_variable = { bonus_from_country = 0.12 }
+    #        }
+    #        add_bonuses_to_sum = yes
+    #        meta_effect = {
+    #            text = { add_tech_bonus = { name=GRE_FM_infeq_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] } }
+    #            BONUS_SUM = "[?sum|.3]"
+    #            ITEM = "[GRE.GetNextInfEq]"
+    #        }
+    #    }
+    #}
+    #
+    #GRE_foreign_manufacturer_mot_investments = {
+    #    on_map_mode = map_and_decisions_view
+    #    highlight_states = { highlight_states_trigger = { state = FROM.capital } }
+    #    
+    #    icon = generic_air
+	#	allowed = { tag = GRE }
+    #    priority = 12
+    #    days_re_enable = 550
+    #    targets={ ITA JAP }
+    #    target_trigger={ FROM={ exists=yes NOT={ has_war_with=GRE }}}
+    #
+	#	available = {
+	#		date<1942.1.1
+	#		NOT={
+    #            custom_trigger_tooltip={
+    #                tooltip=GRE_favor_abysmal_from_tt
+    #                check_variable={ var=FROM.favor@GRE value=0 compare=less_than }
+    #            }
+	#		}
+    #        if={ limit={ has_completed_appropriate_fm_focuses=no } has_completed_appropriate_fm_focuses=yes }
+	#	}
+    #    
+	#	visible = {
+    #        NOT = { has_country_flag = toggle_fm }
+    #        has_appropriate_materiel_mot_fm_selected = yes
+	#	}
+    #    
+    #    days_remove = 14
+    #    cost = 25
+    #
+	#	remove_effect = {
+    #        #####################[Domestic Competition Limits]####################
+    #        if = {
+    #            limit = { has_idea = GRE_domestic_competition_0_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.60 }
+    #        }
+    #        else_if = {
+    #            limit = { has_idea = GRE_domestic_competition_1_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.40 }
+    #        }
+    #        else_if = {
+    #            limit = { has_idea = GRE_domestic_competition_2_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.10 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { bonus_from_domcom_level = 0.00 }
+    #        }
+    #        ########################[FROM Has Tech Bonus]########################
+    #        if = {
+    #            limit = { 
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextTruck]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { bonus_from_researched_tech = 0.4 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { bonus_from_researched_tech = 0.1 }
+    #        }
+    #        ##########################[Country Bonuses]##########################
+    #        if = { 
+    #            limit = { FROM = { original_tag = JAP } }
+    #            set_temp_variable = { bonus_from_country = 0.12 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = ITA } }
+    #            set_temp_variable = { bonus_from_country = 0.12 }
+    #        }
+    #        add_bonuses_to_sum = yes
+    #        meta_effect = {
+    #            text = { add_tech_bonus = { name=GRE_FM_mot_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] } }
+    #            BONUS_SUM = "[?sum|.3]"
+    #            ITEM = "[GRE.GetNextTruck]"
+    #        }
+    #    }
+    #}
+    #
+    #GRE_foreign_manufacturer_art_investments = {
+    #    on_map_mode = map_and_decisions_view
+    #    highlight_states = { highlight_states_trigger = { state = FROM.capital } }
+    #    
+    #    icon = artillery
+	#	allowed = { tag = GRE }
+    #    priority = 12
+    #    days_re_enable = 550
+    #    targets={ GER FRA SOV USA }
+    #    target_trigger={ FROM={ exists=yes NOT={ has_war_with=GRE }}}
+    #
+	#	available = {
+	#		date<1942.1.1
+	#		NOT={
+    #            custom_trigger_tooltip={
+    #                tooltip=GRE_favor_abysmal_from_tt
+    #                check_variable={ var=FROM.favor@GRE value=0 compare=less_than }
+    #            }
+	#		}
+    #        if={ limit={ has_completed_appropriate_fm_focuses=no } has_completed_appropriate_fm_focuses=yes }
+	#	}
+    #    
+	#	visible = {
+    #        NOT = { has_country_flag = toggle_fm }
+    #        has_appropriate_materiel_art_fm_selected = yes
+	#	}
+    #    
+    #    days_remove = 14
+    #    cost = 25
+    #
+	#	remove_effect = {
+    #        #####################[Domestic Competition Limits]####################
+    #        if = {
+    #            limit = { has_idea = GRE_domestic_competition_0_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.60 }
+    #        }
+    #        else_if = {
+    #            limit = { has_idea = GRE_domestic_competition_1_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.40 }
+    #        }
+    #        else_if = {
+    #            limit = { has_idea = GRE_domestic_competition_2_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.10 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { bonus_from_domcom_level = 0.00 }
+    #        }
+    #        ########################[FROM Has Tech Bonus]########################
+    #        if = {
+    #            limit = { 
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextArt]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { bonus_from_researched_tech = 0.4 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { bonus_from_researched_tech = 0.1 }
+    #        }
+    #        ##########################[Country Bonuses]##########################
+    #        if = { 
+    #            limit = { FROM = { original_tag = GER } }
+    #            set_temp_variable = { bonus_from_country = 0.12 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = USA } }
+    #            set_temp_variable = { bonus_from_country = 0.12 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = FRA } }
+    #            set_temp_variable = { bonus_from_country = 0.08 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = SOV } }
+    #            set_temp_variable = { bonus_from_country = 0.12 }
+    #        }
+    #        add_bonuses_to_sum = yes
+    #        meta_effect = {
+    #            text = { add_tech_bonus = { name=GRE_FM_art_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] } }
+    #            BONUS_SUM = "[?sum|.3]"
+    #            ITEM = "[GRE.GetNextArt]"
+    #        }
+    #    }
+    #}
+    #
+    #GRE_foreign_manufacturer_at_investments = {
+    #    on_map_mode = map_and_decisions_view
+    #    highlight_states = { highlight_states_trigger = { state = FROM.capital } }
+    #    
+    #    icon = artillery
+	#	allowed = { tag = GRE }
+    #    priority = 12
+    #    days_re_enable = 550
+    #    targets={ GER FRA SOV USA }
+    #    target_trigger={ FROM={ exists=yes NOT={ has_war_with=GRE }}}
+    #
+	#	available = {
+	#		date<1942.1.1
+	#		NOT={
+    #            custom_trigger_tooltip={
+    #                tooltip=GRE_favor_abysmal_from_tt
+    #                check_variable={ var=FROM.favor@GRE value=0 compare=less_than }
+    #            }
+	#		}
+    #        if={ limit={ has_completed_appropriate_fm_focuses=no } has_completed_appropriate_fm_focuses=yes }
+	#	}
+    #    
+	#	visible = {
+    #        NOT = { has_country_flag = toggle_fm }
+    #        has_appropriate_materiel_art_fm_selected = yes
+	#	}
+    #    
+    #    days_remove = 14
+    #    cost = 25
+    #
+	#	remove_effect = {
+    #        #####################[Domestic Competition Limits]####################
+    #        if = {
+    #            limit = { has_idea = GRE_domestic_competition_0_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.60 }
+    #        }
+    #        else_if = {
+    #            limit = { has_idea = GRE_domestic_competition_1_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.40 }
+    #        }
+    #        else_if = {
+    #            limit = { has_idea = GRE_domestic_competition_2_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.10 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { bonus_from_domcom_level = 0.00 }
+    #        }
+    #        ########################[FROM Has Tech Bonus]########################
+    #        if = {
+    #            limit = { 
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextAT]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { bonus_from_researched_tech = 0.4 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { bonus_from_researched_tech = 0.1 }
+    #        }
+    #        ##########################[Country Bonuses]##########################
+    #        if = { 
+    #            limit = { FROM = { original_tag = GER } }
+    #            set_temp_variable = { bonus_from_country = 0.12 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = USA } }
+    #            set_temp_variable = { bonus_from_country = 0.08 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = FRA } }
+    #            set_temp_variable = { bonus_from_country = 0.06 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = SOV } }
+    #            set_temp_variable = { bonus_from_country = 0.12 }
+    #        }
+    #        add_bonuses_to_sum = yes
+    #        meta_effect = {
+    #            text = { add_tech_bonus = { name=GRE_FM_at_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] } }
+    #            BONUS_SUM = "[?sum|.3]"
+    #            ITEM = "[GRE.GetNextAT]"
+    #        }
+    #    }
+    #}
+    #
+    #GRE_foreign_manufacturer_aa_investments = {
+    #    on_map_mode = map_and_decisions_view
+    #    highlight_states = { highlight_states_trigger = { state = FROM.capital } }
+    #    
+    #    icon = artillery
+	#	allowed = { tag = GRE }
+    #    priority = 12
+    #    days_re_enable = 550
+    #    targets={ GER FRA SOV USA }
+    #    target_trigger={ FROM={ exists=yes NOT={ has_war_with=GRE }}}
+    #
+	#	available = {
+	#		date<1942.1.1
+	#		NOT={
+    #            custom_trigger_tooltip={
+    #                tooltip=GRE_favor_abysmal_from_tt
+    #                check_variable={ var=FROM.favor@GRE value=0 compare=less_than }
+    #            }
+	#		}
+    #        if={ limit={ has_completed_appropriate_fm_focuses=no } has_completed_appropriate_fm_focuses=yes }
+	#	}
+    #    
+	#	visible = {
+    #        NOT = { has_country_flag = toggle_fm }
+    #        has_appropriate_materiel_art_fm_selected = yes
+	#	}
+    #    
+    #    days_remove = 14
+    #    cost = 25
+    #
+	#	remove_effect = {
+    #        #####################[Domestic Competition Limits]####################
+    #        if = {
+    #            limit = { has_idea = GRE_domestic_competition_0_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.60 }
+    #        }
+    #        else_if = {
+    #            limit = { has_idea = GRE_domestic_competition_1_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.40 }
+    #        }
+    #        else_if = {
+    #            limit = { has_idea = GRE_domestic_competition_2_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.10 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { bonus_from_domcom_level = 0.00 }
+    #        }
+    #        ########################[FROM Has Tech Bonus]########################
+    #        if = {
+    #            limit = { 
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextAA]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { bonus_from_researched_tech = 0.4 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { bonus_from_researched_tech = 0.1 }
+    #        }
+    #        ##########################[Country Bonuses]##########################
+    #        if = { 
+    #            limit = { FROM = { original_tag = GER } }
+    #            set_temp_variable = { bonus_from_country = 0.16 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = USA } }
+    #            set_temp_variable = { bonus_from_country = 0.10 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = FRA } }
+    #            set_temp_variable = { bonus_from_country = 0.08 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = SOV } }
+    #            set_temp_variable = { bonus_from_country = 0.08 }
+    #        }
+    #        add_bonuses_to_sum = yes
+    #        meta_effect = {
+    #            text = { add_tech_bonus = { name=GRE_FM_aa_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] } }
+    #            BONUS_SUM = "[?sum|.3]"
+    #            ITEM = "[GRE.GetNextAA]"
+    #        }
+    #    }
+    #}
+    #
+    #GRE_foreign_manufacturer_ind_tools_investments = {
+    #    on_map_mode = map_and_decisions_view
+    #    highlight_states = { highlight_states_trigger = { state = FROM.capital } }
+    #    
+    #    icon = generic_industry
+	#	allowed = { tag = GRE }
+    #    priority = 12
+    #    days_re_enable = 550
+    #    targets={ GER SOV }
+    #    target_trigger={ FROM={ exists=yes NOT={ has_war_with=GRE }}}
+    #
+	#	available = {
+	#		date<1942.1.1
+	#		NOT={
+    #            custom_trigger_tooltip={
+    #                tooltip=GRE_favor_abysmal_from_tt
+    #                check_variable={ var=FROM.favor@GRE value=0 compare=less_than }
+    #            }
+	#		}
+    #        if={ limit={ has_completed_appropriate_fm_focuses=no } has_completed_appropriate_fm_focuses=yes }
+	#	}
+    #    
+	#	visible = {
+    #        NOT = { has_country_flag = toggle_fm }
+    #        has_appropriate_industrial_fm_selected = yes  
+	#	}
+    #    
+    #    days_remove = 14
+    #    cost = 25
+    #
+	#	remove_effect = {
+    #        #####################[Domestic Competition Limits]####################
+    #        if = {
+    #            limit = { has_idea = GRE_domestic_competition_0_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.00 }
+    #        }
+    #        else_if = {
+    #            limit = { has_idea = GRE_domestic_competition_1_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.00 }
+    #        }
+    #        else_if = {
+    #            limit = { has_idea = GRE_domestic_competition_2_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.00 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { bonus_from_domcom_level = 0.00 }
+    #        }
+    #        ########################[FROM Has Tech Bonus]########################
+    #        if = {
+    #            limit = { 
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextIndTools]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { bonus_from_researched_tech = 0.4 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { bonus_from_researched_tech = 0.1 }
+    #        }
+    #        ##########################[Country Bonuses]##########################
+    #        if = { 
+    #            limit = { FROM = { original_tag = GER } }
+    #            set_temp_variable = { bonus_from_country = 0.10 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = SOV } }
+    #            set_temp_variable = { bonus_from_country = 0.10 }
+    #        }
+    #        add_bonuses_to_sum = yes
+    #        meta_effect = {
+    #            text = { add_tech_bonus = { name=GRE_FM_industrial_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] } }
+    #            BONUS_SUM = "[?sum|.3]"
+    #            ITEM = "[GRE.GetNextIndTools]"
+    #        }
+    #    }
+    #}
+    #
+    #GRE_foreign_manufacturer_industry_investments = {
+    #    on_map_mode = map_and_decisions_view
+    #    highlight_states = { highlight_states_trigger = { state = FROM.capital } }
+    #    
+    #    icon = generic_industry
+	#	allowed = { tag = GRE }
+    #    priority = 12
+    #    days_re_enable = 550
+    #    targets={ GER SOV }
+    #    target_trigger={ FROM={ exists=yes NOT={ has_war_with=GRE }}}
+    #
+	#	available = {
+	#		date<1942.1.1
+	#		NOT={
+    #            custom_trigger_tooltip={
+    #                tooltip=GRE_favor_abysmal_from_tt
+    #                check_variable={ var=FROM.favor@GRE value=0 compare=less_than }
+    #            }
+	#		}
+    #        if={ limit={ has_completed_appropriate_fm_focuses=no } has_completed_appropriate_fm_focuses=yes }
+	#	}
+    #    
+	#	visible = {
+    #        NOT = { has_country_flag = toggle_fm }
+    #        has_appropriate_industrial_fm_selected = yes  
+	#	}
+    #    
+    #    days_remove = 14
+    #    cost = 25
+    #
+	#	remove_effect = {
+    #        #####################[Domestic Competition Limits]####################
+    #        if = {
+    #            limit = { has_idea = GRE_domestic_competition_0_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.00 }
+    #        }
+    #        else_if = {
+    #            limit = { has_idea = GRE_domestic_competition_1_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.00 }
+    #        }
+    #        else_if = {
+    #            limit = { has_idea = GRE_domestic_competition_2_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.00 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { bonus_from_domcom_level = 0.00 }
+    #        }
+    #        ########################[FROM Has Tech Bonus]########################
+    #        if = {
+    #            limit = { 
+    #                OR = {
+    #                    AND = {
+    #                        GRE = {
+    #                            NOT = { has_tech = concentrated_industry }
+    #                            NOT = { has_tech = dispersed_industry }
+    #                        }
+    #                        FROM = {
+    #                            OR = {
+    #                                has_tech = concentrated_industry
+    #                                has_tech = dispersed_industry
+    #                            }
+    #                        }
+    #                    }
+    #                    AND = {
+    #                        GRE = { OR = { has_tech = concentrated_industry has_tech = dispersed_industry} }
+    #                        meta_trigger = {
+    #                            text = { FROM = { has_tech = [ITEM ] } }
+    #                            ITEM = "[GRE.GetNextIndustry]"
+    #                        }
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { bonus_from_researched_tech = 0.4 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { bonus_from_researched_tech = 0.1 }
+    #        }
+    #        ##########################[Country Bonuses]##########################
+    #        if = { 
+    #            limit = { FROM = { original_tag = GER } }
+    #            set_temp_variable = { bonus_from_country = 0.10 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = SOV } }
+    #            set_temp_variable = { bonus_from_country = 0.10 }
+    #        }
+    #        add_bonuses_to_sum = yes
+    #        if = { 
+    #            limit = { NOT = { has_tech = concentrated_industry } NOT = { has_tech = dispersed_industry } FROM = { has_tech = concentrated_industry } }
+    #            meta_effect = {
+    #                text = { add_tech_bonus = { name=GRE_FM_industrial_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] } }
+    #                BONUS_SUM = "[?sum|.3]"
+    #                ITEM = "concentrated_industry"
+    #            }
+    #        }
+    #        else_if = { 
+    #            limit = { NOT = { has_tech = concentrated_industry } NOT = { has_tech = dispersed_industry } FROM = { has_tech = dispersed_industry } }
+    #            meta_effect = {
+    #                text = { add_tech_bonus = { name=GRE_FM_industrial_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] } }
+    #                BONUS_SUM = "[?sum|.3]"
+    #                ITEM = "dispersed_industry"
+    #            }
+    #        }
+    #        else = {
+    #            meta_effect = {
+    #                text = { add_tech_bonus = { name=GRE_FM_industrial_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] } }
+    #                BONUS_SUM = "[?sum|.3]"
+    #                ITEM = "[GRE.GetNextIndustry]"
+    #            }
+    #        }
+    #    }
+    #}
+    #
+    #GRE_foreign_manufacturer_construction_investments = {
+    #    on_map_mode = map_and_decisions_view
+    #    highlight_states = { highlight_states_trigger = { state = FROM.capital } }
+    #    
+    #    icon = generic_industry
+	#	allowed = { tag = GRE }
+    #    priority = 12
+    #    days_re_enable = 550
+    #    targets={ GER SOV }
+    #    target_trigger={ FROM={ exists=yes NOT={ has_war_with=GRE }}}
+    #
+	#	available = {
+	#		date<1942.1.1
+	#		NOT={
+    #            custom_trigger_tooltip={
+    #                tooltip=GRE_favor_abysmal_from_tt
+    #                check_variable={ var=FROM.favor@GRE value=0 compare=less_than }
+    #            }
+	#		}
+    #        if={ limit={ has_completed_appropriate_fm_focuses=no } has_completed_appropriate_fm_focuses=yes }
+	#	}
+    #    
+	#	visible = {
+    #        NOT = { has_country_flag = toggle_fm }
+    #        has_appropriate_industrial_fm_selected = yes  
+	#	}
+    #    
+    #    days_remove = 14
+    #    cost = 25
+    #
+	#	remove_effect = {
+    #        #####################[Domestic Competition Limits]####################
+    #        if = {
+    #            limit = { has_idea = GRE_domestic_competition_0_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.00 }
+    #        }
+    #        else_if = {
+    #            limit = { has_idea = GRE_domestic_competition_1_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.00 }
+    #        }
+    #        else_if = {
+    #            limit = { has_idea = GRE_domestic_competition_2_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.00 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { bonus_from_domcom_level = 0.00 }
+    #        }
+    #        ########################[FROM Has Tech Bonus]########################
+    #        if = {
+    #            limit = { 
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextConstruction]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { bonus_from_researched_tech = 0.4 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { bonus_from_researched_tech = 0.1 }
+    #        }
+    #        ##########################[Country Bonuses]##########################
+    #        if = { 
+    #            limit = { FROM = { original_tag = GER } }
+    #            set_temp_variable = { bonus_from_country = 0.10 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = SOV } }
+    #            set_temp_variable = { bonus_from_country = 0.10 }
+    #        }
+    #        add_bonuses_to_sum = yes
+    #        meta_effect = {
+    #            text = { add_tech_bonus = { name=GRE_FM_industrial_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] } }
+    #            BONUS_SUM = "[?sum|.3]"
+    #            ITEM = "[GRE.GetNextConstruction]"
+    #        }
+    #    }
+    #}
+    #
+    #GRE_foreign_manufacturer_radar_investments = {
+    #    on_map_mode = map_and_decisions_view
+    #    highlight_states = { highlight_states_trigger = { state = FROM.capital } }
+    #    
+    #    icon = generic_industry
+	#	allowed = { tag = GRE }
+    #    priority = 12
+    #    days_re_enable = 550
+    #    targets={ GER ENG USA }
+    #    target_trigger={ FROM={ exists=yes NOT={ has_war_with=GRE }}}
+    #
+	#	available = {
+	#		date<1942.1.1
+	#		NOT={
+    #            custom_trigger_tooltip={
+    #                tooltip=GRE_favor_abysmal_from_tt
+    #                check_variable={ var=FROM.favor@GRE value=0 compare=less_than }
+    #            }
+	#		}
+    #        if={ limit={ has_completed_appropriate_fm_focuses=no } has_completed_appropriate_fm_focuses=yes }
+	#	}
+    #    
+	#	visible = {
+    #        NOT = { has_country_flag = toggle_fm }
+    #        has_appropriate_electrical_fm_selected = yes  
+	#	}
+    #    
+    #    days_remove = 14
+    #    cost = 25
+    #
+	#	remove_effect = {
+    #        #####################[Domestic Competition Limits]####################
+    #        if = {
+    #            limit = { has_idea = GRE_domestic_competition_0_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.00 }
+    #        }
+    #        else_if = {
+    #            limit = { has_idea = GRE_domestic_competition_1_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.00 }
+    #        }
+    #        else_if = {
+    #            limit = { has_idea = GRE_domestic_competition_2_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.00 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { bonus_from_domcom_level = 0.00 }
+    #        }
+    #        ########################[FROM Has Tech Bonus]########################
+    #        if = {
+    #            limit = { 
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextRadar]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { bonus_from_researched_tech = 0.4 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { bonus_from_researched_tech = 0.1 }
+    #        }
+    #        ##########################[Country Bonuses]##########################
+    #        if = { 
+    #            limit = { FROM = { original_tag = GER } }
+    #            set_temp_variable = { bonus_from_country = 0.12 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = USA } }
+    #            set_temp_variable = { bonus_from_country = 0.12 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = ENG } }
+    #            set_temp_variable = { bonus_from_country = 0.12 }
+    #        }
+    #        add_bonuses_to_sum = yes
+    #        meta_effect = {
+    #            text = { add_tech_bonus = { name=GRE_FM_industrial_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] } }
+    #            BONUS_SUM = "[?sum|.3]"
+    #            ITEM = "[GRE.GetNextRadar]"
+    #        }
+    #    }
+    #}
+    #
+    #GRE_foreign_manufacturer_electric_investments = {
+    #    on_map_mode = map_and_decisions_view
+    #    highlight_states = { highlight_states_trigger = { state = FROM.capital } }
+    #    
+    #    icon = generic_industry
+	#	allowed = { tag = GRE }
+    #    priority = 12
+    #    days_re_enable = 550
+    #    targets={ GER ENG USA }
+    #    target_trigger={ FROM={ exists=yes NOT={ has_war_with=GRE }}}
+    #
+	#	available = {
+	#		date<1942.1.1
+	#		NOT={
+    #            custom_trigger_tooltip={
+    #                tooltip=GRE_favor_abysmal_from_tt
+    #                check_variable={ var=FROM.favor@GRE value=0 compare=less_than }
+    #            }
+	#		}
+    #        if={ limit={ has_completed_appropriate_fm_focuses=no } has_completed_appropriate_fm_focuses=yes }
+	#	}
+    #    
+	#	visible = {
+    #        NOT = { has_country_flag = toggle_fm }
+    #        has_appropriate_electrical_fm_selected = yes  
+	#	}
+    #    
+    #    days_remove = 14
+    #    cost = 25
+    #
+	#	remove_effect = {
+    #        #####################[Domestic Competition Limits]####################
+    #        if = {
+    #            limit = { has_idea = GRE_domestic_competition_0_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.00 }
+    #        }
+    #        else_if = {
+    #            limit = { has_idea = GRE_domestic_competition_1_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.00 }
+    #        }
+    #        else_if = {
+    #            limit = { has_idea = GRE_domestic_competition_2_hidden }
+    #            set_temp_variable = { bonus_from_domcom_level = 0.00 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { bonus_from_domcom_level = 0.00 }
+    #        }
+    #        ########################[FROM Has Tech Bonus]########################
+    #        if = {
+    #            limit = { 
+    #                FROM = {
+    #                    meta_trigger = {
+    #                        text = { has_tech = [ITEM] }
+    #                        ITEM = "[GRE.GetNextMechEng]"
+    #                    }
+    #                }
+    #            }
+    #            set_temp_variable = { bonus_from_researched_tech = 0.4 }
+    #        }
+    #        else = {
+    #            set_temp_variable = { bonus_from_researched_tech = 0.1 }
+    #        }
+    #        ##########################[Country Bonuses]##########################
+    #        if = { 
+    #            limit = { FROM = { original_tag = GER } }
+    #            set_temp_variable = { bonus_from_country = 0.12 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = USA } }
+    #            set_temp_variable = { bonus_from_country = 0.12 }
+    #        }
+    #        else_if = { 
+    #            limit = { FROM = { original_tag = ENG } }
+    #            set_temp_variable = { bonus_from_country = 0.12 }
+    #        }
+    #        add_bonuses_to_sum = yes
+    #        meta_effect = {
+    #            text = { add_tech_bonus = { name=GRE_FM_industrial_bonus bonus=[BONUS_SUM] uses=1 technology=[ITEM] } }
+    #            BONUS_SUM = "[?sum|.3]"
+    #            ITEM = "[GRE.GetNextMechEng]"
+    #        }
+    #    }
+    #}

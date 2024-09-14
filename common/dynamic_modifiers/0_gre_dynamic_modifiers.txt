@@ -344,7 +344,7 @@ HS_death = {
 ## Modifiers Split into 3 parts.
 ### Civilian Population Resistance Effects                              (low compliance, resistance growth which leads to andartes)
 #### 3lvls - Angered - Determined - Ferocious                               (same for Italians and Germans)
-### Andartes Resistance Effects                                         (garisson requirements, damage to garissons, sabotage (factories/infustructure), operations, resource denial 
+### Andartes Resistance Effects                                         (garisson requirements, damage to garissons, sabotage (factories/infustructure), operations, resource denial )
 #### 5lvls - Basic - Early - Strengthened - Dominant - Free Greece          (only last same for Italians and Germans, the first suffer more due to incompetence - historically Greek resistance was very effective vs Italians, started much less effective when Germans really went at them but gradually won over the Germans as well)
 ### Hellenic State / Outside intervention related effects               (either through HS, GRE or ENG to hasten above effects and lessen the benefits Axis gets out of Greece).
 
@@ -735,9 +735,9 @@ GRE_epixeirisi_annivas_dyn = {
     naval_defense_factor = GRE_ANIV_navy_def
     shore_bombardment_bonus = GRE_ANIV_shore
     air_superiority_efficiency = GRE_ANIV_as
-    paratrooper_count_per_plane = GRE_ANIV_ptc
+    #paratrooper_count_per_plane = GRE_ANIV_ptc
     paradrop_organization_factor = GRE_ANIV_ptof
-    air_paradrop_attack_factor = GRE_ANIV_ptaf
+    #air_paradrop_attack_factor = GRE_ANIV_ptaf
     paratrooper_aa_defense = GRE_ANIV_ptaa
     
 }
@@ -817,6 +817,8 @@ GRE_domciv_penalty = {
     production_speed_buildings_factor=cs_all_penalty
     production_speed_industrial_complex_factor=cs_civ_penalty
     production_speed_arms_factory_factor=cs_mil_penalty
+    industrial_capacity_factory=cs_production_mil
+    industrial_capacity_dockyard=cs_production_doc
     civilian_intel_to_others=cs_civ_leak
     army_intel_to_others=cs_arm_leak
     airforce_intel_to_others=cs_air_leak
@@ -826,7 +828,7 @@ GRE_domciv_penalty = {
 GRE_real_economy_policy = {
     enable = { always=yes }
 
-    consumer_goods_factor = gre_rep_cgf
+    consumer_goods_expected_value = gre_rep_cgf
     production_speed_industrial_complex_factor = gre_rep_psic
     production_speed_arms_factory_factor = gre_rep_psaf
     conversion_cost_civ_to_mil_factor= gre_rep_cccm
@@ -1154,24 +1156,38 @@ GRE_fascist_faction = {
 GRE_metaxism_dynamic = {
     enable = { always = yes }
     icon = GFX_idea_gre_metaxism
-    remove_trigger = {
-        has_completed_focus = GRE_dreams_of_a_grand_coalition
-	}
+    remove_trigger={ has_completed_focus=GRE_dreams_of_a_grand_coalition }
     
-    army_core_attack_factor = GRE_var_atk_core
-    army_core_defence_factor = GRE_var_def_core
-    stability_factor = GRE_var_st_fct
-    war_support_factor = GRE_var_wr_fct
-    conscription_factor = GRE_var_cons_fct
-    surrender_limit = GRE_var_surr_lim
-    generate_wargoal_tension = GRE_var_war_ten
-    join_faction_tension = GRE_var_fact_ten
-    lend_lease_tension = GRE_var_ll_ten
-    send_volunteers_tension = GRE_var_volun_ten
-    guarantee_tension = GRE_var_guar_ten
-    ai_badass_factor = GRE_var_badass_fct    # Will receive 1% of the threat from others
-    ai_get_ally_desire_factor = GRE_var_get_ally_fact   
-}  
+    army_core_attack_factor = met_atk_core
+    army_core_defence_factor = met_def_core
+    stability_factor = met_st_fct
+    war_support_factor = met_wr_fct
+    conscription_factor = met_cons_fct
+    operative_slot = met_oper_slot
+}
+
+GRE_metaxism_dynamic_hidden={
+    enable={ always=yes }
+    remove_trigger={ has_completed_focus=GRE_dreams_of_a_grand_coalition }
+
+    surrender_limit=met_surr_lim
+    generate_wargoal_tension=met_war_ten
+    join_faction_tension=met_fact_ten
+    lend_lease_tension=met_ll_ten
+    send_volunteers_tension=met_volun_ten
+    guarantee_tension=met_guar_ten
+    ai_get_ally_desire_factor=met_get_ally_fact
+}
+
+GRE_metaxism_arkhigos={
+    enable={ GRE_ioannis_metaxas={ is_country_leader=yes }}
+    remove_trigger={ GRE_ioannis_metaxas={ is_country_leader=no }}
+    
+    political_power_gain = met_ark_ppg
+    political_advisor_cost_factor = met_ark_adv
+    improve_relations_maintain_cost_factor = met_ark_irl
+    opinion_gain_monthly_factor = met_ark_opi
+}
 
 GRE_yfipourgeio_asfaleias = {
     enable = { always = yes }

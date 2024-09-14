@@ -4,6 +4,9 @@ on_actions = {
     ###################################################################################################################################################################################################################################
 	on_startup = {
 		effect = {
+            ITA = {
+                giw_create_italian_divisions=yes
+            }
 			GRE = {
 				faction_gui_initial = yes
                 procure_me_generals_bugged=yes
@@ -265,7 +268,7 @@ on_actions = {
                     NOT={ has_war_with=ITA }
                     has_greco_italian_war_occured=no
                 }
-                GRE_calculate_max_divisions = yes
+                italian_aggression_calculate_allowed_battalions = yes
             }
         }
         effect={                                                                                             ## Officer Preparedness Level
@@ -348,6 +351,8 @@ on_actions = {
 
                 calculate_domXXX_ratio=yes
                 calculate_domXXX_construction_penalty=yes
+                calculate_domXXX_production_mil_penalty=yes
+                calculate_domXXX_production_doc_penalty=yes
                 calculate_domXXX_intel_leakage=yes
             }
         }
@@ -555,6 +560,19 @@ on_actions = {
                     subtract_from_variable = { GRE.axal=modifier@neut_modifier_token }
                 }
                 axal_gui_call = yes
+            }
+        }
+        effect = {
+            if={
+                limit={ check_variable={ GRE.italian_escalation_level>0 } check_variable={ GRE.italian_awareness<13 }}
+
+                calculate_leakage_to_increase_italian_awareness=yes
+                increase_italian_awareness=yes
+                
+            }
+            else={ 
+                set_variable={ GRE.italian_awareness_intel_leakage=0 }
+                set_variable={ GRE.italian_awareness_intel_leakage_level=0 }
             }
         }
         effect = {
@@ -1120,7 +1138,7 @@ on_actions = {
                 }
                 if = {
                     limit = {
-                        GRE = { NOT = { controls_state = 939 } }
+                        GRE = { NOT = { controls_state = 974 } }
                     }
                     GRE = { 
                         country_event = { id = hellas.998 days = 0 }                                         ## Germans enter thess.
@@ -1128,8 +1146,8 @@ on_actions = {
                 }
                 if = {
                     limit = {
-                        GRE = { NOT = { controls_state = 939 } }
-                        GRE = { NOT = { controls_state = 936 } }
+                        GRE = { NOT = { controls_state = 974 } }
+                        GRE = { NOT = { controls_state = 971 } }
                     }
                     GRE = { 
                         country_event = { id = hellas.999 days = 0 }                                         ## Koryzis suicide (way #2)
@@ -1138,7 +1156,7 @@ on_actions = {
                 if = {
                     limit = {
                         GRE = { NOT = { controls_state = 47 } }
-                        GRE = { NOT = { controls_state = 939 } }
+                        GRE = { NOT = { controls_state = 974 } }
                     }
                     GRE = { 
                         country_event = { id = hellas.1001 days = 0 } 

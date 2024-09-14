@@ -38,7 +38,60 @@ scripted_gui = {
 		}
 	}
 
-	coc_main = {
+	gos_option_view = {
+		context_type=player_context		
+		window_name="gos_option_view_window_container"
+
+		dynamic_lists = {
+			#############################
+			###[ Italian Aggression  ]###
+			#############################
+			italian_aggression_gridbox = {
+				array = italian_aggression_main_array
+				index = italian_aggression_main_index
+				change_scope = no
+				entry_container = italian_aggression_escalation_gridbox_entry
+			}
+			italian_aggression_accelerator_gridbox = {
+				array = italian_aggression_accelerator_array
+				index = italian_aggression_accelerator_main_index
+				change_scope = no
+				entry_container = italian_aggression_accelerator_gridbox_entry
+			}
+		}
+
+		visible={
+			has_country_flag=gos_opened
+			check_variable={ gos_gui_option_selected>0 }
+		}
+
+		properties={
+			#############################
+			###[ Italian Aggression  ]###
+			#############################
+			italian_aggression_main_icon = { frame=v }
+			gos_italian_aggression_intel_leak={ frame=italian_awareness_intel_leakage_level }
+		}
+	}
+
+	gos_options = {
+		context_type=player_context		
+		window_name="gos_options_window_container"
+
+		visible={
+			has_country_flag=gos_opened
+		}
+
+		properties={
+			gos_italian_aggression={ frame=italian_awareness }
+		}
+
+		effects={
+			gos_italian_aggression_click={ if={ limit={ check_variable={ gos_gui_option_selected=1 }} set_variable={ gos_gui_option_selected=0 }} else={ set_variable={ gos_gui_option_selected=1 }}}
+		}
+	}
+
+	gos_main = {
 		context_type=player_context		
 		window_name="gos_main_window_container"
 

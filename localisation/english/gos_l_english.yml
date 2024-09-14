@@ -15,3 +15,25 @@
  stifle_down_channels_tt:0 "§YStifle Down Information Channels§!\n[!stifle_down_channels_click_enabled]\n[!stifle_down_channels_click]"
  stifle_down_channels_trig_tt:0 "§Y$stifle_down_information_channels$§! not active."
  xtestx_tt:0 "At least over 75% network strength in a Major's Capital"
+ #
+ gos_required_focus_tt:0 "Complete §Ya Game of Shadows§! for further info."
+ # ITAGG
+ gos_italian_aggression_intel_leak_text_tt:0 "§gThe more attention we draw from the §GItalians§! through our actions, the more aware they will become of our nation's capabilities. It is important to maintain vigilance and take the necessary steps to cover our tracks. §G[ITA.GetLeader]§! considers the conquest of Greece a walk in the park, it would be unwise to prove him otherwise.§!"
+ gos_italian_aggression_intel_allowed_battalions_text_tt:0 "§gTowards that end, fielded battalions are a matter of paramount importance. Depending on the §GItalian Army Intel§! over us, we can maintain between §Y130§!-§Y400§! battalions at any time. If we surpass this number, they will certainly attempt to use it as a ruse to charge us for expansionist policies.§!"
+ gos_italian_aggression_intel_esc_text_tt:0 "§gThe imperial aspirations of §G[ITA.GetLeader]§! could only lead to a state where  Greece was a prime target of conquest. In order to materialize those desires, the Italian dictator had always lurked close, looking for the tiniest ruse to exploit and build his narrative of necessary intervention to the international stadium.§!"
+ gos_italian_aggression_intel_allowed_battalions_display_number:0 "[GetItaggAllowedBattalionsNumber]"
+ gos_italian_aggression_intel_allowed_battalions_display_tooltip:0 "[GetItaggAllowedBattalionsTooltip]"
+ gos_italian_aggression_intel_allowed_battalions_number_show:0 "[?GRE.max_bats_allowed|G0]"
+ gos_italian_aggression_intel_allowed_battalions_number_hide:0 "?"
+ gos_italian_aggression_intel_allowed_battalions_tooltip_show:0 "§LOur spies have evaluated the enemy intel over us at [?ITA.army_intel@GRE|t%%], which allows up to §Y[?GRE.max_bats_allowed|G0]§! battalions.§!"
+ gos_italian_aggression_intel_allowed_battalions_tooltip_hide:0 "Requires any of the following:\n  * §g>=§O35%§!§! §YIntel§! (§7Army§!) over §i[ITA.GetNameDef]§!.\n  * Decrypted §YCipher§!.\n  * Infiltrated any §Ysector§!.\n  * Has §YResistance Contracts§!."
+ gos_italian_aggression_activate_main_decision_tt:0 "[GetItaggCurrentMainDecision]"
+ gos_italian_aggression_activate_main_decision_approach_tt:0 "§WActivate:§! §Y$approach_the_italians$§!"
+ gos_italian_aggression_activate_main_decision_reestabl_tt:0 "§WActivate:§! §Y$reestablish_relations$§!"
+
+    # [?GRE.max_bats_allowed|G0]
+     #    Civilian: CIV_TO_OTHERS * CIVS/20
+    #    Army: ARM_TO_OTHERS * MILS/20 * NUM_BATTALIONS/90
+    #    Airf: AIR_TO_OTHERS * MILS/20 * PLANES_DEPLOYED/15
+    #    Navy: NAV_TO_OTHERS * DOCK/20 * NUM_SHIPS/20 #
+    # Main formula is: ESCALATION{0-1} * Σ(LEAK_TYPE)

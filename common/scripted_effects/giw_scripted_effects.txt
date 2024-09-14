@@ -1,0 +1,285 @@
+###################################################################
+###############[ Greco-Italian War Scripted Effects ]##############
+###################################################################
+
+
+###################################
+###[ GIW Italian Units Startup ]###
+###################################
+
+giw_create_italian_divisions={
+    
+    158={
+        # Ferrara
+        create_unit={ division="division_name={ is_name_ordered=yes name_order=23 } division_template=\"(GIW) Divisione di Fanteria\" start_experience_factor=0.3" prioritize_location=611 owner=ITA id=23 }
+        # Cuneo
+        create_unit={ division="division_name={ is_name_ordered=yes name_order=6 } division_template=\"(GIW) Divisione di Fanteria\" start_experience_factor=0.3" prioritize_location=11891 owner=ITA id=6 }
+        # Lupi di Toscana
+        create_unit={ division="division_name={ is_name_ordered=yes name_order=7 } division_template=\"(GIW) Divisione di Fanteria\" start_experience_factor=0.2" prioritize_location=611 owner=ITA id=7 }
+        # Brennero
+        create_unit={ division="division_name={ is_name_ordered=yes name_order=11 } division_template=\"(GIW) Divisione di Fanteria\" start_experience_factor=0.3" prioritize_location=6780 owner=ITA id=11 }
+        # Cuneense
+        create_unit={ division="division_name={ is_name_ordered=yes name_order=4 } division_template=\"(GIW) Divisione Alpina\" start_experience_factor=0.3" prioritize_location=11721 owner=ITA id=4 }
+        #
+    }
+    550={
+        # Venezia
+        create_unit={ division="division_name={ is_name_ordered=yes name_order=19 } division_template=\"(GIW) Divisione di Fanteria\" start_experience_factor=0.2" prioritize_location=12766 owner=ITA id=19 }
+        # Brescia
+        create_unit={ division="division_name={ is_name_ordered=yes name_order=27 } division_template=\"(GIW) Divisione di Fanteria\" start_experience_factor=0.3" prioritize_location=12766 owner=ITA id=27 }
+        # Pusteria
+        create_unit={ division="division_name={ is_name_ordered=yes name_order=5 } division_template=\"(GIW) Divisione Alpina\" start_experience_factor=0.3" prioritize_location=12723 owner=ITA id=5 }
+    }
+    115={
+        # Friuli
+        create_unit={ division="division_name={ is_name_ordered=yes name_order=20 } division_template=\"(GIW) Divisione di Fanteria\" start_experience_factor=0.2 start_equipment_factor=0.7" prioritize_location=4159 owner=ITA id=20 }
+    }
+    844={
+        # Piemonte
+        create_unit={ division="division_name={ is_name_ordered=yes name_order=29 } division_template=\"(GIW) Divisione di Fanteria\" start_experience_factor=0.2" prioritize_location=11014 owner=ITA id=29 }
+    }
+    160={
+        # Julia
+        create_unit={ division="division_name={ is_name_ordered=yes name_order=3 } division_template=\"(GIW) Divisione Alpina\" start_experience_factor=0.3" prioritize_location=628 owner=ITA id=3 }
+    }
+}
+
+giw_move_all_axis_forces_from_albania={
+    934={ teleport_armies={}}
+    44={ teleport_armies={}}
+    805={ teleport_armies={}}
+}
+
+giw_remove_and_recreate_templates={
+    delete_unit_template_and_units={ division_template="(GIW) Divisione di Fanteria" }
+    delete_unit_template_and_units={ division_template="(GIW) Divisione di Corazzata" }
+    delete_unit_template_and_units={ division_template="(GIW) Divisione Alpina" }
+    # New max target = ~13.000 men and be considered mountainous infantry (13300)
+    division_template={
+        name="(GIW) Divisione di Fanteria"
+        division_names_group=ITA_INF_GIW_01
+        is_locked=yes
+        priority=2
+        template_counter=40
+        
+        regiments={
+            infantry={ x=0 y=0 }
+            infantry={ x=0 y=1 }
+            infantry={ x=0 y=2 }
+            infantry={ x=0 y=3 }
+            infantry={ x=1 y=0 }
+            infantry={ x=1 y=1 }
+            infantry={ x=1 y=2 }
+            infantry={ x=1 y=3 }
+            infantry={ x=2 y=0 }
+            infantry={ x=2 y=1 }
+            mountaineers={ x=2 y=2 }
+            mountaineers={ x=2 y=3 }
+            artillery_brigade={ x=3 y=0 }
+            artillery_brigade={ x=3 y=1 }
+        }
+        support={
+            engineer={ x=0 y=0 }
+        }
+    }
+    # 5200 men, 36 guns, 180 Light Tanks
+    division_template={
+        name="(GIW) Divisione di Corazzata"
+        is_locked=yes
+        division_names_group=ITA_ARM_GIW_01
+        priority=2
+        
+        regiments={
+            light_armor={ x=0 y=0 }
+            light_armor={ x=0 y=1 }
+            light_armor={ x=0 y=2 }
+            motorized={ x=1 y=0 }
+            motorized={ x=1 y=1 }
+            mot_artillery_brigade={ x=2 y=0 }
+        }
+        support={
+            mot_recon={ x=0 y=0 }
+            engineer={ x=0 y=1 }
+        }
+    }
+    # 3500 men
+    division_template={
+        name="(GIW) Reggimenti Albanesi"
+        division_names_group=ITA_INF_GIW_03
+        is_locked=yes
+	    override_model=ITA_infantry_alt_2_entity
+        priority=0
+        template_counter=41
+        
+        regiments={
+            infantry={ x=0 y=0 }
+            infantry={ x=0 y=1 }
+            infantry={ x=0 y=2 }
+        }
+        support={
+            artillery={ x=0 y=0 }
+        }
+    }
+    # 
+    division_template={ 
+        name="(GIW) Divisione Alpina" 
+        division_names_group=ITA_MNT_GIW_01
+        is_locked=yes
+        priority=2
+
+        regiments={ 
+            mountaineers={ x=0 y=0 }
+            mountaineers={ x=0 y=1 }
+            mountaineers={ x=0 y=2 }
+            mountaineers={ x=1 y=0 }
+            mountaineers={ x=1 y=1 }
+            mountaineers={ x=1 y=2 }
+            mountaineers={ x=2 y=0 }
+            mountaineers={ x=2 y=1 }
+            mountaineers={ x=2 y=2 }
+            mountaineers={ x=2 y=3 }
+            artillery_brigade={ x=3 y=0 }
+        }
+        support={ 
+            engineer={ x=0 y=0 }
+        }
+    }
+    division_template={ #Blackshirts
+        name="(GIW) Camicie Nere" 
+        division_names_group=ITA_INF_02
+        template_counter=68
+        is_locked=yes
+        regiments={ 
+            militia={ x=0 y=0 }
+            militia={ x=0 y=1 }
+            militia={ x=1 y=0 }
+            militia={ x=1 y=1 }
+            militia={ x=2 y=0 }
+            militia={ x=2 y=1 }
+        }
+        support={ 
+            engineer={ x=0 y=0 }
+        }
+    }
+}
+
+giw_remove_and_recreate_italian_divisions={
+    delete_unit={ id=23 }
+    delete_unit={ id=51 }
+    delete_unit={ id=131 }
+    ###[ Units Spawn ]###
+    805={
+        # XXV Ciamuria Corps
+        ## Albanian Regiments
+        create_unit={ division="division_name={ is_name_ordered=yes } division_template=\"(GIW) Reggimenti Albanesi\" start_experience_factor=0.1 start_equipment_factor=0.52 start_manpower_factor=1" prioritize_location=914 owner=ITA id=999 }
+        ## Camicie Nere
+        create_unit={ division="division_name={ is_name_ordered=yes } division_template=\"(GIW) Camicie Nere\" start_experience_factor=0.4 start_equipment_factor=0.8 start_manpower_factor=0.845" prioritize_location=914 owner=ITA count=3 id=998 }
+        ## Ferrara
+        create_unit={ division="division_name={ is_name_ordered=yes name_order=23 } division_template=\"(GIW) Divisione di Fanteria\" start_experience_factor=0.4 start_equipment_factor=0.833 start_manpower_factor=0.961" prioritize_location=914 owner=ITA id=23 }
+        ## Siena
+        create_unit={ division="division_name={ is_name_ordered=yes name_order=51 } division_template=\"(GIW) Divisione di Fanteria\" start_experience_factor=0.25 start_equipment_factor=0.694 start_manpower_factor=0.691" prioritize_location=914 owner=ITA id=51 }
+        ## Centauro
+        create_unit={ division="division_name={ is_name_ordered=yes name_order=131 } division_template=\"(GIW) Divisione di Corazzata\" start_experience_factor=0.4 start_equipment_factor=0.666 start_manpower_factor=0.776" prioritize_location=914 owner=ITA id=131 }
+        # Independent
+        ## Julia
+        create_unit={ division="division_name={ is_name_ordered=yes name_order=3 } division_template=\"(GIW) Divisione Alpina\" start_experience_factor=0.75 start_equipment_factor=0.906 start_manpower_factor=1" prioritize_location=13234 owner=ITA id=3 }
+        # XXVI Corizza Corps
+        ## Piemonte
+        create_unit={ division="division_name={ is_name_ordered=yes name_order=29 } division_template=\"(GIW) Divisione di Fanteria\" start_experience_factor=0.3 start_equipment_factor=0.444 start_manpower_factor=0.699" prioritize_location=13235 owner=ITA id=29 }
+        ## Parma
+        create_unit={ division="division_name={ is_name_ordered=yes name_order=49 } division_template=\"(GIW) Divisione di Fanteria\" start_experience_factor=0.3 start_equipment_factor=0.833 start_manpower_factor=0.902" prioritize_location=13235 owner=ITA id=49 }
+        ## Venezia
+        create_unit={ division="division_name={ is_name_ordered=yes name_order=19 } division_template=\"(GIW) Divisione di Fanteria\" start_experience_factor=0.3 start_equipment_factor=0.555 start_manpower_factor=0.751" prioritize_location=13235 owner=ITA id=19 }
+    }
+    934={
+        # 53rd ID Arezzo to reinforce XXVI Corizza Corps
+        create_unit={ division="division_name={ is_name_ordered=yes name_order=53 } division_template=\"(GIW) Divisione di Fanteria\" start_experience_factor=0.3 start_equipment_factor=0.444 start_manpower_factor=0.902" prioritize_location=9780 owner=ITA id=53 }
+    }
+}
+
+
+
+###############################
+###[ GIW Italian Templates ]###
+###############################
+
+create_italian_division_templates={
+    # This will create the various needed GIW templates to spawn the proper units.
+    # Note the Italian Infantry division had 2 regiments (x3 rifle batalions).
+
+    ITA={
+        division_template={
+            name="(GIW) Divisione di Fanteria"
+            division_names_group=ITA_INF_GIW_01
+            priority=2
+	        template_counter=40
+            
+            regiments={
+                infantry={ x=0 y=0 }
+                infantry={ x=0 y=1 }
+                infantry={ x=0 y=2 }
+                infantry={ x=1 y=0 }
+                infantry={ x=1 y=1 }
+                infantry={ x=1 y=2 }
+            }
+            support={
+                engineer={ x=0 y=0 }
+                artillery={ x=0 y=1 }
+            }
+        }
+
+        division_template={
+            name="(GIW) Reggimento di Fanteria"
+            division_names_group=ITA_INF_GIW_02
+            priority=2
+	        template_counter=41
+            
+            regiments={
+                infantry={ x=0 y=0 }
+                infantry={ x=0 y=1 }
+                infantry={ x=0 y=2 }
+            }
+            support={
+                engineer={ x=0 y=0 }
+            }
+        }
+
+        division_template={
+            name="(GIW) Divisione di Corazzata"
+            division_names_group=ITA_ARM_GIW_01
+            priority=2
+            
+            regiments={
+                light_armor={ x=0 y=0 }
+                light_armor={ x=0 y=1 }
+                light_armor={ x=0 y=2 }
+                motorized={ x=1 y=0 }
+                motorized={ x=1 y=1 }
+            }
+            support={
+                mot_recon={ x=0 y=0 }
+                engineer={ x=0 y=1 }
+                artillery={ x=0 y=2 }
+            }
+        }
+
+        division_template={ 
+            name="(GIW) Divisione Alpina" 
+            division_names_group=ITA_MNT_GIW_01
+            priority=2
+
+            regiments={ 
+                mountaineers={ x=0 y=0 }
+                mountaineers={ x=0 y=1 }
+                mountaineers={ x=0 y=2 }
+                mountaineers={ x=1 y=0 }
+                mountaineers={ x=1 y=1 }
+                mountaineers={ x=1 y=2 }
+            }
+            support={ 
+                engineer={ x=0 y=0 }
+                artillery={ x=0 y=1 }
+            }
+        }
+    }
+}

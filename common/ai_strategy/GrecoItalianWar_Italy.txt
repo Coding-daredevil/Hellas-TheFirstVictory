@@ -15,7 +15,7 @@
 #############################################################[ The Italians ]#######################################################
 ####################################################################################################################################
 
-Italian_strategy_0_keeping_albania_safe = {
+GIW_Italian_strategy_0_keeping_Albania_safe={
     allowed={ original_tag=ITA }
     enable={
         annexation_of_albania_has_occurred_one_way_or_another=yes
@@ -25,370 +25,450 @@ Italian_strategy_0_keeping_albania_safe = {
     }
     abort_when_not_enabled=yes
 
-    ai_strategy = { type=put_unit_buffers ratio=0.02 states={ 44 }}
+    ai_strategy={ 
+        type=put_unit_buffers
+        ratio=0.02
+        states={ 44 805 934 }
+    }
 }
 
-Italian_strategy_A_preparing_war = {                                                            ## Step A is when Italy prepares for war with Greece (either through focus or wargoal)
-    allowed = { original_tag = ITA }
-    enable = {
-        OR = {
-            focus_progress = {
-                focus = ITA_war_with_greece
+GIW_Italian_Strategy_0_PreJustification={
+    allowed={ original_tag=ITA }
+    abort_when_not_enabled=yes
+    enable={
+        annexation_of_albania_has_occurred_one_way_or_another=yes
+        NOT={ focus_progress={ focus=ITA_war_with_greece progress>0.01 }}
+    }
+}
+
+GIW_Italian_Strategy_keeping_out_of_Bulgaria={
+    allowed={ original_tag=ITA }
+    abort_when_not_enabled=yes
+    enable={
+        OR={ is_in_faction_with=BUL has_military_access_to=BUL }
+    }
+    
+    ai_strategy={
+        type=dont_defend_ally_borders
+        id=BUL
+        value=1000
+    }
+
+    ai_strategy={
+        type=front_control
+
+        state=731
+        state=975
+        state=184
+        state=976
+        ratio=0.0
+        priority=-50000
+        ordertype=front
+        execution_type=careful                         # careful balanced rush rush_weak
+        execute_order=no
+        manual_attack=no
+    }
+
+    ai_strategy={
+        type=front_unit_request
+        state=731
+        state=975
+        state=184
+        state=976
+        value=-40
+    }
+}
+
+GIW_Italian_strategy_A_preparing_war={                                                            ## Step A is when Italy prepares for war with Greece (either through focus or wargoal)
+    allowed={ original_tag=ITA }
+    enable={
+        OR={
+            focus_progress={
+                focus=ITA_war_with_greece
                 progress > 0.01
             }
-            is_justifying_wargoal_against = GRE
-            has_wargoal_against = GRE
-            has_global_flag = GRE_grecoitalian_start
+            is_justifying_wargoal_against=GRE
+            has_wargoal_against=GRE
+            has_global_flag=GRE_grecoitalian_start
         }
         NOT={ has_completed_focus=ITA_war_with_greece }
     }
-    abort_when_not_enabled = yes
+    abort_when_not_enabled=yes
     
-    ai_strategy = {
-        type = area_priority
-        id = grecoalbanian_border
-        value = 5000
+    ai_strategy={
+        type=area_priority
+        id=grecoalbanian_border
+        value=5000
     }
     
-    ai_strategy = {                                                                            ## Preferably avoid naval invasions (commit on albanian front)
-		type = invade
-		id = GRE			
-		value = -10
+    ai_strategy={                                                                            ## Preferably avoid naval invasions (commit on albanian front)
+		type=invade
+		id=GRE			
+		value=-10
 	}
     
-    ai_strategy = {
-        type = antagonize
-        id = GRE
-        value = 5000
+    ai_strategy={
+        type=antagonize
+        id=GRE
+        value=5000
     }
     
-    ai_strategy = {
-        type = prepare_for_war
-        id = GRE
-        value = 10000
+    ai_strategy={
+        type=prepare_for_war
+        id=GRE
+        value=10000
     }
 
-    ai_strategy = {
-        type = front_control
-        #you can define a target in following ways. you can define more than one
-        tag = GRE
-        area = grecoalbanian_border
-        #ratio = 0.0 # the strategy is enabled only if ratio of the front covered by this strat's targets greater than this ratio
-        priority = 5000 # default 0, higher prio strats will override lower
-        ordertype = front # front or invasion. if set this strategy will only apply to that specific order type
-        execution_type = rush # one of careful balanced rush rush_weak. if set will override the execution type of front (only for front orders)
-        execute_order = yes # yes or no. if set will override execute or not decision of front
-        manual_attack = yes # default yes. if no ai will not do manual pokes at enemy (only for front orders)
+    ai_strategy={
+        type=front_control
+
+        tag=GRE
+        area=grecoalbanian_border
+        ratio=0.0
+        priority=5000
+        ordertype=front
+        execution_type=rush                         # careful balanced rush rush_weak
+        execute_order=yes
+        manual_attack=yes
     }
 
-    ai_strategy = {
- 	    type = front_unit_request
-    	tag = GRE
-        state = 938 
-        state = 185
-    	value = 15
+    ai_strategy={
+ 	    type=front_unit_request
+    	tag=GRE
+        state=973 
+        state=185
+    	value=150
     }
 }
 
-Italian_strategy_A2_avoid_bulgarian_border_during_buildup = {
+GIW_Italian_strategy_A2_avoid_bulgarian_border_during_buildup={
     allowed={ original_tag=ITA }
-    enable = {
+    enable={
         focus_progress={ focus=ITA_war_with_greece progress>0.01 }
         check_variable={ BUL.stance_in_grecoitalian_war>0 }
     }
     abort_when_not_enabled=yes
     
-    ai_strategy = {
-        type = dont_defend_ally_borders
-        id = BUL
-        value = 1000
+    ai_strategy={
+        type=dont_defend_ally_borders
+        id=BUL
+        value=1000
+    }
+
+    ai_strategy={
+        type=front_control
+
+        state=731
+        state=975
+    	state=184
+    	state=976
+        ratio=0.0
+        priority=-50000
+        ordertype=front
+        execution_type=careful                         # careful balanced rush rush_weak
+        execute_order=no
+        manual_attack=no
+    }
+
+    ai_strategy={
+ 	    type=front_unit_request
+        state=731
+        state=975
+    	state=184
+    	state=976
+        value=-40
     }
 }
 
-Italian_strategy_B1_selfish_war = {
-    allowed = {
-        original_tag = ITA                                                                      ## Idea defines Italian desire NOT to call any allies and commit to the conquest of Greece alone.
+GIW_Italian_strategy_B1_selfish_war={
+    allowed={
+        original_tag=ITA                                                                      ## Idea defines Italian desire NOT to call any allies and commit to the conquest of Greece alone.
     }                                                                                           ## Only exception is the wish of including Bulgaria (historical), but they were not ready to commit and Turkish guarantees scared them off.
-    enable = {
-        has_global_flag = GRE_grecoitalian_start
-        has_idea = GRE_italian_ambition     
+    enable={
+        has_global_flag=GRE_grecoitalian_start
+        has_idea=GRE_italian_ambition     
     }    
-    abort_when_not_enabled = yes
+    abort_when_not_enabled=yes
     
-    ai_strategy = {                                                                             ## However, Italy will commit only to Albania, as historically they desired Bulgaria's help to split Greek forces.
-        type = dont_defend_ally_borders
-        id = BUL
-        value = 1000
+    ai_strategy={                                                                             ## However, Italy will commit only to Albania, as historically they desired Bulgaria's help to split Greek forces.
+        type=dont_defend_ally_borders
+        id=BUL
+        value=1000
     }
     
-    ai_strategy = {                                                                            ## Preferably avoid naval invasions (commit on albanian front)
-		type = invade
-		id = GRE			
-		value = -10
+    ai_strategy={                                                                            ## Preferably avoid naval invasions (commit on albanian front)
+		type=invade
+		id=GRE			
+		value=-10
 	}
 
-    ai_strategy = {
-        type = area_priority
-        id = grecoalbanian_border
-        value = 4500
+    ai_strategy={
+        type=area_priority
+        id=grecoalbanian_border
+        value=4500
     }
     
-    ai_strategy = {
-        type = antagonize
-        id = GRE
-        value = 5000
+    ai_strategy={
+        type=antagonize
+        id=GRE
+        value=5000
     }
 
-    ai_strategy = {
-        type = front_control
+    ai_strategy={
+        type=front_control
+
+        tag=GRE
+        area=grecoalbanian_border
+        ratio=0.0
+        priority=5000
+        ordertype=front
+        execution_type=rush                         # careful balanced rush rush_weak
+        execute_order=yes
+        manual_attack=yes
+    }
+    
+	ai_strategy={
+		type=strategic_air_importance
+		id=25
+		value=30000
+	}
+
+    ai_strategy={
+ 	    type=front_unit_request
+    	tag=GRE
+        state=973 
+        state=185
+    	value=80
+    }
+
+    ai_strategy={
+ 	    type=front_unit_request
+    	tag=YUG
+        state=106 
+        state=802
+        state=105
+    	value=2
+    }
+}
+
+GIW_Italian_strategy_B2_selfish_war={
+    allowed={
+        original_tag=ITA                                                                      ## Idea defines Italian desire NOT to call any allies and commit to the conquest of Greece alone.
+    }                                                                                           ## Only exception is the wish of including Bulgaria (historical), but they were not ready to commit and Turkish guarantees scared them off.
+    enable={
+        has_global_flag=GRE_grecoitalian_start
+        has_idea=GRE_italian_ambition_defensive  
+    }
+    
+    abort_when_not_enabled=yes
+    
+    ai_strategy={                                                                             ## However, Italy will commit only to Albania, as historically they desired Bulgaria's help to split Greek forces.
+        type=dont_defend_ally_borders
+        id=BUL
+        value=1000
+    }
+    
+    ai_strategy={                                                                            ## Preferably avoid naval invasions (commit on albanian front)
+		type=invade
+		id=GRE			
+		value=-10
+	}
+
+    ai_strategy={
+        type=area_priority
+        id=grecoalbanian_border
+        value=4500
+    }
+    
+    ai_strategy={
+        type=antagonize
+        id=GRE
+        value=5000
+    }
+
+    ai_strategy={
+        type=front_control
         #you can define a target in following ways. you can define more than one
-        tag = GRE
-        state = 938 
-        state = 185
-        #ratio = 0.0 # the strategy is enabled only if ratio of the front covered by this strat's targets greater than this ratio
-        priority = 5000 # default 0, higher prio strats will override lower
-        ordertype = front # front or invasion. if set this strategy will only apply to that specific order type
-        execution_type = balanced # one of careful balanced rush rush_weak. if set will override the execution type of front (only for front orders)
-        execute_order = yes # yes or no. if set will override execute or not decision of front
-        manual_attack = yes # default yes. if no ai will not do manual pokes at enemy (only for front orders)
+        tag=GRE
+        state=973 
+        state=185
+        #ratio=0.0 # the strategy is enabled only if ratio of the front covered by this strat's targets greater than this ratio
+        priority=5000 # default 0, higher prio strats will override lower
+        ordertype=front # front or invasion. if set this strategy will only apply to that specific order type
+        execution_type=careful # one of careful balanced rush rush_weak. if set will override the execution type of front (only for front orders)
+        execute_order=no # yes or no. if set will override execute or not decision of front
+        manual_attack=no # default yes. if no ai will not do manual pokes at enemy (only for front orders)
     }
 
-    ai_strategy = {
- 	    type = front_unit_request
-    	tag = GRE
-        state = 938 
-        state = 185
-    	value = 20
-    }
-
-    ai_strategy = {
- 	    type = front_unit_request
-    	tag = YUG
-        state = 106 
-        state = 802
-        state = 105
-    	value = 2
+    ai_strategy={
+ 	    type=front_unit_request
+    	tag=GRE
+        state=973 
+        state=185
+    	value=30
     }
 }
 
-Italian_strategy_B2_selfish_war = {
-    allowed = {
-        original_tag = ITA                                                                      ## Idea defines Italian desire NOT to call any allies and commit to the conquest of Greece alone.
+GIW_Italian_strategy_B3_selfish_war={
+    allowed={
+        original_tag=ITA                                                                      ## Idea defines Italian desire NOT to call any allies and commit to the conquest of Greece alone.
     }                                                                                           ## Only exception is the wish of including Bulgaria (historical), but they were not ready to commit and Turkish guarantees scared them off.
-    enable = {
-        has_global_flag = GRE_grecoitalian_start
-        has_idea = GRE_italian_ambition_defensive  
+    enable={
+        has_global_flag=GRE_grecoitalian_start
+        has_idea=GRE_italian_ambition_ultra_offensive 
     }
     
-    abort_when_not_enabled = yes
+    abort_when_not_enabled=yes
     
-    ai_strategy = {                                                                             ## However, Italy will commit only to Albania, as historically they desired Bulgaria's help to split Greek forces.
-        type = dont_defend_ally_borders
-        id = BUL
-        value = 1000
+    ai_strategy={                                                                             ## However, Italy will commit only to Albania, as historically they desired Bulgaria's help to split Greek forces.
+        type=dont_defend_ally_borders
+        id=BUL
+        value=10000
     }
     
-    ai_strategy = {                                                                            ## Preferably avoid naval invasions (commit on albanian front)
-		type = invade
-		id = GRE			
-		value = -10
+    ai_strategy={                                                                            ## Preferably avoid naval invasions (commit on albanian front)
+		type=invade
+		id=GRE			
+		value=-100
 	}
 
-    ai_strategy = {
-        type = area_priority
-        id = grecoalbanian_border
-        value = 4500
+    ai_strategy={
+        type=area_priority
+        id=grecoalbanian_border
+        value=45000
     }
     
-    ai_strategy = {
-        type = antagonize
-        id = GRE
-        value = 5000
+    ai_strategy={
+        type=antagonize
+        id=GRE
+        value=50000
     }
 
-    ai_strategy = {
-        type = front_control
-        #you can define a target in following ways. you can define more than one
-        tag = GRE
-        state = 938 
-        state = 185
-        #ratio = 0.0 # the strategy is enabled only if ratio of the front covered by this strat's targets greater than this ratio
-        priority = 5000 # default 0, higher prio strats will override lower
-        ordertype = front # front or invasion. if set this strategy will only apply to that specific order type
-        execution_type = careful # one of careful balanced rush rush_weak. if set will override the execution type of front (only for front orders)
-        execute_order = no # yes or no. if set will override execute or not decision of front
-        manual_attack = no # default yes. if no ai will not do manual pokes at enemy (only for front orders)
+    ai_strategy={
+        type=front_control
+        tag=GRE
+        state=973 
+        state=185
+        priority=50000
+        ordertype=front
+        execution_type=rush
+        execute_order=yes
+        manual_attack=yes
     }
 
-    ai_strategy = {
- 	    type = front_unit_request
-    	tag = GRE
-        state = 938 
-        state = 185
-    	value = 30
+    ai_strategy={
+ 	    type=front_unit_request
+    	tag=GRE
+        state=973 
+        state=185
+    	value=35
     }
 }
 
-Italian_strategy_B3_selfish_war = {
-    allowed = {
-        original_tag = ITA                                                                      ## Idea defines Italian desire NOT to call any allies and commit to the conquest of Greece alone.
+GIW_Italian_strategy_B4_axis_war={
+    allowed={
+        original_tag=ITA                                                                      ## Idea defines Italian desire NOT to call any allies and commit to the conquest of Greece alone.
     }                                                                                           ## Only exception is the wish of including Bulgaria (historical), but they were not ready to commit and Turkish guarantees scared them off.
-    enable = {
-        has_global_flag = GRE_grecoitalian_start
-        has_idea = GRE_italian_ambition_ultra_offensive 
+    enable={
+        has_global_flag=GRE_grecoitalian_start
+        NOT={ has_idea=GRE_italian_ambition }
+        NOT={ has_idea=GRE_italian_ambition_defensive }
+        NOT={ has_idea=GRE_italian_ambition_ultra_offensive }
+        GER={ has_war_with=GRE }
+        GRE={ exists=yes }
+        NOT={ has_global_flag=GRE_hellenic_state_formed }
     }
     
-    abort_when_not_enabled = yes
+    abort_when_not_enabled=yes
     
-    ai_strategy = {                                                                             ## However, Italy will commit only to Albania, as historically they desired Bulgaria's help to split Greek forces.
-        type = dont_defend_ally_borders
-        id = BUL
-        value = 10000
+    ai_strategy={                                                                             ## However, Italy will commit only to Albania, as historically they desired Bulgaria's help to split Greek forces.
+        type=dont_defend_ally_borders
+        id=BUL
+        value=25
     }
     
-    ai_strategy = {                                                                            ## Preferably avoid naval invasions (commit on albanian front)
-		type = invade
-		id = GRE			
-		value = -100
+    ai_strategy={                                                                            ## Preferably avoid naval invasions (commit on albanian front)
+		type=invade
+		id=GRE			
+		value=-1
 	}
 
-    ai_strategy = {
-        type = area_priority
-        id = grecoalbanian_border
-        value = 45000
+    ai_strategy={
+        type=area_priority
+        id=grecoalbanian_border
+        value=1000
     }
     
-    ai_strategy = {
-        type = antagonize
-        id = GRE
-        value = 50000
+    ai_strategy={
+        type=antagonize
+        id=GRE
+        value=1000
     }
 
-    ai_strategy = {
-        type = front_control
-        tag = GRE
-        state = 938 
-        state = 185
-        priority = 50000
-        ordertype = front
-        execution_type = rush
-        execute_order = yes
-        manual_attack = yes
-    }
-
-    ai_strategy = {
- 	    type = front_unit_request
-    	tag = GRE
-        state = 938 
-        state = 185
-    	value = 35
+    ai_strategy={
+        type=front_control
+        tag=GRE
+        priority=2000
+        ordertype=front
+        execution_type=balanced
+        execute_order=yes
+        manual_attack=yes
     }
 }
 
-Italian_strategy_B4_axis_war = {
-    allowed = {
-        original_tag = ITA                                                                      ## Idea defines Italian desire NOT to call any allies and commit to the conquest of Greece alone.
-    }                                                                                           ## Only exception is the wish of including Bulgaria (historical), but they were not ready to commit and Turkish guarantees scared them off.
-    enable = {
-        has_global_flag = GRE_grecoitalian_start
-        NOT = { has_idea = GRE_italian_ambition }
-        NOT = { has_idea = GRE_italian_ambition_defensive }
-        NOT = { has_idea = GRE_italian_ambition_ultra_offensive }
-        GER = { has_war_with = GRE }
-        GRE = { exists = yes }
-        NOT = { has_global_flag = GRE_hellenic_state_formed }
+GIW_Italian_strategy_C_crete={
+    allowed={
+        original_tag=ITA
     }
-    
-    abort_when_not_enabled = yes
-    
-    ai_strategy = {                                                                             ## However, Italy will commit only to Albania, as historically they desired Bulgaria's help to split Greek forces.
-        type = dont_defend_ally_borders
-        id = BUL
-        value = 25
-    }
-    
-    ai_strategy = {                                                                            ## Preferably avoid naval invasions (commit on albanian front)
-		type = invade
-		id = GRE			
-		value = -1
-	}
-
-    ai_strategy = {
-        type = area_priority
-        id = grecoalbanian_border
-        value = 1000
-    }
-    
-    ai_strategy = {
-        type = antagonize
-        id = GRE
-        value = 1000
-    }
-
-    ai_strategy = {
-        type = front_control
-        tag = GRE
-        priority = 2000
-        ordertype = front
-        execution_type = balanced
-        execute_order = yes
-        manual_attack = yes
-    }
-}
-
-Italian_strategy_C_crete = {
-    allowed = {
-        original_tag = ITA
-    }
-    enable = {
-        has_global_flag = GRE_grecoitalian_start
+    enable={
+        has_global_flag=GRE_grecoitalian_start
         date > 1941.04.06
         date < 1941.06.15                                                                        ## Strict time period before 15 of June, as we dont want to delay barbarossa for just crete and anyway, there is a greek focus rewarding the defence of Crete.
-        YUG = { has_capitulated = yes }
+        YUG={ has_capitulated=yes }
     }
     
-    abort_when_not_enabled = yes
+    abort_when_not_enabled=yes
     
-    ai_strategy = {
-        type = invade
-        id = GRE
-        value = 400000
+    ai_strategy={
+        type=invade
+        id=GRE
+        value=400000
     } 
     
-    ai_strategy = {                                                                             ## Cross fingers regio marina is not utter trash and they are willing to help the Germans for Crete (cause AI using paratroopers aint gonna happen).
-        type = naval_avoid_region
-        id = 68
-        value = -3000
+    ai_strategy={                                                                             ## Cross fingers regio marina is not utter trash and they are willing to help the Germans for Crete (cause AI using paratroopers aint gonna happen).
+        type=naval_avoid_region
+        id=68
+        value=-3000
 	}
 
-    ai_strategy = {
-        type = naval_avoid_region
-        id = 68
-        value = -1500
+    ai_strategy={
+        type=naval_avoid_region
+        id=68
+        value=-1500
 	}
 
-	ai_strategy = {
-		type = naval_avoid_region
-		id = 169
-		value = -1500
+	ai_strategy={
+		type=naval_avoid_region
+		id=169
+		value=-1500
 	}
 
-	ai_strategy = {
-		type = naval_avoid_region
-		id = 29
-		value = -1500
+	ai_strategy={
+		type=naval_avoid_region
+		id=29
+		value=-1500
 	}
 
-	ai_strategy = {
-		type = naval_avoid_region
-		id = 168
-		value = -1500
+	ai_strategy={
+		type=naval_avoid_region
+		id=168
+		value=-1500
 	}
 
-	ai_strategy = {
-		type = naval_avoid_region
-		id = 69
-		value = -1500
+	ai_strategy={
+		type=naval_avoid_region
+		id=69
+		value=-1500
 	}
 }
 
@@ -396,55 +476,55 @@ Italian_strategy_C_crete = {
 #############################[Additional]#############################
 ######################################################################
 
-Italy_avoid_manning_Vichy_Swiss_borders = {
-    allowed = {
-        original_tag = ITA
+Italy_avoid_manning_Vichy_Swiss_borders={
+    allowed={
+        original_tag=ITA
     }
-    enable = {
+    enable={
         always=yes
     }
     abort_when_not_enabled=yes
 
-    ai_strategy = {
-        type = front_control
-        state = 735
-        priority = -1000 # default 0, higher prio strats will override lower
-        ordertype = front # front or invasion. if set this strategy will only apply to that specific order type
-        execution_type = careful # one of careful balanced rush rush_weak. if set will override the execution type of front (only for front orders)
-        execute_order = no # yes or no. if set will override execute or not decision of front
-        manual_attack = no # default yes. if no ai will not do manual pokes at enemy (only for front orders)
+    ai_strategy={
+        type=front_control
+        state=735
+        priority=-1000 # default 0, higher prio strats will override lower
+        ordertype=front # front or invasion. if set this strategy will only apply to that specific order type
+        execution_type=careful # one of careful balanced rush rush_weak. if set will override the execution type of front (only for front orders)
+        execute_order=no # yes or no. if set will override execute or not decision of front
+        manual_attack=no # default yes. if no ai will not do manual pokes at enemy (only for front orders)
     }  
 
-    ai_strategy = {
- 	    type = front_unit_request
-        state = 735
-    	value = -100
+    ai_strategy={
+ 	    type=front_unit_request
+        state=735
+    	value=-100
     }
 
-    ai_strategy = {
-        type = ignore
-        id = SWI
-        value = 500
+    ai_strategy={
+        type=ignore
+        id=SWI
+        value=500
     }
 
-    ai_strategy = {
-        type = front_control
-        tag = SWI
-        state = 3
-        state = 151
-        priority = -1000 # default 0, higher prio strats will override lower
-        ordertype = front # front or invasion. if set this strategy will only apply to that specific order type
-        execution_type = careful # one of careful balanced rush rush_weak. if set will override the execution type of front (only for front orders)
-        execute_order = no # yes or no. if set will override execute or not decision of front
-        manual_attack = no # default yes. if no ai will not do manual pokes at enemy (only for front orders)
+    ai_strategy={
+        type=front_control
+        tag=SWI
+        state=3
+        state=151
+        priority=-1000 # default 0, higher prio strats will override lower
+        ordertype=front # front or invasion. if set this strategy will only apply to that specific order type
+        execution_type=careful # one of careful balanced rush rush_weak. if set will override the execution type of front (only for front orders)
+        execute_order=no # yes or no. if set will override execute or not decision of front
+        manual_attack=no # default yes. if no ai will not do manual pokes at enemy (only for front orders)
     }  
 
-    ai_strategy = {
- 	    type = front_unit_request
-        tag = SWI
-        state = 3
-        state = 151
-        value = -100
+    ai_strategy={
+ 	    type=front_unit_request
+        tag=SWI
+        state=3
+        state=151
+        value=-100
     }
 }
 
